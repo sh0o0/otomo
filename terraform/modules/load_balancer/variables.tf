@@ -1,8 +1,8 @@
-variable "cloud_run_service" {
+variable "cloud_run_service_name" {
   type = string
 }
 
-variable "name" {
+variable "load_balancer_name" {
   description = "the name prefix for load balancer resources"
   type        = string
 }

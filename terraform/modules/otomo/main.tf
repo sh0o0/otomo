@@ -26,17 +26,17 @@ module "cloud_run" {
   source                              = "../cloud_run"
   gcp_project_id                      = var.gcp_project_id
   region                              = var.region
-  cloud_run_service                   = var.cloud_run_service_name
-  image                               = var.cloud_run_image_name
+  cloud_run_service_name              = var.cloud_run_service_name
+  cloud_run_image_name                = var.cloud_run_image_name
   google_application_credentials_json = var.google_application_credentials_json
   basic_auth_pairs                    = var.basic_auth_pairs
 }
 
 module "load_balancer" {
-  source            = "../load_balancer"
-  cloud_run_service = var.cloud_run_service_name
-  name              = var.load_balancer_name
-  region            = var.region
+  source                 = "../load_balancer"
+  cloud_run_service_name = var.cloud_run_service_name
+  load_balancer_name     = var.load_balancer_name
+  region                 = var.region
 }
 
 module "registry" {
