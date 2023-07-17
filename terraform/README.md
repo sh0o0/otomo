@@ -6,9 +6,10 @@
    - `export GOOGLE_CLOUD_KEYFILE_JSON=''`
    - `export GOOGLE_BACKEND_CREDENTIALS=''`
 2. cd either dev/, stg/, prod/
-3. `terraform init`
-4. `terraform plan -var-file=tfvars.json`
-5. `terraform apply -var-file=tfvars.json`
+3. `terraform login`
+4. `terraform init`
+5. `terraform plan -var-file=tfvars.json`
+6. `terraform apply -var-file=tfvars.json`
 
 [Architecture and CI/CD](https://www.figma.com/file/z0wL2E7mvqkDGmF9NprSyU/Otomo-Dev?type=design&node-id=0-1&mode=design&t=Usf3ebcbkUVzcvLG-11)
 
