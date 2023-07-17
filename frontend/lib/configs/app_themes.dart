@@ -1,7 +1,35 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:otomo/constants/app_colors.dart';
 
-class AppThemes {
-  static ThemeData light = FlexThemeData.light(scheme: FlexScheme.greyLaw);
-  static ThemeData dark = FlexThemeData.dark(scheme: FlexScheme.greyLaw);
+abstract class AppThemes {
+  static final ThemeData light = ThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: AppColors.lightBlack,
+      selectedItemColor: AppColors.white,
+      selectedIconTheme: IconThemeData(
+        size: 28,
+        color: AppColors.lightBlack,
+      ),
+      unselectedItemColor: AppColors.lightBlack,
+      unselectedIconTheme: IconThemeData(
+        size: 28,
+        color: AppColors.white,
+      ),
+    ),
+  );
+  static final ThemeData dark = ThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: AppColors.lightBlack,
+      selectedItemColor: AppColors.white,
+      selectedIconTheme: IconThemeData(
+        size: 28,
+        color: AppColors.lightBlack,
+      ),
+      unselectedItemColor: AppColors.lightBlack,
+      unselectedIconTheme: IconThemeData(
+        size: 28,
+        color: AppColors.white,
+      ),
+    ),
+  );
 }
