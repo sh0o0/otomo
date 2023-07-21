@@ -1,4 +1,4 @@
-package service
+package infra
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 )
 
 type MessageMaker interface {
-	MakeFromMessage(ctx context.Context, msg *message.MessageWithOtomo) (
+	MakeFromMessageWithOtomo(ctx context.Context, msg *message.MessageWithOtomo) (
 		*message.MessageWithOtomo, error,
 	)
 }
