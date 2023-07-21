@@ -1,5 +1,7 @@
 package message
 
+import "otomo/pkg/uuid"
+
 type MessageWithOtomoID string
 
 type Role int
@@ -14,4 +16,31 @@ type MessageWithOtomo struct {
 	Sender   Role
 	Receiver Role
 	Text     string
+}
+
+func NewMessageWithOtomo(
+	Sender Role,
+	Receiver Role,
+	Text string,
+) *MessageWithOtomo {
+	return &MessageWithOtomo{
+		ID:       MessageWithOtomoID(uuid.NewString()),
+		Sender:   Sender,
+		Receiver: Receiver,
+		Text:     Text,
+	}
+}
+
+func RestoreMessageWithOtomo(
+	ID MessageWithOtomoID,
+	Sender Role,
+	Receiver Role,
+	Text string,
+) *MessageWithOtomo {
+	return &MessageWithOtomo{
+		ID:       ID,
+		Sender:   Sender,
+		Receiver: Receiver,
+		Text:     Text,
+	}
 }
