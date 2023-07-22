@@ -8,6 +8,7 @@ import (
 	"otomo/pkg/timezone"
 	"otomo/tools/middleware"
 
+	"github.com/getsentry/sentry-go"
 	"github.com/kelseyhightower/envconfig"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -22,6 +23,12 @@ func main() {
 func execute() error {
 	timezone.ChangeToUTC()
 	if err := envconfig.Process("", &conf); err != nil {
+		return err
+	}
+	if err := sentry.Init(sentry.ClientOptions{
+		Dsn:   conf.SentryDsn,
+		Debug: conf.Debug,
+	}); err != nil {
 		return err
 	}
 

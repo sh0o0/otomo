@@ -12,6 +12,7 @@ type Conf struct {
 	ServerPort   string `envconfig:"API_PORT" default:"50051"`
 	LogEncoding  string `envconfig:"LOG_ENCODING" default:"json"` // json or console
 	GcpProjectID string `envconfig:"GCP_PROJECT_ID"`
+	SentryDsn    string `envconfig:"SENTRY_DSN"`
 }
 
 func (e Conf) String() (string, error) {
