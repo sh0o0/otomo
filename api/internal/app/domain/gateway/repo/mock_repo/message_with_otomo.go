@@ -48,3 +48,17 @@ func (mr *MockMessageWithOtomoRepositoryMockRecorder) Add(ctx, msg interface{}) 
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Add", reflect.TypeOf((*MockMessageWithOtomoRepository)(nil).Add), ctx, msg)
 }
+
+// DeleteByID mocks base method.
+func (m *MockMessageWithOtomoRepository) DeleteByID(ctx context.Context, id message.MessageWithOtomoID) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteByID", ctx, id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteByID indicates an expected call of DeleteByID.
+func (mr *MockMessageWithOtomoRepositoryMockRecorder) DeleteByID(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteByID", reflect.TypeOf((*MockMessageWithOtomoRepository)(nil).DeleteByID), ctx, id)
+}

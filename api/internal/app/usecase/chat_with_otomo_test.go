@@ -8,6 +8,7 @@ import (
 	"otomo/pkg/uuid"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/golang/mock/gomock"
 
@@ -31,18 +32,20 @@ func newChatWithOtomoUseCaseFields(t *testing.T) *chatWithOtomoUseCaseFields {
 
 func TestChatWithOtomoUseCase_Reply(t *testing.T) {
 	var (
-		ctx = context.TODO()
+		ctx     = context.TODO()
 		userMsg = message.RestoreMessageWithOtomo(
 			message.MessageWithOtomoID(uuid.NewString()),
 			message.UserRole,
 			message.OtomoRole,
 			"this is user's",
+			time.Now(),
 		)
 		otomoMsg = message.RestoreMessageWithOtomo(
 			message.MessageWithOtomoID(uuid.NewString()),
 			message.OtomoRole,
 			message.UserRole,
 			"this is otomo's",
+			time.Now(),
 		)
 	)
 	type args struct {
@@ -63,6 +66,10 @@ func TestChatWithOtomoUseCase_Reply(t *testing.T) {
 			}, " "),
 			fields: func() *chatWithOtomoUseCaseFields {
 				f := newChatWithOtomoUseCaseFields(t)
+				f.msgRepo.EXPECT().Add(
+					ctx,
+					userMsg,
+				).Return(nil)
 				f.msgMaker.EXPECT().MakeFromMessageWithOtomo(
 					ctx,
 					userMsg,
@@ -72,7 +79,13 @@ func TestChatWithOtomoUseCase_Reply(t *testing.T) {
 					otomoMsg,
 				).Return(nil)
 				return f
-			}
+			}(),
+			args: args{
+				ctx: ctx,
+				msg: userMsg,
+			},
+			want:      otomoMsg,
+			wantIsErr: false,
 		},
 	}
 	for _, tt := range tests {

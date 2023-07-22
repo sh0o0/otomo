@@ -1,4 +1,4 @@
-package usecase
+package rollback
 
 import (
 	"context"
@@ -8,21 +8,31 @@ import (
 
 // Rollbacker is util of rollback.
 type Rollbacker struct {
-	rollbacks []*Rollback
+	rollbacks []*rollback
 }
 
 func NewRollbacker() *Rollbacker {
 	return &Rollbacker{}
 }
 
-type Rollback struct {
-	Func        rollbackFunc
-	Description string
+type rollback struct {
+	description string
+	funk        rollbackFunc
+}
+
+func NewRollback(
+	description string,
+	rf rollbackFunc,
+) *rollback {
+	return &rollback{
+		description: description,
+		funk:        rf,
+	}
 }
 
 type rollbackFunc func(c context.Context) error
 
-func (rbr *Rollbacker) Add(rb *Rollback) {
+func (rbr *Rollbacker) Add(rb *rollback) {
 	rbr.rollbacks = append(rbr.rollbacks, rb)
 }
 
@@ -33,18 +43,18 @@ func (rbr *Rollbacker) Rollback(ctx context.Context) error {
 
 	for i, rb := range rbr.copyReverseRollbacks() {
 		logger.Info(
-			rb.Description,
+			rb.description,
 			log.Bool("is_rollback", true),
 			log.Int("rollback_index", i),
 		)
 
-		if err := rb.Func(ctx); err != nil {
+		if err := rb.funk(ctx); err != nil {
 			// TODO: wanna make a func named RollbackWithErrorNotice and erase this statement
 			logger.Error(
 				"A rollback failed",
 				log.Bool("is_rollback", true),
 				log.Error(err),
-				log.String("rollback_description", rb.Description),
+				log.String("rollback_description", rb.description),
 				log.Int("rollback_index", i),
 			)
 
@@ -73,8 +83,8 @@ func (rbr *Rollbacker) RollbackForPanic(ctx context.Context) error {
 	return nil
 }
 
-func (rbr *Rollbacker) copyReverseRollbacks() []*Rollback {
-	result := make([]*Rollback, len(rbr.rollbacks))
+func (rbr *Rollbacker) copyReverseRollbacks() []*rollback {
+	result := make([]*rollback, len(rbr.rollbacks))
 
 	copy(result, rbr.rollbacks)
 

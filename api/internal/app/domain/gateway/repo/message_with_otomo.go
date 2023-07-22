@@ -9,4 +9,5 @@ import (
 
 type MessageWithOtomoRepository interface {
 	Add(ctx context.Context, msg *message.MessageWithOtomo) error
+	DeleteByID(ctx context.Context, id message.MessageWithOtomoID) error
 }

@@ -1,4 +1,4 @@
-package usecase
+package rollback
 
 import (
 	"context"
@@ -12,10 +12,10 @@ import (
 
 func TestRollbacker_Add(t *testing.T) {
 	type fields struct {
-		rollbacks []*Rollback
+		rollbacks []*rollback
 	}
 	type args struct {
-		rb *Rollback
+		rb *rollback
 	}
 	tests := []struct {
 		name           string
@@ -29,9 +29,9 @@ func TestRollbacker_Add(t *testing.T) {
 				"when add rollback func",
 			}, " "),
 			fields: fields{},
-			args:   args{rb: &Rollback{}},
+			args:   args{rb: &rollback{}},
 			wantRollbacker: &Rollbacker{
-				rollbacks: []*Rollback{
+				rollbacks: []*rollback{
 					{},
 				},
 			},
@@ -55,24 +55,24 @@ func TestRollbacker_Rollback_ShouldBeIntSlice321_WhenCallThatIsAppendedAddIntFun
 	)
 
 	rbr := &Rollbacker{
-		rollbacks: []*Rollback{
+		rollbacks: []*rollback{
 			{
-				Description: "add 1",
-				Func: func(c context.Context) error {
+				description: "add 1",
+				funk: func(c context.Context) error {
 					added = append(added, 1)
 					return nil
 				},
 			},
 			{
-				Description: "add 2",
-				Func: func(c context.Context) error {
+				description: "add 2",
+				funk: func(c context.Context) error {
 					added = append(added, 2)
 					return nil
 				},
 			},
 			{
-				Description: "add 3",
-				Func: func(c context.Context) error {
+				description: "add 3",
+				funk: func(c context.Context) error {
 					added = append(added, 3)
 					return nil
 				},
@@ -92,23 +92,23 @@ func TestRollbacker_Rollback_ShouldReturnErrAndBeIntSlice31_WhenHappendErrAtSeco
 	)
 
 	rbr := &Rollbacker{
-		rollbacks: []*Rollback{
+		rollbacks: []*rollback{
 			{
-				Description: "add 1",
-				Func: func(c context.Context) error {
+				description: "add 1",
+				funk: func(c context.Context) error {
 					added = append(added, 1)
 					return nil
 				},
 			},
 			{
-				Description: "add 2",
-				Func: func(c context.Context) error {
+				description: "add 2",
+				funk: func(c context.Context) error {
 					return happendErr
 				},
 			},
 			{
-				Description: "add 3",
-				Func: func(c context.Context) error {
+				description: "add 3",
+				funk: func(c context.Context) error {
 					added = append(added, 3)
 					return nil
 				},
@@ -127,10 +127,10 @@ func TestRollbacker_RollbackForPanic_ShouldCallRollback_WhenHappendPanic(t *test
 		want      = []int{1}
 	)
 	rbr := &Rollbacker{
-		rollbacks: []*Rollback{
+		rollbacks: []*rollback{
 			{
-				Description: "add 1",
-				Func: func(c context.Context) error {
+				description: "add 1",
+				funk: func(c context.Context) error {
 					addTarget = append(addTarget, 1)
 					return nil
 				},
@@ -153,10 +153,10 @@ func TestRollbacker_RollbackForPanic_ShouldNotCallRollback_WhenNoPanic(t *testin
 		want      = []int{}
 	)
 	rbr := &Rollbacker{
-		rollbacks: []*Rollback{
+		rollbacks: []*rollback{
 			{
-				Description: "add 1",
-				Func: func(c context.Context) error {
+				description: "add 1",
+				funk: func(c context.Context) error {
 					addTarget = append(addTarget, 1)
 					return nil
 				},

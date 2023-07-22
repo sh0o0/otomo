@@ -1,6 +1,9 @@
 package message
 
-import "otomo/pkg/uuid"
+import (
+	"otomo/pkg/uuid"
+	"time"
+)
 
 type MessageWithOtomoID string
 
@@ -16,6 +19,7 @@ type MessageWithOtomo struct {
 	Sender   Role
 	Receiver Role
 	Text     string
+	SentAt   time.Time
 }
 
 func NewMessageWithOtomo(
@@ -28,6 +32,7 @@ func NewMessageWithOtomo(
 		Sender:   Sender,
 		Receiver: Receiver,
 		Text:     Text,
+		SentAt:   time.Now(),
 	}
 }
 
@@ -36,11 +41,13 @@ func RestoreMessageWithOtomo(
 	Sender Role,
 	Receiver Role,
 	Text string,
+	sentAt time.Time,
 ) *MessageWithOtomo {
 	return &MessageWithOtomo{
 		ID:       ID,
 		Sender:   Sender,
 		Receiver: Receiver,
 		Text:     Text,
+		SentAt:   sentAt,
 	}
 }
