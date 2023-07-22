@@ -92,6 +92,10 @@ func Any(key string, val interface{}) zap.Field {
 	return zap.Any(key, val)
 }
 
+func Error(err error) zap.Field {
+	return zap.Error(err)
+}
+
 func NamedError(key string, err error) zap.Field {
 	return zap.NamedError(key, err)
 }
