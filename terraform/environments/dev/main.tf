@@ -9,7 +9,7 @@ terraform {
 }
 
 module "otomo" {
-  source                              = "../modules/otomo"
+  source                              = "../../modules/otomo"
   gcp_project_id                      = var.gcp_project_id
   gcp_project_name                    = var.gcp_project_name
   region                              = var.region

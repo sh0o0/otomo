@@ -1,3 +1,4 @@
+
 # Cloud Run service and permissions
 resource "google_cloud_run_service" "default" {
   name     = var.cloud_run_service_name
