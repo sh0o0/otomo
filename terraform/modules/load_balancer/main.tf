@@ -21,7 +21,7 @@ resource "google_compute_global_address" "default" {
 # }
 
 resource "google_compute_backend_service" "default" {
-  name = "${var.load_balancer_name}-backend"
+  name = "${var.load_balancer_name}-api"
 
   protocol    = "HTTP"
   port_name   = "http"
