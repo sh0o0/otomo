@@ -6,6 +6,7 @@ terraform {
     }
   }
 }
+
 provider "google" {
   project = var.gcp_project_id
 }
@@ -14,6 +15,7 @@ provider "google-beta" {
   project               = var.gcp_project_id
   user_project_override = true
 }
+
 
 module "firebase" {
   source                 = "../firebase"
