@@ -87,6 +87,7 @@ func TestChatWithOtomoUseCase_Reply(t *testing.T) {
 			want:      otomoMsg,
 			wantIsErr: false,
 		},
+		// TODO: Add test. For error handlings, rollbacks
 	}
 	for _, tt := range tests {
 		tt := tt
