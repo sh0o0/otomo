@@ -1,6 +1,7 @@
 # Load Balancing resources
 resource "google_compute_global_address" "default" {
-  name = "${var.load_balancer_name}-address"
+  project = var.default_google_project.project_id
+  name    = "${var.load_balancer_name}-address"
 }
 
 # resource "google_compute_global_forwarding_rule" "default" {
@@ -47,6 +48,7 @@ resource "google_compute_url_map" "default" {
 
 resource "google_compute_region_network_endpoint_group" "cloudrun_neg" {
   provider              = google-beta
+  project               = var.default_google_project.project_id
   name                  = "${var.load_balancer_name}-neg"
   network_endpoint_type = "SERVERLESS"
   region                = var.region

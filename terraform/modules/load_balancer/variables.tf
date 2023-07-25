@@ -1,3 +1,7 @@
+variable "default_google_project" {
+  description = "the project with GCP"
+}
+
 variable "cloud_run_service_name" {
   type = string
 }

@@ -1,33 +1,21 @@
-terraform {
-  required_providers {
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = "~> 4.0"
-    }
-  }
-}
-
-provider "google" {
-  project = var.gcp_project_id
-}
-
-provider "google-beta" {
-  project               = var.gcp_project_id
-  user_project_override = true
-}
-
-
-module "firebase" {
-  source                 = "../firebase"
+module "google" {
+  source                 = "../google"
   gcp_project_id         = var.gcp_project_id
   gcp_project_name       = var.gcp_project_name
   gcp_billing_account_id = var.gcp_billing_account_id
-  android_package_name   = var.android_package_name
+}
+
+module "firebase" {
+  source                         = "../firebase"
+  default_google_project         = module.google.default_google_project
+  default_google_project_service = module.google.default_google_project_service
+  android_package_name           = var.android_package_name
 }
 
 module "cloud_run" {
   source                              = "../cloud_run"
-  gcp_project_id                      = var.gcp_project_id
+  default_google_project              = module.google.default_google_project
+  default_google_project_service      = module.google.default_google_project_service
   region                              = var.region
   cloud_run_service_name              = var.cloud_run_service_name
   cloud_run_image_name                = var.cloud_run_image_name
@@ -37,20 +25,15 @@ module "cloud_run" {
 
 module "load_balancer" {
   source                 = "../load_balancer"
+  default_google_project = module.google.default_google_project
   cloud_run_service_name = var.cloud_run_service_name
   load_balancer_name     = var.load_balancer_name
   region                 = var.region
 }
 
 module "registry" {
-  source         = "../gcr"
-  gcp_project_id = var.gcp_project_id
+  source                         = "../gcr"
+  default_google_project         = module.google.default_google_project
+  default_google_project_service = module.google.default_google_project_service
 }
 
-output "cloud_run_url" {
-  value = element(module.cloud_run.status, 0).url
-}
-
-output "load_balancer_ip" {
-  value = module.load_balancer.load_balancer_ip
-}

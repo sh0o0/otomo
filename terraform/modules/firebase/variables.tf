@@ -1,16 +1,9 @@
-variable "gcp_project_id" {
-  description = "the project to deploy the resources"
-  type        = string
+variable "default_google_project" {
+  description = "the project with GCP"
 }
 
-variable "gcp_project_name" {
-  description = "the gcp project name"
-  type        = string
-}
-
-variable "gcp_billing_account_id" {
-  description = "the project id for billing"
-  type        = string
+variable "default_google_project_service" {
+  description = "the project service with GCP"
 }
 
 variable "android_package_name" {
