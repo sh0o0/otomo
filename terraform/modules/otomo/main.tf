@@ -19,7 +19,16 @@ provider "google" {
 }
 
 provider "google-beta" {
-  project = var.gcp_project_id
+  project               = var.gcp_project_id
+  user_project_override = false
+}
+
+module "firebase" {
+  source                 = "../firebase"
+  gcp_project_id         = var.gcp_project_id
+  gcp_project_name       = var.gcp_project_name
+  gcp_billing_account_id = var.gcp_billing_account_id
+  android_package_name   = var.android_package_name
 }
 
 module "cloud_run" {
