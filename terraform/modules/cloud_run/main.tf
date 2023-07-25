@@ -4,7 +4,7 @@ resource "google_cloud_run_service" "default" {
   name     = var.cloud_run_service_name
   location = var.region
   provider = google-beta
-  project  = var.default_google_project.project_id
+  project  = var.gcp_project_id
 
   depends_on = [
     var.default_google_project_service
@@ -15,7 +15,7 @@ resource "google_cloud_run_service" "default" {
   template {
     spec {
       containers {
-        image = "asia.gcr.io/${var.default_google_project.project_id}/${var.cloud_run_image_name}"
+        image = "asia.gcr.io/${var.gcp_project_id}/${var.cloud_run_image_name}"
         env {
           name  = "API_DEBUG"
           value = "true"
@@ -27,7 +27,7 @@ resource "google_cloud_run_service" "default" {
 
         env {
           name  = "GCP_PROJECT_ID"
-          value = var.default_google_project.project_id
+          value = var.gcp_project_id
         }
         env {
           name  = "GOOGLE_APPLICATION_CREDENTIALS_JSON"

@@ -1,6 +1,6 @@
 # Load Balancing resources
 resource "google_compute_global_address" "default" {
-  project = var.default_google_project.project_id
+  project = var.gcp_project_id
   name    = "${var.load_balancer_name}-address"
 }
 
@@ -22,7 +22,8 @@ resource "google_compute_global_address" "default" {
 # }
 
 resource "google_compute_backend_service" "default" {
-  name = "${var.load_balancer_name}-api"
+  project = var.gcp_project_id
+  name    = "${var.load_balancer_name}-api"
 
   protocol    = "HTTP"
   port_name   = "http"
@@ -34,7 +35,8 @@ resource "google_compute_backend_service" "default" {
 }
 
 resource "google_compute_url_map" "default" {
-  name = "${var.load_balancer_name}-urlmap"
+  project = var.gcp_project_id
+  name    = "${var.load_balancer_name}-urlmap"
 
   default_service = google_compute_backend_service.default.id
 }
@@ -48,7 +50,7 @@ resource "google_compute_url_map" "default" {
 
 resource "google_compute_region_network_endpoint_group" "cloudrun_neg" {
   provider              = google-beta
-  project               = var.default_google_project.project_id
+  project               = var.gcp_project_id
   name                  = "${var.load_balancer_name}-neg"
   network_endpoint_type = "SERVERLESS"
   region                = var.region

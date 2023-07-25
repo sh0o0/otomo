@@ -30,17 +30,16 @@ resource "google_project_service" "default" {
   disable_on_destroy = false
 }
 
-resource "google_project" "default" {
-  project_id      = var.gcp_project_id
-  name            = var.gcp_project_name
-  billing_account = var.gcp_billing_account_id
+# resource "google_project" "default" {
+#   project_id      = var.gcp_project_id
+#   name            = var.gcp_project_name
 
-  labels = {
-    "firebase" = "enabled"
-  }
+#   labels = {
+#     "firebase" = "enabled"
+#   }
 
-  depends_on = [
-    google_project_service.default
-  ]
-}
+#   depends_on = [
+#     google_project_service.default
+#   ]
+# }
 

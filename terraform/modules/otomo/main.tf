@@ -7,14 +7,14 @@ module "google" {
 
 module "firebase" {
   source                         = "../firebase"
-  default_google_project         = module.google.default_google_project
+  gcp_project_id                 = var.gcp_project_id
   default_google_project_service = module.google.default_google_project_service
   android_package_name           = var.android_package_name
 }
 
 module "cloud_run" {
   source                              = "../cloud_run"
-  default_google_project              = module.google.default_google_project
+  gcp_project_id                      = var.gcp_project_id
   default_google_project_service      = module.google.default_google_project_service
   region                              = var.region
   cloud_run_service_name              = var.cloud_run_service_name
@@ -25,7 +25,7 @@ module "cloud_run" {
 
 module "load_balancer" {
   source                 = "../load_balancer"
-  default_google_project = module.google.default_google_project
+  gcp_project_id         = var.gcp_project_id
   cloud_run_service_name = var.cloud_run_service_name
   load_balancer_name     = var.load_balancer_name
   region                 = var.region
@@ -33,7 +33,7 @@ module "load_balancer" {
 
 module "registry" {
   source                         = "../gcr"
-  default_google_project         = module.google.default_google_project
+  gcp_project_id                 = var.gcp_project_id
   default_google_project_service = module.google.default_google_project_service
 }
 
