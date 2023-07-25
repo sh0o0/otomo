@@ -1,8 +1,6 @@
 resource "google_project" "default" {
-  provider = google-beta.no_user_project_override
-
-  project_id = var.gcp_project_id
-  name       = var.gcp_project_name
+  project_id      = var.gcp_project_id
+  name            = var.gcp_project_name
   billing_account = var.gcp_billing_account_id
 
   labels = {
@@ -11,8 +9,7 @@ resource "google_project" "default" {
 }
 
 resource "google_project_service" "default" {
-  provider = google-beta.no_user_project_override
-  project  = google_project.default.project_id
+  project = google_project.default.project_id
   for_each = toset([
     "firebase.googleapis.com",
   ])

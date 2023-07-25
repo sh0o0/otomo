@@ -1,4 +1,3 @@
 .terraform
 .envrc
 tfvars.json
-auto.tfvars.json
