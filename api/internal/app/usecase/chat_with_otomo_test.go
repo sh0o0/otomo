@@ -3,12 +3,12 @@ package usecase
 import (
 	"context"
 	"otomo/internal/app/domain/entity/message"
+	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/domain/gateway/infra/mock_infra"
 	"otomo/internal/app/domain/gateway/repo/mock_repo"
 	"otomo/pkg/uuid"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/golang/mock/gomock"
 
@@ -33,19 +33,18 @@ func newChatWithOtomoUseCaseFields(t *testing.T) *chatWithOtomoUseCaseFields {
 func TestChatWithOtomoUseCase_Reply(t *testing.T) {
 	var (
 		ctx     = context.TODO()
-		userMsg = message.RestoreMessageWithOtomo(
-			message.MessageWithOtomoID(uuid.NewString()),
+		userID  = user.ID(uuid.NewString())
+		userMsg = message.NewMessageWithOtomo(
+			userID,
 			message.UserRole,
 			message.OtomoRole,
 			"this is user's",
-			time.Now(),
 		)
-		otomoMsg = message.RestoreMessageWithOtomo(
-			message.MessageWithOtomoID(uuid.NewString()),
+		otomoMsg = message.NewMessageWithOtomo(
+			userID,
 			message.OtomoRole,
 			message.UserRole,
 			"this is otomo's",
-			time.Now(),
 		)
 	)
 	type args struct {

@@ -36,7 +36,7 @@ func (u *ChatWithOtomoUseCase) Reply(
 	rollbacker.Add(rollback.NewRollback(
 		"Rollback for adding a message to otomo",
 		func(c context.Context) error {
-			return u.msgRepo.DeleteByID(ctx, msg.ID)
+			return u.msgRepo.DeleteByID(ctx, msg.ID())
 		},
 	))
 

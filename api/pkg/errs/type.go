@@ -9,16 +9,21 @@ type (
 // Causes
 const (
 	CauseNotFoundFromContext Cause = "not_found_from_context"
+
+	// The concept itself does not exist.
+	CauseNotExist Cause = "not_exist"
 )
 
 // Domains
 const (
-	DomainUser Domain = "User"
+	DomainUser             Domain = "User"
+	DomainMessageWithOtomo Domain = "MessageWithOtomo"
 )
 
 // Fields
 const (
-	FieldID Field = "id"
+	FieldID   Field = "id"
+	FieldRole Field = "role"
 )
 
 type Error struct {

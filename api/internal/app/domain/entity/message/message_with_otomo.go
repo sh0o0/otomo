@@ -1,6 +1,7 @@
 package message
 
 import (
+	"otomo/internal/app/domain/entity/user"
 	"otomo/pkg/uuid"
 	"time"
 )
@@ -15,39 +16,51 @@ const (
 )
 
 type MessageWithOtomo struct {
-	ID       MessageWithOtomoID
-	Sender   Role
-	Receiver Role
-	Text     string
-	SentAt   time.Time
+	id       MessageWithOtomoID
+	userID   user.ID
+	sender   Role
+	receiver Role
+	text     string
+	sentAt   time.Time
 }
 
 func NewMessageWithOtomo(
+	userID user.ID,
 	Sender Role,
 	Receiver Role,
 	Text string,
 ) *MessageWithOtomo {
 	return &MessageWithOtomo{
-		ID:       MessageWithOtomoID(uuid.NewString()),
-		Sender:   Sender,
-		Receiver: Receiver,
-		Text:     Text,
-		SentAt:   time.Now(),
+		id:       MessageWithOtomoID(uuid.NewString()),
+		userID:   userID,
+		sender:   Sender,
+		receiver: Receiver,
+		text:     Text,
+		sentAt:   time.Now(),
 	}
 }
 
 func RestoreMessageWithOtomo(
-	ID MessageWithOtomoID,
+	id MessageWithOtomoID,
+	userID user.ID,
 	Sender Role,
 	Receiver Role,
 	Text string,
 	sentAt time.Time,
 ) *MessageWithOtomo {
 	return &MessageWithOtomo{
-		ID:       ID,
-		Sender:   Sender,
-		Receiver: Receiver,
-		Text:     Text,
-		SentAt:   sentAt,
+		id:       id,
+		userID:   userID,
+		sender:   Sender,
+		receiver: Receiver,
+		text:     Text,
+		sentAt:   sentAt,
 	}
 }
+
+func (m *MessageWithOtomo) ID() MessageWithOtomoID { return m.id }
+func (m *MessageWithOtomo) UserID() user.ID        { return m.userID }
+func (m *MessageWithOtomo) Sender() Role           { return m.sender }
+func (m *MessageWithOtomo) Receiver() Role         { return m.receiver }
+func (m *MessageWithOtomo) Text() string           { return m.text }
+func (m *MessageWithOtomo) SentAt() time.Time      { return m.sentAt }
