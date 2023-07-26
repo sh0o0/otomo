@@ -1,3 +1,8 @@
+variable "gcp_project_id" {
+  description = "the project to deploy the resources"
+  type = string
+}
+
 variable "cloud_run_service_name" {
   type = string
 }

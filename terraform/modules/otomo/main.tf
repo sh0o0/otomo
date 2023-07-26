@@ -1,30 +1,21 @@
-/**
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-provider "google" {
-  project = var.gcp_project_id
+module "google" {
+  source                 = "../google"
+  gcp_project_id         = var.gcp_project_id
+  gcp_project_name       = var.gcp_project_name
+  gcp_billing_account_id = var.gcp_billing_account_id
 }
 
-provider "google-beta" {
-  project = var.gcp_project_id
+module "firebase" {
+  source                         = "../firebase"
+  gcp_project_id                 = var.gcp_project_id
+  default_google_project_service = module.google.default_google_project_service
+  android_package_name           = var.android_package_name
 }
 
 module "cloud_run" {
   source                              = "../cloud_run"
   gcp_project_id                      = var.gcp_project_id
+  default_google_project_service      = module.google.default_google_project_service
   region                              = var.region
   cloud_run_service_name              = var.cloud_run_service_name
   cloud_run_image_name                = var.cloud_run_image_name
@@ -34,20 +25,15 @@ module "cloud_run" {
 
 module "load_balancer" {
   source                 = "../load_balancer"
+  gcp_project_id         = var.gcp_project_id
   cloud_run_service_name = var.cloud_run_service_name
   load_balancer_name     = var.load_balancer_name
   region                 = var.region
 }
 
 module "registry" {
-  source         = "../gcr"
-  gcp_project_id = var.gcp_project_id
+  source                         = "../gcr"
+  gcp_project_id                 = var.gcp_project_id
+  default_google_project_service = module.google.default_google_project_service
 }
 
-output "cloud_run_url" {
-  value = element(module.cloud_run.status, 0).url
-}
-
-output "load_balancer_ip" {
-  value = module.load_balancer.load_balancer_ip
-}
