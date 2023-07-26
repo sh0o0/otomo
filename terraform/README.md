@@ -30,7 +30,21 @@
     - not uploading the image to gcr
   - How to solve
     - upload the image named api to gcr
-
+- Attempted to load application default credentials since neither `credentials` nor `access_token` was set in the provider block. No credentials loaded. To use your gcloud credentials, run 'gcloud auth application-default login'
+  - Due to
+    - not set GOOGLE_CREDENTIALS env
+  - How to solve
+    - set GOOGLE_CREDENTIALS env to Terraform Cloud
+- Error creating RegionNetworkEndpointGroup: googleapi: Error 403: Compute Engine API has not been used in project 38690732421 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=38690732421 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+  - Due to
+    - Maybe enabling the service is late.
+  - How to solve
+    - Retry terraform apply
+- Error creating AndroidApp: googleapi: Error 400: Request contains an invalid argument. with module.otomo.module.firebase.google_firebase_android_app.default.
+  - Due to
+    - I don't know. But I retried and no error.
+  - How to solve
+    - Retry terraform apply
 
 ## TODO
 
