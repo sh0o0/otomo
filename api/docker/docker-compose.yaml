@@ -10,7 +10,8 @@ services:
       - 8200:8200
   api:
     build:
-      context: .
+      context: ./..
+      dockerfile: ./docker/Dockerfile
     environment:
       ### You have to set
       - GCP_PROJECT_ID=${GCP_PROJECT_ID}
