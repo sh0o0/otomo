@@ -2,6 +2,7 @@ package model
 
 import (
 	"otomo/internal/app/domain/entity/message"
+	"otomo/internal/app/domain/entity/user"
 	"otomo/pkg/errs"
 	"time"
 )
@@ -31,8 +32,30 @@ func ConvertMessageWithOtomoEntityToModel(
 		Sender:   sender,
 		Receiver: receiver,
 		Text:     e.Text(),
-		SentAt:   e.SentAt(),
+		SentAt:   e.SentAt().Truncate(time.Second).Local(),
 	}, nil
+}
+
+func ConvertMessageWithOtomoModelToEntity(
+	m *MessageWithOtomo,
+	userID user.ID,
+) (*message.MessageWithOtomo, error) {
+	sender, err := ConvertRoleStringToRole(m.Sender)
+	if err != nil {
+		return nil, err
+	}
+	receiver, err := ConvertRoleStringToRole(m.Receiver)
+	if err != nil {
+		return nil, err
+	}
+	return message.RestoreMessageWithOtomo(
+		message.MessageWithOtomoID(m.ID),
+		userID,
+		sender,
+		receiver,
+		m.Text,
+		m.SentAt.Truncate(time.Second).Local(),
+	), nil
 }
 
 func ConvertRoleEntityToString(
@@ -46,6 +69,23 @@ func ConvertRoleEntityToString(
 	}
 
 	return "", &errs.Error{
+		Message: "invalid role",
+		Cause:   errs.CauseNotExist,
+		Domain:  errs.DomainMessageWithOtomo,
+		Field:   errs.FieldRole,
+	}
+}
+
+func ConvertRoleStringToRole(
+	role string,
+) (message.Role, error) {
+	switch role {
+	case "user":
+		return message.UserRole, nil
+	case "otomo":
+		return message.OtomoRole, nil
+	}
+	return 0, &errs.Error{
 		Message: "invalid role",
 		Cause:   errs.CauseNotExist,
 		Domain:  errs.DomainMessageWithOtomo,

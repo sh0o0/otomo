@@ -6,8 +6,10 @@ import (
 	"otomo/pkg/uuid"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestConvertMessageWithOtomoEntityToModel(t *testing.T) {
@@ -54,7 +56,7 @@ func TestConvertMessageWithOtomoEntityToModel(t *testing.T) {
 				Sender:   "otomo",
 				Receiver: "user",
 				Text:     msg.Text(),
-				SentAt:   msg.SentAt(),
+				SentAt:   msg.SentAt().Truncate(time.Second).Local(),
 			},
 			wantIsErr: false,
 		},
@@ -93,6 +95,61 @@ func TestConvertMessageWithOtomoEntityToModel(t *testing.T) {
 			if !cmp.Equal(got, tt.want) {
 				t.Errorf("ConvertMessageWithOtomoEntityToModel() = %v, want %v\ndiff=%v", got, tt.want, cmp.Diff(got, tt.want))
 			}
+		})
+	}
+}
+
+func TestConvertMessageWithOtomoModelToEntity(t *testing.T) {
+	var (
+		msgModel = &MessageWithOtomo{
+			ID:       uuid.NewString(),
+			Sender:   "otomo",
+			Receiver: "user",
+			Text:     "test test test test test",
+			SentAt:   time.Now().Local(),
+		}
+		userID = user.ID(uuid.NewString())
+	)
+	type args struct {
+		m      *MessageWithOtomo
+		userID user.ID
+	}
+	tests := []struct {
+		name      string
+		args      args
+		want      *message.MessageWithOtomo
+		wantIsErr bool
+	}{
+		{
+			name: strings.Join([]string{
+				"should return `message.MessageWithOtomo`",
+				"when give `model.MessageWithOtomo`",
+			}, " "),
+			args: args{
+				m:      msgModel,
+				userID: userID,
+			},
+			want: message.RestoreMessageWithOtomo(
+				message.MessageWithOtomoID(msgModel.ID),
+				userID,
+				message.OtomoRole,
+				message.UserRole,
+				msgModel.Text,
+				msgModel.SentAt.Truncate(time.Second).Local(),
+			),
+			wantIsErr: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got, err := ConvertMessageWithOtomoModelToEntity(tt.args.m, tt.args.userID)
+			if (err != nil) != tt.wantIsErr {
+				t.Errorf("ConvertMessageWithOtomoModelToEntity() error = %v, wantIsErr %v", err, tt.wantIsErr)
+				return
+			}
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }
@@ -152,6 +209,60 @@ func TestConvertRoleEntityToString(t *testing.T) {
 			}
 			if got != tt.want {
 				t.Errorf("ConvertRoleEntityToString() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestConvertRoleStringToRole(t *testing.T) {
+	type args struct {
+		role string
+	}
+	tests := []struct {
+		name      string
+		args      args
+		want      message.Role
+		wantIsErr bool
+	}{
+		{
+			name: strings.Join([]string{
+				"should return `message.UserRole`",
+				"when give `user`",
+			}, " "),
+			args:      args{role: "user"},
+			want:      message.UserRole,
+			wantIsErr: false,
+		},
+		{
+			name: strings.Join([]string{
+				"should return `message.OtomoRole`",
+				"when give `otomo`",
+			}, " "),
+			args:      args{role: "otomo"},
+			want:      message.OtomoRole,
+			wantIsErr: false,
+		},
+		{
+			name: strings.Join([]string{
+				"should return error",
+				"when give invalid role",
+			}, " "),
+			args:      args{role: "test"},
+			want:      0,
+			wantIsErr: true,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got, err := ConvertRoleStringToRole(tt.args.role)
+			if (err != nil) != tt.wantIsErr {
+				t.Errorf("ConvertRoleStringToRole() error = %v, wantIsErr %v", err, tt.wantIsErr)
+				return
+			}
+			if !cmp.Equal(got, tt.want) {
+				t.Errorf("ConvertRoleStringToRole() = %v, want %v\ndiff=%v", got, tt.want, cmp.Diff(got, tt.want))
 			}
 		})
 	}

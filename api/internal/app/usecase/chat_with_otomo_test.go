@@ -11,8 +11,7 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-
-	"github.com/google/go-cmp/cmp"
+	"github.com/stretchr/testify/assert"
 )
 
 type chatWithOtomoUseCaseFields struct {
@@ -101,9 +100,7 @@ func TestChatWithOtomoUseCase_Reply(t *testing.T) {
 				t.Errorf("ChatWithOtomoUseCase.Reply() error = %v, wantIsErr %v", err, tt.wantIsErr)
 				return
 			}
-			if !cmp.Equal(got, tt.want) {
-				t.Errorf("ChatWithOtomoUseCase.Reply() = %v, want %v\ndiff=%v", got, tt.want, cmp.Diff(got, tt.want))
-			}
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }

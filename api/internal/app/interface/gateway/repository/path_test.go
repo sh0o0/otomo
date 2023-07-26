@@ -27,7 +27,7 @@ func TestGetTripPath(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			if got := GetTripPath(tt.args.id); got != tt.want {
+			if got := GetMessageWithOtomoPath(tt.args.id); got != tt.want {
 				t.Errorf("GetTripPath() = %v, want %v", got, tt.want)
 			}
 		})

@@ -36,7 +36,7 @@ func NewMessageWithOtomo(
 		sender:   Sender,
 		receiver: Receiver,
 		text:     Text,
-		sentAt:   time.Now(),
+		sentAt:   time.Now().Local(),
 	}
 }
 

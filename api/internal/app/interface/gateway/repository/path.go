@@ -14,6 +14,6 @@ var (
 	MessageWithOtomoCollectionPath string = strings.Join([]string{V1DocumentPath, MessageWithOtomoCollectionName}, "/")
 )
 
-func GetTripPath(id string) string {
+func GetMessageWithOtomoPath(id string) string {
 	return strings.Join([]string{MessageWithOtomoCollectionPath, id}, "/")
 }
