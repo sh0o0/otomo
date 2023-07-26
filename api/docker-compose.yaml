@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  firestore:
+    image: mtlynch/firestore-emulator
+    environment:
+      - PORT=8200
+      # - FIRESTORE_PROJECT_ID=dummy-project-id
+    ports:
+      - 8200:8200
+  api:
+    build:
+      context: .
+    environment:
+      ### You have to set
+      - GCP_PROJECT_ID=${GCP_PROJECT_ID}
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+      ### Default environments
+      - FIRESTORE_EMULATOR_HOST=firestore:8200
+      - API_DEBUG=true
+      - LOG_ENCODING=console
+      - BASIC_AUTH_PAIRS=root:pass
+      # - FIRESTORE_PROJECT_ID=dummy-project-id
+    ports:
+      - 50051:50051
+    depends_on:
+      - firestore
+    tty: true
+    stdin_open: true
