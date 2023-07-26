@@ -25,6 +25,12 @@
 ## Solving Errors
 
 - [Google storage forbin](https://github.com/hashicorp/terraform/issues/17222)
+- Error waiting to create Service: resource is in failed state "Ready:False", message: Revision 'xxx-xxx-xxx' is not ready and cannot serve traffic.
+  - Due to
+    - not uploading the image to gcr
+  - How to solve
+    - upload the image named api to gcr
+
 
 ## TODO
 
