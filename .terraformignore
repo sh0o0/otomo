@@ -1,0 +1,6 @@
+# ignore all
+**
+# include terraform
+!terraform/
+# ignore .terraform
+terraform/**/.terraform/ ##←これ
