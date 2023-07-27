@@ -27,7 +27,6 @@ func NewChatWithOtomoUseCase(
 	}
 }
 
-// TODO: Test
 func (u *ChatWithOtomoUseCase) MessageToOtomo(
 	ctx context.Context,
 	userID user.ID,

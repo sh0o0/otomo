@@ -2,9 +2,11 @@ package controller
 
 import (
 	"context"
+	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/interface/controller/grpc/grpcgen"
 	"otomo/internal/app/interface/controller/present"
 	"otomo/internal/app/usecase/ucboundary"
+	"otomo/pkg/ctxs"
 )
 
 var _ grpcgen.ChatWithOtomoServiceServer = (*ChatWithOtomoController)(nil)
@@ -28,5 +30,14 @@ func (ctrl *ChatWithOtomoController) MessageToOtomo(
 	ctx context.Context,
 	req *grpcgen.ChatWithOtomoMessageToOtomoRequest,
 ) (*grpcgen.ChatWithOtomoMessageToOtomoResponse, error) {
-	panic("not implemented") // TODO: Implement
+	userID, err := ctxs.UserIDFromContext(ctx)
+	if err != nil {
+		return nil, ctrl.presenter.ErrorOutput(ctx, err).Err()
+	}
+	msg, err := ctrl.useCase.MessageToOtomo(ctx, user.ID(userID), req.Text)
+	if err != nil {
+		return nil, ctrl.presenter.ErrorOutput(ctx, err).Err()
+	}
+
+	return ctrl.presenter.MessageToOtomoOutput(ctx, msg)
 }
