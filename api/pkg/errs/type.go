@@ -8,6 +8,12 @@ type (
 
 // Causes
 const (
+	// Internal error.
+	CauseInternal Cause = "internal"
+
+	// Invalid argument.
+	CauseInvalidArg Cause = "invalid_argument"
+
 	// Anything is not found from context.
 	CauseNotFoundFromContext Cause = "not_found_from_context"
 
