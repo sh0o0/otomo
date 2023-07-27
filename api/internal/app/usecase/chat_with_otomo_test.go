@@ -29,7 +29,7 @@ func newChatWithOtomoUseCaseFields(t *testing.T) *chatWithOtomoUseCaseFields {
 	}
 }
 
-func TestChatWithOtomoUseCase_Reply(t *testing.T) {
+func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 	var (
 		ctx     = context.TODO()
 		userID  = user.ID(uuid.NewString())
@@ -95,7 +95,7 @@ func TestChatWithOtomoUseCase_Reply(t *testing.T) {
 				msgMaker: tt.fields.msgMaker,
 				msgRepo:  tt.fields.msgRepo,
 			}
-			got, err := u.Reply(tt.args.ctx, tt.args.msg)
+			got, err := u.MessageToOtomo(tt.args.ctx, tt.args.msg)
 			if (err != nil) != tt.wantIsErr {
 				t.Errorf("ChatWithOtomoUseCase.Reply() error = %v, wantIsErr %v", err, tt.wantIsErr)
 				return

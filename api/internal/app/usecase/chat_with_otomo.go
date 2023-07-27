@@ -23,7 +23,7 @@ func NewChatWithOtomoUseCase(
 	}
 }
 
-func (u *ChatWithOtomoUseCase) Reply(
+func (u *ChatWithOtomoUseCase) MessageToOtomo(
 	ctx context.Context,
 	msg *message.MessageWithOtomo,
 ) (*message.MessageWithOtomo, error) {
