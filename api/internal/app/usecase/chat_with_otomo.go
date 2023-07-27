@@ -3,10 +3,14 @@ package usecase
 import (
 	"context"
 	"otomo/internal/app/domain/entity/message"
+	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/domain/gateway/infra"
 	"otomo/internal/app/domain/gateway/repo"
+	"otomo/internal/app/usecase/ucboundary"
 	"otomo/pkg/rollback"
 )
+
+var _ ucboundary.ChatWithOtomoUseCase = (*ChatWithOtomoUseCase)(nil)
 
 type ChatWithOtomoUseCase struct {
 	msgMaker infra.MessageMaker
@@ -23,12 +27,21 @@ func NewChatWithOtomoUseCase(
 	}
 }
 
+// TODO: Test
 func (u *ChatWithOtomoUseCase) MessageToOtomo(
 	ctx context.Context,
-	msg *message.MessageWithOtomo,
+	userID user.ID,
+	text string,
 ) (*message.MessageWithOtomo, error) {
 	var rollbacker = rollback.NewRollbacker()
 	defer rollbacker.RollbackForPanic(ctx)
+
+	msg := message.NewMessageWithOtomo(
+		userID,
+		message.UserRole,
+		message.OtomoRole,
+		text,
+	)
 
 	if err := u.msgRepo.Add(ctx, msg); err != nil {
 		return nil, err
