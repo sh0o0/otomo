@@ -3,17 +3,27 @@ package repository
 import "strings"
 
 const (
-	VersionCollectionName string = "versions"
-	Version1DocumentName  string = "1"
+	versionColName  string = "versions"
+	version1DocName string = "1"
 
-	MessageWithOtomoCollectionName string = "message_with_otomo"
+	chatColName    string = "chats"
+	messageColName string = "messages"
 )
 
 var (
-	V1DocumentPath                 string = strings.Join([]string{VersionCollectionName, Version1DocumentName}, "/")
-	MessageWithOtomoCollectionPath string = strings.Join([]string{V1DocumentPath, MessageWithOtomoCollectionName}, "/")
+	//  /versions/1
+	v1DocPath string = strings.Join([]string{versionColName, version1DocName}, "/")
+	//  /versions/1/chats
+	chatColPath string = strings.Join([]string{v1DocPath, chatColName}, "/")
 )
 
-func GetMessageWithOtomoPath(id string) string {
-	return strings.Join([]string{MessageWithOtomoCollectionPath, id}, "/")
+// /versions/1/chats/{chatID}/messages
+// Chat id is user id when user chat with otomo
+func getMessagesColPath(chatID string) string {
+	return strings.Join([]string{chatColPath, chatID, messageColName}, "/")
+}
+
+// /versions/1/chats/{chatID}/messages/{msgID}
+func getMessageDocPath(chatID string, msgID string) string {
+	return strings.Join([]string{getMessagesColPath(chatID), msgID}, "/")
 }

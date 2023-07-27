@@ -7,6 +7,7 @@ package mock_repo
 import (
 	context "context"
 	message "otomo/internal/app/domain/entity/message"
+	user "otomo/internal/app/domain/entity/user"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
@@ -49,16 +50,16 @@ func (mr *MockMessageWithOtomoRepositoryMockRecorder) Add(ctx, msg interface{}) 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Add", reflect.TypeOf((*MockMessageWithOtomoRepository)(nil).Add), ctx, msg)
 }
 
-// DeleteByID mocks base method.
-func (m *MockMessageWithOtomoRepository) DeleteByID(ctx context.Context, id message.MessageWithOtomoID) error {
+// DeleteByIDAndUserID mocks base method.
+func (m *MockMessageWithOtomoRepository) DeleteByIDAndUserID(ctx context.Context, id message.MessageWithOtomoID, userID user.ID) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteByID", ctx, id)
+	ret := m.ctrl.Call(m, "DeleteByIDAndUserID", ctx, id, userID)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// DeleteByID indicates an expected call of DeleteByID.
-func (mr *MockMessageWithOtomoRepositoryMockRecorder) DeleteByID(ctx, id interface{}) *gomock.Call {
+// DeleteByIDAndUserID indicates an expected call of DeleteByIDAndUserID.
+func (mr *MockMessageWithOtomoRepositoryMockRecorder) DeleteByIDAndUserID(ctx, id, userID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteByID", reflect.TypeOf((*MockMessageWithOtomoRepository)(nil).DeleteByID), ctx, id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteByIDAndUserID", reflect.TypeOf((*MockMessageWithOtomoRepository)(nil).DeleteByIDAndUserID), ctx, id, userID)
 }

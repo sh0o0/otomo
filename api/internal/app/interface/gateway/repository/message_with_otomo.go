@@ -3,8 +3,10 @@ package repository
 import (
 	"context"
 	"otomo/internal/app/domain/entity/message"
+	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/domain/gateway/repo"
 	"otomo/internal/app/interface/gateway/repository/model"
+	"otomo/pkg/errs"
 
 	"cloud.google.com/go/firestore"
 )
@@ -31,18 +33,24 @@ func (r *MessageWithOtomoRepository) Add(
 	if err != nil {
 		return err
 	}
-	msgDoc := r.fsClient.Collection(MessageWithOtomoCollectionPath).Doc(msgModel.ID)
+	msgDoc := r.fsClient.
+		Collection(getMessagesColPath(string(msg.UserID()))).
+		Doc(string(msg.ID()))
 
-	if _, err := msgDoc.Create(ctx, msgModel); err != nil {
-		return err
-	}
+	_, err = msgDoc.Create(ctx, msgModel)
 
-	return nil
+	return err
 }
 
-func (r *MessageWithOtomoRepository) DeleteByID(
+func (r *MessageWithOtomoRepository) DeleteByIDAndUserID(
 	ctx context.Context,
 	id message.MessageWithOtomoID,
+	userID user.ID,
 ) error {
-	panic("not implemented") // TODO: Implement
+	_, err := r.fsClient.
+		Doc(getMessageDocPath(string(userID), string(id))).
+		Delete(ctx)
+
+	return ifCodesNotFoundReturnErrsNotFound(
+		err, errs.DomainMessageWithOtomo, errs.FieldID)
 }

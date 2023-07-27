@@ -11,6 +11,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 var messageWithOtomoRepo = NewMessageWithOtomoRepository(testinfra.FirestoreClient)
@@ -33,7 +35,7 @@ func TestMessageWithOtomoRepository_Add(t *testing.T) {
 	}
 
 	snapshot, err := testinfra.FirestoreClient.
-		Doc(GetMessageWithOtomoPath(string(giveMsg.ID()))).
+		Doc(getMessageDocPath(string(giveMsg.UserID()), string(giveMsg.ID()))).
 		Get(giveCtx)
 	if err != nil {
 		t.Fatal(err)
@@ -51,4 +53,31 @@ func TestMessageWithOtomoRepository_Add(t *testing.T) {
 	}
 
 	assert.Equal(t, giveMsg, got)
+}
+func TestMessageWithOtomoRepository_DeleteByIDAndUserID(t *testing.T) {
+	var (
+		giveCtx = context.Background()
+		giveMsg = message.NewMessageWithOtomo(
+			user.ID(uuid.NewString()),
+			message.OtomoRole,
+			message.UserRole,
+			"test test test test test",
+		)
+	)
+
+	if err := messageWithOtomoRepo.Add(giveCtx, giveMsg); err != nil {
+		t.Fatal(err)
+	}
+	if err := messageWithOtomoRepo.DeleteByIDAndUserID(
+		giveCtx, giveMsg.ID(), giveMsg.UserID()); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err := testinfra.FirestoreClient.
+		Doc(getMessageDocPath(string(giveMsg.ID()), string(giveMsg.ID()))).
+		Get(giveCtx)
+	if err == nil {
+		t.Fatal("message should be deleted")
+	}
+	assert.Equal(t, codes.NotFound, status.Code(err))
 }

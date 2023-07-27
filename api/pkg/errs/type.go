@@ -8,10 +8,14 @@ type (
 
 // Causes
 const (
+	// Anything is not found from context.
 	CauseNotFoundFromContext Cause = "not_found_from_context"
 
 	// The concept itself does not exist.
 	CauseNotExist Cause = "not_exist"
+
+	// Anything is not found.
+	CauseNotFound Cause = "not_found"
 )
 
 // Domains
