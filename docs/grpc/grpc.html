@@ -175,6 +175,29 @@
         
           
           <li>
+            <a href="#chat_with_otomo_service.proto">chat_with_otomo_service.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.ChatWithOtomoMessageToOtomoRequest"><span class="badge">M</span>ChatWithOtomoMessageToOtomoRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ChatWithOtomoMessageToOtomoResponse"><span class="badge">M</span>ChatWithOtomoMessageToOtomoResponse</a>
+                </li>
+              
+              
+              
+              
+                <li>
+                  <a href="#.ChatWithOtomoService"><span class="badge">S</span>ChatWithOtomoService</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#health.proto">health.proto</a>
             <ul>
               
@@ -192,10 +215,137 @@
             </ul>
           </li>
         
+          
+          <li>
+            <a href="#message_with_otomo.proto">message_with_otomo.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.MessageWithOtomo"><span class="badge">M</span>MessageWithOtomo</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#.Role"><span class="badge">E</span>Role</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
         <li><a href="#scalar-value-types">Scalar Value Types</a></li>
       </ul>
     </div>
 
+    
+      
+      <div class="file-heading">
+        <h2 id="chat_with_otomo_service.proto">chat_with_otomo_service.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".ChatWithOtomoMessageToOtomoRequest">ChatWithOtomoMessageToOtomoRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>text</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+            
+            
+            <h4>Validated Fields</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Field</td>
+                  <td>Validations</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>text</td>
+                  <td>
+                    <ul>
+                    
+                      <li>string.min_len: 1</li>
+                    
+                    </ul>
+                  </td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
+          
+
+        
+      
+        <h3 id=".ChatWithOtomoMessageToOtomoResponse">ChatWithOtomoMessageToOtomoResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>reply</td>
+                  <td><a href="#MessageWithOtomo">MessageWithOtomo</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+        <h3 id=".ChatWithOtomoService">ChatWithOtomoService</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>MessageToOtomo</td>
+                <td><a href="#ChatWithOtomoMessageToOtomoRequest">.ChatWithOtomoMessageToOtomoRequest</a></td>
+                <td><a href="#ChatWithOtomoMessageToOtomoResponse">.ChatWithOtomoMessageToOtomoResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
     
       
       <div class="file-heading">
@@ -253,6 +403,102 @@
         </table>
 
         
+    
+      
+      <div class="file-heading">
+        <h2 id="message_with_otomo.proto">message_with_otomo.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".MessageWithOtomo">MessageWithOtomo</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>sender</td>
+                  <td><a href="#Role">Role</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>reciever</td>
+                  <td><a href="#Role">Role</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>text</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>sent_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id=".Role">Role</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>User</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Otomo</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
     
 
     <h2 id="scalar-value-types">Scalar Value Types</h2>

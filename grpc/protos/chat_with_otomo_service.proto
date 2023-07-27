@@ -1,0 +1,20 @@
+
+syntax = "proto3";
+
+option go_package = ".;grpcgen";
+
+import "validate/validate.proto";
+import "message_with_otomo.proto";
+
+
+service  ChatWithOtomoService {
+  rpc MessageToOtomo (ChatWithOtomoMessageToOtomoRequest) returns (ChatWithOtomoMessageToOtomoResponse) {}
+}
+
+message ChatWithOtomoMessageToOtomoRequest {
+  string text = 1 [(validate.rules).string.min_len = 1];
+}
+
+message ChatWithOtomoMessageToOtomoResponse {
+  MessageWithOtomo reply = 1;
+}

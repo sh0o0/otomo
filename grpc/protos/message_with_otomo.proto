@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = ".;grpcgen";
+
+import "google/protobuf/timestamp.proto";
+
+message MessageWithOtomo {
+  string id = 1;
+  string user_id = 2;
+  Role sender = 3;
+  Role reciever = 4;
+  string text = 5;
+  google.protobuf.Timestamp sent_at = 6;
+}
+
+enum Role {
+  User = 0;
+  Otomo = 1;
+}
