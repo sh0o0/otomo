@@ -5,7 +5,6 @@ import (
 	"errors"
 	"otomo/pkg/errs"
 
-	// TODO: Fix this import
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -14,7 +13,7 @@ import (
 
 type ErrorPresenter struct{}
 
-// TODO: Write test
+// TODO: Write tests
 func (pr *ErrorPresenter) ErrorOutput(
 	ctx context.Context, err error,
 ) *status.Status {

@@ -49,7 +49,7 @@ func (rbr *Rollbacker) Rollback(ctx context.Context) error {
 		)
 
 		if err := rb.funk(ctx); err != nil {
-			// TODO: wanna make a func named RollbackWithErrorNotice and erase this statement
+			// TODO: Wanna make a func named RollbackWithErrorNotice and erase this statement
 			logger.Error(
 				"A rollback failed",
 				log.Bool("is_rollback", true),

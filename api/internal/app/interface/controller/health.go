@@ -16,7 +16,10 @@ func NewHealthController() *HealthController {
 	return &HealthController{}
 }
 
-func (ctrl *HealthController) Check(ctx context.Context, _ *emptypb.Empty) (*grpcgen.HealthCheckResponse, error) {
+func (ctrl *HealthController) Check(
+	ctx context.Context,
+	_ *emptypb.Empty,
+) (*grpcgen.HealthCheckResponse, error) {
 	return &grpcgen.HealthCheckResponse{
 		Health: true,
 	}, nil
