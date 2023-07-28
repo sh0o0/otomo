@@ -33,6 +33,7 @@ func (u *ChatWithOtomoUseCase) MessageToOtomo(
 	userID user.ID,
 	text string,
 ) (*message.MessageWithOtomo, error) {
+	// TODO: Wanna make a interface can make a new rollbacker and inject from external.
 	var rollbacker = rollback.NewRollbacker()
 	defer rollbacker.RollbackForPanic(ctx)
 
