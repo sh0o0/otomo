@@ -3,7 +3,7 @@ package rollback
 import (
 	"context"
 	"errors"
-	"strings"
+	"reflect"
 	"testing"
 	"time"
 
@@ -11,41 +11,20 @@ import (
 )
 
 func TestRollbacker_Add(t *testing.T) {
-	type fields struct {
-		rollbacks []*rollback
-	}
-	type args struct {
-		rb *rollback
-	}
-	tests := []struct {
-		name           string
-		fields         fields
-		args           args
-		wantRollbacker *Rollbacker
-	}{
-		{
-			name: strings.Join([]string{
-				"should added",
-				"when add rollback func",
-			}, " "),
-			fields: fields{},
-			args:   args{rb: &rollback{}},
-			wantRollbacker: &Rollbacker{
-				rollbacks: []*rollback{
-					{},
-				},
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			rbr := &Rollbacker{
-				rollbacks: tt.fields.rollbacks,
-			}
-			rbr.Add(tt.args.rb)
-			assert.Exactly(t, tt.wantRollbacker, rbr)
-		})
-	}
+	var (
+		giveCtx         = context.TODO()
+		giveDescription = "test"
+		giveRbFunc      = func(ctx context.Context) error { return nil }
+	)
+	rbr := &Rollbacker{}
+	rbr.Add(giveCtx, giveDescription, giveRbFunc)
+	assert.Len(t, rbr.rollbacks, 1)
+	assert.Exactly(t, giveDescription, rbr.rollbacks[0].description)
+	assert.Exactly(
+		t,
+		reflect.ValueOf(giveRbFunc).Pointer(),
+		reflect.ValueOf(rbr.rollbacks[0].funk).Pointer(),
+	)
 }
 
 func TestRollbacker_Rollback_ShouldBeIntSlice321_WhenCallThatIsAppendedAddIntFunc(t *testing.T) {

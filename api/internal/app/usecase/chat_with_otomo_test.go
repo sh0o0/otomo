@@ -6,6 +6,7 @@ import (
 	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/domain/gateway/infra/mock_infra"
 	"otomo/internal/app/domain/gateway/repo/mock_repo"
+	"otomo/internal/app/usecase/ucboundary/mock_ucboundary"
 	"otomo/pkg/uuid"
 	"strings"
 	"testing"
@@ -16,17 +17,27 @@ import (
 )
 
 type chatWithOtomoUseCaseFields struct {
-	msgMaker *mock_infra.MockMessageMaker
-	msgRepo  *mock_repo.MockMessageWithOtomoRepository
+	msgMaker  *mock_infra.MockMessageMaker
+	msgRepo   *mock_repo.MockMessageWithOtomoRepository
+	rbFactory *mock_ucboundary.MockRollbackerFactory
+	rber      *mock_ucboundary.MockRollbacker
 }
 
-func newChatWithOtomoUseCaseFields(t *testing.T) *chatWithOtomoUseCaseFields {
+func newChatWithOtomoUseCaseFieldsAndSetupRollback(t *testing.T) *chatWithOtomoUseCaseFields {
 	ctrl := gomock.NewController(t)
 	msgMaker := mock_infra.NewMockMessageMaker(ctrl)
 	msgRepo := mock_repo.NewMockMessageWithOtomoRepository(ctrl)
+
+	rbFactory := mock_ucboundary.NewMockRollbackerFactory(ctrl)
+	rber := mock_ucboundary.NewMockRollbacker(ctrl)
+	rbFactory.EXPECT().New().Return(rber)
+	rber.EXPECT().RollbackForPanic(gomock.Any()).Times(1)
+
 	return &chatWithOtomoUseCaseFields{
-		msgMaker: msgMaker,
-		msgRepo:  msgRepo,
+		msgMaker:  msgMaker,
+		msgRepo:   msgRepo,
+		rbFactory: rbFactory,
+		rber:      rber,
 	}
 }
 
@@ -57,7 +68,6 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 		want      *message.MessageWithOtomo
 		wantIsErr bool
 	}{
-		// TODO: Add a test for success
 		{
 			name: strings.Join([]string{
 				"should return *message.MessageWithOtomo",
@@ -65,7 +75,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 			}, " "),
 			fields: func() *chatWithOtomoUseCaseFields {
 				var (
-					fields            = newChatWithOtomoUseCaseFields(t)
+					fields            = newChatWithOtomoUseCaseFieldsAndSetupRollback(t)
 					assertUserMessage = func(msg *message.MessageWithOtomo) {
 						assert.Len(t, msg.ID(), 36)
 						assert.Equal(t, giveUserID, msg.UserID())
@@ -79,6 +89,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 						)
 					}
 				)
+
 				fields.msgRepo.EXPECT().Add(
 					giveCtx,
 					gomock.Any(),
@@ -87,7 +98,16 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 						assertUserMessage(msg)
 						return nil
 					},
-				)
+				).Times(1)
+
+				fields.rber.EXPECT().
+					Add(
+						giveCtx,
+						"Rollback for adding a message to otomo",
+						gomock.Any(),
+					).
+					Times(1)
+
 				fields.msgMaker.EXPECT().MakeFromMessageWithOtomo(
 					giveCtx,
 					gomock.Any(),
@@ -99,11 +119,12 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 						assertUserMessage(msg)
 						return reply, nil
 					},
-				)
+				).Times(1)
+
 				fields.msgRepo.EXPECT().Add(
 					giveCtx,
 					reply,
-				).Return(nil)
+				).Return(nil).Times(1)
 				return fields
 			}(),
 			args:      args{ctx: giveCtx, userID: giveUserID, text: giveText},
@@ -117,15 +138,16 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			u := &ChatWithOtomoUseCase{
-				msgMaker: tt.fields.msgMaker,
-				msgRepo:  tt.fields.msgRepo,
+				msgMaker:  tt.fields.msgMaker,
+				msgRepo:   tt.fields.msgRepo,
+				rbFactory: tt.fields.rbFactory,
 			}
 			got, err := u.MessageToOtomo(tt.args.ctx, tt.args.userID, tt.args.text)
 			if (err != nil) != tt.wantIsErr {
 				t.Errorf("ChatWithOtomoUseCase.MessageToOtomo() error = %v, wantIsErr %v", err, tt.wantIsErr)
 				return
 			}
-			assert.Equal(t, tt.want, got)
+			assert.Exactly(t, tt.want, got)
 		})
 	}
 }

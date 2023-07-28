@@ -7,34 +7,34 @@ import (
 	"otomo/internal/app/domain/gateway/infra"
 	"otomo/internal/app/domain/gateway/repo"
 	"otomo/internal/app/usecase/ucboundary"
-	"otomo/pkg/rollback"
 )
 
 var _ ucboundary.ChatWithOtomoUseCase = (*ChatWithOtomoUseCase)(nil)
 
 type ChatWithOtomoUseCase struct {
-	msgMaker infra.MessageMaker
-	msgRepo  repo.MessageWithOtomoRepository
+	msgMaker  infra.MessageMaker
+	msgRepo   repo.MessageWithOtomoRepository
+	rbFactory ucboundary.RollbackerFactory
 }
 
 func NewChatWithOtomoUseCase(
 	msgMaker infra.MessageMaker,
 	msgRepo repo.MessageWithOtomoRepository,
+	rbFactory ucboundary.RollbackerFactory,
 ) *ChatWithOtomoUseCase {
 	return &ChatWithOtomoUseCase{
-		msgMaker: msgMaker,
-		msgRepo:  msgRepo,
+		msgMaker:  msgMaker,
+		msgRepo:   msgRepo,
+		rbFactory: rbFactory,
 	}
 }
 
-// TODO: Write tests
 func (u *ChatWithOtomoUseCase) MessageToOtomo(
 	ctx context.Context,
 	userID user.ID,
 	text string,
 ) (*message.MessageWithOtomo, error) {
-	// TODO: Wanna make a interface can make a new rollbacker and inject from external.
-	var rollbacker = rollback.NewRollbacker()
+	var rollbacker = u.rbFactory.New()
 	defer rollbacker.RollbackForPanic(ctx)
 
 	msg := message.NewMessageWithOtomo(
@@ -47,12 +47,13 @@ func (u *ChatWithOtomoUseCase) MessageToOtomo(
 	if err := u.msgRepo.Add(ctx, msg); err != nil {
 		return nil, err
 	}
-	rollbacker.Add(rollback.NewRollback(
+	rollbacker.Add(
+		ctx,
 		"Rollback for adding a message to otomo",
 		func(c context.Context) error {
 			return u.msgRepo.DeleteByIDAndUserID(ctx, msg.ID(), msg.UserID())
 		},
-	))
+	)
 
 	reply, err := u.msgMaker.MakeFromMessageWithOtomo(ctx, msg)
 	if err != nil {

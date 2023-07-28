@@ -3,37 +3,38 @@ package rollback
 import (
 	"context"
 	"errors"
+	"otomo/internal/app/usecase/ucboundary"
 	"otomo/pkg/log"
 )
+
+var _ ucboundary.Rollbacker = (*Rollbacker)(nil)
 
 // Rollbacker is util of rollback.
 type Rollbacker struct {
 	rollbacks []*rollback
 }
 
-func NewRollbacker() *Rollbacker {
+func NewRollbacker() ucboundary.Rollbacker {
 	return &Rollbacker{}
 }
 
 type rollback struct {
 	description string
-	funk        rollbackFunc
+	funk        func(c context.Context) error
 }
 
-func NewRollback(
+func (rbr *Rollbacker) Add(
+	ctx context.Context,
 	description string,
-	rf rollbackFunc,
-) *rollback {
-	return &rollback{
-		description: description,
-		funk:        rf,
-	}
-}
-
-type rollbackFunc func(c context.Context) error
-
-func (rbr *Rollbacker) Add(rb *rollback) {
-	rbr.rollbacks = append(rbr.rollbacks, rb)
+	rbFunc func(ctx context.Context) error,
+) {
+	rbr.rollbacks = append(
+		rbr.rollbacks,
+		&rollback{
+			description: description,
+			funk:        rbFunc,
+		},
+	)
 }
 
 func (rbr *Rollbacker) Rollback(ctx context.Context) error {
