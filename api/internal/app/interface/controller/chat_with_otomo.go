@@ -34,10 +34,10 @@ func (ctrl *ChatWithOtomoController) MessageToOtomo(
 	if err != nil {
 		return nil, ctrl.presenter.ErrorOutput(ctx, err).Err()
 	}
-	msg, err := ctrl.useCase.MessageToOtomo(ctx, user.ID(userID), req.Text)
+	reply, err := ctrl.useCase.MessageToOtomo(ctx, user.ID(userID), req.Text)
 	if err != nil {
 		return nil, ctrl.presenter.ErrorOutput(ctx, err).Err()
 	}
 
-	return ctrl.presenter.MessageToOtomoOutput(ctx, msg)
+	return ctrl.presenter.MessageToOtomoOutput(ctx, reply)
 }

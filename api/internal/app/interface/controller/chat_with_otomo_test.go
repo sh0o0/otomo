@@ -2,33 +2,91 @@ package controller
 
 import (
 	"context"
+	"otomo/internal/app/domain/entity/message"
+	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/interface/controller/grpc/grpcgen"
-	"otomo/internal/app/interface/controller/present"
-	"otomo/internal/app/usecase/ucboundary"
+	"otomo/internal/app/interface/controller/present/mock_present"
+	"otomo/internal/app/usecase/ucboundary/mock_ucboundary"
+	"otomo/pkg/ctxs"
+	"otomo/pkg/uuid"
+	"strings"
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
+	"github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/assert"
 )
 
-// TODO: Write test cases
+type chatWithOtomoControllerFields struct {
+	useCase   *mock_ucboundary.MockChatWithOtomoUseCase
+	presenter *mock_present.MockChatWithOtomoPresenter
+}
+
+func newChatWithOtomoControllerFields(t *testing.T) *chatWithOtomoControllerFields {
+	mockCtrl := gomock.NewController(t)
+	useCase := mock_ucboundary.NewMockChatWithOtomoUseCase(mockCtrl)
+	presenter := mock_present.NewMockChatWithOtomoPresenter(mockCtrl)
+	return &chatWithOtomoControllerFields{
+		useCase:   useCase,
+		presenter: presenter,
+	}
+}
 
 func TestChatWithOtomoController_MessageToOtomo(t *testing.T) {
-	type fields struct {
-		useCase   ucboundary.ChatWithOtomoUseCase
-		presenter present.ChatWithOtomoPresenter
-	}
+	var (
+		userID           = user.ID(uuid.NewString())
+		giveCtxWithUseID = ctxs.UserIDToContext(context.TODO(), string(userID))
+		giveText         = "Hello, Otomo!"
+		reply            = message.NewMessageWithOtomo(
+			userID,
+			message.OtomoRole,
+			message.UserRole,
+			"Hello, User!",
+		)
+		output = &grpcgen.ChatWithOtomoMessageToOtomoResponse{}
+	)
 	type args struct {
 		ctx context.Context
 		req *grpcgen.ChatWithOtomoMessageToOtomoRequest
 	}
 	tests := []struct {
 		name      string
-		fields    fields
+		fields    *chatWithOtomoControllerFields
 		args      args
 		want      *grpcgen.ChatWithOtomoMessageToOtomoResponse
 		wantIsErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: strings.Join([]string{
+				"should return the reply",
+				"when given a valid request",
+			}, " "),
+			fields: func() *chatWithOtomoControllerFields {
+				fields := newChatWithOtomoControllerFields(t)
+				fields.useCase.
+					EXPECT().
+					MessageToOtomo(
+						giveCtxWithUseID,
+						userID,
+						giveText,
+					).Return(reply, nil).
+					Times(1)
+				fields.presenter.
+					EXPECT().
+					MessageToOtomoOutput(giveCtxWithUseID, reply).
+					Return(output, nil).
+					Times(1)
+				return fields
+			}(),
+			args: args{
+				ctx: giveCtxWithUseID,
+				req: &grpcgen.ChatWithOtomoMessageToOtomoRequest{
+					Text: giveText,
+				},
+			},
+			want:      output,
+			wantIsErr: false,
+		},
+		// TODO: Add tests for occurs error
 	}
 	for _, tt := range tests {
 		tt := tt
@@ -43,9 +101,7 @@ func TestChatWithOtomoController_MessageToOtomo(t *testing.T) {
 				t.Errorf("ChatWithOtomoController.MessageToOtomo() error = %v, wantIsErr %v", err, tt.wantIsErr)
 				return
 			}
-			if !cmp.Equal(got, tt.want) {
-				t.Errorf("ChatWithOtomoController.MessageToOtomo() = %v, want %v\ndiff=%v", got, tt.want, cmp.Diff(got, tt.want))
-			}
+			assert.Exactly(t, tt.want, got)
 		})
 	}
 }
