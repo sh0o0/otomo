@@ -12,13 +12,13 @@ import (
 var _ ucboundary.ChatWithOtomoUseCase = (*ChatWithOtomoUseCase)(nil)
 
 type ChatWithOtomoUseCase struct {
-	msgMaker  infra.MessageMaker
+	msgMaker  infra.OtomoBot
 	msgRepo   repo.MessageWithOtomoRepository
 	rbFactory ucboundary.RollbackerFactory
 }
 
 func NewChatWithOtomoUseCase(
-	msgMaker infra.MessageMaker,
+	msgMaker infra.OtomoBot,
 	msgRepo repo.MessageWithOtomoRepository,
 	rbFactory ucboundary.RollbackerFactory,
 ) *ChatWithOtomoUseCase {
@@ -55,7 +55,7 @@ func (u *ChatWithOtomoUseCase) MessageToOtomo(
 		},
 	)
 
-	reply, err := u.msgMaker.MakeFromMessageWithOtomo(ctx, msg)
+	reply, err := u.msgMaker.SendMessage(ctx, msg)
 	if err != nil {
 		rollbacker.Rollback(ctx)
 		return nil, err

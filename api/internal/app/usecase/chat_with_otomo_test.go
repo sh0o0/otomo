@@ -17,7 +17,7 @@ import (
 )
 
 type chatWithOtomoUseCaseFields struct {
-	msgMaker  *mock_infra.MockMessageMaker
+	msgMaker  *mock_infra.MockOtomoBot
 	msgRepo   *mock_repo.MockMessageWithOtomoRepository
 	rbFactory *mock_ucboundary.MockRollbackerFactory
 	rber      *mock_ucboundary.MockRollbacker
@@ -25,7 +25,7 @@ type chatWithOtomoUseCaseFields struct {
 
 func newChatWithOtomoUseCaseFieldsAndSetupRollback(t *testing.T) *chatWithOtomoUseCaseFields {
 	ctrl := gomock.NewController(t)
-	msgMaker := mock_infra.NewMockMessageMaker(ctrl)
+	msgMaker := mock_infra.NewMockOtomoBot(ctrl)
 	msgRepo := mock_repo.NewMockMessageWithOtomoRepository(ctrl)
 
 	rbFactory := mock_ucboundary.NewMockRollbackerFactory(ctrl)
@@ -108,7 +108,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 					).
 					Times(1)
 
-				fields.msgMaker.EXPECT().MakeFromMessageWithOtomo(
+				fields.msgMaker.EXPECT().SendMessage(
 					giveCtx,
 					gomock.Any(),
 				).DoAndReturn(
