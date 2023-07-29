@@ -6,7 +6,7 @@ import (
 	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/interface/gateway/repository/model"
 	"otomo/pkg/uuid"
-	"otomo/test/testinfra"
+	"otomo/test/systemtest"
 	"testing"
 	"time"
 
@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-var messageWithOtomoRepo = NewMessageWithOtomoRepository(testinfra.FirestoreClient)
+var messageWithOtomoRepo = NewMessageWithOtomoRepository(systemtest.FirestoreClient)
 
 func TestMessageWithOtomoRepository_Add(t *testing.T) {
 	var (
@@ -34,7 +34,7 @@ func TestMessageWithOtomoRepository_Add(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	snapshot, err := testinfra.FirestoreClient.
+	snapshot, err := systemtest.FirestoreClient.
 		Doc(getMessageDocPath(string(giveMsg.UserID()), string(giveMsg.ID()))).
 		Get(giveCtx)
 	if err != nil {
@@ -73,7 +73,7 @@ func TestMessageWithOtomoRepository_DeleteByIDAndUserID(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	_, err := testinfra.FirestoreClient.
+	_, err := systemtest.FirestoreClient.
 		Doc(getMessageDocPath(string(giveMsg.ID()), string(giveMsg.ID()))).
 		Get(giveCtx)
 	if err == nil {

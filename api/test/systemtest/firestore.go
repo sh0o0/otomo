@@ -1,4 +1,4 @@
-package testinfra
+package systemtest
 
 import (
 	"context"
