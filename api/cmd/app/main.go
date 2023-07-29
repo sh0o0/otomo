@@ -5,7 +5,6 @@ import (
 	"otomo/internal/app/interface/controller"
 	"otomo/internal/app/interface/controller/grpc/grpcgen"
 	"otomo/pkg/log"
-	"otomo/pkg/timezone"
 	"otomo/tools/middleware"
 
 	"github.com/getsentry/sentry-go"
@@ -21,7 +20,6 @@ func main() {
 }
 
 func execute() error {
-	timezone.ChangeToUTC()
 	if err := envconfig.Process("", &conf); err != nil {
 		return err
 	}

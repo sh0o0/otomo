@@ -3,10 +3,10 @@ package model
 import (
 	"otomo/internal/app/domain/entity/message"
 	"otomo/internal/app/domain/entity/user"
+	"otomo/pkg/times"
 	"otomo/pkg/uuid"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/stretchr/testify/assert"
@@ -56,7 +56,7 @@ func TestConvertMessageWithOtomoEntityToModel(t *testing.T) {
 				Sender:   "otomo",
 				Receiver: "user",
 				Text:     msg.Text(),
-				SentAt:   msg.SentAt().Truncate(time.Second).Local(),
+				SentAt:   msg.SentAt(),
 			},
 			wantIsErr: false,
 		},
@@ -106,7 +106,7 @@ func TestConvertMessageWithOtomoModelToEntity(t *testing.T) {
 			Sender:   "otomo",
 			Receiver: "user",
 			Text:     "test test test test test",
-			SentAt:   time.Now().Local(),
+			SentAt:   times.C.Now().Local(),
 		}
 		userID = user.ID(uuid.NewString())
 	)
@@ -135,7 +135,7 @@ func TestConvertMessageWithOtomoModelToEntity(t *testing.T) {
 				message.OtomoRole,
 				message.UserRole,
 				msgModel.Text,
-				msgModel.SentAt.Truncate(time.Second).Local(),
+				msgModel.SentAt,
 			),
 			wantIsErr: false,
 		},

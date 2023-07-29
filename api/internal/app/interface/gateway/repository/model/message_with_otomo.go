@@ -32,7 +32,7 @@ func ConvertMessageWithOtomoEntityToModel(
 		Sender:   sender,
 		Receiver: receiver,
 		Text:     e.Text(),
-		SentAt:   e.SentAt().Truncate(time.Second).Local(),
+		SentAt:   e.SentAt(),
 	}, nil
 }
 
@@ -54,7 +54,7 @@ func ConvertMessageWithOtomoModelToEntity(
 		sender,
 		receiver,
 		m.Text,
-		m.SentAt.Truncate(time.Second).Local(),
+		m.SentAt,
 	), nil
 }
 

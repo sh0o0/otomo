@@ -7,4 +7,5 @@ var C Clock = &realClock{}
 
 type Clock interface {
 	Now() time.Time
+	Sleep(d time.Duration)
 }

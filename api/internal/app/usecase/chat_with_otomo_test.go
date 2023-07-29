@@ -7,10 +7,10 @@ import (
 	"otomo/internal/app/domain/gateway/infra/mock_infra"
 	"otomo/internal/app/domain/gateway/repo/mock_repo"
 	"otomo/internal/app/usecase/ucboundary/mock_ucboundary"
+	"otomo/pkg/times"
 	"otomo/pkg/uuid"
 	"otomo/test/testutil"
 	"testing"
-	"time"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
@@ -46,14 +46,14 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 		giveCtx            = context.TODO()
 		giveUserID         = user.ID(uuid.NewString())
 		giveText           = "Hello, Otomo!"
-		truncatedSecondNow = time.Now().Truncate(time.Second)
+		truncatedSecondNow = times.C.Now()
 		reply              = message.RestoreMessageWithOtomo(
 			message.MessageWithOtomoID(uuid.NewString()),
 			giveUserID,
 			message.OtomoRole,
 			message.UserRole,
 			"Hello, User!",
-			time.Now(),
+			times.C.Now(),
 		)
 	)
 	type args struct {
@@ -85,7 +85,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 						assert.Equal(
 							t,
 							truncatedSecondNow,
-							msg.SentAt().Truncate(time.Second),
+							msg.SentAt(),
 						)
 					}
 				)

@@ -3,6 +3,7 @@ package rollback
 import (
 	"context"
 	"errors"
+	"otomo/pkg/times"
 	"reflect"
 	"testing"
 	"time"
@@ -122,7 +123,7 @@ func TestRollbacker_RollbackForPanic_ShouldCallRollback_WhenHappendPanic(t *test
 		panic("happend panic error!!!")
 	}()
 
-	time.Sleep(time.Second)
+	times.C.Sleep(time.Second)
 
 	assert.Exactly(t, addTarget, want)
 }
@@ -147,7 +148,7 @@ func TestRollbacker_RollbackForPanic_ShouldNotCallRollback_WhenNoPanic(t *testin
 		defer rbr.RollbackForPanic(context.TODO())
 	}()
 
-	time.Sleep(time.Second)
+	times.C.Sleep(time.Second)
 
 	assert.Exactly(t, addTarget, want)
 }

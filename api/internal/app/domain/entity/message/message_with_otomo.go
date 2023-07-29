@@ -2,6 +2,7 @@ package message
 
 import (
 	"otomo/internal/app/domain/entity/user"
+	"otomo/pkg/times"
 	"otomo/pkg/uuid"
 	"time"
 )
@@ -36,7 +37,7 @@ func NewMessageWithOtomo(
 		sender:   sender,
 		receiver: receiver,
 		text:     text,
-		sentAt:   time.Now().Local(),
+		sentAt:   times.C.Now(),
 	}
 }
 

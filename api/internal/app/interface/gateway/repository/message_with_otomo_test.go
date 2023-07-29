@@ -5,10 +5,10 @@ import (
 	"otomo/internal/app/domain/entity/message"
 	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/interface/gateway/repository/model"
+	"otomo/pkg/times"
 	"otomo/pkg/uuid"
 	"otomo/test/systemtest"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
@@ -27,7 +27,7 @@ func TestMessageWithOtomoRepository_Add(t *testing.T) {
 			message.OtomoRole,
 			message.UserRole,
 			"test test test test test ",
-			time.Now().Truncate(time.Second).Local(),
+			times.C.Now(),
 		)
 	)
 
