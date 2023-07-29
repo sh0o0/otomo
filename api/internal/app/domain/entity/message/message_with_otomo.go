@@ -26,16 +26,16 @@ type MessageWithOtomo struct {
 
 func NewMessageWithOtomo(
 	userID user.ID,
-	Sender Role,
-	Receiver Role,
-	Text string,
+	sender Role,
+	receiver Role,
+	text string,
 ) *MessageWithOtomo {
 	return &MessageWithOtomo{
 		id:       MessageWithOtomoID(uuid.NewString()),
 		userID:   userID,
-		sender:   Sender,
-		receiver: Receiver,
-		text:     Text,
+		sender:   sender,
+		receiver: receiver,
+		text:     text,
 		sentAt:   time.Now().Local(),
 	}
 }
