@@ -17,6 +17,7 @@ import (
 
 var messageWithOtomoRepo = NewMessageWithOtomoRepository(systemtest.FirestoreClient)
 
+// TODO: Add test cases
 func TestMessageWithOtomoRepository_Add(t *testing.T) {
 	var (
 		giveCtx = context.Background()
