@@ -8,7 +8,7 @@ import (
 	"otomo/internal/app/domain/gateway/repo/mock_repo"
 	"otomo/internal/app/usecase/ucboundary/mock_ucboundary"
 	"otomo/pkg/uuid"
-	"strings"
+	"otomo/test/testutil"
 	"testing"
 	"time"
 
@@ -69,10 +69,10 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 		wantIsErr bool
 	}{
 		{
-			name: strings.Join([]string{
+			name: testutil.JoinStrings(
 				"should return *message.MessageWithOtomo",
 				"when give a valid args",
-			}, " "),
+			),
 			fields: func() *chatWithOtomoUseCaseFields {
 				var (
 					fields            = newChatWithOtomoUseCaseFieldsAndSetupRollback(t)
