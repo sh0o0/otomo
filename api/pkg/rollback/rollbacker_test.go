@@ -11,6 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// TODO: Fix tests below
+// TODO: Add a test for RollbackForPanicWithRepanic
 func TestRollbacker_Add(t *testing.T) {
 	var (
 		giveCtx         = context.TODO()
