@@ -8,12 +8,17 @@ import (
 	"otomo/pkg/times"
 	"otomo/pkg/uuid"
 	"otomo/test/systemtest"
+	"otomo/test/testutil"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
+
+func init() {
+	testutil.SetMockClock()
+}
 
 var messageWithOtomoRepo = NewMessageWithOtomoRepository(systemtest.FirestoreClient)
 

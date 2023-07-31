@@ -11,10 +11,15 @@ import (
 	"otomo/pkg/uuid"
 	"otomo/test/testutil"
 	"testing"
+	"time"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 )
+
+func init() {
+	testutil.SetMockClock()
+}
 
 type chatWithOtomoUseCaseFields struct {
 	otomo     *mock_infra.MockOtomoBot
@@ -84,8 +89,8 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 						assert.Equal(t, giveText, msg.Text())
 						assert.Equal(
 							t,
-							truncatedSecondNow,
-							msg.SentAt(),
+							truncatedSecondNow.Truncate(time.Second),
+							msg.SentAt().Truncate(time.Second),
 						)
 					}
 				)
