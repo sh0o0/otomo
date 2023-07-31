@@ -6,7 +6,7 @@ import (
 	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/domain/gateway/infra/mock_infra"
 	"otomo/internal/app/domain/gateway/repo/mock_repo"
-	"otomo/internal/app/usecase/ucboundary/mock_ucboundary"
+	"otomo/pkg/rollback"
 	"otomo/pkg/times"
 	"otomo/pkg/uuid"
 	"otomo/test/testutil"
@@ -24,8 +24,7 @@ func init() {
 type chatWithOtomoUseCaseFields struct {
 	otomo     *mock_infra.MockOtomoBot
 	msgRepo   *mock_repo.MockMessageWithOtomoRepository
-	rbFactory *mock_ucboundary.MockRollbackerFactory
-	rber      *mock_ucboundary.MockRollbacker
+	rbFactory *rollback.RollbackerFactory
 }
 
 func newChatWithOtomoUseCaseFieldsAndSetupRollback(t *testing.T) *chatWithOtomoUseCaseFields {
@@ -33,16 +32,12 @@ func newChatWithOtomoUseCaseFieldsAndSetupRollback(t *testing.T) *chatWithOtomoU
 	otomo := mock_infra.NewMockOtomoBot(ctrl)
 	msgRepo := mock_repo.NewMockMessageWithOtomoRepository(ctrl)
 
-	rbFactory := mock_ucboundary.NewMockRollbackerFactory(ctrl)
-	rber := mock_ucboundary.NewMockRollbacker(ctrl)
-	rbFactory.EXPECT().New().Return(rber)
-	rber.EXPECT().RollbackForPanic(gomock.Any()).Times(1)
+	rbFactory := rollback.NewRollbackerFactory()
 
 	return &chatWithOtomoUseCaseFields{
 		otomo:     otomo,
 		msgRepo:   msgRepo,
 		rbFactory: rbFactory,
-		rber:      rber,
 	}
 }
 
@@ -94,49 +89,148 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 						)
 					}
 				)
-
-				fields.msgRepo.EXPECT().Add(
-					giveCtx,
-					gomock.Any(),
-				).DoAndReturn(
-					func(ctx context.Context, msg *message.MessageWithOtomo) error {
-						assertUserMessage(msg)
-						return nil
-					},
-				).Times(1)
-
-				fields.rber.EXPECT().
-					Add(
-						giveCtx,
-						"Rollback for adding a message to otomo",
-						gomock.Any(),
-					).
+				fields.msgRepo.
+					EXPECT().
+					Add(giveCtx, gomock.Any()).
+					DoAndReturn(
+						func(ctx context.Context, msg *message.MessageWithOtomo) error {
+							assertUserMessage(msg)
+							return nil
+						}).
 					Times(1)
-
-				fields.otomo.EXPECT().SendMessage(
-					giveCtx,
-					gomock.Any(),
-				).DoAndReturn(
-					func(ctx context.Context, msg *message.MessageWithOtomo) (
-						*message.MessageWithOtomo,
-						error,
-					) {
-						assertUserMessage(msg)
-						return reply, nil
-					},
-				).Times(1)
-
-				fields.msgRepo.EXPECT().Add(
-					giveCtx,
-					reply,
-				).Return(nil).Times(1)
+				fields.otomo.
+					EXPECT().
+					SendMessage(giveCtx, gomock.Any()).
+					DoAndReturn(
+						func(
+							ctx context.Context,
+							msg *message.MessageWithOtomo,
+						) (*message.MessageWithOtomo, error) {
+							assertUserMessage(msg)
+							return reply, nil
+						}).
+					Times(1)
+				fields.msgRepo.
+					EXPECT().
+					Add(giveCtx, reply).
+					Return(nil).
+					Times(1)
 				return fields
 			}(),
 			args:      args{ctx: giveCtx, userID: giveUserID, text: giveText},
 			want:      reply,
 			wantIsErr: false,
 		},
-		// TODO: Add test for occurs error
+		{
+			name: testutil.JoinStrings(
+				"should return error",
+				"when msgRepo.Add for user's message returns error",
+			),
+			fields: func() *chatWithOtomoUseCaseFields {
+				fields := newChatWithOtomoUseCaseFieldsAndSetupRollback(t)
+				fields.msgRepo.
+					EXPECT().
+					Add(giveCtx, gomock.Any()).
+					Return(testutil.ErrDummy).
+					Times(1)
+				return fields
+			}(),
+			args:      args{ctx: giveCtx, userID: giveUserID, text: giveText},
+			want:      nil,
+			wantIsErr: true,
+		},
+		{
+			name: testutil.JoinStrings(
+				"should roll back the message addition",
+				"when otomoBot.SendMessage() returns error",
+			),
+			fields: func() *chatWithOtomoUseCaseFields {
+				fields := newChatWithOtomoUseCaseFieldsAndSetupRollback(t)
+				fields.msgRepo.
+					EXPECT().
+					Add(giveCtx, gomock.Any()).
+					Return(nil).
+					Times(1)
+				fields.otomo.
+					EXPECT().
+					SendMessage(giveCtx, gomock.Any()).
+					Return(nil, testutil.ErrDummy).
+					Times(1)
+				fields.msgRepo.
+					EXPECT().
+					DeleteByIDAndUserID(giveCtx, gomock.Any(), giveUserID).
+					Return(nil).
+					Times(1)
+				return fields
+			}(),
+			args:      args{ctx: giveCtx, userID: giveUserID, text: giveText},
+			want:      nil,
+			wantIsErr: true,
+		},
+		{
+			name: testutil.JoinStrings(
+				"should roll back the message addition",
+				"when second msgRepo.Add() returns error",
+			),
+			fields: func() *chatWithOtomoUseCaseFields {
+				fields := newChatWithOtomoUseCaseFieldsAndSetupRollback(t)
+				fields.msgRepo.
+					EXPECT().
+					Add(giveCtx, gomock.Any()).
+					Return(nil).
+					Times(1)
+				fields.otomo.
+					EXPECT().
+					SendMessage(giveCtx, gomock.Any()).
+					Return(reply, nil).
+					Times(1)
+				fields.msgRepo.
+					EXPECT().
+					Add(giveCtx, gomock.Any()).
+					Return(testutil.ErrDummy).
+					Times(1)
+				fields.msgRepo.
+					EXPECT().
+					DeleteByIDAndUserID(giveCtx, gomock.Any(), giveUserID).
+					Return(nil).
+					Times(1)
+				return fields
+			}(),
+			args:      args{ctx: giveCtx, userID: giveUserID, text: giveText},
+			want:      nil,
+			wantIsErr: true,
+		},
+		{
+			name: testutil.JoinStrings(
+				"should roll back the message addition",
+				"when panic occurs",
+			),
+			fields: func() *chatWithOtomoUseCaseFields {
+				fields := newChatWithOtomoUseCaseFieldsAndSetupRollback(t)
+				fields.msgRepo.
+					EXPECT().
+					Add(giveCtx, gomock.Any()).
+					Return(nil).
+					Times(1)
+				fields.otomo.
+					EXPECT().
+					SendMessage(giveCtx, gomock.Any()).
+					DoAndReturn(
+						func(ctx context.Context, msg *message.MessageWithOtomo) error {
+							panic("error")
+						}).
+					Times(1)
+				fields.msgRepo.
+					EXPECT().
+					DeleteByIDAndUserID(giveCtx, gomock.Any(), giveUserID).
+					Return(nil).
+					Times(1)
+				return fields
+			}(),
+			args:      args{ctx: giveCtx, userID: giveUserID, text: giveText},
+			want:      nil,
+			wantIsErr: false,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
@@ -156,3 +250,39 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 		})
 	}
 }
+
+// func TestChatWithOtomoUseCase_MessageToOtomo_ShouldRollBackTheMessageAddition_WhenPanicOccurs(t *testing.T) {
+// 	var (
+// 		giveCtx    = context.TODO()
+// 		giveUserID = user.ID(uuid.NewString())
+// 		giveText   = "Hello, Otomo!"
+// 	)
+// 	fields := newChatWithOtomoUseCaseFieldsAndSetupRollback(t)
+// 	fields.msgRepo.
+// 		EXPECT().
+// 		Add(giveCtx, gomock.Any()).
+// 		Return(nil).
+// 		Times(1)
+// 	fields.otomo.
+// 		EXPECT().
+// 		SendMessage(giveCtx, gomock.Any()).
+// 		DoAndReturn(
+// 			func(ctx context.Context, msg *message.MessageWithOtomo) error {
+// 				panic("error")
+// 			}).
+// 		Times(1)
+// 	fields.msgRepo.
+// 		EXPECT().
+// 		DeleteByIDAndUserID(giveCtx, gomock.Any(), giveUserID).
+// 		Return(nil).
+// 		Times(1)
+
+// 	u := &ChatWithOtomoUseCase{
+// 		otomo:     fields.otomo,
+// 		msgRepo:   fields.msgRepo,
+// 		rbFactory: fields.rbFactory,
+// 	}
+// 	assert.Panics(t, func() {
+// 		u.MessageToOtomo(giveCtx, giveUserID, giveText)
+// 	})
+// }
