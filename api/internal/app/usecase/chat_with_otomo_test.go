@@ -22,7 +22,7 @@ func init() {
 }
 
 type chatWithOtomoUseCaseFields struct {
-	otomo     *mock_infra.MockOtomoBot
+	otomoBot  *mock_infra.MockOtomoBot
 	msgRepo   *mock_repo.MockMessageWithOtomoRepository
 	rbFactory *rollback.RollbackerFactory
 }
@@ -35,7 +35,7 @@ func newChatWithOtomoUseCaseFieldsAndSetupRollback(t *testing.T) *chatWithOtomoU
 	rbFactory := rollback.NewRollbackerFactory()
 
 	return &chatWithOtomoUseCaseFields{
-		otomo:     otomo,
+		otomoBot:  otomo,
 		msgRepo:   msgRepo,
 		rbFactory: rbFactory,
 	}
@@ -98,7 +98,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 							return nil
 						}).
 					Times(1)
-				fields.otomo.
+				fields.otomoBot.
 					EXPECT().
 					SendMessage(giveCtx, gomock.Any()).
 					DoAndReturn(
@@ -151,7 +151,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 					Add(giveCtx, gomock.Any()).
 					Return(nil).
 					Times(1)
-				fields.otomo.
+				fields.otomoBot.
 					EXPECT().
 					SendMessage(giveCtx, gomock.Any()).
 					Return(nil, testutil.ErrDummy).
@@ -179,7 +179,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 					Add(giveCtx, gomock.Any()).
 					Return(nil).
 					Times(1)
-				fields.otomo.
+				fields.otomoBot.
 					EXPECT().
 					SendMessage(giveCtx, gomock.Any()).
 					Return(reply, nil).
@@ -212,7 +212,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 					Add(giveCtx, gomock.Any()).
 					Return(nil).
 					Times(1)
-				fields.otomo.
+				fields.otomoBot.
 					EXPECT().
 					SendMessage(giveCtx, gomock.Any()).
 					DoAndReturn(
@@ -237,7 +237,7 @@ func TestChatWithOtomoUseCase_MessageToOtomo(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			u := &ChatWithOtomoUseCase{
-				otomo:     tt.fields.otomo,
+				otomoBot:  tt.fields.otomoBot,
 				msgRepo:   tt.fields.msgRepo,
 				rbFactory: tt.fields.rbFactory,
 			}
