@@ -3,10 +3,8 @@ package rollback
 import (
 	"context"
 	"errors"
-	"otomo/pkg/times"
 	"reflect"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -30,10 +28,10 @@ func TestRollbacker_Add(t *testing.T) {
 	)
 }
 
-func TestRollbacker_Rollback_ShouldBeIntSlice321_WhenCallThatIsAppendedAddIntFunc(t *testing.T) {
+func TestRollbacker_Rollback_ShouldCallFunksInReverseOrder_WhenCall(t *testing.T) {
 	var (
-		added = []int{}
-		want  = []int{3, 2, 1}
+		result = []int{}
+		want   = []int{3, 2, 1}
 	)
 
 	rbr := &Rollbacker{
@@ -41,21 +39,21 @@ func TestRollbacker_Rollback_ShouldBeIntSlice321_WhenCallThatIsAppendedAddIntFun
 			{
 				description: "add 1",
 				funk: func(c context.Context) error {
-					added = append(added, 1)
+					result = append(result, 1)
 					return nil
 				},
 			},
 			{
 				description: "add 2",
 				funk: func(c context.Context) error {
-					added = append(added, 2)
+					result = append(result, 2)
 					return nil
 				},
 			},
 			{
 				description: "add 3",
 				funk: func(c context.Context) error {
-					added = append(added, 3)
+					result = append(result, 3)
 					return nil
 				},
 			},
@@ -64,13 +62,13 @@ func TestRollbacker_Rollback_ShouldBeIntSlice321_WhenCallThatIsAppendedAddIntFun
 
 	err := rbr.Rollback(context.TODO())
 	assert.NoError(t, err)
-	assert.Exactly(t, want, added)
+	assert.Exactly(t, want, result)
 }
-func TestRollbacker_Rollback_ShouldReturnErrAndBeIntSlice31_WhenHappendErrAtSecondRollback(t *testing.T) {
+func TestRollbacker_Rollback_ShouldReturnErrAndAdd31_WhenErrOccurredAtSecondRollback(t *testing.T) {
 	var (
-		happendErr = errors.New("second err")
-		added      = []int{}
-		want       = []int{3, 1}
+		occurredErr = errors.New("second err")
+		added       = []int{}
+		want        = []int{3, 1}
 	)
 
 	rbr := &Rollbacker{
@@ -85,7 +83,7 @@ func TestRollbacker_Rollback_ShouldReturnErrAndBeIntSlice31_WhenHappendErrAtSeco
 			{
 				description: "add 2",
 				funk: func(c context.Context) error {
-					return happendErr
+					return occurredErr
 				},
 			},
 			{
@@ -99,7 +97,7 @@ func TestRollbacker_Rollback_ShouldReturnErrAndBeIntSlice31_WhenHappendErrAtSeco
 	}
 
 	err := rbr.Rollback(context.TODO())
-	assert.ErrorIs(t, err, happendErr)
+	assert.ErrorIs(t, err, occurredErr)
 	assert.Exactly(t, want, added)
 }
 
@@ -120,17 +118,14 @@ func TestRollbacker_RollbackForPanicWithRepanic_ShouldCallRollback_WhenPanicOccu
 		},
 	}
 
-	go func() {
-		assert.Panics(
-			t,
-			func() {
-				defer rbr.RollbackForPanicWithRepanic(context.TODO())
-				panic("panic occurred!!!")
-			},
-		)
+	defer func() {
+		assert.NotNil(t, recover())
 	}()
 
-	times.C.Sleep(time.Second)
+	func() {
+		defer rbr.RollbackForPanicWithRepanic(context.TODO())
+		panic("panic occurred!!!")
+	}()
 
 	assert.Exactly(t, result, want)
 }
@@ -151,11 +146,9 @@ func TestRollbacker_RollbackForPanic_ShouldNotCallRollback_WhenNoPanic(t *testin
 		},
 	}
 
-	go func() {
-		defer rbr.RollbackForPanicWithRepanic(context.TODO())
+	func() {
+		rbr.RollbackForPanicWithRepanic(context.TODO())
 	}()
-
-	times.C.Sleep(time.Second)
 
 	assert.Exactly(t, addTarget, want)
 }
