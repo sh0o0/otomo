@@ -13,7 +13,6 @@ import (
 
 type ErrorPresenter struct{}
 
-// TODO: Write tests
 func (pr *ErrorPresenter) ErrorOutput(
 	ctx context.Context, err error,
 ) *status.Status {
