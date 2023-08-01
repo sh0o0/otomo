@@ -35,7 +35,7 @@ func (u *ChatWithOtomoUseCase) MessageToOtomo(
 	text string,
 ) (*message.MessageWithOtomo, error) {
 	var rollbacker = u.rbFactory.New()
-	defer rollbacker.RollbackForPanic(ctx)
+	defer rollbacker.RollbackForPanicWithRepanic(ctx)
 
 	msg := message.NewMessageWithOtomo(
 		userID,

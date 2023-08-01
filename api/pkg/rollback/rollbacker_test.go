@@ -103,17 +103,17 @@ func TestRollbacker_Rollback_ShouldReturnErrAndBeIntSlice31_WhenHappendErrAtSeco
 	assert.Exactly(t, want, added)
 }
 
-func TestRollbacker_RollbackForPanic_ShouldCallRollback_WhenHappendPanic(t *testing.T) {
+func TestRollbacker_RollbackForPanicWithRepanic_ShouldCallRollback_WhenPanicOccurred(t *testing.T) {
 	var (
-		addTarget = []int{}
-		want      = []int{1}
+		result = []int{}
+		want   = []int{1}
 	)
 	rbr := &Rollbacker{
 		rollbacks: []*rollback{
 			{
 				description: "add 1",
 				funk: func(c context.Context) error {
-					addTarget = append(addTarget, 1)
+					result = append(result, 1)
 					return nil
 				},
 			},
@@ -121,13 +121,18 @@ func TestRollbacker_RollbackForPanic_ShouldCallRollback_WhenHappendPanic(t *test
 	}
 
 	go func() {
-		defer rbr.RollbackForPanic(context.TODO())
-		panic("happend panic error!!!")
+		assert.Panics(
+			t,
+			func() {
+				defer rbr.RollbackForPanicWithRepanic(context.TODO())
+				panic("panic occurred!!!")
+			},
+		)
 	}()
 
 	times.C.Sleep(time.Second)
 
-	assert.Exactly(t, addTarget, want)
+	assert.Exactly(t, result, want)
 }
 func TestRollbacker_RollbackForPanic_ShouldNotCallRollback_WhenNoPanic(t *testing.T) {
 	var (
@@ -147,7 +152,7 @@ func TestRollbacker_RollbackForPanic_ShouldNotCallRollback_WhenNoPanic(t *testin
 	}
 
 	go func() {
-		defer rbr.RollbackForPanic(context.TODO())
+		defer rbr.RollbackForPanicWithRepanic(context.TODO())
 	}()
 
 	times.C.Sleep(time.Second)

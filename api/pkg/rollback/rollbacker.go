@@ -71,17 +71,26 @@ func (rbr *Rollbacker) Rollback(ctx context.Context) error {
 	return ers
 }
 
-// Usage: defer rb.RollbackForPanic()
-func (rbr *Rollbacker) RollbackForPanic(ctx context.Context) error {
-	if err := recover(); err != nil {
-		log.FromContext(ctx).Warn(
-			"Start rollback for panic",
-			log.Bool("is_rollback", true),
-			log.Any("panic_description", err),
-		)
-		return rbr.Rollback(ctx)
+func (rbr *Rollbacker) RollbackForPanicWithRepanic(ctx context.Context) {
+	panik := recover()
+	if panik == nil {
+		return
 	}
-	return nil
+
+	log.FromContext(ctx).Warn(
+		"Start rollback for panic",
+		log.Bool("is_rollback", true),
+		log.Any("panic_description", panik),
+	)
+	if err := rbr.Rollback(ctx); err != nil {
+		log.FromContext(ctx).Warn(
+			"A error occurred while rollback for panic",
+			log.Error(err),
+		)
+
+	}
+
+	panic(panik)
 }
 
 func (rbr *Rollbacker) copyReverseRollbacks() []*rollback {

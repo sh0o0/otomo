@@ -15,6 +15,6 @@ type (
 			rollbackFunc func(ctx context.Context) error,
 		)
 		Rollback(ctx context.Context) error
-		RollbackForPanic(ctx context.Context) error
+		RollbackForPanicWithRepanic(ctx context.Context)
 	}
 )
