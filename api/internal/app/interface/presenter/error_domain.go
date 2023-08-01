@@ -1,6 +1,5 @@
 package presenter
 
 const (
-	ErrDomainTrip    = "trip"
-	ErrDomainProfile = "profile"
+	ErrDomainMessageWithOtomo = "message_with_otomo"
 )
