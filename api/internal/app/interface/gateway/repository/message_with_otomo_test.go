@@ -5,6 +5,7 @@ import (
 	"otomo/internal/app/domain/entity/message"
 	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/interface/gateway/repository/model"
+	"otomo/pkg/errs"
 	"otomo/pkg/times"
 	"otomo/pkg/uuid"
 	"otomo/test/systemtest"
@@ -20,10 +21,10 @@ func init() {
 	testutil.SetMockClock()
 }
 
-var messageWithOtomoRepo = NewMessageWithOtomoRepository(systemtest.FirestoreClient)
+var msgWithOtomoRepo = NewMessageWithOtomoRepository(systemtest.FirestoreClient)
 
 // TODO: Add test cases
-func TestMessageWithOtomoRepository_Add(t *testing.T) {
+func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx = context.Background()
 		giveMsg = message.RestoreMessageWithOtomo(
@@ -36,7 +37,7 @@ func TestMessageWithOtomoRepository_Add(t *testing.T) {
 		)
 	)
 
-	if err := messageWithOtomoRepo.Add(giveCtx, giveMsg); err != nil {
+	if err := msgWithOtomoRepo.Add(giveCtx, giveMsg); err != nil {
 		t.Fatal(err)
 	}
 
@@ -60,7 +61,28 @@ func TestMessageWithOtomoRepository_Add(t *testing.T) {
 
 	assert.Equal(t, giveMsg, got)
 }
-func TestMessageWithOtomoRepository_DeleteByIDAndUserID(t *testing.T) {
+
+func TestMessageWithOtomoRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T) {
+	var (
+		giveCtx = context.Background()
+		giveMsg = message.RestoreMessageWithOtomo(
+			message.MessageWithOtomoID(uuid.NewString()),
+			user.ID(uuid.NewString()),
+			message.OtomoRole,
+			message.UserRole,
+			"test test test test test ",
+			times.C.Now(),
+		)
+	)
+
+	if err := msgWithOtomoRepo.Add(giveCtx, giveMsg); err != nil {
+		t.Fatal(err)
+	}
+	err := msgWithOtomoRepo.Add(giveCtx, giveMsg)
+	assert.Error(t, err)
+}
+
+func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx = context.Background()
 		giveMsg = message.NewMessageWithOtomo(
@@ -71,10 +93,10 @@ func TestMessageWithOtomoRepository_DeleteByIDAndUserID(t *testing.T) {
 		)
 	)
 
-	if err := messageWithOtomoRepo.Add(giveCtx, giveMsg); err != nil {
+	if err := msgWithOtomoRepo.Add(giveCtx, giveMsg); err != nil {
 		t.Fatal(err)
 	}
-	if err := messageWithOtomoRepo.DeleteByIDAndUserID(
+	if err := msgWithOtomoRepo.DeleteByIDAndUserID(
 		giveCtx, giveMsg.ID(), giveMsg.UserID()); err != nil {
 		t.Fatal(err)
 	}
@@ -86,4 +108,20 @@ func TestMessageWithOtomoRepository_DeleteByIDAndUserID(t *testing.T) {
 		t.Fatal("message should be deleted")
 	}
 	assert.Equal(t, codes.NotFound, status.Code(err))
+}
+
+func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldReturnNotFoundErr_WhenDeleteMsgNotExist(t *testing.T) {
+	var (
+		giveCtx    = context.Background()
+		giveMsgID  = message.MessageWithOtomoID(uuid.NewString())
+		giveUserID = user.ID(uuid.NewString())
+	)
+
+	err := msgWithOtomoRepo.DeleteByIDAndUserID(
+		giveCtx,
+		giveMsgID,
+		giveUserID,
+	)
+
+	assert.True(t, errs.IsNotFoundErr(err))
 }

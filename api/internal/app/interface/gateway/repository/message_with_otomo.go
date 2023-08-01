@@ -47,10 +47,14 @@ func (r *MessageWithOtomoRepository) DeleteByIDAndUserID(
 	id message.MessageWithOtomoID,
 	userID user.ID,
 ) error {
-	_, err := r.fsClient.
-		Doc(getMessageDocPath(string(userID), string(id))).
-		Delete(ctx)
+	msgDoc := r.fsClient.
+		Doc(getMessageDocPath(string(userID), string(id)))
 
-	return ifCodesNotFoundReturnErrsNotFound(
-		err, errs.DomainMessageWithOtomo, errs.FieldID)
+	if _, err := msgDoc.Get(ctx); err != nil {
+		return ifCodesNotFoundReturnErrsNotFound(
+			err, errs.DomainMessageWithOtomo, errs.FieldID)
+	}
+
+	_, err := msgDoc.Delete(ctx)
+	return err
 }
