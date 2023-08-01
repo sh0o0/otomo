@@ -23,7 +23,6 @@ func init() {
 
 var msgWithOtomoRepo = NewMessageWithOtomoRepository(systemtest.FirestoreClient)
 
-// TODO: Add test cases
 func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx = context.Background()
