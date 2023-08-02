@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"errors"
 	"otomo/internal/app/domain/entity/message"
 	"otomo/internal/app/domain/entity/user"
 	"otomo/internal/app/interface/controller/grpc/grpcgen"
@@ -14,6 +15,8 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type chatWithOtomoControllerFields struct {
@@ -42,7 +45,8 @@ func TestChatWithOtomoController_MessageToOtomo(t *testing.T) {
 			message.UserRole,
 			"Hello, User!",
 		)
-		output = &grpcgen.ChatWithOtomoMessageToOtomoResponse{}
+		output  = &grpcgen.ChatWithOtomoMessageToOtomoResponse{}
+		testErr = errors.New("test error")
 	)
 	type args struct {
 		ctx context.Context
@@ -86,7 +90,35 @@ func TestChatWithOtomoController_MessageToOtomo(t *testing.T) {
 			want:      output,
 			wantIsErr: false,
 		},
-		// TODO: Add tests for occurs error
+		{
+			name: strings.Join([]string{
+				"should return error",
+				"when use case return error",
+			}, " "),
+			fields: func() *chatWithOtomoControllerFields {
+				fields := newChatWithOtomoControllerFields(t)
+				fields.useCase.
+					EXPECT().
+					MessageToOtomo(
+						giveCtxWithUseID,
+						userID,
+						giveText,
+					).Return(nil, testErr).
+					Times(1)
+				fields.presenter.
+					EXPECT().
+					ErrorOutput(giveCtxWithUseID, testErr).
+					Return(status.New(codes.Internal, testErr.Error())).
+					Times(1)
+				return fields
+			}(),
+			args: args{
+				ctx: giveCtxWithUseID,
+				req: &grpcgen.ChatWithOtomoMessageToOtomoRequest{Text: giveText},
+			},
+			want:      nil,
+			wantIsErr: true,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
