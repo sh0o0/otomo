@@ -12,7 +12,10 @@ import (
 
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
 
-type ChatController struct {
+type ChatController struct{}
+
+func NewChatController() *ChatController {
+	return &ChatController{}
 }
 
 func (c *ChatController) SendMessage(
