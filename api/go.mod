@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/envoyproxy/protoc-gen-validate v1.0.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/lyft/protoc-gen-star/v2 v2.0.3 // indirect
 	github.com/spf13/afero v1.3.3 // indirect
