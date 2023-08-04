@@ -175,6 +175,29 @@
         
           
           <li>
+            <a href="#chat_service_service.proto">chat_service_service.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.ChatService_SendMessageRequest"><span class="badge">M</span>ChatService_SendMessageRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ChatService_SendMessageStreamResponse"><span class="badge">M</span>ChatService_SendMessageStreamResponse</a>
+                </li>
+              
+              
+              
+              
+                <li>
+                  <a href="#.ChatService"><span class="badge">S</span>ChatService</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
             <a href="#health.proto">health.proto</a>
             <ul>
               
@@ -196,6 +219,123 @@
       </ul>
     </div>
 
+    
+      
+      <div class="file-heading">
+        <h2 id="chat_service_service.proto">chat_service_service.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".ChatService_SendMessageRequest">ChatService_SendMessageRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>text</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+            
+            
+            <h4>Validated Fields</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Field</td>
+                  <td>Validations</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>text</td>
+                  <td>
+                    <ul>
+                    
+                      <li>string.min_len: 1</li>
+                    
+                      <li>string.max_len: 10000</li>
+                    
+                    </ul>
+                  </td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
+          
+
+        
+      
+        <h3 id=".ChatService_SendMessageStreamResponse">ChatService_SendMessageStreamResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>text</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>sent_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+        <h3 id=".ChatService">ChatService</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>SendMessage</td>
+                <td><a href="#ChatService_SendMessageRequest">.ChatService_SendMessageRequest</a></td>
+                <td><a href="#ChatService_SendMessageStreamResponse">.ChatService_SendMessageStreamResponse</a> stream</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
     
       
       <div class="file-heading">

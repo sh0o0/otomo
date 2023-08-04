@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = ".;grpcgen";
+
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+
+
+service ChatService {
+  rpc SendMessage (ChatService_SendMessageRequest) returns (stream ChatService_SendMessageStreamResponse) {};
+};
+
+message ChatService_SendMessageRequest {
+    string text = 1 [(validate.rules).string.min_len = 1, (validate.rules).string.max_len = 10000];;
+};
+
+  message ChatService_SendMessageStreamResponse {
+    string text = 1;
+    google.protobuf.Timestamp sent_at = 2;
+};
+
