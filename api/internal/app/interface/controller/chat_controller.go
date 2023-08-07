@@ -5,7 +5,6 @@ import (
 	"otomo/internal/app/domain/model"
 	"otomo/internal/app/domain/repo"
 	"otomo/internal/app/interface/controller/grpc/grpcgen"
-	"otomo/internal/app/interface/presenter"
 	"otomo/pkg/ctxs"
 
 	"github.com/tmc/langchaingo/llms"
@@ -18,9 +17,12 @@ import (
 // TODO: Add presenter
 
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
+var (
+	ErrDomainMessage = "message"
+)
 
 type ChatController struct {
-	*presenter.ErrorPresenter
+	errorPresenter
 	chat       *openai.Chat
 	msgFactory *model.MessageFactory
 	msgRepo    repo.MessageRepository

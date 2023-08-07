@@ -1,4 +1,4 @@
-package presenter
+package controller
 
 import (
 	"context"
@@ -11,9 +11,9 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type ErrorPresenter struct{}
+type errorPresenter struct{}
 
-func (pr *ErrorPresenter) ErrorOutput(
+func (pr errorPresenter) ErrorOutput(
 	ctx context.Context, err error,
 ) *status.Status {
 	st, err := status.New(
@@ -26,7 +26,7 @@ func (pr *ErrorPresenter) ErrorOutput(
 	return st
 }
 
-func (pr *ErrorPresenter) getCode(err error) codes.Code {
+func (pr errorPresenter) getCode(err error) codes.Code {
 	var errsErr *errs.Error
 	if errors.As(err, &errsErr) {
 		return pr.getCodeFromErrsErr(errsErr)
@@ -34,7 +34,7 @@ func (pr *ErrorPresenter) getCode(err error) codes.Code {
 	return codes.Code(codes.Unknown)
 }
 
-func (pr *ErrorPresenter) getCodeFromErrsErr(errsErr *errs.Error) codes.Code {
+func (pr errorPresenter) getCodeFromErrsErr(errsErr *errs.Error) codes.Code {
 	var code = codes.Unknown
 
 	switch errsErr.Cause {
@@ -53,7 +53,7 @@ func (pr *ErrorPresenter) getCodeFromErrsErr(errsErr *errs.Error) codes.Code {
 	return code
 }
 
-func (pr *ErrorPresenter) getDetails(err error) []proto.Message {
+func (pr errorPresenter) getDetails(err error) []proto.Message {
 	var errsErr *errs.Error
 	if errors.As(err, &errsErr) {
 		return []proto.Message{

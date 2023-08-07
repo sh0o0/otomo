@@ -1,4 +1,4 @@
-package presenter
+package controller
 
 import (
 	"context"
@@ -57,7 +57,7 @@ func TestErrorPresenter_ErrorOutput(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			pr := &ErrorPresenter{}
+			pr := errorPresenter{}
 			got := pr.ErrorOutput(context.TODO(), tt.args.err)
 			assert.Exactly(t, got, tt.want)
 		})
@@ -120,7 +120,7 @@ func TestErrorPresenter_ErrorOutput_ForErrCodes(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			pr := &ErrorPresenter{}
+			pr := errorPresenter{}
 			got := pr.ErrorOutput(context.TODO(), tt.args.err)
 			assert.Exactly(t, got.Code(), tt.want)
 		})
