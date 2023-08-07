@@ -5,12 +5,12 @@ import (
 )
 
 type Message struct {
-	ID       string    `json:"id"`
-	UserID   string    `json:"user_id"`
-	Text     string    `json:"text"`
-	Sender   Role      `json:"sender"`
-	Receiver Role      `json:"receiver"`
-	SentAt   time.Time `json:"sent_at"`
+	ID       string    `firestore:"id"`
+	UserID   string    `firestore:"user_id"`
+	Text     string    `firestore:"text"`
+	Sender   Role      `firestore:"sender"`
+	Receiver Role      `firestore:"receiver"`
+	SentAt   time.Time `firestore:"sent_at"`
 }
 
 type Role string
