@@ -1,8 +1,6 @@
 package model
 
 import (
-	"otomo/pkg/times"
-	"otomo/pkg/uuid"
 	"time"
 )
 
@@ -13,22 +11,6 @@ type Message struct {
 	Sender   Role      `json:"sender"`
 	Receiver Role      `json:"receiver"`
 	SentAt   time.Time `json:"sent_at"`
-}
-
-func NewMessage(
-	userID string,
-	text string,
-	sender Role,
-	receiver Role,
-) *Message {
-	return &Message{
-		ID:       uuid.NewString(),
-		UserID:   userID,
-		Text:     text,
-		Sender:   sender,
-		Receiver: receiver,
-		SentAt:   times.C.Now(),
-	}
 }
 
 type Role string

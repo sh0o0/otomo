@@ -2,20 +2,37 @@ package controller
 
 import (
 	"context"
-	"fmt"
+	"otomo/internal/app/domain/model"
+	"otomo/internal/app/domain/repo"
 	"otomo/internal/app/interface/controller/grpc/grpcgen"
+	"otomo/internal/app/interface/presenter"
+	"otomo/pkg/ctxs"
 
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/llms/openai"
 	"github.com/tmc/langchaingo/schema"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
 
-type ChatController struct{}
+type ChatController struct {
+	*presenter.ErrorPresenter
+	chat       *openai.Chat
+	msgFactory *model.MessageFactory
+	msgRepo    repo.MessageRepository
+}
 
-func NewChatController() *ChatController {
-	return &ChatController{}
+func NewChatController(
+	chat *openai.Chat,
+	msgFactory *model.MessageFactory,
+	msgRepo repo.MessageRepository,
+) *ChatController {
+	return &ChatController{
+		chat:       chat,
+		msgFactory: msgFactory,
+		msgRepo:    msgRepo,
+	}
 }
 
 func (c *ChatController) SendMessage(
@@ -26,19 +43,50 @@ func (c *ChatController) SendMessage(
 	// STEP: make a reply
 	// STEP: response
 	// STEP: Add a message to the repo
-
-	llm, err := openai.NewChat()
+	userID, err := ctxs.UserIDFromContext(stream.Context())
 	if err != nil {
-		return err
+		return c.ErrorOutput(stream.Context(), err).Err()
 	}
-	completion, err := llm.Call(stream.Context(), []schema.ChatMessage{
-		schema.SystemChatMessage{Content: "Hello, I am a friendly chatbot. I love to talk about movies, books and music. Answer in long form yaml."},
-		schema.HumanChatMessage{Content: "What would be a good company name a company that makes colorful socks?"},
-	}, llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {
-		fmt.Print(string(chunk))
-		return nil
-	}),
+
+	msg, err := c.msgFactory.NewMessage(
+		userID,
+		req.Text,
+		model.UserRole,
+		model.OtomoRole,
 	)
-	fmt.Println(completion)
-	return err
+	if err != nil {
+		return c.ErrorOutput(stream.Context(), err).Err()
+	}
+
+	if err := c.msgRepo.Add(stream.Context(), msg); err != nil {
+		return c.ErrorOutput(stream.Context(), err).Err()
+	}
+
+	completion, err := c.chat.Call(stream.Context(), []schema.ChatMessage{
+		schema.HumanChatMessage{Content: msg.Text},
+	}, llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {
+		stream.Send(&grpcgen.ChatService_SendMessageStreamResponse{
+			Text:   string(chunk),
+			SentAt: timestamppb.Now(),
+		})
+		return nil
+	}))
+	if err != nil {
+		return c.ErrorOutput(stream.Context(), err).Err()
+	}
+
+	reply, err := c.msgFactory.NewMessage(
+		userID,
+		completion.Content,
+		model.OtomoRole,
+		model.UserRole,
+	)
+	if err != nil {
+		return c.ErrorOutput(stream.Context(), err).Err()
+	}
+	if err := c.msgRepo.Add(stream.Context(), reply); err != nil {
+		return c.ErrorOutput(stream.Context(), err).Err()
+	}
+
+	return nil
 }

@@ -4,8 +4,10 @@ import (
 	"net"
 	"otomo/internal/app/interface/controller"
 	"otomo/internal/app/interface/controller/grpc/grpcgen"
+	"otomo/pkg/logs"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -18,6 +20,7 @@ func execute() error {
 	s := grpc.NewServer()
 	grpcgen.RegisterHealthServiceServer(s, controller.NewHealthController())
 	grpcgen.RegisterChatServiceServer(s, controller.NewChatController())
+	reflection.Register(s)
 
 	var (
 		network = "tcp"
@@ -28,5 +31,7 @@ func execute() error {
 		return err
 	}
 
+	logs.Logger.Info("Listen Info", logs.String("Address", address))
+	logs.Logger.Info("============ Start serve ============")
 	return s.Serve(lis)
 }
