@@ -14,6 +14,9 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+// TODO: Add tests
+// TODO: Add presenter
+
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
 
 type ChatController struct {
