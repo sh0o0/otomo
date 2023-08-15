@@ -5,6 +5,8 @@ import (
 	"otomo/pkg/uuid"
 )
 
+// TODO: Add tests
+
 type MessageFactory struct{}
 
 func NewMessageFactory() *MessageFactory {

@@ -7,6 +7,8 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+// TODO: Add tests
+
 func ifCodesNotFoundReturnErrsNotFound(
 	err error,
 	domain errs.Domain,
