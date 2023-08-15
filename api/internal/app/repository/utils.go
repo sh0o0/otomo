@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"otomo/pkg/errs"
+	"otomo/internal/pkg/errs"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

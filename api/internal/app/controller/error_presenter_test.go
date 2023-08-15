@@ -2,7 +2,7 @@ package controller
 
 import (
 	"context"
-	"otomo/pkg/errs"
+	"otomo/internal/pkg/errs"
 	"otomo/test/testutil"
 	"testing"
 

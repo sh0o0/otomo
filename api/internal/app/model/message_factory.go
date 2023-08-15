@@ -1,8 +1,8 @@
 package model
 
 import (
-	"otomo/pkg/times"
-	"otomo/pkg/uuid"
+	"otomo/internal/pkg/times"
+	"otomo/internal/pkg/uuid"
 )
 
 // TODO: Add tests

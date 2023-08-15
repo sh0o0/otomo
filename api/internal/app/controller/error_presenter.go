@@ -3,7 +3,7 @@ package controller
 import (
 	"context"
 	"errors"
-	"otomo/pkg/errs"
+	"otomo/internal/pkg/errs"
 
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"

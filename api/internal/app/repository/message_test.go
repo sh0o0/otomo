@@ -3,9 +3,9 @@ package repository
 import (
 	"context"
 	"otomo/internal/app/model"
-	"otomo/pkg/errs"
-	"otomo/pkg/times"
-	"otomo/pkg/uuid"
+	"otomo/internal/pkg/errs"
+	"otomo/internal/pkg/times"
+	"otomo/internal/pkg/uuid"
 	"otomo/test/systemtest"
 	"otomo/test/testutil"
 	"testing"

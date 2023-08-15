@@ -1,7 +1,7 @@
 package main
 
 import (
-	"otomo/pkg/logs"
+	"otomo/internal/pkg/logs"
 
 	"go.uber.org/zap/zapcore"
 )

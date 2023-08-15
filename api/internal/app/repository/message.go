@@ -4,7 +4,7 @@ import (
 	"context"
 	"otomo/internal/app/controller/repo"
 	"otomo/internal/app/model"
-	"otomo/pkg/errs"
+	"otomo/internal/pkg/errs"
 
 	"cloud.google.com/go/firestore"
 )

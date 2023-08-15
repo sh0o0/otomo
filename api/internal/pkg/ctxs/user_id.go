@@ -2,7 +2,7 @@ package ctxs
 
 import (
 	"context"
-	"otomo/pkg/errs"
+	"otomo/internal/pkg/errs"
 )
 
 type ctxUserIDKey struct{}

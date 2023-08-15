@@ -1,7 +1,7 @@
 package testutil
 
 import (
-	"otomo/pkg/times"
+	"otomo/internal/pkg/times"
 	"time"
 )
 

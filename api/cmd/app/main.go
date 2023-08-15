@@ -7,7 +7,7 @@ import (
 	"otomo/internal/app/grpcgen"
 	"otomo/internal/app/model"
 	"otomo/internal/app/repository"
-	"otomo/pkg/logs"
+	"otomo/internal/pkg/logs"
 
 	"cloud.google.com/go/firestore"
 	"github.com/getsentry/sentry-go"

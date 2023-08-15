@@ -5,7 +5,7 @@ import (
 	"otomo/internal/app/controller/repo"
 	"otomo/internal/app/grpcgen"
 	"otomo/internal/app/model"
-	"otomo/pkg/ctxs"
+	"otomo/internal/pkg/ctxs"
 
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/llms/openai"
