@@ -13,3 +13,12 @@ func contextUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 		),
 	)
 }
+
+func contextStreamServerInterceptor() grpc.StreamServerInterceptor {
+	// Create a server, make sure we put the grpc_ctxtags context before everything else.
+	return grpc_ctxtags.StreamServerInterceptor(
+		grpc_ctxtags.WithFieldExtractor(
+			grpc_ctxtags.CodeGenRequestFieldExtractor,
+		),
+	)
+}

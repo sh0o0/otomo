@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func OtomoServerOption(
+func OtomoUnaryServerOption(
 	logger *zap.Logger,
 	gcpProjectID string,
 	authFunc func(ctx context.Context) (context.Context, error),
@@ -22,9 +22,23 @@ func OtomoServerOption(
 	return grpc.ChainUnaryInterceptor(
 		contextUnaryServerInterceptor(),
 		gRPCZapUnaryServerInterceptor(logger),
-		injectTraceUnaryServerInterceptor(logger, gcpProjectID),
-		authInterceptor(authFunc),
+		injectTraceLoggerUnaryServerInterceptor(logger, gcpProjectID),
+		authUnaryServerInterceptor(authFunc),
 		withUserIDLoggerUnaryServerInterceptor(),
+	)
+}
+
+func OtomoStreamServerOption(
+	logger *zap.Logger,
+	gcpProjectID string,
+	authFunc func(ctx context.Context) (context.Context, error),
+) grpc.ServerOption {
+	return grpc.ChainStreamInterceptor(
+		contextStreamServerInterceptor(),
+		gRPCZapStreamServerInterceptor(logger),
+		injectTraceLoggerStreamServerInterceptor(logger, gcpProjectID),
+		authStreamServerInterceptor(authFunc),
+		withUserIDLoggerStreamServerInterceptor(),
 	)
 }
 

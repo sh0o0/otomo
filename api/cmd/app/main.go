@@ -122,7 +122,12 @@ func newServer() (*grpc.Server, error) {
 
 	s := grpc.NewServer(
 		middleware.RecoverServerOption(),
-		middleware.OtomoServerOption(
+		middleware.OtomoUnaryServerOption(
+			logs.Logger,
+			conf.GcpProjectID,
+			authCtrl.Authorization,
+		),
+		middleware.OtomoStreamServerOption(
 			logs.Logger,
 			conf.GcpProjectID,
 			authCtrl.Authorization,
