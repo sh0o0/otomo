@@ -1,4 +1,4 @@
-package controller
+package service
 
 import (
 	"context"
@@ -24,7 +24,7 @@ type AuthVerifyService struct {
 	usernamePasswordMap map[string]string
 }
 
-func NewAuthVerifySerivce(
+func NewAuthVerifyService(
 	idTokenVerifier IDTokenVerifier,
 	usernamePasswordMap map[string]string,
 ) *AuthVerifyService {

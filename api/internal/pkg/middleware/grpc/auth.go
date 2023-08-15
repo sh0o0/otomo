@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func AuthInterceptor(
+func authInterceptor(
 	authFunc func(ctx context.Context) (context.Context, error),
 ) grpc.UnaryServerInterceptor {
 	return grpc_auth.UnaryServerInterceptor(authFunc)

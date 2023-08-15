@@ -1,6 +1,8 @@
 package middleware
 
 import (
+	"context"
+
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 
@@ -15,13 +17,13 @@ import (
 func OtomoServerOption(
 	logger *zap.Logger,
 	gcpProjectID string,
-	// idTokenVerifier AuthVerifier,
+	authFunc func(ctx context.Context) (context.Context, error),
 ) grpc.ServerOption {
 	return grpc.ChainUnaryInterceptor(
 		contextUnaryServerInterceptor(),
 		gRPCZapUnaryServerInterceptor(logger),
 		injectTraceUnaryServerInterceptor(logger, gcpProjectID),
-		// AuthInterceptor(idTokenVerifier),
+		authInterceptor(authFunc),
 		withUserIDLoggerUnaryServerInterceptor(),
 	)
 }

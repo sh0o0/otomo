@@ -28,16 +28,3 @@ func setupLogger(
 	logs.Logger = logger
 	return nil
 }
-
-func printEnv(
-	conf Conf,
-) {
-	logs.Logger.Info("[ Environment ]")
-
-	es, err := conf.String()
-	if err != nil {
-		logs.Logger.Warn(err.Error())
-	} else {
-		logs.Logger.Info(es)
-	}
-}
