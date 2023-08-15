@@ -3,11 +3,12 @@ package controller
 import (
 	"context"
 	"errors"
+	"otomo/internal/app/controller"
 
 	"firebase.google.com/go/auth"
 )
 
-var _ AuthVerifier = (*AuthVerifierImpl)(nil)
+var _ controller.AuthVerifier = (*AuthVerifyService)(nil)
 
 //go:generate mockgen -source=$GOFILE -destination=mock_$GOPACKAGE/$GOFILE -package=mock_$GOPACKAGE
 
@@ -18,29 +19,29 @@ type IDTokenVerifier interface {
 	) (*auth.Token, error)
 }
 
-type AuthVerifierImpl struct {
+type AuthVerifyService struct {
 	idTokenVerifier     IDTokenVerifier
 	usernamePasswordMap map[string]string
 }
 
-func NewAuthVerifierImpl(
+func NewAuthVerifySerivce(
 	idTokenVerifier IDTokenVerifier,
 	usernamePasswordMap map[string]string,
-) *AuthVerifierImpl {
-	return &AuthVerifierImpl{
+) *AuthVerifyService {
+	return &AuthVerifyService{
 		idTokenVerifier:     idTokenVerifier,
 		usernamePasswordMap: usernamePasswordMap,
 	}
 }
 
-func (av *AuthVerifierImpl) VerifyIDTokenAndCheckRevoked(
+func (av *AuthVerifyService) VerifyIDTokenAndCheckRevoked(
 	ctx context.Context,
 	tokenStr string,
 ) (*auth.Token, error) {
 	return av.idTokenVerifier.VerifyIDTokenAndCheckRevoked(ctx, tokenStr)
 }
 
-func (av *AuthVerifierImpl) VerifyUsernameAndPassword(
+func (av *AuthVerifyService) VerifyUsernameAndPassword(
 	ctx context.Context,
 	username,
 	password string,

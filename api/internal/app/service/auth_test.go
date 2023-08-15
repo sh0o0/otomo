@@ -14,19 +14,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type authVerifierImplFields struct {
+type authVerifyServiceFields struct {
 	idTokenVerifier     *mock_controller.MockIDTokenVerifier
 	usernamePasswordMap map[string]string
 }
 
-func newAuthVerifierImplFields(t *testing.T) authVerifierImplFields {
+func newAuthVerifyFields(t *testing.T) authVerifyServiceFields {
 	mockCtrl := gomock.NewController(t)
 	idTokenVerifier := mock_controller.NewMockIDTokenVerifier(mockCtrl)
-	return authVerifierImplFields{
+	return authVerifyServiceFields{
 		idTokenVerifier: idTokenVerifier,
 	}
 }
-func TestAuthVerifierImpl_VerifyIDTokenAndCheckRevoked(t *testing.T) {
+func TestAuthVerifyService_VerifyIDTokenAndCheckRevoked(t *testing.T) {
 	var (
 		ctx      = context.TODO()
 		tokenStr = uuid.NewString()
@@ -38,7 +38,7 @@ func TestAuthVerifierImpl_VerifyIDTokenAndCheckRevoked(t *testing.T) {
 	}
 	tests := []struct {
 		name      string
-		fields    authVerifierImplFields
+		fields    authVerifyServiceFields
 		args      args
 		want      *auth.Token
 		wantIsErr bool
@@ -48,8 +48,8 @@ func TestAuthVerifierImpl_VerifyIDTokenAndCheckRevoked(t *testing.T) {
 				"should return Token",
 				"when input valid token string",
 			}, " "),
-			fields: func() authVerifierImplFields {
-				fields := newAuthVerifierImplFields(t)
+			fields: func() authVerifyServiceFields {
+				fields := newAuthVerifyFields(t)
 				fields.idTokenVerifier.
 					EXPECT().
 					VerifyIDTokenAndCheckRevoked(ctx, tokenStr).
@@ -66,8 +66,8 @@ func TestAuthVerifierImpl_VerifyIDTokenAndCheckRevoked(t *testing.T) {
 				"should return error",
 				"when input invalid token string",
 			}, " "),
-			fields: func() authVerifierImplFields {
-				fields := newAuthVerifierImplFields(t)
+			fields: func() authVerifyServiceFields {
+				fields := newAuthVerifyFields(t)
 				fields.idTokenVerifier.
 					EXPECT().
 					VerifyIDTokenAndCheckRevoked(ctx, tokenStr).
@@ -84,13 +84,13 @@ func TestAuthVerifierImpl_VerifyIDTokenAndCheckRevoked(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			av := &AuthVerifierImpl{
+			av := &AuthVerifyService{
 				idTokenVerifier:     tt.fields.idTokenVerifier,
 				usernamePasswordMap: tt.fields.usernamePasswordMap,
 			}
 			got, err := av.VerifyIDTokenAndCheckRevoked(tt.args.ctx, tt.args.tokenStr)
 			if (err != nil) != tt.wantIsErr {
-				t.Errorf("AuthVerifierImpl.VerifyIDTokenAndCheckRevoked() error = %v, wantIsErr %v", err, tt.wantIsErr)
+				t.Errorf("AuthVerifyService.VerifyIDTokenAndCheckRevoked() error = %v, wantIsErr %v", err, tt.wantIsErr)
 				return
 			}
 			assert.Exactly(t, got, tt.want)
@@ -98,7 +98,7 @@ func TestAuthVerifierImpl_VerifyIDTokenAndCheckRevoked(t *testing.T) {
 	}
 }
 
-func TestAuthVerifierImpl_VerifyUsernameAndPassword(t *testing.T) {
+func TestAuthVerifyService_VerifyUsernameAndPassword(t *testing.T) {
 	var (
 		ctx                       = context.TODO()
 		username                  = uuid.NewString()
@@ -164,11 +164,11 @@ func TestAuthVerifierImpl_VerifyUsernameAndPassword(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			av := &AuthVerifierImpl{
+			av := &AuthVerifyService{
 				usernamePasswordMap: tt.usernamePasswordMapsField,
 			}
 			if err := av.VerifyUsernameAndPassword(tt.args.ctx, tt.args.username, tt.args.password); (err != nil) != tt.wantIsErr {
-				t.Errorf("AuthVerifierImpl.VerifyUsernameAndPassword() error = %v, wantIsErr %v", err, tt.wantIsErr)
+				t.Errorf("AuthVerifyService.VerifyUsernameAndPassword() error = %v, wantIsErr %v", err, tt.wantIsErr)
 			}
 		})
 	}
