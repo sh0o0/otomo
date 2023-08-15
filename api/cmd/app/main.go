@@ -8,6 +8,7 @@ import (
 	"otomo/internal/app/model"
 	"otomo/internal/app/repository"
 	"otomo/internal/pkg/logs"
+	middleware "otomo/internal/pkg/middleware/grpc"
 
 	"cloud.google.com/go/firestore"
 	"github.com/getsentry/sentry-go"
@@ -52,7 +53,10 @@ func execute() error {
 		return err
 	}
 
-	s := grpc.NewServer()
+	s := grpc.NewServer(
+		middleware.RecoverServerOption(),
+		middleware.OtomoServerOption(logs.Logger, conf.GcpProjectID),
+	)
 	grpcgen.RegisterHealthServiceServer(s, controller.NewHealthController())
 	grpcgen.RegisterChatServiceServer(s, controller.NewChatController(
 		chat,
