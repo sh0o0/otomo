@@ -2,9 +2,9 @@ package controller
 
 import (
 	"context"
-	"otomo/internal/app/domain/model"
-	"otomo/internal/app/domain/repo"
-	"otomo/internal/app/interface/controller/grpc/grpcgen"
+	"otomo/internal/app/controller/repo"
+	"otomo/internal/app/grpcgen"
+	"otomo/internal/app/model"
 	"otomo/pkg/ctxs"
 
 	"github.com/tmc/langchaingo/llms"

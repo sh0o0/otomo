@@ -36,10 +36,10 @@ protoc \
     -I ${GOPATH}/src \
     -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
     -I ${PROTO_DIR} \
-    --go_out=$API_DIR/internal/app/interface/controller/grpc/grpcgen/ \
     --go-grpc_opt=require_unimplemented_servers=false \
-    --go-grpc_out=$API_DIR/internal/app/interface/controller/grpc/grpcgen/ \
-    --validate_out="lang=go:$API_DIR/internal/app/interface/controller/grpc/grpcgen/" \
+    --go_out=$API_DIR/internal/app/grpcgen/ \
+    --go-grpc_out=$API_DIR/internal/app/grpcgen/ \
+    --validate_out="lang=go:$API_DIR/internal/app/grpcgen/" \
     --doc_out=html,grpc.html:$DOCS_DIR/grpc/ \
     $PROTO_FILES
 

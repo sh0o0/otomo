@@ -2,8 +2,8 @@ package repository
 
 import (
 	"context"
-	"otomo/internal/app/domain/model"
-	"otomo/internal/app/domain/repo"
+	"otomo/internal/app/controller/repo"
+	"otomo/internal/app/model"
 	"otomo/pkg/errs"
 
 	"cloud.google.com/go/firestore"

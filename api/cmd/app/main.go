@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"net"
-	"otomo/internal/app/domain/model"
-	"otomo/internal/app/interface/controller"
-	"otomo/internal/app/interface/controller/grpc/grpcgen"
-	"otomo/internal/app/interface/gateway/repository"
+	"otomo/internal/app/controller"
+	"otomo/internal/app/grpcgen"
+	"otomo/internal/app/model"
+	"otomo/internal/app/repository"
 	"otomo/pkg/logs"
 
 	"cloud.google.com/go/firestore"

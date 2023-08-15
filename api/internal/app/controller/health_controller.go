@@ -2,7 +2,7 @@ package controller
 
 import (
 	"context"
-	"otomo/internal/app/interface/controller/grpc/grpcgen"
+	"otomo/internal/app/grpcgen"
 
 	"google.golang.org/protobuf/types/known/emptypb"
 )

@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"otomo/internal/app/domain/model"
+	"otomo/internal/app/model"
 	"otomo/pkg/errs"
 	"otomo/pkg/times"
 	"otomo/pkg/uuid"
