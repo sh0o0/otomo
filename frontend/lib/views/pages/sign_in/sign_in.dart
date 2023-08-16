@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:otomo/views/bases/layouts/app_safe_area.dart';
 import 'package:otomo/views/bases/screens/app_scaffold.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/tappable_text.dart';
+import 'package:otomo/views/router.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -24,7 +26,7 @@ class SignInPage extends StatelessWidget {
                 textStyle: theme.textTheme.bodyLarge?.copyWith(
                   decoration: TextDecoration.underline,
                 ),
-                onTap: () => Navigator.pushNamed(context, '/sign-up'),
+                onTap: () => context.go(Routes.signInWithEmailLink)
               ),
             ],
           ),
