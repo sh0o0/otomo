@@ -40,6 +40,9 @@ dependencies:
   # workaround: https://github.com/jamesblasco/modal_bottom_sheet/issues/325
   modal_bottom_sheet: ^3.0.0-pre
 
+  ### gRPC
+  grpc: ^3.2.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

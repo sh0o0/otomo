@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
-import 'package:otomo/models/settings/color.dart';
-import 'package:otomo/views/domains/home/home.dart';
+import 'package:otomo/viewmodels/settings/color.dart';
+import 'package:otomo/views/screens/home/home.dart';
 
 class App extends HookConsumerWidget {
   const App({super.key});
