@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/viewmodels/home/home.dart';
-import 'package:otomo/views/screens/account/account.dart';
-import 'package:otomo/views/screens/home/bases/bottom_navigation.dart';
-import 'package:otomo/views/screens/map/map.dart';
+import 'package:otomo/views/pages/account/account.dart';
+import 'package:otomo/views/pages/home/bases/bottom_navigation.dart';
+import 'package:otomo/views/pages/map/map.dart';
 
 class Home extends HookConsumerWidget {
   const Home({super.key});

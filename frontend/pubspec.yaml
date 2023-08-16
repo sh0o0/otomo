@@ -39,6 +39,8 @@ dependencies:
   hooks_riverpod: ^2.3.6
   # workaround: https://github.com/jamesblasco/modal_bottom_sheet/issues/325
   modal_bottom_sheet: ^3.0.0-pre
+  go_router: ^10.0.0
+  go_router_builder: ^2.3.0
 
   ### gRPC
   grpc: ^3.2.3
