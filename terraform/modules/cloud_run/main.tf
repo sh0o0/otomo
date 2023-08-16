@@ -15,7 +15,7 @@ resource "google_cloud_run_service" "default" {
   template {
     spec {
       containers {
-        image = "asia.gcr.io/${var.gcp_project_id}/${var.cloud_run_image_name}"
+        image = "us.gcr.io/${var.gcp_project_id}/${var.cloud_run_image_name}"
         env {
           name  = "API_DEBUG"
           value = "true"

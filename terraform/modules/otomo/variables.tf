@@ -52,3 +52,8 @@ variable "android_package_name" {
   description = "the android package name for firebase"
   type        = string
 }
+
+variable "ios_bundle_name" {
+  description = "the ios package name"
+  type        = string
+}

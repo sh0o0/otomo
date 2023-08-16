@@ -21,4 +21,5 @@ module "otomo" {
   basic_auth_pairs                    = var.basic_auth_pairs
   gcp_billing_account_id              = var.gcp_billing_account_id
   android_package_name                = var.android_package_name
+  ios_bundle_name                    = var.ios_bundle_name
 }

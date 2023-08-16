@@ -49,6 +49,11 @@ variable "gcp_billing_account_id" {
 }
 
 variable "android_package_name" {
-  description = "the android package name for firebase"
+  description = "the android package name"
+  type        = string
+}
+
+variable "ios_bundle_name" {
+  description = "the ios package name"
   type        = string
 }
