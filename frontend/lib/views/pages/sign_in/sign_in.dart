@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/bases/scaffolds/app_scaffold.dart';
-import 'package:otomo/views/bases/spaces/space.dart';
+import 'package:otomo/views/bases/layouts/app_safe_area.dart';
+import 'package:otomo/views/bases/screens/app_scaffold.dart';
+import 'package:otomo/views/bases/spaces/spaces.dart';
+import 'package:otomo/views/bases/texts/tappable_text.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return AppScaffold(
-      body: Column(
-        children: [
-          const Text('Otomo'),
-          const Space(height: 40),
-          TextButton(
-            onPressed: () => Navigator.pushNamed(context, '/sign-up'),
-            child: Text('Sign Up'),
+      body: AppSafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Otomo', style: theme.textTheme.displayLarge),
+              Spaces.h40,
+              TappableText(
+                'Continue with email',
+                textStyle: theme.textTheme.bodyLarge?.copyWith(
+                  decoration: TextDecoration.underline,
+                ),
+                onTap: () => Navigator.pushNamed(context, '/sign-up'),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

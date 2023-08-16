@@ -40,7 +40,6 @@ dependencies:
   # workaround: https://github.com/jamesblasco/modal_bottom_sheet/issues/325
   modal_bottom_sheet: ^3.0.0-pre
   go_router: ^10.0.0
-  go_router_builder: ^2.3.0
 
   ### gRPC
   grpc: ^3.2.3
@@ -58,6 +57,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+  ### Builder
+  build_runner:
+  go_router_builder: ^2.3.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
