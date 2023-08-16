@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = ".;grpcgen";
+import "google/protobuf/empty.proto";
+
+service HealthService {
+  rpc Check (google.protobuf.Empty) returns (HealthCheckResponse);
+};
+
+message HealthCheckResponse {
+  bool health = 1;
+};
+
