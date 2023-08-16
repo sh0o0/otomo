@@ -55,7 +55,7 @@ func execute() error {
 
 	var (
 		network = "tcp"
-		address = "" + ":" + "50051"
+		address = conf.ServerHost + ":" + conf.ServerPort
 	)
 	lis, err := net.Listen(network, address)
 	if err != nil {
