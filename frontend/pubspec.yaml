@@ -43,6 +43,9 @@ dependencies:
   ### gRPC
   grpc: ^3.2.3
 
+  ### Firebase
+  firebase_core: ^2.15.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
