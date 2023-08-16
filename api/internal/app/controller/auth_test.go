@@ -7,7 +7,7 @@ import (
 	"otomo/internal/app/controller/mock_controller"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/uuid"
-	"otomo/test/testgrpc"
+	"otomo/test/testutil"
 	"strings"
 	"testing"
 
@@ -202,10 +202,10 @@ func TestAuthInterceptor(t *testing.T) {
 				),
 			}
 
-			lis := testgrpc.NewListener()
-			server := testgrpc.ServeTestService(t, lis, sOpts...)
+			lis := testutil.NewListener()
+			server := testutil.ServeTestService(t, lis, sOpts...)
 			defer server.Stop()
-			conn, err := testgrpc.NewClientConn(lis)
+			conn, err := testutil.NewClientConn(lis)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -216,7 +216,7 @@ func TestAuthInterceptor(t *testing.T) {
 				ctx = metadata.AppendToOutgoingContext(ctx, k, v)
 			}
 
-			err = testgrpc.CallTestService(ctx, conn)
+			err = testutil.CallTestService(ctx, conn)
 			assert.Exactly(t, tt.wantCalledIsErr, err != nil)
 			if tt.wantCalledIsErr {
 				assert.Exactly(t, tt.wantCalledErrCode, status.Code(err))
