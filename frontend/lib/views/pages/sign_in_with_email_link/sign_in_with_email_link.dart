@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otomo/views/bases/buttons/rounded_filled_button.dart';
 import 'package:otomo/views/bases/layouts/app_safe_area.dart';
 import 'package:otomo/views/bases/screens/app_scaffold.dart';
 import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
@@ -30,8 +31,11 @@ class SignInWithEmailLinkPage extends StatelessWidget {
               RoundedTextFormField(
                 keyboardType: TextInputType.emailAddress,
                 hintText: 'Email',
+              ),
+              RoundedFilledButton(
+                onPressed: null,
+                child: Text('Continue'),
               )
-              // Button
             ],
           ),
         ),
