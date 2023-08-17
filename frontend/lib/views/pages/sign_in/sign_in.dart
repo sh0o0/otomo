@@ -26,7 +26,7 @@ class SignInPage extends StatelessWidget {
                 textStyle: theme.textTheme.bodyLarge?.copyWith(
                   decoration: TextDecoration.underline,
                 ),
-                onTap: () => context.go(Routes.signInWithEmailLink)
+                onTap: () => context.push(Routes.signInWithEmailLink),
               ),
             ],
           ),
