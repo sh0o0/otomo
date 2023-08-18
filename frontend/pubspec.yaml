@@ -40,12 +40,17 @@ dependencies:
   # workaround: https://github.com/jamesblasco/modal_bottom_sheet/issues/325
   modal_bottom_sheet: ^3.0.0-pre
   go_router: ^10.0.0
+  sign_in_button: ^3.2.0
 
   ### gRPC
   grpc: ^3.2.3
 
   ### Firebase
   firebase_core: ^2.15.0
+
+  ### Auth
+  firebase_auth: ^4.7.3
+  google_sign_in: ^6.1.4
 
 dev_dependencies:
   flutter_test:

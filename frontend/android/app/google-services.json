@@ -7,42 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:764287781247:android:92157adf72d4284938324a",
-        "android_client_info": {
-          "package_name": "com.example.otomo"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "764287781247-s126l14mr4ld8uikjj7lqemkestd4lq8.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "764287781247-s126l14mr4ld8uikjj7lqemkestd4lq8.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "764287781247-i2hns9ni5n8dpe52stfg3koh3iijab64.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.nakar0.otomo.develop"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:764287781247:android:b9adf9dd0437513d38324a",
         "android_client_info": {
           "package_name": "com.nakar0.otomo.develop"
@@ -50,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "764287781247-s126l14mr4ld8uikjj7lqemkestd4lq8.apps.googleusercontent.com",
+          "client_id": "764287781247-04jfo3485hq46egsobj35orn463v2lsq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nakar0.otomo.develop",
+            "certificate_hash": "bc843b984cf08dc2096c520328e026f1a083f37a"
+          }
+        },
+        {
+          "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -63,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "764287781247-s126l14mr4ld8uikjj7lqemkestd4lq8.apps.googleusercontent.com",
+              "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
               "client_type": 3
             },
             {

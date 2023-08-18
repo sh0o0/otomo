@@ -29,7 +29,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    namespace "com.example.otomo"
+    namespace "com.nakar0.otomo.develop"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
