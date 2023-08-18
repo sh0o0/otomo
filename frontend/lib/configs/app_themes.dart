@@ -21,6 +21,19 @@ abstract class AppThemes {
         color: Color(0xFFB5B5B8),
       ),
     ),
+    // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    //   backgroundColor:  Colors.white,
+    //   selectedItemColor: AppColors.lightBottomNavIconDisabled,
+    //   selectedIconTheme: IconThemeData(
+    //     size: 28,
+    //     color: AppColors.lightBottomNavIconDisabled,
+    //   ),
+    //   unselectedItemColor: AppColors.lightBottomNavIconDisabled,
+    //   unselectedIconTheme: IconThemeData(
+    //     size: 28,
+    //     color: Colors.white,
+    //   ),
+    // ),
   );
 
   // static final ThemeData oldLight = ThemeData(
@@ -29,19 +42,6 @@ abstract class AppThemes {
 
   //   // Fixed
   //   useMaterial3: true,
-  //   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-  //     backgroundColor: AppColors.lightBlack,
-  //     selectedItemColor: AppColors.white,
-  //     selectedIconTheme: IconThemeData(
-  //       size: 28,
-  //       color: AppColors.lightBlack,
-  //     ),
-  //     unselectedItemColor: AppColors.lightBlack,
-  //     unselectedIconTheme: IconThemeData(
-  //       size: 28,
-  //       color: AppColors.white,
-  //     ),
-  //   ),
   // );
   static final ThemeData dark = ThemeData.from(
     colorScheme: const ColorScheme.dark(),

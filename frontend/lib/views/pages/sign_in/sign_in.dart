@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/viewmodels/sign_in/sign_in.dart';
+import 'package:otomo/viewmodels/sign_in.dart';
 import 'package:otomo/views/bases/layouts/safe_area_layout.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
 import 'package:otomo/views/bases/screens/app_scaffold.dart';

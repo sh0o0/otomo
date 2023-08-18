@@ -1,13 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/viewmodels/home/home.dart';
+import 'package:otomo/viewmodels/home.dart';
+import 'package:otomo/views/bases/buttons/rounded_filled_button.dart';
 import 'package:otomo/views/pages/account/account.dart';
-import 'package:otomo/views/pages/home/bases/bottom_navigation.dart';
 import 'package:otomo/views/pages/map/map.dart';
 
-class Home extends HookConsumerWidget {
-  const Home({super.key});
+class HomePage extends HookConsumerWidget {
+  const HomePage({super.key});
 
   static final List<Widget> _pages = [
     const AppMap(),
@@ -26,10 +27,14 @@ class Home extends HookConsumerWidget {
         alignment: Alignment.center,
         children: [
           _pages[ref.read(homeIndexProvider)],
-          const Positioned(
-            bottom: 24,
-            child: BottomNavigation(),
+          RoundedFilledButton.large(
+            onPressed: FirebaseAuth.instance.signOut,
+            child: const Text('Sign out'),
           ),
+          // const Positioned(
+          //   bottom: 24,
+          //   child: BottomNavigation(),
+          // ),
         ],
       ),
     );
