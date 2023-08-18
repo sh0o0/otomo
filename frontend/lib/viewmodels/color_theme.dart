@@ -6,7 +6,9 @@ final colorThemeProvider = ChangeNotifierProvider((_) => ColorThemeViewModel());
 class ColorThemeViewModel extends ChangeNotifier {
   ColorThemeViewModel();
 
-  ThemeMode mode = ThemeMode.system;
+  // TODO: Implement system theme mode
+  // ThemeMode mode = ThemeMode.system;
+  ThemeMode mode = ThemeMode.light;
 
   void reset() {
     mode = ThemeMode.system;

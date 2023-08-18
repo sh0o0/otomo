@@ -10,6 +10,7 @@ module "firebase" {
   gcp_project_id                 = var.gcp_project_id
   default_google_project_service = module.google.default_google_project_service
   android_package_name           = var.android_package_name
+  ios_bundle_name               = var.ios_bundle_name
 }
 
 module "cloud_run" {

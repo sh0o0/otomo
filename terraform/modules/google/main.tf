@@ -39,6 +39,8 @@ resource "google_project_service" "default" {
     "compute.googleapis.com",
     "firebase.googleapis.com",
     "serviceusage.googleapis.com",
+    "firestore.googleapis.com",
+    "identitytoolkit.googleapis.com",
   ])
   service = each.key
 

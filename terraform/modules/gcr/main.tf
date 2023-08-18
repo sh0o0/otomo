@@ -6,5 +6,5 @@ resource "google_container_registry" "default" {
     var.default_google_project_service
   ]
 
-  location = "ASIA"
+  location = "US"
 }
