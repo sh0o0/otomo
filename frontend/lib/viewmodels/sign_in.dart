@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/injection.dart';
 
 final signInProvider = StateNotifierProvider((ref) {
   return SignInInNotifier();
@@ -9,21 +10,16 @@ final signInProvider = StateNotifierProvider((ref) {
 class SignInInNotifier extends StateNotifier<void> {
   SignInInNotifier() : super(null);
 
-  Future<void> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn(
-      scopes: ['email'],
-    ).signIn();
+  final _googleSignIn = getIt<GoogleSignIn>();
 
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+  Future<void> signInWithGoogle() async {
+    final googleUser = await _googleSignIn.signIn();
+    final googleAuth = await googleUser?.authentication;
 
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-
-    // Once signed in, return the UserCredential
-    final user = await FirebaseAuth.instance.signInWithCredential(credential);
-    print(user);
+    await getIt<FirebaseAuth>().signInWithCredential(credential);
   }
 }

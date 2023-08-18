@@ -52,8 +52,13 @@ dependencies:
   firebase_auth: ^4.7.3
   google_sign_in: ^6.1.4
 
+  ### DI
+  get_it: ^7.6.0
+  injectable: ^2.3.0
+
   ### Others
   logger: ^2.0.1
+
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +74,7 @@ dev_dependencies:
   ### Builder
   build_runner:
   go_router_builder: ^2.3.0
+  injectable_generator:
 
 
 # For information on the generic Dart part of this file, see the
