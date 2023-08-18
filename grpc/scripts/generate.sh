@@ -49,7 +49,7 @@ protoc \
     -I ${GOPATH}/src \
     -I ${GOPATH}/src/github.com/envoyproxy/protoc-gen-validate \
     -I ${PROTO_DIR} \
-    --dart_out=grpc:$FRONTEND_DIR/lib/interface/gateway/grpc/generated/ \
+    --dart_out=grpc:$FRONTEND_DIR/lib/grpc/generated/ \
     ${PROTO_DIR}/google/protobuf/timestamp.proto \
     ${PROTO_DIR}/google/protobuf/empty.proto \
     $PROTO_FILES
