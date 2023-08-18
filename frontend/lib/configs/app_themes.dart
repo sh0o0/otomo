@@ -12,27 +12,27 @@ abstract class AppThemes {
     ),
     useMaterial3: true,
   ).copyWith(
-    // textSelectionTheme: const TextSelectionThemeData(
-    //   cursorColor: AppColors.primary,
-    // ),
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: Color(0xFFE9E9EA),
       hintStyle: TextStyle(
         color: Color(0xFFB5B5B8),
       ),
     ),
-    // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    //   backgroundColor:  Colors.white,
-    //   selectedItemColor: AppColors.lightBottomNavIconDisabled,
-    //   selectedIconTheme: IconThemeData(
-    //     size: 28,
-    //     color: AppColors.lightBottomNavIconDisabled,
-    //   ),
-    //   unselectedItemColor: AppColors.lightBottomNavIconDisabled,
-    //   unselectedIconTheme: IconThemeData(
-    //     size: 28,
-    //     color: Colors.white,
-    //   ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      selectedItemColor: AppColors.primary,
+      selectedIconTheme: IconThemeData(
+        size: 28,
+        color: AppColors.primary,
+      ),
+      unselectedItemColor: AppColors.lightBottomNavIconDisabled,
+      unselectedIconTheme: IconThemeData(
+        size: 28,
+        color: AppColors.lightBottomNavIconDisabled,
+      ),
+    ),
+    // textSelectionTheme: const TextSelectionThemeData(
+    //   cursorColor: AppColors.primary,
     // ),
   );
 

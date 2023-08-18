@@ -6,6 +6,7 @@ import 'package:otomo/injection.dart';
 import 'package:otomo/viewmodels/home.dart';
 import 'package:otomo/views/bases/buttons/rounded_filled_button.dart';
 import 'package:otomo/views/pages/account/account.dart';
+import 'package:otomo/views/pages/home/cases/bottom_nav.dart';
 import 'package:otomo/views/pages/map/map.dart';
 
 class HomePage extends HookConsumerWidget {
@@ -32,10 +33,10 @@ class HomePage extends HookConsumerWidget {
             onPressed: getIt<FirebaseAuth>().signOut,
             child: const Text('Sign out'),
           ),
-          // const Positioned(
-          //   bottom: 24,
-          //   child: BottomNavigation(),
-          // ),
+          const Positioned(
+            bottom: 24,
+            child: BottomNav(),
+          ),
         ],
       ),
     );
