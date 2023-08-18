@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:otomo/views/bases/layouts/app_safe_area.dart';
+import 'package:otomo/views/bases/layouts/safe_area_layout.dart';
 import 'package:otomo/views/bases/screens/app_scaffold.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/tappable_text.dart';
@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
     final theme = Theme.of(context);
 
     return AppScaffold(
-      body: AppSafeArea(
+      body: SafeAreaLayout(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

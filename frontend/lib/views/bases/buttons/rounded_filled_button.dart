@@ -5,16 +5,34 @@ class RoundedFilledButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.child,
+    this.style,
+    this.verticalExpanded = false,
   });
+
+  RoundedFilledButton.large({
+    super.key,
+    required this.onPressed,
+    required this.child,
+    this.verticalExpanded = false,
+  }) : style = FilledButton.styleFrom(
+          textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+        );
 
   final VoidCallback? onPressed;
   final Widget child;
+  final ButtonStyle? style;
+  final bool verticalExpanded;
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(
-      onPressed: onPressed,
-      child: child,
+    return SizedBox(
+      width: verticalExpanded ? double.infinity : null,
+      child: FilledButton(
+        style: style,
+        onPressed: onPressed,
+        child: child,
+      ),
     );
   }
 }

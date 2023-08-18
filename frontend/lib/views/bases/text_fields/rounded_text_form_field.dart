@@ -21,7 +21,9 @@ class RoundedTextFormField extends StatelessWidget {
         filled: true,
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
         border: OutlineInputBorder(
-            borderRadius: borderRadius, borderSide: BorderSide.none),
+          borderRadius: borderRadius,
+          borderSide: BorderSide.none,
+        ),
         hintText: hintText,
       ),
     );

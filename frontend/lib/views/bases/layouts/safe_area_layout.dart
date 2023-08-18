@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppSafeArea extends StatelessWidget {
-  const AppSafeArea({
+class SafeAreaLayout extends StatelessWidget {
+  const SafeAreaLayout({
     super.key,
     required this.child,
   });
