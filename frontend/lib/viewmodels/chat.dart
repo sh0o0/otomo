@@ -1,36 +1,34 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_chat_types/flutter_chat_types.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/tools/global_state.dart';
 
-@immutable
-class _ChatState {
-  _ChatState({
-    required this.messages,
-    required this.user,
-  });
+part 'chat.freezed.dart';
 
-  final List<types.Message> messages;
-  final types.User user;
+@freezed
+class ChatState with _$ChatState {
+  const factory ChatState({
+    required List<Message> messages,
+    required User user,
+  }) = _ChatState;
 }
 
-class ChatViewModel extends StateNotifier<_ChatState> {
+class ChatViewModel extends StateNotifier<ChatState> {
   ChatViewModel(this._globalState)
-      : super(_ChatState(
+      : super(ChatState(
           messages: [],
-          user: types.User(id: _globalState.userId!),
+          user: User(id: _globalState.userId!),
         ));
 
   final GlobalState _globalState;
 
-  void sendMessage(types.Message message) {
+  void sendMessage(Message message) {
     _addMessage(message);
   }
 
-  void _addMessage(types.Message message) {
-    state = _ChatState(
+  void _addMessage(Message message) {
+    state = state.copyWith(
       messages: [...state.messages, message],
-      user: state.user,
     );
   }
 }
