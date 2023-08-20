@@ -6,6 +6,7 @@ import 'package:otomo/views/bases/layouts/side_space_layout.dart';
 import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/buttons/sign_in_button.dart';
+import 'package:otomo/views/cases/error/error_text.dart';
 
 class SignInPage extends HookConsumerWidget {
   const SignInPage({super.key});
@@ -30,6 +31,10 @@ class SignInPage extends HookConsumerWidget {
                   text: 'Continue with Google',
                   onPressed: () =>
                       ref.read(signInProvider.notifier).signInWithGoogle(),
+                ),
+                ErrorText(
+                  signIn.hasError ? signIn.error.toString() : null,
+                  padding: const EdgeInsets.only(top: 24),
                 ),
                 // Spaces.h24,
                 // TappableText(
