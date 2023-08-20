@@ -15,7 +15,7 @@ class App extends ConsumerWidget {
       title: 'Otomo',
       theme: AppThemes.light,
       darkTheme: AppThemes.dark,
-      themeMode: ref.watch(colorThemeProvider).mode,
+      themeMode: ref.watch(colorThemeProvider),
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,

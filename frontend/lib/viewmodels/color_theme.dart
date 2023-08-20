@@ -1,32 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final colorThemeProvider = ChangeNotifierProvider((_) => ColorThemeViewModel());
+final colorThemeProvider = StateNotifierProvider<ColorThemeNotifier, ThemeMode>(
+  (_) => ColorThemeNotifier(),
+);
 
-class ColorThemeViewModel extends ChangeNotifier {
-  ColorThemeViewModel();
+class ColorThemeNotifier extends StateNotifier<ThemeMode> {
+  // TODO: Implement ThemeMode.system
+  ColorThemeNotifier() : super(ThemeMode.light);
 
-  // TODO: Implement system theme mode
-  // ThemeMode mode = ThemeMode.system;
-  ThemeMode mode = ThemeMode.light;
-
-  void reset() {
-    mode = ThemeMode.system;
-    notifyListeners();
-  }
-
-  void setLight() {
-    mode = ThemeMode.light;
-    notifyListeners();
-  }
-
-  void setDark() {
-    mode = ThemeMode.dark;
-    notifyListeners();
-  }
-
-  void toggle() {
-    mode = mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-    notifyListeners();
-  }
+  void reset() => state = ThemeMode.system;
+  void setLight() => state = ThemeMode.light;
+  void setDark() => state = ThemeMode.dark;
+  void toggle() =>
+      state = state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
 }
