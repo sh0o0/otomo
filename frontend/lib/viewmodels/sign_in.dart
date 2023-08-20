@@ -1,15 +1,20 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/controllers/sign_in.dart';
 import 'package:otomo/injection.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final signInProvider = StateNotifierProvider((ref) {
-  return SignInInNotifier(getIt<SignInController>());
-});
+part 'sign_in.g.dart';
 
-class SignInInNotifier extends StateNotifier<void> {
-  SignInInNotifier(this._controller) : super(null);
+@riverpod
+class SignIn extends _$SignIn {
+  SignIn() : super();
 
-  final SignInController _controller;
+  final _controller = getIt<SignInController>();
 
-  Future<void> signInWithGoogle() => _controller.signInWithGoogle();
+  @override
+  Future<void> build() async {}
+
+  Future<void> signInWithGoogle() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard( _controller.signInWithGoogle);
+  }
 }
