@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/tools/global_state.dart';
 
+@immutable
 class _ChatState {
   _ChatState({
     required this.messages,
