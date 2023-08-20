@@ -9,6 +9,7 @@ abstract class AppThemes {
       onPrimary: Colors.white,
       background: Colors.white,
       onBackground: Color(0xFF272729),
+
     ),
     useMaterial3: true,
   ).copyWith(

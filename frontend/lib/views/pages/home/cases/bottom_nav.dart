@@ -88,7 +88,7 @@ class BottomNav extends HookConsumerWidget {
             child: _CenterButton(
               onTap: () => showBarModalBottomSheet(
                 context: context,
-                builder: (_) => const Chat(),
+                builder: (_) => const ModalChat(),
               ),
             ),
           ),
