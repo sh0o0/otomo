@@ -14,11 +14,11 @@ class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
     CallOptions options,
     ClientUnaryInvoker<Q, R> invoker,
   ) {
-    return ResponseFuture.wrap<String>(
+    return ResponseFuture.wrap(
       _authController.getIdToken(),
       clientCall: ClientCall(method, const Stream.empty(), options),
     ).then((idToken) {
-      if (idToken.isEmpty) {
+      if (idToken == null || idToken.isEmpty) {
         return invoker(method, request, options);
       }
 

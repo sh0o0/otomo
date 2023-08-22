@@ -59,7 +59,7 @@ abstract class InjectableModule {
   static final _retryClientInterceptor =
       RetryOnUnavailableErrorClientInterceptor(retries: 1);
   static final _injectAuthHeaderClientInterceptor =
-      InjectAuthHeaderClientInterceptor(getIt<AuthController>());
+      InjectAuthHeaderClientInterceptor(AuthController(FirebaseAuth.instance));
 }
 
 @InjectableInit()

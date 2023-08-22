@@ -539,11 +539,12 @@ packages:
   grpc:
     dependency: "direct main"
     description:
-      name: grpc
-      sha256: "220ffb2218288f4e7dea487242e08b9c6277596d9b6f3f10ba50be96771a032d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.3"
+      path: "."
+      ref: HEAD
+      resolved-ref: "0d41cfcfe2b3f36dfd4f2cb0f60d0903fbbf40b0"
+      url: "https://github.com/nakar0/grpc-dart"
+    source: git
+    version: "3.2.4-wip"
   hooks_riverpod:
     dependency: "direct main"
     description:
@@ -712,14 +713,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  mockito:
-    dependency: "direct main"
-    description:
-      name: mockito
-      sha256: "7d5b53bcd556c1bc7ffbe4e4d5a19c3e112b7e925e9e172dd7c6ad0630812616"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.4.2"
   modal_bottom_sheet:
     dependency: "direct main"
     description:
