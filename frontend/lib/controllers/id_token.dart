@@ -38,6 +38,7 @@ class IdTokenControllerImpl implements IdTokenController {
 
     final idTokenResult = await user.getIdTokenResult();
     _idToken = idTokenResult.token;
+    logger.info('refreshed id token');
 
     _setRefreshTimer(idTokenResult.expirationTime);
   }
@@ -49,6 +50,8 @@ class IdTokenControllerImpl implements IdTokenController {
   }
 
   void _setRefreshTimer(DateTime? expirationTime) {
+    logger.info('set refresh id token timer. expirationTime: $expirationTime');
+
     if (expirationTime == null) {
       logger.warn('expiration period is null. That is not expected.');
       _refreshTimer = Timer(const Duration(seconds: 10), _refreshIdToken);

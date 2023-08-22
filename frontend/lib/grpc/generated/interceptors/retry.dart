@@ -36,16 +36,16 @@ class RetryOnUnavailableErrorClientInterceptor extends ClientInterceptor {
     ClientUnaryInvoker<Q, R> invoker,
     int countdown,
   ) {
-    ResponseFuture<R> retry(Exception e) {
+    ResponseFuture<R> retry(Exception retryCause) {
       if (countdown <= 0) {
         logger.info(
           'not retry grpc request because countdown is lower 0.\n'
-          'error: ${e.toString()}',
+          'error: ${retryCause.toString()}',
         );
-        throw e;
+        throw retryCause;
       }
 
-      logger.warn('retry grpc request. error: ${e.toString()}');
+      logger.warn('retry grpc request. error: ${retryCause.toString()}');
       return _interceptUnaryForRetry(
         method,
         request,
@@ -60,7 +60,7 @@ class RetryOnUnavailableErrorClientInterceptor extends ClientInterceptor {
       // テストではtry catchしか行えない、アプリ実行時はcatchErrorしか行えないため、try catch, catchError両方実装している。
       return invoker(method, request, options).catchError((Object e) {
         return retry(e as Exception);
-      }, test: _isShouldRetryError);
+      }, test: _isShouldRetryError) as ResponseFuture<R>;
     } on Exception catch (e) {
       if (!_isShouldRetryError(e)) rethrow;
       return retry(e);
