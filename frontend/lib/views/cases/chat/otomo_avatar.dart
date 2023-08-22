@@ -8,7 +8,7 @@ class OtomoAvatar extends StatelessWidget {
     return Container(
       height: 40,
       width: 40,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.black12,
         shape: BoxShape.circle,
       ),

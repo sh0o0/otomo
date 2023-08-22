@@ -8,6 +8,8 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+    - "**/*.pb.dart"
+    - "**/*.pbgrpc.dart"
     - "**/*.pbjson.dart"
     - "**/*.pbenum.dart"
     - "lib/injection.config.dart"

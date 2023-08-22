@@ -6,9 +6,9 @@ import 'package:injectable/injectable.dart';
 import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/health.pbgrpc.dart';
-import 'package:otomo/grpc/generated/interceptor/auth.dart';
-import 'package:otomo/grpc/generated/interceptor/logging.dart';
-import 'package:otomo/grpc/generated/interceptor/retry.dart';
+import 'package:otomo/grpc/generated/interceptors/auth.dart';
+import 'package:otomo/grpc/generated/interceptors/logging.dart';
+import 'package:otomo/grpc/generated/interceptors/retry.dart';
 import 'package:otomo/injection.config.dart';
 import 'package:otomo/tools/global_state.dart';
 
