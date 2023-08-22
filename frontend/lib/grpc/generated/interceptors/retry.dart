@@ -1,6 +1,7 @@
 import 'package:grpc/grpc.dart';
 import 'package:otomo/tools/logger.dart';
 
+// TODO: Add tests
 class RetryOnUnavailableErrorClientInterceptor extends ClientInterceptor {
   RetryOnUnavailableErrorClientInterceptor({
     required this.retries,

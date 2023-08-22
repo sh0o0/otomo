@@ -1,6 +1,7 @@
 import 'package:grpc/grpc.dart';
 import 'package:otomo/tools/logger.dart';
 
+// TODO: Add tests
 class LoggingClientInterceptor extends ClientInterceptor {
   @override
   ResponseFuture<R> interceptUnary<Q, R>(ClientMethod<Q, R> method, Q request,

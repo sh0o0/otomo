@@ -1,6 +1,7 @@
 import 'package:grpc/grpc.dart';
 import 'package:otomo/tools/logger.dart';
 
+// TODO: Add tests
 abstract class IdTokenController {
   String? get idToken;
 }
