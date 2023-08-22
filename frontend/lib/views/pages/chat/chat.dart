@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/viewmodels/chat.dart';
 import 'package:otomo/views/cases/chat/chat_modal_ui_leading.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
 import 'package:otomo/views/cases/chat/chat_ui_app_bar.dart';
-import 'package:uuid/uuid.dart';
 
-class ModalChat extends StatelessWidget {
+class ModalChat extends ConsumerWidget {
   const ModalChat({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final chat = ref.watch(chatProvider);
     return Scaffold(
       appBar: const ChatUIAppBar(
         leading: ChatModalUILeading(),
@@ -17,9 +18,11 @@ class ModalChat extends StatelessWidget {
         title: 'Chat',
       ),
       body: ChatUI(
-        messages: [],
-        onSendPressed: (_) {},
-        user: types.User(id: Uuid().v4()),
+        messages: chat.value!.messages,
+        onSendPressed: (message) {
+          ref.read(chatProvider.notifier).sendMessage(message.text);
+        },
+        user: chat.value!.user,
       ),
     );
   }
