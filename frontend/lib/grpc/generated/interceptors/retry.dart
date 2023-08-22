@@ -25,6 +25,8 @@ class RetryOnUnavailableErrorClientInterceptor extends ClientInterceptor {
     );
   }
 
+  // TODO: Add interceptStreaming
+
   bool _isShouldRetryError(Object e) {
     if (e is! GrpcError) return false;
     return e.code == StatusCode.unavailable;

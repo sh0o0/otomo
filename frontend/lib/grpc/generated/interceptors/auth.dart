@@ -18,16 +18,33 @@ class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
     CallOptions options,
     ClientUnaryInvoker<Q, R> invoker,
   ) {
+    final authCallOptions = _makeAuthCallOptions(options);
+    return invoker(method, request, authCallOptions);
+  }
+
+  @override
+  ResponseStream<R> interceptStreaming<Q, R>(
+    ClientMethod<Q, R> method,
+    Stream<Q> requests,
+    CallOptions options,
+    ClientStreamingInvoker<Q, R> invoker,
+  ) {
+    final authCallOptions = _makeAuthCallOptions(options);
+    return invoker(method, requests, authCallOptions);
+  }
+
+  CallOptions _makeAuthCallOptions<Q, R>(
+    CallOptions options,
+  ) {
     final idToken = _idTokenController.idToken;
     if (idToken == null || idToken.isEmpty) {
-      return invoker(method, request, options);
+      return options;
     }
 
     final mergedOptions = options.mergedWith(
       CallOptions(metadata: {'authorization': 'bearer $idToken'}),
     );
     logger.info('added `authorization` header');
-
-    return invoker(method, request, mergedOptions);
+    return mergedOptions;
   }
 }
