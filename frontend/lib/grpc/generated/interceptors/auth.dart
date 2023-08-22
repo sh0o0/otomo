@@ -1,11 +1,14 @@
 import 'package:grpc/grpc.dart';
-import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/tools/logger.dart';
 
-class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
-  InjectAuthHeaderClientInterceptor(this._authController);
+abstract class IdTokenController {
+  String? get idToken;
+}
 
-  final AuthController _authController;
+class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
+  InjectAuthHeaderClientInterceptor(this._idTokenController);
+
+  final IdTokenController _idTokenController;
 
   @override
   ResponseFuture<R> interceptUnary<Q, R>(
@@ -14,20 +17,16 @@ class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
     CallOptions options,
     ClientUnaryInvoker<Q, R> invoker,
   ) {
-    return ResponseFuture.wrap(
-      _authController.getIdToken(),
-      clientCall: ClientCall(method, const Stream.empty(), options),
-    ).then((idToken) {
-      if (idToken == null || idToken.isEmpty) {
-        return invoker(method, request, options);
-      }
+    final idToken = _idTokenController.idToken;
+    if (idToken == null || idToken.isEmpty) {
+      return invoker(method, request, options);
+    }
 
-      final mergedOptions = options.mergedWith(
-        CallOptions(metadata: {'authorization': 'bearer $idToken'}),
-      );
-      logger.info('added `authorization` header');
+    final mergedOptions = options.mergedWith(
+      CallOptions(metadata: {'authorization': 'bearer $idToken'}),
+    );
+    logger.info('added `authorization` header');
 
-      return invoker(method, request, mergedOptions);
-    });
+    return invoker(method, request, mergedOptions);
   }
 }

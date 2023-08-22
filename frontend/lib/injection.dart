@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:otomo/controllers/auth.dart';
+import 'package:otomo/controllers/id_token.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
@@ -38,8 +38,9 @@ abstract class InjectableModule {
   ChatServiceClient get chatServiceClient =>
       ChatServiceClient(clientChannel, interceptors: _clientInterceptors);
 
+  static final _firebaseAuth = FirebaseAuth.instance;
   @singleton
-  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
+  FirebaseAuth get firebaseAuth => _firebaseAuth;
 
   @singleton
   GoogleSignIn get googleSignIn => GoogleSignIn(
@@ -59,7 +60,7 @@ abstract class InjectableModule {
   static final _retryClientInterceptor =
       RetryOnUnavailableErrorClientInterceptor(retries: 1);
   static final _injectAuthHeaderClientInterceptor =
-      InjectAuthHeaderClientInterceptor(AuthController(FirebaseAuth.instance));
+      InjectAuthHeaderClientInterceptor(IdTokenControllerImpl(_firebaseAuth));
 }
 
 @InjectableInit()
