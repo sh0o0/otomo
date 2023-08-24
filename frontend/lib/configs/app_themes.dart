@@ -14,6 +14,7 @@ abstract class AppThemes {
     ),
     useMaterial3: true,
   );
+  static const _lightBottomNavIconDisabled = Color(0xFFA2A7B1);
 
   static final ThemeData light = _light.copyWith(
     inputDecorationTheme: const InputDecorationTheme(
@@ -25,9 +26,15 @@ abstract class AppThemes {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: _light.colorScheme.background,
       selectedItemColor: _light.colorScheme.primary,
-      selectedIconTheme: const IconThemeData(size: 28),
-      unselectedItemColor: const Color(0xFFA2A7B1),
-      unselectedIconTheme: const IconThemeData(size: 28),
+      selectedIconTheme: IconThemeData(
+        size: 28,
+        color: _light.colorScheme.primary,
+      ),
+      unselectedItemColor: _lightBottomNavIconDisabled,
+      unselectedIconTheme: const IconThemeData(
+        size: 28,
+        color: _lightBottomNavIconDisabled,
+      ),
     ),
     extensions: <ThemeExtension>[
       AppChatTheme(
