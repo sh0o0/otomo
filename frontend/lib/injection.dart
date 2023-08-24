@@ -18,7 +18,7 @@ final getIt = GetIt.instance;
 abstract class InjectableModule {
   final _clientChannel = ClientChannel(
     // TODO: move to config
-    '172.20.10.2',
+    '192.168.254.130',
     port: 50051,
     options: const ChannelOptions(
       // TODO: Implement secure channel

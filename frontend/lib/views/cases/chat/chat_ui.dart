@@ -27,6 +27,7 @@ class _ChatUIState extends State<ChatUI> {
     return Chat(
       messages: widget.messages,
       onSendPressed: widget.onSendPressed,
+
       user: widget.user,
       theme: DefaultChatTheme(
         primaryColor: theme.primaryColor,

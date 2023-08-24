@@ -94,7 +94,7 @@ class __$$_ChatStateCopyWithImpl<$Res>
   }) {
     return _then(_$_ChatState(
       messages: null == messages
-          ? _value._messages
+          ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<Message>,
       user: null == user
@@ -113,19 +113,10 @@ class __$$_ChatStateCopyWithImpl<$Res>
 
 class _$_ChatState implements _ChatState {
   const _$_ChatState(
-      {required final List<Message> messages,
-      required this.user,
-      required this.otomo})
-      : _messages = messages;
+      {required this.messages, required this.user, required this.otomo});
 
-  final List<Message> _messages;
   @override
-  List<Message> get messages {
-    if (_messages is EqualUnmodifiableListView) return _messages;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_messages);
-  }
-
+  final List<Message> messages;
   @override
   final User user;
   @override
@@ -141,14 +132,14 @@ class _$_ChatState implements _ChatState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ChatState &&
-            const DeepCollectionEquality().equals(other._messages, _messages) &&
+            const DeepCollectionEquality().equals(other.messages, messages) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.otomo, otomo) || other.otomo == otomo));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_messages), user, otomo);
+      runtimeType, const DeepCollectionEquality().hash(messages), user, otomo);
 
   @JsonKey(ignore: true)
   @override

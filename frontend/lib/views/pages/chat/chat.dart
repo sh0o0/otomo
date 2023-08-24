@@ -19,7 +19,7 @@ class ModalChat extends ConsumerWidget {
       ),
       body: ChatUI(
         messages: chat.value!.messages,
-        onSendPressed: (message) {
+        onSendPressed: (message) async {
           ref.read(chatProvider.notifier).sendMessage(message.text);
         },
         user: chat.value!.user,

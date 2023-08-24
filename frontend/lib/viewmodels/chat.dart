@@ -10,7 +10,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'chat.freezed.dart';
 part 'chat.g.dart';
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class ChatState with _$ChatState {
   const factory ChatState({
     required List<Message> messages,
@@ -43,67 +43,55 @@ class Chat extends _$Chat {
   ) {
     final sendingMessage = _newTextMessage(text, state.value!.user)
         .copyWith(status: Status.sending);
-    // if be implemented delete message feature, should be implemented optimistic update.
-    final newMessageIndex = _lengthOfMessages;
 
     _addMessage(sendingMessage);
     final stream =
         _chatService.sendMessage(ChatService_SendMessageRequest()..text = text);
     final sentMessage =
         sendingMessage.copyWith(status: Status.sent) as TextMessage;
-    _updateMessageWithIndex(sentMessage, newMessageIndex);
+    _updateMessageWithIndex(sentMessage);
     return stream;
   }
 
   void _receiveReply(
     ResponseStream<ChatService_SendMessageStreamResponse> replyStream,
   ) {
-    final newReplyIndex = _lengthOfMessages;
-    const replyingText = '...';
-    String replyText = replyingText;
-    TextMessage reply = _newTextMessage(replyText, state.value!.otomo)
-        .copyWith(status: Status.sending) as TextMessage;
-    _addMessage(reply);
+    TextMessage? reply;
 
     replyStream.listen(
       (replyChunk) {
-        final replyTextExceptReplyingText =
-            replyText.substring(0, replyText.length - 3);
-        replyText +=
-            replyTextExceptReplyingText + replyChunk.text + replyingText;
-        final updatedReply = reply.copyWith(text: replyText);
-        reply = updatedReply as TextMessage;
-
-        _updateMessageWithIndex(updatedReply, newReplyIndex);
+        if (reply == null) {
+          reply = _newTextMessage('', state.value!.otomo)
+              .copyWith(status: Status.sending) as TextMessage;
+          _addMessage(reply!);
+        } else {
+          final replyText = reply!.text + replyChunk.text;
+          final updatedReply = reply!.copyWith(text: replyText);
+          reply = updatedReply as TextMessage;
+          _updateMessageWithIndex(reply!);
+        }
       },
       onError: (e) {
-        final errReply = reply.copyWith(status: Status.error);
-        _updateMessageWithIndex(errReply, newReplyIndex);
+        final errReply = reply!.copyWith(status: Status.error);
+        _updateMessageWithIndex(errReply);
       },
       onDone: () {
-        _updateMessageWithIndex(
-            reply.copyWith(status: Status.sent), newReplyIndex);
+        final doneReply = reply!.copyWith(status: Status.sent);
+        _updateMessageWithIndex(doneReply);
       },
       cancelOnError: true,
     );
   }
 
-  int get _lengthOfMessages => state.value!.messages.length;
-
   void _addMessage(Message message) {
-    state = AsyncValue.data(state.value!.copyWith(
-      messages: [...state.value!.messages, message],
-    ));
+    state = state..value!.messages.insert(0, message);
   }
 
-  void _updateMessageWithIndex(Message message, int index) {
+  void _updateMessageWithIndex(Message message) {
     final messages = state.value!.messages;
-    final updatedMessages = <Message>[
-      ...messages.sublist(0, index),
-      message,
-      ...messages.sublist(index + 1),
-    ];
-    state = AsyncValue.data(state.value!.copyWith(messages: updatedMessages));
+    final index = messages.indexWhere((m) => m.id == message.id);
+    messages[index] = message;
+    state = state;
   }
 
   TextMessage _newTextMessage(String text, User author) {
