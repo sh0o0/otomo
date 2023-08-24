@@ -1,40 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:otomo/constants/app_colors.dart';
+import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
 
 abstract class AppThemes {
-  static final ThemeData light = ThemeData.from(
+  static final ThemeData _light = ThemeData.from(
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
       primary: AppColors.primary,
       onPrimary: Colors.white,
       background: Colors.white,
       onBackground: Color(0xFF272729),
-
     ),
     useMaterial3: true,
-  ).copyWith(
+  );
+
+  static final ThemeData light = _light.copyWith(
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: Color(0xFFE9E9EA),
       hintStyle: TextStyle(
         color: Color(0xFFB5B5B8),
       ),
     ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      selectedItemColor: AppColors.primary,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: _light.colorScheme.background,
+      selectedItemColor: _light.colorScheme.primary,
       selectedIconTheme: IconThemeData(
         size: 28,
-        color: AppColors.primary,
+        color: _light.colorScheme.primary,
       ),
       unselectedItemColor: AppColors.lightBottomNavIconDisabled,
-      unselectedIconTheme: IconThemeData(
+      unselectedIconTheme: const IconThemeData(
         size: 28,
         color: AppColors.lightBottomNavIconDisabled,
       ),
     ),
-    // textSelectionTheme: const TextSelectionThemeData(
-    //   cursorColor: AppColors.primary,
-    // ),
+    extensions: <ThemeExtension>[
+      AppChatTheme(
+        DefaultChatTheme(
+          primaryColor: _light.colorScheme.primary,
+          secondaryColor: const Color(0xFFF7F7F7),
+          backgroundColor: _light.colorScheme.background,
+          sendButtonIcon:
+              Icon(Icons.send_rounded, color: _light.colorScheme.primary),
+          inputTextStyle: _light.textTheme.bodyMedium!,
+          inputTextColor: _light.textTheme.bodyMedium!.color!,
+          inputBorderRadius: BorderRadius.zero,
+          inputBackgroundColor: _light.colorScheme.background,
+          inputContainerDecoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(color: _light.dividerColor),
+            ),
+          ),
+          inputTextDecoration: RoundedTextFormField.inputDecoration,
+        ),
+      )
+    ],
   );
 
   // static final ThemeData oldLight = ThemeData(
@@ -61,4 +82,26 @@ abstract class AppThemes {
     //   ),
     // ),
   );
+}
+
+class AppChatTheme extends ThemeExtension<AppChatTheme> {
+  AppChatTheme(this.chatTheme);
+
+  final ChatTheme chatTheme;
+
+  @override
+  ThemeExtension<AppChatTheme> copyWith({ChatTheme? chatTheme}) {
+    if (chatTheme == null) {
+      return this;
+    }
+    return AppChatTheme(chatTheme);
+  }
+
+  @override
+  ThemeExtension<AppChatTheme> lerp(
+    covariant ThemeExtension<AppChatTheme>? other,
+    double t,
+  ) {
+    return this;
+  }
 }
