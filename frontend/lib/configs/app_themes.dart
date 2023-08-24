@@ -90,10 +90,7 @@ class AppChatTheme extends ThemeExtension<AppChatTheme> {
   final ChatTheme chatTheme;
 
   @override
-  ThemeExtension<AppChatTheme> copyWith({ChatTheme? chatTheme}) {
-    if (chatTheme == null) {
-      return this;
-    }
+  ThemeExtension<AppChatTheme> copyWith() {
     return AppChatTheme(chatTheme);
   }
 
