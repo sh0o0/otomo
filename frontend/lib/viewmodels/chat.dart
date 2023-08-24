@@ -4,6 +4,7 @@ import 'package:grpc/grpc.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
 import 'package:otomo/injection.dart';
 import 'package:otomo/tools/global_state.dart';
+import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -60,24 +61,27 @@ class Chat extends _$Chat {
 
     replyStream.listen(
       (replyChunk) {
-        if (reply == null) {
-          reply = _newTextMessage('', state.value!.otomo)
-              .copyWith(status: Status.sending) as TextMessage;
+        final isFirstChunk = reply == null;
+        reply = _combineReplyChunk(reply, replyChunk);
+        if (isFirstChunk) {
           _addMessage(reply!);
         } else {
-          final replyText = reply!.text + replyChunk.text;
-          final updatedReply = reply!.copyWith(text: replyText);
-          reply = updatedReply as TextMessage;
           _updateMessageWithIndex(reply!);
         }
       },
       onError: (e) {
-        final errReply = reply!.copyWith(status: Status.error);
-        _updateMessageWithIndex(errReply);
+        logger.warn(e.toString());
+
+        if (reply == null) {
+          reply = _newTextMessage('Error occurred', state.value!.otomo)
+              .copyWith(status: Status.error) as TextMessage;
+          _addMessage(reply!);
+        } else {
+          _updateMessageWithIndex(reply!.copyWith(status: Status.error));
+        }
       },
       onDone: () {
-        final doneReply = reply!.copyWith(status: Status.sent);
-        _updateMessageWithIndex(doneReply);
+        _updateMessageWithIndex(reply!.copyWith(status: Status.sent));
       },
       cancelOnError: true,
     );
@@ -94,9 +98,24 @@ class Chat extends _$Chat {
     state = state;
   }
 
+  TextMessage _combineReplyChunk(
+    TextMessage? reply,
+    ChatService_SendMessageStreamResponse replyChunk,
+  ) {
+    if (reply == null) {
+      return _newTextMessage(replyChunk.text, state.value!.otomo)
+          .copyWith(status: Status.sending) as TextMessage;
+    } else {
+      final replyText = reply.text + replyChunk.text;
+      final combinedReply = reply.copyWith(text: replyText);
+      return combinedReply as TextMessage;
+    }
+  }
+
   TextMessage _newTextMessage(String text, User author) {
     return TextMessage(
       author: author,
+      // Random string
       id: uuid(),
       text: text,
     );

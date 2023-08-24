@@ -23,7 +23,7 @@ abstract class InjectableModule {
     options: const ChannelOptions(
       // TODO: Implement secure channel
       credentials: ChannelCredentials.insecure(),
-      connectionTimeout: Duration(seconds: 30),
+      connectTimeout: Duration(seconds: 10),
     ),
   );
 
