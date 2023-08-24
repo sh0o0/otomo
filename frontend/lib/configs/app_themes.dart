@@ -25,15 +25,9 @@ abstract class AppThemes {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: _light.colorScheme.background,
       selectedItemColor: _light.colorScheme.primary,
-      selectedIconTheme: IconThemeData(
-        size: 28,
-        color: _light.colorScheme.primary,
-      ),
-      unselectedItemColor: AppColors.lightBottomNavIconDisabled,
-      unselectedIconTheme: const IconThemeData(
-        size: 28,
-        color: AppColors.lightBottomNavIconDisabled,
-      ),
+      selectedIconTheme: const IconThemeData(size: 28),
+      unselectedItemColor: const Color(0xFFA2A7B1),
+      unselectedIconTheme: const IconThemeData(size: 28),
     ),
     extensions: <ThemeExtension>[
       AppChatTheme(
