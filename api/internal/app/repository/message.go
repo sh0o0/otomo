@@ -25,10 +25,11 @@ func NewMessageRepository(
 
 func (r *MessageRepository) Add(
 	ctx context.Context,
+	userID model.UserID,
 	msg *model.Message,
 ) error {
 	msgDoc := r.fsClient.
-		Collection(getMessagesColPath(msg.UserID)).
+		Collection(getMessagesColPath(string(userID))).
 		Doc(string(msg.ID))
 
 	_, err := msgDoc.Create(ctx, msg)
@@ -38,8 +39,8 @@ func (r *MessageRepository) Add(
 
 func (r *MessageRepository) DeleteByIDAndUserID(
 	ctx context.Context,
-	id string,
-	userID string,
+	userID model.UserID,
+	id model.MessageID,
 ) error {
 	msgDoc := r.fsClient.
 		Doc(getMessageDocPath(string(userID), string(id)))

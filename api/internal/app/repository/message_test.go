@@ -4,9 +4,9 @@ import (
 	"context"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/errs"
-	"otomo/internal/pkg/times"
 	"otomo/internal/pkg/uuid"
 	"otomo/test/systemtest"
+	"otomo/test/testmodel"
 	"otomo/test/testutil"
 	"testing"
 
@@ -23,23 +23,17 @@ var msgRepo = NewMessageRepository(systemtest.FirestoreClient)
 
 func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 	var (
-		giveCtx = context.Background()
-		giveMsg = &model.Message{
-			ID:       uuid.NewString(),
-			UserID:   uuid.NewString(),
-			Text:     "test test test",
-			Sender:   model.OtomoRole,
-			Receiver: model.UserRole,
-			SentAt:   times.C.Now(),
-		}
+		giveCtx    = context.Background()
+		giveUserID = model.UserID(uuid.NewString())
+		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.OtomoRole)
 	)
 
-	if err := msgRepo.Add(giveCtx, giveMsg); err != nil {
+	if err := msgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
 		t.Fatal(err)
 	}
 
 	snapshot, err := systemtest.FirestoreClient.
-		Doc(getMessageDocPath(string(giveMsg.UserID), string(giveMsg.ID))).
+		Doc(getMessageDocPath(string(giveUserID), string(giveMsg.ID))).
 		Get(giveCtx)
 	if err != nil {
 		t.Fatal(err)
@@ -55,42 +49,30 @@ func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing
 
 func TestMessageWithOtomoRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T) {
 	var (
-		giveCtx = context.Background()
-		giveMsg = &model.Message{
-			ID:       uuid.NewString(),
-			UserID:   uuid.NewString(),
-			Text:     "test test test",
-			Sender:   model.OtomoRole,
-			Receiver: model.UserRole,
-			SentAt:   times.C.Now(),
-		}
+		giveCtx    = context.Background()
+		giveUserID = model.UserID(uuid.NewString())
+		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.OtomoRole)
 	)
 
-	if err := msgRepo.Add(giveCtx, giveMsg); err != nil {
+	if err := msgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
 		t.Fatal(err)
 	}
-	err := msgRepo.Add(giveCtx, giveMsg)
+	err := msgRepo.Add(giveCtx, giveUserID, giveMsg)
 	assert.Error(t, err)
 }
 
 func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *testing.T) {
 	var (
-		giveCtx = context.Background()
-		giveMsg = &model.Message{
-			ID:       uuid.NewString(),
-			UserID:   uuid.NewString(),
-			Text:     "test test test",
-			Sender:   model.OtomoRole,
-			Receiver: model.UserRole,
-			SentAt:   times.C.Now(),
-		}
+		giveCtx    = context.Background()
+		giveUserID = model.UserID(uuid.NewString())
+		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.OtomoRole)
 	)
 
-	if err := msgRepo.Add(giveCtx, giveMsg); err != nil {
+	if err := msgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
 		t.Fatal(err)
 	}
 	if err := msgRepo.DeleteByIDAndUserID(
-		giveCtx, giveMsg.ID, giveMsg.UserID); err != nil {
+		giveCtx, giveUserID, giveMsg.ID); err != nil {
 		t.Fatal(err)
 	}
 
@@ -103,14 +85,14 @@ func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAre
 func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldReturnNotFoundErr_WhenDeleteMsgNotExist(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
-		giveMsgID  = uuid.NewString()
-		giveUserID = uuid.NewString()
+		giveUserID = model.UserID(uuid.NewString())
+		giveMsgID  = model.MessageID(uuid.NewString())
 	)
 
 	err := msgRepo.DeleteByIDAndUserID(
 		giveCtx,
-		giveMsgID,
 		giveUserID,
+		giveMsgID,
 	)
 
 	assert.True(t, errs.IsNotFoundErr(err))

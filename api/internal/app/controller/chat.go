@@ -55,16 +55,15 @@ func (c *ChatController) SendMessage(
 	}
 
 	msg, err := c.msgFactory.NewMessage(
-		userID,
 		req.Text,
 		model.UserRole,
-		model.OtomoRole,
 	)
 	if err != nil {
 		return c.ErrorOutput(stream.Context(), err).Err()
 	}
 
-	if err := c.msgRepo.Add(stream.Context(), msg); err != nil {
+	if err := c.msgRepo.Add(
+		stream.Context(), model.UserID(userID), msg); err != nil {
 		return c.ErrorOutput(stream.Context(), err).Err()
 	}
 
@@ -82,15 +81,14 @@ func (c *ChatController) SendMessage(
 	}
 
 	reply, err := c.msgFactory.NewMessage(
-		userID,
 		completion.Content,
 		model.OtomoRole,
-		model.UserRole,
 	)
 	if err != nil {
 		return c.ErrorOutput(stream.Context(), err).Err()
 	}
-	if err := c.msgRepo.Add(stream.Context(), reply); err != nil {
+	if err := c.msgRepo.Add(
+		stream.Context(), model.UserID(userID), reply); err != nil {
 		return c.ErrorOutput(stream.Context(), err).Err()
 	}
 
