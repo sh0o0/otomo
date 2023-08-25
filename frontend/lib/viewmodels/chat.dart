@@ -1,8 +1,8 @@
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grpc/grpc.dart';
+import 'package:otomo/configs/injection.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
-import 'package:otomo/injection.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
