@@ -3,13 +3,14 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otomo/configs/app_config.dart';
+import 'package:otomo/configs/injection.config.dart';
 import 'package:otomo/controllers/id_token.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
 import 'package:otomo/grpc/generated/interceptors/logging.dart';
 import 'package:otomo/grpc/generated/interceptors/retry.dart';
-import 'package:otomo/injection.config.dart';
 import 'package:otomo/tools/global_state.dart';
 
 final getIt = GetIt.instance;
@@ -17,13 +18,13 @@ final getIt = GetIt.instance;
 @module
 abstract class InjectableModule {
   final _clientChannel = ClientChannel(
-    // TODO: move to config
-    '192.168.254.130',
-    port: 50051,
-    options: const ChannelOptions(
-      // TODO: Implement secure channel
-      credentials: ChannelCredentials.insecure(),
-      connectTimeout: Duration(seconds: 10),
+    appConfig.otomoServerHost,
+    port: appConfig.otomoServerPort,
+    options: ChannelOptions(
+      credentials: appConfig.isSecureConnectionToOtomoServer
+          ? const ChannelCredentials.secure()
+          : const ChannelCredentials.insecure(),
+      connectTimeout: const Duration(seconds: 10),
     ),
   );
 

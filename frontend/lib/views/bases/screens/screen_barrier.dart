@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/constants/app_colors.dart';
+import 'package:otomo/configs/app_colors.dart';
 
 class ScreenBarrier extends StatelessWidget {
   const ScreenBarrier({
