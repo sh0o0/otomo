@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:otomo/constants/app_colors.dart';
+import 'package:otomo/configs/app_colors.dart';
 import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
 
 abstract class AppThemes {
