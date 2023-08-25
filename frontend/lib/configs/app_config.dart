@@ -19,19 +19,13 @@ class AppConfig {
         otomoServerHost = Env.otomoServerHost,
         otomoServerPort = Env.otomoServerPort,
         isSecureConnectionToOtomoServer = Env.isSecureConnectionToOtomoServer,
-        logLevel = Env.isRelease ? Level.info : Level.all,
-        logIncludeCallerInfo = !Env.isRelease,
-        firebaseAutomaticDataCollectionEnabled = true,
-        firebaseAutomaticResourceManagementEnabled = true;
+        logLevel = Env.isRelease ? Level.info : Level.all;
 
   final bool isRelease;
   final String otomoServerHost;
   final int otomoServerPort;
   final bool isSecureConnectionToOtomoServer;
   final Level logLevel;
-  final bool logIncludeCallerInfo;
-  final bool firebaseAutomaticDataCollectionEnabled;
-  final bool firebaseAutomaticResourceManagementEnabled;
 
   @override
   String toString() {
@@ -39,9 +33,6 @@ class AppConfig {
 otomoServerHost: $otomoServerHost
 otomoServerPort: $otomoServerPort
 logLevel: $logLevel
-logIncludeCallerInfo: $logIncludeCallerInfo
-firebaseAutomaticDataCollectionEnabled: $firebaseAutomaticDataCollectionEnabled
-firebaseAutomaticResourceManagementEnabled: $firebaseAutomaticResourceManagementEnabled
 ''';
   }
 }

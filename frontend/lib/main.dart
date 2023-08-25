@@ -6,11 +6,14 @@ import 'package:otomo/firebase_options.dart';
 import 'package:otomo/views/app.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  configureInjection();
-
+  await setup();
   runApp(const ProviderScope(child: App()));
+}
+
+Future<void> setup() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  configureInjection();
 }
