@@ -17,6 +17,7 @@ import (
 // TODO: Add presenter
 
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
+
 var (
 	ErrDomainMessage = "message"
 )
@@ -94,4 +95,8 @@ func (c *ChatController) SendMessage(
 	}
 
 	return nil
+}
+
+func (c *ChatController) ListMessages(_ context.Context, _ *grpcgen.ChatService_ListMessagesRequest) (*grpcgen.ChatService_ListMessagesResponse, error) {
+	panic("not implemented") // TODO: Implement
 }
