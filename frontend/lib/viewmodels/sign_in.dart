@@ -1,25 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/controllers/sign_in.dart';
 import 'package:otomo/injection.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final signInProvider = StateNotifierProvider((ref) {
-  return SignInInNotifier();
-});
+part 'sign_in.g.dart';
 
-class SignInInNotifier extends StateNotifier<void> {
-  SignInInNotifier() : super(null);
+@riverpod
+class SignIn extends _$SignIn {
+  SignIn() : super();
 
-  final _googleSignIn = getIt<GoogleSignIn>();
+  final _controller = getIt<SignInController>();
+
+  @override
+  Future<void> build() async {}
 
   Future<void> signInWithGoogle() async {
-    final googleUser = await _googleSignIn.signIn();
-    final googleAuth = await googleUser?.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    await getIt<FirebaseAuth>().signInWithCredential(credential);
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(_controller.signInWithGoogle);
   }
 }

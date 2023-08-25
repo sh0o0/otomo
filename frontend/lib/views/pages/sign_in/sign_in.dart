@@ -3,9 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/viewmodels/sign_in.dart';
 import 'package:otomo/views/bases/layouts/safe_area_layout.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
-import 'package:otomo/views/bases/screens/app_scaffold.dart';
+import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/buttons/sign_in_button.dart';
+import 'package:otomo/views/cases/error/error_text.dart';
 
 class SignInPage extends HookConsumerWidget {
   const SignInPage({super.key});
@@ -14,7 +15,10 @@ class SignInPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
-    return AppScaffold(
+    final signIn = ref.watch(signInProvider);
+
+    return ScaffoldWithBarrierIndicator(
+      isProcessing: signIn.isLoading,
       body: SafeAreaLayout(
         child: SideSpaceLayout(
           child: Center(
@@ -27,6 +31,10 @@ class SignInPage extends HookConsumerWidget {
                   text: 'Continue with Google',
                   onPressed: () =>
                       ref.read(signInProvider.notifier).signInWithGoogle(),
+                ),
+                ErrorText(
+                  signIn.hasError ? signIn.error.toString() : null,
+                  padding: const EdgeInsets.only(top: 24),
                 ),
                 // Spaces.h24,
                 // TappableText(
