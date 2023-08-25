@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/timestamp.pb.dart' as $3;
+import 'message.pb.dart' as $4;
 
 class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
   factory ChatService_SendMessageRequest() => create();
@@ -109,6 +110,108 @@ class ChatService_SendMessageStreamResponse extends $pb.GeneratedMessage {
   void clearSentAt() => clearField(2);
   @$pb.TagNumber(2)
   $3.Timestamp ensureSentAt() => $_ensure(1);
+}
+
+class ChatService_ListMessagesRequest extends $pb.GeneratedMessage {
+  factory ChatService_ListMessagesRequest() => create();
+  ChatService_ListMessagesRequest._() : super();
+  factory ChatService_ListMessagesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChatService_ListMessagesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_ListMessagesRequest', createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'pageSize', $pb.PbFieldType.OU3)
+    ..aOS(2, _omitFieldNames ? '' : 'pageStartAfterMessageId')
+    ..pc<$4.Message>(3, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: $4.Message.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ChatService_ListMessagesRequest clone() => ChatService_ListMessagesRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ChatService_ListMessagesRequest copyWith(void Function(ChatService_ListMessagesRequest) updates) => super.copyWith((message) => updates(message as ChatService_ListMessagesRequest)) as ChatService_ListMessagesRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ChatService_ListMessagesRequest create() => ChatService_ListMessagesRequest._();
+  ChatService_ListMessagesRequest createEmptyInstance() => create();
+  static $pb.PbList<ChatService_ListMessagesRequest> createRepeated() => $pb.PbList<ChatService_ListMessagesRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ChatService_ListMessagesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChatService_ListMessagesRequest>(create);
+  static ChatService_ListMessagesRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get pageSize => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set pageSize($core.int v) { $_setUnsignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPageSize() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPageSize() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get pageStartAfterMessageId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set pageStartAfterMessageId($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPageStartAfterMessageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPageStartAfterMessageId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<$4.Message> get messages => $_getList(2);
+}
+
+class ChatService_ListMessagesResponse extends $pb.GeneratedMessage {
+  factory ChatService_ListMessagesResponse() => create();
+  ChatService_ListMessagesResponse._() : super();
+  factory ChatService_ListMessagesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChatService_ListMessagesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_ListMessagesResponse', createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'pageSize', $pb.PbFieldType.OU3)
+    ..pc<$4.Message>(3, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: $4.Message.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ChatService_ListMessagesResponse clone() => ChatService_ListMessagesResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ChatService_ListMessagesResponse copyWith(void Function(ChatService_ListMessagesResponse) updates) => super.copyWith((message) => updates(message as ChatService_ListMessagesResponse)) as ChatService_ListMessagesResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ChatService_ListMessagesResponse create() => ChatService_ListMessagesResponse._();
+  ChatService_ListMessagesResponse createEmptyInstance() => create();
+  static $pb.PbList<ChatService_ListMessagesResponse> createRepeated() => $pb.PbList<ChatService_ListMessagesResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ChatService_ListMessagesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChatService_ListMessagesResponse>(create);
+  static ChatService_ListMessagesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get pageSize => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set pageSize($core.int v) { $_setUnsignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPageSize() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPageSize() => clearField(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$4.Message> get messages => $_getList(1);
 }
 
 
