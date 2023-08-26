@@ -64,6 +64,9 @@ func (r *MessageRepository) List(
 			Size: defaultMessageListPageSize,
 		}
 	}
+	if page.Size == 0 {
+		page.Size = defaultMessageListPageSize
+	}
 
 	msgsCol := r.getCollection(ctx, userID)
 	query := msgsCol.OrderBy("sent_at", firestore.Desc).Limit(page.Size)
