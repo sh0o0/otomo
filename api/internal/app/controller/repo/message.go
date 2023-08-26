@@ -22,6 +22,6 @@ type MessageRepository interface {
 }
 
 type MessagePage struct {
-	Size                uint
+	Size                int
 	StartAfterMessageID model.MessageID
 }
