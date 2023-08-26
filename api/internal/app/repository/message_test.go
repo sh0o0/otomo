@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 	"otomo/internal/app/controller/repo"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/errs"
@@ -134,43 +133,43 @@ func TestMessageRepository_List(t *testing.T) {
 		want      []*model.Message
 		wantIsErr bool
 	}{
-		// {
-		// 	name: "should return 50 messages when page is nil",
-		// 	args: args{
-		// 		ctx:    context.TODO(),
-		// 		userID: userID,
-		// 		page:   nil,
-		// 	},
-		// 	want:      descBySentAtMsgs[:50],
-		// 	wantIsErr: false,
-		// },
-		// {
-		// 	name: testutil.JoinStrings(
-		// 		"should return first message",
-		// 		"when page_start_after_message_id is 50th message id",
-		// 	),
-		// 	args: args{
-		// 		ctx:    context.TODO(),
-		// 		userID: userID,
-		// 		page: &repo.MessagePage{
-		// 			StartAfterMessageID: descBySentAtMsgs[49].ID,
-		// 		},
-		// 	},
-		// 	want:      descBySentAtMsgs[50:51],
-		// 	wantIsErr: false,
-		// },
-		// {
-		// 	name: "should return 25 messages when page_size 25",
-		// 	args: args{
-		// 		ctx:    context.TODO(),
-		// 		userID: userID,
-		// 		page: &repo.MessagePage{
-		// 			Size: 25,
-		// 		},
-		// 	},
-		// 	want:      descBySentAtMsgs[:25],
-		// 	wantIsErr: false,
-		// },
+		{
+			name: "should return 50 messages when page is nil",
+			args: args{
+				ctx:    context.TODO(),
+				userID: userID,
+				page:   nil,
+			},
+			want:      descBySentAtMsgs[:50],
+			wantIsErr: false,
+		},
+		{
+			name: testutil.JoinStrings(
+				"should return first message",
+				"when page_start_after_message_id is 50th message id",
+			),
+			args: args{
+				ctx:    context.TODO(),
+				userID: userID,
+				page: &repo.MessagePage{
+					StartAfterMessageID: descBySentAtMsgs[49].ID,
+				},
+			},
+			want:      descBySentAtMsgs[50:51],
+			wantIsErr: false,
+		},
+		{
+			name: "should return 25 messages when page_size 25",
+			args: args{
+				ctx:    context.TODO(),
+				userID: userID,
+				page: &repo.MessagePage{
+					Size: 25,
+				},
+			},
+			want:      descBySentAtMsgs[:25],
+			wantIsErr: false,
+		},
 		{
 			name: testutil.JoinStrings(
 				"should return 20 messages started after 30 of index",
@@ -197,18 +196,6 @@ func TestMessageRepository_List(t *testing.T) {
 			if (err != nil) != tt.wantIsErr {
 				t.Errorf("MessageRepository.List() error = %v, wantIsErr %v", err, tt.wantIsErr)
 				return
-			}
-			fmt.Println("all")
-			for _, msg := range descBySentAtMsgs {
-				fmt.Println(msg.SentAt)
-			}
-			fmt.Println("want")
-			for _, msg := range tt.want {
-				fmt.Println(msg.SentAt)
-			}
-			fmt.Println("got")
-			for _, msg := range got {
-				fmt.Println(msg.SentAt)
 			}
 
 			assert.Exactly(t, tt.want, got)

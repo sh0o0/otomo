@@ -71,7 +71,10 @@ func (r *MessageRepository) List(
 	msgsCol := r.getCollection(ctx, userID)
 	query := msgsCol.OrderBy("sent_at", firestore.Desc).Limit(page.Size)
 	if page.StartAfterMessageID != "" {
-		startAfter := r.getDoc(ctx, userID, page.StartAfterMessageID)
+		startAfter, err := r.getDoc(ctx, userID, page.StartAfterMessageID).Get(ctx)
+		if err != nil {
+			return nil, r.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
+		}
 		query = query.StartAfter(startAfter)
 	}
 
