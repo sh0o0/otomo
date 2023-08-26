@@ -121,7 +121,7 @@ class ChatService_ListMessagesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_ListMessagesRequest', createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'pageSize', $pb.PbFieldType.OU3)
     ..aOS(2, _omitFieldNames ? '' : 'pageStartAfterMessageId')
-    ..pc<$4.Message>(3, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: $4.Message.create)
+    ..aOS(3, _omitFieldNames ? '' : 'userId')
     ..hasRequiredFields = false
   ;
 
@@ -165,7 +165,13 @@ class ChatService_ListMessagesRequest extends $pb.GeneratedMessage {
   void clearPageStartAfterMessageId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.List<$4.Message> get messages => $_getList(2);
+  $core.String get userId => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set userId($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasUserId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUserId() => clearField(3);
 }
 
 class ChatService_ListMessagesResponse extends $pb.GeneratedMessage {

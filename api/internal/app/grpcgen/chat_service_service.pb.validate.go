@@ -307,38 +307,15 @@ func (m *ChatService_ListMessagesRequest) validate(all bool) error {
 
 	// no validation rules for PageStartAfterMessageId
 
-	for idx, item := range m.GetMessages() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ChatService_ListMessagesRequestValidationError{
-						field:  fmt.Sprintf("Messages[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ChatService_ListMessagesRequestValidationError{
-						field:  fmt.Sprintf("Messages[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ChatService_ListMessagesRequestValidationError{
-					field:  fmt.Sprintf("Messages[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
+		err := ChatService_ListMessagesRequestValidationError{
+			field:  "UserId",
+			reason: "value length must be at least 1 runes",
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {

@@ -47,7 +47,7 @@ const ChatService_ListMessagesRequest$json = {
   '2': [
     {'1': 'page_size', '3': 1, '4': 1, '5': 13, '10': 'pageSize'},
     {'1': 'page_start_after_message_id', '3': 2, '4': 1, '5': 9, '10': 'pageStartAfterMessageId'},
-    {'1': 'messages', '3': 3, '4': 3, '5': 11, '6': '.Message', '10': 'messages'},
+    {'1': 'user_id', '3': 3, '4': 1, '5': 9, '8': {}, '10': 'userId'},
   ],
 };
 
@@ -55,7 +55,7 @@ const ChatService_ListMessagesRequest$json = {
 final $typed_data.Uint8List chatService_ListMessagesRequestDescriptor = $convert.base64Decode(
     'Ch9DaGF0U2VydmljZV9MaXN0TWVzc2FnZXNSZXF1ZXN0EhsKCXBhZ2Vfc2l6ZRgBIAEoDVIIcG'
     'FnZVNpemUSPAobcGFnZV9zdGFydF9hZnRlcl9tZXNzYWdlX2lkGAIgASgJUhdwYWdlU3RhcnRB'
-    'ZnRlck1lc3NhZ2VJZBIkCghtZXNzYWdlcxgDIAMoCzIILk1lc3NhZ2VSCG1lc3NhZ2Vz');
+    'ZnRlck1lc3NhZ2VJZBIgCgd1c2VyX2lkGAMgASgJQgf6QgRyAhABUgZ1c2VySWQ=');
 
 @$core.Deprecated('Use chatService_ListMessagesResponseDescriptor instead')
 const ChatService_ListMessagesResponse$json = {
