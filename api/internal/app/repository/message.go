@@ -53,3 +53,11 @@ func (r *MessageRepository) DeleteByIDAndUserID(
 	_, err := msgDoc.Delete(ctx)
 	return err
 }
+
+func (r MessageRepository) List(
+	ctx context.Context,
+	userID model.UserID,
+	page *repo.MessagePage,
+) ([]*model.Message, error) {
+	panic("not implemented") // TODO: Implement
+}

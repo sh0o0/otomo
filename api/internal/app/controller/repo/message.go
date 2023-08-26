@@ -14,4 +14,14 @@ type MessageRepository interface {
 		userID model.UserID,
 		id model.MessageID,
 	) error
+	List(
+		ctx context.Context,
+		userID model.UserID,
+		page *MessagePage,
+	) ([]*model.Message, error)
+}
+
+type MessagePage struct {
+	Size                uint
+	StartAfterMessageID model.MessageID
 }

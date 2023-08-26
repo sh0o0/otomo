@@ -95,6 +95,9 @@ func (c *ChatController) SendMessage(
 	return nil
 }
 
-func (c *ChatController) ListMessages(_ context.Context, _ *grpcgen.ChatService_ListMessagesRequest) (*grpcgen.ChatService_ListMessagesResponse, error) {
+func (c *ChatController) ListMessages(
+	ctx context.Context,
+	req *grpcgen.ChatService_ListMessagesRequest,
+) (*grpcgen.ChatService_ListMessagesResponse, error) {
 	panic("not implemented") // TODO: Implement
 }
