@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/viewmodels/chat.dart';
+import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/cases/chat/chat_modal_ui_leading.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
 import 'package:otomo/views/cases/chat/chat_ui_app_bar.dart';
@@ -24,6 +25,9 @@ class ModalChat extends ConsumerWidget {
           ref.read(chatProvider.notifier).sendMessage(message.text);
         },
         user: chat.value?.user ?? const User(id: ''),
+        emptyState: chat.isLoading
+            ? const Center(child: AppCircularProgressIndicator())
+            : null,
       ),
     );
   }
