@@ -1,8 +1,9 @@
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:grpc/grpc.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
+import 'package:otomo/grpc/generated/message.pb.dart' as gm;
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
@@ -23,12 +24,27 @@ class ChatState with _$ChatState {
 @riverpod
 class Chat extends _$Chat {
   final _globalState = getIt<GlobalState>();
-  final _chatService = getIt<ChatServiceClient>();
+  final _chatController = getIt<ChatController>();
 
   @override
-  FutureOr<ChatState> build() {
+  FutureOr<ChatState> build() async {
+    state = const AsyncValue.loading();
+
+    final user = User(id: _globalState.userId!);
+    final otomo = User(id: uuid());
+    final messages =
+        await _chatController.listMessages(_globalState.userId!, null, null);
+    final chatMessages = messages
+        .map((e) => TextMessage(
+              author: e.role == gm.Role.USER ? user : otomo,
+              id: e.id,
+              text: e.text,
+              createdAt: e.sentAt.toDateTime().millisecondsSinceEpoch,
+            ))
+        .toList();
+
     return ChatState(
-      messages: [],
+      messages: chatMessages,
       user: User(id: _globalState.userId!),
       otomo: User(id: uuid()),
     );
@@ -39,15 +55,14 @@ class Chat extends _$Chat {
     _receiveReply(stream);
   }
 
-  ResponseStream<ChatService_SendMessageStreamResponse> _sendMessage(
+  Stream<ChatService_SendMessageStreamResponse> _sendMessage(
     String text,
   ) {
     final sendingMessage = _newTextMessage(text, state.value!.user)
         .copyWith(status: Status.sending);
 
     _addMessage(sendingMessage);
-    final stream =
-        _chatService.sendMessage(ChatService_SendMessageRequest()..text = text);
+    final stream = _chatController.sendMessage(text);
     final sentMessage =
         sendingMessage.copyWith(status: Status.sent) as TextMessage;
     _updateMessageWithIndex(sentMessage);
@@ -55,7 +70,7 @@ class Chat extends _$Chat {
   }
 
   void _receiveReply(
-    ResponseStream<ChatService_SendMessageStreamResponse> replyStream,
+    Stream<ChatService_SendMessageStreamResponse> replyStream,
   ) {
     TextMessage? reply;
 
