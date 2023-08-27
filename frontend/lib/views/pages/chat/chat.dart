@@ -28,6 +28,7 @@ class ModalChat extends ConsumerWidget {
         emptyState: chat.isLoading
             ? const Center(child: AppCircularProgressIndicator())
             : null,
+        onEndReached: () => ref.read(chatProvider.notifier).listMessagesMore(),
       ),
     );
   }

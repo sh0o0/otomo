@@ -36,10 +36,7 @@ class Chat extends _$Chat {
   FutureOr<ChatState> build() async {
     state = const AsyncValue.loading();
 
-    final messages =
-        await _chatController.listMessages(_globalState.userId!, null, null);
-    final chatMessages =
-        messages.map((m) => _toChatUIMessage(m, Status.sent)).toList();
+    final chatMessages = await _listChatUIMessages(null, null);
 
     return ChatState(
       messages: chatMessages,
@@ -51,6 +48,28 @@ class Chat extends _$Chat {
   void sendMessage(String text) {
     final stream = _sendMessage(text);
     _receiveReply(stream);
+  }
+
+  Future<void> listMessagesMore() async {
+    final preValue = state.value;
+    if (preValue == null) return;
+
+    final lastMessageId = preValue.messages.last.remoteId;
+
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final chatMessages = await _listChatUIMessages(null, lastMessageId);
+      return preValue
+          .copyWith(messages: [...preValue.messages, ...chatMessages]);
+    });
+  }
+
+  Future<List<Message>> _listChatUIMessages(
+      int? pageSize, String? pageStartAfterMessageId) async {
+    final messages = await _chatController.listMessages(
+        _globalState.userId!, pageSize, pageStartAfterMessageId);
+
+    return messages.map((m) => _toChatUIMessage(m, Status.sent)).toList();
   }
 
   Stream<String> _sendMessage(String text) {
