@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
-import 'package:otomo/viewmodels/home.dart';
+import 'package:otomo/view_models/home.dart';
 import 'package:otomo/views/bases/buttons/rounded_filled_button.dart';
 import 'package:otomo/views/pages/account/account.dart';
 import 'package:otomo/views/pages/home/cases/bottom_nav.dart';

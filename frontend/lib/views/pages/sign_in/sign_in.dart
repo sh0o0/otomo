@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/viewmodels/sign_in.dart';
+import 'package:otomo/view_models/sign_in.dart';
 import 'package:otomo/views/bases/layouts/safe_area_layout.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
 import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';

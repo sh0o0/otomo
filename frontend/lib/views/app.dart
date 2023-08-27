@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
-import 'package:otomo/viewmodels/color_theme.dart';
+import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/views/router.dart';
 
 class App extends ConsumerWidget {
