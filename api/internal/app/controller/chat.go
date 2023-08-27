@@ -48,10 +48,10 @@ func (c *ChatController) SendMessage(
 	req *grpcgen.ChatService_SendMessageRequest,
 	stream grpcgen.ChatService_SendMessageServer,
 ) error {
-	// STEP: Add a message to the repo
-	// STEP: make a reply
-	// STEP: response
-	// STEP: Add a message to the repo
+	if err := req.ValidateAll(); err != nil {
+		return c.ErrorOutput(stream.Context(), err).Err()
+	}
+
 	userID, err := ctxs.UserIDFromContext(stream.Context())
 	if err != nil {
 		return c.ErrorOutput(stream.Context(), err).Err()
@@ -102,6 +102,10 @@ func (c *ChatController) ListMessages(
 	ctx context.Context,
 	req *grpcgen.ChatService_ListMessagesRequest,
 ) (*grpcgen.ChatService_ListMessagesResponse, error) {
+	if err := req.ValidateAll(); err != nil {
+		return nil, c.ErrorOutput(ctx, err).Err()
+	}
+
 	if !ctxs.UserIs(ctx, req.UserId) {
 		return nil, status.New(codes.PermissionDenied, "can only get own list").Err()
 	}
