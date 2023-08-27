@@ -2,7 +2,6 @@ import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
-import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/message.pb.dart' as gm;
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
@@ -55,9 +54,7 @@ class Chat extends _$Chat {
     _receiveReply(stream);
   }
 
-  Stream<ChatService_SendMessageStreamResponse> _sendMessage(
-    String text,
-  ) {
+  Stream<String> _sendMessage(String text) {
     final sendingMessage = _newTextMessage(text, state.value!.user)
         .copyWith(status: Status.sending);
 
@@ -69,9 +66,7 @@ class Chat extends _$Chat {
     return stream;
   }
 
-  void _receiveReply(
-    Stream<ChatService_SendMessageStreamResponse> replyStream,
-  ) {
+  void _receiveReply(Stream<String> replyStream) {
     TextMessage? reply;
 
     replyStream.listen(
@@ -113,16 +108,13 @@ class Chat extends _$Chat {
     state = state;
   }
 
-  TextMessage _combineReplyChunk(
-    TextMessage? reply,
-    ChatService_SendMessageStreamResponse replyChunk,
-  ) {
+  TextMessage _combineReplyChunk(TextMessage? reply, String replyText) {
     if (reply == null) {
-      return _newTextMessage(replyChunk.text, state.value!.otomo)
+      return _newTextMessage(replyText, state.value!.otomo)
           .copyWith(status: Status.sending) as TextMessage;
     } else {
-      final replyText = reply.text + replyChunk.text;
-      final combinedReply = reply.copyWith(text: replyText);
+      final combinedText = reply.text + replyText;
+      final combinedReply = reply.copyWith(text: combinedText);
       return combinedReply as TextMessage;
     }
   }

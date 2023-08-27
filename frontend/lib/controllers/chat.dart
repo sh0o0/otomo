@@ -22,10 +22,10 @@ class ChatController {
     return resp.messages;
   }
 
-  Stream<ChatService_SendMessageStreamResponse> sendMessage(
+  Stream<String> sendMessage(
     String text,
   ) {
-    return _chatService
-        .sendMessage(ChatService_SendMessageRequest()..text = text);
+    final req = ChatService_SendMessageRequest()..text = text;
+    return _chatService.sendMessage(req).map((replyChunk) => replyChunk.text);
   }
 }
