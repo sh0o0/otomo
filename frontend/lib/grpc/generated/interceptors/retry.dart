@@ -1,4 +1,5 @@
 import 'package:grpc/grpc.dart';
+import 'package:otomo/grpc/generated/interceptors/response_future.dart';
 import 'package:otomo/tools/logger.dart';
 
 // TODO: Add tests
@@ -58,15 +59,9 @@ class RetryOnUnavailableErrorClientInterceptor extends ClientInterceptor {
       );
     }
 
-    try {
-      // catchErrorに統一したい。
-      // テストではtry catchしか行えない、アプリ実行時はcatchErrorしか行えないため、try catch, catchError両方実装している。
-      return invoker(method, request, options).catchError((Object e) {
-        return retry(e as Exception);
-      }, test: _isShouldRetryError) as ResponseFuture<R>;
-    } on Exception catch (e) {
-      if (!_isShouldRetryError(e)) rethrow;
-      return retry(e);
-    }
+    return DelegatingResponseFuture<R>(invoker(method, request, options))
+        .catchError((Object e) {
+      return retry(e as Exception);
+    }, test: _isShouldRetryError);
   }
 }
