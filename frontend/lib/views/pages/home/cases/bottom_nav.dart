@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:otomo/viewmodels/home.dart';
+import 'package:otomo/view_models/home.dart';
 import 'package:otomo/views/pages/chat/chat.dart';
 
 const double _navBarHeight = 64.0;

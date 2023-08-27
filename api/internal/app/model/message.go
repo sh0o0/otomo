@@ -4,13 +4,13 @@ import (
 	"time"
 )
 
+type MessageID string
+
 type Message struct {
-	ID       string    `firestore:"id"`
-	UserID   string    `firestore:"user_id"`
-	Text     string    `firestore:"text"`
-	Sender   Role      `firestore:"sender"`
-	Receiver Role      `firestore:"receiver"`
-	SentAt   time.Time `firestore:"sent_at"`
+	ID     MessageID `firestore:"id"`
+	Text   string    `firestore:"text"`
+	Role   Role      `firestore:"role"`
+	SentAt time.Time `firestore:"sent_at"`
 }
 
 type Role string

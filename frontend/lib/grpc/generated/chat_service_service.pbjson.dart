@@ -41,3 +41,33 @@ final $typed_data.Uint8List chatService_SendMessageStreamResponseDescriptor = $c
     'RleHQSMwoHc2VudF9hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSBnNlbnRB'
     'dA==');
 
+@$core.Deprecated('Use chatService_ListMessagesRequestDescriptor instead')
+const ChatService_ListMessagesRequest$json = {
+  '1': 'ChatService_ListMessagesRequest',
+  '2': [
+    {'1': 'page_size', '3': 1, '4': 1, '5': 13, '10': 'pageSize'},
+    {'1': 'page_start_after_message_id', '3': 2, '4': 1, '5': 9, '10': 'pageStartAfterMessageId'},
+    {'1': 'user_id', '3': 3, '4': 1, '5': 9, '8': {}, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `ChatService_ListMessagesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_ListMessagesRequestDescriptor = $convert.base64Decode(
+    'Ch9DaGF0U2VydmljZV9MaXN0TWVzc2FnZXNSZXF1ZXN0EhsKCXBhZ2Vfc2l6ZRgBIAEoDVIIcG'
+    'FnZVNpemUSPAobcGFnZV9zdGFydF9hZnRlcl9tZXNzYWdlX2lkGAIgASgJUhdwYWdlU3RhcnRB'
+    'ZnRlck1lc3NhZ2VJZBIgCgd1c2VyX2lkGAMgASgJQgf6QgRyAhABUgZ1c2VySWQ=');
+
+@$core.Deprecated('Use chatService_ListMessagesResponseDescriptor instead')
+const ChatService_ListMessagesResponse$json = {
+  '1': 'ChatService_ListMessagesResponse',
+  '2': [
+    {'1': 'page_size', '3': 1, '4': 1, '5': 13, '10': 'pageSize'},
+    {'1': 'messages', '3': 3, '4': 3, '5': 11, '6': '.Message', '10': 'messages'},
+  ],
+};
+
+/// Descriptor for `ChatService_ListMessagesResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_ListMessagesResponseDescriptor = $convert.base64Decode(
+    'CiBDaGF0U2VydmljZV9MaXN0TWVzc2FnZXNSZXNwb25zZRIbCglwYWdlX3NpemUYASABKA1SCH'
+    'BhZ2VTaXplEiQKCG1lc3NhZ2VzGAMgAygLMgguTWVzc2FnZVIIbWVzc2FnZXM=');
+

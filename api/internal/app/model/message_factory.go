@@ -14,17 +14,13 @@ func NewMessageFactory() *MessageFactory {
 }
 
 func (*MessageFactory) NewMessage(
-	userID string,
 	text string,
-	sender Role,
-	receiver Role,
+	role Role,
 ) (*Message, error) {
 	return &Message{
-		ID:       uuid.NewString(),
-		UserID:   userID,
-		Text:     text,
-		Sender:   sender,
-		Receiver: receiver,
-		SentAt:   times.C.Now(),
+		ID:     MessageID(uuid.NewString()),
+		Text:   text,
+		Role:   role,
+		SentAt: times.C.Now(),
 	}, nil
 }

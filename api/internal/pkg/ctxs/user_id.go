@@ -19,6 +19,15 @@ func UserIDFromContext(ctx context.Context) (string, error) {
 	}
 }
 
+func UserIs(ctx context.Context, userID string) bool {
+	userIDFromCtx, err := UserIDFromContext(ctx)
+	if err != nil {
+		return false
+	}
+
+	return userID == userIDFromCtx
+}
+
 func UserIDToContext(ctx context.Context, userID string) context.Context {
 	return context.WithValue(ctx, ctxUserIDKey{}, userID)
 }

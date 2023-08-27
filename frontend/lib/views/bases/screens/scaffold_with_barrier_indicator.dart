@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/bases/indicators/sized_circle_progress_indicator.dart';
+import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/bases/screens/screen_barrier.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 
@@ -19,7 +19,8 @@ class ScaffoldWithBarrierIndicator extends StatelessWidget {
       children: [
         Scaffold(body: body),
         isProcessing
-            ? const ScreenBarrier(child: SizedCircleIndicator())
+            ? const ScreenBarrier(
+                child: Center(child: AppCircularProgressIndicator()))
             : Spaces.zero,
       ],
     );

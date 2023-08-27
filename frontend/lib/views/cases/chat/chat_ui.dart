@@ -9,11 +9,15 @@ class ChatUI extends StatefulWidget {
     required this.messages,
     required this.user,
     required this.onSendPressed,
+    this.emptyState,
+    this.onEndReached,
   });
 
   final List<types.Message> messages;
   final types.User user;
   final void Function(types.PartialText) onSendPressed;
+  final Widget? emptyState;
+  final Future<void> Function()? onEndReached;
 
   @override
   State<ChatUI> createState() => _ChatUIState();
@@ -29,6 +33,8 @@ class _ChatUIState extends State<ChatUI> {
       onSendPressed: widget.onSendPressed,
       user: widget.user,
       theme: chatTheme,
+      emptyState: widget.emptyState,
+      onEndReached: widget.onEndReached,
     );
   }
 }

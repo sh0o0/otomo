@@ -4,19 +4,31 @@ option go_package = ".;grpcgen";
 
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
+import "message.proto";
 
 
 
 service ChatService {
   rpc SendMessage (ChatService_SendMessageRequest) returns (stream ChatService_SendMessageStreamResponse) {};
+  rpc ListMessages(ChatService_ListMessagesRequest) returns (ChatService_ListMessagesResponse) {};
 };
 
 message ChatService_SendMessageRequest {
-    string text = 1 [(validate.rules).string.min_len = 1, (validate.rules).string.max_len = 10000];;
+    string text = 1 [(validate.rules).string.min_len = 1, (validate.rules).string.max_len = 10000];
 };
 
-  message ChatService_SendMessageStreamResponse {
+message ChatService_SendMessageStreamResponse {
     string text = 1;
     google.protobuf.Timestamp sent_at = 2;
 };
 
+message ChatService_ListMessagesRequest {
+  uint32 page_size = 1;
+  string page_start_after_message_id = 2;
+  string user_id = 3 [(validate.rules).string.min_len = 1];
+};
+
+message ChatService_ListMessagesResponse {
+  uint32 page_size = 1;
+  repeated Message messages = 3;
+};
