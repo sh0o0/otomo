@@ -2,7 +2,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
-import 'package:otomo/grpc/generated/message.pb.dart' as gm;
+import 'package:otomo/models/message.dart' as msg;
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
@@ -22,30 +22,29 @@ class ChatState with _$ChatState {
 
 @riverpod
 class Chat extends _$Chat {
+  Chat() {
+    _user = User(id: _globalState.userId!);
+    _otomo = User(id: uuid());
+  }
+
   final _globalState = getIt<GlobalState>();
   final _chatController = getIt<ChatController>();
+  late final User _user;
+  late final User _otomo;
 
   @override
   FutureOr<ChatState> build() async {
     state = const AsyncValue.loading();
 
-    final user = User(id: _globalState.userId!);
-    final otomo = User(id: uuid());
     final messages =
         await _chatController.listMessages(_globalState.userId!, null, null);
-    final chatMessages = messages
-        .map((e) => TextMessage(
-              author: e.role == gm.Role.USER ? user : otomo,
-              id: e.id,
-              text: e.text,
-              createdAt: e.sentAt.toDateTime().millisecondsSinceEpoch,
-            ))
-        .toList();
+    final chatMessages =
+        messages.map((m) => _toChatUIMessage(m, Status.sent)).toList();
 
     return ChatState(
       messages: chatMessages,
-      user: User(id: _globalState.userId!),
-      otomo: User(id: uuid()),
+      user: _user,
+      otomo: _otomo,
     );
   }
 
@@ -55,8 +54,8 @@ class Chat extends _$Chat {
   }
 
   Stream<String> _sendMessage(String text) {
-    final sendingMessage = _newTextMessage(text, state.value!.user)
-        .copyWith(status: Status.sending);
+    final sendingMessage =
+        _newTextMessage(text, state.value!.user, Status.sending);
 
     _addMessage(sendingMessage);
     final stream = _chatController.sendMessage(text);
@@ -83,8 +82,8 @@ class Chat extends _$Chat {
         logger.warn(e.toString());
 
         if (reply == null) {
-          reply = _newTextMessage('Error occurred', state.value!.otomo)
-              .copyWith(status: Status.error) as TextMessage;
+          reply = _newTextMessage(
+              'Error occurred', state.value!.otomo, Status.error);
           _addMessage(reply!);
         } else {
           _updateMessageWithIndex(reply!.copyWith(status: Status.error));
@@ -97,7 +96,7 @@ class Chat extends _$Chat {
     );
   }
 
-  void _addMessage(Message message) {
+  void _addMessage(TextMessage message) {
     state = state..value!.messages.insert(0, message);
   }
 
@@ -110,8 +109,7 @@ class Chat extends _$Chat {
 
   TextMessage _combineReplyChunk(TextMessage? reply, String replyText) {
     if (reply == null) {
-      return _newTextMessage(replyText, state.value!.otomo)
-          .copyWith(status: Status.sending) as TextMessage;
+      return _newTextMessage(replyText, state.value!.otomo, Status.sending);
     } else {
       final combinedText = reply.text + replyText;
       final combinedReply = reply.copyWith(text: combinedText);
@@ -119,12 +117,25 @@ class Chat extends _$Chat {
     }
   }
 
-  TextMessage _newTextMessage(String text, User author) {
+  TextMessage _newTextMessage(String text, User author, Status? status) {
     return TextMessage(
       author: author,
-      // Random string
       id: uuid(),
       text: text,
+      status: status,
+    );
+  }
+
+  Message _toChatUIMessage(
+    msg.Message message,
+    Status status,
+  ) {
+    return TextMessage(
+      author: message.role == msg.Role.user ? _user : _otomo,
+      id: uuid(),
+      remoteId: message.id,
+      text: message.text,
+      status: status,
     );
   }
 }
