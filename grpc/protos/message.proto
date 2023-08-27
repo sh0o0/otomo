@@ -11,6 +11,7 @@ message Message {
 }
 
 enum Role {
-    USER = 0;
-    OTOMO = 1;
+    UNKNOWN = 0;
+    USER = 1;
+    OTOMO = 2;
 }

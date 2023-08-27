@@ -14,10 +14,12 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class Role extends $pb.ProtobufEnum {
-  static const Role USER = Role._(0, _omitEnumNames ? '' : 'USER');
-  static const Role OTOMO = Role._(1, _omitEnumNames ? '' : 'OTOMO');
+  static const Role UNKNOWN = Role._(0, _omitEnumNames ? '' : 'UNKNOWN');
+  static const Role USER = Role._(1, _omitEnumNames ? '' : 'USER');
+  static const Role OTOMO = Role._(2, _omitEnumNames ? '' : 'OTOMO');
 
   static const $core.List<Role> values = <Role> [
+    UNKNOWN,
     USER,
     OTOMO,
   ];

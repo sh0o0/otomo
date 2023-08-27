@@ -27,7 +27,7 @@ class Message extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Message', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'text')
-    ..e<Role>(3, _omitFieldNames ? '' : 'role', $pb.PbFieldType.OE, defaultOrMaker: Role.USER, valueOf: Role.valueOf, enumValues: Role.values)
+    ..e<Role>(3, _omitFieldNames ? '' : 'role', $pb.PbFieldType.OE, defaultOrMaker: Role.UNKNOWN, valueOf: Role.valueOf, enumValues: Role.values)
     ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', protoName: 'sentAt', subBuilder: $3.Timestamp.create)
     ..hasRequiredFields = false
   ;

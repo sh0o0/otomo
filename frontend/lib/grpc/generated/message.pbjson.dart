@@ -17,14 +17,15 @@ import 'dart:typed_data' as $typed_data;
 const Role$json = {
   '1': 'Role',
   '2': [
-    {'1': 'USER', '2': 0},
-    {'1': 'OTOMO', '2': 1},
+    {'1': 'UNKNOWN', '2': 0},
+    {'1': 'USER', '2': 1},
+    {'1': 'OTOMO', '2': 2},
   ],
 };
 
 /// Descriptor for `Role`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List roleDescriptor = $convert.base64Decode(
-    'CgRSb2xlEggKBFVTRVIQABIJCgVPVE9NTxAB');
+    'CgRSb2xlEgsKB1VOS05PV04QABIICgRVU0VSEAESCQoFT1RPTU8QAg==');
 
 @$core.Deprecated('Use messageDescriptor instead')
 const Message$json = {

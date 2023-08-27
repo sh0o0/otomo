@@ -122,13 +122,13 @@ func (r *MessageRepository) snapsToMessages(
 	ctx context.Context,
 	snaps []*firestore.DocumentSnapshot,
 ) ([]*model.Message, error) {
-	msgs := make([]*model.Message, 0, len(snaps))
-	for _, s := range snaps {
+	msgs := make([]*model.Message, len(snaps))
+	for i, s := range snaps {
 		msg, err := r.snapToMessage(ctx, s)
 		if err != nil {
 			return nil, err
 		}
-		msgs = append(msgs, msg)
+		msgs[i] = msg
 	}
 	return msgs, nil
 }

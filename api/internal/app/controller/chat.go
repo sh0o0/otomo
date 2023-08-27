@@ -102,7 +102,7 @@ func (c *ChatController) ListMessages(
 	ctx context.Context,
 	req *grpcgen.ChatService_ListMessagesRequest,
 ) (*grpcgen.ChatService_ListMessagesResponse, error) {
-	if ctxs.UserIs(ctx, req.UserId) {
+	if !ctxs.UserIs(ctx, req.UserId) {
 		return nil, status.New(codes.PermissionDenied, "can only get own list").Err()
 	}
 
@@ -132,7 +132,7 @@ func (c *ChatController) ListMessages(
 func (c *ChatController) toGrpcMessages(
 	msgs []*model.Message,
 ) ([]*grpcgen.Message, error) {
-	grpcMsgs := make([]*grpcgen.Message, 0, len(msgs))
+	grpcMsgs := make([]*grpcgen.Message, len(msgs))
 	for i, msg := range msgs {
 		grpcMsg, err := c.toGrpcMessage(msg)
 		if err != nil {
@@ -150,6 +150,7 @@ func (c *ChatController) toGrpcMessage(
 	if err != nil {
 		return nil, err
 	}
+
 	return &grpcgen.Message{
 		Id:     string(msg.ID),
 		Text:   msg.Text,
@@ -160,10 +161,10 @@ func (c *ChatController) toGrpcMessage(
 
 func toGrpcRole(r model.Role) (role grpcgen.Role, err error) {
 	switch r {
-	case model.OtomoRole:
-		role = grpcgen.Role_OTOMO
 	case model.UserRole:
 		role = grpcgen.Role_USER
+	case model.OtomoRole:
+		role = grpcgen.Role_OTOMO
 	default:
 		err = &errs.Error{
 			Domain: errs.DomainMessageWithOtomo,
