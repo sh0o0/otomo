@@ -171,7 +171,7 @@ func toGrpcRole(r model.Role) (role grpcgen.Role, err error) {
 		role = grpcgen.Role_OTOMO
 	default:
 		err = &errs.Error{
-			Domain: errs.DomainMessageWithOtomo,
+			Domain: errs.DomainMessage,
 			Cause:  errs.CauseNotExist,
 			Field:  errs.FieldRole,
 		}

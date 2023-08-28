@@ -20,7 +20,7 @@ func messageToLangChainMessage(msg *model.Message) (schema.ChatMessage, error) {
 	default:
 		return nil, &errs.Error{
 			Cause:  errs.CauseNotExist,
-			Domain: errs.DomainMessageWithOtomo,
+			Domain: errs.DomainMessage,
 			Field:  errs.FieldRole,
 		}
 	}

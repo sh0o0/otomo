@@ -31,7 +31,7 @@ func TestErrorPresenter_ErrorOutput(t *testing.T) {
 				err: &errs.Error{
 					Message: "error",
 					Cause:   errs.CauseInternal,
-					Domain:  errs.DomainMessageWithOtomo,
+					Domain:  errs.DomainMessage,
 					Field:   errs.FieldID,
 				},
 			},
@@ -42,7 +42,7 @@ func TestErrorPresenter_ErrorOutput(t *testing.T) {
 				).WithDetails(
 					&errdetails.ErrorInfo{
 						Reason:   string(errs.CauseInternal),
-						Domain:   string(errs.DomainMessageWithOtomo),
+						Domain:   string(errs.DomainMessage),
 						Metadata: map[string]string{"field": string(errs.FieldID)},
 					},
 				)

@@ -137,5 +137,5 @@ func (r *MessageRepository) ifCodesNotFoundReturnErrsNotFound(
 	err error,
 	field errs.Field,
 ) error {
-	return ifCodesNotFoundReturnErrsNotFound(err, errs.DomainMessageWithOtomo, field)
+	return ifCodesNotFoundReturnErrsNotFound(err, errs.DomainMessage, field)
 }
