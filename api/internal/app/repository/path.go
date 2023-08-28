@@ -17,6 +17,11 @@ var (
 	userColPath string = strings.Join([]string{v1DocPath, userColName}, "/")
 )
 
+// TODO: Add tests
+func getUserDocPath(userID string) string {
+	return strings.Join([]string{userColPath, userID}, "/")
+}
+
 // /versions/1/users/{userID}/messages
 func getMessagesColPath(userID string) string {
 	return strings.Join([]string{userColPath, userID, messageColName}, "/")
