@@ -3,7 +3,6 @@ package service
 import (
 	"context"
 	"otomo/internal/app/model"
-	"otomo/internal/pkg/prompt"
 	"otomo/internal/pkg/times"
 	"otomo/internal/pkg/uuid"
 
@@ -13,17 +12,14 @@ import (
 	"github.com/tmc/langchaingo/schema"
 )
 
-var (
-	otomoRoleDescription = prompt.JoinWithNewLine(
-		"You are AI called Otomo. Otomo is friendly, talkative and provides lots of specific details. If the AI does not know the answer to a question, it truthfully says it does not know.",
-		"Please include appropriate questions related to the conversation from time to time. In addition, if you have past conversation summary information, please refer to that information.",
-	)
-	historyPrompt = prompt.JoinWithNewLine(
-		"The following is a conversation between a human and an Otomo.",
-		"",
-		"Current conversation:",
-		"{{.history}}",
-	)
+const (
+	otomoRoleDescription = `You are AI called Otomo. Otomo is friendly, talkative and provides lots of specific details. If the AI does not know the answer to a question, it truthfully says it does not know.
+Please include appropriate questions related to the conversation from time to time. In addition, if you have past conversation summary information, please refer to that information.`
+
+	historyPrompt = `The following is a conversation between a human and an Otomo.
+
+Current conversation:
+{{.history}}`
 )
 
 // TODO: Add tests

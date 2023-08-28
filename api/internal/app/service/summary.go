@@ -28,6 +28,7 @@ User's name is Taro Yamada
 {{.existing_summary}}`
 )
 
+// TODO: Add tests
 type SummaryService struct {
 	gpt *openai.Chat
 }
