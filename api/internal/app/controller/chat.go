@@ -54,6 +54,7 @@ func NewChatController(
 	}
 }
 
+// TODO: Implement transaction
 func (c *ChatController) SendMessage(
 	req *grpcgen.ChatService_SendMessageRequest,
 	stream grpcgen.ChatService_SendMessageServer,
