@@ -9,8 +9,6 @@ import (
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
 
-	"github.com/tmc/langchaingo/llms"
-	"github.com/tmc/langchaingo/schema"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -59,54 +57,7 @@ func (c *ChatController) SendMessage(
 	req *grpcgen.ChatService_SendMessageRequest,
 	stream grpcgen.ChatService_SendMessageServer,
 ) error {
-	if err := req.ValidateAll(); err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	userID, err := ctxs.UserIDFromContext(stream.Context())
-	if err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	msg, err := c.msgFactory.NewMessage(
-		req.GetText(),
-		model.UserRole,
-	)
-	if err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	if err := c.msgRepo.Add(
-		stream.Context(), model.UserID(userID), msg); err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	completion, err := c.chat.Call(stream.Context(), []schema.ChatMessage{
-		schema.HumanChatMessage{Content: msg.Text},
-	}, llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {
-		stream.Send(&grpcgen.ChatService_SendMessageStreamResponse{
-			Text:   string(chunk),
-			SentAt: timestamppb.Now(),
-		})
-		return nil
-	}))
-	if err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	reply, err := c.msgFactory.NewMessage(
-		completion.Content,
-		model.OtomoRole,
-	)
-	if err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-	if err := c.msgRepo.Add(
-		stream.Context(), model.UserID(userID), reply); err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	return nil
+	panic("not implemented")
 }
 
 func (c *ChatController) ListMessages(
@@ -114,7 +65,7 @@ func (c *ChatController) ListMessages(
 	req *grpcgen.ChatService_ListMessagesRequest,
 ) (*grpcgen.ChatService_ListMessagesResponse, error) {
 	if err := req.ValidateAll(); err != nil {
-		return nil, c.ErrorOutput(ctx, err).Err()
+		return nil, c.errorPresenter.ErrorOutput(ctx, err).Err()
 	}
 
 	if !ctxs.UserIs(ctx, req.UserId) {
@@ -130,12 +81,12 @@ func (c *ChatController) ListMessages(
 				req.GetPageStartAfterMessageId()),
 		})
 	if err != nil {
-		return nil, c.ErrorOutput(ctx, err).Err()
+		return nil, c.errorPresenter.ErrorOutput(ctx, err).Err()
 	}
 
 	resMsgs, err := c.toGrpcMessages(msgs)
 	if err != nil {
-		return nil, c.ErrorOutput(ctx, err).Err()
+		return nil, c.errorPresenter.ErrorOutput(ctx, err).Err()
 	}
 
 	return &grpcgen.ChatService_ListMessagesResponse{
