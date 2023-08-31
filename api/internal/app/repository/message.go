@@ -104,7 +104,7 @@ func (r *MessageRepository) getDoc(
 	userID model.UserID,
 	id model.MessageID,
 ) *firestore.DocumentRef {
-	return r.getCollection(ctx, userID).Doc(string(id))
+	return r.fsClient.Doc(getChatMessageDocPath(userID, id))
 }
 
 func (r *MessageRepository) snapToMessage(
