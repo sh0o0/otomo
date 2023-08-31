@@ -28,7 +28,7 @@ func NewMessageFactory() *MessageFactory {
 	return &MessageFactory{}
 }
 
-func (*MessageFactory) NewMessage(
+func (*MessageFactory) New(
 	text string,
 	role Role,
 ) (*Message, error) {

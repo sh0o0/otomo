@@ -2,13 +2,14 @@ package ctxs
 
 import (
 	"context"
+	"otomo/internal/app/model"
 	"otomo/internal/pkg/errs"
 )
 
 type ctxUserIDKey struct{}
 
-func UserIDFromContext(ctx context.Context) (string, error) {
-	if id, ok := ctx.Value(ctxUserIDKey{}).(string); ok {
+func UserIDFromContext(ctx context.Context) (model.UserID, error) {
+	if id, ok := ctx.Value(ctxUserIDKey{}).(model.UserID); ok {
 		return id, nil
 	}
 	return "", &errs.Error{
@@ -19,7 +20,7 @@ func UserIDFromContext(ctx context.Context) (string, error) {
 	}
 }
 
-func UserIs(ctx context.Context, userID string) bool {
+func UserIs(ctx context.Context, userID model.UserID) bool {
 	userIDFromCtx, err := UserIDFromContext(ctx)
 	if err != nil {
 		return false
@@ -28,6 +29,6 @@ func UserIs(ctx context.Context, userID string) bool {
 	return userID == userIDFromCtx
 }
 
-func UserIDToContext(ctx context.Context, userID string) context.Context {
+func UserIDToContext(ctx context.Context, userID model.UserID) context.Context {
 	return context.WithValue(ctx, ctxUserIDKey{}, userID)
 }

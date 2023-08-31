@@ -8,6 +8,7 @@ import (
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
+	"otomo/internal/pkg/times"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -57,7 +58,66 @@ func (c *ChatController) SendMessage(
 	req *grpcgen.ChatService_SendMessageRequest,
 	stream grpcgen.ChatService_SendMessageServer,
 ) error {
-	panic("not implemented")
+	var ctx = stream.Context()
+
+	if err := req.ValidateAll(); err != nil {
+		return c.errorPresenter.ErrorOutput(ctx, err).Err()
+	}
+
+	userID, err := ctxs.UserIDFromContext(ctx)
+	if err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	msg, err := c.msgFactory.New(req.GetText(), model.UserRole)
+	if err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	if err := c.msgRepo.Add(ctx, userID, msg); err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	chat, err := c.chatRepo.Get(ctx, userID)
+	if err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	summary, err := c.summaryService.Summarize(ctx, msg, chat.Summary)
+	if err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	chat, err = c.chatFactory.New(summary)
+	if err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	if err := c.chatRepo.Save(ctx, userID, chat); err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	reply, err := c.chatService.Send(
+		ctx,
+		userID,
+		msg,
+		chat.Summary,
+		func(ctx context.Context, chunk []byte) error {
+			return stream.Send(&grpcgen.ChatService_SendMessageStreamResponse{
+				Text:   string(chunk),
+				SentAt: timestamppb.New(times.C.Now()),
+			})
+		},
+	)
+	if err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	if err := c.msgRepo.Add(ctx, userID, reply); err != nil {
+		return c.toGrpcError(ctx, err)
+	}
+
+	return nil
 }
 
 func (c *ChatController) ListMessages(
@@ -65,10 +125,10 @@ func (c *ChatController) ListMessages(
 	req *grpcgen.ChatService_ListMessagesRequest,
 ) (*grpcgen.ChatService_ListMessagesResponse, error) {
 	if err := req.ValidateAll(); err != nil {
-		return nil, c.errorPresenter.ErrorOutput(ctx, err).Err()
+		return nil, c.toGrpcError(ctx, err)
 	}
 
-	if !ctxs.UserIs(ctx, req.UserId) {
+	if !ctxs.UserIs(ctx, model.UserID(req.UserId)) {
 		return nil, status.New(codes.PermissionDenied, "can only get own list").Err()
 	}
 
@@ -81,12 +141,12 @@ func (c *ChatController) ListMessages(
 				req.GetPageStartAfterMessageId()),
 		})
 	if err != nil {
-		return nil, c.errorPresenter.ErrorOutput(ctx, err).Err()
+		return nil, c.toGrpcError(ctx, err)
 	}
 
 	resMsgs, err := c.toGrpcMessages(msgs)
 	if err != nil {
-		return nil, c.errorPresenter.ErrorOutput(ctx, err).Err()
+		return nil, c.toGrpcError(ctx, err)
 	}
 
 	return &grpcgen.ChatService_ListMessagesResponse{
@@ -139,4 +199,8 @@ func toGrpcRole(r model.Role) (role grpcgen.Role, err error) {
 		}
 	}
 	return
+}
+
+func (c *ChatController) toGrpcError(ctx context.Context, err error) error {
+	return c.errorPresenter.ErrorOutput(ctx, err).Err()
 }

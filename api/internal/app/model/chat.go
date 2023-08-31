@@ -10,7 +10,7 @@ func NewChatFactory() *ChatFactory {
 	return &ChatFactory{}
 }
 
-func (*ChatFactory) NewChat(
+func (*ChatFactory) New(
 	summary string,
 ) (*Chat, error) {
 	return &Chat{
