@@ -27,5 +27,14 @@ func (r *ChatRepository) Save(
 	userID model.UserID,
 	chat *model.Chat,
 ) error {
-	panic("not implemented")
+	chatDoc := r.getDoc(ctx, userID)
+	_, err := chatDoc.Set(ctx, chat)
+	return err
+}
+
+func (r *ChatRepository) getDoc(
+	ctx context.Context,
+	userID model.UserID,
+) *firestore.DocumentRef {
+	return r.fsClient.Doc(getChatDocPath(userID))
 }
