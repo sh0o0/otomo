@@ -96,7 +96,7 @@ func (r *MessageRepository) getCollection(
 	ctx context.Context,
 	userID model.UserID,
 ) *firestore.CollectionRef {
-	return r.fsClient.Collection(getMessagesColPath(string(userID)))
+	return r.fsClient.Collection(getChatMessagesColPath(userID))
 }
 
 func (r *MessageRepository) getDoc(

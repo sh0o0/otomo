@@ -36,7 +36,7 @@ func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing
 	}
 
 	snapshot, err := systemtest.FirestoreClient.
-		Doc(getMessageDocPath(string(giveUserID), string(giveMsg.ID))).
+		Doc(getChatMessageDocPath(giveUserID, giveMsg.ID)).
 		Get(giveCtx)
 	if err != nil {
 		t.Fatal(err)
@@ -80,7 +80,7 @@ func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAre
 	}
 
 	_, err := systemtest.FirestoreClient.
-		Doc(getMessageDocPath(string(giveMsg.ID), string(giveMsg.ID))).
+		Doc(getChatMessageDocPath(giveUserID, giveMsg.ID)).
 		Get(giveCtx)
 	assert.Equal(t, codes.NotFound, status.Code(err))
 }
