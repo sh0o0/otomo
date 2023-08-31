@@ -3,41 +3,38 @@ package repository
 import (
 	"context"
 	"otomo/internal/app/model"
+	"otomo/internal/pkg/uuid"
 	"otomo/test/systemtest"
+	"otomo/test/testmodel"
 	"testing"
 
-	"cloud.google.com/go/firestore"
+	"github.com/stretchr/testify/assert"
 )
 
 var chatRepo = NewChatRepository(systemtest.FirestoreClient)
 
-func TestChatRepository_Save(t *testing.T) {
-	type fields struct {
-		fsClient *firestore.Client
+func TestChatRepository_Save_ShouldAddChat_WhenArgsAreValid(t *testing.T) {
+	var (
+		giveCtx    = context.Background()
+		giveUserID = model.UserID(uuid.NewString())
+		giveChat   = testmodel.DefaultTestChatFactory.Fake()
+	)
+
+	if err := chatRepo.Save(giveCtx, giveUserID, giveChat); err != nil {
+		t.Fatal(err)
 	}
-	type args struct {
-		ctx    context.Context
-		userID model.UserID
-		chat   *model.Chat
+
+	snapshot, err := systemtest.FirestoreClient.
+		Doc(getChatDocPath(giveUserID)).
+		Get(giveCtx)
+	if err != nil {
+		t.Fatal(err)
 	}
-	tests := []struct {
-		name      string
-		fields    fields
-		args      args
-		wantIsErr bool
-	}{
-		// TODO: Add test cases.
+
+	var gotChat = &model.Chat{}
+	if err := snapshot.DataTo(gotChat); err != nil {
+		t.Fatal(err)
 	}
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			r := &ChatRepository{
-				fsClient: tt.fields.fsClient,
-			}
-			if err := r.Save(tt.args.ctx, tt.args.userID, tt.args.chat); (err != nil) != tt.wantIsErr {
-				t.Errorf("ChatRepository.Save() error = %v, wantIsErr %v", err, tt.wantIsErr)
-			}
-		})
-	}
+
+	assert.Equal(t, giveChat, gotChat)
 }
