@@ -8,24 +8,24 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
-var _ repo.MessageSummaryRepository = (*MessageSummaryRepository)(nil)
+var _ repo.ChatRepository = (*ChatRepository)(nil)
 
-type MessageSummaryRepository struct {
+type ChatRepository struct {
 	fsClient *firestore.Client
 }
 
-func NewMessageSummaryRepository(
+func NewChatRepository(
 	fsClient *firestore.Client,
-) *MessageSummaryRepository {
-	return &MessageSummaryRepository{
+) *ChatRepository {
+	return &ChatRepository{
 		fsClient: fsClient,
 	}
 }
 
-func (r *MessageSummaryRepository) Save(
+func (r *ChatRepository) Save(
 	ctx context.Context,
 	userID model.UserID,
-	summary string,
+	chat *model.Chat,
 ) error {
 	panic("not implemented")
 }

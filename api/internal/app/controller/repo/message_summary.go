@@ -5,6 +5,6 @@ import (
 	"otomo/internal/app/model"
 )
 
-type MessageSummaryRepository interface {
-	Save(ctx context.Context, userID model.UserID, summary string) error
+type ChatRepository interface {
+	Save(ctx context.Context, userID model.UserID, chat *model.Chat) error
 }
