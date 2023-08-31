@@ -38,3 +38,22 @@ func TestChatRepository_Save_ShouldAddChat_WhenArgsAreValid(t *testing.T) {
 
 	assert.Equal(t, giveChat, gotChat)
 }
+
+func TestChatRepository_Get_ShouldGetChat_WhenFoundChat(t *testing.T) {
+	var (
+		giveCtx = context.Background()
+		userID  = model.UserID(uuid.NewString())
+		chat    = testmodel.DefaultTestChatFactory.Fake()
+	)
+
+	if err := chatRepo.Save(giveCtx, userID, chat); err != nil {
+		t.Fatal(err)
+	}
+
+	gotChat, err := chatRepo.Get(giveCtx, userID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert.Equal(t, chat, gotChat)
+}
