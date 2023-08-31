@@ -20,7 +20,7 @@ import (
 
 var msgRepo = NewMessageRepository(systemtest.FirestoreClient)
 
-func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
+func TestMessageRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
@@ -46,7 +46,7 @@ func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing
 	assert.Equal(t, giveMsg, gotModel)
 }
 
-func TestMessageWithOtomoRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T) {
+func TestMessageRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
@@ -60,7 +60,7 @@ func TestMessageWithOtomoRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *t
 	assert.Error(t, err)
 }
 
-func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *testing.T) {
+func TestMessageRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
@@ -81,7 +81,7 @@ func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAre
 	assert.Equal(t, codes.NotFound, status.Code(err))
 }
 
-func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldReturnNotFoundErr_WhenDeleteMsgNotExist(t *testing.T) {
+func TestMessageRepository_DeleteByIDAndUserID_ShouldReturnNotFoundErr_WhenDeleteMsgNotExist(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
