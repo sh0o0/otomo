@@ -3,13 +3,13 @@ package controller
 import (
 	"context"
 	"otomo/internal/app/controller/repo"
+	"otomo/internal/app/controller/svc"
 	"otomo/internal/app/grpcgen"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
 
 	"github.com/tmc/langchaingo/llms"
-	"github.com/tmc/langchaingo/llms/openai"
 	"github.com/tmc/langchaingo/schema"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -26,21 +26,32 @@ var (
 )
 
 type ChatController struct {
-	errorPresenter
-	chat       *openai.Chat
-	msgFactory *model.MessageFactory
-	msgRepo    repo.MessageRepository
+	errorPresenter errorPresenter
+	chatFactory    *model.ChatFactory
+	msgFactory     *model.MessageFactory
+	chatRepo       repo.ChatRepository
+	msgRepo        repo.MessageRepository
+	chatService    svc.ChatService
+	summaryService svc.SummaryService
 }
 
 func NewChatController(
-	chat *openai.Chat,
+	errorPresenter errorPresenter,
+	chatFactory *model.ChatFactory,
 	msgFactory *model.MessageFactory,
+	chatRepo repo.ChatRepository,
 	msgRepo repo.MessageRepository,
+	chatService svc.ChatService,
+	summaryService svc.SummaryService,
 ) *ChatController {
 	return &ChatController{
-		chat:       chat,
-		msgFactory: msgFactory,
-		msgRepo:    msgRepo,
+		errorPresenter: errorPresenter,
+		chatFactory:    chatFactory,
+		msgFactory:     msgFactory,
+		chatRepo:       chatRepo,
+		msgRepo:        msgRepo,
+		chatService:    chatService,
+		summaryService: summaryService,
 	}
 }
 
