@@ -18,10 +18,6 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func init() {
-	testutil.SetMockClock()
-}
-
 var msgRepo = NewMessageRepository(systemtest.FirestoreClient)
 
 func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
