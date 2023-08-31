@@ -57,3 +57,18 @@ func TestChatRepository_Get_ShouldGetChat_WhenFoundChat(t *testing.T) {
 
 	assert.Equal(t, chat, gotChat)
 }
+
+func TestChatRepository_Get_ShouldGetEmptyChat_WhenNotFoundChat(t *testing.T) {
+	var (
+		giveCtx  = context.Background()
+		userID   = model.UserID(uuid.NewString())
+		wantChat = &model.Chat{}
+	)
+
+	gotChat, err := chatRepo.Get(giveCtx, userID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert.Equal(t, wantChat, gotChat)
+}
