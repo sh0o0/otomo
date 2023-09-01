@@ -46,7 +46,7 @@ func (s *SummaryService) Summarize(
 	newMsg *model.Message,
 	existingSummary string,
 ) (string, error) {
-	summarizeMessage, err := prompts.NewSystemMessagePromptTemplate(
+	existingSummaryMsg, err := prompts.NewSystemMessagePromptTemplate(
 		summarizePrompt,
 		[]string{"existing_summary"},
 	).FormatMessages(map[string]any{"existing_summary": existingSummary})
@@ -61,8 +61,7 @@ func (s *SummaryService) Summarize(
 	completion, err := s.gpt.Call(
 		ctx,
 		[]schema.ChatMessage{
-			summarizeMessage[0],
-			schema.HumanChatMessage{Content: newMsg.Text},
+			existingSummaryMsg[0],
 			newLcMsg,
 		},
 	)
