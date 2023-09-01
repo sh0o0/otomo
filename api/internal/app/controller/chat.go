@@ -59,42 +59,52 @@ func (c *ChatController) SendMessage(
 	req *grpcgen.ChatService_SendMessageRequest,
 	stream grpcgen.ChatService_SendMessageServer,
 ) error {
+	if err := c.sendMessage(req, stream); err != nil {
+		return c.toGrpcError(stream.Context(), err)
+	}
+	return nil
+}
+
+func (c *ChatController) sendMessage(
+	req *grpcgen.ChatService_SendMessageRequest,
+	stream grpcgen.ChatService_SendMessageServer,
+) error {
 	var ctx = stream.Context()
 
 	if err := req.ValidateAll(); err != nil {
-		return c.errorPresenter.ErrorOutput(ctx, err).Err()
+		return err
 	}
 
 	userID, err := ctxs.UserIDFromContext(ctx)
 	if err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	msg, err := c.msgFactory.New(req.GetText(), model.UserRole)
 	if err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	if err := c.msgRepo.Add(ctx, userID, msg); err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	newMsgSummary, err := c.summarize(ctx, userID, msg)
 	if err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	if err := c.saveChat(ctx, userID, newMsgSummary); err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	newMsgChat, err := c.chatFactory.New(newMsgSummary)
 	if err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	if err := c.chatRepo.Save(ctx, userID, newMsgChat); err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	reply, err := c.chatService.Send(
@@ -110,23 +120,19 @@ func (c *ChatController) SendMessage(
 		},
 	)
 	if err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	if err := c.msgRepo.Add(ctx, userID, reply); err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
 	replySummary, err := c.summarize(ctx, userID, reply)
 	if err != nil {
-		return c.toGrpcError(ctx, err)
+		return err
 	}
 
-	if err := c.saveChat(ctx, userID, replySummary); err != nil {
-		return c.toGrpcError(ctx, err)
-	}
-
-	return nil
+	return c.saveChat(ctx, userID, replySummary)
 }
 
 func (c *ChatController) summarize(
@@ -159,8 +165,20 @@ func (c *ChatController) ListMessages(
 	ctx context.Context,
 	req *grpcgen.ChatService_ListMessagesRequest,
 ) (*grpcgen.ChatService_ListMessagesResponse, error) {
-	if err := req.ValidateAll(); err != nil {
+	res, err := c.listMessages(ctx, req)
+	if err != nil {
 		return nil, c.toGrpcError(ctx, err)
+	}
+
+	return res, nil
+}
+
+func (c *ChatController) listMessages(
+	ctx context.Context,
+	req *grpcgen.ChatService_ListMessagesRequest,
+) (*grpcgen.ChatService_ListMessagesResponse, error) {
+	if err := req.ValidateAll(); err != nil {
+		return nil, err
 	}
 
 	if !ctxs.UserIs(ctx, model.UserID(req.UserId)) {
@@ -176,12 +194,12 @@ func (c *ChatController) ListMessages(
 				req.GetPageStartAfterMessageId()),
 		})
 	if err != nil {
-		return nil, c.toGrpcError(ctx, err)
+		return nil, err
 	}
 
 	resMsgs, err := c.toGrpcMessages(msgs)
 	if err != nil {
-		return nil, c.toGrpcError(ctx, err)
+		return nil, err
 	}
 
 	return &grpcgen.ChatService_ListMessagesResponse{
