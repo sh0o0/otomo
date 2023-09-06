@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"otomo/internal/app/controller/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/times"
 	"otomo/internal/pkg/uuid"
@@ -21,6 +22,8 @@ Please include appropriate questions related to the conversation from time to ti
 Current conversation:
 {{.history}}`
 )
+
+var _ svc.ChatService = (*ChatService)(nil)
 
 // TODO: Add tests
 

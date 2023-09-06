@@ -8,7 +8,7 @@ import (
 type SummaryService interface {
 	Summarize(
 		ctx context.Context,
-		newMsg *model.Message,
-		existingSummary string,
+		newMsgs []*model.Message,
+		currentSummary string,
 	) (string, error)
 }

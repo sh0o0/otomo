@@ -10,12 +10,13 @@ var (
 	FirestoreClient *firestore.Client
 )
 
-func init() {
+func initFirestoreClient() error {
 	ctx := context.Background()
 	client, err := firestore.NewClient(ctx, "dummy-project-id")
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	FirestoreClient = client
+	return nil
 }
