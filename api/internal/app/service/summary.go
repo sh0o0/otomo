@@ -71,8 +71,6 @@ func (s *SummaryService) Summarize(
 	if err != nil {
 		return "", err
 	}
-	fmt.Println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-	fmt.Println(msg[0].GetContent())
 
 	completion, err := s.gpt.Call(
 		ctx,

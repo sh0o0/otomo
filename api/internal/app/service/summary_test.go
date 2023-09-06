@@ -21,7 +21,7 @@ func newSummaryService() (*SummaryService, error) {
 }
 
 func TestSystem_SummaryService_Summarize(t *testing.T) {
-	// t.Skip("System test")
+	t.Skip("System test")
 
 	var (
 		ctx  = context.Background()
