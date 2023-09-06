@@ -2,7 +2,10 @@ package service
 
 import (
 	"context"
+	"fmt"
+	"otomo/internal/app/controller/svc"
 	"otomo/internal/app/model"
+	"otomo/internal/pkg/errs"
 
 	"github.com/tmc/langchaingo/llms/openai"
 	"github.com/tmc/langchaingo/prompts"
@@ -10,14 +13,30 @@ import (
 )
 
 const (
-	summarizePrompt = `You are a conversation log summary generation and update machine.
-The conversation is between a user and an AI called Otomo.
-From the input conversation log, create a brief summary and update the following ######existing summary information.
-Be sure to include proper nouns.
+	summarizePrompt = `Progressively summarize the lines of conversation provided, adding onto the previous summary returning a new summary. The conversation is between a user and an AI called Otomo.
 
-###Existing summary information.
-{{.existing_summary}}`
+EXAMPLE
+Current summary:
+The user asks what Otomo thinks of artificial intelligence. Otomo thinks artificial intelligence is a force for good.
+
+New lines of conversation:
+User: Why do you think artificial intelligence is a force for good?
+Otomo: Because artificial intelligence will help humans reach their full potential.
+
+New summary:
+The user asks what Otomo thinks of artificial intelligence. Otomo thinks artificial intelligence is a force for good because it will help users reach their full potential.
+END OF EXAMPLE
+
+Current summary:
+{{.current_summary}}
+
+New lines of conversation:
+{{.new_lines}}
+
+New summary:`
 )
+
+var _ svc.SummaryService = (*SummaryService)(nil)
 
 // TODO: Add tests
 type SummaryService struct {
@@ -34,31 +53,64 @@ func NewSummaryService(
 
 func (s *SummaryService) Summarize(
 	ctx context.Context,
-	newMsg *model.Message,
-	existingSummary string,
+	newMsgs []*model.Message,
+	currentSummary string,
 ) (string, error) {
-	existingSummaryMsg, err := prompts.NewSystemMessagePromptTemplate(
-		summarizePrompt,
-		[]string{"existing_summary"},
-	).FormatMessages(map[string]any{"existing_summary": existingSummary})
+	newLines, err := s.msgsToNewLines(newMsgs)
 	if err != nil {
 		return "", err
 	}
 
-	newLcMsg, err := messageToLangChainMessage(newMsg)
+	msg, err := prompts.NewHumanMessagePromptTemplate(
+		summarizePrompt,
+		[]string{"current_summary", "new_lines"},
+	).FormatMessages(map[string]any{
+		"current_summary": currentSummary,
+		"new_lines":       newLines,
+	})
 	if err != nil {
 		return "", err
 	}
+
 	completion, err := s.gpt.Call(
 		ctx,
-		[]schema.ChatMessage{
-			existingSummaryMsg[0],
-			newLcMsg,
-		},
+		[]schema.ChatMessage{msg[0]},
 	)
 	if err != nil {
 		return "", err
 	}
 
 	return completion.GetContent(), nil
+}
+
+func (s *SummaryService) msgsToNewLines(
+	msgs []*model.Message,
+) (string, error) {
+	var newLines string
+
+	for _, msg := range msgs {
+		rolePrefix, err := s.getRolePrefix(msg.Role)
+		if err != nil {
+			return "", err
+		}
+
+		newLines += fmt.Sprintf("%s: %s\n", rolePrefix, msg.Text)
+	}
+
+	return newLines, nil
+}
+
+func (s *SummaryService) getRolePrefix(role model.Role) (string, error) {
+	switch role {
+	case model.UserRole:
+		return "Human", nil
+	case model.OtomoRole:
+		return "AI", nil
+	default:
+		return "", &errs.Error{
+			Cause:  errs.CauseNotExist,
+			Domain: errs.DomainMessage,
+			Field:  errs.FieldRole,
+		}
+	}
 }

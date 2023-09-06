@@ -89,21 +89,8 @@ func (c *ChatController) sendMessage(
 		return err
 	}
 
-	newMsgSummary, err := c.summarize(ctx, userID, msg)
+	chat, err := c.chatRepo.Get(ctx, userID)
 	if err != nil {
-		return err
-	}
-
-	if err := c.saveChat(ctx, userID, newMsgSummary); err != nil {
-		return err
-	}
-
-	newMsgChat, err := c.chatFactory.New(newMsgSummary)
-	if err != nil {
-		return err
-	}
-
-	if err := c.chatRepo.Save(ctx, userID, newMsgChat); err != nil {
 		return err
 	}
 
@@ -111,7 +98,7 @@ func (c *ChatController) sendMessage(
 		ctx,
 		userID,
 		msg,
-		newMsgChat.Summary,
+		chat.Summary,
 		func(ctx context.Context, chunk []byte) error {
 			return stream.Send(&grpcgen.ChatService_SendMessageStreamResponse{
 				Text:   string(chunk),
@@ -127,25 +114,13 @@ func (c *ChatController) sendMessage(
 		return err
 	}
 
-	replySummary, err := c.summarize(ctx, userID, reply)
+	newSummary, err := c.summaryService.Summarize(
+		ctx, []*model.Message{msg, reply}, chat.Summary)
 	if err != nil {
 		return err
 	}
 
-	return c.saveChat(ctx, userID, replySummary)
-}
-
-func (c *ChatController) summarize(
-	ctx context.Context,
-	userID model.UserID,
-	newMsg *model.Message,
-) (string, error) {
-	preChat, err := c.chatRepo.Get(ctx, userID)
-	if err != nil {
-		return "", err
-	}
-
-	return c.summaryService.Summarize(ctx, newMsg, preChat.Summary)
+	return c.saveChat(ctx, userID, newSummary)
 }
 
 func (c *ChatController) saveChat(
