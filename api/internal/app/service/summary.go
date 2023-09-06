@@ -13,18 +13,18 @@ import (
 )
 
 const (
-	summarizePrompt = `Progressively summarize the lines of conversation provided, adding onto the previous summary returning a new summary.
+	summarizePrompt = `Progressively summarize the lines of conversation provided, adding onto the previous summary returning a new summary. The conversation is between a user and an AI called Otomo.
 
 EXAMPLE
 Current summary:
-The human asks what the AI thinks of artificial intelligence. The AI thinks artificial intelligence is a force for good.
+The user asks what Otomo thinks of artificial intelligence. Otomo thinks artificial intelligence is a force for good.
 
 New lines of conversation:
-Human: Why do you think artificial intelligence is a force for good?
-AI: Because artificial intelligence will help humans reach their full potential.
+User: Why do you think artificial intelligence is a force for good?
+Otomo: Because artificial intelligence will help humans reach their full potential.
 
 New summary:
-The human asks what the AI thinks of artificial intelligence. The AI thinks artificial intelligence is a force for good because it will help humans reach their full potential.
+The user asks what Otomo thinks of artificial intelligence. Otomo thinks artificial intelligence is a force for good because it will help users reach their full potential.
 END OF EXAMPLE
 
 Current summary:
