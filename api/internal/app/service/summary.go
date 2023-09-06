@@ -15,15 +15,6 @@ The conversation is between a user and an AI called Otomo.
 From the input conversation log, create a brief summary and update the following ######existing summary information.
 Be sure to include proper nouns.
 
-Sample conversation log:
-User: Hello
-Otomo: Hello, what is your name?
-User: My name is Taro Yamada.
-Otomo: Hi Yamada, nice to meet you. How can I help you today?
-
-Sample summary:
-User's name is Taro Yamada
-
 ###Existing summary information.
 {{.existing_summary}}`
 )
