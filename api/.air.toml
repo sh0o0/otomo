@@ -5,14 +5,14 @@ tmp_dir = "air"
 [build]
   args_bin = []
   bin = "./air/app"
-  cmd = "go build -o ./air/app ./cmd/app/"
+  cmd = "go build -gcflags \"all=-N -l\"-o ./air/app ./cmd/app/"
   delay = 0
-  exclude_dir = ["assets", "tmp", "vendor", "testdata"]
+  exclude_dir = ["assets", "air", "vendor", "testdata"]
   exclude_file = []
   exclude_regex = ["_test.go"]
   exclude_unchanged = false
   follow_symlink = false
-  full_bin = ""
+  full_bin = "dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient exec --continue ./air/app"
   include_dir = []
   include_ext = ["go", "tpl", "tmpl", "html"]
   include_file = []
