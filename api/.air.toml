@@ -5,7 +5,7 @@ tmp_dir = "air"
 [build]
   args_bin = []
   bin = "./air/app"
-  cmd = "go build -gcflags \"all=-N -l\"-o ./air/app ./cmd/app/"
+  cmd = "go build -gcflags \"all=-N -l\" -o ./air/app ./cmd/app/"
   delay = 0
   exclude_dir = ["assets", "air", "vendor", "testdata"]
   exclude_file = []
