@@ -108,15 +108,42 @@ func newServer() (*grpc.Server, error) {
 		return nil, err
 	}
 
+	// presenters
+	var (
+		errorPresenter = controller.NewErrorPresenter()
+	)
+
+	// factories
+	var (
+		chatFactory    = model.NewChatFactory()
+		messageFactory = model.NewMessageFactory()
+	)
+
+	// repositories
+	var (
+		chatRepo = repository.NewChatRepository(fsClient)
+		msgRepo  = repository.NewMessageRepository(fsClient)
+	)
+
+	// services
+	var (
+		chatService    = service.NewChatService(chat)
+		summaryService = service.NewSummaryService(chat)
+	)
+
 	var (
 		healthCtrl = controller.NewHealthController()
 		authCtrl   = controller.NewAuthController(
 			service.NewAuthVerifyService(fbAuth, conf.BasicAuthPairs),
 		)
 		chatCtrl = controller.NewChatController(
-			chat,
-			model.NewMessageFactory(),
-			repository.NewMessageRepository(fsClient),
+			errorPresenter,
+			chatFactory,
+			messageFactory,
+			chatRepo,
+			msgRepo,
+			chatService,
+			summaryService,
 		)
 	)
 

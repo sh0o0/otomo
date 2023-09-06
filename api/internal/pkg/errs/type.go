@@ -26,8 +26,8 @@ const (
 
 // Domains
 const (
-	DomainUser             Domain = "User"
-	DomainMessageWithOtomo Domain = "MessageWithOtomo"
+	DomainUser    Domain = "User"
+	DomainMessage Domain = "Message"
 )
 
 // Fields

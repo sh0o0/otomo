@@ -13,6 +13,10 @@ import (
 
 type errorPresenter struct{}
 
+func NewErrorPresenter() errorPresenter {
+	return errorPresenter{}
+}
+
 func (pr errorPresenter) ErrorOutput(
 	ctx context.Context, err error,
 ) *status.Status {

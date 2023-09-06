@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"otomo/internal/app/controller/mock_controller"
+	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/uuid"
 	"otomo/test/testutil"
@@ -34,7 +35,7 @@ func newAuthInterceptorArgs(t *testing.T) AuthInterceptorArgs {
 func TestAuthInterceptor(t *testing.T) {
 	var (
 		token             = uuid.NewString()
-		userID            = uuid.NewString()
+		userID            = model.UserID(uuid.NewString())
 		username          = uuid.NewString()
 		password          = uuid.NewString()
 		bearerTokenHeader = "bearer " + token
@@ -61,7 +62,7 @@ func TestAuthInterceptor(t *testing.T) {
 				args.verifier.
 					EXPECT().
 					VerifyIDTokenAndCheckRevoked(gomock.Any(), token).
-					Return(&auth.Token{UID: userID}, nil).
+					Return(&auth.Token{UID: string(userID)}, nil).
 					Times(1)
 				return args
 			}(),

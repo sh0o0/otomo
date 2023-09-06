@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/base64"
 	"errors"
+	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"strings"
 
@@ -78,7 +79,7 @@ func (a *AuthController) Authorization(ctx context.Context) (context.Context, er
 		return nil, err
 	}
 	if userID != "" {
-		ctx = ctxs.UserIDToContext(ctx, userID)
+		ctx = ctxs.UserIDToContext(ctx, model.UserID(userID))
 	}
 
 	return ctx, nil

@@ -96,7 +96,7 @@ func (r *MessageRepository) getCollection(
 	ctx context.Context,
 	userID model.UserID,
 ) *firestore.CollectionRef {
-	return r.fsClient.Collection(getMessagesColPath(string(userID)))
+	return r.fsClient.Collection(getChatMessagesColPath(userID))
 }
 
 func (r *MessageRepository) getDoc(
@@ -104,7 +104,7 @@ func (r *MessageRepository) getDoc(
 	userID model.UserID,
 	id model.MessageID,
 ) *firestore.DocumentRef {
-	return r.getCollection(ctx, userID).Doc(string(id))
+	return r.fsClient.Doc(getChatMessageDocPath(userID, id))
 }
 
 func (r *MessageRepository) snapToMessage(
@@ -137,5 +137,5 @@ func (r *MessageRepository) ifCodesNotFoundReturnErrsNotFound(
 	err error,
 	field errs.Field,
 ) error {
-	return ifCodesNotFoundReturnErrsNotFound(err, errs.DomainMessageWithOtomo, field)
+	return ifCodesNotFoundReturnErrsNotFound(err, errs.DomainMessage, field)
 }

@@ -18,13 +18,9 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func init() {
-	testutil.SetMockClock()
-}
-
 var msgRepo = NewMessageRepository(systemtest.FirestoreClient)
 
-func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
+func TestMessageRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
@@ -36,7 +32,7 @@ func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing
 	}
 
 	snapshot, err := systemtest.FirestoreClient.
-		Doc(getMessageDocPath(string(giveUserID), string(giveMsg.ID))).
+		Doc(getChatMessageDocPath(giveUserID, giveMsg.ID)).
 		Get(giveCtx)
 	if err != nil {
 		t.Fatal(err)
@@ -50,7 +46,7 @@ func TestMessageWithOtomoRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing
 	assert.Equal(t, giveMsg, gotModel)
 }
 
-func TestMessageWithOtomoRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T) {
+func TestMessageRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
@@ -64,7 +60,7 @@ func TestMessageWithOtomoRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *t
 	assert.Error(t, err)
 }
 
-func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *testing.T) {
+func TestMessageRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
@@ -80,12 +76,12 @@ func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAre
 	}
 
 	_, err := systemtest.FirestoreClient.
-		Doc(getMessageDocPath(string(giveMsg.ID), string(giveMsg.ID))).
+		Doc(getChatMessageDocPath(giveUserID, giveMsg.ID)).
 		Get(giveCtx)
 	assert.Equal(t, codes.NotFound, status.Code(err))
 }
 
-func TestMessageWithOtomoRepository_DeleteByIDAndUserID_ShouldReturnNotFoundErr_WhenDeleteMsgNotExist(t *testing.T) {
+func TestMessageRepository_DeleteByIDAndUserID_ShouldReturnNotFoundErr_WhenDeleteMsgNotExist(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())

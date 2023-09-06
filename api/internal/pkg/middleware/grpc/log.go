@@ -73,7 +73,7 @@ func withUserIDLoggerUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 			return handler(ctx, req)
 		}
 
-		newLogger := logs.FromContext(ctx).With(zap.String("userId", userID))
+		newLogger := logs.FromContext(ctx).With(zap.String("userId", string(userID)))
 		ctx = logs.ToContext(ctx, newLogger)
 		return handler(ctx, req)
 	}
@@ -86,7 +86,7 @@ func withUserIDLoggerStreamServerInterceptor() grpc.StreamServerInterceptor {
 		if err != nil {
 			return handler(srv, ss)
 		}
-		newLogger := logs.FromContext(ctx).With(zap.String("userId", userID))
+		newLogger := logs.FromContext(ctx).With(zap.String("userId", string(userID)))
 		newCtx := logs.ToContext(ctx, newLogger)
 		return handler(srv, &serverStream{
 			ServerStream: ss,

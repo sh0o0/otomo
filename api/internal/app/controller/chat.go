@@ -3,14 +3,13 @@ package controller
 import (
 	"context"
 	"otomo/internal/app/controller/repo"
+	"otomo/internal/app/controller/svc"
 	"otomo/internal/app/grpcgen"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
+	"otomo/internal/pkg/times"
 
-	"github.com/tmc/langchaingo/llms"
-	"github.com/tmc/langchaingo/llms/openai"
-	"github.com/tmc/langchaingo/schema"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -26,87 +25,163 @@ var (
 )
 
 type ChatController struct {
-	errorPresenter
-	chat       *openai.Chat
-	msgFactory *model.MessageFactory
-	msgRepo    repo.MessageRepository
+	errorPresenter errorPresenter
+	chatFactory    *model.ChatFactory
+	msgFactory     *model.MessageFactory
+	chatRepo       repo.ChatRepository
+	msgRepo        repo.MessageRepository
+	chatService    svc.ChatService
+	summaryService svc.SummaryService
 }
 
 func NewChatController(
-	chat *openai.Chat,
+	errorPresenter errorPresenter,
+	chatFactory *model.ChatFactory,
 	msgFactory *model.MessageFactory,
+	chatRepo repo.ChatRepository,
 	msgRepo repo.MessageRepository,
+	chatService svc.ChatService,
+	summaryService svc.SummaryService,
 ) *ChatController {
 	return &ChatController{
-		chat:       chat,
-		msgFactory: msgFactory,
-		msgRepo:    msgRepo,
+		errorPresenter: errorPresenter,
+		chatFactory:    chatFactory,
+		msgFactory:     msgFactory,
+		chatRepo:       chatRepo,
+		msgRepo:        msgRepo,
+		chatService:    chatService,
+		summaryService: summaryService,
 	}
 }
 
+// TODO: Implement transaction
 func (c *ChatController) SendMessage(
 	req *grpcgen.ChatService_SendMessageRequest,
 	stream grpcgen.ChatService_SendMessageServer,
 ) error {
-	if err := req.ValidateAll(); err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
+	if err := c.sendMessage(req, stream); err != nil {
+		return c.toGrpcError(stream.Context(), err)
 	}
-
-	userID, err := ctxs.UserIDFromContext(stream.Context())
-	if err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	msg, err := c.msgFactory.NewMessage(
-		req.GetText(),
-		model.UserRole,
-	)
-	if err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	if err := c.msgRepo.Add(
-		stream.Context(), model.UserID(userID), msg); err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	completion, err := c.chat.Call(stream.Context(), []schema.ChatMessage{
-		schema.HumanChatMessage{Content: msg.Text},
-	}, llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {
-		stream.Send(&grpcgen.ChatService_SendMessageStreamResponse{
-			Text:   string(chunk),
-			SentAt: timestamppb.Now(),
-		})
-		return nil
-	}))
-	if err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
-	reply, err := c.msgFactory.NewMessage(
-		completion.Content,
-		model.OtomoRole,
-	)
-	if err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-	if err := c.msgRepo.Add(
-		stream.Context(), model.UserID(userID), reply); err != nil {
-		return c.ErrorOutput(stream.Context(), err).Err()
-	}
-
 	return nil
+}
+
+func (c *ChatController) sendMessage(
+	req *grpcgen.ChatService_SendMessageRequest,
+	stream grpcgen.ChatService_SendMessageServer,
+) error {
+	var ctx = stream.Context()
+
+	if err := req.ValidateAll(); err != nil {
+		return err
+	}
+
+	userID, err := ctxs.UserIDFromContext(ctx)
+	if err != nil {
+		return err
+	}
+
+	msg, err := c.msgFactory.New(req.GetText(), model.UserRole)
+	if err != nil {
+		return err
+	}
+
+	if err := c.msgRepo.Add(ctx, userID, msg); err != nil {
+		return err
+	}
+
+	newMsgSummary, err := c.summarize(ctx, userID, msg)
+	if err != nil {
+		return err
+	}
+
+	if err := c.saveChat(ctx, userID, newMsgSummary); err != nil {
+		return err
+	}
+
+	newMsgChat, err := c.chatFactory.New(newMsgSummary)
+	if err != nil {
+		return err
+	}
+
+	if err := c.chatRepo.Save(ctx, userID, newMsgChat); err != nil {
+		return err
+	}
+
+	reply, err := c.chatService.Send(
+		ctx,
+		userID,
+		msg,
+		newMsgChat.Summary,
+		func(ctx context.Context, chunk []byte) error {
+			return stream.Send(&grpcgen.ChatService_SendMessageStreamResponse{
+				Text:   string(chunk),
+				SentAt: timestamppb.New(times.C.Now()),
+			})
+		},
+	)
+	if err != nil {
+		return err
+	}
+
+	if err := c.msgRepo.Add(ctx, userID, reply); err != nil {
+		return err
+	}
+
+	replySummary, err := c.summarize(ctx, userID, reply)
+	if err != nil {
+		return err
+	}
+
+	return c.saveChat(ctx, userID, replySummary)
+}
+
+func (c *ChatController) summarize(
+	ctx context.Context,
+	userID model.UserID,
+	newMsg *model.Message,
+) (string, error) {
+	preChat, err := c.chatRepo.Get(ctx, userID)
+	if err != nil {
+		return "", err
+	}
+
+	return c.summaryService.Summarize(ctx, newMsg, preChat.Summary)
+}
+
+func (c *ChatController) saveChat(
+	ctx context.Context,
+	userID model.UserID,
+	summary string,
+) error {
+	newMsgChat, err := c.chatFactory.New(summary)
+	if err != nil {
+		return err
+	}
+
+	return c.chatRepo.Save(ctx, userID, newMsgChat)
 }
 
 func (c *ChatController) ListMessages(
 	ctx context.Context,
 	req *grpcgen.ChatService_ListMessagesRequest,
 ) (*grpcgen.ChatService_ListMessagesResponse, error) {
-	if err := req.ValidateAll(); err != nil {
-		return nil, c.ErrorOutput(ctx, err).Err()
+	res, err := c.listMessages(ctx, req)
+	if err != nil {
+		return nil, c.toGrpcError(ctx, err)
 	}
 
-	if !ctxs.UserIs(ctx, req.UserId) {
+	return res, nil
+}
+
+func (c *ChatController) listMessages(
+	ctx context.Context,
+	req *grpcgen.ChatService_ListMessagesRequest,
+) (*grpcgen.ChatService_ListMessagesResponse, error) {
+	if err := req.ValidateAll(); err != nil {
+		return nil, err
+	}
+
+	if !ctxs.UserIs(ctx, model.UserID(req.UserId)) {
 		return nil, status.New(codes.PermissionDenied, "can only get own list").Err()
 	}
 
@@ -119,12 +194,12 @@ func (c *ChatController) ListMessages(
 				req.GetPageStartAfterMessageId()),
 		})
 	if err != nil {
-		return nil, c.ErrorOutput(ctx, err).Err()
+		return nil, err
 	}
 
 	resMsgs, err := c.toGrpcMessages(msgs)
 	if err != nil {
-		return nil, c.ErrorOutput(ctx, err).Err()
+		return nil, err
 	}
 
 	return &grpcgen.ChatService_ListMessagesResponse{
@@ -171,10 +246,14 @@ func toGrpcRole(r model.Role) (role grpcgen.Role, err error) {
 		role = grpcgen.Role_OTOMO
 	default:
 		err = &errs.Error{
-			Domain: errs.DomainMessageWithOtomo,
+			Domain: errs.DomainMessage,
 			Cause:  errs.CauseNotExist,
 			Field:  errs.FieldRole,
 		}
 	}
 	return
+}
+
+func (c *ChatController) toGrpcError(ctx context.Context, err error) error {
+	return c.errorPresenter.ErrorOutput(ctx, err).Err()
 }
