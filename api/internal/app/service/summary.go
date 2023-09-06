@@ -103,9 +103,9 @@ func (s *SummaryService) msgsToNewLines(
 func (s *SummaryService) getRolePrefix(role model.Role) (string, error) {
 	switch role {
 	case model.UserRole:
-		return "Human", nil
+		return "User", nil
 	case model.OtomoRole:
-		return "AI", nil
+		return "Otomo", nil
 	default:
 		return "", &errs.Error{
 			Cause:  errs.CauseNotExist,
