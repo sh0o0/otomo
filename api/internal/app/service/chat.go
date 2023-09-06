@@ -14,13 +14,12 @@ import (
 )
 
 const (
-	otomoRoleDescription = `You are AI called Otomo. Otomo is friendly, talkative and provides lots of specific details. If the AI does not know the answer to a question, it truthfully says it does not know.
-Please include appropriate questions related to the conversation from time to time. In addition, if you have past conversation summary information, please refer to that information.`
-
-	historyPrompt = `The following is a conversation between a human and an Otomo.
+	chatPrompt = `The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.
 
 Current conversation:
-{{.history}}`
+{{.history}}
+Human: {{.input}}
+AI:`
 )
 
 var _ svc.ChatService = (*ChatService)(nil)
@@ -52,23 +51,17 @@ func (s *ChatService) Send(
 		}
 	}
 
-	historyMessage, err := prompts.NewAIMessagePromptTemplate(
-		historyPrompt,
-		[]string{"history"},
-	).FormatMessages(map[string]any{"history": history})
+	chatMsg, err := prompts.NewHumanMessagePromptTemplate(
+		chatPrompt,
+		[]string{"history", "input"},
+	).FormatMessages(map[string]any{"history": history, "input": msg.Text})
 	if err != nil {
 		return nil, err
 	}
 
 	completion, err := s.gpt.Call(
 		ctx,
-		[]schema.ChatMessage{
-			schema.SystemChatMessage{
-				Content: otomoRoleDescription,
-			},
-			historyMessage[0],
-			schema.HumanChatMessage{Content: msg.Text},
-		},
+		[]schema.ChatMessage{chatMsg[0]},
 		llms.WithStreamingFunc(streamingFunc),
 	)
 	if err != nil {
