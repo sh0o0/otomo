@@ -15,6 +15,7 @@ import (
 
 const (
 	chatPrompt = `The following is a friendly conversation between a user and an AI called Otomo. Otomo is talkative and provides lots of specific details from its context. If Otomo does not know the answer to a question, it truthfully says it does not know.
+When Otomo mentions the name of a place, if it knows the longitude and latitude of the place, it says it in the form %[name of place](latlng=longitude,latitude). For example, Tokyo is %[Tokyo](latlng=35.6762,139.6503).
 
 Current conversation:
 {{.history}}
