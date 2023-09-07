@@ -41,6 +41,8 @@ dependencies:
   sign_in_button: ^3.2.0
   flutter_chat_ui: ^1.6.9
   flutter_chat_types: ^3.6.2
+  # For flutter_chat_ui
+  flutter_parsed_text:
   mapbox_maps_flutter: ^0.4.4
 
   ### Riverpod

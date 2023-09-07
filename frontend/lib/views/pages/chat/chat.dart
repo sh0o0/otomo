@@ -21,9 +21,8 @@ class ModalChat extends ConsumerWidget {
       ),
       body: ChatUI(
         messages: chat.value?.messages ?? [],
-        onSendPressed: (message) async {
-          ref.read(chatProvider.notifier).sendMessage(message.text);
-        },
+        onSendPressed: (message) =>
+            ref.read(chatProvider.notifier).sendMessage(message.text),
         user: chat.value?.user ?? const User(id: ''),
         emptyState: chat.isLoading
             ? const Center(child: AppCircularProgressIndicator())
