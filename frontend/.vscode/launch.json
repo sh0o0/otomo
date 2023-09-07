@@ -14,6 +14,7 @@
                 "--dart-define=OTOMO_SERVER_HOST=${env:LOCAL_OTOMO_SERVER_HOST}",
                 "--dart-define=OTOMO_SERVER_PORT=${env:LOCAL_OTOMO_SERVER_PORT}",
                 "--dart-define=IS_SECURE_CONNECTION_TO_OTOMO_SERVER=false",
+                "--dart-define=MAPBOX_PUBLIC_TOKEN=${env:LOCAL_MAPBOX_PUBLIC_TOKEN}",
             ]
         }
     ]
