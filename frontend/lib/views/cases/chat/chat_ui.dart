@@ -30,6 +30,7 @@ class ChatUI extends StatefulWidget {
 class _ChatUIState extends State<ChatUI> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
 
     return Chat(
@@ -46,10 +47,10 @@ class _ChatUIState extends State<ChatUI> {
             final customChatText = CustomChatText(text);
             logger.debug('customChatText: $customChatText');
           },
-          style: Theme.of(context)
+          style: theme
               .textTheme
               .bodyLarge
-              ?.copyWith(color: Colors.red),
+              ?.copyWith(color: theme.colorScheme.primary),
           renderText: ({required str, required pattern}) {
             final customChatText = CustomChatText(str);
             return {'display': customChatText.text};
