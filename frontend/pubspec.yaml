@@ -41,6 +41,8 @@ dependencies:
   sign_in_button: ^3.2.0
   flutter_chat_ui: ^1.6.9
   flutter_chat_types: ^3.6.2
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.0.1
 
   ### Riverpod
   flutter_hooks: ^0.18.0
