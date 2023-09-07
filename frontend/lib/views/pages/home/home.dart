@@ -10,7 +10,7 @@ class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   static final List<Widget> _pages = [
-    const AppMap(),
+    const Map(),
     const Account(),
   ];
 

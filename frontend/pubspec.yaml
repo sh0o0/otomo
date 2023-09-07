@@ -44,6 +44,7 @@ dependencies:
   # For flutter_chat_ui
   flutter_parsed_text:
   mapbox_maps_flutter: ^0.4.4
+  geolocator: ^10.0.1
 
   ### Riverpod
   flutter_hooks: ^0.18.0
@@ -101,9 +102,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/symbols/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
