@@ -155,11 +155,16 @@ abstract class _Place implements Place {
       throw _privateConstructorUsedError;
 }
 
+AppLatLng _$AppLatLngFromJson(Map<String, dynamic> json) {
+  return _AppLatLng.fromJson(json);
+}
+
 /// @nodoc
 mixin _$AppLatLng {
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AppLatLngCopyWith<AppLatLng> get copyWith =>
       throw _privateConstructorUsedError;
@@ -240,10 +245,13 @@ class __$$_AppLatLngCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_AppLatLng extends _AppLatLng {
   const _$_AppLatLng({required this.latitude, required this.longitude})
       : super._();
+
+  factory _$_AppLatLng.fromJson(Map<String, dynamic> json) =>
+      _$$_AppLatLngFromJson(json);
 
   @override
   final double latitude;
@@ -266,6 +274,7 @@ class _$_AppLatLng extends _AppLatLng {
                 other.longitude == longitude));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, latitude, longitude);
 
@@ -274,6 +283,13 @@ class _$_AppLatLng extends _AppLatLng {
   @pragma('vm:prefer-inline')
   _$$_AppLatLngCopyWith<_$_AppLatLng> get copyWith =>
       __$$_AppLatLngCopyWithImpl<_$_AppLatLng>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_AppLatLngToJson(
+      this,
+    );
+  }
 }
 
 abstract class _AppLatLng extends AppLatLng {
@@ -281,6 +297,9 @@ abstract class _AppLatLng extends AppLatLng {
       {required final double latitude,
       required final double longitude}) = _$_AppLatLng;
   const _AppLatLng._() : super._();
+
+  factory _AppLatLng.fromJson(Map<String, dynamic> json) =
+      _$_AppLatLng.fromJson;
 
   @override
   double get latitude;

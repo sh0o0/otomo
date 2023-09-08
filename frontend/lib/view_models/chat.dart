@@ -176,9 +176,10 @@ class Chat extends _$Chat {
     state = state;
   }
 
-  void activateMessage(Message m) {
+  void activateMessage(Message message) {
+    logger.debug('active message');
     final messages = _nonNullMessages;
-    final index = messages.indexWhere((e) => e.id == m.id);
+    final index = messages.indexWhere((e) => e.id == message.id);
     messages[index].metadata?['active'] = true;
     state = state;
   }

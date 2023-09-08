@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'place.freezed.dart';
+part 'place.g.dart';
 
 @freezed
 class Place with _$Place {
@@ -19,6 +20,7 @@ class AppLatLng with _$AppLatLng {
     required double longitude,
   }) = _AppLatLng;
 
+  factory AppLatLng.fromJson(Map<String, dynamic> json) => _$AppLatLngFromJson(json);
+
   LatLng toGoogle() => LatLng(latitude, longitude);
 }
-

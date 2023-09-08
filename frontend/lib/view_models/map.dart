@@ -22,7 +22,8 @@ class MapViewModel extends StateNotifier<void> {
     focusedPlaceAtChatStream.listen((place) {
       if (!_canUseMapController) return;
       _mapController!.animateCamera(
-          google.CameraUpdate.newLatLng(place.latLng.toGoogle()));
+        google.CameraUpdate.newLatLngZoom(place.latLng.toGoogle(), 8),
+      );
     });
   }
 
