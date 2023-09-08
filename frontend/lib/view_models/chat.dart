@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/models/message.dart' as msg;
+import 'package:otomo/models/place.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
@@ -20,7 +23,7 @@ class ChatState with _$ChatState {
   }) = _ChatState;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Chat extends _$Chat {
   Chat() {
     _user = User(id: _globalState.userId!);
@@ -31,6 +34,11 @@ class Chat extends _$Chat {
   final _chatController = getIt<ChatController>();
   late final User _user;
   late final User _otomo;
+  final StreamController<Place> _focusedPlaceController =
+      StreamController<Place>.broadcast();
+
+  StreamController<Place> get focusedPlaceController => _focusedPlaceController;
+  List<Message> get _nonNullMessages => state.value?.messages ?? [];
 
   @override
   FutureOr<ChatState> build() async {
@@ -156,5 +164,26 @@ class Chat extends _$Chat {
       text: message.text,
       status: status,
     );
+  }
+
+  void resetActiveMessages() {
+    for (final m in _nonNullMessages) {
+      if (m.metadata?['active'] == true) {
+        m.metadata?['active'] = false;
+      }
+    }
+
+    state = state;
+  }
+
+  void activateMessage(Message m) {
+    final messages = _nonNullMessages;
+    final index = messages.indexWhere((e) => e.id == m.id);
+    messages[index].metadata?['active'] = true;
+    state = state;
+  }
+
+  void focusPlace(Place place) {
+    _focusedPlaceController.add(place);
   }
 }

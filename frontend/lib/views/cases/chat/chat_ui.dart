@@ -3,7 +3,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:otomo/configs/app_themes.dart';
 
-class ChatUI extends StatefulWidget {
+class ChatUI extends StatelessWidget {
   const ChatUI({
     super.key,
     required this.messages,
@@ -11,6 +11,7 @@ class ChatUI extends StatefulWidget {
     required this.onSendPressed,
     this.emptyState,
     this.onEndReached,
+    this.onMessageTap,
   });
 
   final List<types.Message> messages;
@@ -18,23 +19,20 @@ class ChatUI extends StatefulWidget {
   final void Function(types.PartialText) onSendPressed;
   final Widget? emptyState;
   final Future<void> Function()? onEndReached;
+  final void Function(BuildContext context, types.Message)? onMessageTap;
 
-  @override
-  State<ChatUI> createState() => _ChatUIState();
-}
-
-class _ChatUIState extends State<ChatUI> {
   @override
   Widget build(BuildContext context) {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
 
     return Chat(
-      messages: widget.messages,
-      onSendPressed: widget.onSendPressed,
-      user: widget.user,
+      messages: messages,
+      onSendPressed: onSendPressed,
+      user: user,
       theme: chatTheme,
-      emptyState: widget.emptyState,
-      onEndReached: widget.onEndReached,
+      emptyState: emptyState,
+      onEndReached: onEndReached,
+      onMessageTap: onMessageTap,
     );
   }
 }

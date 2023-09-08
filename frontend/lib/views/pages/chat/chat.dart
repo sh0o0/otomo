@@ -13,6 +13,8 @@ class ModalChat extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chat = ref.watch(chatProvider);
+    final chatNotifier = ref.read(chatProvider.notifier);
+
     return Scaffold(
       appBar: const ChatUIAppBar(
         leading: ChatModalUILeading(),
@@ -21,14 +23,13 @@ class ModalChat extends ConsumerWidget {
       ),
       body: ChatUI(
         messages: chat.value?.messages ?? [],
-        onSendPressed: (message) async {
-          ref.read(chatProvider.notifier).sendMessage(message.text);
-        },
+        onSendPressed: (message) => chatNotifier.sendMessage(message.text),
         user: chat.value?.user ?? const User(id: ''),
         emptyState: chat.isLoading
             ? const Center(child: AppCircularProgressIndicator())
             : null,
-        onEndReached: () => ref.read(chatProvider.notifier).listMessagesMore(),
+        onEndReached: () => chatNotifier.listMessagesMore(),
+        onMessageTap: (_, m) => chatNotifier.activateMessage(m),
       ),
     );
   }

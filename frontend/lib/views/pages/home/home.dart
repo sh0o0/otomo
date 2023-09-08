@@ -10,7 +10,7 @@ class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   static final List<Widget> _pages = [
-    const AppMap(),
+    const Map(),
     const Account(),
   ];
 
@@ -21,11 +21,13 @@ class HomePage extends HookConsumerWidget {
       return;
     }, const []);
 
+    final homeIndex = ref.watch(homeIndexProvider);
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
-          _pages[ref.read(homeIndexProvider)],
+          _pages[homeIndex],
           const Positioned(
             bottom: 24,
             child: BottomNav(),

@@ -60,5 +60,7 @@
 			</dict>
 		</array>
 		<!-- End of the Google Sign-in Section -->
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>This is used to display the current location on the map screen</string>
 	</dict>
 </plist>
