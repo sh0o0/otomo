@@ -43,6 +43,7 @@ dependencies:
   flutter_chat_types: ^3.6.2
   google_maps_flutter: ^2.5.0
   geolocator: ^10.0.1
+  flutter_parsed_text: ^2.2.1
 
   ### Riverpod
   flutter_hooks: ^0.18.0
