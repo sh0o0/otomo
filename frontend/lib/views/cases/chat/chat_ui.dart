@@ -5,6 +5,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ChatUI extends StatelessWidget {
   const ChatUI({
@@ -60,21 +61,25 @@ class ChatUI extends StatelessWidget {
           child: child,
         );
       },
-      textMessageOptions: TextMessageOptions(matchers: [
-        MatchText(
-          pattern: CustomText.regExpPattern,
-          onTap: (text) {
-            final customText = CustomText(text);
-            onTapCustomText?.call(customText);
-          },
-          style: theme.textTheme.bodyLarge
-              ?.copyWith(color: theme.colorScheme.primary),
-          renderText: ({required str, required pattern}) {
-            final customText = CustomText(str);
-            return {'display': customText.text};
-          },
-        ),
-      ]),
+      textMessageOptions: TextMessageOptions(
+        isTextSelectable: false,
+        onLinkPressed: launchUrlString,
+        matchers: [
+          MatchText(
+            pattern: CustomText.regExpPattern,
+            onTap: (text) {
+              final customText = CustomText(text);
+              onTapCustomText?.call(customText);
+            },
+            style: theme.textTheme.bodyLarge
+                ?.copyWith(color: theme.colorScheme.primary),
+            renderText: ({required str, required pattern}) {
+              final customText = CustomText(str);
+              return {'display': customText.text};
+            },
+          ),
+        ],
+      ),
     );
   }
 }

@@ -177,11 +177,21 @@ class Chat extends _$Chat {
   }
 
   void activateMessage(Message message) {
-    logger.debug('active message');
-    final messages = _nonNullMessages;
+    final messages = [..._nonNullMessages];
+    for (final m in messages) {
+      if (m.metadata?['active'] == true) {
+        m.metadata?['active'] = false;
+      }
+    }
+
     final index = messages.indexWhere((e) => e.id == message.id);
-    messages[index].metadata?['active'] = true;
-    state = state;
+    final metadata = messages[index].metadata;
+    final newMetadata =
+        metadata == null ? {'active': true} : {...metadata, 'active': true};
+    messages[index] = message.copyWith(metadata: newMetadata);
+    logger.debug('${messages[index].metadata}');
+
+    state = AsyncValue.data(state.value!.copyWith(messages: messages));
   }
 
   void focusPlace(Place place) {

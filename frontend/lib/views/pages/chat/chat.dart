@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/models/place.dart';
-import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/cases/chat/chat_modal_ui_leading.dart';
@@ -33,7 +32,6 @@ class ModalChat extends HookConsumerWidget {
         onEndReached: () => chatNotifier.listMessagesMore(),
         onMessageTap: (_, m) => chatNotifier.activateMessage(m),
         onTapCustomText: (text) {
-          logger.debug('text: ${text.text}, data: ${text.data}');
           if (text.data['latlng'] != null) {
             final latlng = AppLatLng.fromJson(text.data['latlng']);
             final place = Place(name: text.text, latLng: latlng);
