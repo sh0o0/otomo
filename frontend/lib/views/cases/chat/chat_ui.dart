@@ -71,11 +71,15 @@ class ChatUI extends StatelessWidget {
               final customText = CustomText(text);
               onTapCustomText?.call(customText);
             },
-            style: theme.textTheme.bodyLarge
-                ?.copyWith(color: theme.colorScheme.primary),
-            renderText: ({required str, required pattern}) {
-              final customText = CustomText(str);
-              return {'display': customText.text};
+            renderWidget: ({required pattern, required text}) {
+              final customText = CustomText(text);
+              return RichText(
+                text: TextSpan(
+                  text: customText.text,
+                  style: theme.textTheme.bodyLarge
+                      ?.copyWith(color: theme.colorScheme.primary),
+                ),
+              );
             },
           ),
         ],
