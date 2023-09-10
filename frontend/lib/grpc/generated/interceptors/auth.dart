@@ -1,5 +1,5 @@
 import 'package:grpc/grpc.dart';
-import 'package:otomo/abstracts/controllers/id_token.dart';
+import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/tools/logger.dart';
 
 class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
