@@ -61,6 +61,8 @@
 		</array>
 		<!-- End of the Google Sign-in Section -->
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>This is used to display the current location on the map screen</string>
+		<string>This app needs access to location when open.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>This app needs access to location when in the background.</string>
 	</dict>
 </plist>
