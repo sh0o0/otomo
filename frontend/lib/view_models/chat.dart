@@ -181,11 +181,13 @@ class Chat extends _$Chat {
     state = AsyncValue.data(value.copyWith(messages: inactiveMessages));
   }
 
-  void activateMessageWith(int index) {
+  void activateMessageWithId(String id) {
     resetActiveMessages();
 
     final value = state.value;
     if (value == null) return;
+
+    final index = value.messages.indexWhere((m) => m.id == id);
 
     final message = value.messages[index];
     value.messages[index] = message.copyWith(active: true);

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/cases/chat/chat_modal_ui_leading.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
 import 'package:otomo/views/cases/chat/chat_ui_app_bar.dart';
+import 'package:otomo/views/utils/converter.dart';
 
 class ModalChat extends HookConsumerWidget {
   const ModalChat({super.key});
@@ -23,14 +24,16 @@ class ModalChat extends HookConsumerWidget {
         title: 'Chat',
       ),
       body: ChatUI(
-        messages: chat.value?.messages ?? [],
+        messages: Converter.textMessageDataToChatTextMessageList(
+          chat.value?.messages ?? [],
+        ),
         onSendPressed: (message) => chatNotifier.sendMessage(message.text),
-        user: chat.value?.user ?? const User(id: ''),
+        user: Converter.roleToChatUser(Role.user),
         emptyState: chat.isLoading
             ? const Center(child: AppCircularProgressIndicator())
             : null,
         onEndReached: () => chatNotifier.listMessagesMore(),
-        onMessageTap: (_, m) => chatNotifier.activateMessage(m),
+        onMessageTap: (_, m) => chatNotifier.activateMessageWithId(m.id),
         onTapCustomText: (text) {
           final latLng = text.latLng;
           if (latLng == null) return;
