@@ -26,8 +26,7 @@ class ChatState with _$ChatState {
     final places = <Place>[];
 
     for (final message in _activeMessages) {
-      final placesFromMessage = _placesFromTextMessageData(message);
-      places.addAll(placesFromMessage);
+      places.addAll(message.placesFromText);
     }
 
     return places;
@@ -35,19 +34,6 @@ class ChatState with _$ChatState {
 
   List<TextMessageData> get _activeMessages =>
       messages.where((m) => m.active).toList();
-
-  List<Place> _placesFromTextMessageData(TextMessageData message) {
-    final places = <Place>[];
-    final customTexts = CustomText.fromAllMatches(message.text);
-
-    for (final customText in customTexts) {
-      final latLng = customText.latLng;
-      if (latLng == null) continue;
-      places.add(Place(name: customText.text, latLng: latLng));
-    }
-
-    return places;
-  }
 }
 
 @Riverpod(keepAlive: true)

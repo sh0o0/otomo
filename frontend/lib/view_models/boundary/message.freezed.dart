@@ -171,7 +171,7 @@ class __$$_TextMessageDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TextMessageData implements _TextMessageData {
+class _$_TextMessageData extends _TextMessageData {
   const _$_TextMessageData(
       {required this.id,
       required this.text,
@@ -179,7 +179,8 @@ class _$_TextMessageData implements _TextMessageData {
       required this.sentAt,
       this.remoteId,
       this.active = false,
-      required this.status});
+      required this.status})
+      : super._();
 
   @override
   final String id;
@@ -228,7 +229,7 @@ class _$_TextMessageData implements _TextMessageData {
       __$$_TextMessageDataCopyWithImpl<_$_TextMessageData>(this, _$identity);
 }
 
-abstract class _TextMessageData implements TextMessageData {
+abstract class _TextMessageData extends TextMessageData {
   const factory _TextMessageData(
       {required final String id,
       required final String text,
@@ -237,6 +238,7 @@ abstract class _TextMessageData implements TextMessageData {
       final String? remoteId,
       final bool active,
       required final MessageStatus status}) = _$_TextMessageData;
+  const _TextMessageData._() : super._();
 
   @override
   String get id;
