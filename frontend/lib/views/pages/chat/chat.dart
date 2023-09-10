@@ -7,7 +7,7 @@ import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/cases/chat/chat_modal_ui_leading.dart';
-import 'package:otomo/views/cases/chat/chat_ui.dart';
+import 'package:otomo/views/cases/chat/otomo_chat_ui.dart';
 import 'package:otomo/views/cases/chat/chat_ui_app_bar.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -28,7 +28,7 @@ class ModalChat extends HookConsumerWidget {
       ),
       body: OtomoChatUI(
         messages: state.value?.messages ?? [],
-        onSendPressed: (message) => notifier.sendMessage(message.text),
+        onSendPressed: (text) => notifier.sendMessage(text),
         emptyState: state.isLoading
             ? const Center(child: AppCircularProgressIndicator())
             : null,

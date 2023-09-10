@@ -21,10 +21,10 @@ class OtomoChatUI extends StatelessWidget {
   static final otomo = Converter.roleToChatUser(Role.otomo);
 
   final List<TextMessageData> messages;
-  final void Function(types.PartialText) onSendPressed;
+  final void Function(String) onSendPressed;
   final Widget? emptyState;
   final Future<void> Function()? onEndReached;
-  final void Function(BuildContext context, types.Message)? onMessageTap;
+  final void Function(BuildContext context, MessageData message)? onMessageTap;
   final TextMessageOptions textMessageOptions;
 
   Color _getBubbleColor(BuildContext context, types.Message message) {
@@ -45,12 +45,13 @@ class OtomoChatUI extends StatelessWidget {
 
     return Chat(
       messages: Converter.textMessageDataToChatTextMessageList(messages),
-      onSendPressed: onSendPressed,
+      onSendPressed: (message) => onSendPressed(message.text),
       user: user,
       theme: chatTheme,
       emptyState: emptyState,
       onEndReached: onEndReached,
-      onMessageTap: onMessageTap,
+      onMessageTap: (context, m) =>
+          onMessageTap?.call(context, Converter.chatMessageToMessageData(m)),
       textMessageOptions: textMessageOptions,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
         return Container(
