@@ -4,7 +4,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
-import 'package:otomo/entities/latlng.dart';
+import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/entities/message.dart' as msg;
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';

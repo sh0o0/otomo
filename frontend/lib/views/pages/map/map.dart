@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/map.dart';
 import 'package:otomo/views/cases/map/app_map.dart';
+import 'package:otomo/views/utils/convertor.dart';
 
 class Map extends HookConsumerWidget {
   const Map({super.key});
@@ -19,7 +20,7 @@ class Map extends HookConsumerWidget {
   Set<Marker> _markers(MapState state) => state.activePlaces
       .map((e) => Marker(
             markerId: MarkerId(e.name),
-            position: e.latLng.toGoogle(),
+            position: Converter.latLngToGoogle(e.latLng),
             infoWindow: InfoWindow(
               title: e.name,
               snippet: e.latLng.toString(),

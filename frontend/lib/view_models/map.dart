@@ -5,6 +5,7 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/location.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/chat.dart';
+import 'package:otomo/views/utils/convertor.dart';
 
 part 'map.freezed.dart';
 
@@ -34,19 +35,20 @@ class MapViewModel extends StateNotifier<MapState> {
     focusedPlaceAtChatStream.listen((place) {
       if (!_canUseMapController) return;
       _mapController!.animateCamera(
-        google.CameraUpdate.newLatLngZoom(place.latLng.toGoogle(), 8),
+        google.CameraUpdate.newLatLngZoom(
+            Converter.latLngToGoogle(place.latLng), 8),
       );
     });
   }
 
   final Stream<Place> focusedPlaceAtChatStream;
-  final LocationControllerImpl _locationController = getIt<LocationControllerImpl>();
+  final LocationControllerImpl _locationController =
+      getIt<LocationControllerImpl>();
 
   static google.GoogleMapController? _mapController;
 
   set mapController(google.GoogleMapController mapController) =>
       _mapController = mapController;
-
 
   bool get _canUseMapController => _mapController != null;
 
@@ -56,7 +58,7 @@ class MapViewModel extends StateNotifier<MapState> {
     if (!_canUseMapController) return;
     _mapController!.animateCamera(
       google.CameraUpdate.newLatLngZoom(
-        position.latlng.toGoogle(),
+        Converter.latLngToGoogle(position.latLng),
         8,
       ),
     );

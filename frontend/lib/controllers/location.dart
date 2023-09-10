@@ -1,5 +1,5 @@
 import 'package:geolocator/geolocator.dart' as geo;
-import 'package:otomo/entities/latlng.dart';
+import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/entities/position.dart';
 
 class LocationControllerImpl {
@@ -31,7 +31,7 @@ class LocationControllerImpl {
 
   Position _toPosition(geo.Position pos) {
     return Position(
-      latlng: AppLatLng(latitude: pos.latitude, longitude: pos.longitude),
+      latLng: AppLatLng(latitude: pos.latitude, longitude: pos.longitude),
     );
   }
 }
