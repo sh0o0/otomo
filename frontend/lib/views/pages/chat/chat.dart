@@ -33,11 +33,11 @@ class ModalChat extends HookConsumerWidget {
         onEndReached: () => chatNotifier.listMessagesMore(),
         onMessageTap: (_, m) => chatNotifier.activateMessage(m),
         onTapCustomText: (text) {
-          if (text.data['latlng'] != null) {
-            final latlng = AppLatLng.fromJson(text.data['latlng']);
-            final place = Place(name: text.text, latLng: latlng);
-            chatNotifier.focusedPlaceController.add(place);
-          }
+          final latLng = text.latLng;
+          if (latLng == null) return;
+
+          chatNotifier.focusedPlaceController
+              .add(Place(name: text.text, latLng: latLng));
         },
       ),
     );

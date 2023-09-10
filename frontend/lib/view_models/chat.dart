@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/entities/lat_lng.dart';
@@ -45,10 +46,9 @@ class ChatState with _$ChatState {
     final customTexts = msg.CustomText.fromAllMatches(message.text);
 
     for (final customText in customTexts) {
-      logger.debug('customText: $customText');
-      final place = Place(
-          name: customText.text, latLng: AppLatLng.fromJson(customText.data['latlng']));
-      places.add(place);
+      final latLng = customText.latLng;
+      if (latLng == null) continue;
+      places.add(Place(name: customText.text, latLng: latLng));
     }
 
     return places;
