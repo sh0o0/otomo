@@ -54,6 +54,7 @@ abstract class AppThemes {
             ),
           ),
           inputTextDecoration: RoundedTextFormField.inputDecoration,
+          messageBorderRadius: 8,
         ),
       )
     ],

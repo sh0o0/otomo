@@ -111,9 +111,10 @@ class __$$_ChatStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ChatState implements _ChatState {
+class _$_ChatState extends _ChatState {
   const _$_ChatState(
-      {required this.messages, required this.user, required this.otomo});
+      {required this.messages, required this.user, required this.otomo})
+      : super._();
 
   @override
   final List<Message> messages;
@@ -148,11 +149,12 @@ class _$_ChatState implements _ChatState {
       __$$_ChatStateCopyWithImpl<_$_ChatState>(this, _$identity);
 }
 
-abstract class _ChatState implements ChatState {
+abstract class _ChatState extends ChatState {
   const factory _ChatState(
       {required final List<Message> messages,
       required final User user,
       required final User otomo}) = _$_ChatState;
+  const _ChatState._() : super._();
 
   @override
   List<Message> get messages;

@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:injectable/injectable.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
 import 'package:otomo/tools/logger.dart';
 
-// TODO: should test
-@Injectable(as: IdTokenController)
+// TODO: Add tests
 class IdTokenControllerImpl implements IdTokenController {
   IdTokenControllerImpl(this._firebaseAuth) {
     _firebaseAuth.authStateChanges().listen((user) {
@@ -26,6 +24,8 @@ class IdTokenControllerImpl implements IdTokenController {
 
   @override
   String? get idToken => _idToken;
+
+  Future<void> refreshIdToken() => _refreshIdToken();
 
   Future<void> _refreshIdToken() async {
     _cancelTimerIf();

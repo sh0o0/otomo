@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
+import 'package:otomo/models/latlng.dart';
 import 'package:otomo/models/message.dart' as msg;
+import 'package:otomo/models/place.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
@@ -13,14 +17,45 @@ part 'chat.g.dart';
 
 @Freezed(makeCollectionsUnmodifiable: false)
 class ChatState with _$ChatState {
+  const ChatState._();
+
   const factory ChatState({
     required List<Message> messages,
     required User user,
     required User otomo,
   }) = _ChatState;
+
+  List<Place> get activePlaces {
+    final places = <Place>[];
+    for (final message in _activeMessages) {
+      if (message is! TextMessage) continue;
+
+      final placesFromMessage = _placesFromTextMessage(message);
+      places.addAll(placesFromMessage);
+    }
+
+    return places;
+  }
+
+  List<Message> get _activeMessages =>
+      messages.where((m) => m.metadata?['active'] == true).toList();
+
+  List<Place> _placesFromTextMessage(TextMessage message) {
+    final places = <Place>[];
+    final customTexts = msg.CustomText.fromAllMatches(message.text);
+
+    for (final customText in customTexts) {
+      logger.debug('customText: $customText');
+      final place = Place(
+          name: customText.text, latLng: AppLatLng.fromJson(customText.data['latlng']));
+      places.add(place);
+    }
+
+    return places;
+  }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Chat extends _$Chat {
   Chat() {
     _user = User(id: _globalState.userId!);
@@ -31,6 +66,11 @@ class Chat extends _$Chat {
   final _chatController = getIt<ChatController>();
   late final User _user;
   late final User _otomo;
+  final StreamController<Place> _focusedPlaceController =
+      StreamController<Place>.broadcast();
+
+  StreamController<Place> get focusedPlaceController => _focusedPlaceController;
+  List<Message> get _nonNullMessages => state.value?.messages ?? [];
 
   @override
   FutureOr<ChatState> build() async {
@@ -156,5 +196,36 @@ class Chat extends _$Chat {
       text: message.text,
       status: status,
     );
+  }
+
+  void resetActiveMessages() {
+    for (final m in _nonNullMessages) {
+      if (m.metadata?['active'] == true) {
+        m.metadata?['active'] = false;
+      }
+    }
+
+    state = state;
+  }
+
+  void activateMessage(Message message) {
+    final messages = [..._nonNullMessages];
+    for (final m in messages) {
+      if (m.metadata?['active'] == true) {
+        m.metadata?['active'] = false;
+      }
+    }
+
+    final index = messages.indexWhere((e) => e.id == message.id);
+    final metadata = messages[index].metadata;
+    final newMetadata =
+        metadata == null ? {'active': true} : {...metadata, 'active': true};
+    messages[index] = message.copyWith(metadata: newMetadata);
+
+    state = AsyncValue.data(state.value!.copyWith(messages: messages));
+  }
+
+  void focusPlace(Place place) {
+    _focusedPlaceController.add(place);
   }
 }
