@@ -205,6 +205,7 @@ abstract class _Message implements Message {
 mixin _$CustomText {
   String get text => throw _privateConstructorUsedError;
   Map<String, dynamic> get data => throw _privateConstructorUsedError;
+  AppLatLng? get latLng => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CustomTextCopyWith<CustomText> get copyWith =>
@@ -217,7 +218,9 @@ abstract class $CustomTextCopyWith<$Res> {
           CustomText value, $Res Function(CustomText) then) =
       _$CustomTextCopyWithImpl<$Res, CustomText>;
   @useResult
-  $Res call({String text, Map<String, dynamic> data});
+  $Res call({String text, Map<String, dynamic> data, AppLatLng? latLng});
+
+  $AppLatLngCopyWith<$Res>? get latLng;
 }
 
 /// @nodoc
@@ -235,6 +238,7 @@ class _$CustomTextCopyWithImpl<$Res, $Val extends CustomText>
   $Res call({
     Object? text = null,
     Object? data = null,
+    Object? latLng = freezed,
   }) {
     return _then(_value.copyWith(
       text: null == text
@@ -245,7 +249,23 @@ class _$CustomTextCopyWithImpl<$Res, $Val extends CustomText>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
+      latLng: freezed == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
+              as AppLatLng?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AppLatLngCopyWith<$Res>? get latLng {
+    if (_value.latLng == null) {
+      return null;
+    }
+
+    return $AppLatLngCopyWith<$Res>(_value.latLng!, (value) {
+      return _then(_value.copyWith(latLng: value) as $Val);
+    });
   }
 }
 
@@ -257,7 +277,10 @@ abstract class _$$_CustomTextCopyWith<$Res>
       __$$_CustomTextCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String text, Map<String, dynamic> data});
+  $Res call({String text, Map<String, dynamic> data, AppLatLng? latLng});
+
+  @override
+  $AppLatLngCopyWith<$Res>? get latLng;
 }
 
 /// @nodoc
@@ -273,6 +296,7 @@ class __$$_CustomTextCopyWithImpl<$Res>
   $Res call({
     Object? text = null,
     Object? data = null,
+    Object? latLng = freezed,
   }) {
     return _then(_$_CustomText(
       text: null == text
@@ -283,6 +307,10 @@ class __$$_CustomTextCopyWithImpl<$Res>
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
+      latLng: freezed == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
+              as AppLatLng?,
     ));
   }
 }
@@ -291,7 +319,9 @@ class __$$_CustomTextCopyWithImpl<$Res>
 
 class _$_CustomText implements _CustomText {
   const _$_CustomText(
-      {required this.text, required final Map<String, dynamic> data})
+      {required this.text,
+      required final Map<String, dynamic> data,
+      this.latLng})
       : _data = data;
 
   @override
@@ -305,8 +335,11 @@ class _$_CustomText implements _CustomText {
   }
 
   @override
+  final AppLatLng? latLng;
+
+  @override
   String toString() {
-    return 'CustomText(text: $text, data: $data)';
+    return 'CustomText(text: $text, data: $data, latLng: $latLng)';
   }
 
   @override
@@ -315,12 +348,13 @@ class _$_CustomText implements _CustomText {
         (other.runtimeType == runtimeType &&
             other is _$_CustomText &&
             (identical(other.text, text) || other.text == text) &&
-            const DeepCollectionEquality().equals(other._data, _data));
+            const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.latLng, latLng) || other.latLng == latLng));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, text, const DeepCollectionEquality().hash(_data));
+      runtimeType, text, const DeepCollectionEquality().hash(_data), latLng);
 
   @JsonKey(ignore: true)
   @override
@@ -332,12 +366,15 @@ class _$_CustomText implements _CustomText {
 abstract class _CustomText implements CustomText {
   const factory _CustomText(
       {required final String text,
-      required final Map<String, dynamic> data}) = _$_CustomText;
+      required final Map<String, dynamic> data,
+      final AppLatLng? latLng}) = _$_CustomText;
 
   @override
   String get text;
   @override
   Map<String, dynamic> get data;
+  @override
+  AppLatLng? get latLng;
   @override
   @JsonKey(ignore: true)
   _$$_CustomTextCopyWith<_$_CustomText> get copyWith =>
