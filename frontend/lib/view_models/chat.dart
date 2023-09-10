@@ -33,7 +33,7 @@ class ChatState with _$ChatState {
   }
 
   List<TextMessageData> get _activeMessages =>
-      messages.where((m) => m.active).toList();
+      messages.where((m) => m.message.active).toList();
 }
 
 @Riverpod(keepAlive: true)
@@ -64,7 +64,7 @@ class Chat extends _$Chat {
   Future<void> listMessagesMore() async {
     final ChatState preValue = state.value ?? const ChatState(messages: []);
 
-    final lastMessageId = preValue.messages.last.remoteId;
+    final lastMessageId = preValue.messages.last.message.remoteId;
 
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
@@ -92,7 +92,8 @@ class Chat extends _$Chat {
 
     _addMessage(sendingMessage);
     final stream = _chatController.sendMessage(text);
-    final sentMessage = sendingMessage.copyWith(status: MessageStatus.sent);
+    final sentMessage =
+        sendingMessage.copyWith.message(status: MessageStatus.sent);
     _updateMessageWithIndex(sentMessage);
     return stream;
   }
@@ -121,11 +122,13 @@ class Chat extends _$Chat {
           );
           _addMessage(reply!);
         } else {
-          _updateMessageWithIndex(reply!.copyWith(status: MessageStatus.error));
+          _updateMessageWithIndex(
+              reply!.copyWith.message(status: MessageStatus.error));
         }
       },
       onDone: () {
-        _updateMessageWithIndex(reply!.copyWith(status: MessageStatus.sent));
+        _updateMessageWithIndex(
+            reply!.copyWith.message(status: MessageStatus.sent));
       },
       cancelOnError: true,
     );
@@ -137,7 +140,8 @@ class Chat extends _$Chat {
 
   void _updateMessageWithIndex(TextMessageData message) {
     final messages = state.value!.messages;
-    final index = messages.indexWhere((m) => m.id == message.id);
+    final index =
+        messages.indexWhere((m) => m.message.id == message.message.id);
     messages[index] = message;
     state = state;
   }
@@ -162,12 +166,14 @@ class Chat extends _$Chat {
     required MessageStatus status,
   }) {
     return TextMessageData(
-      id: uuid(),
+      message: MessageData(
+        id: uuid(),
+        role: role,
+        status: status,
+        // TODO: Replace date time with response
+        sentAt: DateTime.now(),
+      ),
       text: text,
-      role: role,
-      status: status,
-      // TODO: Replace date time with response
-      sentAt: DateTime.now(),
     );
   }
 
@@ -176,7 +182,7 @@ class Chat extends _$Chat {
     if (value == null) return;
 
     final inactiveMessages =
-        value.messages.map((e) => e.copyWith(active: false)).toList();
+        value.messages.map((e) => e.copyWith.message(active: false)).toList();
 
     state = AsyncValue.data(value.copyWith(messages: inactiveMessages));
   }
@@ -187,10 +193,10 @@ class Chat extends _$Chat {
     final value = state.value;
     if (value == null) return;
 
-    final index = value.messages.indexWhere((m) => m.id == id);
+    final index = value.messages.indexWhere((m) => m.message.id == id);
 
     final message = value.messages[index];
-    value.messages[index] = message.copyWith(active: true);
+    value.messages[index] = message.copyWith.message(active: true);
 
     state = AsyncValue.data(value);
   }

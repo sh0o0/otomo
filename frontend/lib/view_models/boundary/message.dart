@@ -4,17 +4,24 @@ import 'package:otomo/entities/place.dart';
 part 'message.freezed.dart';
 
 @freezed
-class TextMessageData with _$TextMessageData {
-  const TextMessageData._();
-
-  const factory TextMessageData({
+class MessageData with _$MessageData {
+  const factory MessageData({
     required String id,
-    required String text,
     required Role role,
     required DateTime sentAt,
     String? remoteId,
     @Default(false) bool active,
     required MessageStatus status,
+  }) = _MessageData;
+}
+
+@freezed
+class TextMessageData with _$TextMessageData {
+  const TextMessageData._();
+
+  const factory TextMessageData({
+    required MessageData message,
+    required String text,
   }) = _TextMessageData;
 
   factory TextMessageData.fromTextMessage(
@@ -23,13 +30,15 @@ class TextMessageData with _$TextMessageData {
     bool active = false,
   }) {
     return TextMessageData(
-      id: message.id,
+      message: MessageData(
+        id: message.id,
+        role: message.role,
+        sentAt: message.sentAt,
+        remoteId: message.id,
+        status: status,
+        active: active,
+      ),
       text: message.text,
-      role: message.role,
-      sentAt: message.sentAt,
-      remoteId: message.id,
-      status: status,
-      active: active,
     );
   }
 

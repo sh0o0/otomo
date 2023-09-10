@@ -16,15 +16,15 @@ class Converter {
       messages.map(textMessageDataToChatTextMessage).toList();
 
   static chat.TextMessage textMessageDataToChatTextMessage(
-    TextMessageData message,
+    TextMessageData textMessage,
   ) =>
       chat.TextMessage(
-        id: message.id,
-        text: message.text,
-        author: roleToChatUser(message.role),
-        remoteId: message.remoteId,
-        createdAt: message.sentAt.millisecondsSinceEpoch,
-        status: messageStatusToChatStatus(message.status)
+        id: textMessage.message.id,
+        text: textMessage.text,
+        author: roleToChatUser(textMessage.message.role),
+        remoteId: textMessage.message.remoteId,
+        createdAt: textMessage.message.sentAt.millisecondsSinceEpoch,
+        status: messageStatusToChatStatus(textMessage.message.status)
       );
 
   static chat.User roleToChatUser(Role role) => chat.User(id: role.toString());
