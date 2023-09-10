@@ -18,10 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TextMessageData {
   String get id => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
-  String get role => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError;
   DateTime get sentAt => throw _privateConstructorUsedError;
   String? get remoteId => throw _privateConstructorUsedError;
   bool get active => throw _privateConstructorUsedError;
+  MessageStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TextMessageDataCopyWith<TextMessageData> get copyWith =>
@@ -37,10 +38,11 @@ abstract class $TextMessageDataCopyWith<$Res> {
   $Res call(
       {String id,
       String text,
-      String role,
+      Role role,
       DateTime sentAt,
       String? remoteId,
-      bool active});
+      bool active,
+      MessageStatus status});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$TextMessageDataCopyWithImpl<$Res, $Val extends TextMessageData>
     Object? sentAt = null,
     Object? remoteId = freezed,
     Object? active = null,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,7 +78,7 @@ class _$TextMessageDataCopyWithImpl<$Res, $Val extends TextMessageData>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Role,
       sentAt: null == sentAt
           ? _value.sentAt
           : sentAt // ignore: cast_nullable_to_non_nullable
@@ -88,6 +91,10 @@ class _$TextMessageDataCopyWithImpl<$Res, $Val extends TextMessageData>
           ? _value.active
           : active // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as MessageStatus,
     ) as $Val);
   }
 }
@@ -103,10 +110,11 @@ abstract class _$$_TextMessageDataCopyWith<$Res>
   $Res call(
       {String id,
       String text,
-      String role,
+      Role role,
       DateTime sentAt,
       String? remoteId,
-      bool active});
+      bool active,
+      MessageStatus status});
 }
 
 /// @nodoc
@@ -126,6 +134,7 @@ class __$$_TextMessageDataCopyWithImpl<$Res>
     Object? sentAt = null,
     Object? remoteId = freezed,
     Object? active = null,
+    Object? status = null,
   }) {
     return _then(_$_TextMessageData(
       id: null == id
@@ -139,7 +148,7 @@ class __$$_TextMessageDataCopyWithImpl<$Res>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Role,
       sentAt: null == sentAt
           ? _value.sentAt
           : sentAt // ignore: cast_nullable_to_non_nullable
@@ -152,6 +161,10 @@ class __$$_TextMessageDataCopyWithImpl<$Res>
           ? _value.active
           : active // ignore: cast_nullable_to_non_nullable
               as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as MessageStatus,
     ));
   }
 }
@@ -164,15 +177,16 @@ class _$_TextMessageData implements _TextMessageData {
       required this.text,
       required this.role,
       required this.sentAt,
-      required this.remoteId,
-      this.active = false});
+      this.remoteId,
+      this.active = false,
+      required this.status});
 
   @override
   final String id;
   @override
   final String text;
   @override
-  final String role;
+  final Role role;
   @override
   final DateTime sentAt;
   @override
@@ -180,10 +194,12 @@ class _$_TextMessageData implements _TextMessageData {
   @override
   @JsonKey()
   final bool active;
+  @override
+  final MessageStatus status;
 
   @override
   String toString() {
-    return 'TextMessageData(id: $id, text: $text, role: $role, sentAt: $sentAt, remoteId: $remoteId, active: $active)';
+    return 'TextMessageData(id: $id, text: $text, role: $role, sentAt: $sentAt, remoteId: $remoteId, active: $active, status: $status)';
   }
 
   @override
@@ -197,12 +213,13 @@ class _$_TextMessageData implements _TextMessageData {
             (identical(other.sentAt, sentAt) || other.sentAt == sentAt) &&
             (identical(other.remoteId, remoteId) ||
                 other.remoteId == remoteId) &&
-            (identical(other.active, active) || other.active == active));
+            (identical(other.active, active) || other.active == active) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, text, role, sentAt, remoteId, active);
+  int get hashCode => Object.hash(
+      runtimeType, id, text, role, sentAt, remoteId, active, status);
 
   @JsonKey(ignore: true)
   @override
@@ -215,23 +232,26 @@ abstract class _TextMessageData implements TextMessageData {
   const factory _TextMessageData(
       {required final String id,
       required final String text,
-      required final String role,
+      required final Role role,
       required final DateTime sentAt,
-      required final String? remoteId,
-      final bool active}) = _$_TextMessageData;
+      final String? remoteId,
+      final bool active,
+      required final MessageStatus status}) = _$_TextMessageData;
 
   @override
   String get id;
   @override
   String get text;
   @override
-  String get role;
+  Role get role;
   @override
   DateTime get sentAt;
   @override
   String? get remoteId;
   @override
   bool get active;
+  @override
+  MessageStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$_TextMessageDataCopyWith<_$_TextMessageData> get copyWith =>
