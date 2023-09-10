@@ -6,16 +6,16 @@ part 'message.freezed.dart';
 part 'message.g.dart';
 
 @freezed
-class Message with _$Message {
-  const factory Message({
+class TextMessage with _$TextMessage {
+  const factory TextMessage({
     required String id,
     required String text,
     required Role role,
     required DateTime sentAt,
-  }) = _Message;
+  }) = _TextMessage;
 
-  factory Message.fromJson(Map<String, dynamic> json) =>
-      _$MessageFromJson(json);
+  factory TextMessage.fromJson(Map<String, dynamic> json) =>
+      _$TextMessageFromJson(json);
 }
 
 enum Role {

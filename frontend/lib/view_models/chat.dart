@@ -184,7 +184,7 @@ class Chat extends _$Chat {
   }
 
   Message _toChatUIMessage(
-    msg.Message message,
+    msg.TextMessage message,
     Status status,
   ) {
     return TextMessage(

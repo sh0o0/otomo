@@ -9,7 +9,7 @@ class ChatControllerImpl {
 
   final ChatServiceClient _chatService;
 
-  Future<List<msg.Message>> listMessages(
+  Future<List<msg.TextMessage>> listMessages(
     String userId,
     int? pageSize,
     String? pageStartAfterMessageId,
@@ -29,12 +29,12 @@ class ChatControllerImpl {
     return _chatService.sendMessage(req).map((replyChunk) => replyChunk.text);
   }
 
-  List<msg.Message> _toMessages(List<Message> messages) {
+  List<msg.TextMessage> _toMessages(List<Message> messages) {
     return messages.map((e) => _toMessage(e)).toList();
   }
 
-  msg.Message _toMessage(Message message) {
-    return msg.Message(
+  msg.TextMessage _toMessage(Message message) {
+    return msg.TextMessage(
       id: message.id,
       text: message.text,
       role: _toRole(message.role),
