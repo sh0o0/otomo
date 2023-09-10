@@ -40,8 +40,8 @@ class CustomText with _$CustomText {
 
     AppLatLng? latLng;
 
-    if (data['latLng'] != null) {
-      latLng = AppLatLng.fromJson(data['latLng']);
+    if (data['lat_lng'] != null) {
+      latLng = AppLatLng.fromJson(data['lat_lng']);
     }
 
     return CustomText(
