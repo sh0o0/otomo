@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/models/latlng.dart';
+import 'package:otomo/entities/latlng.dart';
 
 part 'place.freezed.dart';
 

@@ -3,7 +3,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
-import 'package:otomo/models/message.dart';
+import 'package:otomo/entities/message.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ChatUI extends StatelessWidget {

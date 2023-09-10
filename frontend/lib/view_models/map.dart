@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as google;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/location.dart';
-import 'package:otomo/models/place.dart';
+import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/chat.dart';
 
 part 'map.freezed.dart';

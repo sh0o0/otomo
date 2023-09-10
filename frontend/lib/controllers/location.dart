@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart' as geo;
-import 'package:otomo/models/latlng.dart';
-import 'package:otomo/models/position.dart';
+import 'package:otomo/entities/latlng.dart';
+import 'package:otomo/entities/position.dart';
 
 class LocationControllerImpl {
   Future<Position> determinePosition() async {
