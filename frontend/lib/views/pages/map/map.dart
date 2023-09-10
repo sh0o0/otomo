@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/map.dart';
 import 'package:otomo/views/cases/map/app_map.dart';
-import 'package:otomo/views/utils/convertor.dart';
+import 'package:otomo/views/utils/converter.dart';
 
 class Map extends HookConsumerWidget {
   const Map({super.key});

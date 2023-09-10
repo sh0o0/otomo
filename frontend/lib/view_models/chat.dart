@@ -9,6 +9,7 @@ import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
+import 'package:otomo/view_models/boundary/message.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat.freezed.dart';
@@ -19,9 +20,7 @@ class ChatState with _$ChatState {
   const ChatState._();
 
   const factory ChatState({
-    required List<Message> messages,
-    required User user,
-    required User otomo,
+    required List<TextMessageData> messages,
   }) = _ChatState;
 
   List<Place> get activePlaces {

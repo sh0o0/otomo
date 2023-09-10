@@ -5,7 +5,7 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/location.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/chat.dart';
-import 'package:otomo/views/utils/convertor.dart';
+import 'package:otomo/views/utils/converter.dart';
 
 part 'map.freezed.dart';
 
