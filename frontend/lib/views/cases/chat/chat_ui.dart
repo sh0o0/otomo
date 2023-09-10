@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
+import 'package:otomo/models/message.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ChatUI extends StatelessWidget {
@@ -66,13 +65,13 @@ class ChatUI extends StatelessWidget {
         onLinkPressed: launchUrlString,
         matchers: [
           MatchText(
-            pattern: CustomText.regExpPattern,
+            pattern: CustomText.regExp.pattern,
             onTap: (text) {
-              final customText = CustomText(text);
+              final customText = CustomText.fromFirstMatch(text);
               onTapCustomText?.call(customText);
             },
             renderWidget: ({required pattern, required text}) {
-              final customText = CustomText(text);
+              final customText = CustomText.fromFirstMatch(text);
               return RichText(
                 text: TextSpan(
                   text: customText.text,
@@ -86,30 +85,4 @@ class ChatUI extends StatelessWidget {
       ),
     );
   }
-}
-
-class CustomText {
-  CustomText._({
-    required this.text,
-    required this.data,
-  });
-
-  static const regExpPattern = r'%\[(.*?)\]\((.*?)\)';
-  static final regExp = RegExp(regExpPattern);
-
-  factory CustomText(String str) {
-    final match = regExp.firstMatch(str);
-    if (match == null) return CustomText._(text: '', data: {});
-
-    final text = match.group(1);
-    final data = jsonDecode(match.group(2) ?? '{}');
-
-    return CustomText._(text: text ?? '', data: data);
-  }
-
-  final String text;
-  final Map<String, dynamic> data;
-
-  @override
-  String toString() => 'CustomChatText(text: $text, data: $data)';
 }

@@ -189,7 +189,6 @@ class Chat extends _$Chat {
     final newMetadata =
         metadata == null ? {'active': true} : {...metadata, 'active': true};
     messages[index] = message.copyWith(metadata: newMetadata);
-    logger.debug('${messages[index].metadata}');
 
     state = AsyncValue.data(state.value!.copyWith(messages: messages));
   }
