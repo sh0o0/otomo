@@ -37,6 +37,9 @@ class Map extends HookConsumerWidget {
         onMapCreated: (controller) => _onMapCreated(controller, ref),
         markers: _markers(state),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(mapProvider.notifier).goCurrentLocation(),
+      ),
     );
   }
 }

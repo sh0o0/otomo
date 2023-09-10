@@ -6,7 +6,6 @@ import 'package:otomo/models/position.dart';
 
 @Injectable(as: LocationController)
 class LocationControllerImpl implements LocationController {
-
   @override
   Future<Position> determinePosition() async {
     bool serviceEnabled;

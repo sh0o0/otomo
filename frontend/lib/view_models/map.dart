@@ -42,15 +42,17 @@ class MapViewModel extends StateNotifier<MapState> {
   final Stream<Place> focusedPlaceAtChatStream;
   final LocationController _locationController = getIt<LocationController>();
 
-  google.GoogleMapController? _mapController;
+  static google.GoogleMapController? _mapController;
 
   set mapController(google.GoogleMapController mapController) =>
       _mapController = mapController;
+
 
   bool get _canUseMapController => _mapController != null;
 
   Future<void> goCurrentLocation() async {
     final position = await _locationController.determinePosition();
+
     if (!_canUseMapController) return;
     _mapController!.animateCamera(
       google.CameraUpdate.newLatLngZoom(

@@ -19,6 +19,7 @@ class AppMap extends StatelessWidget {
       initialCameraPosition: initialCameraPosition,
       onMapCreated:  onMapCreated,
       markers: markers,
+      myLocationEnabled: true,
     );
   }
 }
