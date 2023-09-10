@@ -193,6 +193,34 @@ class Chat extends _$Chat {
     state = AsyncValue.data(state.value!.copyWith(messages: messages));
   }
 
+  List<Message> get _activeMessages =>
+      _nonNullMessages.where((m) => m.metadata?['active'] == true).toList();
+
+  List<Place> get activePlaces {
+    final places = <Place>[];
+    for (final message in _activeMessages) {
+      if (message is! TextMessage) continue;
+
+      final placesFromMessage = _placesFromTextMessage(message);
+      places.addAll(placesFromMessage);
+    }
+
+    return places;
+  }
+
+  List<Place> _placesFromTextMessage(TextMessage message) {
+    final places = <Place>[];
+    final customTexts = msg.CustomText.fromAllMatches(message.text);
+
+    for (final customText in customTexts) {
+      final place = Place(
+          name: customText.text, latLng: AppLatLng.fromJson(customText.data));
+      places.add(place);
+    }
+
+    return places;
+  }
+
   void focusPlace(Place place) {
     _focusedPlaceController.add(place);
   }
