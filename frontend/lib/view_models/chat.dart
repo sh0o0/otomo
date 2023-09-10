@@ -16,11 +16,41 @@ part 'chat.g.dart';
 
 @Freezed(makeCollectionsUnmodifiable: false)
 class ChatState with _$ChatState {
+  const ChatState._();
+
   const factory ChatState({
     required List<Message> messages,
     required User user,
     required User otomo,
   }) = _ChatState;
+
+  List<Place> get activePlaces {
+    final places = <Place>[];
+    for (final message in _activeMessages) {
+      if (message is! TextMessage) continue;
+
+      final placesFromMessage = _placesFromTextMessage(message);
+      places.addAll(placesFromMessage);
+    }
+
+    return places;
+  }
+
+  List<Message> get _activeMessages =>
+      messages.where((m) => m.metadata?['active'] == true).toList();
+
+  List<Place> _placesFromTextMessage(TextMessage message) {
+    final places = <Place>[];
+    final customTexts = msg.CustomText.fromAllMatches(message.text);
+
+    for (final customText in customTexts) {
+      final place = Place(
+          name: customText.text, latLng: AppLatLng.fromJson(customText.data));
+      places.add(place);
+    }
+
+    return places;
+  }
 }
 
 @Riverpod(keepAlive: true)
@@ -191,34 +221,6 @@ class Chat extends _$Chat {
     messages[index] = message.copyWith(metadata: newMetadata);
 
     state = AsyncValue.data(state.value!.copyWith(messages: messages));
-  }
-
-  List<Message> get _activeMessages =>
-      _nonNullMessages.where((m) => m.metadata?['active'] == true).toList();
-
-  List<Place> get activePlaces {
-    final places = <Place>[];
-    for (final message in _activeMessages) {
-      if (message is! TextMessage) continue;
-
-      final placesFromMessage = _placesFromTextMessage(message);
-      places.addAll(placesFromMessage);
-    }
-
-    return places;
-  }
-
-  List<Place> _placesFromTextMessage(TextMessage message) {
-    final places = <Place>[];
-    final customTexts = msg.CustomText.fromAllMatches(message.text);
-
-    for (final customText in customTexts) {
-      final place = Place(
-          name: customText.text, latLng: AppLatLng.fromJson(customText.data));
-      places.add(place);
-    }
-
-    return places;
   }
 
   void focusPlace(Place place) {
