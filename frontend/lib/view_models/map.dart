@@ -6,7 +6,7 @@ import 'package:otomo/view_models/chat.dart';
 
 part 'map.freezed.dart';
 
-final mapProvider = StateNotifierProvider<MapViewModel, void>((ref) {
+final mapProvider = StateNotifierProvider<MapViewModel, MapState>((ref) {
   final activePlaces = ref.watch(chatProvider.select((v) => v.value?.activePlaces));
   final focusedPlaceAtChatStream =
       ref.read(chatProvider.notifier).focusedPlaceController.stream;

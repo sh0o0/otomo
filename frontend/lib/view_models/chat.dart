@@ -44,8 +44,9 @@ class ChatState with _$ChatState {
     final customTexts = msg.CustomText.fromAllMatches(message.text);
 
     for (final customText in customTexts) {
+      logger.debug('customText: $customText');
       final place = Place(
-          name: customText.text, latLng: AppLatLng.fromJson(customText.data));
+          name: customText.text, latLng: AppLatLng.fromJson(customText.data['latlng']));
       places.add(place);
     }
 

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/firebase_options.dart';
+import 'package:otomo/grpc/generated/interceptors/auth.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/app.dart';
 
@@ -19,4 +20,7 @@ Future<void> setup() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   configureInjection();
+
+  // TODO: Should think about this place
+  await getIt<IdTokenController>().refreshIdToken();
 }

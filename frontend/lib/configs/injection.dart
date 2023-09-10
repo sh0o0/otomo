@@ -51,6 +51,12 @@ abstract class InjectableModule {
   @singleton
   GlobalState get globalState => GlobalState.instance;
 
+  static IdTokenController get _idTokenController =>
+      IdTokenControllerImpl(_firebaseAuth);
+
+  @singleton
+  IdTokenController get idTokenController => _idTokenController;
+
   final List<ClientInterceptor> _clientInterceptors = [
     _loggingClientInterceptor,
     _retryClientInterceptor,
@@ -61,7 +67,7 @@ abstract class InjectableModule {
   static final _retryClientInterceptor =
       RetryOnUnavailableErrorClientInterceptor(retries: 1);
   static final _injectAuthHeaderClientInterceptor =
-      InjectAuthHeaderClientInterceptor(IdTokenControllerImpl(_firebaseAuth));
+      InjectAuthHeaderClientInterceptor(_idTokenController);
 }
 
 @InjectableInit()

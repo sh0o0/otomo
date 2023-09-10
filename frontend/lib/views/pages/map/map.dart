@@ -16,12 +16,26 @@ class Map extends HookConsumerWidget {
     ref.read(mapProvider.notifier).mapController = controller;
   }
 
+  Set<Marker> _markers(MapState state) => state.activePlaces
+      .map((e) => Marker(
+            markerId: MarkerId(e.name),
+            position: e.latLng.toGoogle(),
+            infoWindow: InfoWindow(
+              title: e.name,
+              snippet: e.latLng.toString(),
+            ),
+          ))
+      .toSet();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(mapProvider);
+
     return Scaffold(
       body: AppMap(
         initialCameraPosition: _initialCameraPosition,
         onMapCreated: (controller) => _onMapCreated(controller, ref),
+        markers: _markers(state),
       ),
     );
   }
