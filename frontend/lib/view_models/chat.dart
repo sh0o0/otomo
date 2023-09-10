@@ -63,7 +63,7 @@ class Chat extends _$Chat {
   }
 
   final _globalState = getIt<GlobalState>();
-  final _chatController = getIt<ChatController>();
+  final _chatController = getIt<ChatControllerImpl>();
   late final User _user;
   late final User _otomo;
   final StreamController<Place> _focusedPlaceController =

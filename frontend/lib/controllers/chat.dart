@@ -4,8 +4,8 @@ import 'package:otomo/grpc/generated/message.pb.dart';
 import 'package:otomo/models/message.dart' as msg;
 
 @Injectable()
-class ChatController {
-  ChatController(this._chatService);
+class ChatControllerImpl {
+  ChatControllerImpl(this._chatService);
 
   final ChatServiceClient _chatService;
 

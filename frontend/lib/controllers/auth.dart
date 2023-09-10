@@ -3,8 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:otomo/models/user.dart';
 
 @Injectable()
-class AuthController {
-  AuthController(this._firebaseAuth);
+class AuthControllerImpl {
+  AuthControllerImpl(this._firebaseAuth);
 
   final auth.FirebaseAuth _firebaseAuth;
 

@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:otomo/grpc/generated/interceptors/auth.dart';
+import 'package:otomo/abstracts/controllers/id_token.dart';
 import 'package:otomo/tools/logger.dart';
 
+// Being injected configs/injection.dart
 // TODO: Add tests
 class IdTokenControllerImpl implements IdTokenController {
   IdTokenControllerImpl(this._firebaseAuth) {
@@ -25,6 +26,7 @@ class IdTokenControllerImpl implements IdTokenController {
   @override
   String? get idToken => _idToken;
 
+  @override
   Future<void> refreshIdToken() => _refreshIdToken();
 
   Future<void> _refreshIdToken() async {

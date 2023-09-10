@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/abstracts/location_controller.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/controllers/location.dart';
 import 'package:otomo/models/place.dart';
 import 'package:otomo/view_models/chat.dart';
 
@@ -40,7 +40,7 @@ class MapViewModel extends StateNotifier<MapState> {
   }
 
   final Stream<Place> focusedPlaceAtChatStream;
-  final LocationController _locationController = getIt<LocationController>();
+  final LocationControllerImpl _locationController = getIt<LocationControllerImpl>();
 
   static google.GoogleMapController? _mapController;
 

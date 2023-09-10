@@ -8,7 +8,7 @@ part 'sign_in.g.dart';
 class SignIn extends _$SignIn {
   SignIn() : super();
 
-  final _controller = getIt<SignInController>();
+  final _controller = getIt<SignInControllerImpl>();
 
   @override
   Future<void> build() async {}

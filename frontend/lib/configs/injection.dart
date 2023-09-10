@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otomo/abstracts/controllers/id_token.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/injection.config.dart';
 import 'package:otomo/controllers/id_token.dart';

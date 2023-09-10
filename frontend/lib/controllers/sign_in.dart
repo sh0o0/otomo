@@ -3,8 +3,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable()
-class SignInController {
-  SignInController(this._firebaseAuth, this._googleSignIn);
+class SignInControllerImpl {
+  SignInControllerImpl(this._firebaseAuth, this._googleSignIn);
 
   final GoogleSignIn _googleSignIn;
   final FirebaseAuth _firebaseAuth;

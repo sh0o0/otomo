@@ -1,12 +1,8 @@
 import 'package:geolocator/geolocator.dart' as geo;
-import 'package:injectable/injectable.dart';
-import 'package:otomo/abstracts/location_controller.dart';
 import 'package:otomo/models/latlng.dart';
 import 'package:otomo/models/position.dart';
 
-@Injectable(as: LocationController)
-class LocationControllerImpl implements LocationController {
-  @override
+class LocationControllerImpl {
   Future<Position> determinePosition() async {
     bool serviceEnabled;
     geo.LocationPermission permission;
