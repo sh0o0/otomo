@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/user.dart';
-import 'package:otomo/views/pages/home/new_home.dart';
+import 'package:otomo/views/pages/home/home.dart';
 import 'package:otomo/views/pages/sign_in/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link/sign_in_with_email_link.dart';
 
@@ -42,7 +42,7 @@ final routerProvider = Provider((ref) {
       ..._signInPages,
       GoRoute(
         path: Routes.home,
-        builder: (context, state) => const NewHome(),
+        builder: (context, state) => const HomePage(),
       ),
     ],
   );
