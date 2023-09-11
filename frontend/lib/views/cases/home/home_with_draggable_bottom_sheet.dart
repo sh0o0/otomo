@@ -23,12 +23,6 @@ class HomeWithDraggableBottomSheetState
 
   static const double _sheetBarHeight = kToolbarHeight;
 
-  double get _sheetBodyHeight {
-    final limit = MediaQuery.paddingOf(context).bottom;
-    final height = _sheetHeight - _sheetBarHeight;
-    return height > limit ? height : limit;
-  }
-
   double _maxSheetHeight(BuildContext context) {
     final padding = MediaQuery.paddingOf(context);
     return MediaQuery.of(context).size.height - padding.top;
