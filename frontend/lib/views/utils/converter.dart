@@ -17,6 +17,7 @@ class Converter {
         sentAt: DateTime.fromMillisecondsSinceEpoch(message.createdAt!),
         remoteId: message.remoteId,
         status: chatStatusToMessageStatus(message.status!),
+        active: message.metadata?['active'] == true,
       );
 
   static List<chat.TextMessage> textMessageDataToChatTextMessageList(
@@ -34,6 +35,7 @@ class Converter {
         remoteId: textMessage.message.remoteId,
         createdAt: textMessage.message.sentAt.millisecondsSinceEpoch,
         status: messageStatusToChatStatus(textMessage.message.status),
+        metadata: {'active': textMessage.message.active},
       );
 
   static chat.User roleToChatUser(Role role) => chat.User(id: role.toString());
