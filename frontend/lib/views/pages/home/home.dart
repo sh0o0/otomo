@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
-import 'package:otomo/views/pages/samples/cases/sample_chat.dart';
+import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
+import 'package:otomo/views/pages/home/cases/chat.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulHookConsumerWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() =>
-      _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   DraggableScrollableController? _sheetController;
 
   void onSheetCreated(DraggableScrollableController controller) {
@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return HomeWithDraggableScrollableBottomSheet(
       initialSheetSize: 0.1,
       minSheetSize: 0.0,
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       onSheetCreated: onSheetCreated,
       floatingActionButton: _buildFloatingActionButton(context),
       bottomSheetBar: const ChatBottomSheetBar(),
-      bottomSheet: const SampleChat(),
+      bottomSheet: const HomeChat(),
       child: const Placeholder(),
     );
   }
