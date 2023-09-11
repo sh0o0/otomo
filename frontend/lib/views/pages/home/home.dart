@@ -42,11 +42,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return HomeWithDraggableScrollableBottomSheet(
-      initialSheetSize: 0.1,
+      initialSheetSize: 0.0,
       minSheetSize: 0.0,
       maxSheetSize: 0.9,
       snap: true,
-      snapSizes: const [0.3, 0.6],
+      snapSizes: const [0.4, 0.5, 0.6],
       onSheetCreated: onSheetCreated,
       behindSheetFloatingActionButton: _buildFloatingActionButton(context),
       bottomSheetBar: const ChatBottomSheetBar(),
