@@ -3,38 +3,40 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
-import 'package:otomo/models/message.dart';
+import 'package:otomo/entities/message.dart';
+import 'package:otomo/view_models/boundary/chat.dart';
+import 'package:otomo/views/utils/converter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ChatUI extends StatelessWidget {
   const ChatUI({
     super.key,
     required this.messages,
-    required this.user,
     required this.onSendPressed,
+    required this.user,
     this.emptyState,
     this.onEndReached,
     this.onMessageTap,
-    this.onTapCustomText,
+    this.onCustomTextTap,
   });
 
-  final List<types.Message> messages;
-  final types.User user;
-  final void Function(types.PartialText) onSendPressed;
+  final List<TextMessageData> messages;
+  final void Function(String) onSendPressed;
+  final Author user;
   final Widget? emptyState;
   final Future<void> Function()? onEndReached;
-  final void Function(BuildContext context, types.Message)? onMessageTap;
-  final void Function(CustomText text)? onTapCustomText;
+  final void Function(BuildContext context, MessageData message)? onMessageTap;
+  final void Function(CustomText text)? onCustomTextTap;
 
-  Color _getBubbleColor(BuildContext context, types.Message message) {
+  Color _getBubbleColor(BuildContext context, types.Message m) {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
-    final bool active = message.metadata?['active'] == true;
+    final message = Converter.instance.message.viewToData(m);
 
-    if (message.author == user) {
-      if (active) return chatTheme.primaryColor.withOpacity(0.5);
+    if (message.author.isUser) {
+      if (message.active) return chatTheme.primaryColor.withOpacity(0.5);
       return chatTheme.primaryColor;
     }
-    if (active) return chatTheme.secondaryColor.withOpacity(0.5);
+    if (message.active) return chatTheme.secondaryColor.withOpacity(0.5);
     return chatTheme.secondaryColor;
   }
 
@@ -44,22 +46,14 @@ class ChatUI extends StatelessWidget {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
 
     return Chat(
-      messages: messages,
-      onSendPressed: onSendPressed,
-      user: user,
+      messages: Converter.instance.message.textDataToViewList(messages),
+      onSendPressed: (message) => onSendPressed(message.text),
+      user: types.User(id: user.id),
       theme: chatTheme,
       emptyState: emptyState,
       onEndReached: onEndReached,
-      onMessageTap: onMessageTap,
-      bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
-            color: _getBubbleColor(context, message),
-          ),
-          child: child,
-        );
-      },
+      onMessageTap: (context, m) =>
+          onMessageTap?.call(context, Converter.instance.message.viewToData(m)),
       textMessageOptions: TextMessageOptions(
         isTextSelectable: false,
         onLinkPressed: launchUrlString,
@@ -68,7 +62,7 @@ class ChatUI extends StatelessWidget {
             pattern: CustomText.regExp.pattern,
             onTap: (text) {
               final customText = CustomText.fromFirstMatch(text);
-              onTapCustomText?.call(customText);
+              onCustomTextTap?.call(customText);
             },
             renderWidget: ({required pattern, required text}) {
               final customText = CustomText.fromFirstMatch(text);
@@ -83,6 +77,15 @@ class ChatUI extends StatelessWidget {
           ),
         ],
       ),
+      bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
+            color: _getBubbleColor(context, message),
+          ),
+          child: child,
+        );
+      },
     );
   }
 }

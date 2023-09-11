@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:otomo/abstracts/controllers/id_token.dart';
+import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/tools/logger.dart';
 
 // Being injected configs/injection.dart

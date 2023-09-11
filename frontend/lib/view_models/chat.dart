@@ -1,15 +1,14 @@
 import 'dart:async';
 
-import 'package:flutter_chat_types/flutter_chat_types.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
-import 'package:otomo/models/latlng.dart';
-import 'package:otomo/models/message.dart' as msg;
-import 'package:otomo/models/place.dart';
+import 'package:otomo/entities/message.dart';
+import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
+import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat.freezed.dart';
@@ -20,68 +19,42 @@ class ChatState with _$ChatState {
   const ChatState._();
 
   const factory ChatState({
-    required List<Message> messages,
-    required User user,
-    required User otomo,
+    required List<TextMessageData> messages,
   }) = _ChatState;
+
+  static final user = Author.fromRole(Role.user);
 
   List<Place> get activePlaces {
     final places = <Place>[];
+
     for (final message in _activeMessages) {
-      if (message is! TextMessage) continue;
-
-      final placesFromMessage = _placesFromTextMessage(message);
-      places.addAll(placesFromMessage);
+      places.addAll(message.placesFromText);
     }
 
     return places;
   }
 
-  List<Message> get _activeMessages =>
-      messages.where((m) => m.metadata?['active'] == true).toList();
-
-  List<Place> _placesFromTextMessage(TextMessage message) {
-    final places = <Place>[];
-    final customTexts = msg.CustomText.fromAllMatches(message.text);
-
-    for (final customText in customTexts) {
-      logger.debug('customText: $customText');
-      final place = Place(
-          name: customText.text, latLng: AppLatLng.fromJson(customText.data['latlng']));
-      places.add(place);
-    }
-
-    return places;
-  }
+  List<TextMessageData> get _activeMessages =>
+      messages.where((m) => m.message.active).toList();
 }
 
 @Riverpod(keepAlive: true)
 class Chat extends _$Chat {
-  Chat() {
-    _user = User(id: _globalState.userId!);
-    _otomo = User(id: uuid());
-  }
-
   final _globalState = getIt<GlobalState>();
   final _chatController = getIt<ChatControllerImpl>();
-  late final User _user;
-  late final User _otomo;
   final StreamController<Place> _focusedPlaceController =
       StreamController<Place>.broadcast();
 
-  StreamController<Place> get focusedPlaceController => _focusedPlaceController;
-  List<Message> get _nonNullMessages => state.value?.messages ?? [];
+  Stream<Place> get focusPlaceStream => _focusedPlaceController.stream;
 
   @override
   FutureOr<ChatState> build() async {
     state = const AsyncValue.loading();
 
-    final chatMessages = await _listChatUIMessages(null, null);
+    final chatMessages = await _listTextMessageData(null, null);
 
     return ChatState(
       messages: chatMessages,
-      user: _user,
-      otomo: _otomo,
     );
   }
 
@@ -91,41 +64,44 @@ class Chat extends _$Chat {
   }
 
   Future<void> listMessagesMore() async {
-    final preValue = state.value;
-    if (preValue == null) return;
+    final ChatState preValue = state.value ?? const ChatState(messages: []);
 
-    final lastMessageId = preValue.messages.last.remoteId;
+    final lastMessageId = preValue.messages.last.message.remoteId;
 
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final chatMessages = await _listChatUIMessages(null, lastMessageId);
-      return preValue
-          .copyWith(messages: [...preValue.messages, ...chatMessages]);
+      final messages = await _listTextMessageData(null, lastMessageId);
+      return preValue.copyWith(messages: [...preValue.messages, ...messages]);
     });
   }
 
-  Future<List<Message>> _listChatUIMessages(
-      int? pageSize, String? pageStartAfterMessageId) async {
+  Future<List<TextMessageData>> _listTextMessageData(
+    int? pageSize,
+    String? pageStartAfterMessageId,
+  ) async {
     final messages = await _chatController.listMessages(
         _globalState.userId!, pageSize, pageStartAfterMessageId);
 
-    return messages.map((m) => _toChatUIMessage(m, Status.sent)).toList();
+    return messages
+        .map((e) =>
+            TextMessageData.fromTextMessage(e, status: MessageStatus.sent))
+        .toList();
   }
 
   Stream<String> _sendMessage(String text) {
-    final sendingMessage =
-        _newTextMessage(text, state.value!.user, Status.sending);
+    final sendingMessage = _newTextMessageData(
+        text: text, role: Role.user, status: MessageStatus.sending);
 
     _addMessage(sendingMessage);
     final stream = _chatController.sendMessage(text);
     final sentMessage =
-        sendingMessage.copyWith(status: Status.sent) as TextMessage;
+        sendingMessage.copyWith.message(status: MessageStatus.sent);
     _updateMessageWithIndex(sentMessage);
     return stream;
   }
 
   void _receiveReply(Stream<String> replyStream) {
-    TextMessage? reply;
+    TextMessageData? reply;
 
     replyStream.listen(
       (replyChunk) {
@@ -141,88 +117,90 @@ class Chat extends _$Chat {
         logger.warn(e.toString());
 
         if (reply == null) {
-          reply = _newTextMessage(
-              'Error occurred', state.value!.otomo, Status.error);
+          reply = _newTextMessageData(
+            text: 'Error occurred',
+            role: Role.otomo,
+            status: MessageStatus.error,
+          );
           _addMessage(reply!);
         } else {
-          _updateMessageWithIndex(reply!.copyWith(status: Status.error));
+          _updateMessageWithIndex(
+              reply!.copyWith.message(status: MessageStatus.error));
         }
       },
       onDone: () {
-        _updateMessageWithIndex(reply!.copyWith(status: Status.sent));
+        _updateMessageWithIndex(
+            reply!.copyWith.message(status: MessageStatus.sent));
       },
       cancelOnError: true,
     );
   }
 
-  void _addMessage(TextMessage message) {
+  void _addMessage(TextMessageData message) {
     state = state..value!.messages.insert(0, message);
   }
 
-  void _updateMessageWithIndex(Message message) {
+  void _updateMessageWithIndex(TextMessageData message) {
     final messages = state.value!.messages;
-    final index = messages.indexWhere((m) => m.id == message.id);
+    final index =
+        messages.indexWhere((m) => m.message.id == message.message.id);
     messages[index] = message;
     state = state;
   }
 
-  TextMessage _combineReplyChunk(TextMessage? reply, String replyText) {
+  TextMessageData _combineReplyChunk(TextMessageData? reply, String replyText) {
     if (reply == null) {
-      return _newTextMessage(replyText, state.value!.otomo, Status.sending);
+      return _newTextMessageData(
+        text: replyText,
+        role: Role.otomo,
+        status: MessageStatus.sending,
+      );
     } else {
       final combinedText = reply.text + replyText;
       final combinedReply = reply.copyWith(text: combinedText);
-      return combinedReply as TextMessage;
+      return combinedReply;
     }
   }
 
-  TextMessage _newTextMessage(String text, User author, Status? status) {
-    return TextMessage(
-      author: author,
-      id: uuid(),
+  TextMessageData _newTextMessageData({
+    required String text,
+    required Role role,
+    required MessageStatus status,
+  }) {
+    return TextMessageData(
+      message: MessageData(
+        id: uuid(),
+        author: Author.fromRole(role),
+        status: status,
+        // TODO: Replace date time with response
+        sentAt: DateTime.now(),
+      ),
       text: text,
-      status: status,
-    );
-  }
-
-  Message _toChatUIMessage(
-    msg.Message message,
-    Status status,
-  ) {
-    return TextMessage(
-      author: message.role == msg.Role.user ? _user : _otomo,
-      id: uuid(),
-      remoteId: message.id,
-      text: message.text,
-      status: status,
     );
   }
 
   void resetActiveMessages() {
-    for (final m in _nonNullMessages) {
-      if (m.metadata?['active'] == true) {
-        m.metadata?['active'] = false;
-      }
-    }
+    final value = state.value;
+    if (value == null) return;
 
-    state = state;
+    final inactiveMessages =
+        value.messages.map((e) => e.copyWith.message(active: false)).toList();
+
+    state = AsyncValue.data(value.copyWith(messages: inactiveMessages));
   }
 
-  void activateMessage(Message message) {
-    final messages = [..._nonNullMessages];
-    for (final m in messages) {
-      if (m.metadata?['active'] == true) {
-        m.metadata?['active'] = false;
-      }
-    }
+  void activateMessageWithId(String id) {
+    resetActiveMessages();
 
-    final index = messages.indexWhere((e) => e.id == message.id);
-    final metadata = messages[index].metadata;
-    final newMetadata =
-        metadata == null ? {'active': true} : {...metadata, 'active': true};
-    messages[index] = message.copyWith(metadata: newMetadata);
+    final value = state.value;
+    if (value == null) return;
 
-    state = AsyncValue.data(state.value!.copyWith(messages: messages));
+    final index = value.messages.indexWhere((m) => m.message.id == id);
+
+    final message = value.messages[index];
+    value.messages[index] = message.copyWith.message(active: true);
+
+    state = AsyncValue.data(value);
   }
 
   void focusPlace(Place place) {

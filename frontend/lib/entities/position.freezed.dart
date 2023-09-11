@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Position {
-  AppLatLng get latlng => throw _privateConstructorUsedError;
+  AppLatLng get latLng => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PositionCopyWith<Position> get copyWith =>
@@ -28,9 +28,9 @@ abstract class $PositionCopyWith<$Res> {
   factory $PositionCopyWith(Position value, $Res Function(Position) then) =
       _$PositionCopyWithImpl<$Res, Position>;
   @useResult
-  $Res call({AppLatLng latlng});
+  $Res call({AppLatLng latLng});
 
-  $AppLatLngCopyWith<$Res> get latlng;
+  $AppLatLngCopyWith<$Res> get latLng;
 }
 
 /// @nodoc
@@ -46,21 +46,21 @@ class _$PositionCopyWithImpl<$Res, $Val extends Position>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latlng = null,
+    Object? latLng = null,
   }) {
     return _then(_value.copyWith(
-      latlng: null == latlng
-          ? _value.latlng
-          : latlng // ignore: cast_nullable_to_non_nullable
+      latLng: null == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
               as AppLatLng,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AppLatLngCopyWith<$Res> get latlng {
-    return $AppLatLngCopyWith<$Res>(_value.latlng, (value) {
-      return _then(_value.copyWith(latlng: value) as $Val);
+  $AppLatLngCopyWith<$Res> get latLng {
+    return $AppLatLngCopyWith<$Res>(_value.latLng, (value) {
+      return _then(_value.copyWith(latLng: value) as $Val);
     });
   }
 }
@@ -72,10 +72,10 @@ abstract class _$$_PositionCopyWith<$Res> implements $PositionCopyWith<$Res> {
       __$$_PositionCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AppLatLng latlng});
+  $Res call({AppLatLng latLng});
 
   @override
-  $AppLatLngCopyWith<$Res> get latlng;
+  $AppLatLngCopyWith<$Res> get latLng;
 }
 
 /// @nodoc
@@ -89,12 +89,12 @@ class __$$_PositionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latlng = null,
+    Object? latLng = null,
   }) {
     return _then(_$_Position(
-      latlng: null == latlng
-          ? _value.latlng
-          : latlng // ignore: cast_nullable_to_non_nullable
+      latLng: null == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
               as AppLatLng,
     ));
   }
@@ -103,14 +103,14 @@ class __$$_PositionCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Position implements _Position {
-  const _$_Position({required this.latlng});
+  const _$_Position({required this.latLng});
 
   @override
-  final AppLatLng latlng;
+  final AppLatLng latLng;
 
   @override
   String toString() {
-    return 'Position(latlng: $latlng)';
+    return 'Position(latLng: $latLng)';
   }
 
   @override
@@ -118,11 +118,11 @@ class _$_Position implements _Position {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Position &&
-            (identical(other.latlng, latlng) || other.latlng == latlng));
+            (identical(other.latLng, latLng) || other.latLng == latLng));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, latlng);
+  int get hashCode => Object.hash(runtimeType, latLng);
 
   @JsonKey(ignore: true)
   @override
@@ -132,10 +132,10 @@ class _$_Position implements _Position {
 }
 
 abstract class _Position implements Position {
-  const factory _Position({required final AppLatLng latlng}) = _$_Position;
+  const factory _Position({required final AppLatLng latLng}) = _$_Position;
 
   @override
-  AppLatLng get latlng;
+  AppLatLng get latLng;
   @override
   @JsonKey(ignore: true)
   _$$_PositionCopyWith<_$_Position> get copyWith =>

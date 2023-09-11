@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:injectable/injectable.dart';
-import 'package:otomo/models/user.dart';
+import 'package:otomo/entities/user.dart';
 
-@Injectable()
+@injectable
 class AuthControllerImpl {
   AuthControllerImpl(this._firebaseAuth);
 

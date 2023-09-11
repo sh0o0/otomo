@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Message _$MessageFromJson(Map<String, dynamic> json) {
-  return _Message.fromJson(json);
+TextMessage _$TextMessageFromJson(Map<String, dynamic> json) {
+  return _TextMessage.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Message {
+mixin _$TextMessage {
   String get id => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   Role get role => throw _privateConstructorUsedError;
@@ -27,21 +27,23 @@ mixin _$Message {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $MessageCopyWith<Message> get copyWith => throw _privateConstructorUsedError;
+  $TextMessageCopyWith<TextMessage> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MessageCopyWith<$Res> {
-  factory $MessageCopyWith(Message value, $Res Function(Message) then) =
-      _$MessageCopyWithImpl<$Res, Message>;
+abstract class $TextMessageCopyWith<$Res> {
+  factory $TextMessageCopyWith(
+          TextMessage value, $Res Function(TextMessage) then) =
+      _$TextMessageCopyWithImpl<$Res, TextMessage>;
   @useResult
   $Res call({String id, String text, Role role, DateTime sentAt});
 }
 
 /// @nodoc
-class _$MessageCopyWithImpl<$Res, $Val extends Message>
-    implements $MessageCopyWith<$Res> {
-  _$MessageCopyWithImpl(this._value, this._then);
+class _$TextMessageCopyWithImpl<$Res, $Val extends TextMessage>
+    implements $TextMessageCopyWith<$Res> {
+  _$TextMessageCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -78,20 +80,22 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
 }
 
 /// @nodoc
-abstract class _$$_MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
-  factory _$$_MessageCopyWith(
-          _$_Message value, $Res Function(_$_Message) then) =
-      __$$_MessageCopyWithImpl<$Res>;
+abstract class _$$_TextMessageCopyWith<$Res>
+    implements $TextMessageCopyWith<$Res> {
+  factory _$$_TextMessageCopyWith(
+          _$_TextMessage value, $Res Function(_$_TextMessage) then) =
+      __$$_TextMessageCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String text, Role role, DateTime sentAt});
 }
 
 /// @nodoc
-class __$$_MessageCopyWithImpl<$Res>
-    extends _$MessageCopyWithImpl<$Res, _$_Message>
-    implements _$$_MessageCopyWith<$Res> {
-  __$$_MessageCopyWithImpl(_$_Message _value, $Res Function(_$_Message) _then)
+class __$$_TextMessageCopyWithImpl<$Res>
+    extends _$TextMessageCopyWithImpl<$Res, _$_TextMessage>
+    implements _$$_TextMessageCopyWith<$Res> {
+  __$$_TextMessageCopyWithImpl(
+      _$_TextMessage _value, $Res Function(_$_TextMessage) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -102,7 +106,7 @@ class __$$_MessageCopyWithImpl<$Res>
     Object? role = null,
     Object? sentAt = null,
   }) {
-    return _then(_$_Message(
+    return _then(_$_TextMessage(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -125,15 +129,15 @@ class __$$_MessageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Message implements _Message {
-  const _$_Message(
+class _$_TextMessage implements _TextMessage {
+  const _$_TextMessage(
       {required this.id,
       required this.text,
       required this.role,
       required this.sentAt});
 
-  factory _$_Message.fromJson(Map<String, dynamic> json) =>
-      _$$_MessageFromJson(json);
+  factory _$_TextMessage.fromJson(Map<String, dynamic> json) =>
+      _$$_TextMessageFromJson(json);
 
   @override
   final String id;
@@ -146,14 +150,14 @@ class _$_Message implements _Message {
 
   @override
   String toString() {
-    return 'Message(id: $id, text: $text, role: $role, sentAt: $sentAt)';
+    return 'TextMessage(id: $id, text: $text, role: $role, sentAt: $sentAt)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Message &&
+            other is _$_TextMessage &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.role, role) || other.role == role) &&
@@ -167,25 +171,26 @@ class _$_Message implements _Message {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MessageCopyWith<_$_Message> get copyWith =>
-      __$$_MessageCopyWithImpl<_$_Message>(this, _$identity);
+  _$$_TextMessageCopyWith<_$_TextMessage> get copyWith =>
+      __$$_TextMessageCopyWithImpl<_$_TextMessage>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MessageToJson(
+    return _$$_TextMessageToJson(
       this,
     );
   }
 }
 
-abstract class _Message implements Message {
-  const factory _Message(
+abstract class _TextMessage implements TextMessage {
+  const factory _TextMessage(
       {required final String id,
       required final String text,
       required final Role role,
-      required final DateTime sentAt}) = _$_Message;
+      required final DateTime sentAt}) = _$_TextMessage;
 
-  factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
+  factory _TextMessage.fromJson(Map<String, dynamic> json) =
+      _$_TextMessage.fromJson;
 
   @override
   String get id;
@@ -197,7 +202,7 @@ abstract class _Message implements Message {
   DateTime get sentAt;
   @override
   @JsonKey(ignore: true)
-  _$$_MessageCopyWith<_$_Message> get copyWith =>
+  _$$_TextMessageCopyWith<_$_TextMessage> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -205,6 +210,7 @@ abstract class _Message implements Message {
 mixin _$CustomText {
   String get text => throw _privateConstructorUsedError;
   Map<String, dynamic> get data => throw _privateConstructorUsedError;
+  AppLatLng? get latLng => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CustomTextCopyWith<CustomText> get copyWith =>
@@ -217,7 +223,9 @@ abstract class $CustomTextCopyWith<$Res> {
           CustomText value, $Res Function(CustomText) then) =
       _$CustomTextCopyWithImpl<$Res, CustomText>;
   @useResult
-  $Res call({String text, Map<String, dynamic> data});
+  $Res call({String text, Map<String, dynamic> data, AppLatLng? latLng});
+
+  $AppLatLngCopyWith<$Res>? get latLng;
 }
 
 /// @nodoc
@@ -235,6 +243,7 @@ class _$CustomTextCopyWithImpl<$Res, $Val extends CustomText>
   $Res call({
     Object? text = null,
     Object? data = null,
+    Object? latLng = freezed,
   }) {
     return _then(_value.copyWith(
       text: null == text
@@ -245,7 +254,23 @@ class _$CustomTextCopyWithImpl<$Res, $Val extends CustomText>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
+      latLng: freezed == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
+              as AppLatLng?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AppLatLngCopyWith<$Res>? get latLng {
+    if (_value.latLng == null) {
+      return null;
+    }
+
+    return $AppLatLngCopyWith<$Res>(_value.latLng!, (value) {
+      return _then(_value.copyWith(latLng: value) as $Val);
+    });
   }
 }
 
@@ -257,7 +282,10 @@ abstract class _$$_CustomTextCopyWith<$Res>
       __$$_CustomTextCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String text, Map<String, dynamic> data});
+  $Res call({String text, Map<String, dynamic> data, AppLatLng? latLng});
+
+  @override
+  $AppLatLngCopyWith<$Res>? get latLng;
 }
 
 /// @nodoc
@@ -273,6 +301,7 @@ class __$$_CustomTextCopyWithImpl<$Res>
   $Res call({
     Object? text = null,
     Object? data = null,
+    Object? latLng = freezed,
   }) {
     return _then(_$_CustomText(
       text: null == text
@@ -283,6 +312,10 @@ class __$$_CustomTextCopyWithImpl<$Res>
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
+      latLng: freezed == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
+              as AppLatLng?,
     ));
   }
 }
@@ -291,7 +324,9 @@ class __$$_CustomTextCopyWithImpl<$Res>
 
 class _$_CustomText implements _CustomText {
   const _$_CustomText(
-      {required this.text, required final Map<String, dynamic> data})
+      {required this.text,
+      required final Map<String, dynamic> data,
+      this.latLng})
       : _data = data;
 
   @override
@@ -305,8 +340,11 @@ class _$_CustomText implements _CustomText {
   }
 
   @override
+  final AppLatLng? latLng;
+
+  @override
   String toString() {
-    return 'CustomText(text: $text, data: $data)';
+    return 'CustomText(text: $text, data: $data, latLng: $latLng)';
   }
 
   @override
@@ -315,12 +353,13 @@ class _$_CustomText implements _CustomText {
         (other.runtimeType == runtimeType &&
             other is _$_CustomText &&
             (identical(other.text, text) || other.text == text) &&
-            const DeepCollectionEquality().equals(other._data, _data));
+            const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.latLng, latLng) || other.latLng == latLng));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, text, const DeepCollectionEquality().hash(_data));
+      runtimeType, text, const DeepCollectionEquality().hash(_data), latLng);
 
   @JsonKey(ignore: true)
   @override
@@ -332,12 +371,15 @@ class _$_CustomText implements _CustomText {
 abstract class _CustomText implements CustomText {
   const factory _CustomText(
       {required final String text,
-      required final Map<String, dynamic> data}) = _$_CustomText;
+      required final Map<String, dynamic> data,
+      final AppLatLng? latLng}) = _$_CustomText;
 
   @override
   String get text;
   @override
   Map<String, dynamic> get data;
+  @override
+  AppLatLng? get latLng;
   @override
   @JsonKey(ignore: true)
   _$$_CustomTextCopyWith<_$_CustomText> get copyWith =>

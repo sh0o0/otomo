@@ -16,9 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChatState {
-  List<Message> get messages => throw _privateConstructorUsedError;
-  User get user => throw _privateConstructorUsedError;
-  User get otomo => throw _privateConstructorUsedError;
+  List<TextMessageData> get messages => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChatStateCopyWith<ChatState> get copyWith =>
@@ -30,7 +28,7 @@ abstract class $ChatStateCopyWith<$Res> {
   factory $ChatStateCopyWith(ChatState value, $Res Function(ChatState) then) =
       _$ChatStateCopyWithImpl<$Res, ChatState>;
   @useResult
-  $Res call({List<Message> messages, User user, User otomo});
+  $Res call({List<TextMessageData> messages});
 }
 
 /// @nodoc
@@ -47,22 +45,12 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
   @override
   $Res call({
     Object? messages = null,
-    Object? user = null,
-    Object? otomo = null,
   }) {
     return _then(_value.copyWith(
       messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
-              as List<Message>,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-      otomo: null == otomo
-          ? _value.otomo
-          : otomo // ignore: cast_nullable_to_non_nullable
-              as User,
+              as List<TextMessageData>,
     ) as $Val);
   }
 }
@@ -74,7 +62,7 @@ abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
       __$$_ChatStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Message> messages, User user, User otomo});
+  $Res call({List<TextMessageData> messages});
 }
 
 /// @nodoc
@@ -89,22 +77,12 @@ class __$$_ChatStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? messages = null,
-    Object? user = null,
-    Object? otomo = null,
   }) {
     return _then(_$_ChatState(
       messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
-              as List<Message>,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-      otomo: null == otomo
-          ? _value.otomo
-          : otomo // ignore: cast_nullable_to_non_nullable
-              as User,
+              as List<TextMessageData>,
     ));
   }
 }
@@ -112,20 +90,14 @@ class __$$_ChatStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ChatState extends _ChatState {
-  const _$_ChatState(
-      {required this.messages, required this.user, required this.otomo})
-      : super._();
+  const _$_ChatState({required this.messages}) : super._();
 
   @override
-  final List<Message> messages;
-  @override
-  final User user;
-  @override
-  final User otomo;
+  final List<TextMessageData> messages;
 
   @override
   String toString() {
-    return 'ChatState(messages: $messages, user: $user, otomo: $otomo)';
+    return 'ChatState(messages: $messages)';
   }
 
   @override
@@ -133,14 +105,12 @@ class _$_ChatState extends _ChatState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ChatState &&
-            const DeepCollectionEquality().equals(other.messages, messages) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.otomo, otomo) || other.otomo == otomo));
+            const DeepCollectionEquality().equals(other.messages, messages));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(messages), user, otomo);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(messages));
 
   @JsonKey(ignore: true)
   @override
@@ -150,18 +120,12 @@ class _$_ChatState extends _ChatState {
 }
 
 abstract class _ChatState extends ChatState {
-  const factory _ChatState(
-      {required final List<Message> messages,
-      required final User user,
-      required final User otomo}) = _$_ChatState;
+  const factory _ChatState({required final List<TextMessageData> messages}) =
+      _$_ChatState;
   const _ChatState._() : super._();
 
   @override
-  List<Message> get messages;
-  @override
-  User get user;
-  @override
-  User get otomo;
+  List<TextMessageData> get messages;
   @override
   @JsonKey(ignore: true)
   _$$_ChatStateCopyWith<_$_ChatState> get copyWith =>

@@ -1,21 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' as google;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/location.dart';
-import 'package:otomo/models/place.dart';
+import 'package:otomo/entities/place.dart';
+import 'package:otomo/entities/position.dart';
 import 'package:otomo/view_models/chat.dart';
 
 part 'map.freezed.dart';
 
-final mapProvider = StateNotifierProvider<MapViewModel, MapState>((ref) {
+final mapProvider = StateNotifierProvider<MapNotifier, MapState>((ref) {
   final activePlaces =
       ref.watch(chatProvider.select((v) => v.value?.activePlaces));
-  final focusedPlaceAtChatStream =
-      ref.read(chatProvider.notifier).focusedPlaceController.stream;
-  return MapViewModel(
+  final focusPlaceStream = ref.read(chatProvider.notifier).focusPlaceStream;
+  return MapNotifier(
     MapState(activePlaces: activePlaces ?? []),
-    focusedPlaceAtChatStream: focusedPlaceAtChatStream,
+    focusPlaceStream: focusPlaceStream,
   );
 });
 
@@ -26,39 +25,17 @@ class MapState with _$MapState {
   }) = _MapState;
 }
 
-class MapViewModel extends StateNotifier<MapState> {
-  MapViewModel(
+class MapNotifier extends StateNotifier<MapState> {
+  MapNotifier(
     super._state, {
-    required this.focusedPlaceAtChatStream,
-  }) {
-    focusedPlaceAtChatStream.listen((place) {
-      if (!_canUseMapController) return;
-      _mapController!.animateCamera(
-        google.CameraUpdate.newLatLngZoom(place.latLng.toGoogle(), 8),
-      );
-    });
-  }
+    required this.focusPlaceStream,
+  });
 
-  final Stream<Place> focusedPlaceAtChatStream;
-  final LocationControllerImpl _locationController = getIt<LocationControllerImpl>();
+  final Stream<Place> focusPlaceStream;
+  final LocationControllerImpl _locationController =
+      getIt<LocationControllerImpl>();
 
-  static google.GoogleMapController? _mapController;
-
-  set mapController(google.GoogleMapController mapController) =>
-      _mapController = mapController;
-
-
-  bool get _canUseMapController => _mapController != null;
-
-  Future<void> goCurrentLocation() async {
-    final position = await _locationController.determinePosition();
-
-    if (!_canUseMapController) return;
-    _mapController!.animateCamera(
-      google.CameraUpdate.newLatLngZoom(
-        position.latlng.toGoogle(),
-        8,
-      ),
-    );
+  Future<Position> getCurrentPosition() {
+    return _locationController.determinePosition();
   }
 }

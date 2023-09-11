@@ -1,7 +1,9 @@
 import 'package:geolocator/geolocator.dart' as geo;
-import 'package:otomo/models/latlng.dart';
-import 'package:otomo/models/position.dart';
+import 'package:injectable/injectable.dart';
+import 'package:otomo/entities/lat_lng.dart';
+import 'package:otomo/entities/position.dart';
 
+@injectable
 class LocationControllerImpl {
   Future<Position> determinePosition() async {
     bool serviceEnabled;
@@ -31,7 +33,7 @@ class LocationControllerImpl {
 
   Position _toPosition(geo.Position pos) {
     return Position(
-      latlng: AppLatLng(latitude: pos.latitude, longitude: pos.longitude),
+      latLng: AppLatLng(latitude: pos.latitude, longitude: pos.longitude),
     );
   }
 }
