@@ -23,6 +23,10 @@ abstract class AppThemes {
         color: Color(0xFFB5B5B8),
       ),
     ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: _light.colorScheme.background,
+      shadowColor: Colors.black12,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: _light.colorScheme.background,
       selectedItemColor: _light.colorScheme.primary,

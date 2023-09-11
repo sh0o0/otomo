@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
+import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/pages/samples/cases/sample_chat.dart';
 
 class NewHome extends StatefulWidget {
@@ -16,6 +17,19 @@ class _NewHomeState extends State<NewHome> {
     _sheetController = controller;
   }
 
+  Widget _buildFloatingActionButton(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        _sheetController?.animateTo(
+          0.6,
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        );
+      },
+      child: const Icon(Icons.chat),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return HomeWithDraggableScrollableBottomSheet(
@@ -25,17 +39,8 @@ class _NewHomeState extends State<NewHome> {
       snap: true,
       snapSizes: const [0.3, 0.6],
       onSheetCreated: onSheetCreated,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _sheetController?.animateTo(
-            0.6,
-            curve: Curves.ease,
-            duration: const Duration(milliseconds: 500),
-          );
-        },
-        child: const Icon(Icons.chat),
-      ),
-      bottomSheetBar: Container(color: Colors.red),
+      floatingActionButton: _buildFloatingActionButton(context),
+      bottomSheetBar: const BottomSheetBar(),
       bottomSheet: const SampleChat(),
       child: const Placeholder(),
     );

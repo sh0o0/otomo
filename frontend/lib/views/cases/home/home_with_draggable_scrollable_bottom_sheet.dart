@@ -65,37 +65,43 @@ class _HomeWithDraggableScrollableBottomSheetState
 
   @override
   Widget build(BuildContext context) {
+final theme = Theme.of(context);
+
     return Scaffold(
       floatingActionButton: widget.floatingActionButton,
       body: Stack(
         children: [
           widget.child,
-          DraggableScrollableSheet(
-            maxChildSize: widget.maxSheetSize,
-            initialChildSize: widget.initialSheetSize,
-            minChildSize: widget.minSheetSize,
-            controller: _sheetController,
-            snap: widget.snap,
-            snapSizes: widget.snapSizes,
-            builder: (context, controller) {
-              return SingleChildScrollView(
-                controller: controller,
-                child: SizedBox(
-                  height: _sheetHeight ?? _initialSheetHeight(context),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: _sheetBarHeight,
-                        child: widget.bottomSheetBar,
-                      ),
-                      Expanded(
-                        child: widget.bottomSheet,
-                      ),
-                    ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            child: DraggableScrollableSheet(
+              maxChildSize: widget.maxSheetSize,
+              initialChildSize: widget.initialSheetSize,
+              minChildSize: widget.minSheetSize,
+              controller: _sheetController,
+              snap: widget.snap,
+              snapSizes: widget.snapSizes,
+              builder: (context, controller) {
+                return SingleChildScrollView(
+                  controller: controller,
+                  child: Container(
+                    color: theme.colorScheme.background,
+                    height: _sheetHeight ?? _initialSheetHeight(context),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: _sheetBarHeight,
+                          child: widget.bottomSheetBar,
+                        ),
+                        Expanded(
+                          child: widget.bottomSheet,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           )
         ],
       ),
