@@ -28,7 +28,7 @@ class _HomeWithDraggableScrollableBottomSheetState
   static const double _minSheetSize = 0.1;
   static const double _initialSheetSize = _minSheetSize;
 
-  final _controller = DraggableScrollableController();
+  final _sheetController = DraggableScrollableController();
 
   double? _sheetHeight;
 
@@ -37,19 +37,21 @@ class _HomeWithDraggableScrollableBottomSheetState
     return mediaSize.height * _initialSheetSize;
   }
 
-  double _getSheetHeight(BuildContext context) {
-    final mediaSize = MediaQuery.of(context).size;
-    return mediaSize.height * _controller.size;
-  }
 
   @override
   void initState() {
-    _controller.addListener(() {
+    _sheetController.addListener(() {
       setState(() {
-        _sheetHeight = _getSheetHeight(context);
+        _sheetHeight = _sheetController.pixels;
       });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _sheetController.dispose();
+    super.dispose();
   }
 
   @override
@@ -57,12 +59,12 @@ class _HomeWithDraggableScrollableBottomSheetState
     return Scaffold(
       body: Stack(
         children: [
-          const Placeholder(),
+          widget.child,
           DraggableScrollableSheet(
             maxChildSize: _maxSheetSize,
             initialChildSize: _initialSheetSize,
             minChildSize: _minSheetSize,
-            controller: _controller,
+            controller: _sheetController,
             snap: widget.snap,
             snapSizes: widget.snapSizes,
             builder: (context, controller) {
