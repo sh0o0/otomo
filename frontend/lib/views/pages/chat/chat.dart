@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/entities/place.dart';
+import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/cases/chat/chat_modal_ui_leading.dart';
@@ -21,9 +22,10 @@ class ModalChat extends HookConsumerWidget {
         online: true,
         title: 'Chat',
       ),
-      body: OtomoChatUI(
+      body: ChatUI(
         messages: state.value?.messages ?? [],
         onSendPressed: (text) => notifier.sendMessage(text),
+        user: state.value?.user ?? const Author(id: ''),
         emptyState: state.isLoading
             ? const Center(child: AppCircularProgressIndicator())
             : null,

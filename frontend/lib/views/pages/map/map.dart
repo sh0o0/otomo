@@ -20,7 +20,7 @@ class Map extends HookConsumerWidget {
   Set<Marker> _markers(MapState state) => state.activePlaces
       .map((e) => Marker(
             markerId: MarkerId(e.name),
-            position: Converter.latLngToGoogle(e.latLng),
+            position: Converter.instance.latLng.entityToViewForGoogle(e.latLng),
             infoWindow: InfoWindow(
               title: e.name,
               snippet: e.latLng.toString(),

@@ -4,38 +4,35 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/message.dart';
-import 'package:otomo/view_models/boundary/message.dart';
+import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/views/utils/converter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class OtomoChatUI extends StatelessWidget {
-  const OtomoChatUI({
+class ChatUI extends StatelessWidget {
+  const ChatUI({
     super.key,
     required this.messages,
     required this.onSendPressed,
+    required this.user,
     this.emptyState,
     this.onEndReached,
     this.onMessageTap,
-    this.textMessageOptions = const TextMessageOptions(),
     this.onCustomTextTap,
   });
 
-  static final user = Converter.roleToChatUser(Role.user);
-  static final otomo = Converter.roleToChatUser(Role.otomo);
-
   final List<TextMessageData> messages;
   final void Function(String) onSendPressed;
+  final Author user;
   final Widget? emptyState;
   final Future<void> Function()? onEndReached;
   final void Function(BuildContext context, MessageData message)? onMessageTap;
-  final TextMessageOptions textMessageOptions;
   final void Function(CustomText text)? onCustomTextTap;
 
   Color _getBubbleColor(BuildContext context, types.Message m) {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
-    final message = Converter.chatMessageToMessageData(m);
+    final message = Converter.instance.message.viewToData(m);
 
-    if (message.role == Role.user) {
+    if (message.author.isUser) {
       if (message.active) return chatTheme.primaryColor.withOpacity(0.5);
       return chatTheme.primaryColor;
     }
@@ -49,14 +46,14 @@ class OtomoChatUI extends StatelessWidget {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
 
     return Chat(
-      messages: Converter.textMessageDataToChatTextMessageList(messages),
+      messages: Converter.instance.message.textDataToViewList(messages),
       onSendPressed: (message) => onSendPressed(message.text),
-      user: user,
+      user: types.User(id: user.id),
       theme: chatTheme,
       emptyState: emptyState,
       onEndReached: onEndReached,
       onMessageTap: (context, m) =>
-          onMessageTap?.call(context, Converter.chatMessageToMessageData(m)),
+          onMessageTap?.call(context, Converter.instance.message.viewToData(m)),
       textMessageOptions: TextMessageOptions(
         isTextSelectable: false,
         onLinkPressed: launchUrlString,

@@ -33,7 +33,7 @@ class CustomText with _$CustomText {
 
   static final regExp = RegExp(r'%\[(.*?)\]\((.*?)\)');
 
-  static CustomText _fromMatch(Match match) {
+  factory CustomText._fromMatch(Match match) {
     final text = match.group(1);
     final dataStr = match.group(2);
     final data = jsonDecode(dataStr ?? '{}');
@@ -51,11 +51,11 @@ class CustomText with _$CustomText {
     );
   }
 
-  static CustomText fromFirstMatch(String str) {
+  factory CustomText.fromFirstMatch(String str) {
     final match = regExp.firstMatch(str);
     if (match == null) return const CustomText(text: '', data: {});
 
-    return _fromMatch(match);
+    return CustomText._fromMatch(match);
   }
 
   static List<CustomText> fromAllMatches(String str) {
@@ -63,7 +63,7 @@ class CustomText with _$CustomText {
     final results = <CustomText>[];
 
     for (final match in matches) {
-      results.add(_fromMatch(match));
+      results.add(CustomText._fromMatch(match));
     }
 
     return results;

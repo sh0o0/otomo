@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'message.dart';
+part of 'chat.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$MessageData {
   String get id => throw _privateConstructorUsedError;
-  Role get role => throw _privateConstructorUsedError;
+  Author get author => throw _privateConstructorUsedError;
   DateTime get sentAt => throw _privateConstructorUsedError;
   String? get remoteId => throw _privateConstructorUsedError;
   bool get active => throw _privateConstructorUsedError;
@@ -36,11 +36,13 @@ abstract class $MessageDataCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      Role role,
+      Author author,
       DateTime sentAt,
       String? remoteId,
       bool active,
       MessageStatus status});
+
+  $AuthorCopyWith<$Res> get author;
 }
 
 /// @nodoc
@@ -57,7 +59,7 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
   @override
   $Res call({
     Object? id = null,
-    Object? role = null,
+    Object? author = null,
     Object? sentAt = null,
     Object? remoteId = freezed,
     Object? active = null,
@@ -68,10 +70,10 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as Role,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as Author,
       sentAt: null == sentAt
           ? _value.sentAt
           : sentAt // ignore: cast_nullable_to_non_nullable
@@ -90,6 +92,14 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
               as MessageStatus,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AuthorCopyWith<$Res> get author {
+    return $AuthorCopyWith<$Res>(_value.author, (value) {
+      return _then(_value.copyWith(author: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -102,11 +112,14 @@ abstract class _$$_MessageDataCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      Role role,
+      Author author,
       DateTime sentAt,
       String? remoteId,
       bool active,
       MessageStatus status});
+
+  @override
+  $AuthorCopyWith<$Res> get author;
 }
 
 /// @nodoc
@@ -121,7 +134,7 @@ class __$$_MessageDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? role = null,
+    Object? author = null,
     Object? sentAt = null,
     Object? remoteId = freezed,
     Object? active = null,
@@ -132,10 +145,10 @@ class __$$_MessageDataCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as Role,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as Author,
       sentAt: null == sentAt
           ? _value.sentAt
           : sentAt // ignore: cast_nullable_to_non_nullable
@@ -161,7 +174,7 @@ class __$$_MessageDataCopyWithImpl<$Res>
 class _$_MessageData implements _MessageData {
   const _$_MessageData(
       {required this.id,
-      required this.role,
+      required this.author,
       required this.sentAt,
       this.remoteId,
       this.active = false,
@@ -170,7 +183,7 @@ class _$_MessageData implements _MessageData {
   @override
   final String id;
   @override
-  final Role role;
+  final Author author;
   @override
   final DateTime sentAt;
   @override
@@ -183,7 +196,7 @@ class _$_MessageData implements _MessageData {
 
   @override
   String toString() {
-    return 'MessageData(id: $id, role: $role, sentAt: $sentAt, remoteId: $remoteId, active: $active, status: $status)';
+    return 'MessageData(id: $id, author: $author, sentAt: $sentAt, remoteId: $remoteId, active: $active, status: $status)';
   }
 
   @override
@@ -192,7 +205,7 @@ class _$_MessageData implements _MessageData {
         (other.runtimeType == runtimeType &&
             other is _$_MessageData &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.role, role) || other.role == role) &&
+            (identical(other.author, author) || other.author == author) &&
             (identical(other.sentAt, sentAt) || other.sentAt == sentAt) &&
             (identical(other.remoteId, remoteId) ||
                 other.remoteId == remoteId) &&
@@ -202,7 +215,7 @@ class _$_MessageData implements _MessageData {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, role, sentAt, remoteId, active, status);
+      Object.hash(runtimeType, id, author, sentAt, remoteId, active, status);
 
   @JsonKey(ignore: true)
   @override
@@ -214,7 +227,7 @@ class _$_MessageData implements _MessageData {
 abstract class _MessageData implements MessageData {
   const factory _MessageData(
       {required final String id,
-      required final Role role,
+      required final Author author,
       required final DateTime sentAt,
       final String? remoteId,
       final bool active,
@@ -223,7 +236,7 @@ abstract class _MessageData implements MessageData {
   @override
   String get id;
   @override
-  Role get role;
+  Author get author;
   @override
   DateTime get sentAt;
   @override
@@ -385,5 +398,118 @@ abstract class _TextMessageData extends TextMessageData {
   @override
   @JsonKey(ignore: true)
   _$$_TextMessageDataCopyWith<_$_TextMessageData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$Author {
+  String get id => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AuthorCopyWith<Author> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AuthorCopyWith<$Res> {
+  factory $AuthorCopyWith(Author value, $Res Function(Author) then) =
+      _$AuthorCopyWithImpl<$Res, Author>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class _$AuthorCopyWithImpl<$Res, $Val extends Author>
+    implements $AuthorCopyWith<$Res> {
+  _$AuthorCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_AuthorCopyWith<$Res> implements $AuthorCopyWith<$Res> {
+  factory _$$_AuthorCopyWith(_$_Author value, $Res Function(_$_Author) then) =
+      __$$_AuthorCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$_AuthorCopyWithImpl<$Res>
+    extends _$AuthorCopyWithImpl<$Res, _$_Author>
+    implements _$$_AuthorCopyWith<$Res> {
+  __$$_AuthorCopyWithImpl(_$_Author _value, $Res Function(_$_Author) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$_Author(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Author extends _Author {
+  const _$_Author({required this.id}) : super._();
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'Author(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Author &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AuthorCopyWith<_$_Author> get copyWith =>
+      __$$_AuthorCopyWithImpl<_$_Author>(this, _$identity);
+}
+
+abstract class _Author extends Author {
+  const factory _Author({required final String id}) = _$_Author;
+  const _Author._() : super._();
+
+  @override
+  String get id;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AuthorCopyWith<_$_Author> get copyWith =>
       throw _privateConstructorUsedError;
 }

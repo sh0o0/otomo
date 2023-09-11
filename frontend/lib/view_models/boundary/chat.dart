@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/place.dart';
-part 'message.freezed.dart';
+part 'chat.freezed.dart';
 
 @freezed
 class MessageData with _$MessageData {
   const factory MessageData({
     required String id,
-    required Role role,
+    required Author author,
     required DateTime sentAt,
     String? remoteId,
     @Default(false) bool active,
@@ -32,7 +32,7 @@ class TextMessageData with _$TextMessageData {
     return TextMessageData(
       message: MessageData(
         id: message.id,
-        role: message.role,
+        author: Author.fromRole(message.role),
         sentAt: message.sentAt,
         remoteId: message.id,
         status: status,
@@ -60,4 +60,23 @@ enum MessageStatus {
   sent,
   sending,
   error,
+}
+
+@freezed
+class Author with _$Author {
+  Author._();
+
+  const factory Author({
+    required String id,
+  }) = _Author;
+
+  factory Author.fromRole(Role role) {
+    return Author(id: role.toString());
+  }
+
+  factory Author.user() => Author.fromRole(Role.user);
+  factory Author.otomo() => Author.fromRole(Role.otomo);
+
+  bool get isUser => id == Role.user.toString();
+  bool get isOtomo => id == Role.otomo.toString();
 }

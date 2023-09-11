@@ -8,7 +8,7 @@ import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
-import 'package:otomo/view_models/boundary/message.dart';
+import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat.freezed.dart';
@@ -16,11 +16,13 @@ part 'chat.g.dart';
 
 @Freezed(makeCollectionsUnmodifiable: false)
 class ChatState with _$ChatState {
-  const ChatState._();
+  ChatState._();
 
   const factory ChatState({
     required List<TextMessageData> messages,
   }) = _ChatState;
+
+  final user = Author.fromRole(Role.user);
 
   List<Place> get activePlaces {
     final places = <Place>[];
@@ -168,7 +170,7 @@ class Chat extends _$Chat {
     return TextMessageData(
       message: MessageData(
         id: uuid(),
-        role: role,
+        author: Author.fromRole(role),
         status: status,
         // TODO: Replace date time with response
         sentAt: DateTime.now(),

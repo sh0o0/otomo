@@ -36,7 +36,7 @@ class MapViewModel extends StateNotifier<MapState> {
       if (!_canUseMapController) return;
       _mapController!.animateCamera(
         google.CameraUpdate.newLatLngZoom(
-            Converter.latLngToGoogle(place.latLng), 8),
+            Converter.instance.latLng.entityToViewForGoogle(place.latLng), 8),
       );
     });
   }
@@ -58,7 +58,7 @@ class MapViewModel extends StateNotifier<MapState> {
     if (!_canUseMapController) return;
     _mapController!.animateCamera(
       google.CameraUpdate.newLatLngZoom(
-        Converter.latLngToGoogle(position.latLng),
+        Converter.instance.latLng.entityToViewForGoogle(position.latLng),
         8,
       ),
     );
