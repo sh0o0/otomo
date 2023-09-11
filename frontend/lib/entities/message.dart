@@ -40,8 +40,10 @@ class CustomText with _$CustomText {
 
     AppLatLng? latLng;
 
-    if (data['lat_lng'] != null) {
-      latLng = AppLatLng.fromJson(data['lat_lng']);
+    // In the first place, the key was 'lat_lng'.
+    final latLngStr = data['lat_lng'] ?? data['latLng'] ?? data['latlng'];
+    if (latLngStr != null) {
+      latLng = AppLatLng.fromJson(latLngStr);
     }
 
     return CustomText(
