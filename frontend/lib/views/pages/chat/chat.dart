@@ -34,9 +34,7 @@ class ModalChat extends HookConsumerWidget {
         onCustomTextTap: (customText) {
           final latLng = customText.latLng;
           if (latLng == null) return;
-
-          notifier.focusedPlaceController
-              .add(Place(name: customText.text, latLng: latLng));
+          notifier.focusPlace(Place(name: customText.text, latLng: latLng));
         },
       ),
     );

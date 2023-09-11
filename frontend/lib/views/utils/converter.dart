@@ -1,6 +1,7 @@
 import 'package:flutter_chat_types/flutter_chat_types.dart' as chat;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:otomo/entities/lat_lng.dart';
+import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 
 class Converter {
@@ -10,6 +11,7 @@ class Converter {
 
   final latLng = _LatLng();
   final message = _Message();
+  final placeAndMarker = _PlaceAndMarker();
 }
 
 class _LatLng {
@@ -43,8 +45,7 @@ class _Message {
         author: chat.User(id: textMessage.message.author.id),
         remoteId: textMessage.message.remoteId,
         createdAt: textMessage.message.sentAt.millisecondsSinceEpoch,
-        status: _messageStatus.dataToView(
-            textMessage.message.status),
+        status: _messageStatus.dataToView(textMessage.message.status),
         metadata: {'active': textMessage.message.active},
       );
 }
@@ -73,4 +74,18 @@ class _MessageStatus {
         throw Exception('Unknown status: $status');
     }
   }
+}
+
+class _PlaceAndMarker {
+  List<Marker> placesToMarkerList(List<Place> places) =>
+      places.map(placeToMarker).toList();
+
+  Marker placeToMarker(Place place) => Marker(
+        markerId: MarkerId(place.name),
+        position: Converter.instance.latLng.entityToViewForGoogle(place.latLng),
+        infoWindow: InfoWindow(
+          title: place.name,
+          snippet: place.latLng.toString(),
+        ),
+      );
 }
