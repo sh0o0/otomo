@@ -9,6 +9,7 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
     this.onSheetCreated,
     this.snap = false,
     this.snapSizes,
+    this.floatingActionButton,
     required this.bottomSheetBar,
     required this.bottomSheet,
     required this.child,
@@ -20,6 +21,7 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
   final bool snap;
   final List<double>? snapSizes;
   final void Function(DraggableScrollableController controller)? onSheetCreated;
+  final Widget? floatingActionButton;
   final Widget bottomSheetBar;
   final Widget bottomSheet;
   final Widget child;
@@ -64,6 +66,7 @@ class _HomeWithDraggableScrollableBottomSheetState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: widget.floatingActionButton,
       body: Stack(
         children: [
           widget.child,
