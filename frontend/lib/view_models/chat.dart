@@ -16,13 +16,13 @@ part 'chat.g.dart';
 
 @Freezed(makeCollectionsUnmodifiable: false)
 class ChatState with _$ChatState {
-  ChatState._();
+  const ChatState._();
 
   const factory ChatState({
     required List<TextMessageData> messages,
   }) = _ChatState;
 
-  final user = Author.fromRole(Role.user);
+  static final user = Author.fromRole(Role.user);
 
   List<Place> get activePlaces {
     final places = <Place>[];

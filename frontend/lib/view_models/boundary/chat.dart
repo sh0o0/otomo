@@ -64,7 +64,7 @@ enum MessageStatus {
 
 @freezed
 class Author with _$Author {
-  Author._();
+  const Author._();
 
   const factory Author({
     required String id,
@@ -73,9 +73,6 @@ class Author with _$Author {
   factory Author.fromRole(Role role) {
     return Author(id: role.toString());
   }
-
-  factory Author.user() => Author.fromRole(Role.user);
-  factory Author.otomo() => Author.fromRole(Role.otomo);
 
   bool get isUser => id == Role.user.toString();
   bool get isOtomo => id == Role.otomo.toString();
