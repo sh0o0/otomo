@@ -3,18 +3,26 @@ import 'package:flutter/material.dart';
 class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
   const HomeWithDraggableScrollableBottomSheet({
     super.key,
+    required this.maxSheetSize,
+    required this.minSheetSize,
+    required this.initialSheetSize,
+    this.onSheetCreated,
+    this.snap = false,
+    this.snapSizes,
     required this.bottomSheetBar,
     required this.bottomSheet,
     required this.child,
-    this.snap = false,
-    this.snapSizes,
   });
 
+  final double maxSheetSize;
+  final double minSheetSize;
+  final double initialSheetSize;
+  final bool snap;
+  final List<double>? snapSizes;
+  final void Function(DraggableScrollableController controller)? onSheetCreated;
   final Widget bottomSheetBar;
   final Widget bottomSheet;
   final Widget child;
-  final bool snap;
-  final List<double>? snapSizes;
 
   @override
   State<HomeWithDraggableScrollableBottomSheet> createState() =>
@@ -24,9 +32,6 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
 class _HomeWithDraggableScrollableBottomSheetState
     extends State<HomeWithDraggableScrollableBottomSheet> {
   static const double _sheetBarHeight = kToolbarHeight;
-  static const double _maxSheetSize = 0.9;
-  static const double _minSheetSize = 0.1;
-  static const double _initialSheetSize = _minSheetSize;
 
   final _sheetController = DraggableScrollableController();
 
@@ -34,12 +39,14 @@ class _HomeWithDraggableScrollableBottomSheetState
 
   double _initialSheetHeight(BuildContext context) {
     final mediaSize = MediaQuery.of(context).size;
-    return mediaSize.height * _initialSheetSize;
+    return mediaSize.height * widget.initialSheetSize;
   }
-
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onSheetCreated?.call(_sheetController);
+    });
     _sheetController.addListener(() {
       setState(() {
         _sheetHeight = _sheetController.pixels;
@@ -61,9 +68,9 @@ class _HomeWithDraggableScrollableBottomSheetState
         children: [
           widget.child,
           DraggableScrollableSheet(
-            maxChildSize: _maxSheetSize,
-            initialChildSize: _initialSheetSize,
-            minChildSize: _minSheetSize,
+            maxChildSize: widget.maxSheetSize,
+            initialChildSize: widget.initialSheetSize,
+            minChildSize: widget.minSheetSize,
             controller: _sheetController,
             snap: widget.snap,
             snapSizes: widget.snapSizes,

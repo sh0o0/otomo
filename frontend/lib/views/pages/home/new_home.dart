@@ -8,6 +8,9 @@ class NewHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HomeWithDraggableScrollableBottomSheet(
+      initialSheetSize: 0.1,
+      minSheetSize: 0.1,
+      maxSheetSize: 0.9,
       snap: true,
       snapSizes: const [0.5],
       bottomSheetBar: Container(color: Colors.red),
