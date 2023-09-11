@@ -5,7 +5,7 @@ import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/cases/chat/chat_modal_ui_leading.dart';
 import 'package:otomo/views/cases/chat/chat_ui_app_bar.dart';
-import 'package:otomo/views/cases/chat/otomo_chat_ui.dart';
+import 'package:otomo/views/cases/chat/chat_ui.dart';
 
 class ModalChat extends HookConsumerWidget {
   const ModalChat({super.key});
