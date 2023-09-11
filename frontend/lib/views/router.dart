@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/user.dart';
-import 'package:otomo/views/pages/home/home.dart';
+import 'package:otomo/views/pages/home/new_home.dart';
 import 'package:otomo/views/pages/sign_in/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link/sign_in_with_email_link.dart';
 
@@ -14,7 +14,7 @@ abstract class Routes {
 
 final _key = GlobalKey<NavigatorState>();
 
-final List<GoRoute> signInPages = [
+final List<GoRoute> _signInPages = [
   GoRoute(
     path: Routes.signIn,
     builder: (context, state) => const SignInPage(),
@@ -31,7 +31,7 @@ final routerProvider = Provider((ref) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.signIn,
-      routes: signInPages,
+      routes: _signInPages,
     );
   }
 
@@ -39,10 +39,10 @@ final routerProvider = Provider((ref) {
     navigatorKey: _key,
     initialLocation: Routes.home,
     routes: [
-      ...signInPages,
+      ..._signInPages,
       GoRoute(
         path: Routes.home,
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) => const NewHome(),
       ),
     ],
   );
