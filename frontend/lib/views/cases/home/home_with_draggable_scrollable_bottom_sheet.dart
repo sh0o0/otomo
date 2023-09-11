@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/views/bases/spaces/spaces.dart';
 
 class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
   const HomeWithDraggableScrollableBottomSheet({
@@ -10,6 +11,8 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
     this.snap = false,
     this.snapSizes,
     this.floatingActionButton,
+    this.floatingActionButtonLocation,
+    this.behindSheetFloatingActionButton,
     required this.bottomSheetBar,
     required this.bottomSheet,
     required this.child,
@@ -22,6 +25,8 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
   final List<double>? snapSizes;
   final void Function(DraggableScrollableController controller)? onSheetCreated;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final Widget? behindSheetFloatingActionButton;
   final Widget bottomSheetBar;
   final Widget bottomSheet;
   final Widget child;
@@ -69,9 +74,11 @@ class _HomeWithDraggableScrollableBottomSheetState
 
     return Scaffold(
       floatingActionButton: widget.floatingActionButton,
+      floatingActionButtonLocation: widget.floatingActionButtonLocation,
       body: Stack(
         children: [
           widget.child,
+          widget.behindSheetFloatingActionButton ?? Spaces.zero,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 1),
             child: DraggableScrollableSheet(
@@ -116,7 +123,7 @@ class _HomeWithDraggableScrollableBottomSheetState
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

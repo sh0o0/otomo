@@ -6,14 +6,14 @@ import 'package:otomo/view_models/map.dart';
 import 'package:otomo/views/cases/map/app_map.dart';
 import 'package:otomo/views/utils/converter.dart';
 
-class Map extends StatefulHookConsumerWidget {
-  const Map({super.key});
+class MapPage extends StatefulHookConsumerWidget {
+  const MapPage({super.key});
 
   @override
-  ConsumerState<Map> createState() => _MapState();
+  ConsumerState<MapPage> createState() => _MapState();
 }
 
-class _MapState extends ConsumerState<Map> {
+class _MapState extends ConsumerState<MapPage> {
   MapController? _mapController;
 
   bool get _canUseMapController => _mapController != null;
@@ -57,7 +57,9 @@ class _MapState extends ConsumerState<Map> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _goCurrentLocation(notifier),
+        child: const Icon(Icons.location_searching_rounded),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 }

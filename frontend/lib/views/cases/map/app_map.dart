@@ -23,6 +23,7 @@ class AppMap extends StatelessWidget {
           onMapCreated?.call(MapController(controller)),
       markers: markers,
       myLocationEnabled: true,
+      myLocationButtonEnabled: false,
     );
   }
 }
