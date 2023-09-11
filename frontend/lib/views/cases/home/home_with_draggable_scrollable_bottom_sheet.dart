@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/pages/samples/cases/sample_chat.dart';
 
 class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
   const HomeWithDraggableScrollableBottomSheet({
@@ -7,11 +6,15 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
     required this.bottomSheetBar,
     required this.bottomSheet,
     required this.child,
+    this.snap = false,
+    this.snapSizes,
   });
 
   final Widget bottomSheetBar;
   final Widget bottomSheet;
   final Widget child;
+  final bool snap;
+  final List<double>? snapSizes;
 
   @override
   State<HomeWithDraggableScrollableBottomSheet> createState() =>
@@ -29,7 +32,10 @@ class _HomeWithDraggableScrollableBottomSheetState
 
   double? _sheetHeight;
 
-  double _initialSheetHeight(BuildContext context) => _getSheetHeight(context);
+  double _initialSheetHeight(BuildContext context) {
+    final mediaSize = MediaQuery.of(context).size;
+    return mediaSize.height * _initialSheetSize;
+  }
 
   double _getSheetHeight(BuildContext context) {
     final mediaSize = MediaQuery.of(context).size;
@@ -57,20 +63,21 @@ class _HomeWithDraggableScrollableBottomSheetState
             initialChildSize: _initialSheetSize,
             minChildSize: _minSheetSize,
             controller: _controller,
+            snap: widget.snap,
+            snapSizes: widget.snapSizes,
             builder: (context, controller) {
               return SingleChildScrollView(
                 controller: controller,
-                child: Container(
-                  color: Colors.amber,
+                child: SizedBox(
                   height: _sheetHeight ?? _initialSheetHeight(context),
                   child: Column(
                     children: [
-                      Container(
+                      SizedBox(
                         height: _sheetBarHeight,
-                        color: Colors.red,
+                        child: widget.bottomSheetBar,
                       ),
-                      const Expanded(
-                        child: SampleChat(),
+                      Expanded(
+                        child: widget.bottomSheet,
                       ),
                     ],
                   ),
