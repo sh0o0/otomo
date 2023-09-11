@@ -49,7 +49,9 @@ class HomeWithDraggableBottomSheetState
           widget.child,
           Positioned(
             bottom: 0,
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 30),
+              curve: Curves.ease,
               constraints: BoxConstraints(
                 maxHeight: _maxSheetHeight(context),
                 minHeight: _minSheetHeight(context),
@@ -72,10 +74,11 @@ class HomeWithDraggableBottomSheetState
                       child: widget.bottomSheetBar,
                     ),
                   ),
-                  SizedBox(
-                    height: _sheetBodyHeight,
-                    width: mediaSize.width,
-                    child: widget.bottomSheet,
+                  Expanded(
+                    child: SizedBox(
+                      width: mediaSize.width,
+                      child: widget.bottomSheet,
+                    ),
                   )
                 ],
               ),
