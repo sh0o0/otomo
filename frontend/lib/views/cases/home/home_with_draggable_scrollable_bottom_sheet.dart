@@ -65,7 +65,7 @@ class _HomeWithDraggableScrollableBottomSheetState
 
   @override
   Widget build(BuildContext context) {
-final theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
       floatingActionButton: widget.floatingActionButton,
@@ -89,8 +89,22 @@ final theme = Theme.of(context);
                     height: _sheetHeight ?? _initialSheetHeight(context),
                     child: Column(
                       children: [
-                        SizedBox(
+                        Container(
                           height: _sheetBarHeight,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: theme.appBarTheme.shadowColor!,
+                                blurRadius: 4,
+                                spreadRadius: 2,
+                                offset: const Offset(0, -2),
+                              ),
+                            ],
+                          ),
+                          clipBehavior: Clip.hardEdge,
                           child: widget.bottomSheetBar,
                         ),
                         Expanded(

@@ -40,7 +40,7 @@ class _NewHomeState extends State<NewHome> {
       snapSizes: const [0.3, 0.6],
       onSheetCreated: onSheetCreated,
       floatingActionButton: _buildFloatingActionButton(context),
-      bottomSheetBar: const BottomSheetBar(),
+      bottomSheetBar: const ChatBottomSheetBar(),
       bottomSheet: const SampleChat(),
       child: const Placeholder(),
     );
