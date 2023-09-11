@@ -19,18 +19,24 @@ class HomeWithDraggableBottomSheet extends StatefulWidget {
 
 class HomeWithDraggableBottomSheetState
     extends State<HomeWithDraggableBottomSheet> {
-  static const double _sheetBarHeight = kToolbarHeight;
-
   double _sheetHeight = 0.0;
 
+  static const double _sheetBarHeight = kToolbarHeight;
+
   double get _sheetBodyHeight {
+    final limit = MediaQuery.paddingOf(context).bottom;
     final height = _sheetHeight - _sheetBarHeight;
-    return height > 0 ? height : 0;
+    return height > limit ? height : limit;
   }
 
-  double _sheetMaxHeight(BuildContext context) {
+  double _maxSheetHeight(BuildContext context) {
     final padding = MediaQuery.paddingOf(context);
     return MediaQuery.of(context).size.height - padding.top;
+  }
+
+  double _minSheetHeight(BuildContext context) {
+    final padding = MediaQuery.paddingOf(context);
+    return kToolbarHeight + padding.bottom;
   }
 
   @override
@@ -45,8 +51,8 @@ class HomeWithDraggableBottomSheetState
             bottom: 0,
             child: Container(
               constraints: BoxConstraints(
-                maxHeight: _sheetMaxHeight(context),
-                minHeight: _sheetBarHeight,
+                maxHeight: _maxSheetHeight(context),
+                minHeight: _minSheetHeight(context),
               ),
               height: _sheetHeight,
               child: Column(
@@ -55,7 +61,9 @@ class HomeWithDraggableBottomSheetState
                     onVerticalDragUpdate: (details) {
                       final draggedAmount =
                           mediaSize.height - details.globalPosition.dy;
-                      if (_sheetMaxHeight(context) < draggedAmount) return;
+                      if (_maxSheetHeight(context) < draggedAmount ||
+                          _minSheetHeight(context) > draggedAmount) return;
+
                       setState(() => _sheetHeight = draggedAmount);
                     },
                     child: SizedBox(
