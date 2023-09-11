@@ -92,26 +92,26 @@ class _HomeWithDraggableScrollableBottomSheetState
                 return SingleChildScrollView(
                   controller: controller,
                   child: Container(
-                    color: theme.colorScheme.background,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.background,
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(16),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: theme.appBarTheme.shadowColor!,
+                          blurRadius: 4,
+                          spreadRadius: 2,
+                          offset: const Offset(0, -2),
+                        ),
+                      ],
+                    ),
+                    clipBehavior: Clip.hardEdge,
                     height: _sheetHeight ?? _initialSheetHeight(context),
                     child: Column(
                       children: [
-                        Container(
+                        SizedBox(
                           height: _sheetBarHeight,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(16),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: theme.appBarTheme.shadowColor!,
-                                blurRadius: 4,
-                                spreadRadius: 2,
-                                offset: const Offset(0, -2),
-                              ),
-                            ],
-                          ),
-                          clipBehavior: Clip.hardEdge,
                           child: widget.bottomSheetBar,
                         ),
                         Expanded(
