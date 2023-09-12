@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:otomo/tools/faker.dart';
-import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
 
 class SampleChat extends StatefulWidget {
@@ -32,7 +31,6 @@ class _SampleChatState extends State<SampleChat> {
           onSendPressed: (m) {},
         ),
       ),
-      onEndReached: () async => logger.debug('Reached end'),
       messages: [
         types.TextMessage(
           author: user,

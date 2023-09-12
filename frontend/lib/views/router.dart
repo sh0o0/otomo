@@ -14,7 +14,7 @@ abstract class Routes {
 
 final _key = GlobalKey<NavigatorState>();
 
-final List<GoRoute> signInPages = [
+final List<GoRoute> _signInPages = [
   GoRoute(
     path: Routes.signIn,
     builder: (context, state) => const SignInPage(),
@@ -31,7 +31,7 @@ final routerProvider = Provider((ref) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.signIn,
-      routes: signInPages,
+      routes: _signInPages,
     );
   }
 
@@ -39,7 +39,7 @@ final routerProvider = Provider((ref) {
     navigatorKey: _key,
     initialLocation: Routes.home,
     routes: [
-      ...signInPages,
+      ..._signInPages,
       GoRoute(
         path: Routes.home,
         builder: (context, state) => const HomePage(),
