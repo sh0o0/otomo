@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/views/bases/text_fields/unfocus_when_tap.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/chat.dart';
@@ -41,18 +42,20 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeWithDraggableScrollableBottomSheet(
-      initialSheetSize: 0.0,
-      minSheetSize: 0.0,
-      maxSheetSize: 0.9,
-      snap: true,
-      snapSizes: const [0.4, 0.5, 0.6],
-      resizeToAvoidBottomInset: false,
-      onSheetCreated: onSheetCreated,
-      behindSheetFloatingActionButton: _buildFloatingActionButton(context),
-      bottomSheetBar: const ChatBottomSheetBar(),
-      bottomSheet: const HomeChat(),
-      child: const MapPage(),
+    return Unfocus(
+      child: HomeWithDraggableScrollableBottomSheet(
+        initialSheetSize: 0.0,
+        minSheetSize: 0.0,
+        maxSheetSize: 0.9,
+        snap: true,
+        snapSizes: const [0.4, 0.5, 0.6],
+        resizeToAvoidBottomInset: false,
+        onSheetCreated: onSheetCreated,
+        behindSheetFloatingActionButton: _buildFloatingActionButton(context),
+        bottomSheetBar: const ChatBottomSheetBar(),
+        bottomSheet: const HomeChat(),
+        child: const MapPage(),
+      ),
     );
   }
 }
