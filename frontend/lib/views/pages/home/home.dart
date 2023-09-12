@@ -5,9 +5,7 @@ import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map/map.dart';
-import 'package:otomo/views/pages/samples/fade_scale_transition_demo.dart';
 import 'package:otomo/views/pages/samples/sample_grid.dart';
-import 'package:otomo/views/pages/samples/sample_drag_selection_button.dart';
 import 'package:otomo/views/pages/samples/sample_multi_buttons.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
@@ -60,8 +58,8 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SampleGrid();
     return SampleMultiButtons();
+    return SampleGrid();
     return Unfocus(
       child: HomeWithDraggableScrollableBottomSheet(
         initialSheetSize: 0.0,

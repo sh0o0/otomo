@@ -34,13 +34,7 @@ class _MultiButtonsState extends State<MultiButtons>
       duration: const Duration(milliseconds: 300),
       reverseDuration: const Duration(milliseconds: 100),
       vsync: this,
-    )..addStatusListener((AnimationStatus status) {
-        setState(() {
-          // setState needs to be called to trigger a rebuild because
-          // the 'HIDE FAB'/'SHOW FAB' button needs to be updated based
-          // the latest value of [_controller.status].
-        });
-      });
+    );
     super.initState();
   }
 
@@ -53,39 +47,46 @@ class _MultiButtonsState extends State<MultiButtons>
   @override
   Widget build(BuildContext context) {
     return Listener(
+      onPointerDown: _detectTapedItem,
       onPointerMove: _detectTapedItem,
       // onPointerUp: () {},
-      child: Stack(
+      child: Container(
         key: key,
-        clipBehavior: Clip.none,
-        children: [
-          Positioned(
-            top: -60,
-            child: _buildButton(
-              context,
-              type: ButtonType.top,
-              icon: Icons.arrow_upward,
+        color: Colors.black12,
+        alignment: Alignment.bottomRight,
+        // height: _isAnimationRunningForwardsOrComplete ? 300 : 50,
+        // width: _isAnimationRunningForwardsOrComplete ? 300 : 50,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned(
+              top: -60,
+              child: _buildButton(
+                context,
+                type: ButtonType.top,
+                icon: Icons.arrow_upward,
+              ),
             ),
-          ),
-          Positioned(
-            top: -60,
-            left: -60,
-            child: _buildButton(
-              context,
-              type: ButtonType.topLeft,
-              icon: Icons.account_balance,
+            Positioned(
+              top: -60,
+              left: -60,
+              child: _buildButton(
+                context,
+                type: ButtonType.topLeft,
+                icon: Icons.account_balance,
+              ),
             ),
-          ),
-          Positioned(
-            left: -60,
-            child: _buildButton(
-              context,
-              type: ButtonType.left,
-              icon: Icons.home,
+            Positioned(
+              left: -60,
+              child: _buildButton(
+                context,
+                type: ButtonType.left,
+                icon: Icons.home,
+              ),
             ),
-          ),
-          _buildCenterButton(context),
-        ],
+            _buildCenterButton(context),
+          ],
+        ),
       ),
     );
   }
@@ -138,10 +139,11 @@ class _MultiButtonsState extends State<MultiButtons>
     Offset local = box.globalToLocal(event.position);
     if (box.hitTest(result, position: local)) {
       for (final hit in result.path) {
-        /// temporary variable so that the [is] allows access of [index]
         final target = hit.target;
+        if (target is ButtonBox) {
+          logger.debug(target.type.toString());
+        }
         if (target is ButtonBox && target.type != _selectedButton) {
-          logger.debug('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
           _selectButton(target.type);
         }
       }

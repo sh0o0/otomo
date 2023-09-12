@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/pages/samples/cases/sample_chat.dart';
+import 'package:otomo/views/pages/samples/store/sample_chat.dart';
 
 class SampleMapChat extends StatefulWidget {
   const SampleMapChat({super.key});
