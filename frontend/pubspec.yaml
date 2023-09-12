@@ -45,6 +45,7 @@ dependencies:
   geolocator: ^10.0.1
   flutter_parsed_text: ^2.2.1
   url_launcher: ^6.1.14
+  animations: ^2.0.8
 
   ### Riverpod
   flutter_hooks: ^0.18.0
