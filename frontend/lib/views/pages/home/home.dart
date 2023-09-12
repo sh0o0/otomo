@@ -44,7 +44,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         heroTag: 'behindSheetFloatingActionButton',
         onPressed: () {
           _sheetController?.animateTo(
-            0.9,
+            0.95,
             duration: const Duration(milliseconds: 500),
             curve: _sheetAnimationCurve,
           );
@@ -60,7 +60,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       child: HomeWithDraggableScrollableBottomSheet(
         initialSheetSize: 0.0,
         minSheetSize: 0.0,
-        maxSheetSize: 0.9,
+        maxSheetSize: 0.95,
         snap: true,
         snapSizes: const [0.4, 0.5, 0.6],
         resizeToAvoidBottomInset: false,
