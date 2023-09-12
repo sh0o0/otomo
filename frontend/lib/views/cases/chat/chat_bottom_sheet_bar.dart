@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_leading.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/chat/online_status.dart';
 import 'package:otomo/views/cases/chat/otomo_avatar.dart';
 
 class ChatBottomSheetBar extends StatelessWidget {
-  const ChatBottomSheetBar({super.key});
+  const ChatBottomSheetBar({
+    super.key,
+    this.onPressedLeading,
+  });
+
+  final VoidCallback? onPressedLeading;
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +23,21 @@ class ChatBottomSheetBar extends StatelessWidget {
           bottom: BorderSide(color: theme.dividerColor, width: 1),
         ),
       ),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Row(
-          children: [
-            OtomoAvatar(),
-            Spaces.w8,
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Otomo'),
-                OnlineStatus(online: true),
-              ],
-            )
-          ],
-        ),
+      child: Row(
+        children: [
+          BottomSheetLeading(onPressedLeading: onPressedLeading),
+          Spaces.w8,
+          const OtomoAvatar(),
+          Spaces.w8,
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Otomo'),
+              OnlineStatus(online: true),
+            ],
+          )
+        ],
       ),
     );
   }
