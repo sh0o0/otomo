@@ -6,7 +6,12 @@ import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dar
 import 'package:otomo/views/cases/chat/chat_ui.dart';
 
 class HomeChat extends HookConsumerWidget {
-  const HomeChat({super.key});
+  const HomeChat({
+    super.key,
+    this.hideBottomSheet = false,
+  });
+
+  final bool hideBottomSheet;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,6 +32,7 @@ class HomeChat extends HookConsumerWidget {
         if (latLng == null) return;
         notifier.focusPlace(Place(name: customText.text, latLng: latLng));
       },
+      hideBottomSheet: hideBottomSheet,
     );
   }
 }

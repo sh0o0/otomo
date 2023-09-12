@@ -5,6 +5,7 @@ import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
+import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/utils/converter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -18,6 +19,7 @@ class ChatUI extends StatelessWidget {
     this.onEndReached,
     this.onMessageTap,
     this.onCustomTextTap,
+    this.hideBottomSheet = false,
   });
 
   final List<TextMessageData> messages;
@@ -27,6 +29,7 @@ class ChatUI extends StatelessWidget {
   final Future<void> Function()? onEndReached;
   final void Function(BuildContext context, MessageData message)? onMessageTap;
   final void Function(CustomText text)? onCustomTextTap;
+  final bool hideBottomSheet;
 
   Color _getBubbleColor(BuildContext context, types.Message m) {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
@@ -77,6 +80,7 @@ class ChatUI extends StatelessWidget {
           ),
         ],
       ),
+      customBottomWidget: hideBottomSheet ? Spaces.zero : null,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
         return Container(
           decoration: BoxDecoration(
