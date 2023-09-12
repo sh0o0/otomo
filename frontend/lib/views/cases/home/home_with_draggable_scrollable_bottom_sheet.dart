@@ -10,6 +10,7 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
     this.onSheetCreated,
     this.snap = false,
     this.snapSizes,
+    this.resizeToAvoidBottomInset,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.behindSheetFloatingActionButton,
@@ -23,6 +24,7 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
   final double initialSheetSize;
   final bool snap;
   final List<double>? snapSizes;
+  final bool? resizeToAvoidBottomInset;
   final void Function(DraggableScrollableController controller)? onSheetCreated;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
@@ -73,6 +75,7 @@ class _HomeWithDraggableScrollableBottomSheetState
     final theme = Theme.of(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       floatingActionButton: widget.floatingActionButton,
       floatingActionButtonLocation: widget.floatingActionButtonLocation,
       body: Stack(

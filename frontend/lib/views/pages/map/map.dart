@@ -50,6 +50,7 @@ class _MapState extends ConsumerState<MapPage> {
     final notifier = ref.read(mapProvider.notifier);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: AppMap(
         initialCameraPosition: _initialCameraPosition,
         onMapCreated: _onMapCreated,

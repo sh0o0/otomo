@@ -47,6 +47,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       maxSheetSize: 0.9,
       snap: true,
       snapSizes: const [0.4, 0.5, 0.6],
+      resizeToAvoidBottomInset: false,
       onSheetCreated: onSheetCreated,
       behindSheetFloatingActionButton: _buildFloatingActionButton(context),
       bottomSheetBar: const ChatBottomSheetBar(),
