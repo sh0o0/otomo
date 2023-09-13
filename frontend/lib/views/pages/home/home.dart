@@ -41,7 +41,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Positioned(
       bottom: padding.bottom,
       right: 20,
-      child: SwipeSelectionFloatingActionButton(
+      child: FloatingActionButtonWithSwipeSelectionButtons(
         primaryButtonIcon: Icons.chat,
         onPrimaryButtonPressed: () {
           _sheetController?.animateTo(

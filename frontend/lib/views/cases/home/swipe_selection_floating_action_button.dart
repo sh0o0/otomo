@@ -4,23 +4,44 @@ import 'package:flutter/rendering.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/utils/haptic.dart';
 
-class SwipeSelectionFloatingActionButton extends StatefulWidget {
-  const SwipeSelectionFloatingActionButton({
+enum ButtonDirection {
+  top,
+  left,
+  topLeft,
+}
+
+class SwipeSelectionButton {
+  const SwipeSelectionButton({
+    required this.icon,
+    required this.onSelected,
+  });
+  final IconData icon;
+  final VoidCallback onSelected;
+}
+
+class FloatingActionButtonWithSwipeSelectionButtons extends StatefulWidget {
+  const FloatingActionButtonWithSwipeSelectionButtons({
     super.key,
     required this.primaryButtonIcon,
     this.onPrimaryButtonPressed,
+    this.topButton,
+    this.topLeftButton,
+    this.leftButton,
   });
 
   final IconData primaryButtonIcon;
   final VoidCallback? onPrimaryButtonPressed;
+  final SwipeSelectionButton? topButton;
+  final SwipeSelectionButton? topLeftButton;
+  final SwipeSelectionButton? leftButton;
 
   @override
-  State<SwipeSelectionFloatingActionButton> createState() =>
-      _SwipeSelectionFloatingActionButtonState();
+  State<FloatingActionButtonWithSwipeSelectionButtons> createState() =>
+      _FloatingActionButtonWithSwipeSelectionButtonsState();
 }
 
-class _SwipeSelectionFloatingActionButtonState
-    extends State<SwipeSelectionFloatingActionButton>
+class _FloatingActionButtonWithSwipeSelectionButtonsState
+    extends State<FloatingActionButtonWithSwipeSelectionButtons>
     with SingleTickerProviderStateMixin {
   static const double primaryButtonSize = 58;
   static const double _multiButtonPadding = 16;
@@ -31,7 +52,7 @@ class _SwipeSelectionFloatingActionButtonState
       primaryButtonSize + _multiButtonPadding + multiButtonSize;
 
   final key = GlobalKey();
-  ButtonType? _selectedButton;
+  ButtonDirection? _selectedButton;
   late AnimationController _controller;
 
   bool get _isAnimationRunningForwardsOrComplete {
@@ -126,33 +147,36 @@ class _SwipeSelectionFloatingActionButtonState
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            Positioned(
-              right: 0,
-              bottom: multiButtonPosition,
-              child: _buildButton(
-                context,
-                type: ButtonType.top,
-                icon: Icons.abc,
+            if (widget.topButton != null)
+              Positioned(
+                right: 0,
+                bottom: multiButtonPosition,
+                child: _buildButton(
+                  context,
+                  type: ButtonDirection.top,
+                  icon: widget.topButton!.icon,
+                ),
               ),
-            ),
-            Positioned(
-              bottom: multiButtonPosition,
-              right: multiButtonPosition,
-              child: _buildButton(
-                context,
-                type: ButtonType.topLeft,
-                icon: Icons.abc,
+            if (widget.topLeftButton != null)
+              Positioned(
+                bottom: multiButtonPosition,
+                right: multiButtonPosition,
+                child: _buildButton(
+                  context,
+                  type: ButtonDirection.topLeft,
+                  icon: widget.topLeftButton!.icon,
+                ),
               ),
-            ),
-            Positioned(
-              right: multiButtonPosition,
-              bottom: 0,
-              child: _buildButton(
-                context,
-                type: ButtonType.left,
-                icon: Icons.abc,
+            if (widget.leftButton != null)
+              Positioned(
+                right: multiButtonPosition,
+                bottom: 0,
+                child: _buildButton(
+                  context,
+                  type: ButtonDirection.left,
+                  icon: widget.leftButton!.icon,
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -161,13 +185,13 @@ class _SwipeSelectionFloatingActionButtonState
 
   Widget _buildButton(
     BuildContext context, {
-    required ButtonType type,
+    required ButtonDirection type,
     required IconData icon,
   }) {
     final theme = Theme.of(context);
 
     return ButtonWidget(
-      type: type,
+      direction: type,
       child: SizedBox(
         height: multiButtonSize,
         width: multiButtonSize,
@@ -190,15 +214,15 @@ class _SwipeSelectionFloatingActionButtonState
     if (box.hitTest(result, position: local)) {
       for (final hit in result.path) {
         final target = hit.target;
-        if (target is ButtonBox && target.type != _selectedButton) {
-          _selectButton(target.type);
+        if (target is ButtonBox && target.direction != _selectedButton) {
+          _selectButton(target.direction);
           Haptic.lightImpact();
         }
       }
     }
   }
 
-  void _selectButton(ButtonType type) {
+  void _selectButton(ButtonDirection type) {
     setState(() {
       _selectedButton = type;
     });
@@ -215,33 +239,27 @@ class _SwipeSelectionFloatingActionButtonState
   }
 }
 
-enum ButtonType {
-  top,
-  left,
-  topLeft,
-}
-
 class ButtonWidget extends SingleChildRenderObjectWidget {
-  final ButtonType type;
+  final ButtonDirection direction;
 
   const ButtonWidget({
     Key? key,
     required Widget child,
-    required this.type,
+    required this.direction,
   }) : super(key: key, child: child);
 
   @override
   ButtonBox createRenderObject(BuildContext context) {
-    return ButtonBox(type);
+    return ButtonBox(direction);
   }
 
   @override
   void updateRenderObject(BuildContext context, ButtonBox renderObject) {
-    renderObject.type = type;
+    renderObject.direction = direction;
   }
 }
 
 class ButtonBox extends RenderProxyBox {
-  ButtonType type;
-  ButtonBox(this.type);
+  ButtonDirection direction;
+  ButtonBox(this.direction);
 }
