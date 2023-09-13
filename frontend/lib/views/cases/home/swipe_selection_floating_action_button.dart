@@ -1,7 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/utils/haptic.dart';
 
 enum ButtonDirection {
@@ -106,7 +105,7 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
         onLongPressUp: () async {
           await _controller.reverse();
           Haptic.mediumImpact();
-          _goSomePage();
+          _callSwipeButton();
           _clearSelection();
         },
         child: SizedBox(
@@ -222,8 +221,19 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
     });
   }
 
-  void _goSomePage() {
-    logger.debug('go $_selectedButton');
+  void _callSwipeButton() {
+    switch (_selectedButton) {
+      case ButtonDirection.top:
+        widget.topButton?.onSelected();
+        break;
+      case ButtonDirection.topLeft:
+        widget.topLeftButton?.onSelected();
+        break;
+      case ButtonDirection.left:
+        widget.leftButton?.onSelected();
+        break;
+      default:
+    }
   }
 
   void _clearSelection() {
