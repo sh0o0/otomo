@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:otomo/grpc/generated/interceptors/logging.dart';
 import 'package:otomo/tools/logger.dart';
+import 'package:otomo/views/utils/haptic.dart';
 
 class SampleMultiButtons extends StatefulWidget {
   const SampleMultiButtons({super.key});
@@ -133,9 +134,7 @@ class _SampleMultiButtonsState extends State<SampleMultiButtons>
                   bottom: 0,
                   right: 0,
                   child: GestureDetector(
-                    onLongPressStart: (details) {
-                      HapticFeedback.mediumImpact();
-                    },
+                    onLongPressStart: (details) => Haptic.mediumImpact(),
                     onLongPress: () => setState(() {
                       _controller.forward();
                     }),
