@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otomo/entities/message_event.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
-import 'package:otomo/grpc/generated/message.pb.dart';
-import 'package:otomo/entities/message.dart' as msg;
+import 'package:otomo/grpc/generated/message.pb.dart' as gMsg;
+import 'package:otomo/entities/message.dart';
 
 @injectable
 class ChatControllerImpl {
@@ -10,7 +11,7 @@ class ChatControllerImpl {
 
   final ChatServiceClient _chatService;
 
-  Future<List<msg.TextMessage>> listMessages(
+  Future<List<TextMessage>> listMessages(
     String userId,
     int? pageSize,
     String? pageStartAfterMessageId,
@@ -30,26 +31,26 @@ class ChatControllerImpl {
     return _chatService.sendMessage(req).map((replyChunk) => replyChunk.text);
   }
 
-  Stream<msg.TextMessage> messagesStream({required String userId}) {
-    FirebaseFirestore.instance
-        .collection('versions/1/chats/$userId/messages')
-        .snapshots()
-        .listen((event) {
-      event.docChanges.forEach((element) {
-        element.type;
-        element.doc.data();
-        print(element.doc.data());
-      });
-    });
-    throw Exception('Not implemented');
-  }
+  Stream<List<TextMessageChangedEvent>> changedEventStream({
+    required String userId,
+  }) =>
+      FirebaseFirestore.instance
+          .collection('versions/1/chats/$userId/messages')
+          .snapshots()
+          .map((event) => event.docChanges.map((e) {
+                final data = e.doc.data();
+                return TextMessageChangedEvent(
+                  type: _toChangedEventType(e.type),
+                  data: data == null ? null : TextMessage.fromJson(data),
+                );
+              }).toList());
 
-  List<msg.TextMessage> _toMessages(List<Message> messages) {
+  List<TextMessage> _toMessages(List<gMsg.Message> messages) {
     return messages.map((e) => _toMessage(e)).toList();
   }
 
-  msg.TextMessage _toMessage(Message message) {
-    return msg.TextMessage(
+  TextMessage _toMessage(gMsg.Message message) {
+    return TextMessage(
       id: message.id,
       text: message.text,
       role: _toRole(message.role),
@@ -57,14 +58,25 @@ class ChatControllerImpl {
     );
   }
 
-  msg.Role _toRole(Role role) {
+  Role _toRole(gMsg.Role role) {
     switch (role) {
-      case Role.USER:
-        return msg.Role.user;
-      case Role.OTOMO:
-        return msg.Role.otomo;
+      case gMsg.Role.USER:
+        return Role.user;
+      case gMsg.Role.OTOMO:
+        return Role.otomo;
       default:
         throw Exception('Unknown role: $role');
+    }
+  }
+
+  MessageChangedEventType _toChangedEventType(DocumentChangeType type) {
+    switch (type) {
+      case DocumentChangeType.added:
+        return MessageChangedEventType.added;
+      case DocumentChangeType.modified:
+        return MessageChangedEventType.modified;
+      case DocumentChangeType.removed:
+        return MessageChangedEventType.removed;
     }
   }
 }
