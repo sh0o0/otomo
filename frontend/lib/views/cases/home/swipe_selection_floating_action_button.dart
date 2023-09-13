@@ -101,9 +101,9 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
       right: 0,
       child: GestureDetector(
         onLongPressStart: (details) => Haptic.mediumImpact(),
-        onLongPress: () => _controller.forward(),
+        onLongPress: _showSwipeSelectionButtons,
         onLongPressUp: () async {
-          await _controller.reverse();
+          await _hideSwipeSelectionButtons();
           Haptic.mediumImpact();
           _callSwipeButton();
           _clearSelection();
@@ -182,7 +182,7 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
   }) {
     final theme = Theme.of(context);
 
-    return SwipeSelectionButton(
+    return _SwipeSelectionButton(
       direction: type,
       child: SizedBox(
         height: multiButtonSize,
@@ -206,13 +206,23 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
     if (box.hitTest(result, position: local)) {
       for (final hit in result.path) {
         final target = hit.target;
-        if (target is SwipeSelectionButtonBox &&
+        if (target is _SwipeSelectionButtonBox &&
             target.direction != _selectedButton) {
           _selectButton(target.direction);
           Haptic.lightImpact();
         }
       }
     }
+  }
+
+  Future<void> _showSwipeSelectionButtons() async {
+    await _controller.forward();
+    setState(() {});
+  }
+
+  Future<void> _hideSwipeSelectionButtons() async {
+    await _controller.reverse();
+    setState(() {});
   }
 
   void _selectButton(ButtonDirection type) {
@@ -243,28 +253,28 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
   }
 }
 
-class SwipeSelectionButton extends SingleChildRenderObjectWidget {
+class _SwipeSelectionButton extends SingleChildRenderObjectWidget {
   final ButtonDirection direction;
 
-  const SwipeSelectionButton({
+  const _SwipeSelectionButton({
     Key? key,
     required Widget child,
     required this.direction,
   }) : super(key: key, child: child);
 
   @override
-  SwipeSelectionButtonBox createRenderObject(BuildContext context) {
-    return SwipeSelectionButtonBox(direction);
+  _SwipeSelectionButtonBox createRenderObject(BuildContext context) {
+    return _SwipeSelectionButtonBox(direction);
   }
 
   @override
   void updateRenderObject(
-      BuildContext context, SwipeSelectionButtonBox renderObject) {
+      BuildContext context, _SwipeSelectionButtonBox renderObject) {
     renderObject.direction = direction;
   }
 }
 
-class SwipeSelectionButtonBox extends RenderProxyBox {
+class _SwipeSelectionButtonBox extends RenderProxyBox {
   ButtonDirection direction;
-  SwipeSelectionButtonBox(this.direction);
+  _SwipeSelectionButtonBox(this.direction);
 }
