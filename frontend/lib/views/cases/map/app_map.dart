@@ -36,7 +36,7 @@ class MapController {
     required AppLatLng latLng,
     required double zoom,
   }) async {
-    final gLatLng = Converter.instance.latLng.entityToViewForGoogle(latLng);
+    final gLatLng = ViewConverter.I.latLng.entityToViewForGoogle(latLng);
 
     _controller.animateCamera(
       CameraUpdate.newLatLngZoom(gLatLng, zoom),

@@ -33,7 +33,7 @@ class ChatUI extends StatelessWidget {
 
   Color _getBubbleColor(BuildContext context, types.Message m) {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
-    final message = Converter.instance.message.viewToData(m);
+    final message = ViewConverter.I.message.viewToData(m);
 
     if (message.author.isUser) {
       if (message.active) return chatTheme.primaryColor.withOpacity(0.5);
@@ -49,14 +49,14 @@ class ChatUI extends StatelessWidget {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
 
     return Chat(
-      messages: Converter.instance.message.textDataToViewList(messages),
+      messages: ViewConverter.I.message.textDataToViewList(messages),
       onSendPressed: (message) => onSendPressed(message.text),
       user: types.User(id: user.id),
       theme: chatTheme,
       emptyState: emptyState,
       onEndReached: onEndReached,
       onMessageTap: (context, m) =>
-          onMessageTap?.call(context, Converter.instance.message.viewToData(m)),
+          onMessageTap?.call(context, ViewConverter.I.message.viewToData(m)),
       textMessageOptions: TextMessageOptions(
         isTextSelectable: false,
         onLinkPressed: launchUrlString,

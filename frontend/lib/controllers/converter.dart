@@ -30,7 +30,7 @@ class _Message {
 
   TextMessage firestoreJsonToEntity(Map<String, dynamic> json) {
     final sentAt = (json['sent_at'] as Timestamp).toDate();
-    return TextMessage.fromJson(json..['sent_at'] = sentAt);
+    return TextMessage.fromJson(json..['sent_at'] = sentAt.toIso8601String());
   }
 }
 
