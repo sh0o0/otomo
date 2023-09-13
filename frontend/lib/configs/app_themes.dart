@@ -4,17 +4,21 @@ import 'package:otomo/configs/app_colors.dart';
 import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
 
 abstract class AppThemes {
+  static const _lightSecondary = Color(0xFFC3E874);
+  static const _lightBackground = Color(0xFF272729);
+  static const _lightBottomNavIconDisabled = Color(0xFFA2A7B1);
   static final ThemeData _light = ThemeData.from(
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
       primary: AppColors.primary,
       onPrimary: Colors.white,
+      secondary: _lightSecondary,
+      onSecondary: Colors.white,
       background: Colors.white,
-      onBackground: Color(0xFF272729),
+      onBackground: _lightBackground
     ),
     useMaterial3: true,
   );
-  static const _lightBottomNavIconDisabled = Color(0xFFA2A7B1);
 
   static final ThemeData light = _light.copyWith(
     inputDecorationTheme: const InputDecorationTheme(
