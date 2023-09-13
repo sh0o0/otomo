@@ -3,7 +3,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
-import 'package:otomo/entities/message.dart';
+import 'package:otomo/entities/custom_text.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/utils/converter.dart';

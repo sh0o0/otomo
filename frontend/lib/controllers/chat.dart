@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/message.pb.dart';
@@ -27,6 +28,20 @@ class ChatControllerImpl {
   ) {
     final req = ChatService_SendMessageRequest()..text = text;
     return _chatService.sendMessage(req).map((replyChunk) => replyChunk.text);
+  }
+
+  Stream<msg.TextMessage> messagesStream({required String userId}) {
+    FirebaseFirestore.instance
+        .collection('versions/1/chats/$userId/messages')
+        .snapshots()
+        .listen((event) {
+      event.docChanges.forEach((element) {
+        element.type;
+        element.doc.data();
+        print(element.doc.data());
+      });
+    });
+    throw Exception('Not implemented');
   }
 
   List<msg.TextMessage> _toMessages(List<Message> messages) {

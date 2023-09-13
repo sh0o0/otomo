@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:otomo/entities/custom_text.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/place.dart';
 part 'chat.freezed.dart';
