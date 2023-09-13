@@ -3,10 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/views/bases/text_fields/unfocus_when_tap.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
+import 'package:otomo/views/cases/home/swipe_selection_floating_action_button.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map/map.dart';
-import 'package:otomo/views/pages/samples/sample_grid.dart';
-import 'package:otomo/views/pages/samples/sample_multi_buttons.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
   const HomePage({super.key});
@@ -42,24 +41,21 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Positioned(
       bottom: padding.bottom,
       right: 20,
-      child: FloatingActionButton(
-        heroTag: 'behindSheetFloatingActionButton',
-        onPressed: () {
+      child: SwipeSelectionFloatingActionButton(
+        primaryButtonIcon: Icons.chat,
+        onPrimaryButtonPressed: () {
           _sheetController?.animateTo(
             0.95,
             duration: const Duration(milliseconds: 500),
             curve: _sheetAnimationCurve,
           );
         },
-        child: const Icon(Icons.chat),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SampleMultiButtons();
-    return SampleGrid();
     return Unfocus(
       child: HomeWithDraggableScrollableBottomSheet(
         initialSheetSize: 0.0,
