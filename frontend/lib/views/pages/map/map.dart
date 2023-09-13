@@ -31,7 +31,7 @@ class _MapState extends ConsumerState<MapPage> {
     _mapController!.goWithAnimation(latLng: position.latLng, zoom: 8);
   }
 
-  Set<Marker> _markers(MapState state) => Converter.instance.placeAndMarker
+  Set<Marker> _markers(MapState state) => ViewConverter.I.placeAndMarker
       .placesToMarkerList(state.activePlaces)
       .toSet();
 

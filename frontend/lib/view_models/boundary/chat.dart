@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:otomo/entities/custom_text.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/place.dart';
+import 'package:otomo/tools/uuid.dart';
 part 'chat.freezed.dart';
 
 @freezed
@@ -31,7 +33,7 @@ class TextMessageData with _$TextMessageData {
   }) {
     return TextMessageData(
       message: MessageData(
-        id: message.id,
+        id: uuid(),
         author: Author.fromRole(message.role),
         sentAt: message.sentAt,
         remoteId: message.id,

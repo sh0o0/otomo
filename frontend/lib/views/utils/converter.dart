@@ -4,10 +4,10 @@ import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 
-class Converter {
-  Converter._();
-  static final _instance = Converter._();
-  static Converter get instance => _instance;
+class ViewConverter {
+  ViewConverter._();
+  static final _instance = ViewConverter._();
+  static ViewConverter get I => _instance;
 
   final latLng = _LatLng();
   final message = _Message();
@@ -82,7 +82,7 @@ class _PlaceAndMarker {
 
   Marker placeToMarker(Place place) => Marker(
         markerId: MarkerId(place.name),
-        position: Converter.instance.latLng.entityToViewForGoogle(place.latLng),
+        position: ViewConverter.I.latLng.entityToViewForGoogle(place.latLng),
         infoWindow: InfoWindow(
           title: place.name,
           snippet: place.latLng.toString(),

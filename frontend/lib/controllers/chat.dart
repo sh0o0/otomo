@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otomo/controllers/converter.dart';
+import 'package:otomo/entities/message.dart';
+import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
-import 'package:otomo/grpc/generated/message.pb.dart';
-import 'package:otomo/entities/message.dart' as msg;
 
 @injectable
 class ChatControllerImpl {
@@ -9,7 +11,7 @@ class ChatControllerImpl {
 
   final ChatServiceClient _chatService;
 
-  Future<List<msg.TextMessage>> listMessages(
+  Future<List<TextMessage>> listMessages(
     String userId,
     int? pageSize,
     String? pageStartAfterMessageId,
@@ -19,7 +21,8 @@ class ChatControllerImpl {
       ..pageSize = pageSize ?? 0
       ..pageStartAfterMessageId = pageStartAfterMessageId ?? '';
     final resp = await _chatService.listMessages(req);
-    return _toMessages(resp.messages);
+    return ControllerConverter.I.message
+        .grpcToEntityList(resp.messages);
   }
 
   Stream<String> sendMessage(
@@ -29,27 +32,23 @@ class ChatControllerImpl {
     return _chatService.sendMessage(req).map((replyChunk) => replyChunk.text);
   }
 
-  List<msg.TextMessage> _toMessages(List<Message> messages) {
-    return messages.map((e) => _toMessage(e)).toList();
-  }
-
-  msg.TextMessage _toMessage(Message message) {
-    return msg.TextMessage(
-      id: message.id,
-      text: message.text,
-      role: _toRole(message.role),
-      sentAt: message.sentAt.toDateTime(),
-    );
-  }
-
-  msg.Role _toRole(Role role) {
-    switch (role) {
-      case Role.USER:
-        return msg.Role.user;
-      case Role.OTOMO:
-        return msg.Role.otomo;
-      default:
-        throw Exception('Unknown role: $role');
-    }
-  }
+  Stream<List<TextMessageChangedEvent>> messageChangedEventsStream({
+    required String userId,
+  }) =>
+      FirebaseFirestore.instance
+          .collection('versions/1/chats/$userId/messages')
+          .snapshots()
+          .map((event) => event.docChanges.map((e) {
+                final data = e.doc.data();
+                return TextMessageChangedEvent(
+                  messageId: e.doc.id,
+                  type: ControllerConverter.I.changedEventType
+                      .firestoreToEntity(e.type),
+                  data: data == null
+                      ? null
+                      : ControllerConverter.I.message
+                          .firestoreJsonToEntity(data),
+                );
+              }).toList())
+          .asBroadcastStream();
 }
