@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
+import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
-import 'package:otomo/entities/message_event.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
@@ -55,11 +55,11 @@ class Chat extends _$Chat {
     final chatMessages = await _listTextMessageData(null, null);
 
     _chatController
-        .changedEventStream(userId: _globalState.userId!)
+        .messageChangedEventsStream(userId: _globalState.userId!)
         .listen((event) {
       for (final changedEvent in event) {
         switch (changedEvent.type) {
-          case MessageChangedEventType.added:
+          case ChangedEventType.added:
             final message = changedEvent.data!;
             final textMessageData = TextMessageData.fromTextMessage(
               message,
@@ -68,7 +68,7 @@ class Chat extends _$Chat {
             );
             state = state..value!.messages.insert(0, textMessageData);
             break;
-          case MessageChangedEventType.modified:
+          case ChangedEventType.modified:
             final message = changedEvent.data!;
             final textMessageData = TextMessageData.fromTextMessage(
               message,
@@ -79,7 +79,7 @@ class Chat extends _$Chat {
                 .indexWhere((m) => m.message.remoteId == message.id);
             state = state..value!.messages[index] = textMessageData;
             break;
-          case MessageChangedEventType.removed:
+          case ChangedEventType.removed:
             final message = changedEvent.data!;
             final index = chatMessages
                 .indexWhere((m) => m.message.remoteId == message.id);

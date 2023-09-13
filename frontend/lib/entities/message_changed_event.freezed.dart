@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'message_event.dart';
+part of 'message_changed_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$TextMessageChangedEvent {
   String get messageId => throw _privateConstructorUsedError;
-  MessageChangedEventType get type => throw _privateConstructorUsedError;
+  ChangedEventType get type => throw _privateConstructorUsedError;
   TextMessage? get data => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,8 +31,7 @@ abstract class $TextMessageChangedEventCopyWith<$Res> {
           $Res Function(TextMessageChangedEvent) then) =
       _$TextMessageChangedEventCopyWithImpl<$Res, TextMessageChangedEvent>;
   @useResult
-  $Res call(
-      {String messageId, MessageChangedEventType type, TextMessage? data});
+  $Res call({String messageId, ChangedEventType type, TextMessage? data});
 
   $TextMessageCopyWith<$Res>? get data;
 }
@@ -63,7 +62,7 @@ class _$TextMessageChangedEventCopyWithImpl<$Res,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as MessageChangedEventType,
+              as ChangedEventType,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -92,8 +91,7 @@ abstract class _$$_TextMessageChangedEventCopyWith<$Res>
       __$$_TextMessageChangedEventCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String messageId, MessageChangedEventType type, TextMessage? data});
+  $Res call({String messageId, ChangedEventType type, TextMessage? data});
 
   @override
   $TextMessageCopyWith<$Res>? get data;
@@ -123,7 +121,7 @@ class __$$_TextMessageChangedEventCopyWithImpl<$Res>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as MessageChangedEventType,
+              as ChangedEventType,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -141,7 +139,7 @@ class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
   @override
   final String messageId;
   @override
-  final MessageChangedEventType type;
+  final ChangedEventType type;
   @override
   final TextMessage? data;
 
@@ -176,13 +174,13 @@ class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
 abstract class _TextMessageChangedEvent implements TextMessageChangedEvent {
   const factory _TextMessageChangedEvent(
       {required final String messageId,
-      required final MessageChangedEventType type,
+      required final ChangedEventType type,
       final TextMessage? data}) = _$_TextMessageChangedEvent;
 
   @override
   String get messageId;
   @override
-  MessageChangedEventType get type;
+  ChangedEventType get type;
   @override
   TextMessage? get data;
   @override

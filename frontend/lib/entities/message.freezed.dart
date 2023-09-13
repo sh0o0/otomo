@@ -23,7 +23,6 @@ mixin _$TextMessage {
   String get id => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   Role get role => throw _privateConstructorUsedError;
-  @TimestampConverter()
   DateTime get sentAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,11 +37,7 @@ abstract class $TextMessageCopyWith<$Res> {
           TextMessage value, $Res Function(TextMessage) then) =
       _$TextMessageCopyWithImpl<$Res, TextMessage>;
   @useResult
-  $Res call(
-      {String id,
-      String text,
-      Role role,
-      @TimestampConverter() DateTime sentAt});
+  $Res call({String id, String text, Role role, DateTime sentAt});
 }
 
 /// @nodoc
@@ -92,11 +87,7 @@ abstract class _$$_TextMessageCopyWith<$Res>
       __$$_TextMessageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String text,
-      Role role,
-      @TimestampConverter() DateTime sentAt});
+  $Res call({String id, String text, Role role, DateTime sentAt});
 }
 
 /// @nodoc
@@ -144,7 +135,7 @@ class _$_TextMessage implements _TextMessage {
       {required this.id,
       required this.text,
       required this.role,
-      @TimestampConverter() required this.sentAt});
+      required this.sentAt});
 
   factory _$_TextMessage.fromJson(Map<String, dynamic> json) =>
       _$$_TextMessageFromJson(json);
@@ -156,7 +147,6 @@ class _$_TextMessage implements _TextMessage {
   @override
   final Role role;
   @override
-  @TimestampConverter()
   final DateTime sentAt;
 
   @override
@@ -198,7 +188,7 @@ abstract class _TextMessage implements TextMessage {
       {required final String id,
       required final String text,
       required final Role role,
-      @TimestampConverter() required final DateTime sentAt}) = _$_TextMessage;
+      required final DateTime sentAt}) = _$_TextMessage;
 
   factory _TextMessage.fromJson(Map<String, dynamic> json) =
       _$_TextMessage.fromJson;
@@ -210,7 +200,6 @@ abstract class _TextMessage implements TextMessage {
   @override
   Role get role;
   @override
-  @TimestampConverter()
   DateTime get sentAt;
   @override
   @JsonKey(ignore: true)

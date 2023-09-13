@@ -11,7 +11,7 @@ _$_TextMessage _$$_TextMessageFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       text: json['text'] as String,
       role: $enumDecode(_$RoleEnumMap, json['role']),
-      sentAt: const TimestampConverter().fromJson(json['sent_at'] as Timestamp),
+      sentAt: DateTime.parse(json['sent_at'] as String),
     );
 
 Map<String, dynamic> _$$_TextMessageToJson(_$_TextMessage instance) =>
@@ -19,7 +19,7 @@ Map<String, dynamic> _$$_TextMessageToJson(_$_TextMessage instance) =>
       'id': instance.id,
       'text': instance.text,
       'role': _$RoleEnumMap[instance.role]!,
-      'sent_at': const TimestampConverter().toJson(instance.sentAt),
+      'sent_at': instance.sentAt.toIso8601String(),
     };
 
 const _$RoleEnumMap = {
