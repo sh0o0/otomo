@@ -10,8 +10,8 @@ enum ButtonDirection {
   topLeft,
 }
 
-class SwipeSelectionButton {
-  const SwipeSelectionButton({
+class SwipeSelectionButtonData {
+  const SwipeSelectionButtonData({
     required this.icon,
     required this.onSelected,
   });
@@ -31,9 +31,9 @@ class FloatingActionButtonWithSwipeSelectionButtons extends StatefulWidget {
 
   final IconData primaryButtonIcon;
   final VoidCallback? onPrimaryButtonPressed;
-  final SwipeSelectionButton? topButton;
-  final SwipeSelectionButton? topLeftButton;
-  final SwipeSelectionButton? leftButton;
+  final SwipeSelectionButtonData? topButton;
+  final SwipeSelectionButtonData? topLeftButton;
+  final SwipeSelectionButtonData? leftButton;
 
   @override
   State<FloatingActionButtonWithSwipeSelectionButtons> createState() =>
@@ -87,11 +87,6 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
   Widget build(BuildContext context) {
     return Listener(
       onPointerMove: _detectTapedItem,
-      onPointerUp: (event) {
-        _detectTapedItem(event);
-        _goSomePage();
-        _clearSelection();
-      },
       child: Stack(
         children: [
           _buildSwipeSelectionButtons(context),
@@ -107,14 +102,12 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
       right: 0,
       child: GestureDetector(
         onLongPressStart: (details) => Haptic.mediumImpact(),
-        onLongPress: () async {
-          await _controller.forward();
-          setState(() {});
-        },
+        onLongPress: () => _controller.forward(),
         onLongPressUp: () async {
           await _controller.reverse();
-          setState(() {});
           Haptic.mediumImpact();
+          _goSomePage();
+          _clearSelection();
         },
         child: SizedBox(
           height: primaryButtonSize,
@@ -190,7 +183,7 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
   }) {
     final theme = Theme.of(context);
 
-    return ButtonWidget(
+    return SwipeSelectionButton(
       direction: type,
       child: SizedBox(
         height: multiButtonSize,
@@ -214,7 +207,8 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
     if (box.hitTest(result, position: local)) {
       for (final hit in result.path) {
         final target = hit.target;
-        if (target is ButtonBox && target.direction != _selectedButton) {
+        if (target is SwipeSelectionButtonBox &&
+            target.direction != _selectedButton) {
           _selectButton(target.direction);
           Haptic.lightImpact();
         }
@@ -239,27 +233,28 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
   }
 }
 
-class ButtonWidget extends SingleChildRenderObjectWidget {
+class SwipeSelectionButton extends SingleChildRenderObjectWidget {
   final ButtonDirection direction;
 
-  const ButtonWidget({
+  const SwipeSelectionButton({
     Key? key,
     required Widget child,
     required this.direction,
   }) : super(key: key, child: child);
 
   @override
-  ButtonBox createRenderObject(BuildContext context) {
-    return ButtonBox(direction);
+  SwipeSelectionButtonBox createRenderObject(BuildContext context) {
+    return SwipeSelectionButtonBox(direction);
   }
 
   @override
-  void updateRenderObject(BuildContext context, ButtonBox renderObject) {
+  void updateRenderObject(
+      BuildContext context, SwipeSelectionButtonBox renderObject) {
     renderObject.direction = direction;
   }
 }
 
-class ButtonBox extends RenderProxyBox {
+class SwipeSelectionButtonBox extends RenderProxyBox {
   ButtonDirection direction;
-  ButtonBox(this.direction);
+  SwipeSelectionButtonBox(this.direction);
 }

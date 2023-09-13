@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/bases/text_fields/unfocus_when_tap.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
@@ -43,6 +44,12 @@ class _HomePageState extends ConsumerState<HomePage> {
       right: 20,
       child: FloatingActionButtonWithSwipeSelectionButtons(
         primaryButtonIcon: Icons.chat,
+        topButton: SwipeSelectionButtonData(
+          icon: Icons.account_circle,
+          onSelected: () {
+            logger.debug('selected top button');
+          },
+        ),
         onPrimaryButtonPressed: () {
           _sheetController?.animateTo(
             0.95,
