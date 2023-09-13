@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'message.freezed.dart';
@@ -5,6 +6,7 @@ part 'message.g.dart';
 
 @freezed
 class TextMessage with _$TextMessage {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory TextMessage({
     required String id,
     required String text,
@@ -20,4 +22,3 @@ enum Role {
   user,
   otomo,
 }
-

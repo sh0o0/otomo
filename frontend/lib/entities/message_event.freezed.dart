@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TextMessageChangedEvent {
+  String get messageId => throw _privateConstructorUsedError;
   MessageChangedEventType get type => throw _privateConstructorUsedError;
   TextMessage? get data => throw _privateConstructorUsedError;
 
@@ -30,7 +31,8 @@ abstract class $TextMessageChangedEventCopyWith<$Res> {
           $Res Function(TextMessageChangedEvent) then) =
       _$TextMessageChangedEventCopyWithImpl<$Res, TextMessageChangedEvent>;
   @useResult
-  $Res call({MessageChangedEventType type, TextMessage? data});
+  $Res call(
+      {String messageId, MessageChangedEventType type, TextMessage? data});
 
   $TextMessageCopyWith<$Res>? get data;
 }
@@ -49,10 +51,15 @@ class _$TextMessageChangedEventCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? messageId = null,
     Object? type = null,
     Object? data = freezed,
   }) {
     return _then(_value.copyWith(
+      messageId: null == messageId
+          ? _value.messageId
+          : messageId // ignore: cast_nullable_to_non_nullable
+              as String,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -85,7 +92,8 @@ abstract class _$$_TextMessageChangedEventCopyWith<$Res>
       __$$_TextMessageChangedEventCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({MessageChangedEventType type, TextMessage? data});
+  $Res call(
+      {String messageId, MessageChangedEventType type, TextMessage? data});
 
   @override
   $TextMessageCopyWith<$Res>? get data;
@@ -103,10 +111,15 @@ class __$$_TextMessageChangedEventCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? messageId = null,
     Object? type = null,
     Object? data = freezed,
   }) {
     return _then(_$_TextMessageChangedEvent(
+      messageId: null == messageId
+          ? _value.messageId
+          : messageId // ignore: cast_nullable_to_non_nullable
+              as String,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -122,8 +135,11 @@ class __$$_TextMessageChangedEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
-  const _$_TextMessageChangedEvent({required this.type, this.data});
+  const _$_TextMessageChangedEvent(
+      {required this.messageId, required this.type, this.data});
 
+  @override
+  final String messageId;
   @override
   final MessageChangedEventType type;
   @override
@@ -131,7 +147,7 @@ class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
 
   @override
   String toString() {
-    return 'TextMessageChangedEvent(type: $type, data: $data)';
+    return 'TextMessageChangedEvent(messageId: $messageId, type: $type, data: $data)';
   }
 
   @override
@@ -139,12 +155,14 @@ class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TextMessageChangedEvent &&
+            (identical(other.messageId, messageId) ||
+                other.messageId == messageId) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.data, data) || other.data == data));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, type, data);
+  int get hashCode => Object.hash(runtimeType, messageId, type, data);
 
   @JsonKey(ignore: true)
   @override
@@ -157,9 +175,12 @@ class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
 
 abstract class _TextMessageChangedEvent implements TextMessageChangedEvent {
   const factory _TextMessageChangedEvent(
-      {required final MessageChangedEventType type,
+      {required final String messageId,
+      required final MessageChangedEventType type,
       final TextMessage? data}) = _$_TextMessageChangedEvent;
 
+  @override
+  String get messageId;
   @override
   MessageChangedEventType get type;
   @override

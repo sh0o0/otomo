@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_event.dart';
 import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/message.pb.dart' as gMsg;
-import 'package:otomo/entities/message.dart';
 
 @injectable
 class ChatControllerImpl {
@@ -40,10 +40,12 @@ class ChatControllerImpl {
           .map((event) => event.docChanges.map((e) {
                 final data = e.doc.data();
                 return TextMessageChangedEvent(
+                  messageId: e.doc.id,
                   type: _toChangedEventType(e.type),
-                  data: data == null ? null : TextMessage.fromJson(data),
+                  data: data == null ? null : _firestoreJsonToMessage(data),
                 );
-              }).toList());
+              }).toList())
+          .asBroadcastStream();
 
   List<TextMessage> _toMessages(List<gMsg.Message> messages) {
     return messages.map((e) => _toMessage(e)).toList();
@@ -56,6 +58,11 @@ class ChatControllerImpl {
       role: _toRole(message.role),
       sentAt: message.sentAt.toDateTime(),
     );
+  }
+
+  TextMessage _firestoreJsonToMessage(Map<String, dynamic> json) {
+    final sentAt = (json['sent_at'] as Timestamp).toDate();
+    return TextMessage.fromJson(json..['sent_at'] = sentAt);
   }
 
   Role _toRole(gMsg.Role role) {

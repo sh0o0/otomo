@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/entities/message.dart';
+import 'package:otomo/entities/message_event.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
@@ -52,6 +53,41 @@ class Chat extends _$Chat {
     state = const AsyncValue.loading();
 
     final chatMessages = await _listTextMessageData(null, null);
+
+    _chatController
+        .changedEventStream(userId: _globalState.userId!)
+        .listen((event) {
+      for (final changedEvent in event) {
+        switch (changedEvent.type) {
+          case MessageChangedEventType.added:
+            final message = changedEvent.data!;
+            final textMessageData = TextMessageData.fromTextMessage(
+              message,
+              status: MessageStatus.sent,
+              active: false,
+            );
+            state = state..value!.messages.insert(0, textMessageData);
+            break;
+          case MessageChangedEventType.modified:
+            final message = changedEvent.data!;
+            final textMessageData = TextMessageData.fromTextMessage(
+              message,
+              status: MessageStatus.sent,
+              active: false,
+            );
+            final index = chatMessages
+                .indexWhere((m) => m.message.remoteId == message.id);
+            state = state..value!.messages[index] = textMessageData;
+            break;
+          case MessageChangedEventType.removed:
+            final message = changedEvent.data!;
+            final index = chatMessages
+                .indexWhere((m) => m.message.remoteId == message.id);
+            state = state..value!.messages.removeAt(index);
+            break;
+        }
+      }
+    });
 
     return ChatState(
       messages: chatMessages,
@@ -137,15 +173,15 @@ class Chat extends _$Chat {
   }
 
   void _addMessage(TextMessageData message) {
-    state = state..value!.messages.insert(0, message);
+    // state = state..value!.messages.insert(0, message);
   }
 
   void _updateMessageWithIndex(TextMessageData message) {
-    final messages = state.value!.messages;
-    final index =
-        messages.indexWhere((m) => m.message.id == message.message.id);
-    messages[index] = message;
-    state = state;
+    // final messages = state.value!.messages;
+    // final index =
+    //     messages.indexWhere((m) => m.message.id == message.message.id);
+    // messages[index] = message;
+    // state = state;
   }
 
   TextMessageData _combineReplyChunk(TextMessageData? reply, String replyText) {
