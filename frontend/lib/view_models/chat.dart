@@ -38,7 +38,7 @@ class ChatState with _$ChatState {
       messages.where((m) => m.message.active).toList();
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 class Chat extends _$Chat {
   final _globalState = getIt<GlobalState>();
   final _chatController = getIt<ChatControllerImpl>();
