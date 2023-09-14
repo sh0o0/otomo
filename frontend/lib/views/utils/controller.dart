@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ViewUtilsController {
   ViewUtilsController._();
   static final _instance = ViewUtilsController._();
-  static ViewUtilsController get instance => _instance;
+  static ViewUtilsController get I => _instance;
 
   void unfocus(BuildContext context) {
     final currentScope = FocusScope.of(context);

@@ -5,10 +5,9 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
+import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
-import 'package:otomo/tools/logger.dart';
-import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -39,7 +38,7 @@ class ChatState with _$ChatState {
       messages.where((m) => m.message.active).toList();
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 class Chat extends _$Chat {
   final _globalState = getIt<GlobalState>();
   final _chatController = getIt<ChatControllerImpl>();
@@ -52,51 +51,17 @@ class Chat extends _$Chat {
   FutureOr<ChatState> build() async {
     state = const AsyncValue.loading();
 
-    final chatMessages = await _listTextMessageData(null, null);
+    final messages = await _listTextMessageData(null, null);
 
     _chatController
         .messageChangedEventsStream(userId: _globalState.userId!)
-        .listen((event) {
-      for (final changedEvent in event) {
-        switch (changedEvent.type) {
-          case ChangedEventType.added:
-            final message = changedEvent.data!;
-            final textMessageData = TextMessageData.fromTextMessage(
-              message,
-              status: MessageStatus.sent,
-              active: false,
-            );
-            state = state..value!.messages.insert(0, textMessageData);
-            break;
-          case ChangedEventType.modified:
-            final message = changedEvent.data!;
-            final textMessageData = TextMessageData.fromTextMessage(
-              message,
-              status: MessageStatus.sent,
-              active: false,
-            );
-            final index = chatMessages
-                .indexWhere((m) => m.message.remoteId == message.id);
-            state = state..value!.messages[index] = textMessageData;
-            break;
-          case ChangedEventType.removed:
-            final message = changedEvent.data!;
-            final index = chatMessages
-                .indexWhere((m) => m.message.remoteId == message.id);
-            state = state..value!.messages.removeAt(index);
-            break;
-        }
-      }
-    });
+        .listen(_onMessageChanged);
 
-    return ChatState(
-      messages: chatMessages,
-    );
+    return ChatState(messages: messages);
   }
 
   void sendMessage(String text) {
-    final stream = _sendMessage(text);
-    _receiveReply(stream);
+    _chatController.sendMessage(text);
   }
 
   Future<void> listMessagesMore() async {
@@ -124,95 +89,39 @@ class Chat extends _$Chat {
         .toList();
   }
 
-  Stream<String> _sendMessage(String text) {
-    final sendingMessage = _newTextMessageData(
-        text: text, role: Role.user, status: MessageStatus.sending);
+  void _onMessageChanged(List<TextMessageChangedEvent> events) {
+    for (final changedEvent in events) {
+      final messages = state.value?.messages ?? [];
+      final message = changedEvent.data;
 
-    _addMessage(sendingMessage);
-    final stream = _chatController.sendMessage(text);
-    final sentMessage =
-        sendingMessage.copyWith.message(status: MessageStatus.sent);
-    _updateMessageWithIndex(sentMessage);
-    return stream;
-  }
-
-  void _receiveReply(Stream<String> replyStream) {
-    TextMessageData? reply;
-
-    replyStream.listen(
-      (replyChunk) {
-        final isFirstChunk = reply == null;
-        reply = _combineReplyChunk(reply, replyChunk);
-        if (isFirstChunk) {
-          _addMessage(reply!);
-        } else {
-          _updateMessageWithIndex(reply!);
-        }
-      },
-      onError: (e) {
-        logger.warn(e.toString());
-
-        if (reply == null) {
-          reply = _newTextMessageData(
-            text: 'Error occurred',
-            role: Role.otomo,
-            status: MessageStatus.error,
+      switch (changedEvent.type) {
+        case ChangedEventType.added:
+          final textMessageData = TextMessageData.fromTextMessage(
+            message!,
+            status: MessageStatus.sent,
+            active: false,
           );
-          _addMessage(reply!);
-        } else {
-          _updateMessageWithIndex(
-              reply!.copyWith.message(status: MessageStatus.error));
-        }
-      },
-      onDone: () {
-        _updateMessageWithIndex(
-            reply!.copyWith.message(status: MessageStatus.sent));
-      },
-      cancelOnError: true,
-    );
-  }
-
-  void _addMessage(TextMessageData message) {
-    // state = state..value!.messages.insert(0, message);
-  }
-
-  void _updateMessageWithIndex(TextMessageData message) {
-    // final messages = state.value!.messages;
-    // final index =
-    //     messages.indexWhere((m) => m.message.id == message.message.id);
-    // messages[index] = message;
-    // state = state;
-  }
-
-  TextMessageData _combineReplyChunk(TextMessageData? reply, String replyText) {
-    if (reply == null) {
-      return _newTextMessageData(
-        text: replyText,
-        role: Role.otomo,
-        status: MessageStatus.sending,
-      );
-    } else {
-      final combinedText = reply.text + replyText;
-      final combinedReply = reply.copyWith(text: combinedText);
-      return combinedReply;
+          state = state..value?.messages.insert(0, textMessageData);
+          break;
+        case ChangedEventType.modified:
+          final textMessageData = TextMessageData.fromTextMessage(
+            message!,
+            status: MessageStatus.sent,
+            active: false,
+          );
+          final index =
+              messages.indexWhere((m) => m.message.remoteId == message.id);
+          if (index == -1) return;
+          state = state..value?.messages[index] = textMessageData;
+          break;
+        case ChangedEventType.removed:
+          final index = messages
+              .indexWhere((m) => m.message.remoteId == changedEvent.messageId);
+          if (index == -1) return;
+          state = state..value!.messages.removeAt(index);
+          break;
+      }
     }
-  }
-
-  TextMessageData _newTextMessageData({
-    required String text,
-    required Role role,
-    required MessageStatus status,
-  }) {
-    return TextMessageData(
-      message: MessageData(
-        id: uuid(),
-        author: Author.fromRole(role),
-        status: status,
-        // TODO: Replace date time with response
-        sentAt: DateTime.now(),
-      ),
-      text: text,
-    );
   }
 
   void resetActiveMessages() {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/views/bases/text_fields/unfocus_when_tap.dart';
+import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
 import 'package:otomo/views/cases/home/swipe_selection_floating_action_button.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map/map.dart';
 import 'package:otomo/views/router.dart';
+import 'package:otomo/views/utils/controller.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
   const HomePage({super.key});
@@ -27,7 +28,9 @@ class _HomePageState extends ConsumerState<HomePage> {
     _sheetController = controller;
   }
 
-  void onPressedSheetLeading() {
+  void onPressedSheetLeading(BuildContext context) {
+    ViewUtilsController.I.unfocus(context);
+
     if (!_canUseSheetController) return;
     _sheetController!.animateTo(
       0.0,
@@ -71,8 +74,9 @@ class _HomePageState extends ConsumerState<HomePage> {
         resizeToAvoidBottomInset: false,
         onSheetCreated: _onSheetCreated,
         behindSheetFloatingActionButton: _buildFloatingActionButton(context),
-        bottomSheetBar:
-            ChatBottomSheetBar(onPressedLeading: onPressedSheetLeading),
+        bottomSheetBar: ChatBottomSheetBar(
+          onPressedLeading: () => onPressedSheetLeading(context),
+        ),
         bottomSheet: const HomeChat(),
         child: const MapPage(),
       ),
