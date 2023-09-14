@@ -72,9 +72,9 @@ func TestAuthInterceptor(t *testing.T) {
 				},
 			},
 			verifyInterceptor: func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
-				extractedUserID, err := ctxs.UserIDFromContext(ctx)
 				assert.NoError(t, err)
-				assert.Exactly(t, userID, extractedUserID)
+				assert.True(t, ctxs.UserIs(ctx, userID))
+				assert.True(t, ctxs.AuthRoleIs(ctx, model.UserAuthRole))
 				return handler(ctx, req)
 			},
 			wantCalledIsErr: false,
@@ -118,7 +118,7 @@ func TestAuthInterceptor(t *testing.T) {
 		},
 		{
 			name: strings.Join([]string{
-				"should return",
+				"should return error",
 				"when not set bearer authorization token",
 			}, " "),
 			interceptorArgs: func() AuthInterceptorArgs {
@@ -159,6 +159,7 @@ func TestAuthInterceptor(t *testing.T) {
 			wantCalledIsErr:   false,
 			wantCalledErrCode: codes.OK,
 			verifyInterceptor: func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+				assert.True(t, ctxs.AuthRoleIs(ctx, model.AdminAuthRole))
 				return handler(ctx, req)
 			},
 		},
