@@ -13,16 +13,6 @@ import (
 	"github.com/tmc/langchaingo/schema"
 )
 
-const (
-	chatPrompt = `The following is a friendly conversation between a user and an AI called Otomo. Otomo is talkative and provides lots of specific details from its context. If Otomo does not know the answer to a question, it truthfully says it does not know.
-When Otomo mentions the name of a place, if it knows the longitude and latitude of the place, it says it in the form %[name of place]({ "type": "object", "properties": { "lat_lng": { "type": "object", "properties": { "latitude": { "type": "number" }, "longitude": { "type": "number" } } } } }). () is JSON Schema. The corresponding json is actually input. For example, Tokyo is %[Tokyo]({ "lat_lng": { "latitude": 35.6762, "longitude": 139.6503 } }).
-
-Current conversation:
-{{.history}}
-User: {{.input}}
-Otomo:`
-)
-
 var _ svc.ChatService = (*ChatService)(nil)
 
 // TODO: Add tests
@@ -52,7 +42,7 @@ func (s *ChatService) Send(
 	}
 
 	chatMsg, err := prompts.NewHumanMessagePromptTemplate(
-		chatPrompt,
+		respondPrompt,
 		[]string{"history", "input"},
 	).FormatMessages(map[string]any{"history": history, "input": msg.Text})
 	if err != nil {

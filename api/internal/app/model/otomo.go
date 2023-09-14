@@ -10,10 +10,12 @@ type Converser interface {
 		ctx context.Context,
 		msg *Message,
 		memory *Memory,
+		listeningFunc func(ctx context.Context, chunk []byte) error,
 	) (*Message, error)
 	Message(
 		ctx context.Context,
 		memory *Memory,
+		listeningFunc func(ctx context.Context, chunk []byte) error,
 	) (*Message, error)
 }
 type Summarizer interface {
@@ -65,7 +67,8 @@ func (o *Otomo) Respond(
 	ctx context.Context,
 	msg *Message,
 ) (*Otomo, *Message, error) {
-	respond, err := o.converser.Respond(ctx, msg, &o.Memory)
+	// TODO: listeningFunc
+	respond, err := o.converser.Respond(ctx, msg, &o.Memory, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -89,7 +92,8 @@ func (o *Otomo) Respond(
 func (o *Otomo) Message(
 	ctx context.Context,
 ) (*Otomo, *Message, error) {
-	newMsg, err := o.converser.Message(ctx, &o.Memory)
+	// TODO: listeningFunc
+	newMsg, err := o.converser.Message(ctx, &o.Memory, nil)
 	if err != nil {
 		return nil, nil, err
 	}
