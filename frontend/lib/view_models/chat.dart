@@ -8,8 +8,6 @@ import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
-import 'package:otomo/tools/logger.dart';
-import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -63,7 +61,7 @@ class Chat extends _$Chat {
   }
 
   void sendMessage(String text) {
-    _sendMessage(text);
+    _chatController.sendMessage(text);
   }
 
   Future<void> listMessagesMore() async {
@@ -89,18 +87,6 @@ class Chat extends _$Chat {
         .map((e) =>
             TextMessageData.fromTextMessage(e, status: MessageStatus.sent))
         .toList();
-  }
-
-  Stream<String> _sendMessage(String text) {
-    final sendingMessage = _newTextMessageData(
-        text: text, role: Role.user, status: MessageStatus.sending);
-
-    _addMessage(sendingMessage);
-    final stream = _chatController.sendMessage(text);
-    final sentMessage =
-        sendingMessage.copyWith.message(status: MessageStatus.sent);
-    _updateMessageWithIndex(sentMessage);
-    return stream;
   }
 
   void _onMessageChanged(List<TextMessageChangedEvent> events) {
@@ -136,49 +122,6 @@ class Chat extends _$Chat {
           break;
       }
     }
-  }
-
-  void _addMessage(TextMessageData message) {
-    // state = state..value!.messages.insert(0, message);
-  }
-
-  void _updateMessageWithIndex(TextMessageData message) {
-    // final messages = state.value!.messages;
-    // final index =
-    //     messages.indexWhere((m) => m.message.id == message.message.id);
-    // messages[index] = message;
-    // state = state;
-  }
-
-  TextMessageData _combineReplyChunk(TextMessageData? reply, String replyText) {
-    if (reply == null) {
-      return _newTextMessageData(
-        text: replyText,
-        role: Role.otomo,
-        status: MessageStatus.sending,
-      );
-    } else {
-      final combinedText = reply.text + replyText;
-      final combinedReply = reply.copyWith(text: combinedText);
-      return combinedReply;
-    }
-  }
-
-  TextMessageData _newTextMessageData({
-    required String text,
-    required Role role,
-    required MessageStatus status,
-  }) {
-    return TextMessageData(
-      message: MessageData(
-        id: uuid(),
-        author: Author.fromRole(role),
-        status: status,
-        // TODO: Replace date time with response
-        sentAt: DateTime.now(),
-      ),
-      text: text,
-    );
   }
 
   void resetActiveMessages() {
