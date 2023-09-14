@@ -17,7 +17,7 @@ type Converser interface {
 	) (*Message, error)
 }
 type Summarizer interface {
-	Summary(
+	Summarize(
 		ctx context.Context,
 		newMsgs []*Message,
 		currentSummary string,
@@ -61,10 +61,51 @@ func RestoreOtomo(
 	}, nil
 }
 
-func (o *Otomo) Respond(ctx context.Context, msg *Message) (*Message, error) {
-	return o.converser.Respond(ctx, msg, &o.Memory)
+func (o *Otomo) Respond(
+	ctx context.Context,
+	msg *Message,
+) (*Otomo, *Message, error) {
+	respond, err := o.converser.Respond(ctx, msg, &o.Memory)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	summary, err := o.summarizer.Summarize(
+		ctx, []*Message{msg, respond}, o.Memory.Summary)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return &Otomo{
+		UserID: o.UserID,
+		Memory: Memory{
+			Summary: summary,
+		},
+		converser:  o.converser,
+		summarizer: o.summarizer,
+	}, respond, nil
 }
 
-func (o *Otomo) Message(ctx context.Context, userID UserID) (*Message, error) {
-	return o.converser.Message(ctx, &o.Memory)
+func (o *Otomo) Message(
+	ctx context.Context,
+) (*Otomo, *Message, error) {
+	newMsg, err := o.converser.Message(ctx, &o.Memory)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	summary, err := o.summarizer.Summarize(
+		ctx, []*Message{newMsg}, o.Memory.Summary)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return &Otomo{
+		UserID: o.UserID,
+		Memory: Memory{
+			Summary: summary,
+		},
+		converser:  o.converser,
+		summarizer: o.summarizer,
+	}, newMsg, nil
 }

@@ -37,6 +37,7 @@ New summary:`
 )
 
 var _ svc.SummaryService = (*SummaryService)(nil)
+var _ model.Summarizer = (*SummaryService)(nil)
 
 // TODO: Add tests
 type SummaryService struct {
