@@ -17,10 +17,12 @@ var _ svc.ChatService = (*ChatService)(nil)
 
 // TODO: Add tests
 
+// Deprecated: Use ConversationService instead
 type ChatService struct {
 	gpt *openai.Chat
 }
 
+// Deprecated: Use ConversationService instead
 func NewChatService(
 	gpt *openai.Chat,
 ) *ChatService {
