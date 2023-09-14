@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"otomo/internal/app/controller/svc"
+	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/errs"
 

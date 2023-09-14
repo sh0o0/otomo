@@ -2,9 +2,9 @@ package controller
 
 import (
 	"context"
-	"otomo/internal/app/controller/repo"
-	"otomo/internal/app/controller/svc"
 	"otomo/internal/app/grpcgen"
+	"otomo/internal/app/interfaces/repo"
+	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"

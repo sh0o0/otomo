@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"otomo/internal/app/controller/repo"
+	"otomo/internal/app/interfaces/repo"
 	"otomo/internal/app/model"
 
 	"cloud.google.com/go/firestore"
