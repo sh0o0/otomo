@@ -232,3 +232,10 @@ func toGrpcRole(r model.Role) (role grpcgen.Role, err error) {
 func (c *ChatController) toGrpcError(ctx context.Context, err error) error {
 	return c.errorPresenter.ErrorOutput(ctx, err).Err()
 }
+
+func (c *ChatController) AskToMessage(
+	context context.Context,
+	req *grpcgen.ChatService_AskToMessageRequest,
+) (*grpcgen.ChatService_AskToMessageResponse, error) {
+	panic("not implemented") // TODO: Implement
+}
