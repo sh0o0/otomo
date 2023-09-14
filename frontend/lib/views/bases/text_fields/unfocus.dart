@@ -14,7 +14,7 @@ class Unfocus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: tap ? () => ViewUtilsController.instance.unfocus(context) : null,
+      onTap: tap ? () => ViewUtilsController.I.unfocus(context) : null,
       child: child,
     );
   }
