@@ -64,22 +64,28 @@ func (a *AuthController) Authorization(ctx context.Context) (context.Context, er
 	switch schema {
 	case AuthSchemaBearer:
 		userID, authErr = a.authorizeBearer(ctx)
+		if authErr == nil {
+			ctx = ctxs.AuthRoleToContext(ctx, model.UserAuthRole)
+			ctx = ctxs.UserIDToContext(ctx, model.UserID(userID))
+		}
 	case AuthSchemaBasic:
 		authErr = a.authorizeBasic(ctx)
+		if authErr == nil {
+			ctx = ctxs.AuthRoleToContext(ctx, model.AdminAuthRole)
+		}
 	default:
 		authErr = errors.New(schema + " is unexpected authorization schema")
 	}
+
 	if authErr != nil {
-		if err := setInvalidTokenHeader(ctx, AuthSchemaBearer); err != nil {
+		if err := setInvalidTokenHeader(ctx, schema); err != nil {
 			return nil, err
 		}
-		return nil, invalidTokenError(ctx, authErr.Error())
+		return nil, invalidTokenError(authErr.Error())
 	}
+
 	if err := setAuthorizedMD(ctx, schema); err != nil {
 		return nil, err
-	}
-	if userID != "" {
-		ctx = ctxs.UserIDToContext(ctx, model.UserID(userID))
 	}
 
 	return ctx, nil
@@ -158,7 +164,7 @@ func setAuthorizedMD(ctx context.Context, schema string) error {
 	return nil
 }
 
-func invalidTokenError(ctx context.Context, msg string) error {
+func invalidTokenError(msg string) error {
 	return status.New(
 		codes.Unauthenticated,
 		"invalid token. "+msg,
