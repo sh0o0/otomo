@@ -41,7 +41,6 @@ func NewChatService(
 
 func (s *ChatService) Send(
 	ctx context.Context,
-	userID model.UserID,
 	msg *model.Message,
 	history string,
 	streamingFunc func(ctx context.Context, chunk []byte) error,

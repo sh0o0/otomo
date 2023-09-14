@@ -96,7 +96,6 @@ func (c *ChatController) sendMessage(
 
 	reply, err := c.chatService.Send(
 		ctx,
-		userID,
 		msg,
 		chat.Summary,
 		func(ctx context.Context, chunk []byte) error {
@@ -237,5 +236,20 @@ func (c *ChatController) AskToMessage(
 	context context.Context,
 	req *grpcgen.ChatService_AskToMessageRequest,
 ) (*grpcgen.ChatService_AskToMessageResponse, error) {
-	panic("not implemented") // TODO: Implement
+	panic("not implemented")
+}
+
+func (c *ChatController) askToMessage(
+	context context.Context,
+	req *grpcgen.ChatService_AskToMessageRequest,
+) (*grpcgen.ChatService_AskToMessageResponse, error) {
+	if err := req.ValidateAll(); err != nil {
+		return nil, err
+	}
+	// STEP: Get last message
+	// STEP: Switch Respond() or Message()
+	// 	STEP: Make a prompt and get the reply
+	// STEP: Add the message and memory.summary
+	// STEP: Response the message
+	panic("not implemented")
 }
