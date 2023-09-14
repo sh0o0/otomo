@@ -32,8 +32,9 @@ const (
 
 // Fields
 const (
-	FieldID   Field = "id"
-	FieldRole Field = "role"
+	FieldID       Field = "id"
+	FieldRole     Field = "role"
+	FieldAuthRole Field = "auth_role"
 )
 
 type Error struct {
