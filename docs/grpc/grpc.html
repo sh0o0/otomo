@@ -179,6 +179,14 @@
             <ul>
               
                 <li>
+                  <a href="#.ChatService_AskToMessageRequest"><span class="badge">M</span>ChatService_AskToMessageRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ChatService_AskToMessageResponse"><span class="badge">M</span>ChatService_AskToMessageResponse</a>
+                </li>
+              
+                <li>
                   <a href="#.ChatService_ListMessagesRequest"><span class="badge">M</span>ChatService_ListMessagesRequest</a>
                 </li>
               
@@ -253,6 +261,81 @@
       </div>
       <p></p>
 
+      
+        <h3 id=".ChatService_AskToMessageRequest">ChatService_AskToMessageRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+            
+            
+            <h4>Validated Fields</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Field</td>
+                  <td>Validations</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td>
+                    <ul>
+                    
+                      <li>string.min_len: 1</li>
+                    
+                    </ul>
+                  </td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
+          
+
+        
+      
+        <h3 id=".ChatService_AskToMessageResponse">ChatService_AskToMessageResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>message</td>
+                  <td><a href="#Message">Message</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
       
         <h3 id=".ChatService_ListMessagesRequest">ChatService_ListMessagesRequest</h3>
         <p></p>
@@ -459,6 +542,13 @@
                 <td>ListMessages</td>
                 <td><a href="#ChatService_ListMessagesRequest">.ChatService_ListMessagesRequest</a></td>
                 <td><a href="#ChatService_ListMessagesResponse">.ChatService_ListMessagesResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>AskToMessage</td>
+                <td><a href="#ChatService_AskToMessageRequest">.ChatService_AskToMessageRequest</a></td>
+                <td><a href="#ChatService_AskToMessageResponse">.ChatService_AskToMessageResponse</a></td>
                 <td><p></p></td>
               </tr>
             

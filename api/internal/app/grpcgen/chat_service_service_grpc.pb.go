@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	ChatService_SendMessage_FullMethodName  = "/ChatService/SendMessage"
 	ChatService_ListMessages_FullMethodName = "/ChatService/ListMessages"
+	ChatService_AskToMessage_FullMethodName = "/ChatService/AskToMessage"
 )
 
 // ChatServiceClient is the client API for ChatService service.
@@ -29,6 +30,7 @@ const (
 type ChatServiceClient interface {
 	SendMessage(ctx context.Context, in *ChatService_SendMessageRequest, opts ...grpc.CallOption) (ChatService_SendMessageClient, error)
 	ListMessages(ctx context.Context, in *ChatService_ListMessagesRequest, opts ...grpc.CallOption) (*ChatService_ListMessagesResponse, error)
+	AskToMessage(ctx context.Context, in *ChatService_AskToMessageRequest, opts ...grpc.CallOption) (*ChatService_AskToMessageResponse, error)
 }
 
 type chatServiceClient struct {
@@ -80,12 +82,22 @@ func (c *chatServiceClient) ListMessages(ctx context.Context, in *ChatService_Li
 	return out, nil
 }
 
+func (c *chatServiceClient) AskToMessage(ctx context.Context, in *ChatService_AskToMessageRequest, opts ...grpc.CallOption) (*ChatService_AskToMessageResponse, error) {
+	out := new(ChatService_AskToMessageResponse)
+	err := c.cc.Invoke(ctx, ChatService_AskToMessage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ChatServiceServer is the server API for ChatService service.
 // All implementations should embed UnimplementedChatServiceServer
 // for forward compatibility
 type ChatServiceServer interface {
 	SendMessage(*ChatService_SendMessageRequest, ChatService_SendMessageServer) error
 	ListMessages(context.Context, *ChatService_ListMessagesRequest) (*ChatService_ListMessagesResponse, error)
+	AskToMessage(context.Context, *ChatService_AskToMessageRequest) (*ChatService_AskToMessageResponse, error)
 }
 
 // UnimplementedChatServiceServer should be embedded to have forward compatible implementations.
@@ -97,6 +109,9 @@ func (UnimplementedChatServiceServer) SendMessage(*ChatService_SendMessageReques
 }
 func (UnimplementedChatServiceServer) ListMessages(context.Context, *ChatService_ListMessagesRequest) (*ChatService_ListMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMessages not implemented")
+}
+func (UnimplementedChatServiceServer) AskToMessage(context.Context, *ChatService_AskToMessageRequest) (*ChatService_AskToMessageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AskToMessage not implemented")
 }
 
 // UnsafeChatServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -149,6 +164,24 @@ func _ChatService_ListMessages_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChatService_AskToMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChatService_AskToMessageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatServiceServer).AskToMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatService_AskToMessage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatServiceServer).AskToMessage(ctx, req.(*ChatService_AskToMessageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ChatService_ServiceDesc is the grpc.ServiceDesc for ChatService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -159,6 +192,10 @@ var ChatService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMessages",
 			Handler:    _ChatService_ListMessages_Handler,
+		},
+		{
+			MethodName: "AskToMessage",
+			Handler:    _ChatService_AskToMessage_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

@@ -29,6 +29,10 @@ class ChatServiceClient extends $grpc.Client {
       '/ChatService/ListMessages',
       ($0.ChatService_ListMessagesRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.ChatService_ListMessagesResponse.fromBuffer(value));
+  static final _$askToMessage = $grpc.ClientMethod<$0.ChatService_AskToMessageRequest, $0.ChatService_AskToMessageResponse>(
+      '/ChatService/AskToMessage',
+      ($0.ChatService_AskToMessageRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ChatService_AskToMessageResponse.fromBuffer(value));
 
   ChatServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -42,6 +46,10 @@ class ChatServiceClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.ChatService_ListMessagesResponse> listMessages($0.ChatService_ListMessagesRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listMessages, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.ChatService_AskToMessageResponse> askToMessage($0.ChatService_AskToMessageRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$askToMessage, request, options: options);
   }
 }
 
@@ -64,6 +72,13 @@ abstract class ChatServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ChatService_ListMessagesRequest.fromBuffer(value),
         ($0.ChatService_ListMessagesResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ChatService_AskToMessageRequest, $0.ChatService_AskToMessageResponse>(
+        'AskToMessage',
+        askToMessage_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ChatService_AskToMessageRequest.fromBuffer(value),
+        ($0.ChatService_AskToMessageResponse value) => value.writeToBuffer()));
   }
 
   $async.Stream<$0.ChatService_SendMessageStreamResponse> sendMessage_Pre($grpc.ServiceCall call, $async.Future<$0.ChatService_SendMessageRequest> request) async* {
@@ -74,6 +89,11 @@ abstract class ChatServiceBase extends $grpc.Service {
     return listMessages(call, await request);
   }
 
+  $async.Future<$0.ChatService_AskToMessageResponse> askToMessage_Pre($grpc.ServiceCall call, $async.Future<$0.ChatService_AskToMessageRequest> request) async {
+    return askToMessage(call, await request);
+  }
+
   $async.Stream<$0.ChatService_SendMessageStreamResponse> sendMessage($grpc.ServiceCall call, $0.ChatService_SendMessageRequest request);
   $async.Future<$0.ChatService_ListMessagesResponse> listMessages($grpc.ServiceCall call, $0.ChatService_ListMessagesRequest request);
+  $async.Future<$0.ChatService_AskToMessageResponse> askToMessage($grpc.ServiceCall call, $0.ChatService_AskToMessageRequest request);
 }
