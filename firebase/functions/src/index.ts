@@ -1,19 +1,31 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+import {
+  onDocumentCreated,
+} from 'firebase-functions/v2/firestore';
+import { credentials } from '@grpc/grpc-js';
+import { config } from './config/config';
+import { ChatController } from './controller/chat';
+import { ChatServiceClient } from './protos/chat_service';
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+const client: ChatServiceClient = new ChatServiceClient(
+  config.otomoServerHost,
+  credentials.createSsl(),
+);
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+const chatController = new ChatController(client);
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+exports.reply = onDocumentCreated(
+  'versions/1/chats/{userId}/messages/{messageId}',
+  async (event) => {
+    const snapshot = event.data;
+    if (!snapshot) {
+      console.log('No data associated with the event');
+      return;
+    }
+
+    const data = snapshot.data();
+    if (data.role !== 'user') return;
+
+    await chatController.askToMessage(data.user_id);
+  }
+);
+
