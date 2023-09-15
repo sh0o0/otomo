@@ -203,17 +203,17 @@ func (cc *ChatController) sendMessage(
 		}
 	}
 
-	msg, err := cc.msgFactory.New(req.GetText(), model.UserRole)
+	msg, err := cc.msgFactory.New(req.GetText(), &req.ClientId, model.UserRole)
 	if err != nil {
-		return nil, err
-	}
-
-	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
 		return nil, err
 	}
 
 	grpcMsg, err := conv.Message.ModelToGrpc(msg)
 	if err != nil {
+		return nil, err
+	}
+
+	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
 		return nil, err
 	}
 
