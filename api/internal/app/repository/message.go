@@ -27,34 +27,59 @@ func NewMessageRepository(
 	}
 }
 
-func (r *MessageRepository) Add(
+func (mr *MessageRepository) Last(
+	ctx context.Context,
+	userID model.UserID,
+) (*model.Message, error) {
+	msgsCol := mr.getCollection(ctx, userID)
+	query := msgsCol.OrderBy("sent_at", firestore.Desc).Limit(1)
+
+	snaps, err := query.Documents(ctx).GetAll()
+	if err != nil {
+		return nil, mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldNone)
+	}
+
+	if len(snaps) == 0 {
+		return nil, &errs.Error{
+			Message: "There is no message",
+			Cause:   errs.CauseNotFound,
+			Domain:  errs.DomainMessage,
+			Field:   errs.FieldNone,
+		}
+
+	}
+
+	return mr.snapToMessage(ctx, snaps[0])
+}
+
+func (mr *MessageRepository) Add(
 	ctx context.Context,
 	userID model.UserID,
 	msg *model.Message,
 ) error {
-	msgDoc := r.getDoc(ctx, userID, msg.ID)
+	msgDoc := mr.getDoc(ctx, userID, msg.ID)
 
 	_, err := msgDoc.Create(ctx, msg)
 
 	return err
 }
 
-func (r *MessageRepository) DeleteByIDAndUserID(
+func (mr *MessageRepository) DeleteByIDAndUserID(
 	ctx context.Context,
 	userID model.UserID,
 	id model.MessageID,
 ) error {
-	msgDoc := r.getDoc(ctx, userID, id)
+	msgDoc := mr.getDoc(ctx, userID, id)
 
 	if _, err := msgDoc.Get(ctx); err != nil {
-		return r.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
+		return mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
 	}
 
 	_, err := msgDoc.Delete(ctx)
 	return err
 }
 
-func (r *MessageRepository) List(
+func (mr *MessageRepository) List(
 	ctx context.Context,
 	userID model.UserID,
 	page *repo.MessagePage,
@@ -68,12 +93,12 @@ func (r *MessageRepository) List(
 		page.Size = defaultMessageListPageSize
 	}
 
-	msgsCol := r.getCollection(ctx, userID)
+	msgsCol := mr.getCollection(ctx, userID)
 	query := msgsCol.OrderBy("sent_at", firestore.Desc).Limit(page.Size)
 	if page.StartAfterMessageID != "" {
-		startAfter, err := r.getDoc(ctx, userID, page.StartAfterMessageID).Get(ctx)
+		startAfter, err := mr.getDoc(ctx, userID, page.StartAfterMessageID).Get(ctx)
 		if err != nil {
-			return nil, r.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
+			return nil, mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
 		}
 		query = query.StartAfter(startAfter)
 	}
@@ -84,30 +109,30 @@ func (r *MessageRepository) List(
 			err, errs.DomainUser, errs.FieldID)
 	}
 
-	msgs, err := r.snapsToMessages(ctx, snaps)
+	msgs, err := mr.snapsToMessages(ctx, snaps)
 	if err != nil {
-		return nil, r.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
+		return nil, mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
 	}
 
 	return msgs, nil
 }
 
-func (r *MessageRepository) getCollection(
+func (mr *MessageRepository) getCollection(
 	ctx context.Context,
 	userID model.UserID,
 ) *firestore.CollectionRef {
-	return r.fsClient.Collection(getChatMessagesColPath(userID))
+	return mr.fsClient.Collection(getChatMessagesColPath(userID))
 }
 
-func (r *MessageRepository) getDoc(
+func (mr *MessageRepository) getDoc(
 	ctx context.Context,
 	userID model.UserID,
 	id model.MessageID,
 ) *firestore.DocumentRef {
-	return r.fsClient.Doc(getChatMessageDocPath(userID, id))
+	return mr.fsClient.Doc(getChatMessageDocPath(userID, id))
 }
 
-func (r *MessageRepository) snapToMessage(
+func (mr *MessageRepository) snapToMessage(
 	ctx context.Context,
 	snap *firestore.DocumentSnapshot,
 ) (*model.Message, error) {
@@ -118,13 +143,13 @@ func (r *MessageRepository) snapToMessage(
 	return msg, nil
 }
 
-func (r *MessageRepository) snapsToMessages(
+func (mr *MessageRepository) snapsToMessages(
 	ctx context.Context,
 	snaps []*firestore.DocumentSnapshot,
 ) ([]*model.Message, error) {
 	msgs := make([]*model.Message, len(snaps))
 	for i, s := range snaps {
-		msg, err := r.snapToMessage(ctx, s)
+		msg, err := mr.snapToMessage(ctx, s)
 		if err != nil {
 			return nil, err
 		}
@@ -133,7 +158,7 @@ func (r *MessageRepository) snapsToMessages(
 	return msgs, nil
 }
 
-func (r *MessageRepository) ifCodesNotFoundReturnErrsNotFound(
+func (mr *MessageRepository) ifCodesNotFoundReturnErrsNotFound(
 	err error,
 	field errs.Field,
 ) error {

@@ -33,6 +33,7 @@ const (
 
 // Fields
 const (
+	FieldNone     Field = ""
 	FieldID       Field = "id"
 	FieldRole     Field = "role"
 	FieldAuthRole Field = "auth_role"

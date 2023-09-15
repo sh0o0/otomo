@@ -20,6 +20,34 @@ import (
 
 var msgRepo = NewMessageRepository(systemtest.FirestoreClient)
 
+func TestMessageRepository_Last_ShouldGetLastMsg_WhenArgsAreValid(t *testing.T) {
+	var (
+		giveCtx    = context.Background()
+		giveUserID = model.UserID(uuid.NewString())
+		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.UserRole)
+	)
+
+	if err := msgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
+		t.Fatal(err)
+	}
+
+	gotMsg, err := msgRepo.Last(giveCtx, giveUserID)
+
+	assert.NoError(t, err)
+	assert.Equal(t, giveMsg, gotMsg)
+}
+
+func TestMessageRepository_Last_ShouldReturnErr_WhenThereIsNo(t *testing.T) {
+	var (
+		giveCtx    = context.Background()
+		giveUserID = model.UserID(uuid.NewString())
+	)
+
+	_, err := msgRepo.Last(giveCtx, giveUserID)
+
+	assert.True(t, errs.IsNotFoundErr(err))
+}
+
 func TestMessageRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
