@@ -1,18 +1,15 @@
 import { Metadata, ServiceError } from '@grpc/grpc-js';
-import { config } from '../config/config';
 import {
   ChatServiceClient,
   ChatService_AskToMessageRequest,
   ChatService_AskToMessageResponse,
 } from '../protos/chat_service';
 
-const basicAuthMd = new Metadata();
-const auth = Buffer.from(
-  `${config.basicAuthUsername}:${config.basicAuthPassword}`).toString('base64');
-basicAuthMd.add('authorization', `basic ${auth}`);
-
 export class ChatController {
-  constructor(private _client: ChatServiceClient) { }
+  constructor(
+    private _client: ChatServiceClient,
+    private _metadata: Metadata,
+  ) { }
 
   async askToMessage(userId: string) {
     console.log('called ChatController.askToMessage');
@@ -23,7 +20,7 @@ export class ChatController {
 
     this._client.askToMessage(
       request,
-      basicAuthMd,
+      this._metadata,
       (err: ServiceError | null,
         response: ChatService_AskToMessageResponse) => {
         if (err) {
