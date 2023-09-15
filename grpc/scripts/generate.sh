@@ -10,7 +10,7 @@ PROTO_FILES=$PROTOS_DIR/*.proto
 DOCS_DIR=../../docs
 API_DIR=../../api
 FRONTEND_DIR=../../frontend
-# FIREBASE_DIR=../../firebase
+FIREBASE_DIR=../../firebase
 
 EXCLUDED_VALIDATE_PROTOS_DIR="../excluded_validate_protos"
 EXCLUDED_VALIDATE_PROTO_FILES="../excluded_validate_protos/*.proto"
@@ -65,7 +65,6 @@ protoc \
     -I $EXCLUDED_VALIDATE_PROTOS_DIR \
     -I ${GOPATH}/src \
     -I ${PROTO_DIR} \
-    --js_out=import_style=commonjs,binary:"${DIST_DIR}"/ \
     --ts_out=import_style=commonjs,binary:"${DIST_DIR}"/ \
     --grpc_out="${DIST_DIR}"/ \
     --plugin=protoc-gen-grpc="${PLUGIN_GRPC}" \
