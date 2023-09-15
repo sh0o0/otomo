@@ -75,11 +75,6 @@ func (cc *ChatController) askToMessage(
 		}
 	}
 
-	lastMsg, err := cc.msgRepo.Last(context, userID)
-	if err != nil {
-		return nil, err
-	}
-
 	otomo, err := cc.otomoRepo.GetByID(context, userID)
 	if err != nil {
 		if errs.IsNotFoundErr(err) {
@@ -99,7 +94,13 @@ func (cc *ChatController) askToMessage(
 		convErr      error
 	)
 
-	if lastMsg.RoleIs(model.UserRole) {
+	lastMsg, err := cc.msgRepo.Last(context, userID)
+	if err != nil {
+		if !errs.IsNotFoundErr(err) {
+			return nil, err
+		}
+	}
+	if lastMsg != nil && lastMsg.RoleIs(model.UserRole) {
 		updatedOtomo, newMsg, convErr = otomo.Respond(context, lastMsg)
 	} else {
 		updatedOtomo, newMsg, convErr = otomo.Message(context)
