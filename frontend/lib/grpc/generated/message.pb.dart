@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/timestamp.pb.dart' as $3;
+import 'google/protobuf/wrappers.pb.dart' as $4;
 import 'message.pbenum.dart';
 
 export 'message.pbenum.dart';
@@ -28,7 +29,8 @@ class Message extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'text')
     ..e<Role>(3, _omitFieldNames ? '' : 'role', $pb.PbFieldType.OE, defaultOrMaker: Role.UNKNOWN, valueOf: Role.valueOf, enumValues: Role.values)
-    ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', protoName: 'sentAt', subBuilder: $3.Timestamp.create)
+    ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', subBuilder: $3.Timestamp.create)
+    ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
     ..hasRequiredFields = false
   ;
 
@@ -90,6 +92,17 @@ class Message extends $pb.GeneratedMessage {
   void clearSentAt() => clearField(4);
   @$pb.TagNumber(4)
   $3.Timestamp ensureSentAt() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  $4.StringValue get clientId => $_getN(4);
+  @$pb.TagNumber(5)
+  set clientId($4.StringValue v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasClientId() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearClientId() => clearField(5);
+  @$pb.TagNumber(5)
+  $4.StringValue ensureClientId() => $_ensure(4);
 }
 
 

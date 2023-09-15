@@ -18,16 +18,16 @@ const ChatService_SendMessageRequest$json = {
   '1': 'ChatService_SendMessageRequest',
   '2': [
     {'1': 'user_id', '3': 1, '4': 1, '5': 9, '8': {}, '10': 'userId'},
-    {'1': 'client_id', '3': 2, '4': 1, '5': 9, '10': 'clientId'},
-    {'1': 'text', '3': 3, '4': 1, '5': 9, '8': {}, '10': 'text'},
+    {'1': 'text', '3': 2, '4': 1, '5': 9, '8': {}, '10': 'text'},
+    {'1': 'client_id', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
   ],
 };
 
 /// Descriptor for `ChatService_SendMessageRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List chatService_SendMessageRequestDescriptor = $convert.base64Decode(
     'Ch5DaGF0U2VydmljZV9TZW5kTWVzc2FnZVJlcXVlc3QSIAoHdXNlcl9pZBgBIAEoCUIH+kIEcg'
-    'IQAVIGdXNlcklkEhsKCWNsaWVudF9pZBgCIAEoCVIIY2xpZW50SWQSIwoEdGV4dBgDIAEoCUIP'
-    '+kIEcgIQAfpCBXIDGJBOUgR0ZXh0');
+    'IQAVIGdXNlcklkEiMKBHRleHQYAiABKAlCD/pCBHICEAH6QgVyAxiQTlIEdGV4dBI5CgljbGll'
+    'bnRfaWQYAyABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWVSCGNsaWVudElk');
 
 @$core.Deprecated('Use chatService_SendMessageResponseDescriptor instead')
 const ChatService_SendMessageResponse$json = {

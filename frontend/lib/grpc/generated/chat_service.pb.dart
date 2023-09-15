@@ -13,7 +13,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'message.pb.dart' as $4;
+import 'google/protobuf/wrappers.pb.dart' as $4;
+import 'message.pb.dart' as $5;
 
 class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
   factory ChatService_SendMessageRequest() => create();
@@ -23,8 +24,8 @@ class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_SendMessageRequest', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'userId')
-    ..aOS(2, _omitFieldNames ? '' : 'clientId')
-    ..aOS(3, _omitFieldNames ? '' : 'text')
+    ..aOS(2, _omitFieldNames ? '' : 'text')
+    ..aOM<$4.StringValue>(3, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
     ..hasRequiredFields = false
   ;
 
@@ -59,22 +60,24 @@ class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
   void clearUserId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get clientId => $_getSZ(1);
+  $core.String get text => $_getSZ(1);
   @$pb.TagNumber(2)
-  set clientId($core.String v) { $_setString(1, v); }
+  set text($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasClientId() => $_has(1);
+  $core.bool hasText() => $_has(1);
   @$pb.TagNumber(2)
-  void clearClientId() => clearField(2);
+  void clearText() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get text => $_getSZ(2);
+  $4.StringValue get clientId => $_getN(2);
   @$pb.TagNumber(3)
-  set text($core.String v) { $_setString(2, v); }
+  set clientId($4.StringValue v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasText() => $_has(2);
+  $core.bool hasClientId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearText() => clearField(3);
+  void clearClientId() => clearField(3);
+  @$pb.TagNumber(3)
+  $4.StringValue ensureClientId() => $_ensure(2);
 }
 
 class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
@@ -84,7 +87,7 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
   factory ChatService_SendMessageResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_SendMessageResponse', createEmptyInstance: create)
-    ..aOM<$4.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $4.Message.create)
+    ..aOM<$5.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $5.Message.create)
     ..hasRequiredFields = false
   ;
 
@@ -110,15 +113,15 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
   static ChatService_SendMessageResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $4.Message get message => $_getN(0);
+  $5.Message get message => $_getN(0);
   @$pb.TagNumber(1)
-  set message($4.Message v) { setField(1, v); }
+  set message($5.Message v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasMessage() => $_has(0);
   @$pb.TagNumber(1)
   void clearMessage() => clearField(1);
   @$pb.TagNumber(1)
-  $4.Message ensureMessage() => $_ensure(0);
+  $5.Message ensureMessage() => $_ensure(0);
 }
 
 class ChatService_ListMessagesRequest extends $pb.GeneratedMessage {
@@ -191,7 +194,7 @@ class ChatService_ListMessagesResponse extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_ListMessagesResponse', createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'pageSize', $pb.PbFieldType.OU3)
-    ..pc<$4.Message>(3, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: $4.Message.create)
+    ..pc<$5.Message>(3, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: $5.Message.create)
     ..hasRequiredFields = false
   ;
 
@@ -226,7 +229,7 @@ class ChatService_ListMessagesResponse extends $pb.GeneratedMessage {
   void clearPageSize() => clearField(1);
 
   @$pb.TagNumber(3)
-  $core.List<$4.Message> get messages => $_getList(1);
+  $core.List<$5.Message> get messages => $_getList(1);
 }
 
 class ChatService_AskToMessageRequest extends $pb.GeneratedMessage {
@@ -278,7 +281,7 @@ class ChatService_AskToMessageResponse extends $pb.GeneratedMessage {
   factory ChatService_AskToMessageResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_AskToMessageResponse', createEmptyInstance: create)
-    ..aOM<$4.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $4.Message.create)
+    ..aOM<$5.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $5.Message.create)
     ..hasRequiredFields = false
   ;
 
@@ -304,15 +307,15 @@ class ChatService_AskToMessageResponse extends $pb.GeneratedMessage {
   static ChatService_AskToMessageResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $4.Message get message => $_getN(0);
+  $5.Message get message => $_getN(0);
   @$pb.TagNumber(1)
-  set message($4.Message v) { setField(1, v); }
+  set message($5.Message v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasMessage() => $_has(0);
   @$pb.TagNumber(1)
   void clearMessage() => clearField(1);
   @$pb.TagNumber(1)
-  $4.Message ensureMessage() => $_ensure(0);
+  $5.Message ensureMessage() => $_ensure(0);
 }
 
 
