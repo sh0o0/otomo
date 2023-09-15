@@ -12,7 +12,7 @@
     "ask-to-message": "ts-node ./src/sample/ask_to_message.ts"
   },
   "engines": {
-    "node": "18"
+    "node": "16"
   },
   "main": "lib/index.js",
   "dependencies": {

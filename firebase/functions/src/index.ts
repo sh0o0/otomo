@@ -21,7 +21,7 @@ const chatController = new ChatController(client, metadata);
 
 exports.reply = onDocumentCreated(
   'versions/1/chats/{userId}/messages/{messageId}',
-  async (event) => {
+  (event) => {
     const snapshot = event.data;
     if (!snapshot) {
       console.log('No data associated with the event');
@@ -31,7 +31,7 @@ exports.reply = onDocumentCreated(
     const data = snapshot.data();
     if (data.role !== 'user') return;
 
-    await chatController.askToMessage(data.user_id);
+    chatController.askToMessage(data.user_id);
   }
 );
 
