@@ -55,6 +55,17 @@ func (m *ChatService_SendMessageRequest) validate(all bool) error {
 
 	var errors []error
 
+	if utf8.RuneCountInString(m.GetUserId()) < 1 {
+		err := ChatService_SendMessageRequestValidationError{
+			field:  "UserId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if l := utf8.RuneCountInString(m.GetText()); l < 1 || l > 10000 {
 		err := ChatService_SendMessageRequestValidationError{
 			field:  "Text",

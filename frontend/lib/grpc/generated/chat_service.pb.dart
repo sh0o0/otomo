@@ -22,7 +22,8 @@ class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
   factory ChatService_SendMessageRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_SendMessageRequest', createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'text')
+    ..aOS(1, _omitFieldNames ? '' : 'userId')
+    ..aOS(2, _omitFieldNames ? '' : 'text')
     ..hasRequiredFields = false
   ;
 
@@ -48,13 +49,22 @@ class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
   static ChatService_SendMessageRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get text => $_getSZ(0);
+  $core.String get userId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set text($core.String v) { $_setString(0, v); }
+  set userId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasText() => $_has(0);
+  $core.bool hasUserId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearText() => clearField(1);
+  void clearUserId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get text => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set text($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasText() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearText() => clearField(2);
 }
 
 class ChatService_SendMessageResponse extends $pb.GeneratedMessage {

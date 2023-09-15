@@ -4,15 +4,12 @@ import (
 	"context"
 	"otomo/internal/app/grpcgen"
 	"otomo/internal/app/interfaces/repo"
-	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
-	"otomo/internal/pkg/times"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // TODO: Add tests
@@ -21,49 +18,28 @@ import (
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
 
 type ChatController struct {
-	// Deprecated: Don't use this field.
-	chatFactory *model.ChatFactory
-	// Deprecated: Don't use this field.
-	msgFactory *model.MessageFactory
-	// Deprecated: Don't use this field.
-	chatRepo repo.ChatRepository
-	// Deprecated: Don't use this field.
-	chatService svc.ChatService
-	// Deprecated: Don't use this field.
-	summaryService svc.SummaryService
-
 	errorPresenter errorPresenter
-	otomoRepo      repo.OtomoRepository
+	msgFactory     *model.MessageFactory
 	msgRepo        repo.MessageRepository
+	otomoRepo      repo.OtomoRepository
 	converser      model.Converser
 	summarizer     model.Summarizer
 }
 
 func NewChatController(
 	errorPresenter errorPresenter,
-	chatFactory *model.ChatFactory,
 	msgFactory *model.MessageFactory,
-	chatRepo repo.ChatRepository,
 	msgRepo repo.MessageRepository,
-	chatService svc.ChatService,
-	summaryService svc.SummaryService,
-
 	otomoRepo repo.OtomoRepository,
 	converser model.Converser,
 	summarizer model.Summarizer,
 ) *ChatController {
 	return &ChatController{
 		errorPresenter: errorPresenter,
-		chatFactory:    chatFactory,
-		msgFactory:     msgFactory,
-		chatRepo:       chatRepo,
 		msgRepo:        msgRepo,
-		chatService:    chatService,
-		summaryService: summaryService,
-
-		otomoRepo:  otomoRepo,
-		converser:  converser,
-		summarizer: summarizer,
+		otomoRepo:      otomoRepo,
+		converser:      converser,
+		summarizer:     summarizer,
 	}
 }
 
@@ -197,83 +173,53 @@ func (cc *ChatController) listMessages(
 // TODO: Implement transaction
 // Deprecated: Use AskToMessage instead.
 func (cc *ChatController) SendMessage(
+	ctx context.Context,
 	req *grpcgen.ChatService_SendMessageRequest,
-	stream grpcgen.ChatService_SendMessageServer,
-) error {
-	if err := cc.sendMessage(req, stream); err != nil {
-		return cc.toGrpcError(stream.Context(), err)
+) (*grpcgen.ChatService_SendMessageResponse, error) {
+	resp, err := cc.sendMessage(ctx, req)
+	if err != nil {
+		return nil, cc.toGrpcError(ctx, err)
 	}
-	return nil
+	return resp, nil
 }
 
 func (cc *ChatController) sendMessage(
+	ctx context.Context,
 	req *grpcgen.ChatService_SendMessageRequest,
-	stream grpcgen.ChatService_SendMessageServer,
-) error {
-	var ctx = stream.Context()
-
+) (*grpcgen.ChatService_SendMessageResponse, error) {
 	if err := req.ValidateAll(); err != nil {
-		return err
+		return nil, err
 	}
+	var (
+		userID = model.UserID(req.GetUserId())
+	)
 
-	userID, err := ctxs.UserIDFromContext(ctx)
-	if err != nil {
-		return err
+	if !ctxs.UserIs(ctx, userID) {
+		return nil, &errs.Error{
+			Message: "can only send own message",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainMessage,
+			Field:   errs.FieldNone,
+		}
 	}
 
 	msg, err := cc.msgFactory.New(req.GetText(), model.UserRole)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
-		return err
+		return nil, err
 	}
 
-	chat, err := cc.chatRepo.Get(ctx, userID)
+	grpcMsg, err := conv.Message.ModelToGrpc(msg)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	reply, err := cc.chatService.Send(
-		ctx,
-		msg,
-		chat.Summary,
-		func(ctx context.Context, chunk []byte) error {
-			return stream.Send(&grpcgen.ChatService_SendMessageStreamResponse{
-				Text:   string(chunk),
-				SentAt: timestamppb.New(times.C.Now()),
-			})
-		},
-	)
-	if err != nil {
-		return err
-	}
-
-	if err := cc.msgRepo.Add(ctx, userID, reply); err != nil {
-		return err
-	}
-
-	newSummary, err := cc.summaryService.Summarize(
-		ctx, []*model.Message{msg, reply}, chat.Summary)
-	if err != nil {
-		return err
-	}
-
-	return cc.saveChat(ctx, userID, newSummary)
-}
-
-func (cc *ChatController) saveChat(
-	ctx context.Context,
-	userID model.UserID,
-	summary string,
-) error {
-	newMsgChat, err := cc.chatFactory.New(summary)
-	if err != nil {
-		return err
-	}
-
-	return cc.chatRepo.Save(ctx, userID, newMsgChat)
+	return &grpcgen.ChatService_SendMessageResponse{
+		Message: grpcMsg,
+	}, nil
 }
 
 func (cc *ChatController) saveMsgAndOtomo(
