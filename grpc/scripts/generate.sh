@@ -57,20 +57,20 @@ protoc \
 
 ### TS
 # Reference: https://qiita.com/ohs30359-nobuhara/items/f11857d5d3d9dbc6637b
-# PLUGIN_TS=$FIREBASE_DIR/functions/node_modules/.bin/protoc-gen-ts
-# PLUGIN_GRPC=$FIREBASE_DIR/functions/node_modules/.bin/grpc_tools_node_protoc_plugin
-# DIST_DIR=$FIREBASE_DIR/functions/src/protos
+PLUGIN_TS=$FIREBASE_DIR/functions/node_modules/.bin/protoc-gen-ts
+PLUGIN_GRPC=$FIREBASE_DIR/functions/node_modules/.bin/grpc_tools_node_protoc_plugin
+DIST_DIR=$FIREBASE_DIR/functions/src/protos
 
-# protoc \
-#     -I $EXCLUDED_VALIDATE_PROTOS_DIR \
-#     -I ${GOPATH}/src \
-#     -I ${PROTO_DIR} \
-#     --js_out=import_style=commonjs,binary:"${DIST_DIR}"/ \
-#     --ts_out=import_style=commonjs,binary:"${DIST_DIR}"/ \
-#     --grpc_out="${DIST_DIR}"/ \
-#     --plugin=protoc-gen-grpc="${PLUGIN_GRPC}" \
-#     --plugin=protoc-gen-ts="${PLUGIN_TS}" \
-#     $EXCLUDED_VALIDATE_PROTO_FILES
+protoc \
+    -I $EXCLUDED_VALIDATE_PROTOS_DIR \
+    -I ${GOPATH}/src \
+    -I ${PROTO_DIR} \
+    --js_out=import_style=commonjs,binary:"${DIST_DIR}"/ \
+    --ts_out=import_style=commonjs,binary:"${DIST_DIR}"/ \
+    --grpc_out="${DIST_DIR}"/ \
+    --plugin=protoc-gen-grpc="${PLUGIN_GRPC}" \
+    --plugin=protoc-gen-ts="${PLUGIN_TS}" \
+    $EXCLUDED_VALIDATE_PROTO_FILES
 
 echo "Finish generate"
 
