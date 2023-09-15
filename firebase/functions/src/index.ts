@@ -8,14 +8,13 @@ import { ChatServiceClient } from './protos/chat_service_grpc_pb';
 
 const client: ChatServiceClient = new ChatServiceClient(
   config.otomoServerHost,
-  credentials.createSsl(),
+  config.isLocal ? credentials.createInsecure() : credentials.createSsl(),
 );
 
 const metadata = new Metadata();
 const auth = Buffer.from(
   `${config.basicAuthUsername}:${config.basicAuthPassword}`).toString('base64');
 metadata.add('authorization', `basic ${auth}`);
-
 
 const chatController = new ChatController(client, metadata);
 
@@ -31,7 +30,7 @@ exports.reply = onDocumentCreated(
     const data = snapshot.data();
     if (data.role !== 'user') return;
 
-    chatController.askToMessage(data.user_id);
+    chatController.askToMessage(event.params.userId);
   }
 );
 
