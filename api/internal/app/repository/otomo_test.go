@@ -95,10 +95,6 @@ func TestOtomoRepository_Get_ShouldReturnNotFoundErr_WhenNotFound(t *testing.T) 
 	)
 
 	gotChat, err := testOtomoRepo.GetByID(giveCtx, userID)
-	if err != nil {
-		t.Fatal(err)
-	}
-
 	assert.Nil(t, gotChat)
 	assert.True(t, errs.IsNotFoundErr(err))
 }

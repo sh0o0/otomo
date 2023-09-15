@@ -42,6 +42,7 @@ const (
 const (
 	FieldNone     Field = ""
 	FieldID       Field = "id"
+	FieldUserID   Field = "user_id"
 	FieldRole     Field = "role"
 	FieldAuthRole Field = "auth_role"
 	FieldAbility  Field = "ability"
