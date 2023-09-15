@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:otomo/controllers/converter.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
-import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
+import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
 
 @injectable
 class ChatControllerImpl {
@@ -21,15 +21,18 @@ class ChatControllerImpl {
       ..pageSize = pageSize ?? 0
       ..pageStartAfterMessageId = pageStartAfterMessageId ?? '';
     final resp = await _chatService.listMessages(req);
-    return ControllerConverter.I.message
-        .grpcToEntityList(resp.messages);
+    return ControllerConverter.I.message.grpcToEntityList(resp.messages);
   }
 
-  Stream<String> sendMessage(
+  Future<TextMessage> sendMessage(
+    String userId,
     String text,
-  ) {
-    final req = ChatService_SendMessageRequest()..text = text;
-    return _chatService.sendMessage(req).map((replyChunk) => replyChunk.text);
+  ) async {
+    final req = ChatService_SendMessageRequest()
+      ..userId = userId
+      ..text = text;
+    final resp = await _chatService.sendMessage(req);
+    return ControllerConverter.I.message.grpcToEntity(resp.message);
   }
 
   Stream<List<TextMessageChangedEvent>> messageChangedEventsStream({

@@ -60,9 +60,8 @@ class Chat extends _$Chat {
     return ChatState(messages: messages);
   }
 
-  void sendMessage(String text) {
-    _chatController.sendMessage(text);
-  }
+  Future<void> sendMessage(String text) =>
+      _chatController.sendMessage(_globalState.userId!, text);
 
   Future<void> listMessagesMore() async {
     final ChatState preValue = state.value ?? const ChatState(messages: []);

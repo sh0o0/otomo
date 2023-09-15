@@ -7,7 +7,7 @@ import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/injection.config.dart';
 import 'package:otomo/controllers/id_token.dart';
-import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart';
+import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
 import 'package:otomo/grpc/generated/interceptors/logging.dart';
