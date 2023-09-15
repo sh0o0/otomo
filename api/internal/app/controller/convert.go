@@ -6,12 +6,14 @@ import (
 	"otomo/internal/pkg/errs"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 var conv = &convert{}
 
 type convert struct {
 	Message convertMessage
+	Wrapper convertWrapper
 }
 
 type convertMessage struct {
@@ -62,4 +64,15 @@ func (convertRole) ModelToGrpc(r model.Role) (grpcgen.Role, error) {
 			Field:  errs.FieldRole,
 		}
 	}
+}
+
+type convertWrapper struct{}
+
+func (convertWrapper) StringValueToPrt(
+	strVal *wrapperspb.StringValue,
+) *string {
+	if strVal == nil {
+		return nil
+	}
+	return &strVal.Value
 }

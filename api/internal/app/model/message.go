@@ -36,8 +36,8 @@ func NewMessageFactory() *MessageFactory {
 
 func (*MessageFactory) New(
 	text string,
-	clientID *string,
 	role Role,
+	clientID *string,
 ) (*Message, error) {
 	return &Message{
 		ID:       MessageID(uuid.NewString()),

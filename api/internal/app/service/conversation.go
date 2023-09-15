@@ -100,5 +100,5 @@ func (cs *ConversationService) call(
 		return nil, err
 	}
 
-	return cs.msgFactory.New(completion.GetContent(), nil, model.OtomoRole)
+	return cs.msgFactory.New(completion.GetContent(), model.OtomoRole, nil)
 }
