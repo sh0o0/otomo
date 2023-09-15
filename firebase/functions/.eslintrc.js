@@ -21,12 +21,14 @@ module.exports = {
     '/lib/**/*', // Ignore built files.
     '/node_modules/**/*',
     '/src/protos/**/*',
-    '.eslintrc.js',
   ],
   plugins: ['@typescript-eslint', 'import'],
   rules: {
-    quotes: ['error', 'single'],
+    'quotes': ['error', 'single'],
     'import/no-unresolved': 0,
-    indent: ['error', 2],
+    'indent': ['error', 2],
+    'object-curly-spacing': ['error', 'always'],
+    'require-jsdoc': 0,
+    'camelcase': 0,
   },
 };
