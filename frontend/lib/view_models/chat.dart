@@ -115,7 +115,6 @@ class Chat extends _$Chat {
 
   void _onMessageChanged(List<TextMessageChangedEvent> events) {
     for (final changedEvent in events) {
-      final messages = state.value?.messages ?? [];
       final message = changedEvent.data;
 
       switch (changedEvent.type) {
@@ -125,7 +124,11 @@ class Chat extends _$Chat {
             status: MessageStatus.sent,
             active: false,
           );
-          state = state..value?.messages.insert(0, textMessageData);
+          if (_isMessageExist(textMessageData.message.id)) {
+            _updateTextMessage(textMessageData);
+          } else {
+            _addTextMessage(textMessageData);
+          }
           break;
         case ChangedEventType.modified:
           final textMessageData = TextMessageData.fromTextMessage(
@@ -133,16 +136,10 @@ class Chat extends _$Chat {
             status: MessageStatus.sent,
             active: false,
           );
-          final index =
-              messages.indexWhere((m) => m.message.remoteId == message.id);
-          if (index == -1) return;
-          state = state..value?.messages[index] = textMessageData;
+          _updateTextMessage(textMessageData);
           break;
         case ChangedEventType.removed:
-          final index = messages
-              .indexWhere((m) => m.message.remoteId == changedEvent.messageId);
-          if (index == -1) return;
-          state = state..value!.messages.removeAt(index);
+          _removeTextMessageByRemoteId(changedEvent.messageId);
           break;
       }
     }
@@ -176,18 +173,41 @@ class Chat extends _$Chat {
     _focusedPlaceController.add(place);
   }
 
+  bool _isMessageExist(String id) {
+    final value = state.value;
+    if (value == null) return false;
+
+    return value.messages.any((m) => m.message.id == id);
+  }
+
+  int _indexOfMessage(String id) {
+    final value = state.value;
+    if (value == null) return -1;
+
+    return value.messages.indexWhere((m) => m.message.id == id);
+  }
+
+  int _indexOfMessageByRemoteId(String remoteId) {
+    final value = state.value;
+    if (value == null) return -1;
+
+    return value.messages.indexWhere((m) => m.message.remoteId == remoteId);
+  }
+
   void _addTextMessage(TextMessageData textMessage) {
-    final alreadyExist = state.value?.messages
-            .any((m) => m.message.id == textMessage.message.id) ??
-        false;
-    if (alreadyExist) return;
+    if (_isMessageExist(textMessage.message.id)) return;
     state = state..value?.messages.insert(0, textMessage);
   }
 
   void _updateTextMessage(TextMessageData textMessage) {
-    final index = state.value?.messages
-        .indexWhere((m) => m.message.id == textMessage.message.id);
-    if (index == null || index == -1) return;
+    final index = _indexOfMessage(textMessage.message.id);
+    if (index == -1) return;
     state = state..value?.messages[index] = textMessage;
+  }
+
+  void _removeTextMessageByRemoteId(String remoteId) {
+    final index = _indexOfMessageByRemoteId(remoteId);
+    if (index == -1) return;
+    state = state..value?.messages.removeAt(index);
   }
 }
