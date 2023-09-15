@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: chat_service_service.proto
+//  source: chat_service.proto
 //
 // @dart = 2.12
 
@@ -17,29 +17,30 @@ import 'dart:typed_data' as $typed_data;
 const ChatService_SendMessageRequest$json = {
   '1': 'ChatService_SendMessageRequest',
   '2': [
-    {'1': 'text', '3': 1, '4': 1, '5': 9, '8': {}, '10': 'text'},
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '8': {}, '10': 'userId'},
+    {'1': 'text', '3': 2, '4': 1, '5': 9, '8': {}, '10': 'text'},
+    {'1': 'client_id', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
   ],
 };
 
 /// Descriptor for `ChatService_SendMessageRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List chatService_SendMessageRequestDescriptor = $convert.base64Decode(
-    'Ch5DaGF0U2VydmljZV9TZW5kTWVzc2FnZVJlcXVlc3QSIwoEdGV4dBgBIAEoCUIP+kIEcgIQAf'
-    'pCBXIDGJBOUgR0ZXh0');
+    'Ch5DaGF0U2VydmljZV9TZW5kTWVzc2FnZVJlcXVlc3QSIAoHdXNlcl9pZBgBIAEoCUIH+kIEcg'
+    'IQAVIGdXNlcklkEiMKBHRleHQYAiABKAlCD/pCBHICEAH6QgVyAxiQTlIEdGV4dBI5CgljbGll'
+    'bnRfaWQYAyABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWVSCGNsaWVudElk');
 
-@$core.Deprecated('Use chatService_SendMessageStreamResponseDescriptor instead')
-const ChatService_SendMessageStreamResponse$json = {
-  '1': 'ChatService_SendMessageStreamResponse',
+@$core.Deprecated('Use chatService_SendMessageResponseDescriptor instead')
+const ChatService_SendMessageResponse$json = {
+  '1': 'ChatService_SendMessageResponse',
   '2': [
-    {'1': 'text', '3': 1, '4': 1, '5': 9, '10': 'text'},
-    {'1': 'sent_at', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sentAt'},
+    {'1': 'message', '3': 1, '4': 1, '5': 11, '6': '.Message', '10': 'message'},
   ],
 };
 
-/// Descriptor for `ChatService_SendMessageStreamResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List chatService_SendMessageStreamResponseDescriptor = $convert.base64Decode(
-    'CiVDaGF0U2VydmljZV9TZW5kTWVzc2FnZVN0cmVhbVJlc3BvbnNlEhIKBHRleHQYASABKAlSBH'
-    'RleHQSMwoHc2VudF9hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSBnNlbnRB'
-    'dA==');
+/// Descriptor for `ChatService_SendMessageResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_SendMessageResponseDescriptor = $convert.base64Decode(
+    'Ch9DaGF0U2VydmljZV9TZW5kTWVzc2FnZVJlc3BvbnNlEiIKB21lc3NhZ2UYASABKAsyCC5NZX'
+    'NzYWdlUgdtZXNzYWdl');
 
 @$core.Deprecated('Use chatService_ListMessagesRequestDescriptor instead')
 const ChatService_ListMessagesRequest$json = {
@@ -70,4 +71,30 @@ const ChatService_ListMessagesResponse$json = {
 final $typed_data.Uint8List chatService_ListMessagesResponseDescriptor = $convert.base64Decode(
     'CiBDaGF0U2VydmljZV9MaXN0TWVzc2FnZXNSZXNwb25zZRIbCglwYWdlX3NpemUYASABKA1SCH'
     'BhZ2VTaXplEiQKCG1lc3NhZ2VzGAMgAygLMgguTWVzc2FnZVIIbWVzc2FnZXM=');
+
+@$core.Deprecated('Use chatService_AskToMessageRequestDescriptor instead')
+const ChatService_AskToMessageRequest$json = {
+  '1': 'ChatService_AskToMessageRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '8': {}, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `ChatService_AskToMessageRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_AskToMessageRequestDescriptor = $convert.base64Decode(
+    'Ch9DaGF0U2VydmljZV9Bc2tUb01lc3NhZ2VSZXF1ZXN0EiAKB3VzZXJfaWQYASABKAlCB/pCBH'
+    'ICEAFSBnVzZXJJZA==');
+
+@$core.Deprecated('Use chatService_AskToMessageResponseDescriptor instead')
+const ChatService_AskToMessageResponse$json = {
+  '1': 'ChatService_AskToMessageResponse',
+  '2': [
+    {'1': 'message', '3': 1, '4': 1, '5': 11, '6': '.Message', '10': 'message'},
+  ],
+};
+
+/// Descriptor for `ChatService_AskToMessageResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_AskToMessageResponseDescriptor = $convert.base64Decode(
+    'CiBDaGF0U2VydmljZV9Bc2tUb01lc3NhZ2VSZXNwb25zZRIiCgdtZXNzYWdlGAEgASgLMgguTW'
+    'Vzc2FnZVIHbWVzc2FnZQ==');
 

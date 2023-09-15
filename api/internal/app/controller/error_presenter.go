@@ -52,6 +52,8 @@ func (pr errorPresenter) getCodeFromErrsErr(errsErr *errs.Error) codes.Code {
 		code = codes.Unknown
 	case errs.CauseNotExist:
 		code = codes.Internal
+	case errs.CausePermissionDenied:
+		code = codes.PermissionDenied
 	}
 
 	return code

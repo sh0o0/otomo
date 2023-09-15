@@ -52,6 +52,7 @@ protoc \
     --dart_out=grpc:$FRONTEND_DIR/lib/grpc/generated/ \
     ${PROTO_DIR}/google/protobuf/timestamp.proto \
     ${PROTO_DIR}/google/protobuf/empty.proto \
+    ${PROTO_DIR}/google/protobuf/wrappers.proto \
     $PROTO_FILES
 
 ### TS

@@ -40,6 +40,7 @@ class IdTokenControllerImpl implements IdTokenController {
 
     final idTokenResult = await user.getIdTokenResult();
     _idToken = idTokenResult.token;
+    logger.debug(_idToken!);
     logger.info('refreshed id token');
 
     _setRefreshTimer(idTokenResult.expirationTime);

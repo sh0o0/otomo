@@ -20,7 +20,7 @@ import 'package:otomo/controllers/boundary/id_token.dart' as _i9;
 import 'package:otomo/controllers/chat.dart' as _i13;
 import 'package:otomo/controllers/location.dart' as _i10;
 import 'package:otomo/controllers/sign_in.dart' as _i11;
-import 'package:otomo/grpc/generated/chat_service_service.pbgrpc.dart' as _i3;
+import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart' as _i3;
 import 'package:otomo/grpc/generated/health.pbgrpc.dart' as _i8;
 import 'package:otomo/tools/global_state.dart' as _i6;
 

@@ -25,6 +25,7 @@ class _Message {
       text: message.text,
       role: _role.grpcToEntity(message.role),
       sentAt: message.sentAt.toDateTime(),
+      clientId: message.clientId.hasValue() ? message.clientId.value : null,
     );
   }
 

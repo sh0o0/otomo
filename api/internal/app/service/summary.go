@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"otomo/internal/app/controller/svc"
+	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/errs"
 
@@ -37,6 +37,7 @@ New summary:`
 )
 
 var _ svc.SummaryService = (*SummaryService)(nil)
+var _ model.Summarizer = (*SummaryService)(nil)
 
 // TODO: Add tests
 type SummaryService struct {

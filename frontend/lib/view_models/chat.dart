@@ -8,6 +8,7 @@ import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
+import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -60,8 +61,31 @@ class Chat extends _$Chat {
     return ChatState(messages: messages);
   }
 
-  void sendMessage(String text) {
-    _chatController.sendMessage(text);
+  Future<void> sendMessage(String text) async {
+    final clientId = uuid();
+    final newTextMessageData = TextMessageData(
+      message: MessageData(
+        id: clientId,
+        author: Author.fromRole(Role.user),
+        sentAt: DateTime.now(),
+        status: MessageStatus.sending,
+        active: false,
+      ),
+      text: text,
+    );
+
+    _addTextMessage(newTextMessageData);
+
+    final respTextMessage = await _chatController.sendMessage(
+      userId: _globalState.userId!,
+      text: text,
+      clientId: clientId,
+    );
+
+    final respTextMessageData = TextMessageData.fromTextMessage(respTextMessage,
+        status: MessageStatus.sent);
+
+    _updateTextMessage(respTextMessageData);
   }
 
   Future<void> listMessagesMore() async {
@@ -91,7 +115,6 @@ class Chat extends _$Chat {
 
   void _onMessageChanged(List<TextMessageChangedEvent> events) {
     for (final changedEvent in events) {
-      final messages = state.value?.messages ?? [];
       final message = changedEvent.data;
 
       switch (changedEvent.type) {
@@ -101,7 +124,11 @@ class Chat extends _$Chat {
             status: MessageStatus.sent,
             active: false,
           );
-          state = state..value?.messages.insert(0, textMessageData);
+          if (_isMessageExist(textMessageData.message.id)) {
+            _updateTextMessage(textMessageData);
+          } else {
+            _addTextMessage(textMessageData);
+          }
           break;
         case ChangedEventType.modified:
           final textMessageData = TextMessageData.fromTextMessage(
@@ -109,16 +136,10 @@ class Chat extends _$Chat {
             status: MessageStatus.sent,
             active: false,
           );
-          final index =
-              messages.indexWhere((m) => m.message.remoteId == message.id);
-          if (index == -1) return;
-          state = state..value?.messages[index] = textMessageData;
+          _updateTextMessage(textMessageData);
           break;
         case ChangedEventType.removed:
-          final index = messages
-              .indexWhere((m) => m.message.remoteId == changedEvent.messageId);
-          if (index == -1) return;
-          state = state..value!.messages.removeAt(index);
+          _removeTextMessageByRemoteId(changedEvent.messageId);
           break;
       }
     }
@@ -150,5 +171,43 @@ class Chat extends _$Chat {
 
   void focusPlace(Place place) {
     _focusedPlaceController.add(place);
+  }
+
+  bool _isMessageExist(String id) {
+    final value = state.value;
+    if (value == null) return false;
+
+    return value.messages.any((m) => m.message.id == id);
+  }
+
+  int _indexOfMessage(String id) {
+    final value = state.value;
+    if (value == null) return -1;
+
+    return value.messages.indexWhere((m) => m.message.id == id);
+  }
+
+  int _indexOfMessageByRemoteId(String remoteId) {
+    final value = state.value;
+    if (value == null) return -1;
+
+    return value.messages.indexWhere((m) => m.message.remoteId == remoteId);
+  }
+
+  void _addTextMessage(TextMessageData textMessage) {
+    if (_isMessageExist(textMessage.message.id)) return;
+    state = state..value?.messages.insert(0, textMessage);
+  }
+
+  void _updateTextMessage(TextMessageData textMessage) {
+    final index = _indexOfMessage(textMessage.message.id);
+    if (index == -1) return;
+    state = state..value?.messages[index] = textMessage;
+  }
+
+  void _removeTextMessageByRemoteId(String remoteId) {
+    final index = _indexOfMessageByRemoteId(remoteId);
+    if (index == -1) return;
+    state = state..value?.messages.removeAt(index);
   }
 }

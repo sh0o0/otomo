@@ -115,20 +115,19 @@ func newServer() (*grpc.Server, error) {
 
 	// factories
 	var (
-		chatFactory    = model.NewChatFactory()
-		messageFactory = model.NewMessageFactory()
+		msgFactory = model.NewMessageFactory()
 	)
 
 	// repositories
 	var (
-		chatRepo = repository.NewChatRepository(fsClient)
-		msgRepo  = repository.NewMessageRepository(fsClient)
+		msgRepo   = repository.NewMessageRepository(fsClient)
+		otomoRepo = repository.NewOtomoRepository(fsClient)
 	)
 
 	// services
 	var (
-		chatService    = service.NewChatService(chat)
-		summaryService = service.NewSummaryService(chat)
+		summaryService      = service.NewSummaryService(chat)
+		conversationService = service.NewConversationService(chat)
 	)
 
 	var (
@@ -138,11 +137,10 @@ func newServer() (*grpc.Server, error) {
 		)
 		chatCtrl = controller.NewChatController(
 			errorPresenter,
-			chatFactory,
-			messageFactory,
-			chatRepo,
+			msgFactory,
 			msgRepo,
-			chatService,
+			otomoRepo,
+			conversationService,
 			summaryService,
 		)
 	)
