@@ -4,7 +4,7 @@ import {
 import { Metadata, credentials } from '@grpc/grpc-js';
 import { config } from './config/config';
 import { ChatController } from './controller/chat';
-import { ChatServiceClient } from './protos/chat_service';
+import { ChatServiceClient } from './protos/chat_service_grpc_pb';
 
 const client: ChatServiceClient = new ChatServiceClient(
   config.otomoServerHost,
