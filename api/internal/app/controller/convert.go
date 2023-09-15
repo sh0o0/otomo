@@ -17,7 +17,8 @@ type convert struct {
 }
 
 type convertMessage struct {
-	Role convertRole
+	Role    convertRole
+	Wrapper convertWrapper
 }
 
 func (cm convertMessage) ModelToGrpcList(
@@ -42,10 +43,11 @@ func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, erro
 	}
 
 	return &grpcgen.Message{
-		Id:     string(msg.ID),
-		Text:   msg.Text,
-		Role:   role,
-		SentAt: timestamppb.New(msg.SentAt),
+		Id:       string(msg.ID),
+		Text:     msg.Text,
+		Role:     role,
+		SentAt:   timestamppb.New(msg.SentAt),
+		ClientId: cm.Wrapper.StringPtrToStringValue(msg.ClientID),
 	}, nil
 }
 
@@ -68,11 +70,20 @@ func (convertRole) ModelToGrpc(r model.Role) (grpcgen.Role, error) {
 
 type convertWrapper struct{}
 
-func (convertWrapper) StringValueToPrt(
+func (convertWrapper) StringValueToPtr(
 	strVal *wrapperspb.StringValue,
 ) *string {
 	if strVal == nil {
 		return nil
 	}
 	return &strVal.Value
+}
+
+func (convertWrapper) StringPtrToStringValue(
+	strPtr *string,
+) *wrapperspb.StringValue {
+	if strPtr == nil {
+		return nil
+	}
+	return &wrapperspb.StringValue{Value: *strPtr}
 }

@@ -206,7 +206,7 @@ func (cc *ChatController) sendMessage(
 	msg, err := cc.msgFactory.New(
 		req.GetText(),
 		model.UserRole,
-		conv.Wrapper.StringValueToPrt(req.ClientId),
+		conv.Wrapper.StringValueToPtr(req.ClientId),
 	)
 	if err != nil {
 		return nil, err
