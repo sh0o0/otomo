@@ -282,11 +282,23 @@ func (cc *ChatController) saveMsgAndOtomo(
 	msg *model.Message,
 	otomo *model.Otomo,
 ) error {
-	// TODO: Impl transaction
-	if err := cc.otomoRepo.Save(ctx, otomo); err != nil {
+	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
 		return err
 	}
-	return cc.msgRepo.Add(ctx, userID, msg)
+	if err := cc.otomoRepo.Save(ctx, otomo); err != nil {
+		if err := cc.msgRepo.DeleteByIDAndUserID(
+			ctx, userID, msg.ID); err != nil {
+
+			return &errs.Error{
+				Message: "Failed rollback. ERROR: " + err.Error(),
+				Cause:   errs.CauseInternal,
+				Domain:  errs.DomainMessage,
+				Field:   errs.FieldNone,
+			}
+		}
+		return err
+	}
+	return nil
 }
 
 func (cc *ChatController) toGrpcMessages(
