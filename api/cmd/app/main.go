@@ -121,8 +121,9 @@ func newServer() (*grpc.Server, error) {
 
 	// repositories
 	var (
-		chatRepo = repository.NewChatRepository(fsClient)
-		msgRepo  = repository.NewMessageRepository(fsClient)
+		chatRepo  = repository.NewChatRepository(fsClient)
+		msgRepo   = repository.NewMessageRepository(fsClient)
+		otomoRepo = repository.NewOtomoRepository(fsClient)
 	)
 
 	// services
@@ -145,7 +146,7 @@ func newServer() (*grpc.Server, error) {
 			msgRepo,
 			chatService,
 			summaryService,
-			nil, // FIXME: Add otomoRepo
+			otomoRepo,
 			conversationService,
 			summaryService,
 		)
