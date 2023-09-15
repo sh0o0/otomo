@@ -8,6 +8,7 @@ import (
 //go:generate mockgen -source=$GOFILE -destination=mock_$GOPACKAGE/$GOFILE -package=mock_$GOPACKAGE
 
 type MessageRepository interface {
+	Last(ctx context.Context, userID model.UserID) (*model.Message, error)
 	Add(ctx context.Context, userID model.UserID, msg *model.Message) error
 	DeleteByIDAndUserID(
 		ctx context.Context,
