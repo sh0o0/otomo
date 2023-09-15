@@ -21,15 +21,20 @@ import (
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
 
 type ChatController struct {
-	chatFactory    *model.ChatFactory
-	msgFactory     *model.MessageFactory
-	chatRepo       repo.ChatRepository
-	msgRepo        repo.MessageRepository
-	chatService    svc.ChatService
+	// Deprecated: Don't use this field.
+	chatFactory *model.ChatFactory
+	// Deprecated: Don't use this field.
+	msgFactory *model.MessageFactory
+	// Deprecated: Don't use this field.
+	chatRepo repo.ChatRepository
+	// Deprecated: Don't use this field.
+	chatService svc.ChatService
+	// Deprecated: Don't use this field.
 	summaryService svc.SummaryService
 
 	errorPresenter errorPresenter
 	otomoRepo      repo.OtomoRepository
+	msgRepo        repo.MessageRepository
 	converser      model.Converser
 	summarizer     model.Summarizer
 }
@@ -62,7 +67,128 @@ func NewChatController(
 	}
 }
 
+func (cc *ChatController) AskToMessage(
+	context context.Context,
+	req *grpcgen.ChatService_AskToMessageRequest,
+) (*grpcgen.ChatService_AskToMessageResponse, error) {
+	res, err := cc.askToMessage(context, req)
+	if err != nil {
+		return nil, cc.toGrpcError(context, err)
+	}
+	return res, nil
+}
+
+func (cc *ChatController) askToMessage(
+	context context.Context,
+	req *grpcgen.ChatService_AskToMessageRequest,
+) (*grpcgen.ChatService_AskToMessageResponse, error) {
+	if err := req.ValidateAll(); err != nil {
+		return nil, err
+	}
+
+	var (
+		userID = model.UserID(req.GetUserId())
+	)
+
+	if !ctxs.AuthRoleIs(context, model.AdminAuthRole) {
+		return nil, &errs.Error{
+			Message: "Only admin role can access this method",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainAuth,
+			Field:   errs.FieldAuthRole,
+		}
+	}
+
+	lastMsg, err := cc.msgRepo.Last(context, userID)
+	if err != nil {
+		return nil, err
+	}
+
+	otomo, err := cc.otomoRepo.GetByID(context, userID)
+	if err != nil {
+		return nil, err
+	}
+	otomo = otomo.WithConverser(cc.converser).WithSummarizer(cc.summarizer)
+
+	var (
+		updatedOtomo *model.Otomo
+		newMsg       *model.Message
+		convErr      error
+	)
+
+	if lastMsg.RoleIs(model.UserRole) {
+		updatedOtomo, newMsg, convErr = otomo.Respond(context, lastMsg)
+	} else {
+		updatedOtomo, newMsg, convErr = otomo.Message(context)
+	}
+	if convErr != nil {
+		return nil, convErr
+	}
+
+	if err := cc.saveMsgAndOtomo(
+		context, userID, newMsg, updatedOtomo); err != nil {
+		return nil, err
+	}
+
+	resMsg, err := cc.toGrpcMessage(newMsg)
+	if err != nil {
+		return nil, err
+	}
+
+	return &grpcgen.ChatService_AskToMessageResponse{
+		Message: resMsg,
+	}, nil
+}
+
+func (cc *ChatController) ListMessages(
+	ctx context.Context,
+	req *grpcgen.ChatService_ListMessagesRequest,
+) (*grpcgen.ChatService_ListMessagesResponse, error) {
+	res, err := cc.listMessages(ctx, req)
+	if err != nil {
+		return nil, cc.toGrpcError(ctx, err)
+	}
+
+	return res, nil
+}
+
+func (cc *ChatController) listMessages(
+	ctx context.Context,
+	req *grpcgen.ChatService_ListMessagesRequest,
+) (*grpcgen.ChatService_ListMessagesResponse, error) {
+	if err := req.ValidateAll(); err != nil {
+		return nil, err
+	}
+
+	if !ctxs.UserIs(ctx, model.UserID(req.UserId)) {
+		return nil, status.New(codes.PermissionDenied, "can only get own list").Err()
+	}
+
+	msgs, err := cc.msgRepo.List(
+		ctx,
+		model.UserID(req.GetUserId()),
+		&repo.MessagePage{
+			Size: int(req.GetPageSize()),
+			StartAfterMessageID: model.MessageID(
+				req.GetPageStartAfterMessageId()),
+		})
+	if err != nil {
+		return nil, err
+	}
+
+	resMsgs, err := cc.toGrpcMessages(msgs)
+	if err != nil {
+		return nil, err
+	}
+
+	return &grpcgen.ChatService_ListMessagesResponse{
+		PageSize: uint32(len(resMsgs)),
+		Messages: resMsgs,
+	}, nil
+}
+
 // TODO: Implement transaction
+// Deprecated: Use AskToMessage instead.
 func (cc *ChatController) SendMessage(
 	req *grpcgen.ChatService_SendMessageRequest,
 	stream grpcgen.ChatService_SendMessageServer,
@@ -143,51 +269,17 @@ func (cc *ChatController) saveChat(
 	return cc.chatRepo.Save(ctx, userID, newMsgChat)
 }
 
-func (cc *ChatController) ListMessages(
+func (cc *ChatController) saveMsgAndOtomo(
 	ctx context.Context,
-	req *grpcgen.ChatService_ListMessagesRequest,
-) (*grpcgen.ChatService_ListMessagesResponse, error) {
-	res, err := cc.listMessages(ctx, req)
-	if err != nil {
-		return nil, cc.toGrpcError(ctx, err)
+	userID model.UserID,
+	msg *model.Message,
+	otomo *model.Otomo,
+) error {
+	// TODO: Impl transaction
+	if err := cc.otomoRepo.Save(ctx, otomo); err != nil {
+		return err
 	}
-
-	return res, nil
-}
-
-func (cc *ChatController) listMessages(
-	ctx context.Context,
-	req *grpcgen.ChatService_ListMessagesRequest,
-) (*grpcgen.ChatService_ListMessagesResponse, error) {
-	if err := req.ValidateAll(); err != nil {
-		return nil, err
-	}
-
-	if !ctxs.UserIs(ctx, model.UserID(req.UserId)) {
-		return nil, status.New(codes.PermissionDenied, "can only get own list").Err()
-	}
-
-	msgs, err := cc.msgRepo.List(
-		ctx,
-		model.UserID(req.GetUserId()),
-		&repo.MessagePage{
-			Size: int(req.GetPageSize()),
-			StartAfterMessageID: model.MessageID(
-				req.GetPageStartAfterMessageId()),
-		})
-	if err != nil {
-		return nil, err
-	}
-
-	resMsgs, err := cc.toGrpcMessages(msgs)
-	if err != nil {
-		return nil, err
-	}
-
-	return &grpcgen.ChatService_ListMessagesResponse{
-		PageSize: uint32(len(resMsgs)),
-		Messages: resMsgs,
-	}, nil
+	return cc.msgRepo.Add(ctx, userID, msg)
 }
 
 func (cc *ChatController) toGrpcMessages(
@@ -238,90 +330,4 @@ func toGrpcRole(r model.Role) (role grpcgen.Role, err error) {
 
 func (cc *ChatController) toGrpcError(ctx context.Context, err error) error {
 	return cc.errorPresenter.ErrorOutput(ctx, err).Err()
-}
-
-func (cc *ChatController) AskToMessage(
-	context context.Context,
-	req *grpcgen.ChatService_AskToMessageRequest,
-) (*grpcgen.ChatService_AskToMessageResponse, error) {
-	res, err := cc.askToMessage(context, req)
-	if err != nil {
-		return nil, cc.toGrpcError(context, err)
-	}
-	return res, nil
-}
-
-func (cc *ChatController) askToMessage(
-	context context.Context,
-	req *grpcgen.ChatService_AskToMessageRequest,
-) (*grpcgen.ChatService_AskToMessageResponse, error) {
-	if err := req.ValidateAll(); err != nil {
-		return nil, err
-	}
-
-	var (
-		userID = model.UserID(req.GetUserId())
-	)
-
-	if !ctxs.AuthRoleIs(context, model.AdminAuthRole) {
-		return nil, &errs.Error{
-			Message: "Only admin role can access this method",
-			Cause:   errs.CausePermissionDenied,
-			Domain:  errs.DomainAuth,
-			Field:   errs.FieldAuthRole,
-		}
-	}
-
-	lastMsg, err := cc.msgRepo.Last(context, userID)
-	if err != nil {
-		return nil, err
-	}
-
-	otomo, err := cc.otomoRepo.GetByID(context, userID)
-	if err != nil {
-		return nil, err
-	}
-	otomo = otomo.WithConverser(cc.converser).WithSummarizer(cc.summarizer)
-
-	var (
-		updatedOtomo *model.Otomo
-		newMsg       *model.Message
-		convErr      error
-	)
-
-	if lastMsg.RoleIs(model.UserRole) {
-		updatedOtomo, newMsg, convErr = otomo.Respond(context, lastMsg)
-	} else {
-		updatedOtomo, newMsg, convErr = otomo.Message(context)
-	}
-	if convErr != nil {
-		return nil, convErr
-	}
-
-	if err := cc.saveMsgAndOtomo(
-		context, userID, newMsg, updatedOtomo); err != nil {
-		return nil, err
-	}
-
-	resMsg, err := cc.toGrpcMessage(newMsg)
-	if err != nil {
-		return nil, err
-	}
-
-	return &grpcgen.ChatService_AskToMessageResponse{
-		Message: resMsg,
-	}, nil
-}
-
-func (cc *ChatController) saveMsgAndOtomo(
-	ctx context.Context,
-	userID model.UserID,
-	msg *model.Message,
-	otomo *model.Otomo,
-) error {
-	// TODO: Impl transaction
-	if err := cc.otomoRepo.Save(ctx, otomo); err != nil {
-		return err
-	}
-	return cc.msgRepo.Add(ctx, userID, msg)
 }

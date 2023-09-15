@@ -127,8 +127,9 @@ func newServer() (*grpc.Server, error) {
 
 	// services
 	var (
-		chatService    = service.NewChatService(chat)
-		summaryService = service.NewSummaryService(chat)
+		chatService         = service.NewChatService(chat)
+		summaryService      = service.NewSummaryService(chat)
+		conversationService = service.NewConversationService(chat)
 	)
 
 	var (
@@ -143,6 +144,9 @@ func newServer() (*grpc.Server, error) {
 			chatRepo,
 			msgRepo,
 			chatService,
+			summaryService,
+			nil, // FIXME: Add otomoRepo
+			conversationService,
 			summaryService,
 		)
 	)
