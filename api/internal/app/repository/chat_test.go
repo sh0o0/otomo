@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var chatRepo = NewChatRepository(systemtest.FirestoreClient)
+var testChatRepo = NewChatRepository(systemtest.FirestoreClient)
 
 func TestChatRepository_Save_ShouldAddChat_WhenArgsAreValid(t *testing.T) {
 	var (
@@ -20,7 +20,7 @@ func TestChatRepository_Save_ShouldAddChat_WhenArgsAreValid(t *testing.T) {
 		giveChat   = testmodel.DefaultTestChatFactory.Fake()
 	)
 
-	if err := chatRepo.Save(giveCtx, giveUserID, giveChat); err != nil {
+	if err := testChatRepo.Save(giveCtx, giveUserID, giveChat); err != nil {
 		t.Fatal(err)
 	}
 
@@ -46,11 +46,11 @@ func TestChatRepository_Get_ShouldGetChat_WhenFoundChat(t *testing.T) {
 		chat    = testmodel.DefaultTestChatFactory.Fake()
 	)
 
-	if err := chatRepo.Save(giveCtx, userID, chat); err != nil {
+	if err := testChatRepo.Save(giveCtx, userID, chat); err != nil {
 		t.Fatal(err)
 	}
 
-	gotChat, err := chatRepo.Get(giveCtx, userID)
+	gotChat, err := testChatRepo.Get(giveCtx, userID)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,7 +65,7 @@ func TestChatRepository_Get_ShouldGetEmptyChat_WhenNotFoundChat(t *testing.T) {
 		wantChat = &model.Chat{}
 	)
 
-	gotChat, err := chatRepo.Get(giveCtx, userID)
+	gotChat, err := testChatRepo.Get(giveCtx, userID)
 	if err != nil {
 		t.Fatal(err)
 	}

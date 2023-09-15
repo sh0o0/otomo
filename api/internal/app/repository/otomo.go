@@ -20,6 +20,15 @@ func NewOtomoRepository(fsClient *firestore.Client) *OtomoRepository {
 	}
 }
 
+func (or *OtomoRepository) Save(
+	ctx context.Context,
+	otomo *model.Otomo,
+) error {
+	doc := or.getDoc(ctx, otomo.UserID)
+	_, err := doc.Set(ctx, otomo)
+	return err
+}
+
 func (or *OtomoRepository) GetByID(
 	ctx context.Context,
 	id model.UserID,
@@ -27,9 +36,9 @@ func (or *OtomoRepository) GetByID(
 	panic("not implemented") // TODO: Implement
 }
 
-func (or *OtomoRepository) Save(
+func (r *OtomoRepository) getDoc(
 	ctx context.Context,
-	otomo *model.Otomo,
-) error {
-	panic("not implemented") // TODO: Implement
+	userID model.UserID,
+) *firestore.DocumentRef {
+	return r.fsClient.Doc(getOtomoDocPath(userID))
 }

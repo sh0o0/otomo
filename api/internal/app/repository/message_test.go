@@ -18,7 +18,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-var msgRepo = NewMessageRepository(systemtest.FirestoreClient)
+var testMsgRepo = NewMessageRepository(systemtest.FirestoreClient)
 
 func TestMessageRepository_Last_ShouldGetLastMsg_WhenArgsAreValid(t *testing.T) {
 	var (
@@ -27,11 +27,11 @@ func TestMessageRepository_Last_ShouldGetLastMsg_WhenArgsAreValid(t *testing.T) 
 		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.UserRole)
 	)
 
-	if err := msgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
+	if err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
 		t.Fatal(err)
 	}
 
-	gotMsg, err := msgRepo.Last(giveCtx, giveUserID)
+	gotMsg, err := testMsgRepo.Last(giveCtx, giveUserID)
 
 	assert.NoError(t, err)
 	assert.Equal(t, giveMsg, gotMsg)
@@ -43,7 +43,7 @@ func TestMessageRepository_Last_ShouldReturnErr_WhenThereIsNo(t *testing.T) {
 		giveUserID = model.UserID(uuid.NewString())
 	)
 
-	_, err := msgRepo.Last(giveCtx, giveUserID)
+	_, err := testMsgRepo.Last(giveCtx, giveUserID)
 
 	assert.True(t, errs.IsNotFoundErr(err))
 }
@@ -55,7 +55,7 @@ func TestMessageRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.OtomoRole)
 	)
 
-	if err := msgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
+	if err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
 		t.Fatal(err)
 	}
 
@@ -81,10 +81,10 @@ func TestMessageRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T)
 		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.OtomoRole)
 	)
 
-	if err := msgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
+	if err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
 		t.Fatal(err)
 	}
-	err := msgRepo.Add(giveCtx, giveUserID, giveMsg)
+	err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg)
 	assert.Error(t, err)
 }
 
@@ -95,10 +95,10 @@ func TestMessageRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *
 		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.OtomoRole)
 	)
 
-	if err := msgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
+	if err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
 		t.Fatal(err)
 	}
-	if err := msgRepo.DeleteByIDAndUserID(
+	if err := testMsgRepo.DeleteByIDAndUserID(
 		giveCtx, giveUserID, giveMsg.ID); err != nil {
 		t.Fatal(err)
 	}
@@ -116,7 +116,7 @@ func TestMessageRepository_DeleteByIDAndUserID_ShouldReturnNotFoundErr_WhenDelet
 		giveMsgID  = model.MessageID(uuid.NewString())
 	)
 
-	err := msgRepo.DeleteByIDAndUserID(
+	err := testMsgRepo.DeleteByIDAndUserID(
 		giveCtx,
 		giveUserID,
 		giveMsgID,
@@ -140,7 +140,7 @@ func TestMessageRepository_List(t *testing.T) {
 			SentAt(times.C.Now().Add(time.Second * time.Duration(i)))
 		descBySentAtMsgs[messagesCount-i-1] = msgs[i]
 
-		err := msgRepo.Add(context.TODO(), userID, msgs[i])
+		err := testMsgRepo.Add(context.TODO(), userID, msgs[i])
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -215,7 +215,7 @@ func TestMessageRepository_List(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			r := msgRepo
+			r := testMsgRepo
 			got, err := r.List(tt.args.ctx, tt.args.userID, tt.args.page)
 			if (err != nil) != tt.wantIsErr {
 				t.Errorf("MessageRepository.List() error = %v, wantIsErr %v", err, tt.wantIsErr)
