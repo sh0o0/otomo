@@ -58,6 +58,7 @@ protoc \
 ### TS
 # Reference: https://qiita.com/ohs30359-nobuhara/items/f11857d5d3d9dbc6637b
 PLUGIN_TS=$FIREBASE_DIR/functions/node_modules/.bin/protoc-gen-ts
+PLUGIN_JS=$FIREBASE_DIR/functions/node_modules/.bin/protoc-gen-js
 PLUGIN_GRPC=$FIREBASE_DIR/functions/node_modules/.bin/grpc_tools_node_protoc_plugin
 DIST_DIR=$FIREBASE_DIR/functions/src/protos
 
@@ -65,10 +66,12 @@ protoc \
     -I $EXCLUDED_VALIDATE_PROTOS_DIR \
     -I ${GOPATH}/src \
     -I ${PROTO_DIR} \
-    --ts_out=import_style=commonjs,binary:"${DIST_DIR}"/ \
-    --grpc_out="${DIST_DIR}"/ \
-    --plugin=protoc-gen-grpc="${PLUGIN_GRPC}" \
     --plugin=protoc-gen-ts="${PLUGIN_TS}" \
+    --plugin=protoc-gen-js="${PLUGIN_JS}" \
+    --plugin=protoc-gen-grpc="${PLUGIN_GRPC}" \
+    --js_out="import_style=commonjs,binary:${DIST_DIR}" \
+    --ts_out="service=grpc-node,mode=grpc-js:${DIST_DIR}" \
+    --grpc_out="grpc_js:${DIST_DIR}" \
     $EXCLUDED_VALIDATE_PROTO_FILES
 
 echo "Finish generate"
