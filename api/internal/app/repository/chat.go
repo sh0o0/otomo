@@ -59,5 +59,6 @@ func (r *ChatRepository) getDoc(
 	ctx context.Context,
 	userID model.UserID,
 ) *firestore.DocumentRef {
-	return r.fsClient.Doc(getChatDocPath(userID))
+	// return r.fsClient.Doc(getChatDocPath(userID))
+	panic("not implemented")
 }

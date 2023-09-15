@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_getChatDocPath(t *testing.T) {
+func Test_getOtomoDocPath(t *testing.T) {
 	type args struct {
 		userID model.UserID
 	}
@@ -19,18 +19,18 @@ func Test_getChatDocPath(t *testing.T) {
 	}{
 		{
 			name: testutil.JoinStrings(
-				"should return `versions/1/chats/test`",
+				"should return `versions/1/otomos/test`",
 				"when give `test`",
 			),
 			args: args{userID: "test"},
-			want: "versions/1/chats/test",
+			want: "versions/1/otomos/test",
 		},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := getChatDocPath(tt.args.userID)
+			got := getOtomoDocPath(tt.args.userID)
 			assert.Exactly(t, tt.want, got)
 		})
 	}
@@ -58,7 +58,7 @@ func Test_getChatMessagesColPath(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := getChatMessagesColPath(tt.args.userID)
+			got := getMessagesColPath(tt.args.userID)
 			assert.Exactly(t, tt.want, got)
 		})
 	}
@@ -87,7 +87,7 @@ func Test_getChatMessageDocPath(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := getChatMessageDocPath(tt.args.userID, tt.args.messageID)
+			got := getMessageDocPath(tt.args.userID, tt.args.messageID)
 			assert.Exactly(t, tt.want, got)
 		})
 	}
