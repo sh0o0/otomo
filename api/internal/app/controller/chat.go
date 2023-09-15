@@ -137,7 +137,7 @@ func (cc *ChatController) askToMessage(
 		return nil, err
 	}
 
-	resMsg, err := cc.toGrpcMessage(newMsg)
+	resMsg, err := conv.Message.ModelToGrpc(newMsg)
 	if err != nil {
 		return nil, err
 	}
@@ -183,7 +183,7 @@ func (cc *ChatController) listMessages(
 		return nil, err
 	}
 
-	resMsgs, err := cc.toGrpcMessages(msgs)
+	resMsgs, err := conv.Message.ModelToGrpcList(msgs)
 	if err != nil {
 		return nil, err
 	}
@@ -299,52 +299,6 @@ func (cc *ChatController) saveMsgAndOtomo(
 		return err
 	}
 	return nil
-}
-
-func (cc *ChatController) toGrpcMessages(
-	msgs []*model.Message,
-) ([]*grpcgen.Message, error) {
-	grpcMsgs := make([]*grpcgen.Message, len(msgs))
-	for i, msg := range msgs {
-		grpcMsg, err := cc.toGrpcMessage(msg)
-		if err != nil {
-			return nil, err
-		}
-		grpcMsgs[i] = grpcMsg
-	}
-	return grpcMsgs, nil
-}
-
-func (cc *ChatController) toGrpcMessage(
-	msg *model.Message,
-) (*grpcgen.Message, error) {
-	role, err := toGrpcRole(msg.Role)
-	if err != nil {
-		return nil, err
-	}
-
-	return &grpcgen.Message{
-		Id:     string(msg.ID),
-		Text:   msg.Text,
-		Role:   role,
-		SentAt: timestamppb.New(msg.SentAt),
-	}, nil
-}
-
-func toGrpcRole(r model.Role) (role grpcgen.Role, err error) {
-	switch r {
-	case model.UserRole:
-		role = grpcgen.Role_USER
-	case model.OtomoRole:
-		role = grpcgen.Role_OTOMO
-	default:
-		err = &errs.Error{
-			Domain: errs.DomainMessage,
-			Cause:  errs.CauseNotExist,
-			Field:  errs.FieldRole,
-		}
-	}
-	return
 }
 
 func (cc *ChatController) toGrpcError(ctx context.Context, err error) error {
