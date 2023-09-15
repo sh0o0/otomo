@@ -21,6 +21,7 @@ TextMessage _$TextMessageFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TextMessage {
   String get id => throw _privateConstructorUsedError;
+  String? get clientId => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   Role get role => throw _privateConstructorUsedError;
   DateTime get sentAt => throw _privateConstructorUsedError;
@@ -37,7 +38,8 @@ abstract class $TextMessageCopyWith<$Res> {
           TextMessage value, $Res Function(TextMessage) then) =
       _$TextMessageCopyWithImpl<$Res, TextMessage>;
   @useResult
-  $Res call({String id, String text, Role role, DateTime sentAt});
+  $Res call(
+      {String id, String? clientId, String text, Role role, DateTime sentAt});
 }
 
 /// @nodoc
@@ -54,6 +56,7 @@ class _$TextMessageCopyWithImpl<$Res, $Val extends TextMessage>
   @override
   $Res call({
     Object? id = null,
+    Object? clientId = freezed,
     Object? text = null,
     Object? role = null,
     Object? sentAt = null,
@@ -63,6 +66,10 @@ class _$TextMessageCopyWithImpl<$Res, $Val extends TextMessage>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      clientId: freezed == clientId
+          ? _value.clientId
+          : clientId // ignore: cast_nullable_to_non_nullable
+              as String?,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -87,7 +94,8 @@ abstract class _$$_TextMessageCopyWith<$Res>
       __$$_TextMessageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String text, Role role, DateTime sentAt});
+  $Res call(
+      {String id, String? clientId, String text, Role role, DateTime sentAt});
 }
 
 /// @nodoc
@@ -102,6 +110,7 @@ class __$$_TextMessageCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? clientId = freezed,
     Object? text = null,
     Object? role = null,
     Object? sentAt = null,
@@ -111,6 +120,10 @@ class __$$_TextMessageCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      clientId: freezed == clientId
+          ? _value.clientId
+          : clientId // ignore: cast_nullable_to_non_nullable
+              as String?,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -133,6 +146,7 @@ class __$$_TextMessageCopyWithImpl<$Res>
 class _$_TextMessage implements _TextMessage {
   const _$_TextMessage(
       {required this.id,
+      this.clientId,
       required this.text,
       required this.role,
       required this.sentAt});
@@ -143,6 +157,8 @@ class _$_TextMessage implements _TextMessage {
   @override
   final String id;
   @override
+  final String? clientId;
+  @override
   final String text;
   @override
   final Role role;
@@ -151,7 +167,7 @@ class _$_TextMessage implements _TextMessage {
 
   @override
   String toString() {
-    return 'TextMessage(id: $id, text: $text, role: $role, sentAt: $sentAt)';
+    return 'TextMessage(id: $id, clientId: $clientId, text: $text, role: $role, sentAt: $sentAt)';
   }
 
   @override
@@ -160,6 +176,8 @@ class _$_TextMessage implements _TextMessage {
         (other.runtimeType == runtimeType &&
             other is _$_TextMessage &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.clientId, clientId) ||
+                other.clientId == clientId) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.sentAt, sentAt) || other.sentAt == sentAt));
@@ -167,7 +185,8 @@ class _$_TextMessage implements _TextMessage {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, text, role, sentAt);
+  int get hashCode =>
+      Object.hash(runtimeType, id, clientId, text, role, sentAt);
 
   @JsonKey(ignore: true)
   @override
@@ -186,6 +205,7 @@ class _$_TextMessage implements _TextMessage {
 abstract class _TextMessage implements TextMessage {
   const factory _TextMessage(
       {required final String id,
+      final String? clientId,
       required final String text,
       required final Role role,
       required final DateTime sentAt}) = _$_TextMessage;
@@ -195,6 +215,8 @@ abstract class _TextMessage implements TextMessage {
 
   @override
   String get id;
+  @override
+  String? get clientId;
   @override
   String get text;
   @override

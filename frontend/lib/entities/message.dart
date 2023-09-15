@@ -8,6 +8,7 @@ class TextMessage with _$TextMessage {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory TextMessage({
     required String id,
+    String? clientId,
     required String text,
     required Role role,
     required DateTime sentAt,
