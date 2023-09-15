@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"otomo/internal/app/model"
+	"otomo/internal/pkg/errs"
 	"otomo/internal/pkg/uuid"
 	"otomo/test/systemtest"
 	"otomo/test/testmodel"
@@ -68,22 +69,36 @@ func TestOtomoRepository_Save_ShouldUpdateOtomo_WhenArgsAreValid(t *testing.T) {
 
 	assert.Equal(t, giveUpdatedOtomo, gotChat)
 }
+func TestOtomoRepository_GetByID_ShouldReturnOtomo_WhenFound(t *testing.T) {
+	var (
+		giveCtx   = context.Background()
+		userID    = model.UserID(uuid.NewString())
+		giveOtomo = testmodel.DefaultTestOtomoFactory.UserID(userID).New()
+	)
 
-// func TestChatRepository_Get_ShouldGetChat_WhenFoundChat(t *testing.T) {
-// 	var (
-// 		giveCtx = context.Background()
-// 		userID  = model.UserID(uuid.NewString())
-// 		chat    = testmodel.DefaultTestChatFactory.Fake()
-// 	)
+	if err := testOtomoRepo.Save(giveCtx, giveOtomo); err != nil {
+		t.Fatal(err)
+	}
 
-// 	if err := chatRepo.Save(giveCtx, userID, chat); err != nil {
-// 		t.Fatal(err)
-// 	}
+	gotOtomo, err := testOtomoRepo.GetByID(giveCtx, userID)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-// 	gotChat, err := chatRepo.Get(giveCtx, userID)
-// 	if err != nil {
-// 		t.Fatal(err)
-// 	}
+	assert.Equal(t, giveOtomo, gotOtomo)
+}
 
-// 	assert.Equal(t, chat, gotChat)
-// }
+func TestOtomoRepository_Get_ShouldReturnNotFoundErr_WhenNotFound(t *testing.T) {
+	var (
+		giveCtx = context.Background()
+		userID  = model.UserID(uuid.NewString())
+	)
+
+	gotChat, err := testOtomoRepo.GetByID(giveCtx, userID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert.Nil(t, gotChat)
+	assert.True(t, errs.IsNotFoundErr(err))
+}
