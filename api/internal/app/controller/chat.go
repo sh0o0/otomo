@@ -106,7 +106,14 @@ func (cc *ChatController) askToMessage(
 
 	otomo, err := cc.otomoRepo.GetByID(context, userID)
 	if err != nil {
-		return nil, err
+		if errs.IsNotFoundErr(err) {
+			otomo, err = model.RestoreOtomo(userID, model.Memory{})
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
 	}
 	otomo = otomo.WithConverser(cc.converser).WithSummarizer(cc.summarizer)
 
