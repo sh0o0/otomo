@@ -5,6 +5,7 @@ import (
 	"otomo/internal/pkg/errs"
 )
 
+// TODO: Add tests
 type Converser interface {
 	Respond(
 		ctx context.Context,
@@ -37,36 +38,33 @@ type Otomo struct {
 func RestoreOtomo(
 	userID UserID,
 	memory Memory,
-	converser Converser,
-	summarizer Summarizer,
 ) (*Otomo, error) {
-	if converser == nil {
-		return nil, &errs.Error{
-			Message: "converser cannot be nil",
-			Cause:   errs.CauseInvalidArg,
-			Domain:  errs.DomainOtomo,
-		}
-	}
-	if summarizer == nil {
-		return nil, &errs.Error{
-			Message: "summarizer cannot be nil",
-			Cause:   errs.CauseInvalidArg,
-			Domain:  errs.DomainOtomo,
-		}
-	}
-
 	return &Otomo{
-		UserID:     userID,
-		Memory:     memory,
-		converser:  converser,
-		summarizer: summarizer,
+		UserID: userID,
+		Memory: memory,
 	}, nil
+}
+
+func (o *Otomo) WithConverser(converser Converser) *Otomo {
+	newOtomo := *o
+	newOtomo.converser = converser
+	return &newOtomo
+}
+
+func (o *Otomo) WithSummarizer(summarizer Summarizer) *Otomo {
+	newOtomo := *o
+	newOtomo.summarizer = summarizer
+	return &newOtomo
 }
 
 func (o *Otomo) Respond(
 	ctx context.Context,
 	msg *Message,
 ) (*Otomo, *Message, error) {
+	if err := o.validateAbilities(); err != nil {
+		return nil, nil, err
+	}
+
 	// TODO: listeningFunc
 	respond, err := o.converser.Respond(ctx, msg, &o.Memory, nil)
 	if err != nil {
@@ -79,19 +77,18 @@ func (o *Otomo) Respond(
 		return nil, nil, err
 	}
 
-	return &Otomo{
-		UserID: o.UserID,
-		Memory: Memory{
-			Summary: summary,
-		},
-		converser:  o.converser,
-		summarizer: o.summarizer,
-	}, respond, nil
+	newOtomo := *o
+	newOtomo.Memory.Summary = summary
+	return &newOtomo, respond, nil
 }
 
 func (o *Otomo) Message(
 	ctx context.Context,
 ) (*Otomo, *Message, error) {
+	if err := o.validateAbilities(); err != nil {
+		return nil, nil, err
+	}
+
 	// TODO: listeningFunc
 	newMsg, err := o.converser.Message(ctx, &o.Memory, nil)
 	if err != nil {
@@ -104,12 +101,29 @@ func (o *Otomo) Message(
 		return nil, nil, err
 	}
 
-	return &Otomo{
-		UserID: o.UserID,
-		Memory: Memory{
-			Summary: summary,
-		},
-		converser:  o.converser,
-		summarizer: o.summarizer,
-	}, newMsg, nil
+	newOtomo := *o
+	newOtomo.Memory.Summary = summary
+
+	return &newOtomo, newMsg, nil
+}
+
+func (o *Otomo) validateAbilities() error {
+	if o.converser == nil {
+		return &errs.Error{
+			Message: "converser is not set",
+			Cause:   errs.CauseUnavailable,
+			Domain:  errs.DomainOtomo,
+			Field:   errs.FieldAbility,
+		}
+	}
+	if o.summarizer == nil {
+		return &errs.Error{
+			Message: "summarizer is not set",
+			Cause:   errs.CauseUnavailable,
+			Domain:  errs.DomainOtomo,
+			Field:   errs.FieldAbility,
+		}
+
+	}
+	return nil
 }

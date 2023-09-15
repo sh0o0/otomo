@@ -15,6 +15,11 @@ type Message struct {
 	SentAt time.Time `firestore:"sent_at"`
 }
 
+// TODO: Add test
+func (m *Message) RoleIs(role Role) bool {
+	return m.Role == role
+}
+
 type Role string
 
 const (
