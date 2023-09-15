@@ -26,6 +26,9 @@
       "enabled": true,
       "port": 3000
     },
+    "auth": {
+      "port": 9099
+    },
     "singleProjectMode": true
   }
 }
