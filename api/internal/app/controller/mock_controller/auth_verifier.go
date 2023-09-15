@@ -8,7 +8,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	auth "firebase.google.com/go/auth"
+	auth "firebase.google.com/go/v4/auth"
 	gomock "github.com/golang/mock/gomock"
 )
 

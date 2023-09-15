@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	"firebase.google.com/go/auth"
+	"firebase.google.com/go/v4/auth"
 	"github.com/golang/mock/gomock"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/stretchr/testify/assert"
