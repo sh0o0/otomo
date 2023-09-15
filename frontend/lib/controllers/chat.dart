@@ -4,6 +4,7 @@ import 'package:otomo/controllers/converter.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
+import 'package:otomo/grpc/generated/google/protobuf/wrappers.pb.dart';
 
 @injectable
 class ChatControllerImpl {
@@ -24,13 +25,20 @@ class ChatControllerImpl {
     return ControllerConverter.I.message.grpcToEntityList(resp.messages);
   }
 
-  Future<TextMessage> sendMessage(
-    String userId,
-    String text,
-  ) async {
+  Future<TextMessage> sendMessage({
+    required String userId,
+    required String text,
+    String? clientId,
+  }) async {
+    final clientIdVal = StringValue();
+    if (clientId != null) {
+      clientIdVal.value = clientId;
+    }
+
     final req = ChatService_SendMessageRequest()
       ..userId = userId
-      ..text = text;
+      ..text = text
+      ..clientId = clientIdVal;
     final resp = await _chatService.sendMessage(req);
     return ControllerConverter.I.message.grpcToEntity(resp.message);
   }

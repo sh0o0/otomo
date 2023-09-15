@@ -33,7 +33,7 @@ class TextMessageData with _$TextMessageData {
   }) {
     return TextMessageData(
       message: MessageData(
-        id: uuid(),
+        id: message.clientId ?? uuid(),
         author: Author.fromRole(message.role),
         sentAt: message.sentAt,
         remoteId: message.id,

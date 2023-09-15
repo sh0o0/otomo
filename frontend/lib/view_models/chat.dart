@@ -8,6 +8,7 @@ import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
+import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -60,8 +61,32 @@ class Chat extends _$Chat {
     return ChatState(messages: messages);
   }
 
-  Future<void> sendMessage(String text) =>
-      _chatController.sendMessage(_globalState.userId!, text);
+  Future<void> sendMessage(String text) async {
+    final clientId = uuid();
+    final newTextMessageData = TextMessageData(
+      message: MessageData(
+        id: clientId,
+        author: Author.fromRole(Role.user),
+        sentAt: DateTime.now(),
+        status: MessageStatus.sending,
+        active: false,
+      ),
+      text: text,
+    );
+
+    _addTextMessage(newTextMessageData);
+
+    final respTextMessage = await _chatController.sendMessage(
+      userId: _globalState.userId!,
+      text: text,
+      clientId: clientId,
+    );
+
+    final respTextMessageData = TextMessageData.fromTextMessage(respTextMessage,
+        status: MessageStatus.sent);
+
+    _updateTextMessage(respTextMessageData);
+  }
 
   Future<void> listMessagesMore() async {
     final ChatState preValue = state.value ?? const ChatState(messages: []);
@@ -149,5 +174,20 @@ class Chat extends _$Chat {
 
   void focusPlace(Place place) {
     _focusedPlaceController.add(place);
+  }
+
+  void _addTextMessage(TextMessageData textMessage) {
+    final alreadyExist = state.value?.messages
+            .any((m) => m.message.id == textMessage.message.id) ??
+        false;
+    if (alreadyExist) return;
+    state = state..value?.messages.insert(0, textMessage);
+  }
+
+  void _updateTextMessage(TextMessageData textMessage) {
+    final index = state.value?.messages
+        .indexWhere((m) => m.message.id == textMessage.message.id);
+    if (index == null || index == -1) return;
+    state = state..value?.messages[index] = textMessage;
   }
 }
