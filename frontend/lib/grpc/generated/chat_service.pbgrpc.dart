@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: chat_service_service.proto
+//  source: chat_service.proto
 //
 // @dart = 2.12
 
@@ -15,9 +15,9 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'chat_service_service.pb.dart' as $0;
+import 'chat_service.pb.dart' as $0;
 
-export 'chat_service_service.pb.dart';
+export 'chat_service.pb.dart';
 
 @$pb.GrpcServiceName('ChatService')
 class ChatServiceClient extends $grpc.Client {

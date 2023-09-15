@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: chat_service_service.proto
+//  source: chat_service.proto
 //
 // @dart = 2.12
 

@@ -2,14 +2,13 @@ syntax = "proto3";
 
 option go_package = ".;grpcgen";
 
-import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 import "message.proto";
 
 
 
 service ChatService {
-  rpc SendMessage (ChatService_SendMessageRequest) returns (stream ChatService_SendMessageStreamResponse) {};
+  rpc SendMessage (ChatService_SendMessageRequest) returns (ChatService_SendMessageResponse) {};
   rpc ListMessages(ChatService_ListMessagesRequest) returns (ChatService_ListMessagesResponse) {};
   rpc AskToMessage(ChatService_AskToMessageRequest) returns (ChatService_AskToMessageResponse) {};
 };
@@ -18,9 +17,8 @@ message ChatService_SendMessageRequest {
     string text = 1 [(validate.rules).string.min_len = 1, (validate.rules).string.max_len = 10000];
 };
 
-message ChatService_SendMessageStreamResponse {
-    string text = 1;
-    google.protobuf.Timestamp sent_at = 2;
+message ChatService_SendMessageResponse {
+  Message message = 1;
 };
 
 message ChatService_ListMessagesRequest {
