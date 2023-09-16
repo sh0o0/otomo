@@ -1,0 +1,83 @@
+name: Firebase CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - release**
+    paths:
+      - "firebase/**"
+
+env:
+  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: firebase
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      # Setup
+      - name: Store cache
+        uses: actions/cache@v1
+        with:
+          path: functions/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Get Firebase deploy environment
+        shell: bash
+        run: |
+          case ${{ steps.extract_branch.outputs.branch }} in
+            main ) ENVIRONMENT=prod ;;
+            develop ) ENVIRONMENT=dev ;;
+            * ) ;;
+          esac
+          echo "##[set-output name=env;]$(echo ${ENVIRONMENT})"
+        id: get_firebase_deploy_env
+
+      # CD
+      - name: Deploy to Firebase
+        run: |
+          cd functions/
+          npm install
+          mkdir -p lib
+          cp -TRv src/protos lib/protos
+          npm run deploy:${{ steps.get_firebase_deploy_env.outputs.env }}
+
+      # テスト成功時はこちらのステップが実行される
+      - name: Slack Notification on Success
+        if: success()
+        uses: rtCamp/action-slack-notify@v2.0.2
+        env:
+          SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
+          SLACK_USERNAME: Github Actions
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFY_CHANNEL }}
+          SLACK_TITLE: Firebase CI success
+          SLACK_MESSAGE: "✅ Firebase CI success: ${{ github.event.head_commit.message }}"
+          SLACK_COLOR: good
+
+      # テスト失敗時はこちらのステップが実行される
+      - name: Slack Notification on Failure
+        uses: rtCamp/action-slack-notify@v2.0.2
+        if: failure()
+        env:
+          SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
+          SLACK_USERNAME: Github Actions
+          SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFY_CHANNEL }}
+          SLACK_TITLE: Firebase CI failure
+          SLACK_MESSAGE: "❌ Firebase CI failure: ${{ github.event.head_commit.message }}"
+          SLACK_COLOR: danger

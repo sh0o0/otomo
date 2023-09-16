@@ -2,10 +2,12 @@ name: Dev API CI/CD
 
 on:
   push:
-    # branches:
-    #   - develop
-    # paths:
-    #   - "api/**"
+    branches:
+      - main
+      - develop
+      - release**
+    paths:
+      - "api/**"
 
 env:
   CARGO_TERM_COLOR: always
@@ -13,7 +15,7 @@ env:
 jobs:
   develop:
     runs-on: ubuntu-latest
-    # if: github.ref_name == 'develop'
+    if: github.ref_name == 'develop'
     environment: develop
     defaults:
       run:
@@ -23,7 +25,7 @@ jobs:
       - name: Develop API CI/CD
         uses: ./.github/actions/api-cicd/
         with:
-          branch: feature
+          branch: develop
           gcpProjectId: ${{ secrets.GCP_PROJECT_ID }}
           gcpServiceAccountEmail: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
           gcpServiceAccountKey: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
