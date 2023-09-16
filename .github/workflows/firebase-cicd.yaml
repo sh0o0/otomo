@@ -2,12 +2,12 @@ name: Firebase CI/CD
 
 on:
   push:
-    branches:
-      - main
-      - develop
-      - release**
-    paths:
-      - 'firebase/**'
+    # branches:
+    #   - main
+    #   - develop
+    #   - release**
+    # paths:
+    #   - 'firebase/**'
 
 env:
   CARGO_TERM_COLOR: always
