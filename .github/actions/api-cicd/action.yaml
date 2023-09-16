@@ -29,10 +29,11 @@ runs:
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-    - id: Cloud SDK auth
+    - name: Cloud SDK auth
+      id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: ${{ inputs.gcpServiceAccountKey }}
+        credentials_json: '${{ inputs.gcpServiceAccountKey }}'
 
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
