@@ -24,7 +24,6 @@ runs:
     # CD
     - name: Switch project
       uses: w9jds/firebase-action@master
-      working-directory: ./firebase
       with:
         args: use ${{ inputs.firebaseProjectId }}
       env:
@@ -32,7 +31,6 @@ runs:
         PROJECT_PATH: ./firebase
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@master
-      working-directory: ./firebase
       with:
         args: deploy
       env:
