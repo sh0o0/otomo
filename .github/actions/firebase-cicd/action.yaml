@@ -24,12 +24,14 @@ runs:
     # CD
     - name: Switch project
       uses: w9jds/firebase-action@master
+      working-directory: ./firebase
       with:
         args: use ${{ inputs.firebaseProjectId }}
       env:
         FIREBASE_TOKEN: ${{ inputs.firebaseToken }}
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@master
+      working-directory: ./firebase
       with:
         args: deploy
       env:
