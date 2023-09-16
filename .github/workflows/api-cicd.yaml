@@ -20,7 +20,7 @@ jobs:
         working-directory: api
     steps:
       - name: Develop API CI/CD
-        uses: ./.github/actions/api-cicd
+        uses: ./.github/actions/api-cicd/
         with:
           branch: feature
           gcpProjectId: ${{ secrets.GCP_PROJECT_ID }}
