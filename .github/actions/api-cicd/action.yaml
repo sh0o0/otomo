@@ -22,10 +22,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-go@v3
-      with:
-        go-version-file: ./api/go.mod
-        cache: true
+    # - uses: actions/setup-go@v3
+    #   with:
+    #     go-version-file: ./api/go.mod
+    #     cache: true
     - name: Cloud SDK auth
       id: 'auth'
       uses: 'google-github-actions/auth@v1'
