@@ -21,7 +21,7 @@ runs:
         node-version: "16"
 
     # Setup
-    - name: Store cache
+    - name: Caching
       uses: actions/cache@v3
       with:
         path: functions/node_modules
@@ -29,7 +29,7 @@ runs:
         restore-keys: |
           ${{ runner.os }}-node-
     # CD
-    - name: Install firebase-tools
+    - name: Install packages
       shell: bash
       working-directory: ./firebase/functions
       run: npm install
