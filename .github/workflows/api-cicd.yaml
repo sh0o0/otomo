@@ -7,7 +7,7 @@ on:
       - develop
       - release**
     paths:
-      - "api/**"
+      - 'api/**'
 
 env:
   CARGO_TERM_COLOR: always
@@ -26,5 +26,8 @@ jobs:
           gcpProjectId: ${{ secrets.GCP_PROJECT_ID }}
           gcpServiceAccountEmail: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
           gcpServiceAccountKey: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      - name: Notify to slack
+        uses: ./.github/actions/notify-to-slack/
+        with:
           slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
           slackChannel: ${{ secrets.SLACK_CHANNEL }}

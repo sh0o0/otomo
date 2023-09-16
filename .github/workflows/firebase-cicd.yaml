@@ -24,5 +24,8 @@ jobs:
         with:
           firebaseToken: ${{ secrets.FIREBASE_TOKEN }}
           firebaseProjectId: ${{ secrets.GCP_PROJECT_ID }}
+      - name: Notify to slack
+        uses: ./.github/actions/notify-to-slack/
+        with:
           slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
           slackChannel: ${{ secrets.SLACK_CHANNEL }}

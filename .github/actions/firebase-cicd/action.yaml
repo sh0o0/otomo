@@ -5,12 +5,6 @@ inputs:
   firebaseProjectId:
     description: "Firebase project id"
     required: true
-  slackWebhookUrl:
-    description: "slack webhook url"
-    required: true
-  slackChannel:
-    description: "slack notify channel"
-    required: true
 
 runs:
   using: "composite"
@@ -33,34 +27,10 @@ runs:
       with:
         args: use ${{ inputs.firebaseProjectId }}
       env:
-        FIREBASE_TOKEN: ${{ secrets.firebaseToken }}
+        FIREBASE_TOKEN: ${{ inputs.firebaseToken }}
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@master
       with:
         args: deploy
       env:
-        FIREBASE_TOKEN: ${{ secrets.firebaseToken }}
-
-    # テスト成功時はこちらのステップが実行される
-    - name: Slack Notification on Success
-      if: success()
-      uses: rtCamp/action-slack-notify@v2.0.2
-      env:
-        SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
-        SLACK_USERNAME: Github Actions
-        SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFY_CHANNEL }}
-        SLACK_TITLE: Firebase CI success
-        SLACK_MESSAGE: "✅ Firebase CI success: ${{ github.event.head_commit.message }}"
-        SLACK_COLOR: good
-
-    # テスト失敗時はこちらのステップが実行される
-    - name: Slack Notification on Failure
-      uses: rtCamp/action-slack-notify@v2.0.2
-      if: failure()
-      env:
-        SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
-        SLACK_USERNAME: Github Actions
-        SLACK_CHANNEL: ${{ secrets.SLACK_NOTIFY_CHANNEL }}
-        SLACK_TITLE: Firebase CI failure
-        SLACK_MESSAGE: "❌ Firebase CI failure: ${{ github.event.head_commit.message }}"
-        SLACK_COLOR: danger
+        FIREBASE_TOKEN: ${{ inputs.firebaseToken }}
