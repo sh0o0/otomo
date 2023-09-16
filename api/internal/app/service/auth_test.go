@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"firebase.google.com/go/auth"
+	"firebase.google.com/go/v4/auth"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"

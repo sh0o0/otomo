@@ -11,6 +11,7 @@
             "type": "dart",
             "args": [
                 "--debug",
+                "--dart-define=IS_LOCAL=true",
                 "--dart-define=OTOMO_SERVER_HOST=${env:LOCAL_OTOMO_SERVER_HOST}",
                 "--dart-define=OTOMO_SERVER_PORT=${env:LOCAL_OTOMO_SERVER_PORT}",
                 "--dart-define=IS_SECURE_CONNECTION_TO_OTOMO_SERVER=false",

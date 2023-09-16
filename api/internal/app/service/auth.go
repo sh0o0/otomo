@@ -5,7 +5,7 @@ import (
 	"errors"
 	"otomo/internal/app/controller"
 
-	"firebase.google.com/go/auth"
+	"firebase.google.com/go/v4/auth"
 )
 
 var _ controller.AuthVerifier = (*AuthVerifyService)(nil)

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -43,6 +44,9 @@ abstract class InjectableModule {
   static final _firebaseAuth = FirebaseAuth.instance;
   @singleton
   FirebaseAuth get firebaseAuth => _firebaseAuth;
+
+  @singleton
+  FirebaseFirestore get firebaseFirestore => FirebaseFirestore.instance;
 
   @singleton
   GoogleSignIn get googleSignIn => GoogleSignIn(

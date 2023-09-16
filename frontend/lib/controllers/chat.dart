@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/converter.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
@@ -46,7 +47,7 @@ class ChatControllerImpl {
   Stream<List<TextMessageChangedEvent>> messageChangedEventsStream({
     required String userId,
   }) =>
-      FirebaseFirestore.instance
+      getIt<FirebaseFirestore>()
           .collection('versions/1/chats/$userId/messages')
           .snapshots()
           .map((event) => event.docChanges.map((e) {

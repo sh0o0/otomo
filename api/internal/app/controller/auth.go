@@ -8,7 +8,7 @@ import (
 	"otomo/internal/pkg/ctxs"
 	"strings"
 
-	"firebase.google.com/go/auth"
+	"firebase.google.com/go/v4/auth"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
 	"google.golang.org/grpc"

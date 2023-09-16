@@ -12,7 +12,7 @@ import (
 	middleware "otomo/internal/pkg/middleware/grpc"
 	"otomo/internal/pkg/secret"
 
-	firebase "firebase.google.com/go"
+	firebase "firebase.google.com/go/v4"
 	"github.com/getsentry/sentry-go"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/tmc/langchaingo/llms/openai"
