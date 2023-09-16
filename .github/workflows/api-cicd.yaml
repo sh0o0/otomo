@@ -17,9 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref_name == 'develop'
     environment: develop
-    defaults:
-      run:
-        working-directory: ./api
     steps:
       - uses: actions/checkout@v3
       - name: Develop API CI/CD
