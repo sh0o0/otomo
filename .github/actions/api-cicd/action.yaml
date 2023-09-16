@@ -22,9 +22,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # TODO: Is this necessary?
-    - uses: actions/checkout@v2
-
     - name: Store cache
       uses: actions/cache@v1
       with:
