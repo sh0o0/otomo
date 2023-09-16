@@ -2,11 +2,11 @@ services:
   api:
     build:
       context: ./api
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.air
     tty: true
     environment:
       - API_DEBUG=true
-      - GCP_PROJECT_ID=dummy
+      - GCP_PROJECT_ID=otomo-dev-396006
       - GOOGLE_APPLICATION_CREDENTIALS=
       - LOG_ENCODING=console
       - OPENAI_MODEL=gpt-3.5-turbo
@@ -15,8 +15,12 @@ services:
       - FIRESTORE_EMULATOR_HOST=firebase:8080
       # Must override
       - OPENAI_API_KEY=''
+    volumes:
+      - ./api:/app
+    working_dir: /app
     ports:
       - 50051:50051
+    command: air -c .air.toml
 
   firebase:
     build:
@@ -24,7 +28,7 @@ services:
       dockerfile: ./Dockerfile
     tty: true
     volumes:
-      - .:/opt/firebase
+      - ./firebase:/opt/firebase
       - ./.docker/firebase/bin/:/root/.cache:cached
       - ./.docker/firebase/config/:/root/.config:cached
     ports:
@@ -36,5 +40,5 @@ services:
       # - 5000:5000 # Firebase Hosting
       # - 8085:8085 # Cloud Pub/Sub
       # - 9199:9199 # Cloud Storage
-    working_dir: /opt/firebase/firebase
+    working_dir: /opt/firebase
     command: firebase emulators:start --import emulator_data/ --export-on-exit

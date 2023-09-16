@@ -86,7 +86,6 @@ func newFirebaseApp() (*firebase.App, error) {
 }
 
 func newServer() (*grpc.Server, error) {
-
 	chat, err := openai.NewChat(
 		openai.WithToken(conf.OpenAIApiKey),
 		openai.WithModel(conf.OpenAIModel),
