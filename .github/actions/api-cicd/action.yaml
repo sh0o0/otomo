@@ -57,6 +57,7 @@ runs:
       shell: bash
       working-directory: ./api
       env:
+        FIRESTORE_EMULATOR_HOST: localhost:8080
         GCP_PROJECT_ID: dummy-project-id
       run: |
         go test ./...
