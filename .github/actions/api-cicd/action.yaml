@@ -24,7 +24,7 @@ runs:
   steps:
     - uses: actions/setup-go@v3
       with:
-        go-version-file: ./go.mod
+        go-version-file: ./api/go.mod
         cache: true
     - name: Cloud SDK auth
       id: 'auth'
