@@ -55,10 +55,10 @@ runs:
     - name: Run backend tests
       shell: bash
       working-directory: ./api
+      env:
+        GCP_PROJECT_ID: dummy-project-id
       run: |
         go test ./...
-      env:
-        GCP_PROJECT_ID: dummy
 
     # CD
     - name: Build a docker image
