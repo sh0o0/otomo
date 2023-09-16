@@ -19,7 +19,7 @@ jobs:
       run:
         working-directory: api
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Develop API CI/CD
         uses: ./.github/actions/api-cicd/
         with:

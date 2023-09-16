@@ -1,3 +1,3 @@
 #!/bin/sh
 
-export FIRESTORE_EMULATOR_HOST=localhost:8080
+export FIRESTORE_EMULATOR_HOST=localhost:8200
