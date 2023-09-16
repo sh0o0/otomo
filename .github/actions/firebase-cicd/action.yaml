@@ -29,6 +29,10 @@ runs:
         restore-keys: |
           ${{ runner.os }}-node-
     # CD
+    - name: Install firebase-tools
+      shell: bash
+      working-directory: ./firebase/functions
+      run: npm install
     - name: Switch project
       uses: w9jds/firebase-action@master
       with:
