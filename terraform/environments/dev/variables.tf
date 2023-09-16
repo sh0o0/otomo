@@ -57,3 +57,8 @@ variable "ios_bundle_name" {
   description = "the ios package name"
   type        = string
 }
+
+variable "openai_api_key" {
+  description = "OpenAI API key"
+  type        = string
+}

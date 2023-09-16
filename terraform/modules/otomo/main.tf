@@ -10,7 +10,7 @@ module "firebase" {
   gcp_project_id                 = var.gcp_project_id
   default_google_project_service = module.google.default_google_project_service
   android_package_name           = var.android_package_name
-  ios_bundle_name               = var.ios_bundle_name
+  ios_bundle_name                = var.ios_bundle_name
 }
 
 module "cloud_run" {
@@ -22,6 +22,7 @@ module "cloud_run" {
   cloud_run_image_name                = var.cloud_run_image_name
   google_application_credentials_json = var.google_application_credentials_json
   basic_auth_pairs                    = var.basic_auth_pairs
+  openai_api_key                      = var.openai_api_key
 }
 
 module "load_balancer" {
