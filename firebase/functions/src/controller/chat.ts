@@ -19,7 +19,7 @@ export class ChatController {
     this._client.askToMessage(
       request,
       this._metadata,
-      (err, _) => {
+      (err) => {
         if (err) {
           console.warn(`Error occurred. userId: ${userId}. ${err}`);
         } else {
