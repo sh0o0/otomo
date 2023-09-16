@@ -1,0 +1,113 @@
+inputs:
+  branch:
+    description: "branch name"
+    required: true
+  gcpProjectId:
+    description: "GCP project id"
+    required: true
+  gcpServiceAccountEmail:
+    description: "GCP service account email"
+    required: true
+  gcpServiceAccountKey:
+    description: "GCP service account key"
+    required: true
+  # https://qiita.com/progrhyme/items/badf31978612b22dbf47
+  slackWebhookUrl:
+    description: "slack webhook url"
+    required: true
+  slackChannel:
+    description: "slack notify channel"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    # TODO: Is this necessary?
+    - uses: actions/checkout@v2
+
+    - name: Store cache
+      uses: actions/cache@v1
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+    - name: GCP Authenticate
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        version: latest
+        project_id: ${{ inputs.gcpProjectId }}
+        service_account_email: ${{ inputs.gcpServiceAccountEmail }}
+        service_account_key: ${{ inputs.gcpServiceAccountKey }}
+        export_default_credentials: true
+    - name: Install gcloud beta
+      shell: bash
+      run: gcloud components install beta --quiet
+    - name: Install Firestore emulator
+      shell: bash
+      run: gcloud components install cloud-firestore-emulator --quiet
+
+    # CI
+    - name: Run firestore emulator
+      shell: bash
+      env:
+        FIRESTORE_EMULATOR_HOST: localhost:8080
+      run: |
+        gcloud beta emulators firestore start --host-port=$FIRESTORE_EMULATOR_HOST &
+        curl http://localhost:8080 --silent --retry 30 --retry-delay 1 --retry-connrefused
+    - name: Run backend tests
+      shell: bash
+      working-directory: ./api
+      run: |
+        go test ./...
+      env:
+        GCP_PROJECT_ID: dummy
+
+    # CD
+    - name: Build a docker image
+      shell: bash
+      working-directory: ./api
+      env:
+        DOCKER_BUILDKIT: "1"
+        BUILDKIT_INLINE_CACHE: "1"
+      run: docker build -t api --cache-from=${{ inputs.branch }}:latest .
+    - name: Configure docker to use the gcloud cli
+      shell: bash
+      run: gcloud auth configure-docker --quiet
+    - name: Push the docker image
+      shell: bash
+      env:
+        IMAGE_TAG: us.gcr.io/${{ inputs.gcpProjectId }}/api
+      run: |
+        docker tag api ${IMAGE_TAG}:${GITHUB_SHA::7}
+        docker tag api ${IMAGE_TAG}:latest
+        docker push ${IMAGE_TAG}:${GITHUB_SHA::7}
+        docker push ${IMAGE_TAG}:latest
+    - name: Deploy cloud run
+      shell: bash
+      run: gcloud beta run deploy api --image=us.gcr.io/${{ inputs.gcpProjectId }}/api --service-account=${{ inputs.gcpServiceAccountEmail }} --use-http2 --allow-unauthenticated --platform=managed --region=us-west1 --project=${{ inputs.gcpProjectId }}
+
+    # Slack Push Result
+    - name: Slack Notification on Success
+      if: success()
+      uses: rtCamp/action-slack-notify@v2.0.2
+      env:
+        SLACK_WEBHOOK: ${{ inputs.slackWebhookUrl }}
+        SLACK_CHANNEL: ${{ inputs.slack }}
+        SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
+        SLACK_USERNAME: Github Actions
+        SLACK_TITLE: Backend CI success
+        SLACK_MESSAGE: "✅ Backend CI Success: ${{ github.event.head_commit.message }}"
+        SLACK_COLOR: good
+
+    - name: Slack Notification on Failure
+      uses: rtCamp/action-slack-notify@v2.0.2
+      if: failure()
+      env:
+        SLACK_WEBHOOK: ${{ inputs.slackWebhookUrl }}
+        SLACK_CHANNEL: ${{ inputs.slack }}
+        SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
+        SLACK_USERNAME: Github Actions
+        SLACK_TITLE: Backend CI failure
+        SLACK_MESSAGE: "❌ Backend CI failure: ${{ github.event.head_commit.message }}"
+        SLACK_COLOR: danger

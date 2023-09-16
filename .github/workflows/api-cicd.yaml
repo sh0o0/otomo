@@ -1,0 +1,30 @@
+name: Dev API CI/CD
+
+on:
+  push:
+    # branches:
+    #   - develop
+    # paths:
+    #   - "api/**"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  develop:
+    runs-on: ubuntu-latest
+    # if: github.ref_name == 'develop'
+    environment: develop
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - name: Develop API CI/CD
+        uses: ./.github/actions/api-cicd
+        with:
+          branch: feature
+          gcpProjectId: ${{ secrets.GCP_PROJECT_ID }}
+          gcpServiceAccountEmail: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+          gcpServiceAccountKey: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.SLACK_CHANNEL }}
