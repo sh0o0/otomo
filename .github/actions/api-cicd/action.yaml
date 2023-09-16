@@ -29,14 +29,14 @@ runs:
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-    - name: GCP Authenticate
-      uses: google-github-actions/setup-gcloud@v0
+    - id: Cloud SDK auth
+      uses: 'google-github-actions/auth@v1'
       with:
-        version: latest
-        project_id: ${{ inputs.gcpProjectId }}
-        service_account_email: ${{ inputs.gcpServiceAccountEmail }}
-        service_account_key: ${{ inputs.gcpServiceAccountKey }}
-        export_default_credentials: true
+        credentials_json: ${{ inputs.gcpServiceAccountKey }}
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
     - name: Install gcloud beta
       shell: bash
       run: gcloud components install beta --quiet
