@@ -5,6 +5,13 @@ inputs:
   firebaseProjectId:
     description: "Firebase project id"
     required: true
+  slackWebhookUrl:
+    description: "slack webhook url"
+    required: true
+  slackChannel:
+    description: "slack notify channel"
+    required: true
+
 
 runs:
   using: "composite"
@@ -36,3 +43,9 @@ runs:
       env:
         FIREBASE_TOKEN: ${{ inputs.firebaseToken }}
         PROJECT_PATH: ./firebase
+
+    - name: Notify to slack
+      uses: ./.github/actions/notify-to-slack/
+      with:
+        slackWebhookUrl: ${{ inputs.slackWebhookUrl }}
+        slackChannel: ${{ inputs.slackChannel }}

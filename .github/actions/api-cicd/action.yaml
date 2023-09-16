@@ -11,6 +11,14 @@ inputs:
   gcpServiceAccountKey:
     description: "GCP service account key"
     required: true
+  slackWebhookUrl:
+    description: "slack webhook url"
+    required: true
+  slackChannel:
+    description: "slack notify channel"
+    required: true
+
+
 
 runs:
   using: "composite"
@@ -76,3 +84,9 @@ runs:
     - name: Deploy cloud run
       shell: bash
       run: gcloud beta run deploy api --image=us.gcr.io/${{ inputs.gcpProjectId }}/api --service-account=${{ inputs.gcpServiceAccountEmail }} --use-http2 --allow-unauthenticated --platform=managed --region=us-west1 --project=${{ inputs.gcpProjectId }}
+
+    - name: Notify to slack
+      uses: ./.github/actions/notify-to-slack/
+      with:
+        slackWebhookUrl: ${{ inputs.slackWebhookUrl }}
+        slackChannel: ${{ inputs.slackChannel }}
