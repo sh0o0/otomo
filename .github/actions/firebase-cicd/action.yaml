@@ -36,3 +36,4 @@ runs:
         args: deploy
       env:
         FIREBASE_TOKEN: ${{ inputs.firebaseToken }}
+        PROJECT_PATH: ./firebase
