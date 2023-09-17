@@ -9,9 +9,6 @@ import (
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
 	"otomo/internal/pkg/logs"
-
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 // TODO: Add tests
@@ -153,13 +150,22 @@ func (cc *ChatController) listMessages(
 		return nil, err
 	}
 
-	if !ctxs.UserIs(ctx, model.UserID(req.UserId)) {
-		return nil, status.New(codes.PermissionDenied, "can only get own list").Err()
+	var (
+		userID = model.UserID(req.GetUserId())
+	)
+
+	if !ctxs.UserIs(ctx, userID) {
+		return nil, &errs.Error{
+			Message: "can only list own message",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainMessage,
+			Field:   errs.FieldNone,
+		}
 	}
 
 	msgs, err := cc.msgRepo.List(
 		ctx,
-		model.UserID(req.GetUserId()),
+		userID,
 		&repo.MessagePage{
 			Size: int(req.GetPageSize()),
 			StartAfterMessageID: model.MessageID(
@@ -208,7 +214,7 @@ func (cc *ChatController) sendMessage(
 		return nil, &errs.Error{
 			Message: "can only send own message",
 			Cause:   errs.CausePermissionDenied,
-			Domain:  errs.DomainMessage,
+			Domain:  errs.DomainUser,
 			Field:   errs.FieldNone,
 		}
 	}
@@ -283,6 +289,15 @@ func (cc *ChatController) messagingStream(
 		ctx    = stream.Context()
 		userID = model.UserID(req.GetUserId())
 	)
+
+	if !ctxs.UserIs(ctx, userID) {
+		return &errs.Error{
+			Message: "can only subscribe own message",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainUser,
+			Field:   errs.FieldNone,
+		}
+	}
 
 	return cc.msginSub.Subscribe(
 		ctx, userID, func(ctx context.Context, msg *model.MessageChunk) {

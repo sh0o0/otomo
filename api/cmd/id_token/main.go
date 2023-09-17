@@ -65,12 +65,14 @@ func main() {
 		panic(err)
 	}
 
-	_, err = client.VerifyIDToken(ctx, idToken)
+	token, err := client.VerifyIDToken(ctx, idToken)
 	if err != nil {
 		panic(err)
 
 	}
 
+	fmt.Printf("user id:\n%s\n", token.UID)
+	fmt.Println()
 	fmt.Printf("token:\n%s\n", idToken)
 }
 
