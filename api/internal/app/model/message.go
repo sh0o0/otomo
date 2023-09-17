@@ -42,7 +42,7 @@ func (*MessageFactory) New(
 }
 
 type MessageChunk struct {
-	MessageID string
+	MessageID MessageID
 	Text      string
 	Role      Role
 	SentAt    time.Time
@@ -59,7 +59,7 @@ func NewMessageChunk(
 	isLast bool,
 ) (*MessageChunk, error) {
 	return &MessageChunk{
-		MessageID: string(messageID),
+		MessageID: messageID,
 		Text:      text,
 		Role:      role,
 		SentAt:    sentAt,

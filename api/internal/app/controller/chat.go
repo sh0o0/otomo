@@ -299,17 +299,49 @@ func (cc *ChatController) messagingStream(
 		}
 	}
 
-	return cc.msginSub.Subscribe(
+	if err := cc.msginSub.Subscribe(
 		ctx, userID, func(ctx context.Context, msg *model.MessageChunk) {
-			chunk, err := conv.MessageChunk.ModelToGrpc(msg)
+			err := func() error {
+				chunk, err := conv.MessageChunk.ModelToGrpc(msg)
+				if err != nil {
+					return err
+				}
+				return stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
+					Chunk: chunk,
+				})
+			}()
 			if err != nil {
-				logs.Logger.Warn(err.Error())
-			}
-			if err := stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
-				Chunk: chunk,
-			}); err != nil {
-				logs.Logger.Warn(err.Error())
+				if err := stream.SendMsg(cc.toGrpcError(ctx, err)); err != nil {
+					logs.Logger.Error(
+						"Failed to send error message",
+						logs.Error(err),
+					)
+				}
 			}
 		},
+	); err != nil {
+		return err
+	}
+	logs.Logger.Info(
+		"started subscribing messaging stream",
+		logs.String("userId", string(userID)),
 	)
+
+	<-ctx.Done()
+	if err := ctx.Err(); err != nil {
+		if err != context.Canceled {
+			return err
+		}
+	}
+
+	if err := cc.msginSub.Unsubscribe(ctx, userID); err != nil {
+		return err
+	}
+
+	logs.Logger.Info(
+		"unsubscribed messaging stream",
+		logs.String("userId", string(userID)),
+	)
+
+	return nil
 }

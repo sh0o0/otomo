@@ -29,7 +29,8 @@ func NewMessagingSubscriber(
 	sub evbus.BusSubscriber,
 ) *MessagingSubscriber {
 	msginSub := &MessagingSubscriber{
-		sub: sub,
+		sub:      sub,
+		handlers: map[model.UserID]*messagingHandler{},
 	}
 	return msginSub
 }
