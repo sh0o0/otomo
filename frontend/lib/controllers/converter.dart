@@ -9,6 +9,7 @@ class ControllerConverter {
   static ControllerConverter get I => _instance;
 
   final message = _Message();
+  final messageChunk = _MessageChunk();
   final changedEventType = _ChangedEventType();
 }
 
@@ -32,6 +33,21 @@ class _Message {
   TextMessage firestoreJsonToEntity(Map<String, dynamic> json) {
     final sentAt = (json['sent_at'] as Timestamp).toDate();
     return TextMessage.fromJson(json..['sent_at'] = sentAt.toIso8601String());
+  }
+}
+
+class _MessageChunk {
+  final _role = _Role();
+
+  TextMessageChunk grpcToEntity(gMsg.MessageChunk chunk) {
+    return TextMessageChunk(
+      messageId: chunk.messageId,
+      text: chunk.text,
+      role: _role.grpcToEntity(chunk.role),
+      sentAt: chunk.sentAt.toDateTime(),
+      clientId: chunk.clientId.hasValue() ? chunk.clientId.value : null,
+      isLast: chunk.isLast,
+    );
   }
 }
 

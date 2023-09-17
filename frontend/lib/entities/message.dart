@@ -22,3 +22,16 @@ enum Role {
   user,
   otomo,
 }
+
+
+@freezed
+class TextMessageChunk with _$TextMessageChunk{
+  const factory TextMessageChunk({
+    required String messageId,
+    required String text,
+    required Role role,
+    required DateTime sentAt,
+    String? clientId,
+    required bool isLast,
+  }) = _TextMessageChunk;
+}

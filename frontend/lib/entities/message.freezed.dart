@@ -228,3 +228,227 @@ abstract class _TextMessage implements TextMessage {
   _$$_TextMessageCopyWith<_$_TextMessage> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$TextMessageChunk {
+  String get messageId => throw _privateConstructorUsedError;
+  String get text => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError;
+  DateTime get sentAt => throw _privateConstructorUsedError;
+  String? get clientId => throw _privateConstructorUsedError;
+  bool get isLast => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $TextMessageChunkCopyWith<TextMessageChunk> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TextMessageChunkCopyWith<$Res> {
+  factory $TextMessageChunkCopyWith(
+          TextMessageChunk value, $Res Function(TextMessageChunk) then) =
+      _$TextMessageChunkCopyWithImpl<$Res, TextMessageChunk>;
+  @useResult
+  $Res call(
+      {String messageId,
+      String text,
+      Role role,
+      DateTime sentAt,
+      String? clientId,
+      bool isLast});
+}
+
+/// @nodoc
+class _$TextMessageChunkCopyWithImpl<$Res, $Val extends TextMessageChunk>
+    implements $TextMessageChunkCopyWith<$Res> {
+  _$TextMessageChunkCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? messageId = null,
+    Object? text = null,
+    Object? role = null,
+    Object? sentAt = null,
+    Object? clientId = freezed,
+    Object? isLast = null,
+  }) {
+    return _then(_value.copyWith(
+      messageId: null == messageId
+          ? _value.messageId
+          : messageId // ignore: cast_nullable_to_non_nullable
+              as String,
+      text: null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as Role,
+      sentAt: null == sentAt
+          ? _value.sentAt
+          : sentAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      clientId: freezed == clientId
+          ? _value.clientId
+          : clientId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isLast: null == isLast
+          ? _value.isLast
+          : isLast // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_TextMessageChunkCopyWith<$Res>
+    implements $TextMessageChunkCopyWith<$Res> {
+  factory _$$_TextMessageChunkCopyWith(
+          _$_TextMessageChunk value, $Res Function(_$_TextMessageChunk) then) =
+      __$$_TextMessageChunkCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String messageId,
+      String text,
+      Role role,
+      DateTime sentAt,
+      String? clientId,
+      bool isLast});
+}
+
+/// @nodoc
+class __$$_TextMessageChunkCopyWithImpl<$Res>
+    extends _$TextMessageChunkCopyWithImpl<$Res, _$_TextMessageChunk>
+    implements _$$_TextMessageChunkCopyWith<$Res> {
+  __$$_TextMessageChunkCopyWithImpl(
+      _$_TextMessageChunk _value, $Res Function(_$_TextMessageChunk) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? messageId = null,
+    Object? text = null,
+    Object? role = null,
+    Object? sentAt = null,
+    Object? clientId = freezed,
+    Object? isLast = null,
+  }) {
+    return _then(_$_TextMessageChunk(
+      messageId: null == messageId
+          ? _value.messageId
+          : messageId // ignore: cast_nullable_to_non_nullable
+              as String,
+      text: null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as Role,
+      sentAt: null == sentAt
+          ? _value.sentAt
+          : sentAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      clientId: freezed == clientId
+          ? _value.clientId
+          : clientId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isLast: null == isLast
+          ? _value.isLast
+          : isLast // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_TextMessageChunk implements _TextMessageChunk {
+  const _$_TextMessageChunk(
+      {required this.messageId,
+      required this.text,
+      required this.role,
+      required this.sentAt,
+      this.clientId,
+      required this.isLast});
+
+  @override
+  final String messageId;
+  @override
+  final String text;
+  @override
+  final Role role;
+  @override
+  final DateTime sentAt;
+  @override
+  final String? clientId;
+  @override
+  final bool isLast;
+
+  @override
+  String toString() {
+    return 'TextMessageChunk(messageId: $messageId, text: $text, role: $role, sentAt: $sentAt, clientId: $clientId, isLast: $isLast)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_TextMessageChunk &&
+            (identical(other.messageId, messageId) ||
+                other.messageId == messageId) &&
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.sentAt, sentAt) || other.sentAt == sentAt) &&
+            (identical(other.clientId, clientId) ||
+                other.clientId == clientId) &&
+            (identical(other.isLast, isLast) || other.isLast == isLast));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, messageId, text, role, sentAt, clientId, isLast);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_TextMessageChunkCopyWith<_$_TextMessageChunk> get copyWith =>
+      __$$_TextMessageChunkCopyWithImpl<_$_TextMessageChunk>(this, _$identity);
+}
+
+abstract class _TextMessageChunk implements TextMessageChunk {
+  const factory _TextMessageChunk(
+      {required final String messageId,
+      required final String text,
+      required final Role role,
+      required final DateTime sentAt,
+      final String? clientId,
+      required final bool isLast}) = _$_TextMessageChunk;
+
+  @override
+  String get messageId;
+  @override
+  String get text;
+  @override
+  Role get role;
+  @override
+  DateTime get sentAt;
+  @override
+  String? get clientId;
+  @override
+  bool get isLast;
+  @override
+  @JsonKey(ignore: true)
+  _$$_TextMessageChunkCopyWith<_$_TextMessageChunk> get copyWith =>
+      throw _privateConstructorUsedError;
+}

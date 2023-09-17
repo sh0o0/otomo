@@ -44,6 +44,17 @@ class ChatControllerImpl {
     return ControllerConverter.I.message.grpcToEntity(resp.message);
   }
 
+  Stream<TextMessageChunk> messagingStream({
+    required String userId,
+  }) =>
+      _chatService
+          .messagingStream(
+            ChatService_MessagingStreamRequest()..userId = userId,
+          )
+          .map((event) =>
+              ControllerConverter.I.messageChunk.grpcToEntity(event.chunk))
+          .asBroadcastStream();
+
   Stream<List<TextMessageChangedEvent>> messageChangedEventsStream({
     required String userId,
   }) =>
