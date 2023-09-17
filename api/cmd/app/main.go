@@ -13,6 +13,7 @@ import (
 	"otomo/internal/pkg/secret"
 
 	firebase "firebase.google.com/go/v4"
+	"github.com/asaskevich/EventBus"
 	"github.com/getsentry/sentry-go"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/tmc/langchaingo/llms/openai"
@@ -86,6 +87,7 @@ func newFirebaseApp() (*firebase.App, error) {
 }
 
 func newServer() (*grpc.Server, error) {
+	// infrastructures
 	chat, err := openai.NewChat(
 		openai.WithToken(conf.OpenAIApiKey),
 		openai.WithModel(conf.OpenAIModel),
@@ -107,6 +109,10 @@ func newServer() (*grpc.Server, error) {
 		return nil, err
 	}
 
+	var (
+		messagingBus = EventBus.New()
+	)
+
 	// presenters
 	var (
 		errorPresenter = controller.NewErrorPresenter()
@@ -127,7 +133,12 @@ func newServer() (*grpc.Server, error) {
 	var (
 		summaryService      = service.NewSummaryService(chat)
 		conversationService = service.NewConversationService(chat)
+		msginSub            = service.NewMessagingSubscriber(messagingBus)
+		msginPub            = service.NewMessagingPublisher(messagingBus)
 	)
+	if err := msginSub.Init(); err != nil {
+		logs.Logger.Panic(err.Error())
+	}
 
 	var (
 		healthCtrl = controller.NewHealthController()
@@ -139,6 +150,8 @@ func newServer() (*grpc.Server, error) {
 			msgFactory,
 			msgRepo,
 			otomoRepo,
+			msginSub,
+			msginPub,
 			conversationService,
 			summaryService,
 		)

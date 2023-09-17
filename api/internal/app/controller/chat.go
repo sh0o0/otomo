@@ -4,18 +4,11 @@ import (
 	"context"
 	"otomo/internal/app/grpcgen"
 	"otomo/internal/app/interfaces/repo"
+	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
 	"otomo/internal/pkg/logs"
-	"otomo/internal/pkg/times"
-	"otomo/internal/pkg/uuid"
-	"otomo/test/testutil"
-	"time"
-
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // TODO: Add tests
@@ -28,6 +21,8 @@ type ChatController struct {
 	msgFactory     *model.MessageFactory
 	msgRepo        repo.MessageRepository
 	otomoRepo      repo.OtomoRepository
+	msginSub       svc.MessagingSubscriber
+	msginPub       svc.MessagingPublisher
 	converser      model.Converser
 	summarizer     model.Summarizer
 }
@@ -37,31 +32,36 @@ func NewChatController(
 	msgFactory *model.MessageFactory,
 	msgRepo repo.MessageRepository,
 	otomoRepo repo.OtomoRepository,
+	msginSub svc.MessagingSubscriber,
+	msginPub svc.MessagingPublisher,
 	converser model.Converser,
 	summarizer model.Summarizer,
 ) *ChatController {
 	return &ChatController{
 		errorPresenter: errorPresenter,
+		msgFactory:     msgFactory,
 		msgRepo:        msgRepo,
 		otomoRepo:      otomoRepo,
+		msginSub:       msginSub,
+		msginPub:       msginPub,
 		converser:      converser,
 		summarizer:     summarizer,
 	}
 }
 
 func (cc *ChatController) AskToMessage(
-	context context.Context,
+	ctx context.Context,
 	req *grpcgen.ChatService_AskToMessageRequest,
 ) (*grpcgen.ChatService_AskToMessageResponse, error) {
-	res, err := cc.askToMessage(context, req)
+	res, err := cc.askToMessage(ctx, req)
 	if err != nil {
-		return nil, cc.toGrpcError(context, err)
+		return nil, cc.toGrpcError(ctx, err)
 	}
 	return res, nil
 }
 
 func (cc *ChatController) askToMessage(
-	context context.Context,
+	ctx context.Context,
 	req *grpcgen.ChatService_AskToMessageRequest,
 ) (*grpcgen.ChatService_AskToMessageResponse, error) {
 	if err := req.ValidateAll(); err != nil {
@@ -72,7 +72,7 @@ func (cc *ChatController) askToMessage(
 		userID = model.UserID(req.GetUserId())
 	)
 
-	if !ctxs.AuthRoleIs(context, model.AdminAuthRole) {
+	if !ctxs.AuthRoleIs(ctx, model.AdminAuthRole) {
 		return nil, &errs.Error{
 			Message: "Only admin role can access this method",
 			Cause:   errs.CausePermissionDenied,
@@ -81,7 +81,7 @@ func (cc *ChatController) askToMessage(
 		}
 	}
 
-	otomo, err := cc.otomoRepo.GetByID(context, userID)
+	otomo, err := cc.otomoRepo.GetByID(ctx, userID)
 	if err != nil {
 		if errs.IsNotFoundErr(err) {
 			otomo, err = model.RestoreOtomo(userID, model.Memory{})
@@ -92,7 +92,13 @@ func (cc *ChatController) askToMessage(
 			return nil, err
 		}
 	}
-	otomo = otomo.WithConverser(cc.converser).WithSummarizer(cc.summarizer)
+	otomo = otomo.
+		WithConverser(cc.converser).
+		WithSummarizer(cc.summarizer).
+		WithMessagingFunc(func(ctx context.Context, msg *model.MessageChunk) error {
+			cc.msginPub.Publish(userID, msg)
+			return nil
+		})
 
 	var (
 		updatedOtomo *model.Otomo
@@ -100,23 +106,23 @@ func (cc *ChatController) askToMessage(
 		convErr      error
 	)
 
-	lastMsg, err := cc.msgRepo.Last(context, userID)
+	lastMsg, err := cc.msgRepo.Last(ctx, userID)
 	if err != nil {
 		if !errs.IsNotFoundErr(err) {
 			return nil, err
 		}
 	}
 	if lastMsg != nil && lastMsg.RoleIs(model.UserRole) {
-		updatedOtomo, newMsg, convErr = otomo.Respond(context, lastMsg)
+		updatedOtomo, newMsg, convErr = otomo.Respond(ctx, lastMsg)
 	} else {
-		updatedOtomo, newMsg, convErr = otomo.Message(context)
+		updatedOtomo, newMsg, convErr = otomo.Message(ctx)
 	}
 	if convErr != nil {
 		return nil, convErr
 	}
 
 	if err := cc.saveMsgAndOtomo(
-		context, userID, newMsg, updatedOtomo); err != nil {
+		ctx, userID, newMsg, updatedOtomo); err != nil {
 		return nil, err
 	}
 
@@ -150,13 +156,22 @@ func (cc *ChatController) listMessages(
 		return nil, err
 	}
 
-	if !ctxs.UserIs(ctx, model.UserID(req.UserId)) {
-		return nil, status.New(codes.PermissionDenied, "can only get own list").Err()
+	var (
+		userID = model.UserID(req.GetUserId())
+	)
+
+	if !ctxs.UserIs(ctx, userID) {
+		return nil, &errs.Error{
+			Message: "can only list own message",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainMessage,
+			Field:   errs.FieldNone,
+		}
 	}
 
 	msgs, err := cc.msgRepo.List(
 		ctx,
-		model.UserID(req.GetUserId()),
+		userID,
 		&repo.MessagePage{
 			Size: int(req.GetPageSize()),
 			StartAfterMessageID: model.MessageID(
@@ -205,7 +220,7 @@ func (cc *ChatController) sendMessage(
 		return nil, &errs.Error{
 			Message: "can only send own message",
 			Cause:   errs.CausePermissionDenied,
-			Domain:  errs.DomainMessage,
+			Domain:  errs.DomainUser,
 			Field:   errs.FieldNone,
 		}
 	}
@@ -266,25 +281,73 @@ func (cc *ChatController) MessagingStream(
 	req *grpcgen.ChatService_MessagingStreamRequest,
 	stream grpcgen.ChatService_MessagingStreamServer,
 ) error {
-	msgID := model.MessageID(uuid.NewString())
+	if err := cc.messagingStream(req, stream); err != nil {
+		return cc.toGrpcError(stream.Context(), err)
+	}
+	return nil
+}
 
-	for i := 0; i < 3600; i++ {
-		if err := stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
-			Chunk: &grpcgen.MessageChunk{
-				MessageId: string(msgID),
-				Text:      testutil.Faker.Lorem().Word(),
-				Role:      grpcgen.Role_OTOMO,
-				SentAt:    timestamppb.New(times.C.Now()),
-				ClientId:  nil,
-				IsLast:    false,
-			},
-		}); err != nil {
-			logs.Logger.Warn(err.Error())
+func (cc *ChatController) messagingStream(
+	req *grpcgen.ChatService_MessagingStreamRequest,
+	stream grpcgen.ChatService_MessagingStreamServer,
+) error {
+	var (
+		ctx    = stream.Context()
+		userID = model.UserID(req.GetUserId())
+	)
+
+	if !ctxs.UserIs(ctx, userID) {
+		return &errs.Error{
+			Message: "can only subscribe own message",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainUser,
+			Field:   errs.FieldNone,
+		}
+	}
+
+	if err := cc.msginSub.Subscribe(
+		ctx, userID, func(ctx context.Context, msg *model.MessageChunk) {
+			err := func() error {
+				chunk, err := conv.MessageChunk.ModelToGrpc(msg)
+				if err != nil {
+					return err
+				}
+				return stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
+					Chunk: chunk,
+				})
+			}()
+			if err != nil {
+				if err := stream.SendMsg(cc.toGrpcError(ctx, err)); err != nil {
+					logs.Logger.Error(
+						"Failed to send error message",
+						logs.Error(err),
+					)
+				}
+			}
+		},
+	); err != nil {
+		return err
+	}
+	logs.Logger.Info(
+		"started subscribing messaging stream",
+		logs.String("userId", string(userID)),
+	)
+
+	<-ctx.Done()
+	if err := ctx.Err(); err != nil {
+		if err != context.Canceled {
 			return err
 		}
-
-		times.C.Sleep(time.Second)
 	}
+
+	if err := cc.msginSub.Unsubscribe(ctx, userID); err != nil {
+		return err
+	}
+
+	logs.Logger.Info(
+		"unsubscribed messaging stream",
+		logs.String("userId", string(userID)),
+	)
 
 	return nil
 }

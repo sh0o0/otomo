@@ -21,13 +21,6 @@ func (m *Message) RoleIs(role Role) bool {
 	return m.Role == role
 }
 
-type Role string
-
-const (
-	UserRole  Role = "user"
-	OtomoRole Role = "otomo"
-)
-
 type MessageFactory struct{}
 
 func NewMessageFactory() *MessageFactory {
@@ -41,9 +34,52 @@ func (*MessageFactory) New(
 ) (*Message, error) {
 	return &Message{
 		ID:       MessageID(uuid.NewString()),
-		ClientID: clientID,
 		Text:     text,
 		Role:     role,
 		SentAt:   times.C.Now(),
+		ClientID: clientID,
+	}, nil
+}
+
+func (*MessageFactory) Restore(
+	id MessageID,
+	text string,
+	role Role,
+	sentAt time.Time,
+	clientID *string,
+) *Message {
+	return &Message{
+		ID:       id,
+		Text:     text,
+		Role:     role,
+		SentAt:   sentAt,
+		ClientID: clientID,
+	}
+}
+
+type MessageChunk struct {
+	MessageID MessageID
+	Text      string
+	Role      Role
+	SentAt    time.Time
+	ClientID  *string
+	IsLast    bool
+}
+
+func NewMessageChunk(
+	messageID MessageID,
+	text string,
+	role Role,
+	sentAt time.Time,
+	clientID *string,
+	isLast bool,
+) (*MessageChunk, error) {
+	return &MessageChunk{
+		MessageID: messageID,
+		Text:      text,
+		Role:      role,
+		SentAt:    sentAt,
+		ClientID:  clientID,
+		IsLast:    isLast,
 	}, nil
 }

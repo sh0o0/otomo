@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/entities/lat_lng.dart';
+import 'package:otomo/tools/logger.dart';
 part 'custom_text.freezed.dart';
 
 @freezed
@@ -17,7 +18,14 @@ class CustomText with _$CustomText {
   factory CustomText._fromMatch(Match match) {
     final text = match.group(1);
     final dataStr = match.group(2);
-    final data = jsonDecode(dataStr ?? '{}');
+
+    var data = <String, dynamic>{};
+    try {
+      data = jsonDecode(dataStr ?? '{}');
+    } catch (e) {
+      logger.warn(e.toString());
+      data = {};
+    }
 
     AppLatLng? latLng;
 

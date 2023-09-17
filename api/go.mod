@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go/firestore v1.12.0
 	cloud.google.com/go/logging v1.7.0
 	firebase.google.com/go/v4 v4.12.0
+	github.com/asaskevich/EventBus v0.0.0-20200907212545-49d423059eef
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
 	github.com/getsentry/sentry-go v0.23.0
 	github.com/golang/mock v1.6.0

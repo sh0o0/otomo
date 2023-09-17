@@ -44,6 +44,24 @@ class TextMessageData with _$TextMessageData {
     );
   }
 
+  factory TextMessageData.fromTextMessageChunk(
+    TextMessageChunk chunk, {
+    required MessageStatus status,
+    bool active = false,
+  }) {
+    return TextMessageData(
+      message: MessageData(
+        id: chunk.clientId ?? chunk.messageId,
+        author: Author.fromRole(chunk.role),
+        sentAt: chunk.sentAt,
+        remoteId: chunk.messageId,
+        status: status,
+        active: active,
+      ),
+      text: chunk.text,
+    );
+  }
+
   List<Place> get placesFromText {
     final places = <Place>[];
     final customTexts = CustomText.fromAllMatches(text);

@@ -3,6 +3,8 @@ package service
 import (
 	"context"
 	"otomo/internal/app/model"
+	"otomo/internal/pkg/times"
+	"otomo/internal/pkg/uuid"
 
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/llms/openai"
@@ -49,7 +51,7 @@ func (cs *ConversationService) Respond(
 	ctx context.Context,
 	msg *model.Message,
 	memory *model.Memory,
-	listeningFunc func(ctx context.Context, chunk []byte) error,
+	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
 	gptMsgs, err := prompts.NewHumanMessagePromptTemplate(
 		respondPrompt,
@@ -61,13 +63,13 @@ func (cs *ConversationService) Respond(
 		return nil, err
 	}
 
-	return cs.call(ctx, gptMsgs, listeningFunc)
+	return cs.call(ctx, gptMsgs, messagingFunc)
 }
 
 func (cs *ConversationService) Message(
 	ctx context.Context,
 	memory *model.Memory,
-	listeningFunc func(ctx context.Context, chunk []byte) error,
+	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
 	gptMsgs, err := prompts.NewSystemMessagePromptTemplate(
 		messagePrompt,
@@ -77,28 +79,92 @@ func (cs *ConversationService) Message(
 		return nil, err
 	}
 
-	return cs.call(ctx, gptMsgs, listeningFunc)
+	return cs.call(ctx, gptMsgs, messagingFunc)
 }
 
 func (cs *ConversationService) call(
 	ctx context.Context,
 	msgs []schema.ChatMessage,
-	listeningFunc func(ctx context.Context, chunk []byte) error,
+	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
-	if listeningFunc == nil {
-		listeningFunc = func(ctx context.Context, chunk []byte) error {
-			return nil
-		}
-	}
+	var (
+		msgID = model.MessageID(uuid.NewString())
+		role  = model.OtomoRole
+	)
 
 	completion, err := cs.gpt.Call(
 		ctx,
 		msgs,
-		llms.WithStreamingFunc(listeningFunc),
+		llms.WithStreamingFunc(
+			cs.makeStreamingFunc(msgID, role, messagingFunc)),
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return cs.msgFactory.New(completion.GetContent(), model.OtomoRole, nil)
+	if err := cs.finishMessagingFunc(ctx, msgID, role, messagingFunc); err != nil {
+		return nil, err
+	}
+
+	return cs.msgFactory.Restore(
+		msgID,
+		completion.GetContent(),
+		role,
+		times.C.Now(),
+		nil,
+	), nil
+}
+
+func (cs *ConversationService) makeStreamingFunc(
+	newMsgID model.MessageID,
+	newMsgRole model.Role,
+	messagingFunc model.MessagingFunc,
+) func(context.Context, []byte) error {
+	if messagingFunc == nil {
+		return func(_ context.Context, _ []byte) error {
+			return nil
+		}
+	} else {
+		return func(ctx context.Context, chunk []byte) error {
+			text := string(chunk)
+			msgChunk, err := model.NewMessageChunk(
+				newMsgID,
+				text,
+				newMsgRole,
+				times.C.Now(),
+				nil,
+				false,
+			)
+			if err != nil {
+				return err
+			}
+
+			return messagingFunc(ctx, msgChunk)
+		}
+	}
+}
+
+func (cs *ConversationService) finishMessagingFunc(
+	ctx context.Context,
+	newMsgID model.MessageID,
+	newMsgRole model.Role,
+	messagingFunc model.MessagingFunc,
+) error {
+	if messagingFunc == nil {
+		return nil
+	} else {
+		msgChunk, err := model.NewMessageChunk(
+			newMsgID,
+			"",
+			newMsgRole,
+			times.C.Now(),
+			nil,
+			true,
+		)
+		if err != nil {
+			return err
+		}
+
+		return messagingFunc(ctx, msgChunk)
+	}
 }

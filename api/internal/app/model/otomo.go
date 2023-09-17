@@ -5,18 +5,20 @@ import (
 	"otomo/internal/pkg/errs"
 )
 
+type MessagingFunc func(context.Context, *MessageChunk) error
+
 // TODO: Add tests
 type Converser interface {
 	Respond(
 		ctx context.Context,
 		msg *Message,
 		memory *Memory,
-		listeningFunc func(ctx context.Context, chunk []byte) error,
+		messagingFunc MessagingFunc,
 	) (*Message, error)
 	Message(
 		ctx context.Context,
 		memory *Memory,
-		listeningFunc func(ctx context.Context, chunk []byte) error,
+		messagingFunc MessagingFunc,
 	) (*Message, error)
 }
 type Summarizer interface {
@@ -31,8 +33,9 @@ type Otomo struct {
 	UserID UserID `firestore:"user_id"`
 	Memory Memory `firestore:"memory"`
 
-	converser  Converser
-	summarizer Summarizer
+	converser     Converser
+	summarizer    Summarizer
+	messagingFunc MessagingFunc
 }
 
 func RestoreOtomo(
@@ -57,6 +60,12 @@ func (o *Otomo) WithSummarizer(summarizer Summarizer) *Otomo {
 	return &newOtomo
 }
 
+func (o *Otomo) WithMessagingFunc(fn MessagingFunc) *Otomo {
+	newOtomo := *o
+	newOtomo.messagingFunc = fn
+	return &newOtomo
+}
+
 func (o *Otomo) Respond(
 	ctx context.Context,
 	msg *Message,
@@ -65,8 +74,7 @@ func (o *Otomo) Respond(
 		return nil, nil, err
 	}
 
-	// TODO: listeningFunc
-	respond, err := o.converser.Respond(ctx, msg, &o.Memory, nil)
+	respond, err := o.converser.Respond(ctx, msg, &o.Memory, o.messagingFunc)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -89,8 +97,7 @@ func (o *Otomo) Message(
 		return nil, nil, err
 	}
 
-	// TODO: listeningFunc
-	newMsg, err := o.converser.Message(ctx, &o.Memory, nil)
+	newMsg, err := o.converser.Message(ctx, &o.Memory, o.messagingFunc)
 	if err != nil {
 		return nil, nil, err
 	}
