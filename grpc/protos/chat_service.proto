@@ -12,6 +12,7 @@ service ChatService {
   rpc SendMessage (ChatService_SendMessageRequest) returns (ChatService_SendMessageResponse) {};
   rpc ListMessages(ChatService_ListMessagesRequest) returns (ChatService_ListMessagesResponse) {};
   rpc AskToMessage(ChatService_AskToMessageRequest) returns (ChatService_AskToMessageResponse) {};
+  rpc MessagingStream(ChatService_MessagingStreamRequest) returns (stream ChatService_MessagingStreamResponse) {};
 };
 
 message ChatService_SendMessageRequest {
@@ -41,4 +42,12 @@ message ChatService_AskToMessageRequest {
 
 message ChatService_AskToMessageResponse {
   Message message = 1;
+}
+
+message ChatService_MessagingStreamRequest {
+  string user_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message ChatService_MessagingStreamResponse {
+  MessageChunk chunk = 1;
 }

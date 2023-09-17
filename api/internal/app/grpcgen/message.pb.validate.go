@@ -193,3 +193,167 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = MessageValidationError{}
+
+// Validate checks the field values on MessageChunk with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MessageChunk) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MessageChunk with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MessageChunkMultiError, or
+// nil if none found.
+func (m *MessageChunk) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MessageChunk) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for MessageId
+
+	// no validation rules for Text
+
+	// no validation rules for Role
+
+	if all {
+		switch v := interface{}(m.GetSentAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MessageChunkValidationError{
+					field:  "SentAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MessageChunkValidationError{
+					field:  "SentAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSentAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MessageChunkValidationError{
+				field:  "SentAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetClientId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MessageChunkValidationError{
+					field:  "ClientId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MessageChunkValidationError{
+					field:  "ClientId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetClientId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MessageChunkValidationError{
+				field:  "ClientId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for IsLast
+
+	if len(errors) > 0 {
+		return MessageChunkMultiError(errors)
+	}
+	return nil
+}
+
+// MessageChunkMultiError is an error wrapping multiple validation errors
+// returned by MessageChunk.ValidateAll() if the designated constraints aren't met.
+type MessageChunkMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MessageChunkMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MessageChunkMultiError) AllErrors() []error { return m }
+
+// MessageChunkValidationError is the validation error returned by
+// MessageChunk.Validate if the designated constraints aren't met.
+type MessageChunkValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MessageChunkValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MessageChunkValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MessageChunkValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MessageChunkValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MessageChunkValidationError) ErrorName() string { return "MessageChunkValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MessageChunkValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMessageChunk.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MessageChunkValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MessageChunkValidationError{}

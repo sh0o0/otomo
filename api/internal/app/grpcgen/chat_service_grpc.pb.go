@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ChatService_SendMessage_FullMethodName  = "/ChatService/SendMessage"
-	ChatService_ListMessages_FullMethodName = "/ChatService/ListMessages"
-	ChatService_AskToMessage_FullMethodName = "/ChatService/AskToMessage"
+	ChatService_SendMessage_FullMethodName     = "/ChatService/SendMessage"
+	ChatService_ListMessages_FullMethodName    = "/ChatService/ListMessages"
+	ChatService_AskToMessage_FullMethodName    = "/ChatService/AskToMessage"
+	ChatService_MessagingStream_FullMethodName = "/ChatService/MessagingStream"
 )
 
 // ChatServiceClient is the client API for ChatService service.
@@ -31,6 +32,7 @@ type ChatServiceClient interface {
 	SendMessage(ctx context.Context, in *ChatService_SendMessageRequest, opts ...grpc.CallOption) (*ChatService_SendMessageResponse, error)
 	ListMessages(ctx context.Context, in *ChatService_ListMessagesRequest, opts ...grpc.CallOption) (*ChatService_ListMessagesResponse, error)
 	AskToMessage(ctx context.Context, in *ChatService_AskToMessageRequest, opts ...grpc.CallOption) (*ChatService_AskToMessageResponse, error)
+	MessagingStream(ctx context.Context, in *ChatService_MessagingStreamRequest, opts ...grpc.CallOption) (ChatService_MessagingStreamClient, error)
 }
 
 type chatServiceClient struct {
@@ -68,6 +70,38 @@ func (c *chatServiceClient) AskToMessage(ctx context.Context, in *ChatService_As
 	return out, nil
 }
 
+func (c *chatServiceClient) MessagingStream(ctx context.Context, in *ChatService_MessagingStreamRequest, opts ...grpc.CallOption) (ChatService_MessagingStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &ChatService_ServiceDesc.Streams[0], ChatService_MessagingStream_FullMethodName, opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &chatServiceMessagingStreamClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ChatService_MessagingStreamClient interface {
+	Recv() (*ChatService_MessagingStreamResponse, error)
+	grpc.ClientStream
+}
+
+type chatServiceMessagingStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *chatServiceMessagingStreamClient) Recv() (*ChatService_MessagingStreamResponse, error) {
+	m := new(ChatService_MessagingStreamResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // ChatServiceServer is the server API for ChatService service.
 // All implementations should embed UnimplementedChatServiceServer
 // for forward compatibility
@@ -75,6 +109,7 @@ type ChatServiceServer interface {
 	SendMessage(context.Context, *ChatService_SendMessageRequest) (*ChatService_SendMessageResponse, error)
 	ListMessages(context.Context, *ChatService_ListMessagesRequest) (*ChatService_ListMessagesResponse, error)
 	AskToMessage(context.Context, *ChatService_AskToMessageRequest) (*ChatService_AskToMessageResponse, error)
+	MessagingStream(*ChatService_MessagingStreamRequest, ChatService_MessagingStreamServer) error
 }
 
 // UnimplementedChatServiceServer should be embedded to have forward compatible implementations.
@@ -89,6 +124,9 @@ func (UnimplementedChatServiceServer) ListMessages(context.Context, *ChatService
 }
 func (UnimplementedChatServiceServer) AskToMessage(context.Context, *ChatService_AskToMessageRequest) (*ChatService_AskToMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AskToMessage not implemented")
+}
+func (UnimplementedChatServiceServer) MessagingStream(*ChatService_MessagingStreamRequest, ChatService_MessagingStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method MessagingStream not implemented")
 }
 
 // UnsafeChatServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -156,6 +194,27 @@ func _ChatService_AskToMessage_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChatService_MessagingStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ChatService_MessagingStreamRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ChatServiceServer).MessagingStream(m, &chatServiceMessagingStreamServer{stream})
+}
+
+type ChatService_MessagingStreamServer interface {
+	Send(*ChatService_MessagingStreamResponse) error
+	grpc.ServerStream
+}
+
+type chatServiceMessagingStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *chatServiceMessagingStreamServer) Send(m *ChatService_MessagingStreamResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // ChatService_ServiceDesc is the grpc.ServiceDesc for ChatService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +235,12 @@ var ChatService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ChatService_AskToMessage_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "MessagingStream",
+			Handler:       _ChatService_MessagingStream_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "chat_service.proto",
 }

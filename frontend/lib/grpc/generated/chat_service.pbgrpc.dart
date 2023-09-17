@@ -33,6 +33,10 @@ class ChatServiceClient extends $grpc.Client {
       '/ChatService/AskToMessage',
       ($0.ChatService_AskToMessageRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.ChatService_AskToMessageResponse.fromBuffer(value));
+  static final _$messagingStream = $grpc.ClientMethod<$0.ChatService_MessagingStreamRequest, $0.ChatService_MessagingStreamResponse>(
+      '/ChatService/MessagingStream',
+      ($0.ChatService_MessagingStreamRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ChatService_MessagingStreamResponse.fromBuffer(value));
 
   ChatServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -50,6 +54,10 @@ class ChatServiceClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.ChatService_AskToMessageResponse> askToMessage($0.ChatService_AskToMessageRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$askToMessage, request, options: options);
+  }
+
+  $grpc.ResponseStream<$0.ChatService_MessagingStreamResponse> messagingStream($0.ChatService_MessagingStreamRequest request, {$grpc.CallOptions? options}) {
+    return $createStreamingCall(_$messagingStream, $async.Stream.fromIterable([request]), options: options);
   }
 }
 
@@ -79,6 +87,13 @@ abstract class ChatServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ChatService_AskToMessageRequest.fromBuffer(value),
         ($0.ChatService_AskToMessageResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ChatService_MessagingStreamRequest, $0.ChatService_MessagingStreamResponse>(
+        'MessagingStream',
+        messagingStream_Pre,
+        false,
+        true,
+        ($core.List<$core.int> value) => $0.ChatService_MessagingStreamRequest.fromBuffer(value),
+        ($0.ChatService_MessagingStreamResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.ChatService_SendMessageResponse> sendMessage_Pre($grpc.ServiceCall call, $async.Future<$0.ChatService_SendMessageRequest> request) async {
@@ -93,7 +108,12 @@ abstract class ChatServiceBase extends $grpc.Service {
     return askToMessage(call, await request);
   }
 
+  $async.Stream<$0.ChatService_MessagingStreamResponse> messagingStream_Pre($grpc.ServiceCall call, $async.Future<$0.ChatService_MessagingStreamRequest> request) async* {
+    yield* messagingStream(call, await request);
+  }
+
   $async.Future<$0.ChatService_SendMessageResponse> sendMessage($grpc.ServiceCall call, $0.ChatService_SendMessageRequest request);
   $async.Future<$0.ChatService_ListMessagesResponse> listMessages($grpc.ServiceCall call, $0.ChatService_ListMessagesRequest request);
   $async.Future<$0.ChatService_AskToMessageResponse> askToMessage($grpc.ServiceCall call, $0.ChatService_AskToMessageRequest request);
+  $async.Stream<$0.ChatService_MessagingStreamResponse> messagingStream($grpc.ServiceCall call, $0.ChatService_MessagingStreamRequest request);
 }

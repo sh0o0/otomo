@@ -50,6 +50,28 @@ function deserialize_ChatService_ListMessagesResponse(buffer_arg) {
   return chat_service_pb.ChatService_ListMessagesResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_ChatService_MessagingStreamRequest(arg) {
+  if (!(arg instanceof chat_service_pb.ChatService_MessagingStreamRequest)) {
+    throw new Error('Expected argument of type ChatService_MessagingStreamRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_ChatService_MessagingStreamRequest(buffer_arg) {
+  return chat_service_pb.ChatService_MessagingStreamRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_ChatService_MessagingStreamResponse(arg) {
+  if (!(arg instanceof chat_service_pb.ChatService_MessagingStreamResponse)) {
+    throw new Error('Expected argument of type ChatService_MessagingStreamResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_ChatService_MessagingStreamResponse(buffer_arg) {
+  return chat_service_pb.ChatService_MessagingStreamResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_ChatService_SendMessageRequest(arg) {
   if (!(arg instanceof chat_service_pb.ChatService_SendMessageRequest)) {
     throw new Error('Expected argument of type ChatService_SendMessageRequest');
@@ -106,6 +128,17 @@ var ChatServiceService = exports.ChatServiceService = {
     requestDeserialize: deserialize_ChatService_AskToMessageRequest,
     responseSerialize: serialize_ChatService_AskToMessageResponse,
     responseDeserialize: deserialize_ChatService_AskToMessageResponse,
+  },
+  messagingStream: {
+    path: '/ChatService/MessagingStream',
+    requestStream: false,
+    responseStream: true,
+    requestType: chat_service_pb.ChatService_MessagingStreamRequest,
+    responseType: chat_service_pb.ChatService_MessagingStreamResponse,
+    requestSerialize: serialize_ChatService_MessagingStreamRequest,
+    requestDeserialize: deserialize_ChatService_MessagingStreamRequest,
+    responseSerialize: serialize_ChatService_MessagingStreamResponse,
+    responseDeserialize: deserialize_ChatService_MessagingStreamResponse,
   },
 };
 

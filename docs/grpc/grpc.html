@@ -195,6 +195,14 @@
                 </li>
               
                 <li>
+                  <a href="#.ChatService_MessagingStreamRequest"><span class="badge">M</span>ChatService_MessagingStreamRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ChatService_MessagingStreamResponse"><span class="badge">M</span>ChatService_MessagingStreamResponse</a>
+                </li>
+              
+                <li>
                   <a href="#.ChatService_SendMessageRequest"><span class="badge">M</span>ChatService_SendMessageRequest</a>
                 </li>
               
@@ -238,6 +246,10 @@
               
                 <li>
                   <a href="#.Message"><span class="badge">M</span>Message</a>
+                </li>
+              
+                <li>
+                  <a href="#.MessageChunk"><span class="badge">M</span>MessageChunk</a>
                 </li>
               
               
@@ -433,6 +445,81 @@
 
         
       
+        <h3 id=".ChatService_MessagingStreamRequest">ChatService_MessagingStreamRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+            
+            
+            <h4>Validated Fields</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Field</td>
+                  <td>Validations</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td>
+                    <ul>
+                    
+                      <li>string.min_len: 1</li>
+                    
+                    </ul>
+                  </td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
+          
+
+        
+      
+        <h3 id=".ChatService_MessagingStreamResponse">ChatService_MessagingStreamResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>chunk</td>
+                  <td><a href="#MessageChunk">MessageChunk</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id=".ChatService_SendMessageRequest">ChatService_SendMessageRequest</h3>
         <p></p>
 
@@ -570,6 +657,13 @@
                 <td><p></p></td>
               </tr>
             
+              <tr>
+                <td>MessagingStream</td>
+                <td><a href="#ChatService_MessagingStreamRequest">.ChatService_MessagingStreamRequest</a></td>
+                <td><a href="#ChatService_MessagingStreamResponse">.ChatService_MessagingStreamResponse</a> stream</td>
+                <td><p></p></td>
+              </tr>
+            
           </tbody>
         </table>
 
@@ -680,6 +774,65 @@
                 <tr>
                   <td>client_id</td>
                   <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".MessageChunk">MessageChunk</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>message_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>text</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>role</td>
+                  <td><a href="#Role">Role</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>sent_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>client_id</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>is_last</td>
+                  <td><a href="#bool">bool</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>

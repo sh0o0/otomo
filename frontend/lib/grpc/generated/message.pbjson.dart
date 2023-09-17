@@ -46,3 +46,24 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'ZXN0YW1wUgZzZW50QXQSOQoJY2xpZW50X2lkGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cm'
     'luZ1ZhbHVlUghjbGllbnRJZA==');
 
+@$core.Deprecated('Use messageChunkDescriptor instead')
+const MessageChunk$json = {
+  '1': 'MessageChunk',
+  '2': [
+    {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
+    {'1': 'text', '3': 2, '4': 1, '5': 9, '10': 'text'},
+    {'1': 'role', '3': 3, '4': 1, '5': 14, '6': '.Role', '10': 'role'},
+    {'1': 'sent_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sentAt'},
+    {'1': 'client_id', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
+    {'1': 'is_last', '3': 6, '4': 1, '5': 8, '10': 'isLast'},
+  ],
+};
+
+/// Descriptor for `MessageChunk`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageChunkDescriptor = $convert.base64Decode(
+    'CgxNZXNzYWdlQ2h1bmsSHQoKbWVzc2FnZV9pZBgBIAEoCVIJbWVzc2FnZUlkEhIKBHRleHQYAi'
+    'ABKAlSBHRleHQSGQoEcm9sZRgDIAEoDjIFLlJvbGVSBHJvbGUSMwoHc2VudF9hdBgEIAEoCzIa'
+    'Lmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSBnNlbnRBdBI5CgljbGllbnRfaWQYBSABKAsyHC'
+    '5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWVSCGNsaWVudElkEhcKB2lzX2xhc3QYBiABKAhS'
+    'BmlzTGFzdA==');
+

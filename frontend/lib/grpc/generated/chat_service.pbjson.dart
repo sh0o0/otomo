@@ -98,3 +98,29 @@ final $typed_data.Uint8List chatService_AskToMessageResponseDescriptor = $conver
     'CiBDaGF0U2VydmljZV9Bc2tUb01lc3NhZ2VSZXNwb25zZRIiCgdtZXNzYWdlGAEgASgLMgguTW'
     'Vzc2FnZVIHbWVzc2FnZQ==');
 
+@$core.Deprecated('Use chatService_MessagingStreamRequestDescriptor instead')
+const ChatService_MessagingStreamRequest$json = {
+  '1': 'ChatService_MessagingStreamRequest',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 1, '5': 9, '8': {}, '10': 'userId'},
+  ],
+};
+
+/// Descriptor for `ChatService_MessagingStreamRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_MessagingStreamRequestDescriptor = $convert.base64Decode(
+    'CiJDaGF0U2VydmljZV9NZXNzYWdpbmdTdHJlYW1SZXF1ZXN0EiAKB3VzZXJfaWQYASABKAlCB/'
+    'pCBHICEAFSBnVzZXJJZA==');
+
+@$core.Deprecated('Use chatService_MessagingStreamResponseDescriptor instead')
+const ChatService_MessagingStreamResponse$json = {
+  '1': 'ChatService_MessagingStreamResponse',
+  '2': [
+    {'1': 'chunk', '3': 1, '4': 1, '5': 11, '6': '.MessageChunk', '10': 'chunk'},
+  ],
+};
+
+/// Descriptor for `ChatService_MessagingStreamResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_MessagingStreamResponseDescriptor = $convert.base64Decode(
+    'CiNDaGF0U2VydmljZV9NZXNzYWdpbmdTdHJlYW1SZXNwb25zZRIjCgVjaHVuaxgBIAEoCzINLk'
+    '1lc3NhZ2VDaHVua1IFY2h1bms=');
+
