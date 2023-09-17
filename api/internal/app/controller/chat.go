@@ -7,9 +7,15 @@ import (
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
+	"otomo/internal/pkg/logs"
+	"otomo/internal/pkg/times"
+	"otomo/internal/pkg/uuid"
+	"otomo/test/testutil"
+	"time"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // TODO: Add tests
@@ -260,5 +266,25 @@ func (cc *ChatController) MessagingStream(
 	req *grpcgen.ChatService_MessagingStreamRequest,
 	stream grpcgen.ChatService_MessagingStreamServer,
 ) error {
-	panic("not implemented") // TODO: Implement
+	msgID := model.MessageID(uuid.NewString())
+
+	for i := 0; i < 3600; i++ {
+		if err := stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
+			Chunk: &grpcgen.MessageChunk{
+				MessageId: string(msgID),
+				Text:      testutil.Faker.Lorem().Word(),
+				Role:      grpcgen.Role_OTOMO,
+				SentAt:    timestamppb.New(times.C.Now()),
+				ClientId:  nil,
+				IsLast:    false,
+			},
+		}); err != nil {
+			logs.Logger.Warn(err.Error())
+			return err
+		}
+
+		times.C.Sleep(time.Second)
+	}
+
+	return nil
 }
