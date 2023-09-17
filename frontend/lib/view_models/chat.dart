@@ -8,6 +8,7 @@ import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/global_state.dart';
+import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -54,9 +55,17 @@ class Chat extends _$Chat {
 
     final messages = await _listTextMessageData(null, null);
 
-    _chatController
+    final messageChangedEventSub = _chatController
         .messageChangedEventsStream(userId: _globalState.userId!)
-        .listen(_onMessageChanged);
+        .listen(_onMessageChanged, onError: (e) => logger.error(e.toString()));
+    final messagingSub = _chatController
+        .messagingStream(userId: _globalState.userId!)
+        .listen(_onBeMassaged, onError: (e) => logger.error(e.toString()));
+
+    ref.onDispose(() {
+      messageChangedEventSub.cancel();
+      messagingSub.cancel();
+    });
 
     return ChatState(messages: messages);
   }
@@ -145,6 +154,18 @@ class Chat extends _$Chat {
     }
   }
 
+  void _onBeMassaged(TextMessageChunk chunk) {
+    if (_isMessageExist(chunk.messageId)) {
+      _joinTextMessageChunk(chunk);
+    } else {
+      final textMessage = TextMessageData.fromTextMessageChunk(
+        chunk,
+        status: chunk.isLast ? MessageStatus.sent : MessageStatus.sending,
+      );
+      _addTextMessage(textMessage);
+    }
+  }
+
   void resetActiveMessages() {
     final value = state.value;
     if (value == null) return;
@@ -203,6 +224,19 @@ class Chat extends _$Chat {
     final index = _indexOfMessage(textMessage.message.id);
     if (index == -1) return;
     state = state..value?.messages[index] = textMessage;
+  }
+
+  void _joinTextMessageChunk(TextMessageChunk chunk) {
+    final index = _indexOfMessage(chunk.messageId);
+    if (index == -1) return;
+    final textMessage = state.value!.messages[index];
+    final joinedTextMessage = textMessage.copyWith
+        .message(
+          sentAt: chunk.sentAt,
+          status: chunk.isLast ? MessageStatus.sent : MessageStatus.sending,
+        )
+        .copyWith(text: textMessage.text + chunk.text);
+    state = state..value?.messages[index] = joinedTextMessage;
   }
 
   void _removeTextMessageByRemoteId(String remoteId) {
