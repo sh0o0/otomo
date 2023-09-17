@@ -92,18 +92,21 @@ func signInWithCustomToken(token string) (string, error) {
 	} else {
 		verifyCustomTokenURL = remoteVerifyCustomTokenURL
 	}
-	fmt.Println((fmt.Sprintf(verifyCustomTokenURL, apiKey)))
 
 	resp, err := postRequest(fmt.Sprintf(verifyCustomTokenURL, apiKey), req)
 	if err != nil {
 		return "", err
 	}
 	var respBody struct {
-		IDToken string `json:"idToken"`
+		IDToken      string `json:"idToken"`
+		RefreshToken string `json:"refreshToken"`
+		ExpiresIn    string `json:"expiresIn"`
 	}
 	if err := json.Unmarshal(resp, &respBody); err != nil {
 		return "", err
 	}
+	// fmt.Printf("refresh token:\n%s\n", respBody.RefreshToken)
+	// fmt.Printf("expires in:\n%s\n", respBody.ExpiresIn)
 	return respBody.IDToken, err
 }
 
