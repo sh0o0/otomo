@@ -11,7 +11,7 @@ type MessagingSubscriber interface {
 		model.UserID,
 		func(context.Context, *model.MessageChunk),
 	) error
-	Unsubscribe() error
+	Unsubscribe(context.Context, model.UserID) error
 }
 
 type MessagingPublisher interface {

@@ -86,6 +86,7 @@ func newFirebaseApp() (*firebase.App, error) {
 }
 
 func newServer() (*grpc.Server, error) {
+	// infrastructures
 	chat, err := openai.NewChat(
 		openai.WithToken(conf.OpenAIApiKey),
 		openai.WithModel(conf.OpenAIModel),
@@ -127,6 +128,7 @@ func newServer() (*grpc.Server, error) {
 	var (
 		summaryService      = service.NewSummaryService(chat)
 		conversationService = service.NewConversationService(chat)
+		// msginSub            = service.NewMessagingSubscriber()
 	)
 
 	var (
