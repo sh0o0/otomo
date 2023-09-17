@@ -255,3 +255,10 @@ func (cc *ChatController) saveMsgAndOtomo(
 func (cc *ChatController) toGrpcError(ctx context.Context, err error) error {
 	return cc.errorPresenter.ErrorOutput(ctx, err).Err()
 }
+
+func (cc *ChatController) MessagingStream(
+	req *grpcgen.ChatService_MessagingStreamRequest,
+	stream grpcgen.ChatService_MessagingStreamServer,
+) error {
+	panic("not implemented") // TODO: Implement
+}
