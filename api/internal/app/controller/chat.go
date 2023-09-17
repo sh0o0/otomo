@@ -50,18 +50,18 @@ func NewChatController(
 }
 
 func (cc *ChatController) AskToMessage(
-	context context.Context,
+	ctx context.Context,
 	req *grpcgen.ChatService_AskToMessageRequest,
 ) (*grpcgen.ChatService_AskToMessageResponse, error) {
-	res, err := cc.askToMessage(context, req)
+	res, err := cc.askToMessage(ctx, req)
 	if err != nil {
-		return nil, cc.toGrpcError(context, err)
+		return nil, cc.toGrpcError(ctx, err)
 	}
 	return res, nil
 }
 
 func (cc *ChatController) askToMessage(
-	context context.Context,
+	ctx context.Context,
 	req *grpcgen.ChatService_AskToMessageRequest,
 ) (*grpcgen.ChatService_AskToMessageResponse, error) {
 	if err := req.ValidateAll(); err != nil {
@@ -72,7 +72,7 @@ func (cc *ChatController) askToMessage(
 		userID = model.UserID(req.GetUserId())
 	)
 
-	if !ctxs.AuthRoleIs(context, model.AdminAuthRole) {
+	if !ctxs.AuthRoleIs(ctx, model.AdminAuthRole) {
 		return nil, &errs.Error{
 			Message: "Only admin role can access this method",
 			Cause:   errs.CausePermissionDenied,
@@ -81,7 +81,7 @@ func (cc *ChatController) askToMessage(
 		}
 	}
 
-	otomo, err := cc.otomoRepo.GetByID(context, userID)
+	otomo, err := cc.otomoRepo.GetByID(ctx, userID)
 	if err != nil {
 		if errs.IsNotFoundErr(err) {
 			otomo, err = model.RestoreOtomo(userID, model.Memory{})
@@ -92,7 +92,13 @@ func (cc *ChatController) askToMessage(
 			return nil, err
 		}
 	}
-	otomo = otomo.WithConverser(cc.converser).WithSummarizer(cc.summarizer)
+	otomo = otomo.
+		WithConverser(cc.converser).
+		WithSummarizer(cc.summarizer).
+		WithMessagingFunc(func(ctx context.Context, msg *model.MessageChunk) error {
+			cc.msginPub.Publish(userID, msg)
+			return nil
+		})
 
 	var (
 		updatedOtomo *model.Otomo
@@ -100,23 +106,23 @@ func (cc *ChatController) askToMessage(
 		convErr      error
 	)
 
-	lastMsg, err := cc.msgRepo.Last(context, userID)
+	lastMsg, err := cc.msgRepo.Last(ctx, userID)
 	if err != nil {
 		if !errs.IsNotFoundErr(err) {
 			return nil, err
 		}
 	}
 	if lastMsg != nil && lastMsg.RoleIs(model.UserRole) {
-		updatedOtomo, newMsg, convErr = otomo.Respond(context, lastMsg)
+		updatedOtomo, newMsg, convErr = otomo.Respond(ctx, lastMsg)
 	} else {
-		updatedOtomo, newMsg, convErr = otomo.Message(context)
+		updatedOtomo, newMsg, convErr = otomo.Message(ctx)
 	}
 	if convErr != nil {
 		return nil, convErr
 	}
 
 	if err := cc.saveMsgAndOtomo(
-		context, userID, newMsg, updatedOtomo); err != nil {
+		ctx, userID, newMsg, updatedOtomo); err != nil {
 		return nil, err
 	}
 
