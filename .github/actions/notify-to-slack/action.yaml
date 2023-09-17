@@ -16,6 +16,13 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Show inputs
+      shell: bash
+      run: |
+        echo "isSuccess: ${{ inputs.isSuccess }}"
+        echo "title: ${{ inputs.title }}"
+        echo "slackWebhookUrl: ${{ inputs.slackWebhookUrl }}"
+        echo "slackChannel: ${{ inputs.slackChannel }}"
     - name: Slack Notification on Success
       if: ${{ inputs.isSuccess }} == 'true'
       uses: rtCamp/action-slack-notify@v2.0.2
