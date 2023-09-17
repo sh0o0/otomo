@@ -4,6 +4,7 @@ import (
 	"context"
 	"otomo/internal/app/grpcgen"
 	"otomo/internal/app/interfaces/repo"
+	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
@@ -28,6 +29,8 @@ type ChatController struct {
 	msgFactory     *model.MessageFactory
 	msgRepo        repo.MessageRepository
 	otomoRepo      repo.OtomoRepository
+	msginSub       svc.MessagingSubscriber
+	msginPub       svc.MessagingPublisher
 	converser      model.Converser
 	summarizer     model.Summarizer
 }
@@ -37,13 +40,18 @@ func NewChatController(
 	msgFactory *model.MessageFactory,
 	msgRepo repo.MessageRepository,
 	otomoRepo repo.OtomoRepository,
+	msginSub svc.MessagingSubscriber,
+	msginPub svc.MessagingPublisher,
 	converser model.Converser,
 	summarizer model.Summarizer,
 ) *ChatController {
 	return &ChatController{
 		errorPresenter: errorPresenter,
+		msgFactory:     msgFactory,
 		msgRepo:        msgRepo,
 		otomoRepo:      otomoRepo,
+		msginSub:       msginSub,
+		msginPub:       msginPub,
 		converser:      converser,
 		summarizer:     summarizer,
 	}
@@ -263,6 +271,33 @@ func (cc *ChatController) toGrpcError(ctx context.Context, err error) error {
 }
 
 func (cc *ChatController) MessagingStream(
+	req *grpcgen.ChatService_MessagingStreamRequest,
+	stream grpcgen.ChatService_MessagingStreamServer,
+) error {
+	msgID := model.MessageID(uuid.NewString())
+
+	for i := 0; i < 3600; i++ {
+		if err := stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
+			Chunk: &grpcgen.MessageChunk{
+				MessageId: string(msgID),
+				Text:      testutil.Faker.Lorem().Word(),
+				Role:      grpcgen.Role_OTOMO,
+				SentAt:    timestamppb.New(times.C.Now()),
+				ClientId:  nil,
+				IsLast:    false,
+			},
+		}); err != nil {
+			logs.Logger.Warn(err.Error())
+			return err
+		}
+
+		times.C.Sleep(time.Second)
+	}
+
+	return nil
+}
+
+func (cc *ChatController) messagingStream(
 	req *grpcgen.ChatService_MessagingStreamRequest,
 	stream grpcgen.ChatService_MessagingStreamServer,
 ) error {
