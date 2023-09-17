@@ -12,8 +12,9 @@ import (
 var conv = &convert{}
 
 type convert struct {
-	Message convertMessage
-	Wrapper convertWrapper
+	Message      convertMessage
+	MessageChunk convertMessageChunk
+	Wrapper      convertWrapper
 }
 
 type convertMessage struct {
@@ -48,6 +49,26 @@ func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, erro
 		Role:     role,
 		SentAt:   timestamppb.New(msg.SentAt),
 		ClientId: cm.Wrapper.StringPtrToStringValue(msg.ClientID),
+	}, nil
+}
+
+type convertMessageChunk struct{}
+
+func (convertMessageChunk) ModelToGrpc(
+	chunk *model.MessageChunk,
+) (*grpcgen.MessageChunk, error) {
+	role, err := conv.Message.Role.ModelToGrpc(chunk.Role)
+	if err != nil {
+		return nil, err
+	}
+
+	return &grpcgen.MessageChunk{
+		MessageId: string(chunk.MessageID),
+		Text:      chunk.Text,
+		Role:      role,
+		SentAt:    timestamppb.New(chunk.SentAt),
+		ClientId:  conv.Message.Wrapper.StringPtrToStringValue(chunk.ClientID),
+		IsLast:    chunk.IsLast,
 	}, nil
 }
 

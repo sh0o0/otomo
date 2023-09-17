@@ -1,12 +1,19 @@
 package svc
 
-import "otomo/internal/app/model"
+import (
+	"context"
+	"otomo/internal/app/model"
+)
 
 type MessagingSubscriber interface {
-	Subscribe(func(*model.MessageChunk)) error
+	Subscribe(
+		context.Context,
+		model.UserID,
+		func(context.Context, *model.MessageChunk),
+	) error
 	Unsubscribe() error
 }
 
 type MessagingPublisher interface {
-	Publish(*model.MessageChunk)
+	Publish(model.UserID, *model.MessageChunk)
 }

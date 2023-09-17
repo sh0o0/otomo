@@ -9,14 +9,9 @@ import (
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
 	"otomo/internal/pkg/logs"
-	"otomo/internal/pkg/times"
-	"otomo/internal/pkg/uuid"
-	"otomo/test/testutil"
-	"time"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // TODO: Add tests
@@ -274,26 +269,9 @@ func (cc *ChatController) MessagingStream(
 	req *grpcgen.ChatService_MessagingStreamRequest,
 	stream grpcgen.ChatService_MessagingStreamServer,
 ) error {
-	msgID := model.MessageID(uuid.NewString())
-
-	for i := 0; i < 3600; i++ {
-		if err := stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
-			Chunk: &grpcgen.MessageChunk{
-				MessageId: string(msgID),
-				Text:      testutil.Faker.Lorem().Word(),
-				Role:      grpcgen.Role_OTOMO,
-				SentAt:    timestamppb.New(times.C.Now()),
-				ClientId:  nil,
-				IsLast:    false,
-			},
-		}); err != nil {
-			logs.Logger.Warn(err.Error())
-			return err
-		}
-
-		times.C.Sleep(time.Second)
+	if err := cc.messagingStream(req, stream); err != nil {
+		return cc.toGrpcError(stream.Context(), err)
 	}
-
 	return nil
 }
 
@@ -301,25 +279,22 @@ func (cc *ChatController) messagingStream(
 	req *grpcgen.ChatService_MessagingStreamRequest,
 	stream grpcgen.ChatService_MessagingStreamServer,
 ) error {
-	msgID := model.MessageID(uuid.NewString())
+	var (
+		ctx    = stream.Context()
+		userID = model.UserID(req.GetUserId())
+	)
 
-	for i := 0; i < 3600; i++ {
-		if err := stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
-			Chunk: &grpcgen.MessageChunk{
-				MessageId: string(msgID),
-				Text:      testutil.Faker.Lorem().Word(),
-				Role:      grpcgen.Role_OTOMO,
-				SentAt:    timestamppb.New(times.C.Now()),
-				ClientId:  nil,
-				IsLast:    false,
-			},
-		}); err != nil {
-			logs.Logger.Warn(err.Error())
-			return err
-		}
-
-		times.C.Sleep(time.Second)
-	}
-
-	return nil
+	return cc.msginSub.Subscribe(
+		ctx, userID, func(ctx context.Context, msg *model.MessageChunk) {
+			chunk, err := conv.MessageChunk.ModelToGrpc(msg)
+			if err != nil {
+				logs.Logger.Warn(err.Error())
+			}
+			if err := stream.Send(&grpcgen.ChatService_MessagingStreamResponse{
+				Chunk: chunk,
+			}); err != nil {
+				logs.Logger.Warn(err.Error())
+			}
+		},
+	)
 }
