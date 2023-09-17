@@ -27,11 +27,11 @@ type MessagingSubscriber struct {
 
 func NewMessagingSubscriber(
 	sub evbus.BusSubscriber,
-) (*MessagingSubscriber, error) {
+) *MessagingSubscriber {
 	msginSub := &MessagingSubscriber{
 		sub: sub,
 	}
-	return msginSub, nil
+	return msginSub
 }
 
 func (s *MessagingSubscriber) Init() error {
