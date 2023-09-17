@@ -5,7 +5,7 @@ import (
 	"otomo/internal/pkg/errs"
 )
 
-type ListeningFunc func(context.Context, *MessageChunk) error
+type MessagingFunc func(context.Context, *MessageChunk) error
 
 // TODO: Add tests
 type Converser interface {
@@ -13,12 +13,12 @@ type Converser interface {
 		ctx context.Context,
 		msg *Message,
 		memory *Memory,
-		listeningFunc ListeningFunc,
+		messagingFunc MessagingFunc,
 	) (*Message, error)
 	Message(
 		ctx context.Context,
 		memory *Memory,
-		listeningFunc ListeningFunc,
+		messagingFunc MessagingFunc,
 	) (*Message, error)
 }
 type Summarizer interface {
@@ -35,7 +35,7 @@ type Otomo struct {
 
 	converser     Converser
 	summarizer    Summarizer
-	listeningFunc ListeningFunc
+	messagingFunc MessagingFunc
 }
 
 func RestoreOtomo(
@@ -60,9 +60,9 @@ func (o *Otomo) WithSummarizer(summarizer Summarizer) *Otomo {
 	return &newOtomo
 }
 
-func (o *Otomo) WithListeningFunc(fn ListeningFunc) *Otomo {
+func (o *Otomo) WithMessagingFunc(fn MessagingFunc) *Otomo {
 	newOtomo := *o
-	newOtomo.listeningFunc = fn
+	newOtomo.messagingFunc = fn
 	return &newOtomo
 }
 
@@ -74,7 +74,7 @@ func (o *Otomo) Respond(
 		return nil, nil, err
 	}
 
-	respond, err := o.converser.Respond(ctx, msg, &o.Memory, o.listeningFunc)
+	respond, err := o.converser.Respond(ctx, msg, &o.Memory, o.messagingFunc)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -97,7 +97,7 @@ func (o *Otomo) Message(
 		return nil, nil, err
 	}
 
-	newMsg, err := o.converser.Message(ctx, &o.Memory, o.listeningFunc)
+	newMsg, err := o.converser.Message(ctx, &o.Memory, o.messagingFunc)
 	if err != nil {
 		return nil, nil, err
 	}

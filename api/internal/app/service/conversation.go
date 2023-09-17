@@ -51,7 +51,7 @@ func (cs *ConversationService) Respond(
 	ctx context.Context,
 	msg *model.Message,
 	memory *model.Memory,
-	listeningFunc model.ListeningFunc,
+	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
 	gptMsgs, err := prompts.NewHumanMessagePromptTemplate(
 		respondPrompt,
@@ -63,13 +63,13 @@ func (cs *ConversationService) Respond(
 		return nil, err
 	}
 
-	return cs.call(ctx, gptMsgs, listeningFunc)
+	return cs.call(ctx, gptMsgs, messagingFunc)
 }
 
 func (cs *ConversationService) Message(
 	ctx context.Context,
 	memory *model.Memory,
-	listeningFunc model.ListeningFunc,
+	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
 	gptMsgs, err := prompts.NewSystemMessagePromptTemplate(
 		messagePrompt,
@@ -79,13 +79,13 @@ func (cs *ConversationService) Message(
 		return nil, err
 	}
 
-	return cs.call(ctx, gptMsgs, listeningFunc)
+	return cs.call(ctx, gptMsgs, messagingFunc)
 }
 
 func (cs *ConversationService) call(
 	ctx context.Context,
 	msgs []schema.ChatMessage,
-	listeningFunc model.ListeningFunc,
+	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
 	var (
 		msgID = model.MessageID(uuid.NewString())
@@ -96,13 +96,13 @@ func (cs *ConversationService) call(
 		ctx,
 		msgs,
 		llms.WithStreamingFunc(
-			cs.makeStreamingFunc(msgID, role, listeningFunc)),
+			cs.makeStreamingFunc(msgID, role, messagingFunc)),
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := cs.finishListening(ctx, msgID, role, listeningFunc); err != nil {
+	if err := cs.finishMessagingFunc(ctx, msgID, role, messagingFunc); err != nil {
 		return nil, err
 	}
 
@@ -118,9 +118,9 @@ func (cs *ConversationService) call(
 func (cs *ConversationService) makeStreamingFunc(
 	newMsgID model.MessageID,
 	newMsgRole model.Role,
-	listeningFunc model.ListeningFunc,
+	messagingFunc model.MessagingFunc,
 ) func(context.Context, []byte) error {
-	if listeningFunc == nil {
+	if messagingFunc == nil {
 		return func(_ context.Context, _ []byte) error {
 			return nil
 		}
@@ -139,18 +139,18 @@ func (cs *ConversationService) makeStreamingFunc(
 				return err
 			}
 
-			return listeningFunc(ctx, msgChunk)
+			return messagingFunc(ctx, msgChunk)
 		}
 	}
 }
 
-func (cs *ConversationService) finishListening(
+func (cs *ConversationService) finishMessagingFunc(
 	ctx context.Context,
 	newMsgID model.MessageID,
 	newMsgRole model.Role,
-	listeningFunc model.ListeningFunc,
+	messagingFunc model.MessagingFunc,
 ) error {
-	if listeningFunc == nil {
+	if messagingFunc == nil {
 		return nil
 	} else {
 		msgChunk, err := model.NewMessageChunk(
@@ -165,6 +165,6 @@ func (cs *ConversationService) finishListening(
 			return err
 		}
 
-		return listeningFunc(ctx, msgChunk)
+		return messagingFunc(ctx, msgChunk)
 	}
 }
