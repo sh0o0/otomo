@@ -34,11 +34,27 @@ func (*MessageFactory) New(
 ) (*Message, error) {
 	return &Message{
 		ID:       MessageID(uuid.NewString()),
-		ClientID: clientID,
 		Text:     text,
 		Role:     role,
 		SentAt:   times.C.Now(),
+		ClientID: clientID,
 	}, nil
+}
+
+func (*MessageFactory) Restore(
+	id MessageID,
+	text string,
+	role Role,
+	sentAt time.Time,
+	clientID *string,
+) *Message {
+	return &Message{
+		ID:       id,
+		Text:     text,
+		Role:     role,
+		SentAt:   sentAt,
+		ClientID: clientID,
+	}
 }
 
 type MessageChunk struct {

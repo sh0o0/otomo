@@ -3,6 +3,8 @@ package service
 import (
 	"context"
 	"otomo/internal/app/model"
+	"otomo/internal/pkg/times"
+	"otomo/internal/pkg/uuid"
 
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/llms/openai"
@@ -49,7 +51,7 @@ func (cs *ConversationService) Respond(
 	ctx context.Context,
 	msg *model.Message,
 	memory *model.Memory,
-	listeningFunc func(ctx context.Context, chunk []byte) error,
+	listeningFunc model.ListeningFunc,
 ) (*model.Message, error) {
 	gptMsgs, err := prompts.NewHumanMessagePromptTemplate(
 		respondPrompt,
@@ -67,7 +69,7 @@ func (cs *ConversationService) Respond(
 func (cs *ConversationService) Message(
 	ctx context.Context,
 	memory *model.Memory,
-	listeningFunc func(ctx context.Context, chunk []byte) error,
+	listeningFunc model.ListeningFunc,
 ) (*model.Message, error) {
 	gptMsgs, err := prompts.NewSystemMessagePromptTemplate(
 		messagePrompt,
@@ -83,22 +85,86 @@ func (cs *ConversationService) Message(
 func (cs *ConversationService) call(
 	ctx context.Context,
 	msgs []schema.ChatMessage,
-	listeningFunc func(ctx context.Context, chunk []byte) error,
+	listeningFunc model.ListeningFunc,
 ) (*model.Message, error) {
-	if listeningFunc == nil {
-		listeningFunc = func(ctx context.Context, chunk []byte) error {
-			return nil
-		}
-	}
+	var (
+		msgID = model.MessageID(uuid.NewString())
+		role  = model.OtomoRole
+	)
 
 	completion, err := cs.gpt.Call(
 		ctx,
 		msgs,
-		llms.WithStreamingFunc(listeningFunc),
+		llms.WithStreamingFunc(
+			cs.makeStreamingFunc(msgID, role, listeningFunc)),
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return cs.msgFactory.New(completion.GetContent(), model.OtomoRole, nil)
+	if err := cs.finishListening(ctx, msgID, role, listeningFunc); err != nil {
+		return nil, err
+	}
+
+	return cs.msgFactory.Restore(
+		msgID,
+		completion.GetContent(),
+		role,
+		times.C.Now(),
+		nil,
+	), nil
+}
+
+func (cs *ConversationService) makeStreamingFunc(
+	newMsgID model.MessageID,
+	newMsgRole model.Role,
+	listeningFunc model.ListeningFunc,
+) func(context.Context, []byte) error {
+	if listeningFunc == nil {
+		return func(_ context.Context, _ []byte) error {
+			return nil
+		}
+	} else {
+		return func(ctx context.Context, chunk []byte) error {
+			text := string(chunk)
+			msgChunk, err := model.NewMessageChunk(
+				newMsgID,
+				text,
+				newMsgRole,
+				times.C.Now(),
+				nil,
+				false,
+			)
+			if err != nil {
+				return err
+			}
+
+			return listeningFunc(ctx, msgChunk)
+		}
+	}
+}
+
+func (cs *ConversationService) finishListening(
+	ctx context.Context,
+	newMsgID model.MessageID,
+	newMsgRole model.Role,
+	listeningFunc model.ListeningFunc,
+) error {
+	if listeningFunc == nil {
+		return nil
+	} else {
+		msgChunk, err := model.NewMessageChunk(
+			newMsgID,
+			"",
+			newMsgRole,
+			times.C.Now(),
+			nil,
+			true,
+		)
+		if err != nil {
+			return err
+		}
+
+		return listeningFunc(ctx, msgChunk)
+	}
 }
