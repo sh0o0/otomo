@@ -19,13 +19,13 @@ jobs:
     environment: develop
     steps:
       - uses: actions/checkout@v3
-      - name: Develop Firebase CI/CD
-        uses: ./.github/actions/firebase-cicd/
-        with:
-          firebaseToken: ${{ secrets.FIREBASE_TOKEN }}
-          firebaseProjectId: ${{ secrets.GCP_PROJECT_ID }}
-          slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
-          slackChannel: ${{ secrets.SLACK_CHANNEL }}
+      # - name: Develop Firebase CI/CD
+      #   uses: ./.github/actions/firebase-cicd/
+      #   with:
+      #     firebaseToken: ${{ secrets.FIREBASE_TOKEN }}
+      #     firebaseProjectId: ${{ secrets.GCP_PROJECT_ID }}
+      #     slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #     slackChannel: ${{ secrets.SLACK_CHANNEL }}
 
       - name: Notify to slack
         uses: ./.github/actions/notify-to-slack/

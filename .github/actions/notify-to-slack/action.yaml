@@ -23,8 +23,10 @@ runs:
         echo "title: ${{ inputs.title }}"
         echo "slackWebhookUrl: ${{ inputs.slackWebhookUrl }}"
         echo "slackChannel: ${{ inputs.slackChannel }}"
+        echo "${{ inputs.isSuccess == 'true' }}"
+        echo "${{ inputs.isSuccess != 'true' }}"
     - name: Slack Notification on Success
-      if: ${{ inputs.isSuccess }} == 'true'
+      if: ${{ inputs.isSuccess == 'true' }}
       uses: rtCamp/action-slack-notify@v2.0.2
       env:
         SLACK_WEBHOOK: ${{ inputs.slackWebhookUrl }}
@@ -37,7 +39,7 @@ runs:
 
     - name: Slack Notification on Failure
       uses: rtCamp/action-slack-notify@v2.0.2
-      if: ${{ inputs.isSuccess }} != 'true'
+      if: ${{ inputs.isSuccess != 'true' }}
       env:
         SLACK_WEBHOOK: ${{ inputs.slackWebhookUrl }}
         SLACK_CHANNEL: ${{ inputs.slack }}
