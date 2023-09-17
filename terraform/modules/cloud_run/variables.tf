@@ -33,3 +33,8 @@ variable "basic_auth_pairs" {
   description = "username and password pairs of basic auth"
   type        = string
 }
+
+variable "openai_api_key" {
+  description = "OpenAI API key"
+  type        = string
+}

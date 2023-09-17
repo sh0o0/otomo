@@ -1,0 +1,78 @@
+inputs:
+  branch:
+    description: "branch name"
+    required: true
+  gcpProjectId:
+    description: "GCP project id"
+    required: true
+  gcpServiceAccountEmail:
+    description: "GCP service account email"
+    required: true
+  gcpServiceAccountKey:
+    description: "GCP service account key"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-go@v3
+      with:
+        go-version-file: ./api/go.mod
+        cache-dependency-path: ./api/go.sum
+        cache: true
+    - name: Cloud SDK auth
+      id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ inputs.gcpServiceAccountKey }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: Install gcloud beta
+      shell: bash
+      run: gcloud components install beta --quiet
+    - name: Install Firestore emulator
+      shell: bash
+      run: gcloud components install cloud-firestore-emulator --quiet
+
+    # CI
+    - name: Run firestore emulator
+      shell: bash
+      env:
+        FIRESTORE_EMULATOR_HOST: localhost:8080
+      run: |
+        gcloud beta emulators firestore start --host-port=$FIRESTORE_EMULATOR_HOST &
+        curl http://localhost:8080 --silent --retry 30 --retry-delay 1 --retry-connrefused
+    - name: Run backend tests
+      shell: bash
+      working-directory: ./api
+      env:
+        FIRESTORE_EMULATOR_HOST: localhost:8080
+        GCP_PROJECT_ID: dummy-project-id
+      run: |
+        go test ./...
+
+    # CD
+    - name: Build a docker image
+      shell: bash
+      working-directory: ./api
+      env:
+        DOCKER_BUILDKIT: "1"
+        BUILDKIT_INLINE_CACHE: "1"
+      run: docker build -t api --cache-from=${{ inputs.branch }}:latest .
+    - name: Configure docker to use the gcloud cli
+      shell: bash
+      run: gcloud auth configure-docker --quiet
+    - name: Push the docker image
+      shell: bash
+      env:
+        IMAGE_TAG: us.gcr.io/${{ inputs.gcpProjectId }}/api
+      run: |
+        docker tag api ${IMAGE_TAG}:${GITHUB_SHA::7}
+        docker tag api ${IMAGE_TAG}:latest
+        docker push ${IMAGE_TAG}:${GITHUB_SHA::7}
+        docker push ${IMAGE_TAG}:latest
+    - name: Deploy cloud run
+      shell: bash
+      run: gcloud beta run deploy api --image=us.gcr.io/${{ inputs.gcpProjectId }}/api --service-account=${{ inputs.gcpServiceAccountEmail }} --use-http2 --allow-unauthenticated --platform=managed --region=us-west1 --project=${{ inputs.gcpProjectId }}

@@ -1,0 +1,55 @@
+inputs:
+  firebaseToken:
+    description: "firebase token"
+    required: true
+  firebaseProjectId:
+    description: "Firebase project id"
+    required: true
+  slackWebhookUrl:
+    description: "slack webhook url"
+    required: true
+  slackChannel:
+    description: "slack notify channel"
+    required: true
+
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: "16"
+
+    # Setup
+    - name: Caching
+      uses: actions/cache@v3
+      with:
+        path: functions/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    # CD
+    - name: Install packages
+      shell: bash
+      working-directory: ./firebase/functions
+      run: npm install
+    - name: Switch project
+      uses: w9jds/firebase-action@master
+      with:
+        args: use ${{ inputs.firebaseProjectId }}
+      env:
+        FIREBASE_TOKEN: ${{ inputs.firebaseToken }}
+        PROJECT_PATH: ./firebase
+    - name: Deploy to Firebase
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy
+      env:
+        FIREBASE_TOKEN: ${{ inputs.firebaseToken }}
+        PROJECT_PATH: ./firebase
+
+    - name: Notify to slack
+      uses: ./.github/actions/notify-to-slack/
+      with:
+        slackWebhookUrl: ${{ inputs.slackWebhookUrl }}
+        slackChannel: ${{ inputs.slackChannel }}

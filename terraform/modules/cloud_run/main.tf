@@ -37,6 +37,10 @@ resource "google_cloud_run_service" "default" {
           name  = "BASIC_AUTH_PAIRS"
           value = var.basic_auth_pairs
         }
+        env {
+          name  = "OPENAI_API_KEY"
+          value = var.openai_api_key
+        }
       }
     }
   }

@@ -1,0 +1,41 @@
+inputs:
+  isSuccess:
+    description: "is success"
+    required: true
+  title:
+    description: "title"
+    required: true
+  # https://qiita.com/progrhyme/items/badf31978612b22dbf47
+  slackWebhookUrl:
+    description: "slack webhook url"
+    required: true
+  slackChannel:
+    description: "slack notify channel"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Slack Notification on Success
+      if: ${{ inputs.isSuccess == 'true' }}
+      uses: rtCamp/action-slack-notify@v2.0.2
+      env:
+        SLACK_WEBHOOK: ${{ inputs.slackWebhookUrl }}
+        SLACK_CHANNEL: ${{ inputs.slack }}
+        SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
+        SLACK_USERNAME: Github Actions
+        SLACK_TITLE: ${{ inputs.title }}
+        SLACK_MESSAGE: "✅ ${{ inputs.title }}: ${{ github.event.head_commit.message }}"
+        SLACK_COLOR: good
+
+    - name: Slack Notification on Failure
+      uses: rtCamp/action-slack-notify@v2.0.2
+      if: ${{ inputs.isSuccess != 'true' }}
+      env:
+        SLACK_WEBHOOK: ${{ inputs.slackWebhookUrl }}
+        SLACK_CHANNEL: ${{ inputs.slack }}
+        SLACK_ICON: https://avatars.githubusercontent.com/u/44036562?s=200&v=4
+        SLACK_USERNAME: Github Actions
+        SLACK_TITLE: ${{ inputs.title }}
+        SLACK_MESSAGE: "❌ ${{ inputs.title }}: ${{ github.event.head_commit.message }}"
+        SLACK_COLOR: danger
