@@ -5,7 +5,7 @@ import 'package:otomo/views/bases/layouts/safe_area_layout.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
 import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
-import 'package:otomo/views/cases/buttons/sign_in_button.dart';
+import 'package:otomo/views/cases/sign_in/sign_in_button.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
 
 class SignInPage extends HookConsumerWidget {
