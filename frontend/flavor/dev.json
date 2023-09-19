@@ -1,4 +1,7 @@
 {
+  "FLAVOR": "dev",
+  "APP_NAME": "Otomo Local",
+  "APP_ID_SUFFIX": ".develop",
   "IS_LOCAL": false,
   "IS_SECURE_CONNECTION_TO_OTOMO_SERVER": true,
   "OTOMO_SERVER_HOST": "${env:DEV_OTOMO_SERVER_HOST}",
