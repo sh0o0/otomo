@@ -48,3 +48,4 @@ app.*.map.json
 .vscode/settings.json
 flavor/
 !flavor/template.json
+**/android/app/google-services.json

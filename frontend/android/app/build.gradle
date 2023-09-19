@@ -1,3 +1,18 @@
+// # Added by developer
+// For google-service.json
+task selectGoogleServicesJson(type: Copy) {
+    from "src/$FLAVOR/google-services.json"
+    into './'
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'processDebugGoogleServices' || task.name == 'processReleaseGoogleServices') {
+        task.dependsOn selectGoogleServicesJson
+    }
+}
+
+
+// Original
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -76,3 +91,4 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
