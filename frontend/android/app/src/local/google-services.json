@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "764287781247-i2hns9ni5n8dpe52stfg3koh3iijab64.apps.googleusercontent.com",
+              "client_id": "764287781247-an3o1b7n6sk3ps7f67f82657hb53g65g.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.nakar0.otomo.develop"
+                "bundle_id": "com.nakar0.otomo.local"
               }
             }
           ]
@@ -67,10 +67,10 @@
               "client_type": 3
             },
             {
-              "client_id": "764287781247-i2hns9ni5n8dpe52stfg3koh3iijab64.apps.googleusercontent.com",
+              "client_id": "764287781247-an3o1b7n6sk3ps7f67f82657hb53g65g.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.nakar0.otomo.develop"
+                "bundle_id": "com.nakar0.otomo.local"
               }
             }
           ]

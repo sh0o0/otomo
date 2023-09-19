@@ -195,6 +195,7 @@
 			buildPhases = (
 				7D05F0275EA4CE2DE10634A6 /* [CP] Check Pods Manifest.lock */,
 				E2EBFD482AB9567F000EB648 /* Select GoogleService-info.json */,
+				E2EBFD492AB97131000EB648 /* Select firebase_app_id_file.json */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
@@ -401,6 +402,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\\cp -f ${SRCROOT}/flavor/${FLAVOR}/GoogleService-Info.plist ${SRCROOT}/Runner/GoogleService-Info.plist\n";
+		};
+		E2EBFD492AB97131000EB648 /* Select firebase_app_id_file.json */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Select firebase_app_id_file.json";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${SRCROOT}/firebase_app_id_file.json",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\\cp -f ${SRCROOT}/flavor/${FLAVOR}/firebase_app_id_file.json ${SRCROOT}/firebase_app_id_file.json\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

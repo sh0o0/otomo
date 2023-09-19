@@ -5,6 +5,7 @@ AppConfig appConfig = AppConfig.fromEnv();
 class Env {
   Env._();
 
+  static const String flavorStr = String.fromEnvironment('FLAVOR');
   static const bool isRelease = bool.fromEnvironment('dart.vm.product');
   static const bool isLocal =
       bool.fromEnvironment('IS_LOCAL', defaultValue: false);
@@ -19,6 +20,7 @@ class AppConfig {
   AppConfig.fromEnv()
       : isRelease = Env.isRelease,
         isLocal = Env.isLocal,
+        flavor = Flavor.values.byName(Env.flavorStr),
         otomoServerHost = Env.otomoServerHost,
         otomoServerPort = Env.otomoServerPort,
         isSecureConnectionToOtomoServer = Env.isSecureConnectionToOtomoServer,
@@ -26,6 +28,7 @@ class AppConfig {
 
   final bool isRelease;
   final bool isLocal;
+  final Flavor flavor;
   final String otomoServerHost;
   final int otomoServerPort;
   final bool isSecureConnectionToOtomoServer;
@@ -35,9 +38,15 @@ class AppConfig {
   String toString() {
     return '''isRelease: $isRelease
 isLocal: $isLocal
+flavor: $flavor
 otomoServerHost: $otomoServerHost
 otomoServerPort: $otomoServerPort
 logLevel: $logLevel
 ''';
   }
+}
+
+enum Flavor {
+  local,
+  dev,
 }
