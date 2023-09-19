@@ -1,4 +1,4 @@
-// package: 
+// package:
 // file: chat_service.proto
 
 /* tslint:disable */
