@@ -1,0 +1,9 @@
+{
+  "FLAVOR": "local",
+  "APP_NAME": "Otomo Local",
+  "APP_ID_SUFFIX": ".local",
+  "IS_LOCAL": true,
+  "IS_SECURE_CONNECTION_TO_OTOMO_SERVER": false,
+  "OTOMO_SERVER_HOST": "",
+  "OTOMO_SERVER_PORT": ""
+}
