@@ -11,8 +11,4 @@ class AuthControllerImpl {
   Stream<User?> authStateChanges() => _firebaseAuth
       .authStateChanges()
       .map((authUser) => authUser == null ? null : User(id: authUser.uid));
-
-  Future<String?> getIdToken() async {
-    return _firebaseAuth.currentUser?.getIdToken();
-  }
 }

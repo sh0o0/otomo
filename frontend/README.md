@@ -1,16 +1,18 @@
-# otomo
+# Frontend
 
-A new Flutter project.
+## Flavor
 
-## Getting Started
+1. mkdir android/app/src/${FLAVOR}/
+2. mkdir ios/flavor/${FLAVOR}/
+4. touch flavor/${FLAVOR}.json
 
-This project is a starting point for a Flutter application.
+### flutterfire configure
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. flutterfire configure \
+   --out=lib/configs/firebase_options/${FLAVOR}.dart \
+    --platforms=android,ios,web \
+    --ios-bundle-id=com.nakar0.otomo.${FLAVOR} \
+   --android-package-name=com.nakar0.otomo.${FLAVOR}
+2. mv android/app/google-services.json android/app/src/${FLAVOR}/
+3. cp ios/firebase_app_id_file.json ios/flavor/${FLAVOR}/
+4. mv ios/Runner/GoogleService-Info.plist ios/flavor/${FLAVOR}/

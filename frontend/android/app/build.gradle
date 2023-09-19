@@ -1,3 +1,18 @@
+// # Added by developer
+// For google-service.json
+task selectGoogleServicesJson(type: Copy) {
+    from "src/$FLAVOR/google-services.json"
+    into './'
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'processDebugGoogleServices' || task.name == 'processReleaseGoogleServices') {
+        task.dependsOn selectGoogleServicesJson
+    }
+}
+
+
+// Original
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -29,7 +44,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    namespace "com.nakar0.otomo.develop"
+    namespace "com.nakar0.otomo"
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
@@ -48,13 +63,17 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.nakar0.otomo.develop"
+        applicationId "com.nakar0.otomo"
+        applicationIdSuffix APP_ID_SUFFIX
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        resValue "string", "app_name", APP_NAME
+        resValue "string", "google_map_api_key", GOOGLE_MAP_API_KEY
     }
 
     buildTypes {
@@ -73,3 +92,4 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+

@@ -1,5 +1,5 @@
 import 'package:grpc/grpc.dart';
-import 'package:otomo/grpc/generated/interceptors/response_future.dart';
+import 'package:otomo/grpc/generated/interceptors/response.dart';
 import 'package:otomo/tools/logger.dart';
 
 // TODO: Add tests

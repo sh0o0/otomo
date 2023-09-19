@@ -4,15 +4,15 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 
-final userProvider = StateNotifierProvider<UserNotifier, User?>(
-  (ref) => UserNotifier(
+final authProvider = StateNotifierProvider<AuthNotifier, User?>(
+  (ref) => AuthNotifier(
     getIt<FirebaseAuth>(),
     getIt<GlobalState>(),
   ),
 );
 
-class UserNotifier extends StateNotifier<User?> {
-  UserNotifier(this._firebaseAuth, this._globalState) : super(null) {
+class AuthNotifier extends StateNotifier<User?> {
+  AuthNotifier(this._firebaseAuth, this._globalState) : super(null) {
     _firebaseAuth.authStateChanges().listen((user) {
       state = user;
       _globalState.userId = user?.uid;
