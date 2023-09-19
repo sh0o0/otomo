@@ -49,3 +49,4 @@ app.*.map.json
 flavor/
 !flavor/template.json
 **/android/app/google-services.json
+**/ios/GoogleService-Info.plist
