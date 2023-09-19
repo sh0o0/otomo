@@ -24,8 +24,10 @@ Future<void> setup() async {
   configureInjection();
 
   if (appConfig.isLocal) {
-    getIt<FirebaseFirestore>().useFirestoreEmulator(appConfig.otomoServerHost, 8080);
-    await getIt<FirebaseAuth>().useAuthEmulator(appConfig.otomoServerHost, 9099);
+    getIt<FirebaseFirestore>()
+        .useFirestoreEmulator(appConfig.otomoServerHost, 8080);
+    await getIt<FirebaseAuth>()
+        .useAuthEmulator(appConfig.otomoServerHost, 9099);
   }
 
   // TODO: Should think about this place
