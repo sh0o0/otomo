@@ -44,7 +44,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    namespace "com.nakar0.otomo${APP_ID_SUFFIX}"
+    namespace "com.nakar0.otomo"
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
