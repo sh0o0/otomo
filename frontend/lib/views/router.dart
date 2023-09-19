@@ -39,7 +39,7 @@ final List<GoRoute> _signedInPages = [
 ];
 
 final routerProvider = Provider((ref) {
-  final user = ref.watch(userProvider);
+  final user = ref.watch(authProvider);
   if (user == null) {
     return GoRouter(
       navigatorKey: _key,
