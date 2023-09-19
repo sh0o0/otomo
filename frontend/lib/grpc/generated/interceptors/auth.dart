@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grpc/grpc.dart';
 import 'package:otomo/controllers/boundary/id_token.dart';
+import 'package:otomo/grpc/generated/interceptors/response.dart';
 import 'package:otomo/tools/logger.dart';
 
-class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
-  InjectAuthHeaderClientInterceptor(this._idTokenController);
+class AuthClientInterceptor extends ClientInterceptor {
+  AuthClientInterceptor(this._idTokenController, this._firebaseAuth);
 
   final IdTokenController _idTokenController;
+  final FirebaseAuth _firebaseAuth;
 
   @override
   ResponseFuture<R> interceptUnary<Q, R>(
@@ -15,7 +18,13 @@ class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
     ClientUnaryInvoker<Q, R> invoker,
   ) {
     final authCallOptions = _makeAuthCallOptions(options);
-    return invoker(method, request, authCallOptions);
+
+    return DelegatingResponseFuture<R>(
+            invoker(method, request, authCallOptions))
+        .catchError((Object e) {
+      _ifUnauthenticatedSignOut(e);
+      throw e;
+    });
   }
 
   @override
@@ -26,7 +35,12 @@ class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
     ClientStreamingInvoker<Q, R> invoker,
   ) {
     final authCallOptions = _makeAuthCallOptions(options);
-    return invoker(method, requests, authCallOptions);
+    return DelegatingResponseStream<R>(
+            invoker(method, requests, authCallOptions))
+        .handleError((e) {
+      _ifUnauthenticatedSignOut(e);
+      throw e;
+    });
   }
 
   CallOptions _makeAuthCallOptions<Q, R>(
@@ -42,5 +56,12 @@ class InjectAuthHeaderClientInterceptor extends ClientInterceptor {
     );
     logger.info('added `authorization` header');
     return mergedOptions;
+  }
+
+  Future<void> _ifUnauthenticatedSignOut(Object e) async {
+    if (e is GrpcError && e.code == StatusCode.unauthenticated) {
+      logger.info('unauthenticated. sign out.');
+      await _firebaseAuth.signOut();
+    }
   }
 }
