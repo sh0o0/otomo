@@ -82,7 +82,7 @@ class ChatUI extends StatelessWidget {
           ),
         ],
       ),
-      inputOptions: this.inputOptions,
+      inputOptions: inputOptions,
       customBottomWidget: hideBottomSheet ? Spaces.zero : null,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
         return Container(
