@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:injectable/injectable.dart';
 import 'package:otomo/entities/user.dart';
 
-@injectable
 class AuthControllerImpl {
   AuthControllerImpl(this._firebaseAuth);
 
@@ -11,4 +9,6 @@ class AuthControllerImpl {
   Stream<User?> authStateChanges() => _firebaseAuth
       .authStateChanges()
       .map((authUser) => authUser == null ? null : User(id: authUser.uid));
+
+  Future<void> signOut() => _firebaseAuth.signOut();
 }
