@@ -14,7 +14,6 @@ import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
 import 'package:otomo/grpc/generated/interceptors/logging.dart';
 import 'package:otomo/grpc/generated/interceptors/retry.dart';
-import 'package:otomo/tools/global_state.dart';
 
 final getIt = GetIt.instance;
 
@@ -53,9 +52,6 @@ abstract class InjectableModule {
   GoogleSignIn get googleSignIn => GoogleSignIn(
         scopes: ['email'],
       );
-
-  @singleton
-  GlobalState get globalState => GlobalState.instance;
 
   static IdTokenController get _idTokenController =>
       IdTokenControllerImpl(_firebaseAuth);

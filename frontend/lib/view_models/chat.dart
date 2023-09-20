@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
+import 'package:otomo/controllers/utils.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/entities/place.dart';
-import 'package:otomo/tools/global_state.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
@@ -42,7 +42,6 @@ class ChatState with _$ChatState {
 
 @riverpod
 class Chat extends _$Chat {
-  final _globalState = getIt<GlobalState>();
   final _chatController = getIt<ChatControllerImpl>();
   final StreamController<Place> _focusedPlaceController =
       StreamController<Place>.broadcast();
@@ -54,12 +53,13 @@ class Chat extends _$Chat {
     state = const AsyncValue.loading();
 
     final messages = await _listTextMessageData(null, null);
+    final user = readUser(ref);
 
     final messageChangedEventSub = _chatController
-        .messageChangedEventsStream(userId: _globalState.userId!)
+        .messageChangedEventsStream(userId: user!.id)
         .listen(_onMessageChanged, onError: (e) => logger.error(e.toString()));
     final messagingSub = _chatController
-        .messagingStream(userId: _globalState.userId!)
+        .messagingStream(userId: user.id)
         .listen(_onBeMassaged, onError: (e) => logger.error(e.toString()));
 
     ref.onDispose(() {
@@ -86,7 +86,7 @@ class Chat extends _$Chat {
     _addTextMessage(newTextMessageData);
 
     final respTextMessage = await _chatController.sendMessage(
-      userId: _globalState.userId!,
+      userId: readUser(ref)!.id,
       text: text,
       clientId: clientId,
     );
@@ -114,7 +114,7 @@ class Chat extends _$Chat {
     String? pageStartAfterMessageId,
   ) async {
     final messages = await _chatController.listMessages(
-        _globalState.userId!, pageSize, pageStartAfterMessageId);
+        readUser(ref)!.id, pageSize, pageStartAfterMessageId);
 
     return messages
         .map((e) =>
