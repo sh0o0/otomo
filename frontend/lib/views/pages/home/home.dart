@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
@@ -18,23 +19,43 @@ class HomePage extends StatefulHookConsumerWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   static const _sheetAnimationCurve = Curves.ease;
+  static const _sheetAnimationDuration = Duration(milliseconds: 800);
+  static const _maxSheetSize = 0.95;
+  static const _minSheetSize = 0.0;
+  static const _limitCanShowKeyboard = 0.45;
+  static const _sheetSnaps = [_limitCanShowKeyboard];
 
   DraggableScrollableController? _sheetController;
 
-  bool get _canUseSheetController =>
-      _sheetController != null && _sheetController!.isAttached;
+  void _assertCanUseSheetController() {
+    assert(_sheetController != null && _sheetController!.isAttached);
+  }
 
   void _onSheetCreated(DraggableScrollableController controller) {
     _sheetController = controller;
+    controller.addListener(() {
+      _assertCanUseSheetController();
+      if (_sheetController!.size < _limitCanShowKeyboard) {
+        ViewUtilsController.I.unfocus(context);
+      }
+    });
   }
 
-  void onPressedSheetLeading(BuildContext context) {
-    ViewUtilsController.I.unfocus(context);
+  void _onPressedSheetLeading(BuildContext context) {
+    _assertCanUseSheetController();
 
-    if (!_canUseSheetController) return;
     _sheetController!.animateTo(
-      0.0,
-      duration: const Duration(milliseconds: 500),
+      _minSheetSize,
+      duration: _sheetAnimationDuration,
+      curve: _sheetAnimationCurve,
+    );
+  }
+
+  void _onChatTextFieldTap(BuildContext context) {
+    _assertCanUseSheetController();
+    _sheetController?.animateTo(
+      _maxSheetSize,
+      duration: _sheetAnimationDuration,
       curve: _sheetAnimationCurve,
     );
   }
@@ -53,8 +74,8 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
         onPrimaryButtonPressed: () {
           _sheetController?.animateTo(
-            0.95,
-            duration: const Duration(milliseconds: 500),
+            _maxSheetSize,
+            duration: _sheetAnimationDuration,
             curve: _sheetAnimationCurve,
           );
         },
@@ -66,18 +87,22 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     return Unfocus(
       child: HomeWithDraggableScrollableBottomSheet(
-        initialSheetSize: 0.0,
-        minSheetSize: 0.0,
-        maxSheetSize: 0.95,
+        initialSheetSize: _minSheetSize,
+        maxSheetSize: _maxSheetSize,
+        minSheetSize: _minSheetSize,
         snap: true,
-        snapSizes: const [0.4, 0.5, 0.6],
+        snapSizes: _sheetSnaps,
         resizeToAvoidBottomInset: false,
         onSheetCreated: _onSheetCreated,
         behindSheetFloatingActionButton: _buildFloatingActionButton(context),
         bottomSheetBar: ChatBottomSheetBar(
-          onPressedLeading: () => onPressedSheetLeading(context),
+          onPressedLeading: () => _onPressedSheetLeading(context),
         ),
-        bottomSheet: const HomeChat(),
+        bottomSheet: HomeChat(
+          inputOptions: InputOptions(
+            onTextFieldTap: () => _onChatTextFieldTap(context),
+          ),
+        ),
         child: const MapPage(),
       ),
     );

@@ -20,6 +20,7 @@ class ChatUI extends StatelessWidget {
     this.onMessageTap,
     this.onCustomTextTap,
     this.hideBottomSheet = false,
+    this.inputOptions = const InputOptions(),
   });
 
   final List<TextMessageData> messages;
@@ -30,6 +31,7 @@ class ChatUI extends StatelessWidget {
   final void Function(BuildContext context, MessageData message)? onMessageTap;
   final void Function(CustomText text)? onCustomTextTap;
   final bool hideBottomSheet;
+  final InputOptions inputOptions;
 
   Color _getBubbleColor(BuildContext context, types.Message m) {
     final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
@@ -80,6 +82,7 @@ class ChatUI extends StatelessWidget {
           ),
         ],
       ),
+      inputOptions: this.inputOptions,
       customBottomWidget: hideBottomSheet ? Spaces.zero : null,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
         return Container(

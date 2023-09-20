@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart' as types;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/chat.dart';
@@ -9,9 +10,11 @@ class HomeChat extends HookConsumerWidget {
   const HomeChat({
     super.key,
     this.hideBottomSheet = false,
+    this.inputOptions = const types.InputOptions(),
   });
 
   final bool hideBottomSheet;
+  final types.InputOptions inputOptions;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,6 +36,7 @@ class HomeChat extends HookConsumerWidget {
         notifier.focusPlace(Place(name: customText.text, latLng: latLng));
       },
       hideBottomSheet: hideBottomSheet,
+      inputOptions: inputOptions,
     );
   }
 }
