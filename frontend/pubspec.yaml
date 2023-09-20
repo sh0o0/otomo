@@ -47,7 +47,6 @@ dependencies:
   url_launcher: ^6.1.14
   animations: ^2.0.8
   flutter_animate: ^4.2.0+1
-  scroll_to_index: ^3.0.1
 
   ### Riverpod
   flutter_hooks: ^0.18.0
