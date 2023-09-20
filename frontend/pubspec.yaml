@@ -46,6 +46,7 @@ dependencies:
   flutter_parsed_text: ^2.2.1
   url_launcher: ^6.1.14
   animations: ^2.0.8
+  flutter_animate: ^4.2.0+1
 
   ### Riverpod
   flutter_hooks: ^0.18.0

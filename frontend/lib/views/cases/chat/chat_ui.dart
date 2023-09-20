@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
@@ -60,13 +61,16 @@ class ChatUI extends StatelessWidget {
         children: [
           child,
           if (message.active)
-            Positioned(
-              bottom: 0,
-              top: 0,
-              left: 0,
-              child: Container(
-                width: 5,
-                color: theme.colorScheme.secondary,
+            Animate(
+              effects: const [FadeEffect(duration: Duration(milliseconds: 50))],
+              child: Positioned(
+                bottom: 0,
+                top: 0,
+                left: 0,
+                child: Container(
+                  width: 5,
+                  color: theme.colorScheme.secondary,
+                ),
               ),
             ),
         ],
