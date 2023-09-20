@@ -33,16 +33,45 @@ class ChatUI extends StatelessWidget {
   final bool hideBottomSheet;
   final InputOptions inputOptions;
 
-  Color _getBubbleColor(BuildContext context, types.Message m) {
-    final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
-    final message = ViewConverter.I.message.viewToData(m);
-
+  Widget _buildBubble(
+    BuildContext context, {
+    required Widget child,
+    required MessageData message,
+  }) {
+    final theme = Theme.of(context);
+    final chatTheme = theme.extension<AppChatTheme>()!.chatTheme;
+    Color? color;
     if (message.author.isUser) {
-      if (message.active) return chatTheme.primaryColor.withOpacity(0.5);
-      return chatTheme.primaryColor;
+      color = chatTheme.primaryColor;
+    } else {
+      color = chatTheme.secondaryColor;
     }
-    if (message.active) return chatTheme.secondaryColor.withOpacity(0.5);
-    return chatTheme.secondaryColor;
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
+        color: color,
+      ),
+      clipBehavior: Clip.hardEdge,
+      child: Stack(
+        alignment: message.author.isUser
+            ? Alignment.centerRight
+            : Alignment.centerLeft,
+        children: [
+          child,
+          if (message.active)
+            Positioned(
+              bottom: 0,
+              top: 0,
+              left: 0,
+              child: Container(
+                width: 5,
+                color: theme.colorScheme.secondary,
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -85,13 +114,8 @@ class ChatUI extends StatelessWidget {
       inputOptions: inputOptions,
       customBottomWidget: hideBottomSheet ? Spaces.zero : null,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
-            color: _getBubbleColor(context, message),
-          ),
-          child: child,
-        );
+        final messageData = ViewConverter.I.message.viewToData(message);
+        return _buildBubble(context, child: child, message: messageData);
       },
     );
   }
