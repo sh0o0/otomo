@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:otomo/views/utils/animation.dart';
 import 'package:otomo/views/utils/haptic.dart';
 
 enum ButtonDirection {
@@ -54,16 +55,8 @@ class _FloatingActionButtonWithSwipeSelectionButtonsState
   ButtonDirection? _selectedButton;
   late AnimationController _controller;
 
-  bool get _isAnimationRunningForwardsOrComplete {
-    switch (_controller.status) {
-      case AnimationStatus.forward:
-      case AnimationStatus.completed:
-        return true;
-      case AnimationStatus.reverse:
-      case AnimationStatus.dismissed:
-        return false;
-    }
-  }
+  bool get _isAnimationRunningForwardsOrComplete =>
+      isAnimationRunningForwardsOrComplete(_controller.status);
 
   @override
   void initState() {

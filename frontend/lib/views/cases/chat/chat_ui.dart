@@ -7,6 +7,7 @@ import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/custom_text.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/views/utils/converter.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ChatUI extends StatelessWidget {
@@ -22,6 +23,8 @@ class ChatUI extends StatelessWidget {
     this.inputOptions = const InputOptions(),
     this.onBackgroundTap,
     this.customBottomWidget,
+    this.listBottomWidget,
+    this.scrollController,
   });
 
   final List<TextMessageData> messages;
@@ -34,6 +37,8 @@ class ChatUI extends StatelessWidget {
   final InputOptions inputOptions;
   final VoidCallback? onBackgroundTap;
   final Widget? customBottomWidget;
+  final Widget? listBottomWidget;
+  final AutoScrollController? scrollController;
 
   Widget _buildBubble(
     BuildContext context, {
@@ -87,6 +92,7 @@ class ChatUI extends StatelessWidget {
     return Chat(
       messages: ViewConverter.I.message.textDataToViewList(messages),
       onSendPressed: (message) => onSendPressed(message.text),
+      scrollController: scrollController,
       user: types.User(id: user.id),
       theme: chatTheme,
       emptyState: emptyState,
@@ -119,6 +125,7 @@ class ChatUI extends StatelessWidget {
       onBackgroundTap: onBackgroundTap,
       inputOptions: inputOptions,
       customBottomWidget: customBottomWidget,
+      listBottomWidget: listBottomWidget,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
         final messageData = ViewConverter.I.message.viewToData(message);
         return _buildBubble(context, child: child, message: messageData);
