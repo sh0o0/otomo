@@ -6,7 +6,6 @@ import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/custom_text.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
-import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/utils/converter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -20,8 +19,9 @@ class ChatUI extends StatelessWidget {
     this.onEndReached,
     this.onMessageTap,
     this.onCustomTextTap,
-    this.hideBottomSheet = false,
     this.inputOptions = const InputOptions(),
+    this.onBackgroundTap,
+    this.customBottomWidget,
   });
 
   final List<TextMessageData> messages;
@@ -31,8 +31,9 @@ class ChatUI extends StatelessWidget {
   final Future<void> Function()? onEndReached;
   final void Function(BuildContext context, MessageData message)? onMessageTap;
   final void Function(CustomText text)? onCustomTextTap;
-  final bool hideBottomSheet;
   final InputOptions inputOptions;
+  final VoidCallback? onBackgroundTap;
+  final Widget? customBottomWidget;
 
   Widget _buildBubble(
     BuildContext context, {
@@ -115,8 +116,9 @@ class ChatUI extends StatelessWidget {
           ),
         ],
       ),
+      onBackgroundTap: onBackgroundTap,
       inputOptions: inputOptions,
-      customBottomWidget: hideBottomSheet ? Spaces.zero : null,
+      customBottomWidget: customBottomWidget,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
         final messageData = ViewConverter.I.message.viewToData(message);
         return _buildBubble(context, child: child, message: messageData);

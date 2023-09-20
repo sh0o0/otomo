@@ -22,6 +22,7 @@ class ChatState with _$ChatState {
 
   const factory ChatState({
     required List<TextMessageData> messages,
+    @Default(false) bool showOnlyMessages,
   }) = _ChatState;
 
   static final user = Author.fromRole(Role.user);
@@ -192,6 +193,14 @@ class Chat extends _$Chat {
 
   void focusPlace(Place place) {
     _focusedPlaceController.add(place);
+  }
+
+  void toggleShowOnlyMessages() {
+    final value = state.value;
+    if (value == null) return;
+
+    state = AsyncValue.data(
+        value.copyWith(showOnlyMessages: !value.showOnlyMessages));
   }
 
   bool _isMessageExist(String id) {

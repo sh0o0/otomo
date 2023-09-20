@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as types;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
+import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
 
 class HomeChat extends HookConsumerWidget {
@@ -35,8 +37,18 @@ class HomeChat extends HookConsumerWidget {
         if (latLng == null) return;
         notifier.focusPlace(Place(name: customText.text, latLng: latLng));
       },
-      hideBottomSheet: hideBottomSheet,
-      inputOptions: inputOptions,
+      customBottomWidget: state.value?.showOnlyMessages == true
+          ? Spaces.zero
+          : Animate(
+              effects: const [
+                FadeEffect(duration: Duration(milliseconds: 100)),
+              ],
+              child: types.Input(
+                onSendPressed: (text) => notifier.sendMessage(text.text),
+                options: inputOptions,
+              ),
+            ),
+      onBackgroundTap: () => notifier.toggleShowOnlyMessages(),
     );
   }
 }
