@@ -22,7 +22,7 @@ class ChatState with _$ChatState {
 
   const factory ChatState({
     required List<TextMessageData> messages,
-    @Default(false) bool showOnlyMessages,
+    @Default(false) bool hideTextField,
   }) = _ChatState;
 
   static final user = Author.fromRole(Role.user);
@@ -199,8 +199,22 @@ class Chat extends _$Chat {
     final value = state.value;
     if (value == null) return;
 
-    state = AsyncValue.data(
-        value.copyWith(showOnlyMessages: !value.showOnlyMessages));
+    state =
+        AsyncValue.data(value.copyWith(hideTextField: !value.hideTextField));
+  }
+
+  void showTextField() {
+    final value = state.value;
+    if (value == null) return;
+
+    state = AsyncValue.data(value.copyWith(hideTextField: false));
+  }
+
+  void hideTextField() {
+    final value = state.value;
+    if (value == null) return;
+
+    state = AsyncValue.data(value.copyWith(hideTextField: true));
   }
 
   bool _isMessageExist(String id) {

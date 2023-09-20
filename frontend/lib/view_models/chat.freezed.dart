@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ChatState {
   List<TextMessageData> get messages => throw _privateConstructorUsedError;
-  bool get showOnlyMessages => throw _privateConstructorUsedError;
+  bool get hideTextField => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChatStateCopyWith<ChatState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $ChatStateCopyWith<$Res> {
   factory $ChatStateCopyWith(ChatState value, $Res Function(ChatState) then) =
       _$ChatStateCopyWithImpl<$Res, ChatState>;
   @useResult
-  $Res call({List<TextMessageData> messages, bool showOnlyMessages});
+  $Res call({List<TextMessageData> messages, bool hideTextField});
 }
 
 /// @nodoc
@@ -46,16 +46,16 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
   @override
   $Res call({
     Object? messages = null,
-    Object? showOnlyMessages = null,
+    Object? hideTextField = null,
   }) {
     return _then(_value.copyWith(
       messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<TextMessageData>,
-      showOnlyMessages: null == showOnlyMessages
-          ? _value.showOnlyMessages
-          : showOnlyMessages // ignore: cast_nullable_to_non_nullable
+      hideTextField: null == hideTextField
+          ? _value.hideTextField
+          : hideTextField // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -68,7 +68,7 @@ abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
       __$$_ChatStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TextMessageData> messages, bool showOnlyMessages});
+  $Res call({List<TextMessageData> messages, bool hideTextField});
 }
 
 /// @nodoc
@@ -83,16 +83,16 @@ class __$$_ChatStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? messages = null,
-    Object? showOnlyMessages = null,
+    Object? hideTextField = null,
   }) {
     return _then(_$_ChatState(
       messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<TextMessageData>,
-      showOnlyMessages: null == showOnlyMessages
-          ? _value.showOnlyMessages
-          : showOnlyMessages // ignore: cast_nullable_to_non_nullable
+      hideTextField: null == hideTextField
+          ? _value.hideTextField
+          : hideTextField // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -101,18 +101,18 @@ class __$$_ChatStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ChatState extends _ChatState {
-  const _$_ChatState({required this.messages, this.showOnlyMessages = false})
+  const _$_ChatState({required this.messages, this.hideTextField = false})
       : super._();
 
   @override
   final List<TextMessageData> messages;
   @override
   @JsonKey()
-  final bool showOnlyMessages;
+  final bool hideTextField;
 
   @override
   String toString() {
-    return 'ChatState(messages: $messages, showOnlyMessages: $showOnlyMessages)';
+    return 'ChatState(messages: $messages, hideTextField: $hideTextField)';
   }
 
   @override
@@ -121,13 +121,13 @@ class _$_ChatState extends _ChatState {
         (other.runtimeType == runtimeType &&
             other is _$_ChatState &&
             const DeepCollectionEquality().equals(other.messages, messages) &&
-            (identical(other.showOnlyMessages, showOnlyMessages) ||
-                other.showOnlyMessages == showOnlyMessages));
+            (identical(other.hideTextField, hideTextField) ||
+                other.hideTextField == hideTextField));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(messages), showOnlyMessages);
+      const DeepCollectionEquality().hash(messages), hideTextField);
 
   @JsonKey(ignore: true)
   @override
@@ -139,13 +139,13 @@ class _$_ChatState extends _ChatState {
 abstract class _ChatState extends ChatState {
   const factory _ChatState(
       {required final List<TextMessageData> messages,
-      final bool showOnlyMessages}) = _$_ChatState;
+      final bool hideTextField}) = _$_ChatState;
   const _ChatState._() : super._();
 
   @override
   List<TextMessageData> get messages;
   @override
-  bool get showOnlyMessages;
+  bool get hideTextField;
   @override
   @JsonKey(ignore: true)
   _$$_ChatStateCopyWith<_$_ChatState> get copyWith =>

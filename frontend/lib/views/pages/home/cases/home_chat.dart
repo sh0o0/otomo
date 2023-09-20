@@ -37,7 +37,7 @@ class HomeChat extends HookConsumerWidget {
         if (latLng == null) return;
         notifier.focusPlace(Place(name: customText.text, latLng: latLng));
       },
-      customBottomWidget: state.value?.showOnlyMessages == true
+      customBottomWidget: state.value?.hideTextField == true
           ? Spaces.zero
           : Animate(
               effects: const [
