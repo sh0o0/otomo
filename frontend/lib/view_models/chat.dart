@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/chat.dart';
+import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/controllers/utils.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
@@ -21,7 +22,7 @@ class ChatState with _$ChatState {
   const ChatState._();
 
   const factory ChatState({
-    required List<TextMessageData> messages,
+    required Pagination<TextMessageData> messagesPage,
     @Default(false) bool hideTextField,
   }) = _ChatState;
 
@@ -38,7 +39,7 @@ class ChatState with _$ChatState {
   }
 
   List<TextMessageData> get _activeMessages =>
-      messages.where((m) => m.message.active).toList();
+      messagesPage.items.where((m) => m.message.active).toList();
 }
 
 @riverpod
@@ -57,7 +58,7 @@ class Chat extends _$Chat {
   @override
   FutureOr<ChatState> build() async {
     state = const AsyncValue.loading();
-    final messages = await _listTextMessageData(null, null);
+    final page = await _listTextMessageData(null, null);
     final user = readUser(ref);
 
     final messageChangedEventSub = _chatController
@@ -72,7 +73,8 @@ class Chat extends _$Chat {
       messagingSub.cancel();
     });
 
-    return ChatState(messages: messages);
+    return ChatState(
+        messagesPage: Pagination(items: page.items, hasMore: page.hasMore));
   }
 
   Future<void> sendMessage(String text) async {
@@ -105,27 +107,36 @@ class Chat extends _$Chat {
   Future<void> listMessagesMore() async {
     if (state.isLoading) return;
 
-    final ChatState preValue = state.value ?? const ChatState(messages: []);
-    final lastMessageId = preValue.messages.last.message.remoteId;
+    final ChatState preValue = state.value ??
+        const ChatState(messagesPage: Pagination(items: [], hasMore: true));
+
+    final lastMessageId = preValue.messagesPage.items.last.message.remoteId;
 
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final messages = await _listTextMessageData(null, lastMessageId);
-      return preValue.copyWith(messages: [...preValue.messages, ...messages]);
+      final page = await _listTextMessageData(null, lastMessageId);
+      return preValue.copyWith(
+        messagesPage: Pagination(
+            items: [...preValue.messagesPage.items, ...page.items],
+            hasMore: page.hasMore),
+      );
     });
   }
 
-  Future<List<TextMessageData>> _listTextMessageData(
+  Future<Pagination<TextMessageData>> _listTextMessageData(
     int? pageSize,
     String? pageStartAfterMessageId,
   ) async {
-    final messages = await _chatController.listMessages(
+    final page = await _chatController.listMessages(
         readUser(ref)!.id, pageSize, pageStartAfterMessageId);
 
-    return messages
-        .map((e) =>
-            TextMessageData.fromTextMessage(e, status: MessageStatus.sent))
-        .toList();
+    return Pagination(
+      items: page.items
+          .map((e) =>
+              TextMessageData.fromTextMessage(e, status: MessageStatus.sent))
+          .toList(),
+      hasMore: page.hasMore,
+    );
   }
 
   void _onMessageChanged(List<TextMessageChangedEvent> events) {
@@ -176,7 +187,7 @@ class Chat extends _$Chat {
     final index = _indexOfMessage(id);
     if (index == -1) return;
 
-    final msg = state.value!.messages[index];
+    final msg = state.value!.messagesPage.items[index];
     if (msg.message.active) {
       _deactivateMessageWithIndex(index);
     } else {
@@ -186,15 +197,17 @@ class Chat extends _$Chat {
   }
 
   void _activateMessageWithIndex(int index) {
-    final message = state.value!.messages[index];
+    final message = state.value!.messagesPage.items[index];
     state = state
-      ..value?.messages[index] = message.copyWith.message(active: true);
+      ..value?.messagesPage.items[index] =
+          message.copyWith.message(active: true);
   }
 
   void _deactivateMessageWithIndex(int index) {
-    final message = state.value!.messages[index];
+    final message = state.value!.messagesPage.items[index];
     state = state
-      ..value?.messages[index] = message.copyWith.message(active: false);
+      ..value?.messagesPage.items[index] =
+          message.copyWith.message(active: false);
   }
 
   void focusPlace(Place place) {
@@ -227,50 +240,51 @@ class Chat extends _$Chat {
     final value = state.value;
     if (value == null) return false;
 
-    return value.messages.any((m) => m.message.id == id);
+    return value.messagesPage.items.any((m) => m.message.id == id);
   }
 
   int _indexOfMessage(String id) {
     final value = state.value;
     if (value == null) return -1;
 
-    return value.messages.indexWhere((m) => m.message.id == id);
+    return value.messagesPage.items.indexWhere((m) => m.message.id == id);
   }
 
   int _indexOfMessageByRemoteId(String remoteId) {
     final value = state.value;
     if (value == null) return -1;
 
-    return value.messages.indexWhere((m) => m.message.remoteId == remoteId);
+    return value.messagesPage.items
+        .indexWhere((m) => m.message.remoteId == remoteId);
   }
 
   void _addTextMessage(TextMessageData textMessage) {
     if (_isMessageExist(textMessage.message.id)) return;
-    state = state..value?.messages.insert(0, textMessage);
+    state = state..value?.messagesPage.items.insert(0, textMessage);
   }
 
   void _updateTextMessage(TextMessageData textMessage) {
     final index = _indexOfMessage(textMessage.message.id);
     if (index == -1) return;
-    state = state..value?.messages[index] = textMessage;
+    state = state..value?.messagesPage.items[index] = textMessage;
   }
 
   void _joinTextMessageChunk(TextMessageChunk chunk) {
     final index = _indexOfMessage(chunk.messageId);
     if (index == -1) return;
-    final textMessage = state.value!.messages[index];
+    final textMessage = state.value!.messagesPage.items[index];
     final joinedTextMessage = textMessage.copyWith
         .message(
           sentAt: chunk.sentAt,
           status: chunk.isLast ? MessageStatus.sent : MessageStatus.sending,
         )
         .copyWith(text: textMessage.text + chunk.text);
-    state = state..value?.messages[index] = joinedTextMessage;
+    state = state..value?.messagesPage.items[index] = joinedTextMessage;
   }
 
   void _removeTextMessageByRemoteId(String remoteId) {
     final index = _indexOfMessageByRemoteId(remoteId);
     if (index == -1) return;
-    state = state..value?.messages.removeAt(index);
+    state = state..value?.messagesPage.items.removeAt(index);
   }
 }

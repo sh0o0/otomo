@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChatState {
-  List<TextMessageData> get messages => throw _privateConstructorUsedError;
+  Pagination<TextMessageData> get messagesPage =>
+      throw _privateConstructorUsedError;
   bool get hideTextField => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,9 @@ abstract class $ChatStateCopyWith<$Res> {
   factory $ChatStateCopyWith(ChatState value, $Res Function(ChatState) then) =
       _$ChatStateCopyWithImpl<$Res, ChatState>;
   @useResult
-  $Res call({List<TextMessageData> messages, bool hideTextField});
+  $Res call({Pagination<TextMessageData> messagesPage, bool hideTextField});
+
+  $PaginationCopyWith<TextMessageData, $Res> get messagesPage;
 }
 
 /// @nodoc
@@ -45,19 +48,28 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? messages = null,
+    Object? messagesPage = null,
     Object? hideTextField = null,
   }) {
     return _then(_value.copyWith(
-      messages: null == messages
-          ? _value.messages
-          : messages // ignore: cast_nullable_to_non_nullable
-              as List<TextMessageData>,
+      messagesPage: null == messagesPage
+          ? _value.messagesPage
+          : messagesPage // ignore: cast_nullable_to_non_nullable
+              as Pagination<TextMessageData>,
       hideTextField: null == hideTextField
           ? _value.hideTextField
           : hideTextField // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PaginationCopyWith<TextMessageData, $Res> get messagesPage {
+    return $PaginationCopyWith<TextMessageData, $Res>(_value.messagesPage,
+        (value) {
+      return _then(_value.copyWith(messagesPage: value) as $Val);
+    });
   }
 }
 
@@ -68,7 +80,10 @@ abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
       __$$_ChatStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TextMessageData> messages, bool hideTextField});
+  $Res call({Pagination<TextMessageData> messagesPage, bool hideTextField});
+
+  @override
+  $PaginationCopyWith<TextMessageData, $Res> get messagesPage;
 }
 
 /// @nodoc
@@ -82,14 +97,14 @@ class __$$_ChatStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? messages = null,
+    Object? messagesPage = null,
     Object? hideTextField = null,
   }) {
     return _then(_$_ChatState(
-      messages: null == messages
-          ? _value.messages
-          : messages // ignore: cast_nullable_to_non_nullable
-              as List<TextMessageData>,
+      messagesPage: null == messagesPage
+          ? _value.messagesPage
+          : messagesPage // ignore: cast_nullable_to_non_nullable
+              as Pagination<TextMessageData>,
       hideTextField: null == hideTextField
           ? _value.hideTextField
           : hideTextField // ignore: cast_nullable_to_non_nullable
@@ -101,18 +116,18 @@ class __$$_ChatStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ChatState extends _ChatState {
-  const _$_ChatState({required this.messages, this.hideTextField = false})
+  const _$_ChatState({required this.messagesPage, this.hideTextField = false})
       : super._();
 
   @override
-  final List<TextMessageData> messages;
+  final Pagination<TextMessageData> messagesPage;
   @override
   @JsonKey()
   final bool hideTextField;
 
   @override
   String toString() {
-    return 'ChatState(messages: $messages, hideTextField: $hideTextField)';
+    return 'ChatState(messagesPage: $messagesPage, hideTextField: $hideTextField)';
   }
 
   @override
@@ -120,14 +135,14 @@ class _$_ChatState extends _ChatState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ChatState &&
-            const DeepCollectionEquality().equals(other.messages, messages) &&
+            (identical(other.messagesPage, messagesPage) ||
+                other.messagesPage == messagesPage) &&
             (identical(other.hideTextField, hideTextField) ||
                 other.hideTextField == hideTextField));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(messages), hideTextField);
+  int get hashCode => Object.hash(runtimeType, messagesPage, hideTextField);
 
   @JsonKey(ignore: true)
   @override
@@ -138,12 +153,12 @@ class _$_ChatState extends _ChatState {
 
 abstract class _ChatState extends ChatState {
   const factory _ChatState(
-      {required final List<TextMessageData> messages,
+      {required final Pagination<TextMessageData> messagesPage,
       final bool hideTextField}) = _$_ChatState;
   const _ChatState._() : super._();
 
   @override
-  List<TextMessageData> get messages;
+  Pagination<TextMessageData> get messagesPage;
   @override
   bool get hideTextField;
   @override
