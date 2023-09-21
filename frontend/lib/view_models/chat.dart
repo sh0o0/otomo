@@ -47,7 +47,7 @@ class Chat extends _$Chat {
   final StreamController<Place> _focusedPlaceController =
       StreamController<Place>.broadcast();
 
-  Stream<Place> get focusPlaceStream => _focusedPlaceController.stream;
+  Stream<Place> get focusedPlaceStream => _focusedPlaceController.stream;
 
   @override
   FutureOr<ChatState> build() async {

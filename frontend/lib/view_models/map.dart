@@ -13,7 +13,7 @@ final mapProvider =
     StateNotifierProvider.autoDispose<MapNotifier, MapState>((ref) {
   final activePlaces =
       ref.watch(chatProvider.select((v) => v.value?.activePlaces));
-  final focusPlaceStream = ref.read(chatProvider.notifier).focusPlaceStream;
+  final focusPlaceStream = ref.read(chatProvider.notifier).focusedPlaceStream;
   return MapNotifier(
     MapState(activePlaces: activePlaces ?? []),
     focusPlaceStream: focusPlaceStream,

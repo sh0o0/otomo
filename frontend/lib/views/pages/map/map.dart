@@ -28,7 +28,7 @@ class _MapState extends ConsumerState<MapPage> {
   Future<void> _goCurrentLocation(MapNotifier notifier) async {
     if (!_canUseMapController) return;
     final position = await notifier.getCurrentPosition();
-    _mapController!.goWithAnimation(latLng: position.latLng, zoom: 8);
+    _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 8);
   }
 
   Set<Marker> _markers(MapState state) => ViewConverter.I.placeAndMarker
@@ -41,7 +41,7 @@ class _MapState extends ConsumerState<MapPage> {
       final sub =
           ref.read(mapProvider.notifier).focusPlaceStream.listen((place) {
         if (!_canUseMapController) return;
-        _mapController!.goWithAnimation(latLng: place.latLng, zoom: 8);
+        _mapController!.moveWithLatLng(latLng: place.latLng, zoom: 8);
       });
       return () => sub.cancel();
     });
