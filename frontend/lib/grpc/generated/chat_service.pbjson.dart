@@ -63,6 +63,7 @@ const ChatService_ListMessagesResponse$json = {
   '1': 'ChatService_ListMessagesResponse',
   '2': [
     {'1': 'page_size', '3': 1, '4': 1, '5': 13, '10': 'pageSize'},
+    {'1': 'has_more', '3': 2, '4': 1, '5': 8, '10': 'hasMore'},
     {'1': 'messages', '3': 3, '4': 3, '5': 11, '6': '.Message', '10': 'messages'},
   ],
 };
@@ -70,7 +71,8 @@ const ChatService_ListMessagesResponse$json = {
 /// Descriptor for `ChatService_ListMessagesResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List chatService_ListMessagesResponseDescriptor = $convert.base64Decode(
     'CiBDaGF0U2VydmljZV9MaXN0TWVzc2FnZXNSZXNwb25zZRIbCglwYWdlX3NpemUYASABKA1SCH'
-    'BhZ2VTaXplEiQKCG1lc3NhZ2VzGAMgAygLMgguTWVzc2FnZVIIbWVzc2FnZXM=');
+    'BhZ2VTaXplEhkKCGhhc19tb3JlGAIgASgIUgdoYXNNb3JlEiQKCG1lc3NhZ2VzGAMgAygLMggu'
+    'TWVzc2FnZVIIbWVzc2FnZXM=');
 
 @$core.Deprecated('Use chatService_AskToMessageRequestDescriptor instead')
 const ChatService_AskToMessageRequest$json = {

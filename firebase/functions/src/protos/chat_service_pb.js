@@ -793,6 +793,7 @@ proto.ChatService_ListMessagesResponse.prototype.toObject = function(opt_include
 proto.ChatService_ListMessagesResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     pageSize: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    hasMore: jspb.Message.getBooleanFieldWithDefault(msg, 2, false),
     messagesList: jspb.Message.toObjectList(msg.getMessagesList(),
     message_pb.Message.toObject, includeInstance)
   };
@@ -835,6 +836,10 @@ proto.ChatService_ListMessagesResponse.deserializeBinaryFromReader = function(ms
       var value = /** @type {number} */ (reader.readUint32());
       msg.setPageSize(value);
       break;
+    case 2:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setHasMore(value);
+      break;
     case 3:
       var value = new message_pb.Message;
       reader.readMessage(value,message_pb.Message.deserializeBinaryFromReader);
@@ -876,6 +881,13 @@ proto.ChatService_ListMessagesResponse.serializeBinaryToWriter = function(messag
       f
     );
   }
+  f = message.getHasMore();
+  if (f) {
+    writer.writeBool(
+      2,
+      f
+    );
+  }
   f = message.getMessagesList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
@@ -902,6 +914,24 @@ proto.ChatService_ListMessagesResponse.prototype.getPageSize = function() {
  */
 proto.ChatService_ListMessagesResponse.prototype.setPageSize = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional bool has_more = 2;
+ * @return {boolean}
+ */
+proto.ChatService_ListMessagesResponse.prototype.getHasMore = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.ChatService_ListMessagesResponse} returns this
+ */
+proto.ChatService_ListMessagesResponse.prototype.setHasMore = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
 };
 
 

@@ -33,6 +33,7 @@ message ChatService_ListMessagesRequest {
 
 message ChatService_ListMessagesResponse {
   uint32 page_size = 1;
+  bool has_more = 2;
   repeated Message messages = 3;
 };
 

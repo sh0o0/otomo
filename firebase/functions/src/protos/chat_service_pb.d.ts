@@ -89,6 +89,8 @@ export namespace ChatService_ListMessagesRequest {
 export class ChatService_ListMessagesResponse extends jspb.Message { 
     getPageSize(): number;
     setPageSize(value: number): ChatService_ListMessagesResponse;
+    getHasMore(): boolean;
+    setHasMore(value: boolean): ChatService_ListMessagesResponse;
     clearMessagesList(): void;
     getMessagesList(): Array<message_pb.Message>;
     setMessagesList(value: Array<message_pb.Message>): ChatService_ListMessagesResponse;
@@ -107,6 +109,7 @@ export class ChatService_ListMessagesResponse extends jspb.Message {
 export namespace ChatService_ListMessagesResponse {
     export type AsObject = {
         pageSize: number,
+        hasMore: boolean,
         messagesList: Array<message_pb.Message.AsObject>,
     }
 }

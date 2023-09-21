@@ -194,6 +194,7 @@ class ChatService_ListMessagesResponse extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_ListMessagesResponse', createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'pageSize', $pb.PbFieldType.OU3)
+    ..aOB(2, _omitFieldNames ? '' : 'hasMore')
     ..pc<$5.Message>(3, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: $5.Message.create)
     ..hasRequiredFields = false
   ;
@@ -228,8 +229,17 @@ class ChatService_ListMessagesResponse extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearPageSize() => clearField(1);
 
+  @$pb.TagNumber(2)
+  $core.bool get hasMore => $_getBF(1);
+  @$pb.TagNumber(2)
+  set hasMore($core.bool v) { $_setBool(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasHasMore() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearHasMore() => clearField(2);
+
   @$pb.TagNumber(3)
-  $core.List<$5.Message> get messages => $_getList(1);
+  $core.List<$5.Message> get messages => $_getList(2);
 }
 
 class ChatService_AskToMessageRequest extends $pb.GeneratedMessage {
