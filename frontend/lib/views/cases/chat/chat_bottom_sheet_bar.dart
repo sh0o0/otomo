@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_bar_handle.dart';
 import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_leading.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/chat/online_status.dart';
@@ -23,20 +24,26 @@ class ChatBottomSheetBar extends StatelessWidget {
           bottom: BorderSide(color: theme.dividerColor, width: 1),
         ),
       ),
-      child: Row(
+      child: Column(
         children: [
-          BottomSheetLeading(onPressedLeading: onPressedLeading),
-          Spaces.w8,
-          const OtomoAvatar(),
-          Spaces.w8,
-          const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Spaces.h8,
+          const BottomSheetBarHandle(),
+          Row(
             children: [
-              Text('Otomo'),
-              OnlineStatus(online: true),
+              BottomSheetLeading(onPressedLeading: onPressedLeading),
+              Spaces.w8,
+              const OtomoAvatar(),
+              Spaces.w8,
+              const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Otomo'),
+                  OnlineStatus(online: true),
+                ],
+              )
             ],
-          )
+          ),
         ],
       ),
     );
