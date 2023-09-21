@@ -89,7 +89,7 @@ class __$$_PaginationCopyWithImpl<T, $Res>
   }) {
     return _then(_$_Pagination<T>(
       items: null == items
-          ? _value._items
+          ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<T>,
       hasMore: null == hasMore
@@ -103,17 +103,10 @@ class __$$_PaginationCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$_Pagination<T> implements _Pagination<T> {
-  const _$_Pagination({required final List<T> items, required this.hasMore})
-      : _items = items;
+  const _$_Pagination({required this.items, required this.hasMore});
 
-  final List<T> _items;
   @override
-  List<T> get items {
-    if (_items is EqualUnmodifiableListView) return _items;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_items);
-  }
-
+  final List<T> items;
   @override
   final bool hasMore;
 
@@ -127,13 +120,13 @@ class _$_Pagination<T> implements _Pagination<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Pagination<T> &&
-            const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality().equals(other.items, items) &&
             (identical(other.hasMore, hasMore) || other.hasMore == hasMore));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_items), hasMore);
+      runtimeType, const DeepCollectionEquality().hash(items), hasMore);
 
   @JsonKey(ignore: true)
   @override

@@ -106,6 +106,7 @@ class Chat extends _$Chat {
 
   Future<void> listMessagesMore() async {
     if (state.isLoading) return;
+    if (state.value?.messagesPage.hasMore == false) return;
 
     final ChatState preValue = state.value ??
         const ChatState(messagesPage: Pagination(items: [], hasMore: true));
