@@ -2,6 +2,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as chat;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/entities/place.dart';
+import 'package:otomo/entities/region.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 
 class ViewConverter {
@@ -10,6 +11,7 @@ class ViewConverter {
   static ViewConverter get I => _instance;
 
   final latLng = _LatLng();
+  final region = _Region();
   final message = _Message();
   final placeAndMarker = _PlaceAndMarker();
 }
@@ -17,6 +19,15 @@ class ViewConverter {
 class _LatLng {
   LatLng entityToViewForGoogle(AppLatLng ll) =>
       LatLng(ll.latitude, ll.longitude);
+}
+
+class _Region {
+  final _latLng = _LatLng();
+
+  LatLngBounds entityToViewForGoogle(Region ll) => LatLngBounds(
+        southwest: _latLng.entityToViewForGoogle(ll.southwest),
+        northeast: _latLng.entityToViewForGoogle(ll.northeast),
+      );
 }
 
 class _Message {

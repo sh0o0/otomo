@@ -13,7 +13,7 @@ class IdTokenControllerImpl implements IdTokenController {
         _idToken = null;
         _cancelTimerIf();
       } else {
-        _refreshIdToken();
+        _setupIdToken(false);
       }
     });
   }
@@ -27,9 +27,10 @@ class IdTokenControllerImpl implements IdTokenController {
   String? get idToken => _idToken;
 
   @override
-  Future<void> refreshIdToken() => _refreshIdToken();
+  Future<void> setupIdToken([bool forceRefresh = false]) =>
+      _setupIdToken(forceRefresh);
 
-  Future<void> _refreshIdToken() async {
+  Future<void> _setupIdToken([bool forceRefresh = false]) async {
     _cancelTimerIf();
 
     final user = _firebaseAuth.currentUser;
@@ -38,7 +39,7 @@ class IdTokenControllerImpl implements IdTokenController {
       return;
     }
 
-    final idTokenResult = await user.getIdTokenResult();
+    final idTokenResult = await user.getIdTokenResult(forceRefresh);
     _idToken = idTokenResult.token;
     logger.debug(_idToken!);
     logger.info('refreshed id token');
@@ -57,13 +58,14 @@ class IdTokenControllerImpl implements IdTokenController {
 
     if (expirationTime == null) {
       logger.warn('expiration period is null. That is not expected.');
-      _refreshTimer = Timer(const Duration(seconds: 10), _refreshIdToken);
+      _refreshTimer =
+          Timer(const Duration(seconds: 10), () => _setupIdToken(true));
       return;
     }
 
     final expirationPeriod = expirationTime.difference(DateTime.now());
 
     final refreshDuration = expirationPeriod - const Duration(minutes: 1);
-    _refreshTimer = Timer(refreshDuration, _refreshIdToken);
+    _refreshTimer = Timer(refreshDuration, () => _setupIdToken(true));
   }
 }

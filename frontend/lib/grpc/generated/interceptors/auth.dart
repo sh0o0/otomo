@@ -1,14 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grpc/grpc.dart';
+import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/grpc/generated/interceptors/response.dart';
 import 'package:otomo/tools/logger.dart';
 
 class AuthClientInterceptor extends ClientInterceptor {
-  AuthClientInterceptor(this._idTokenController, this._firebaseAuth);
+  AuthClientInterceptor(this._idTokenController, this._authController);
 
   final IdTokenController _idTokenController;
-  final FirebaseAuth _firebaseAuth;
+  final AuthControllerImpl _authController;
 
   @override
   ResponseFuture<R> interceptUnary<Q, R>(
@@ -61,7 +61,7 @@ class AuthClientInterceptor extends ClientInterceptor {
   Future<void> _ifUnauthenticatedSignOut(Object e) async {
     if (e is GrpcError && e.code == StatusCode.unauthenticated) {
       logger.info('unauthenticated. sign out.');
-      await _firebaseAuth.signOut();
+      await _authController.signOut();
     }
   }
 }

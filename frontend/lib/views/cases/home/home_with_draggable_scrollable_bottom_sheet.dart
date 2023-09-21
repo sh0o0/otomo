@@ -40,7 +40,7 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
 
 class _HomeWithDraggableScrollableBottomSheetState
     extends State<HomeWithDraggableScrollableBottomSheet> {
-  static const double _sheetBarHeight = kToolbarHeight;
+  static const double _sheetBarHeight = 72;
 
   final _sheetController = DraggableScrollableController();
 

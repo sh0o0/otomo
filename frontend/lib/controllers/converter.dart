@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
-import 'package:otomo/grpc/generated/message.pb.dart' as gMsg;
+import 'package:otomo/grpc/generated/message.pb.dart' as grpc_msg;
 
 class ControllerConverter {
   ControllerConverter._();
@@ -16,11 +16,11 @@ class ControllerConverter {
 class _Message {
   final _role = _Role();
 
-  List<TextMessage> grpcToEntityList(List<gMsg.Message> messages) {
+  List<TextMessage> grpcToEntityList(List<grpc_msg.Message> messages) {
     return messages.map((e) => grpcToEntity(e)).toList();
   }
 
-  TextMessage grpcToEntity(gMsg.Message message) {
+  TextMessage grpcToEntity(grpc_msg.Message message) {
     return TextMessage(
       id: message.id,
       text: message.text,
@@ -39,7 +39,7 @@ class _Message {
 class _MessageChunk {
   final _role = _Role();
 
-  TextMessageChunk grpcToEntity(gMsg.MessageChunk chunk) {
+  TextMessageChunk grpcToEntity(grpc_msg.MessageChunk chunk) {
     return TextMessageChunk(
       messageId: chunk.messageId,
       text: chunk.text,
@@ -65,11 +65,11 @@ class _ChangedEventType {
 }
 
 class _Role {
-  Role grpcToEntity(gMsg.Role role) {
+  Role grpcToEntity(grpc_msg.Role role) {
     switch (role) {
-      case gMsg.Role.USER:
+      case grpc_msg.Role.USER:
         return Role.user;
-      case gMsg.Role.OTOMO:
+      case grpc_msg.Role.OTOMO:
         return Role.otomo;
       default:
         throw Exception('Unknown role: $role');

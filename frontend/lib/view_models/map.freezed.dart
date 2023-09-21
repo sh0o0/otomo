@@ -89,9 +89,10 @@ class __$$_MapStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_MapState implements _MapState {
+class _$_MapState extends _MapState {
   const _$_MapState({required final List<Place> activePlaces})
-      : _activePlaces = activePlaces;
+      : _activePlaces = activePlaces,
+        super._();
 
   final List<Place> _activePlaces;
   @override
@@ -126,9 +127,10 @@ class _$_MapState implements _MapState {
       __$$_MapStateCopyWithImpl<_$_MapState>(this, _$identity);
 }
 
-abstract class _MapState implements MapState {
+abstract class _MapState extends MapState {
   const factory _MapState({required final List<Place> activePlaces}) =
       _$_MapState;
+  const _MapState._() : super._();
 
   @override
   List<Place> get activePlaces;

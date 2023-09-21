@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/custom_text.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
-import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/utils/converter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -19,7 +19,9 @@ class ChatUI extends StatelessWidget {
     this.onEndReached,
     this.onMessageTap,
     this.onCustomTextTap,
-    this.hideBottomSheet = false,
+    this.inputOptions = const InputOptions(),
+    this.onBackgroundTap,
+    this.customBottomWidget,
   });
 
   final List<TextMessageData> messages;
@@ -29,18 +31,52 @@ class ChatUI extends StatelessWidget {
   final Future<void> Function()? onEndReached;
   final void Function(BuildContext context, MessageData message)? onMessageTap;
   final void Function(CustomText text)? onCustomTextTap;
-  final bool hideBottomSheet;
+  final InputOptions inputOptions;
+  final VoidCallback? onBackgroundTap;
+  final Widget? customBottomWidget;
 
-  Color _getBubbleColor(BuildContext context, types.Message m) {
-    final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
-    final message = ViewConverter.I.message.viewToData(m);
-
+  Widget _buildBubble(
+    BuildContext context, {
+    required Widget child,
+    required MessageData message,
+  }) {
+    final theme = Theme.of(context);
+    final chatTheme = theme.extension<AppChatTheme>()!.chatTheme;
+    Color? color;
     if (message.author.isUser) {
-      if (message.active) return chatTheme.primaryColor.withOpacity(0.5);
-      return chatTheme.primaryColor;
+      color = chatTheme.primaryColor;
+    } else {
+      color = chatTheme.secondaryColor;
     }
-    if (message.active) return chatTheme.secondaryColor.withOpacity(0.5);
-    return chatTheme.secondaryColor;
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
+        color: color,
+      ),
+      clipBehavior: Clip.hardEdge,
+      child: Stack(
+        alignment: message.author.isUser
+            ? Alignment.centerRight
+            : Alignment.centerLeft,
+        children: [
+          child,
+          if (message.active)
+            Animate(
+              effects: const [FadeEffect(duration: Duration(milliseconds: 50))],
+              child: Positioned(
+                bottom: 0,
+                top: 0,
+                left: 0,
+                child: Container(
+                  width: 5,
+                  color: theme.colorScheme.secondary,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -80,15 +116,12 @@ class ChatUI extends StatelessWidget {
           ),
         ],
       ),
-      customBottomWidget: hideBottomSheet ? Spaces.zero : null,
+      onBackgroundTap: onBackgroundTap,
+      inputOptions: inputOptions,
+      customBottomWidget: customBottomWidget,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
-            color: _getBubbleColor(context, message),
-          ),
-          child: child,
-        );
+        final messageData = ViewConverter.I.message.viewToData(message);
+        return _buildBubble(context, child: child, message: messageData);
       },
     );
   }

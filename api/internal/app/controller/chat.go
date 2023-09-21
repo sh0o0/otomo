@@ -169,7 +169,7 @@ func (cc *ChatController) listMessages(
 		}
 	}
 
-	msgs, err := cc.msgRepo.List(
+	msgs, hasMore, err := cc.msgRepo.List(
 		ctx,
 		userID,
 		&repo.MessagePage{
@@ -188,6 +188,7 @@ func (cc *ChatController) listMessages(
 
 	return &grpcgen.ChatService_ListMessagesResponse{
 		PageSize: uint32(len(resMsgs)),
+		HasMore:  hasMore,
 		Messages: resMsgs,
 	}, nil
 }

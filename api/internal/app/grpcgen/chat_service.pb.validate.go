@@ -459,6 +459,8 @@ func (m *ChatService_ListMessagesResponse) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for HasMore
+
 	for idx, item := range m.GetMessages() {
 		_, _ = idx, item
 

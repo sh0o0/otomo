@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/converter.dart';
+import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
@@ -13,7 +14,7 @@ class ChatControllerImpl {
 
   final ChatServiceClient _chatService;
 
-  Future<List<TextMessage>> listMessages(
+  Future<Pagination<TextMessage>> listMessages(
     String userId,
     int? pageSize,
     String? pageStartAfterMessageId,
@@ -23,7 +24,10 @@ class ChatControllerImpl {
       ..pageSize = pageSize ?? 0
       ..pageStartAfterMessageId = pageStartAfterMessageId ?? '';
     final resp = await _chatService.listMessages(req);
-    return ControllerConverter.I.message.grpcToEntityList(resp.messages);
+    return Pagination(
+      items: ControllerConverter.I.message.grpcToEntityList(resp.messages),
+      hasMore: resp.hasMore,
+    );
   }
 
   Future<TextMessage> sendMessage({
