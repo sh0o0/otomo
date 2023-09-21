@@ -39,7 +39,7 @@ class _MapState extends ConsumerState<MapPage> {
   Widget build(BuildContext context) {
     useEffect(() {
       final sub =
-          ref.read(mapProvider.notifier).focusPlaceStream.listen((place) {
+          ref.read(mapProvider.notifier).focusedPlaceStream.listen((place) {
         if (!_canUseMapController) return;
         _mapController!.moveWithLatLng(latLng: place.latLng, zoom: 8);
       });

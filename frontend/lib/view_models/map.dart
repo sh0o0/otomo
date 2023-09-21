@@ -13,10 +13,10 @@ final mapProvider =
     StateNotifierProvider.autoDispose<MapNotifier, MapState>((ref) {
   final activePlaces =
       ref.watch(chatProvider.select((v) => v.value?.activePlaces));
-  final focusPlaceStream = ref.read(chatProvider.notifier).focusedPlaceStream;
+  final focusedPlaceStream = ref.read(chatProvider.notifier).focusedPlaceStream;
   return MapNotifier(
     MapState(activePlaces: activePlaces ?? []),
-    focusPlaceStream: focusPlaceStream,
+    focusedPlaceStream: focusedPlaceStream,
   );
 });
 
@@ -35,10 +35,10 @@ class MapState with _$MapState {
 class MapNotifier extends StateNotifier<MapState> {
   MapNotifier(
     super._state, {
-    required this.focusPlaceStream,
+    required this.focusedPlaceStream,
   });
 
-  final Stream<Place> focusPlaceStream;
+  final Stream<Place> focusedPlaceStream;
   final LocationControllerImpl _locationController =
       getIt<LocationControllerImpl>();
 
