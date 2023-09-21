@@ -57,7 +57,6 @@ class Chat extends _$Chat {
   @override
   FutureOr<ChatState> build() async {
     state = const AsyncValue.loading();
-
     final messages = await _listTextMessageData(null, null);
     final user = readUser(ref);
 
@@ -104,8 +103,9 @@ class Chat extends _$Chat {
   }
 
   Future<void> listMessagesMore() async {
-    final ChatState preValue = state.value ?? const ChatState(messages: []);
+    if (state.isLoading) return;
 
+    final ChatState preValue = state.value ?? const ChatState(messages: []);
     final lastMessageId = preValue.messages.last.message.remoteId;
 
     state = const AsyncValue.loading();
