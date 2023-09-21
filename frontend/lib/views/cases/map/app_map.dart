@@ -46,7 +46,7 @@ class MapController {
 
   Future<void> moveWithRegion({
     required Region region,
-    double padding = 10,
+    double padding = 20,
   }) async {
     final gLatLngBounds = ViewConverter.I.region.entityToViewForGoogle(region);
 

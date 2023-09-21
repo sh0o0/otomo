@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/view_models/map.dart';
 import 'package:otomo/views/cases/map/app_map.dart';
 import 'package:otomo/views/utils/converter.dart';
@@ -37,17 +38,31 @@ class _MapState extends ConsumerState<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(mapProvider);
+    final notifier = ref.read(mapProvider.notifier);
+
     useEffect(() {
-      final sub =
-          ref.read(mapProvider.notifier).focusedPlaceStream.listen((place) {
+      final focusedPlaceStreamSub = notifier.focusedPlaceStream.listen((place) {
         if (!_canUseMapController) return;
         _mapController!.moveWithLatLng(latLng: place.latLng, zoom: 8);
       });
-      return () => sub.cancel();
-    });
 
-    final state = ref.watch(mapProvider);
-    final notifier = ref.read(mapProvider.notifier);
+      final activatedTextMessageStreamSub =
+          notifier.activatedTextMessageStream.listen((textMsg) {
+        if (!_canUseMapController) return;
+
+        final latLngList =
+            AppLatLngList(textMsg.placesFromText.map((e) => e.latLng).toList());
+        final region = latLngList.edge();
+        if (region == null) return;
+        _mapController!.moveWithRegion(region: region);
+      });
+
+      return () {
+        focusedPlaceStreamSub.cancel();
+        activatedTextMessageStreamSub.cancel();
+      };
+    });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

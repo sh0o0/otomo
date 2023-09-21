@@ -51,7 +51,7 @@ class Chat extends _$Chat {
       StreamController<TextMessageData>.broadcast();
 
   Stream<Place> get focusedPlaceStream => _focusedPlaceStreamController.stream;
-  Stream<TextMessageData> get activatedTextMessageStreamController =>
+  Stream<TextMessageData> get activatedTextMessageStream =>
       _activatedTextMessageStreamController.stream;
 
   @override
