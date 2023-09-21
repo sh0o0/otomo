@@ -44,10 +44,15 @@ class ChatState with _$ChatState {
 @riverpod
 class Chat extends _$Chat {
   final _chatController = getIt<ChatControllerImpl>();
-  final StreamController<Place> _focusedPlaceController =
+  final StreamController<Place> _focusedPlaceStreamController =
       StreamController<Place>.broadcast();
+  final StreamController<TextMessageData>
+      _activatedTextMessageStreamController =
+      StreamController<TextMessageData>.broadcast();
 
-  Stream<Place> get focusedPlaceStream => _focusedPlaceController.stream;
+  Stream<Place> get focusedPlaceStream => _focusedPlaceStreamController.stream;
+  Stream<TextMessageData> get activatedTextMessageStreamController =>
+      _activatedTextMessageStreamController.stream;
 
   @override
   FutureOr<ChatState> build() async {
@@ -167,32 +172,33 @@ class Chat extends _$Chat {
     }
   }
 
-  void resetActiveMessages() {
-    final value = state.value;
-    if (value == null) return;
+  void toggleMessageActiveWithId(String id) {
+    final index = _indexOfMessage(id);
+    if (index == -1) return;
 
-    final inactiveMessages =
-        value.messages.map((e) => e.copyWith.message(active: false)).toList();
-
-    state = AsyncValue.data(value.copyWith(messages: inactiveMessages));
+    final msg = state.value!.messages[index];
+    if (msg.message.active) {
+      _deactivateMessageWithIndex(index);
+    } else {
+      _activateMessageWithIndex(index);
+      _activatedTextMessageStreamController.add(msg);
+    }
   }
 
-  void activateMessageWithId(String id) {
-    resetActiveMessages();
+  void _activateMessageWithIndex(int index) {
+    final message = state.value!.messages[index];
+    state = state
+      ..value?.messages[index] = message.copyWith.message(active: true);
+  }
 
-    final value = state.value;
-    if (value == null) return;
-
-    final index = value.messages.indexWhere((m) => m.message.id == id);
-
-    final message = value.messages[index];
-    value.messages[index] = message.copyWith.message(active: true);
-
-    state = AsyncValue.data(value);
+  void _deactivateMessageWithIndex(int index) {
+    final message = state.value!.messages[index];
+    state = state
+      ..value?.messages[index] = message.copyWith.message(active: false);
   }
 
   void focusPlace(Place place) {
-    _focusedPlaceController.add(place);
+    _focusedPlaceStreamController.add(place);
   }
 
   void toggleShowOnlyMessages() {

@@ -31,7 +31,7 @@ class HomeChat extends HookConsumerWidget {
           ? const Center(child: AppCircularProgressIndicator())
           : null,
       onEndReached: () => notifier.listMessagesMore(),
-      onMessageTap: (_, m) => notifier.activateMessageWithId(m.id),
+      onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
       onCustomTextTap: (customText) {
         final latLng = customText.latLng;
         if (latLng == null) return;
