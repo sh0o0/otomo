@@ -152,10 +152,11 @@ func TestMessageRepository_List(t *testing.T) {
 		page   *repo.MessagePage
 	}
 	tests := []struct {
-		name      string
-		args      args
-		want      []*model.Message
-		wantIsErr bool
+		name        string
+		args        args
+		wantMsgs    []*model.Message
+		wantHasMore bool
+		wantIsErr   bool
 	}{
 		{
 			name: "should return 50 messages when page is nil",
@@ -164,8 +165,9 @@ func TestMessageRepository_List(t *testing.T) {
 				userID: userID,
 				page:   nil,
 			},
-			want:      descBySentAtMsgs[:50],
-			wantIsErr: false,
+			wantMsgs:    descBySentAtMsgs[:50],
+			wantHasMore: true,
+			wantIsErr:   false,
 		},
 		{
 			name: testutil.JoinStrings(
@@ -179,8 +181,9 @@ func TestMessageRepository_List(t *testing.T) {
 					StartAfterMessageID: descBySentAtMsgs[49].ID,
 				},
 			},
-			want:      descBySentAtMsgs[50:51],
-			wantIsErr: false,
+			wantMsgs:    descBySentAtMsgs[50:51],
+			wantHasMore: false,
+			wantIsErr:   false,
 		},
 		{
 			name: "should return 25 messages when page_size 25",
@@ -191,8 +194,9 @@ func TestMessageRepository_List(t *testing.T) {
 					Size: 25,
 				},
 			},
-			want:      descBySentAtMsgs[:25],
-			wantIsErr: false,
+			wantMsgs:    descBySentAtMsgs[:25],
+			wantHasMore: true,
+			wantIsErr:   false,
 		},
 		{
 			name: testutil.JoinStrings(
@@ -207,8 +211,9 @@ func TestMessageRepository_List(t *testing.T) {
 					StartAfterMessageID: descBySentAtMsgs[30].ID,
 				},
 			},
-			want:      descBySentAtMsgs[31:51],
-			wantIsErr: false,
+			wantMsgs:    descBySentAtMsgs[31:51],
+			wantHasMore: false,
+			wantIsErr:   false,
 		},
 	}
 	for _, tt := range tests {
@@ -216,13 +221,14 @@ func TestMessageRepository_List(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			r := testMsgRepo
-			got, err := r.List(tt.args.ctx, tt.args.userID, tt.args.page)
+			gotMsgs, gotHasMore, err := r.List(tt.args.ctx, tt.args.userID, tt.args.page)
 			if (err != nil) != tt.wantIsErr {
 				t.Errorf("MessageRepository.List() error = %v, wantIsErr %v", err, tt.wantIsErr)
 				return
 			}
 
-			assert.Exactly(t, tt.want, got)
+			assert.Exactly(t, tt.wantMsgs, gotMsgs)
+			assert.Exactly(t, tt.wantHasMore, gotHasMore)
 		})
 	}
 }

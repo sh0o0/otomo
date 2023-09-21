@@ -83,7 +83,7 @@ func (mr *MessageRepository) List(
 	ctx context.Context,
 	userID model.UserID,
 	page *repo.MessagePage,
-) ([]*model.Message, error) {
+) (msgs []*model.Message, hasMore bool, err error) {
 	if page == nil {
 		page = &repo.MessagePage{
 			Size: defaultMessageListPageSize,
@@ -93,28 +93,35 @@ func (mr *MessageRepository) List(
 		page.Size = defaultMessageListPageSize
 	}
 
+	var limit = page.Size + 1
+
 	msgsCol := mr.getCollection(ctx, userID)
-	query := msgsCol.OrderBy("sent_at", firestore.Desc).Limit(page.Size)
+	query := msgsCol.OrderBy("sent_at", firestore.Desc).Limit(limit)
 	if page.StartAfterMessageID != "" {
 		startAfter, err := mr.getDoc(ctx, userID, page.StartAfterMessageID).Get(ctx)
 		if err != nil {
-			return nil, mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
+			return nil, false, mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
 		}
 		query = query.StartAfter(startAfter)
 	}
 
 	snaps, err := query.Documents(ctx).GetAll()
 	if err != nil {
-		return nil, ifCodesNotFoundReturnErrsNotFound(
+		return nil, false, ifCodesNotFoundReturnErrsNotFound(
 			err, errs.DomainUser, errs.FieldID)
 	}
 
-	msgs, err := mr.snapsToMessages(ctx, snaps)
-	if err != nil {
-		return nil, mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
+	if len(snaps) == limit {
+		hasMore = true
+		snaps = snaps[:limit-1]
 	}
 
-	return msgs, nil
+	msgs, err = mr.snapsToMessages(ctx, snaps)
+	if err != nil {
+		return nil, false, mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
+	}
+
+	return msgs, hasMore, nil
 }
 
 func (mr *MessageRepository) getCollection(

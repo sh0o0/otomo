@@ -19,7 +19,11 @@ type MessageRepository interface {
 		ctx context.Context,
 		userID model.UserID,
 		page *MessagePage,
-	) ([]*model.Message, error)
+	) (
+		msgs []*model.Message,
+		hasMore bool,
+		err error,
+	)
 }
 
 type MessagePage struct {
