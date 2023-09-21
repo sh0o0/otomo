@@ -56,10 +56,6 @@ class Chat extends _$Chat {
 
   @override
   FutureOr<ChatState> build() async {
-    return const ChatState(messages: []);
-  }
-
-  Future<void> initState() async {
     state = const AsyncValue.loading();
 
     final messages = await _listTextMessageData(null, null);
@@ -77,7 +73,7 @@ class Chat extends _$Chat {
       messagingSub.cancel();
     });
 
-    state = AsyncValue.data(ChatState(messages: messages));
+    return ChatState(messages: messages);
   }
 
   Future<void> sendMessage(String text) async {
