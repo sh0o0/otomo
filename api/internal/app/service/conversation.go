@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/times"
 	"otomo/internal/pkg/uuid"
@@ -12,14 +13,91 @@ import (
 	"github.com/tmc/langchaingo/schema"
 )
 
-const (
-	detailsOfOtomoPrompt = `Your name is 太郎. You call yourself as オレ. You are a friend of the user. Your personality is casual and talkative. Your speaking tone is a young mam. You often use the words "だね", "だろう", "ですね", etc. You encourage the user when the user feel down.`
-	otomoCommonPrompt    = `You are an AI called オトモ. You must say in Japanese. You can only speak Japanese. ` + detailsOfOtomoPrompt + `
+type OtomoDetails struct {
+	OtomoName            string
+	Language             string
+	Name                 string
+	CallOwn              string
+	Role                 string
+	Personality          string
+	OftenUseWords        string
+	SpeakingTone         string
+	BehavioralGuidelines string
+}
+
+func (od OtomoDetails) ToMap() map[string]string {
+	return map[string]string{
+		"otomo_name":            od.OtomoName,
+		"language":              od.Language,
+		"name":                  od.Name,
+		"call_own":              od.CallOwn,
+		"role":                  od.Role,
+		"personality":           od.Personality,
+		"often_use_words":       od.OftenUseWords,
+		"speaking_tone":         od.SpeakingTone,
+		"behavioral_guidelines": od.BehavioralGuidelines,
+	}
+}
+
+func (od OtomoDetails) Prompt() (string, error) {
+	var prompt string
+
+	if od.OtomoName == "" {
+		return "", errors.New("otomo name is required")
+	} else {
+		prompt += "You are an AI called " + od.OtomoName + ". "
+	}
+
+	if od.Language == "" {
+		od.Language = "English"
+	}
+	prompt += "You must say in " + od.Language + ". You only speak " + od.Language + ". "
+
+	if od.Name != "" {
+		prompt += "Your name is " + od.Name + ". "
+	}
+	if od.CallOwn != "" {
+		prompt += "You call yourself as " + od.CallOwn + ". "
+	}
+	if od.Role != "" {
+		prompt += "You are a " + od.Role + ". "
+	}
+	if od.Personality != "" {
+		prompt += "Your personality is " + od.Personality + ". "
+	}
+	if od.OftenUseWords != "" {
+		prompt += "You often use the words " + od.OftenUseWords + ". "
+	}
+	if od.SpeakingTone != "" {
+		prompt += "Your speaking tone is " + od.SpeakingTone + ". "
+	}
+	if od.BehavioralGuidelines != "" {
+		prompt += od.BehavioralGuidelines + ". "
+	}
+	return prompt, nil
+}
+
+var (
+	friendlyPrompt, _ = OtomoDetails{
+		OtomoName:            "オトモ",
+		Language:             "日本語",
+		Name:                 "太郎",
+		CallOwn:              "オレ",
+		Role:                 "友達",
+		Personality:          "気さくでおしゃべりな性格",
+		OftenUseWords:        `"だね"、"だろう"、"ですね"`,
+		SpeakingTone:         `若い男性の話し方`,
+		BehavioralGuidelines: "ユーザーが落ち込んだときは励ます",
+	}.Prompt()
+)
+
+var (
+	otomoCommonPrompt = friendlyPrompt + `
 You provides lots of specific details from its context. If You do not know the answer to a question, you truthfully says you do not know.
-When you mention the name of a place, if you know the longitude and latitude of the place, you say it in the form %[name of place]({ "type": "object", "properties": { "lat_lng": { "type": "object", "properties": { "latitude": { "type": "number" }, "longitude": { "type": "number" } } } } }). () is JSON Schema. The corresponding json is actually input. For example, Tokyo is %[Tokyo]({ "lat_lng": { "latitude": 35.6762, "longitude": 139.6503 } }).
-The following is a conversation between a user and you.`
+When you mention the name of a place, you say it in the form %[name of place]({ "type": "object", "properties": { "lat_lng": { "type": "object", "properties": { "latitude": { "type": "number" }, "longitude": { "type": "number" } } } } }). () is JSON Schema. The corresponding json is actually input. For example, Someone stays in %[Tokyo]({ "lat_lng": { "latitude": 35.6762, "longitude": 139.6503 } }).`
 
 	respondPrompt = otomoCommonPrompt + `
+The following is a conversation between a user and you.
 
 Current conversation:
 {{.history}}
@@ -29,6 +107,7 @@ Otomo:`
 
 	messagePrompt = otomoCommonPrompt + `
 The conversation currently stops at your message, so please create a message that you think will be of interest to the User. You may refer to the information in the Current Conversation below, or if there is no information in the Current Conversation, compose a message on a topic of interest to the new User. Start the conversation with a greeting.
+The following is a conversation between a user and you.
 
 Current conversation:
 {{.history}}
