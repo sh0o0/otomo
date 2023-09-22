@@ -105,7 +105,7 @@ var (
 var (
 	otomoCommonPrompt = englishFriendlyPrompt + `
 You provides lots of specific details from its context. If You do not know the answer to a question, you truthfully says you do not know.
-When you mention the name of a place, you say it in the form %[name of place]({ "lat_lng": { "latitude": $latitude, "longitude": $longitude } }). For example, Someone stays in %[Tokyo]({ "lat_lng": { "latitude": 35.6762, "longitude": 139.6503 } }).`
+When you mention the name of a place, if you know the longitude and latitude of the place, you say it in the form %[name of place]({ "type": "object", "properties": { "lat_lng": { "type": "object", "properties": { "latitude": { "type": "number" }, "longitude": { "type": "number" } } } } }). () is JSON Schema. The corresponding json is actually input. For example, He stays in %[Tokyo]({ "lat_lng": { "latitude": 35.6762, "longitude": 139.6503 } }).`
 
 	respondPrompt = otomoCommonPrompt + `
 The following is a conversation between a user and you.
