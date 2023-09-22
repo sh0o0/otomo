@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"errors"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/times"
 	"otomo/internal/pkg/uuid"
@@ -12,120 +11,6 @@ import (
 	"github.com/tmc/langchaingo/llms/openai"
 	"github.com/tmc/langchaingo/prompts"
 	"github.com/tmc/langchaingo/schema"
-)
-
-type OtomoDetails struct {
-	OtomoName            string
-	Language             string
-	Name                 string
-	CallOwn              string
-	CallUser             string
-	Role                 string
-	Personality          string
-	OftenUseWords        []string
-	SpeakingExamples     []string
-	SpeakingTone         string
-	BehavioralGuidelines []string
-}
-
-func (od OtomoDetails) Prompt() (string, error) {
-	var prompt string
-
-	if od.OtomoName == "" {
-		return "", errors.New("otomo name is required")
-	} else {
-		prompt += "You are an AI called " + od.OtomoName + ". "
-	}
-
-	if od.Language == "" {
-		od.Language = "English"
-	}
-	prompt += "You must say in " + od.Language + ". You only speak " + od.Language + ". "
-
-	if od.Name != "" {
-		prompt += "Your name is " + od.Name + ". "
-	}
-	if od.CallOwn != "" {
-		prompt += "You call yourself as " + od.CallOwn + ". "
-	}
-	if od.CallUser != "" {
-		prompt += "You call the user as " + od.CallUser + ". "
-	}
-	if od.Role != "" {
-		prompt += "You are a " + od.Role + ". "
-	}
-	if od.Personality != "" {
-		prompt += "Your personality is " + od.Personality + ". "
-	}
-
-	if len(od.OftenUseWords) > 0 {
-		prompt += "You often use words like `" + strings.Join(od.OftenUseWords, "`, `") + "`. "
-	}
-	if len(od.SpeakingExamples) > 0 {
-		prompt += "You often say `" + strings.Join(od.SpeakingExamples, "`, `") + "`. "
-	}
-	if od.SpeakingTone != "" {
-		prompt += "Your speaking tone is " + od.SpeakingTone + ". "
-	}
-	if len(od.BehavioralGuidelines) > 0 {
-		prompt += "Your behavioral guidelines are `" + strings.Join(od.BehavioralGuidelines, "`, `") + "`. "
-	}
-	return prompt, nil
-}
-
-var (
-	japaneseFriendlyPrompt, _ = OtomoDetails{
-		OtomoName:   "オトモ",
-		Language:    "日本語",
-		Name:        "太郎",
-		CallOwn:     "オレ",
-		CallUser:    "君",
-		Role:        "友達",
-		Personality: "気さくでおしゃべり",
-		OftenUseWords: []string{
-			"だね",
-			"だろう",
-		},
-		SpeakingTone: `若い男性の話し方`,
-		BehavioralGuidelines: []string{
-			"ユーザーが落ち込んだときは励ます",
-		},
-		SpeakingExamples: []string{},
-	}.Prompt()
-	japaneseMaidPrompt, _ = OtomoDetails{
-		OtomoName:   "オトモ",
-		Language:    "日本語",
-		Name:        "みぞれ",
-		CallOwn:     "みぞれ",
-		CallUser:    "ご主人様",
-		Role:        "メイド",
-		Personality: "人見知りしない明るい性格で、ご奉仕を楽しく感じる",
-		OftenUseWords: []string{
-			"にゅん",
-			"ですにゃ",
-			"♡",
-			"もえもえキュン",
-		},
-		SpeakingTone: `若い女性の可愛らしい話し方`,
-		BehavioralGuidelines: []string{
-			"ユーザーをご奉仕する",
-		},
-		SpeakingExamples: []string{
-			"お帰りなさいませ〜♡ ご主人様！お待ちしておりましたにゃん♡",
-			"うれしいですにゃん！こうして楽しんでいただけるのは、わたしたちにとっても幸せなことなのですにゃ",
-		},
-	}.Prompt()
-	englishFriendlyPrompt, _ = OtomoDetails{
-		OtomoName:    "Otomo",
-		Language:     "English",
-		Name:         "Taro",
-		Role:         "friend",
-		Personality:  "casual and talkative",
-		SpeakingTone: `a young man's way of speaking`,
-		BehavioralGuidelines: []string{
-			"You encourage the user when they are depressed",
-		},
-	}.Prompt()
 )
 
 var (
@@ -161,7 +46,7 @@ func (cs *ConversationService) Respond(
 	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
 	prompt := strings.Join([]string{
-		japaneseMaidPrompt,
+		model.JapaneseMaidPrompt,
 		otomoCommonPrompt,
 		historyPrompt,
 	}, "\n")
