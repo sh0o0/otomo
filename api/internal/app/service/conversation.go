@@ -70,8 +70,14 @@ func (cs *ConversationService) Message(
 	memory *model.Memory,
 	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
-	gptMsgs, err := prompts.NewSystemMessagePromptTemplate(
+	prompt := strings.Join([]string{
+		model.JapaneseMaidPrompt,
+		otomoCommonPrompt,
 		messagePrompt,
+		historyPrompt,
+	}, "\n")
+	gptMsgs, err := prompts.NewSystemMessagePromptTemplate(
+		prompt,
 		[]string{"history"},
 	).FormatMessages(map[string]any{"history": memory.Summary})
 	if err != nil {
