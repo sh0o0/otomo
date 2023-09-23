@@ -5,6 +5,7 @@ import (
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/times"
 	"otomo/internal/pkg/uuid"
+	"strings"
 
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/llms/openai"
@@ -12,25 +13,16 @@ import (
 	"github.com/tmc/langchaingo/schema"
 )
 
-const (
-	otomoCommonPrompt = `The following is a friendly conversation between a user and an AI called Otomo. Otomo is talkative and provides lots of specific details from its context. If Otomo does not know the answer to a question, it truthfully says it does not know.
-When Otomo mentions the name of a place, if it knows the longitude and latitude of the place, it says it in the form %[name of place]({ "type": "object", "properties": { "lat_lng": { "type": "object", "properties": { "latitude": { "type": "number" }, "longitude": { "type": "number" } } } } }). () is JSON Schema. The corresponding json is actually input. For example, Tokyo is %[Tokyo]({ "lat_lng": { "latitude": 35.6762, "longitude": 139.6503 } }).`
+var (
+	otomoCommonPrompt = `You provides lots of specific details from its context. If You do not know the answer to a question, you truthfully says you do not know.
+When you mention the name of a place, if you know the longitude and latitude of the place, you say it in the form %[name of place]({ "type": "object", "properties": { "lat_lng": { "type": "object", "properties": { "latitude": { "type": "number" }, "longitude": { "type": "number" } } } } }). () is JSON Schema. The corresponding json is actually input. For example, He stays in %[Tokyo]({ "lat_lng": { "latitude": 35.6762, "longitude": 139.6503 } }).`
 
-	respondPrompt = otomoCommonPrompt + `
+	messagePrompt = `The conversation currently stops at your message, so please create a message that you think will be of interest to the User. You may refer to the information in the Current Conversation below, or if there is no information in the Current Conversation, compose a message on a topic of interest to the new User. Start the conversation with a greeting.`
 
-Current conversation:
-{{.history}}
-
-User: {{.input}}
-Otomo:`
-
-	messagePrompt = otomoCommonPrompt + `
-The conversation currently stops at your message, so please create a message that you think will be of interest to the User. You may refer to the information in the Current Conversation below, or if there is no information in the Current Conversation, compose a message on a topic of interest to the new User. Start the conversation with a greeting.
+	historyPrompt = `The following is a conversation between a user and you.
 
 Current conversation:
-{{.history}}
-
-Otomo:`
+{{.history}}`
 )
 
 var _ model.Converser = (*ConversationService)(nil)
@@ -53,15 +45,22 @@ func (cs *ConversationService) Respond(
 	memory *model.Memory,
 	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
-	gptMsgs, err := prompts.NewHumanMessagePromptTemplate(
-		respondPrompt,
-		[]string{"history", "input"},
+	prompt := strings.Join([]string{
+		model.JapaneseMaidPrompt,
+		otomoCommonPrompt,
+		historyPrompt,
+	}, "\n")
+	systemMsgs, err := prompts.NewSystemMessagePromptTemplate(
+		prompt,
+		[]string{"history"},
 	).FormatMessages(
-		map[string]any{"history": memory.Summary, "input": msg.Text},
+		map[string]any{"history": memory.Summary},
 	)
 	if err != nil {
 		return nil, err
 	}
+	userMsg := schema.HumanChatMessage{Content: msg.Text}
+	gptMsgs := []schema.ChatMessage{systemMsgs[0], userMsg}
 
 	return cs.call(ctx, gptMsgs, messagingFunc)
 }
@@ -71,8 +70,14 @@ func (cs *ConversationService) Message(
 	memory *model.Memory,
 	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
-	gptMsgs, err := prompts.NewSystemMessagePromptTemplate(
+	prompt := strings.Join([]string{
+		model.JapaneseMaidPrompt,
+		otomoCommonPrompt,
 		messagePrompt,
+		historyPrompt,
+	}, "\n")
+	gptMsgs, err := prompts.NewSystemMessagePromptTemplate(
+		prompt,
 		[]string{"history"},
 	).FormatMessages(map[string]any{"history": memory.Summary})
 	if err != nil {

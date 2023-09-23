@@ -39,12 +39,20 @@ class IdTokenControllerImpl implements IdTokenController {
       return;
     }
 
-    final idTokenResult = await user.getIdTokenResult(forceRefresh);
-    _idToken = idTokenResult.token;
-    logger.debug(_idToken!);
-    logger.info('refreshed id token');
+    try {
+      final idTokenResult = await user.getIdTokenResult(forceRefresh);
+      _idToken = idTokenResult.token;
+      logger.debug(_idToken!);
+      logger.info('refreshed id token');
 
-    _setRefreshTimer(idTokenResult.expirationTime);
+      _setRefreshTimer(idTokenResult.expirationTime);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'internal-error') {
+        logger.debug('Error occurred. ${e.toString()} Sign out.');
+        await _firebaseAuth.signOut();
+      }
+      rethrow;
+    }
   }
 
   void _cancelTimerIf() {
