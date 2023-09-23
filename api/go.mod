@@ -66,5 +66,6 @@ require (
 	google.golang.org/appengine/v2 v2.0.2 // indirect
 	google.golang.org/genproto v0.0.0-20230530153820-e85fd2cbaebc // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20230530153820-e85fd2cbaebc // indirect
+	googlemaps.github.io/maps v1.5.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
