@@ -44,7 +44,7 @@ func (ams *MessageAnalysisService) ExtractLocationsFromMsg(
 				exLoc.Name,
 				exLoc.Address.City,
 				exLoc.Address.State,
-				exLoc.Address.City,
+				exLoc.Address.Country,
 			}, " "),
 		}
 		loc, err := ams.geoSvc.One(ctx, req)
