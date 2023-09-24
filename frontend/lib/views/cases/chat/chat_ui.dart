@@ -18,6 +18,7 @@ class ChatUI extends StatelessWidget {
     this.emptyState,
     this.onEndReached,
     this.onMessageTap,
+    this.onStatusTap,
     this.onLocationTextTap,
     this.inputOptions = const ui.InputOptions(),
     this.onBackgroundTap,
@@ -30,6 +31,7 @@ class ChatUI extends StatelessWidget {
   final Widget? emptyState;
   final Future<void> Function()? onEndReached;
   final void Function(BuildContext context, MessageData message)? onMessageTap;
+  final void Function(BuildContext context, MessageData message)? onStatusTap;
   final void Function(AnalyzedLocation)? onLocationTextTap;
   final ui.InputOptions inputOptions;
   final VoidCallback? onBackgroundTap;
@@ -38,44 +40,72 @@ class ChatUI extends StatelessWidget {
   Widget _buildBubble(
     BuildContext context, {
     required Widget child,
-    required MessageData message,
+    required types.Message message,
   }) {
+    final messageData = ViewConverter.I.message.viewToData(message);
     final theme = Theme.of(context);
     final chatTheme = theme.extension<AppChatTheme>()!.chatTheme;
+    final size = MediaQuery.of(context).size;
+    final showStatus =
+        messageData.author.isUser || messageData.status != MessageStatus.sent;
+    final isUser = messageData.author.isUser;
+
     Color? color;
-    if (message.author.isUser) {
+    if (messageData.author.isUser) {
       color = chatTheme.primaryColor;
     } else {
       color = chatTheme.secondaryColor;
     }
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
-        color: color,
+    final statusWidget = GestureDetector(
+      onTap: () => onMessageTap?.call(context, messageData),
+      child: Padding(
+        padding: isUser
+            ? const EdgeInsets.only(left: 8, bottom: 4)
+            : const EdgeInsets.only(right: 8, bottom: 4),
+        child: ui.MessageStatus(status: message.status),
       ),
-      clipBehavior: Clip.hardEdge,
-      child: Stack(
-        alignment: message.author.isUser
-            ? Alignment.centerRight
-            : Alignment.centerLeft,
-        children: [
-          child,
-          if (message.active)
-            Animate(
-              effects: const [FadeEffect(duration: Duration(milliseconds: 50))],
-              child: Positioned(
-                bottom: 0,
-                top: 0,
-                left: 0,
-                child: Container(
-                  width: 5,
-                  color: theme.colorScheme.secondary,
+    );
+
+    return Row(
+      mainAxisAlignment:
+          isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        if (showStatus && !isUser) statusWidget,
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
+            color: color,
+          ),
+          constraints: BoxConstraints(
+            maxWidth: size.width * 0.7,
+          ),
+          clipBehavior: Clip.hardEdge,
+          child: Stack(
+            alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+            children: [
+              child,
+              if (messageData.active)
+                Animate(
+                  effects: const [
+                    FadeEffect(duration: Duration(milliseconds: 50))
+                  ],
+                  child: Positioned(
+                    bottom: 0,
+                    top: 0,
+                    left: 0,
+                    child: Container(
+                      width: 5,
+                      color: theme.colorScheme.secondary,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-        ],
-      ),
+            ],
+          ),
+        ),
+        if (showStatus && isUser) statusWidget,
+      ],
     );
   }
 
@@ -135,8 +165,7 @@ class ChatUI extends StatelessWidget {
       inputOptions: inputOptions,
       customBottomWidget: customBottomWidget,
       bubbleBuilder: (child, {required message, required nextMessageInGroup}) {
-        final messageData = ViewConverter.I.message.viewToData(message);
-        return _buildBubble(context, child: child, message: messageData);
+        return _buildBubble(context, child: child, message: message);
       },
     );
   }
