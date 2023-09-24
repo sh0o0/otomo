@@ -3,25 +3,18 @@ package service
 import (
 	"context"
 	"encoding/json"
-	"errors"
+	"fmt"
 	"otomo/internal/app/interfaces/svc"
-	"regexp"
 
-	"github.com/tmc/langchaingo/llms"
-	"github.com/tmc/langchaingo/llms/openai"
-	"github.com/tmc/langchaingo/prompts"
+	openai "github.com/sashabaranov/go-openai"
 )
 
 const (
-	locationExtractionPrompt = "```" +
-		`{{.sentence}}` +
-		"```" +
-		"\n" +
-		`Extract the place names from the sentence above and, if possible, include additional information for easier searching on Google Maps. Format the output as follows, and please refrain from sending anything other than the specified format:` +
-		"\n" +
-		"```JSON Schema" +
-		`{ "type": "object", "properties": { "locations": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "address": { "type": "object", "properties": { "street": { "type": "string" }, "city": { "type": "string" }, "state": { "type": "string" }, "country": { "type": "string" }, "zip": { "type": "string" } }, "required": ["street", "city", "state", "zip"] } }, "required": ["name", "address"] } } } }"` +
-		"```"
+	s                        = `{ "type": "object", "properties": { "locations": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "address": { "type": "object", "properties": { "street": { "type": "string" }, "city": { "type": "string" }, "state": { "type": "string" }, "country": { "type": "string" }, "zip": { "type": "string" } }, "required": ["city", "state"] } }, "required": ["name", "address"] } } } }`
+	locationExtractionPrompt = `Extract the place names only from the sentence below and, if possible, include additional information to facilitate searching on Google Maps. Then, provide the information for the input_locations function call. If there is no location in the sentence, locations should be an empty list.
+
+Sentence:
+%s`
 )
 
 type LocationExtractionResult struct {
@@ -29,10 +22,10 @@ type LocationExtractionResult struct {
 }
 
 type LocationExtractionService struct {
-	gpt *openai.Chat
+	gpt *openai.Client
 }
 
-func NewLocationExtractionService(gpt *openai.Chat) *LocationExtractionService {
+func NewLocationExtractionService(gpt *openai.Client) *LocationExtractionService {
 	return &LocationExtractionService{
 		gpt: gpt,
 	}
@@ -42,29 +35,39 @@ func (les *LocationExtractionService) FromText(
 	ctx context.Context,
 	text string,
 ) ([]svc.ExtractedLocation, error) {
-	msgs, err := prompts.NewSystemMessagePromptTemplate(
-		locationExtractionPrompt,
-		[]string{"sentence"},
-	).FormatMessages(
-		map[string]any{"sentence": text},
+	prompt := fmt.Sprintf(locationExtractionPrompt, text)
+	completion, err := les.gpt.CreateChatCompletion(
+		ctx,
+		openai.ChatCompletionRequest{
+			Model: openai.GPT3Dot5Turbo,
+			Messages: []openai.ChatCompletionMessage{
+				{
+					Role:    openai.ChatMessageRoleSystem,
+					Content: prompt,
+				},
+			},
+			Functions: []openai.FunctionDefinition{
+				{
+					Name:        "input_locations",
+					Description: "Input locations from texts",
+					Parameters:  json.RawMessage(s),
+				},
+			},
+			FunctionCall: json.RawMessage(`{"name": "input_locations"}`),
+			Temperature:  0.0,
+		},
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	completion, err := les.gpt.Call(ctx, msgs, llms.WithTemperature(0.0))
-	if err != nil {
-		return nil, err
-	}
-
-	regex := regexp.MustCompile(`(?m)^\{.*\}$`)
-	match := regex.FindString(completion.GetContent())
-	if match == "" {
-		return nil, errors.New("invalid json")
-	}
+	msg := completion.Choices[0].Message
 
 	var result = &LocationExtractionResult{}
-	if err := json.Unmarshal([]byte(match), result); err != nil {
+	if err := json.Unmarshal(
+		[]byte(msg.FunctionCall.Arguments),
+		result,
+	); err != nil {
 		return nil, err
 	}
 
