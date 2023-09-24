@@ -1,3 +1,4 @@
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -18,11 +19,11 @@ class ChatUI extends StatelessWidget {
     this.emptyState,
     this.onEndReached,
     this.onMessageTap,
-    this.onStatusTap,
     this.onLocationTextTap,
     this.inputOptions = const ui.InputOptions(),
     this.onBackgroundTap,
     this.customBottomWidget,
+    this.statusPopupBuilder,
   });
 
   final List<TextMessageData> messages;
@@ -31,11 +32,11 @@ class ChatUI extends StatelessWidget {
   final Widget? emptyState;
   final Future<void> Function()? onEndReached;
   final void Function(BuildContext context, MessageData message)? onMessageTap;
-  final void Function(BuildContext context, MessageData message)? onStatusTap;
   final void Function(AnalyzedLocation)? onLocationTextTap;
   final ui.InputOptions inputOptions;
   final VoidCallback? onBackgroundTap;
   final Widget? customBottomWidget;
+  final Widget Function(BuildContext context, MessageData message)? statusPopupBuilder;
 
   Widget _buildBubble(
     BuildContext context, {
@@ -57,15 +58,20 @@ class ChatUI extends StatelessWidget {
       color = chatTheme.secondaryColor;
     }
 
-    final statusWidget = GestureDetector(
-      onTap: () => onMessageTap?.call(context, messageData),
-      child: Padding(
-        padding: isUser
-            ? const EdgeInsets.only(left: 8, bottom: 4)
-            : const EdgeInsets.only(right: 8, bottom: 4),
-        child: ui.MessageStatus(status: message.status),
-      ),
+    Widget statusWidget = Padding(
+      padding: isUser
+          ? const EdgeInsets.only(left: 8, bottom: 4)
+          : const EdgeInsets.only(right: 8, bottom: 4),
+      child: ui.MessageStatus(status: message.status),
     );
+
+    if (statusPopupBuilder != null) {
+      statusWidget = CustomPopupMenu(
+        pressType: PressType.singleClick,
+        menuBuilder: () => statusPopupBuilder!(context, messageData),
+        child: statusWidget,
+      );
+    }
 
     return Row(
       mainAxisAlignment:

@@ -31,6 +31,7 @@ class HomeChat extends HookConsumerWidget {
           : null,
       onEndReached: () => notifier.listMessagesMore(),
       onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
+      // statusPopupBuilder: (context, message) {},
       onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
       customBottomWidget: state.value?.hideTextField == true
           ? Spaces.zero

@@ -41,10 +41,7 @@ class _Message {
     json['sent_at'] = sentAt.toIso8601String();
 
     if (json['location_analysis'] == null) {
-      json['location_analysis'] = {
-        'locations': [],
-        'analyzed_at': null,
-      };
+      json['location_analysis'] = {'locations': []};
     }
     final locationAnalysis = json['location_analysis'];
     if (locationAnalysis['locations'] == null) {

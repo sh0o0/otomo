@@ -6,9 +6,9 @@ part 'message.g.dart';
 
 @freezed
 class TextMessage with _$TextMessage {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const TextMessage._();
 
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory TextMessage({
     required String id,
     String? clientId,
@@ -31,9 +31,9 @@ enum Role {
 
 @freezed
 class LocationAnalysis with _$LocationAnalysis {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const LocationAnalysis._();
 
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory LocationAnalysis({
     required List<AnalyzedLocation> locations,
     DateTime? analyzedAt,
