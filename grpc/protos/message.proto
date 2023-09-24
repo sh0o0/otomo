@@ -26,6 +26,7 @@ message MessageChunk {
 message LocationAnalysis {
     repeated AnalyzedLocation locations = 1;
     google.protobuf.Timestamp analyzed_at = 2;
+    google.protobuf.StringValue error = 3;
 }
 
 message AnalyzedLocation {

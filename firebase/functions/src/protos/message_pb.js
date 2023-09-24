@@ -822,7 +822,8 @@ proto.LocationAnalysis.toObject = function(includeInstance, msg) {
   var f, obj = {
     locationsList: jspb.Message.toObjectList(msg.getLocationsList(),
     proto.AnalyzedLocation.toObject, includeInstance),
-    analyzedAt: (f = msg.getAnalyzedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    analyzedAt: (f = msg.getAnalyzedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    error: (f = msg.getError()) && google_protobuf_wrappers_pb.StringValue.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -869,6 +870,11 @@ proto.LocationAnalysis.deserializeBinaryFromReader = function(msg, reader) {
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setAnalyzedAt(value);
       break;
+    case 3:
+      var value = new google_protobuf_wrappers_pb.StringValue;
+      reader.readMessage(value,google_protobuf_wrappers_pb.StringValue.deserializeBinaryFromReader);
+      msg.setError(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -912,6 +918,14 @@ proto.LocationAnalysis.serializeBinaryToWriter = function(message, writer) {
       2,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getError();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      google_protobuf_wrappers_pb.StringValue.serializeBinaryToWriter
     );
   }
 };
@@ -989,6 +1003,43 @@ proto.LocationAnalysis.prototype.clearAnalyzedAt = function() {
  */
 proto.LocationAnalysis.prototype.hasAnalyzedAt = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional google.protobuf.StringValue error = 3;
+ * @return {?proto.google.protobuf.StringValue}
+ */
+proto.LocationAnalysis.prototype.getError = function() {
+  return /** @type{?proto.google.protobuf.StringValue} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.StringValue, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.StringValue|undefined} value
+ * @return {!proto.LocationAnalysis} returns this
+*/
+proto.LocationAnalysis.prototype.setError = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.LocationAnalysis} returns this
+ */
+proto.LocationAnalysis.prototype.clearError = function() {
+  return this.setError(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.LocationAnalysis.prototype.hasError = function() {
+  return jspb.Message.getField(this, 3) != null;
 };
 
 

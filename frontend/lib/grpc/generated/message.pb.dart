@@ -223,6 +223,7 @@ class LocationAnalysis extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LocationAnalysis', createEmptyInstance: create)
     ..pc<AnalyzedLocation>(1, _omitFieldNames ? '' : 'locations', $pb.PbFieldType.PM, subBuilder: AnalyzedLocation.create)
     ..aOM<$3.Timestamp>(2, _omitFieldNames ? '' : 'analyzedAt', subBuilder: $3.Timestamp.create)
+    ..aOM<$4.StringValue>(3, _omitFieldNames ? '' : 'error', subBuilder: $4.StringValue.create)
     ..hasRequiredFields = false
   ;
 
@@ -260,6 +261,17 @@ class LocationAnalysis extends $pb.GeneratedMessage {
   void clearAnalyzedAt() => clearField(2);
   @$pb.TagNumber(2)
   $3.Timestamp ensureAnalyzedAt() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $4.StringValue get error => $_getN(2);
+  @$pb.TagNumber(3)
+  set error($4.StringValue v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasError() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearError() => clearField(3);
+  @$pb.TagNumber(3)
+  $4.StringValue ensureError() => $_ensure(2);
 }
 
 class AnalyzedLocation extends $pb.GeneratedMessage {
