@@ -18,8 +18,9 @@ type convert struct {
 }
 
 type convertMessage struct {
-	Role    convertRole
-	Wrapper convertWrapper
+	Role             convertRole
+	Wrapper          convertWrapper
+	locationAnalysis convertLocationAnalysis
 }
 
 func (cm convertMessage) ModelToGrpcList(
@@ -44,12 +45,89 @@ func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, erro
 	}
 
 	return &grpcgen.Message{
-		Id:       string(msg.ID),
-		Text:     msg.Text,
-		Role:     role,
-		SentAt:   timestamppb.New(msg.SentAt),
-		ClientId: cm.Wrapper.StringPtrToStringValue(msg.ClientID),
+		Id:               string(msg.ID),
+		Text:             msg.Text,
+		Role:             role,
+		SentAt:           timestamppb.New(msg.SentAt),
+		ClientId:         cm.Wrapper.StringPtrToStringValue(msg.ClientID),
+		LocationAnalysis: cm.locationAnalysis.ModelToGrpc(&msg.LocationAnalysis),
 	}, nil
+}
+
+type convertLocationAnalysis struct {
+	analyzedLocation convertAnalyzedLocation
+}
+
+func (cla convertLocationAnalysis) ModelToGrpc(
+	la *model.LocationAnalysis,
+) *grpcgen.LocationAnalysis {
+	return &grpcgen.LocationAnalysis{
+		Locations:  cla.analyzedLocation.ModelToGrpcList(la.Locations),
+		AnalyzedAt: timestamppb.New(*la.AnalyzedAt),
+	}
+}
+
+type convertAnalyzedLocation struct {
+	location convertLocation
+}
+
+func (ca convertAnalyzedLocation) ModelToGrpc(
+	al *model.AnalyzedLocation,
+) *grpcgen.AnalyzedLocation {
+	return &grpcgen.AnalyzedLocation{
+		Text:     al.Text,
+		Location: ca.location.ModelToGrpc(al.Location),
+	}
+}
+
+func (ca convertAnalyzedLocation) ModelToGrpcList(
+	als []*model.AnalyzedLocation,
+) []*grpcgen.AnalyzedLocation {
+	grpcAls := make([]*grpcgen.AnalyzedLocation, len(als))
+	for i, al := range als {
+		grpcAls[i] = ca.ModelToGrpc(al)
+	}
+	return grpcAls
+}
+
+type convertLocation struct {
+	geometry convertGeometry
+}
+
+func (cl convertLocation) ModelToGrpc(
+	location model.Location,
+) *grpcgen.Location {
+	return &grpcgen.Location{
+		GooglePlaceId: location.GooglePlaceID,
+		LongName:      location.LongName,
+		ShortName:     location.ShortName,
+		Address:       location.Address,
+		Types:         location.Types,
+		Geometry:      cl.geometry.ModelToGrpc(location.Geometry),
+	}
+}
+
+type convertGeometry struct {
+	latLng convertLatLng
+}
+
+func (cg convertGeometry) ModelToGrpc(
+	geometry model.Geometry,
+) *grpcgen.Geometry {
+	return &grpcgen.Geometry{
+		LatLng: cg.latLng.ModelToGrpc(geometry.LatLng),
+	}
+}
+
+type convertLatLng struct{}
+
+func (convertLatLng) ModelToGrpc(
+	latLng model.LatLng,
+) *grpcgen.LatLng {
+	return &grpcgen.LatLng{
+		Latitude:  latLng.Lat,
+		Longitude: latLng.Lng,
+	}
 }
 
 type convertMessageChunk struct{}
