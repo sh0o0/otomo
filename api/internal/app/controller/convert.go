@@ -61,9 +61,13 @@ type convertLocationAnalysis struct {
 func (cla convertLocationAnalysis) ModelToGrpc(
 	la *model.LocationAnalysis,
 ) *grpcgen.LocationAnalysis {
+	var analyzedAt *timestamppb.Timestamp
+	if la.AnalyzedAt != nil {
+		analyzedAt = timestamppb.New(*la.AnalyzedAt)
+	}
 	return &grpcgen.LocationAnalysis{
 		Locations:  cla.analyzedLocation.ModelToGrpcList(la.Locations),
-		AnalyzedAt: timestamppb.New(*la.AnalyzedAt),
+		AnalyzedAt: analyzedAt,
 	}
 }
 

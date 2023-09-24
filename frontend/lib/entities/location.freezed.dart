@@ -25,6 +25,7 @@ mixin _$Location {
   String get shortName => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   List<String> get types => throw _privateConstructorUsedError;
+  Geometry get geometry => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +43,10 @@ abstract class $LocationCopyWith<$Res> {
       String longName,
       String shortName,
       String address,
-      List<String> types});
+      List<String> types,
+      Geometry geometry});
+
+  $GeometryCopyWith<$Res> get geometry;
 }
 
 /// @nodoc
@@ -63,6 +67,7 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
     Object? shortName = null,
     Object? address = null,
     Object? types = null,
+    Object? geometry = null,
   }) {
     return _then(_value.copyWith(
       googlePlaceId: null == googlePlaceId
@@ -85,7 +90,19 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
           ? _value.types
           : types // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      geometry: null == geometry
+          ? _value.geometry
+          : geometry // ignore: cast_nullable_to_non_nullable
+              as Geometry,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $GeometryCopyWith<$Res> get geometry {
+    return $GeometryCopyWith<$Res>(_value.geometry, (value) {
+      return _then(_value.copyWith(geometry: value) as $Val);
+    });
   }
 }
 
@@ -101,7 +118,11 @@ abstract class _$$_LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
       String longName,
       String shortName,
       String address,
-      List<String> types});
+      List<String> types,
+      Geometry geometry});
+
+  @override
+  $GeometryCopyWith<$Res> get geometry;
 }
 
 /// @nodoc
@@ -120,6 +141,7 @@ class __$$_LocationCopyWithImpl<$Res>
     Object? shortName = null,
     Object? address = null,
     Object? types = null,
+    Object? geometry = null,
   }) {
     return _then(_$_Location(
       googlePlaceId: null == googlePlaceId
@@ -142,6 +164,10 @@ class __$$_LocationCopyWithImpl<$Res>
           ? _value._types
           : types // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      geometry: null == geometry
+          ? _value.geometry
+          : geometry // ignore: cast_nullable_to_non_nullable
+              as Geometry,
     ));
   }
 }
@@ -155,7 +181,8 @@ class _$_Location implements _Location {
       required this.longName,
       required this.shortName,
       required this.address,
-      required final List<String> types})
+      required final List<String> types,
+      required this.geometry})
       : _types = types;
 
   factory _$_Location.fromJson(Map<String, dynamic> json) =>
@@ -178,8 +205,11 @@ class _$_Location implements _Location {
   }
 
   @override
+  final Geometry geometry;
+
+  @override
   String toString() {
-    return 'Location(googlePlaceId: $googlePlaceId, longName: $longName, shortName: $shortName, address: $address, types: $types)';
+    return 'Location(googlePlaceId: $googlePlaceId, longName: $longName, shortName: $shortName, address: $address, types: $types, geometry: $geometry)';
   }
 
   @override
@@ -194,13 +224,21 @@ class _$_Location implements _Location {
             (identical(other.shortName, shortName) ||
                 other.shortName == shortName) &&
             (identical(other.address, address) || other.address == address) &&
-            const DeepCollectionEquality().equals(other._types, _types));
+            const DeepCollectionEquality().equals(other._types, _types) &&
+            (identical(other.geometry, geometry) ||
+                other.geometry == geometry));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, googlePlaceId, longName,
-      shortName, address, const DeepCollectionEquality().hash(_types));
+  int get hashCode => Object.hash(
+      runtimeType,
+      googlePlaceId,
+      longName,
+      shortName,
+      address,
+      const DeepCollectionEquality().hash(_types),
+      geometry);
 
   @JsonKey(ignore: true)
   @override
@@ -222,7 +260,8 @@ abstract class _Location implements Location {
       required final String longName,
       required final String shortName,
       required final String address,
-      required final List<String> types}) = _$_Location;
+      required final List<String> types,
+      required final Geometry geometry}) = _$_Location;
 
   factory _Location.fromJson(Map<String, dynamic> json) = _$_Location.fromJson;
 
@@ -236,6 +275,8 @@ abstract class _Location implements Location {
   String get address;
   @override
   List<String> get types;
+  @override
+  Geometry get geometry;
   @override
   @JsonKey(ignore: true)
   _$$_LocationCopyWith<_$_Location> get copyWith =>

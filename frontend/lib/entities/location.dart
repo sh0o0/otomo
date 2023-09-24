@@ -12,6 +12,7 @@ class Location with _$Location{
     required String shortName,
     required String address,
     required List<String> types,
+    required Geometry geometry,
   }) = _Location;
 
  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
