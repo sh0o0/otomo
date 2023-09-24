@@ -162,7 +162,7 @@ func (cc *ChatController) analyzeAndUpdateMsg(
 	}
 
 	now := times.C.Now()
-	la := model.NewLocationAnalysis(locs, &now)
+	la := model.NewLocationAnalysis(locs, &now, nil)
 	newMsg := msg.SetLocationAnalysis(la)
 	return cc.msgRepo.Update(ctx, userID, newMsg)
 }
