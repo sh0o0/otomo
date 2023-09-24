@@ -129,16 +129,7 @@ func (cc *ChatController) askToMessage(
 		ctx, userID, newMsg, updatedOtomo); err != nil {
 		return nil, err
 	}
-	go func() {
-		if err := cc.analyzeAndUpdateMsg(context.Background(), userID, newMsg); err != nil {
-			logs.Logger.Error(
-				"Failed to analyze and update message",
-				logs.Error(err),
-			)
-		} else {
-			logs.Logger.Info("Analyzed and updated message")
-		}
-	}()
+	go cc.analyzeAndUpdateMsg(context.Background(), userID, newMsg)
 
 	resMsg, err := conv.Message.ModelToGrpc(newMsg)
 	if err != nil {
@@ -155,16 +146,35 @@ func (cc *ChatController) analyzeAndUpdateMsg(
 	ctx context.Context,
 	userID model.UserID,
 	msg *model.Message,
-) error {
-	locs, err := cc.msgAnaSvc.ExtractLocationsFromMsg(ctx, msg)
+) {
+	locs, geocodeErrs, err := cc.msgAnaSvc.ExtractLocationsFromMsg(ctx, msg)
+	var errStr *string
 	if err != nil {
-		return err
+		str := err.Error()
+		errStr = &str
+	}
+	for _, geocodeErr := range geocodeErrs {
+		logs.Logger.Warn(
+			"Failed to geocode",
+			logs.Error(geocodeErr),
+		)
 	}
 
 	now := times.C.Now()
-	la := model.NewLocationAnalysis(locs, &now, nil)
+	la := model.NewLocationAnalysis(locs, &now, errStr)
 	newMsg := msg.SetLocationAnalysis(la)
-	return cc.msgRepo.Update(ctx, userID, newMsg)
+	if err := cc.msgRepo.Update(ctx, userID, newMsg); err != nil {
+		logs.Logger.Error(
+			"Failed to update message",
+			logs.Error(err),
+			logs.String("messageId", string(newMsg.ID)),
+		)
+	} else {
+		logs.Logger.Info(
+			"Updated message",
+			logs.String("messageId", string(newMsg.ID)),
+		)
+	}
 }
 
 func (cc *ChatController) ListMessages(

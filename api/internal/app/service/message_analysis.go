@@ -31,13 +31,16 @@ func NewMessageAnalysisService(
 func (ams *MessageAnalysisService) ExtractLocationsFromMsg(
 	ctx context.Context,
 	msg *model.Message,
-) ([]*model.AnalyzedLocation, error) {
+) ([]*model.AnalyzedLocation, []error, error) {
 	exLocs, err := ams.locExSvc.FromText(ctx, msg.Text)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	var results = []*model.AnalyzedLocation{}
+	var (
+		results     = []*model.AnalyzedLocation{}
+		geocodeErrs = []error{}
+	)
 	for _, exLoc := range exLocs {
 		req := &maps.GeocodingRequest{
 			Address: strings.Join([]string{
@@ -49,7 +52,7 @@ func (ams *MessageAnalysisService) ExtractLocationsFromMsg(
 		}
 		loc, err := ams.geoSvc.One(ctx, req)
 		if err != nil {
-			return nil, err
+			geocodeErrs = append(geocodeErrs, err)
 		}
 		results = append(results, &model.AnalyzedLocation{
 			Text:     exLoc.Name,
@@ -57,5 +60,5 @@ func (ams *MessageAnalysisService) ExtractLocationsFromMsg(
 		})
 	}
 
-	return results, nil
+	return results, geocodeErrs, nil
 }
