@@ -8,6 +8,8 @@ import (
 	"googlemaps.github.io/maps"
 )
 
+// TODO: Add tests
+
 var _ svc.GeocodingService = (*GeocodingService)(nil)
 
 type GeocodingService struct {
