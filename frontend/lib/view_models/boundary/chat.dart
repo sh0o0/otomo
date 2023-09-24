@@ -38,7 +38,7 @@ class TextMessageData with _$TextMessageData {
         author: Author.fromRole(message.role),
         sentAt: message.sentAt,
         remoteId: message.id,
-        status: status,
+        status: message.hasError ? MessageStatus.error : status,
         active: active,
       ),
       text: message.text,
