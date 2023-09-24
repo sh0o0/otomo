@@ -64,6 +64,20 @@ func (mr *MessageRepository) Add(
 	return err
 }
 
+func (mr *MessageRepository) Update(
+	ctx context.Context,
+	userID model.UserID,
+	msg *model.Message,
+) error {
+	msgDoc := mr.getDoc(ctx, userID, msg.ID)
+	if _, err := msgDoc.Get(ctx); err != nil {
+		return mr.ifCodesNotFoundReturnErrsNotFound(err, errs.FieldID)
+	}
+
+	_, err := msgDoc.Set(ctx, msg)
+	return err
+}
+
 func (mr *MessageRepository) DeleteByIDAndUserID(
 	ctx context.Context,
 	userID model.UserID,

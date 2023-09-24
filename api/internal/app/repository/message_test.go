@@ -88,6 +88,42 @@ func TestMessageRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T)
 	assert.Error(t, err)
 }
 
+func TestMessageRepository_Update_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
+	var (
+		giveCtx    = context.Background()
+		giveUserID = model.UserID(uuid.NewString())
+		addMsg     = testmodel.DefaultTestMessageFactory.Times(times.C.Now())
+		updatedMsg = testmodel.DefaultTestMessageFactory.Times(
+			times.C.Now().Add(time.Second * 10),
+		)
+	)
+	updatedMsg.ID = addMsg.ID
+
+	if err := testMsgRepo.Add(giveCtx, giveUserID, addMsg); err != nil {
+		t.Fatal(err)
+	}
+	if err := testMsgRepo.Update(giveCtx, giveUserID, updatedMsg); err != nil {
+		t.Fatal(err)
+	}
+	got, err := testMsgRepo.Last(giveCtx, giveUserID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert.Equal(t, updatedMsg, got)
+}
+
+func TestMessageRepository_Update_ShouldReturnErr_WhenNotFoundMsg(t *testing.T) {
+	var (
+		giveCtx    = context.Background()
+		giveUserID = model.UserID(uuid.NewString())
+		giveMsg    = testmodel.DefaultTestMessageFactory.Role(model.OtomoRole)
+	)
+
+	err := testMsgRepo.Update(giveCtx, giveUserID, giveMsg)
+	assert.True(t, errs.IsNotFoundErr(err))
+}
+
 func TestMessageRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()

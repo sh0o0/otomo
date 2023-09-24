@@ -31,6 +31,9 @@ type Conf struct {
 	OpenAIApiKey string `envconfig:"OPENAI_API_KEY"`
 	OpenAIModel  string `envconfig:"OPENAI_MODEL" default:"gpt-3.5-turbo" print:"true"`
 
+	// Google Maps
+	GoogleMapsApiKey string `envconfig:"GOOGLE_MAPS_API_KEY"`
+
 	// Auth
 	BasicAuthPairs map[string]string `envconfig:"BASIC_AUTH_PAIRS"`
 }

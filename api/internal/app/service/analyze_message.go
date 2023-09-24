@@ -9,6 +9,8 @@ import (
 	"googlemaps.github.io/maps"
 )
 
+var _ svc.AnalyzeMessageService = (*AnalyzeMessageService)(nil)
+
 // TODO: Add tests
 
 type AnalyzeMessageService struct {
