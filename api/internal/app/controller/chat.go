@@ -9,6 +9,7 @@ import (
 	"otomo/internal/pkg/ctxs"
 	"otomo/internal/pkg/errs"
 	"otomo/internal/pkg/logs"
+	"otomo/internal/pkg/times"
 )
 
 // TODO: Add tests
@@ -23,6 +24,7 @@ type ChatController struct {
 	otomoRepo      repo.OtomoRepository
 	msginSub       svc.MessagingSubscriber
 	msginPub       svc.MessagingPublisher
+	analyzeMsgSvc  svc.AnalyzeMessageService
 	converser      model.Converser
 	summarizer     model.Summarizer
 }
@@ -34,6 +36,7 @@ func NewChatController(
 	otomoRepo repo.OtomoRepository,
 	msginSub svc.MessagingSubscriber,
 	msginPub svc.MessagingPublisher,
+	analyzeMsgSvc svc.AnalyzeMessageService,
 	converser model.Converser,
 	summarizer model.Summarizer,
 ) *ChatController {
@@ -44,6 +47,7 @@ func NewChatController(
 		otomoRepo:      otomoRepo,
 		msginSub:       msginSub,
 		msginPub:       msginPub,
+		analyzeMsgSvc:  analyzeMsgSvc,
 		converser:      converser,
 		summarizer:     summarizer,
 	}
@@ -103,7 +107,7 @@ func (cc *ChatController) askToMessage(
 	var (
 		updatedOtomo *model.Otomo
 		newMsg       *model.Message
-		convErr      error
+		cnvErr       error
 	)
 
 	lastMsg, err := cc.msgRepo.Last(ctx, userID)
@@ -113,18 +117,26 @@ func (cc *ChatController) askToMessage(
 		}
 	}
 	if lastMsg != nil && lastMsg.RoleIs(model.UserRole) {
-		updatedOtomo, newMsg, convErr = otomo.Respond(ctx, lastMsg)
+		updatedOtomo, newMsg, cnvErr = otomo.Respond(ctx, lastMsg)
 	} else {
-		updatedOtomo, newMsg, convErr = otomo.Message(ctx)
+		updatedOtomo, newMsg, cnvErr = otomo.Message(ctx)
 	}
-	if convErr != nil {
-		return nil, convErr
+	if cnvErr != nil {
+		return nil, cnvErr
 	}
 
 	if err := cc.saveMsgAndOtomo(
 		ctx, userID, newMsg, updatedOtomo); err != nil {
 		return nil, err
 	}
+	go func() {
+		if err := cc.analyzeAndUpdateMsg(ctx, userID, newMsg); err != nil {
+			logs.Logger.Error(
+				"Failed to analyze and update message",
+				logs.Error(err),
+			)
+		}
+	}()
 
 	resMsg, err := conv.Message.ModelToGrpc(newMsg)
 	if err != nil {
@@ -134,6 +146,23 @@ func (cc *ChatController) askToMessage(
 	return &grpcgen.ChatService_AskToMessageResponse{
 		Message: resMsg,
 	}, nil
+}
+
+// TODO: Move to AnalyzeController by messaging
+func (cc *ChatController) analyzeAndUpdateMsg(
+	ctx context.Context,
+	userID model.UserID,
+	msg *model.Message,
+) error {
+	locs, err := cc.analyzeMsgSvc.ExtractLocationsFromMsg(ctx, msg)
+	if err != nil {
+		return err
+	}
+
+	now := times.C.Now()
+	la := model.NewLocationAnalysis(locs, &now)
+	newMsg := msg.SetLocationAnalysis(la)
+	return cc.msgRepo.Update(ctx, userID, newMsg)
 }
 
 func (cc *ChatController) ListMessages(

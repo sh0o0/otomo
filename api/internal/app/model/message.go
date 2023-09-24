@@ -9,16 +9,38 @@ import (
 type MessageID string
 
 type Message struct {
-	ID       MessageID `firestore:"id"`
-	ClientID *string   `firestore:"client_id"`
-	Text     string    `firestore:"text"`
-	Role     Role      `firestore:"role"`
-	SentAt   time.Time `firestore:"sent_at"`
+	ID               MessageID        `firestore:"id"`
+	ClientID         *string          `firestore:"client_id"`
+	Text             string           `firestore:"text"`
+	Role             Role             `firestore:"role"`
+	SentAt           time.Time        `firestore:"sent_at"`
+	LocationAnalysis LocationAnalysis `firestore:"location_analysis"`
 }
 
 // TODO: Add test
 func (m *Message) RoleIs(role Role) bool {
 	return m.Role == role
+}
+
+func (m *Message) SetLocationAnalysis(la LocationAnalysis) *Message {
+	newM := *m
+	newM.LocationAnalysis = la
+	return &newM
+}
+
+type LocationAnalysis struct {
+	Locations  []*Location `firestore:"locations"`
+	AnalyzedAt *time.Time  `firestore:"analyzed_at"`
+}
+
+func NewLocationAnalysis(
+	locations []*Location,
+	analyzedAt *time.Time,
+) LocationAnalysis {
+	return LocationAnalysis{
+		Locations:  locations,
+		AnalyzedAt: analyzedAt,
+	}
 }
 
 type MessageFactory struct{}
