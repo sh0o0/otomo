@@ -15,6 +15,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/timestamp.pb.dart' as $3;
 import 'google/protobuf/wrappers.pb.dart' as $4;
+import 'location.pb.dart' as $5;
 import 'message.pbenum.dart';
 
 export 'message.pbenum.dart';
@@ -31,6 +32,7 @@ class Message extends $pb.GeneratedMessage {
     ..e<Role>(3, _omitFieldNames ? '' : 'role', $pb.PbFieldType.OE, defaultOrMaker: Role.UNKNOWN, valueOf: Role.valueOf, enumValues: Role.values)
     ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', subBuilder: $3.Timestamp.create)
     ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
+    ..aOM<AnalyzedLocation>(6, _omitFieldNames ? '' : 'analyzedLocation', subBuilder: AnalyzedLocation.create)
     ..hasRequiredFields = false
   ;
 
@@ -103,6 +105,17 @@ class Message extends $pb.GeneratedMessage {
   void clearClientId() => clearField(5);
   @$pb.TagNumber(5)
   $4.StringValue ensureClientId() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  AnalyzedLocation get analyzedLocation => $_getN(5);
+  @$pb.TagNumber(6)
+  set analyzedLocation(AnalyzedLocation v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasAnalyzedLocation() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearAnalyzedLocation() => clearField(6);
+  @$pb.TagNumber(6)
+  AnalyzedLocation ensureAnalyzedLocation() => $_ensure(5);
 }
 
 class MessageChunk extends $pb.GeneratedMessage {
@@ -199,6 +212,54 @@ class MessageChunk extends $pb.GeneratedMessage {
   $core.bool hasIsLast() => $_has(5);
   @$pb.TagNumber(6)
   void clearIsLast() => clearField(6);
+}
+
+class AnalyzedLocation extends $pb.GeneratedMessage {
+  factory AnalyzedLocation() => create();
+  AnalyzedLocation._() : super();
+  factory AnalyzedLocation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AnalyzedLocation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AnalyzedLocation', createEmptyInstance: create)
+    ..pc<$5.Location>(1, _omitFieldNames ? '' : 'locations', $pb.PbFieldType.PM, subBuilder: $5.Location.create)
+    ..aOM<$3.Timestamp>(2, _omitFieldNames ? '' : 'analyzedAt', subBuilder: $3.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AnalyzedLocation clone() => AnalyzedLocation()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AnalyzedLocation copyWith(void Function(AnalyzedLocation) updates) => super.copyWith((message) => updates(message as AnalyzedLocation)) as AnalyzedLocation;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AnalyzedLocation create() => AnalyzedLocation._();
+  AnalyzedLocation createEmptyInstance() => create();
+  static $pb.PbList<AnalyzedLocation> createRepeated() => $pb.PbList<AnalyzedLocation>();
+  @$core.pragma('dart2js:noInline')
+  static AnalyzedLocation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AnalyzedLocation>(create);
+  static AnalyzedLocation? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$5.Location> get locations => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $3.Timestamp get analyzedAt => $_getN(1);
+  @$pb.TagNumber(2)
+  set analyzedAt($3.Timestamp v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAnalyzedAt() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAnalyzedAt() => clearField(2);
+  @$pb.TagNumber(2)
+  $3.Timestamp ensureAnalyzedAt() => $_ensure(1);
 }
 
 

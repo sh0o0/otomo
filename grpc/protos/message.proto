@@ -3,6 +3,7 @@ syntax = "proto3";
 option go_package = ".;grpcgen";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "location.proto";
 
 message Message {
     string id = 1;
@@ -10,6 +11,7 @@ message Message {
     Role role = 3;
     google.protobuf.Timestamp sent_at = 4;
     google.protobuf.StringValue client_id = 5;
+    AnalyzedLocation analyzed_location = 6;
 }
 
 message MessageChunk {
@@ -20,6 +22,12 @@ message MessageChunk {
     google.protobuf.StringValue client_id = 5;
     bool is_last = 6;
 }
+
+message AnalyzedLocation {
+    repeated Location locations = 1;
+    google.protobuf.Timestamp analyzed_at = 2;
+}
+
 
 enum Role {
     UNKNOWN = 0;
