@@ -6,6 +6,7 @@ type Location struct {
 	ShortName     string
 	Address       string
 	Types         []string
+	Geometry      Geometry
 }
 
 type Geometry struct {
