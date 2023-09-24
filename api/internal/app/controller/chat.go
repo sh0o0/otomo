@@ -24,7 +24,7 @@ type ChatController struct {
 	otomoRepo      repo.OtomoRepository
 	msginSub       svc.MessagingSubscriber
 	msginPub       svc.MessagingPublisher
-	analyzeMsgSvc  svc.AnalyzeMessageService
+	msgAnaSvc      svc.MessageAnalysisService
 	converser      model.Converser
 	summarizer     model.Summarizer
 }
@@ -36,7 +36,7 @@ func NewChatController(
 	otomoRepo repo.OtomoRepository,
 	msginSub svc.MessagingSubscriber,
 	msginPub svc.MessagingPublisher,
-	analyzeMsgSvc svc.AnalyzeMessageService,
+	msgAnaSvc svc.MessageAnalysisService,
 	converser model.Converser,
 	summarizer model.Summarizer,
 ) *ChatController {
@@ -47,7 +47,7 @@ func NewChatController(
 		otomoRepo:      otomoRepo,
 		msginSub:       msginSub,
 		msginPub:       msginPub,
-		analyzeMsgSvc:  analyzeMsgSvc,
+		msgAnaSvc:      msgAnaSvc,
 		converser:      converser,
 		summarizer:     summarizer,
 	}
@@ -154,7 +154,7 @@ func (cc *ChatController) analyzeAndUpdateMsg(
 	userID model.UserID,
 	msg *model.Message,
 ) error {
-	locs, err := cc.analyzeMsgSvc.ExtractLocationsFromMsg(ctx, msg)
+	locs, err := cc.msgAnaSvc.ExtractLocationsFromMsg(ctx, msg)
 	if err != nil {
 		return err
 	}

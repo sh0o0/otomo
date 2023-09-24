@@ -5,7 +5,7 @@ import (
 	"otomo/internal/app/model"
 )
 
-type AnalyzeMessageService interface {
+type MessageAnalysisService interface {
 	ExtractLocationsFromMsg(
 		ctx context.Context,
 		msg *model.Message,

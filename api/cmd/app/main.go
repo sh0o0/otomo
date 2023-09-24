@@ -144,7 +144,7 @@ func newServer() (*grpc.Server, error) {
 		msginPub        = service.NewMessagingPublisher(messagingBus)
 		locExtSvc       = service.NewLocationExtractionService(gpt)
 		geocodingSvc    = service.NewGeocodingService(gMap)
-		analyzeMsgSvc   = service.NewAnalyzeMessageService(locExtSvc, geocodingSvc)
+		msgAnaSvc       = service.NewMessageAnalysisService(locExtSvc, geocodingSvc)
 	)
 	if err := msginSub.Init(); err != nil {
 		logs.Logger.Panic(err.Error())
@@ -162,7 +162,7 @@ func newServer() (*grpc.Server, error) {
 			otomoRepo,
 			msginSub,
 			msginPub,
-			analyzeMsgSvc,
+			msgAnaSvc,
 			conversationSvc,
 			summarySvc,
 		)

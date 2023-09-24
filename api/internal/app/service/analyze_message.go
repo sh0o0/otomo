@@ -9,26 +9,26 @@ import (
 	"googlemaps.github.io/maps"
 )
 
-var _ svc.AnalyzeMessageService = (*AnalyzeMessageService)(nil)
+var _ svc.MessageAnalysisService = (*MessageAnalysisService)(nil)
 
 // TODO: Add tests
 
-type AnalyzeMessageService struct {
+type MessageAnalysisService struct {
 	locExSvc svc.LocationExtractionService
 	geoSvc   svc.GeocodingService
 }
 
-func NewAnalyzeMessageService(
+func NewMessageAnalysisService(
 	locExSvc svc.LocationExtractionService,
 	geoSvc svc.GeocodingService,
-) *AnalyzeMessageService {
-	return &AnalyzeMessageService{
+) *MessageAnalysisService {
+	return &MessageAnalysisService{
 		locExSvc: locExSvc,
 		geoSvc:   geoSvc,
 	}
 }
 
-func (ams *AnalyzeMessageService) ExtractLocationsFromMsg(
+func (ams *MessageAnalysisService) ExtractLocationsFromMsg(
 	ctx context.Context,
 	msg *model.Message,
 ) ([]*model.Location, error) {
