@@ -13,12 +13,6 @@ const (
 	messageColName string = "messages"
 )
 
-// versions/1/chats/{userID}
-// Deprecated: Don't use this function.
-func getChatDocPath(userID model.UserID) string {
-	return strings.Join([]string{v1DocPath, chatsColPath, string(userID)}, "/")
-}
-
 // versions/1/otomos/{userID}
 func getOtomoDocPath(userID model.UserID) string {
 	return strings.Join([]string{v1DocPath, otomoColPath, string(userID)}, "/")

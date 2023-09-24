@@ -10,6 +10,7 @@ import (
 type MessageRepository interface {
 	Last(ctx context.Context, userID model.UserID) (*model.Message, error)
 	Add(ctx context.Context, userID model.UserID, msg *model.Message) error
+	Update(ctx context.Context, userID model.UserID, msg *model.Message) error
 	DeleteByIDAndUserID(
 		ctx context.Context,
 		userID model.UserID,

@@ -8,7 +8,6 @@ import 'package:otomo/controllers/utils.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
-import 'package:otomo/entities/place.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
@@ -28,14 +27,14 @@ class ChatState with _$ChatState {
 
   static final user = Author.fromRole(Role.user);
 
-  List<Place> get activePlaces {
-    final places = <Place>[];
+  List<AnalyzedLocation> get activeAnalyzedLocations {
+    final locations = <AnalyzedLocation>[];
 
     for (final message in _activeMessages) {
-      places.addAll(message.placesFromText);
+      locations.addAll(message.locationAnalysis.locations);
     }
 
-    return places;
+    return locations;
   }
 
   List<TextMessageData> get _activeMessages =>
@@ -45,13 +44,15 @@ class ChatState with _$ChatState {
 @riverpod
 class Chat extends _$Chat {
   final _chatController = getIt<ChatControllerImpl>();
-  final StreamController<Place> _focusedPlaceStreamController =
-      StreamController<Place>.broadcast();
+  final StreamController<AnalyzedLocation>
+      _focusedAnalyzedLocationStreamController =
+      StreamController<AnalyzedLocation>.broadcast();
   final StreamController<TextMessageData>
       _activatedTextMessageStreamController =
       StreamController<TextMessageData>.broadcast();
 
-  Stream<Place> get focusedPlaceStream => _focusedPlaceStreamController.stream;
+  Stream<AnalyzedLocation> get focusedAnalyzedLocationStream =>
+      _focusedAnalyzedLocationStreamController.stream;
   Stream<TextMessageData> get activatedTextMessageStream =>
       _activatedTextMessageStreamController.stream;
 
@@ -211,8 +212,8 @@ class Chat extends _$Chat {
           message.copyWith.message(active: false);
   }
 
-  void focusPlace(Place place) {
-    _focusedPlaceStreamController.add(place);
+  void focusAnalyzedLocation(AnalyzedLocation loc) {
+    _focusedAnalyzedLocationStreamController.add(loc);
   }
 
   void toggleShowOnlyMessages() {

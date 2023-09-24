@@ -32,9 +32,10 @@ class _MapState extends ConsumerState<MapPage> {
     _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 8);
   }
 
-  Set<Marker> _markers(MapState state) => ViewConverter.I.placeAndMarker
-      .placesToMarkerList(state.activePlaces)
-      .toSet();
+  Set<Marker> _markers(MapState state) =>
+      ViewConverter.I.analyzedLocationAndMarker
+          .locationsToMarkerList(state.activeAnalyzedLocations)
+          .toSet();
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +43,29 @@ class _MapState extends ConsumerState<MapPage> {
     final notifier = ref.read(mapProvider.notifier);
 
     useEffect(() {
-      final focusedPlaceStreamSub = notifier.focusedPlaceStream.listen((place) {
+      final focusedAnalyzedLocationStreamSub =
+          notifier.focusedLocationStream.listen((analyzedLoc) {
         if (!_canUseMapController) return;
-        _mapController!.moveWithLatLng(latLng: place.latLng, zoom: 8);
+        _mapController!.moveWithLatLng(
+          latLng: analyzedLoc.location.geometry.latLng,
+          zoom: 8,
+        );
       });
 
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen((textMsg) {
         if (!_canUseMapController) return;
 
-        final latLngList =
-            AppLatLngList(textMsg.placesFromText.map((e) => e.latLng).toList());
+        final latLngList = AppLatLngList(textMsg.locationAnalysis.locations
+            .map((e) => e.location.geometry.latLng)
+            .toList());
         final region = latLngList.edge();
         if (region == null) return;
         _mapController!.moveWithRegion(region: region);
       });
 
       return () {
-        focusedPlaceStreamSub.cancel();
+        focusedAnalyzedLocationStreamSub.cancel();
         activatedTextMessageStreamSub.cancel();
       };
     });

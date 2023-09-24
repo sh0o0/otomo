@@ -36,6 +36,7 @@ const (
 	DomainUser    Domain = "User"
 	DomainMessage Domain = "Message"
 	DomainOtomo   Domain = "Otomo"
+	DomainGeo     Domain = "Geo"
 )
 
 // Fields

@@ -16,9 +16,11 @@ import (
 	"github.com/asaskevich/EventBus"
 	"github.com/getsentry/sentry-go"
 	"github.com/kelseyhightower/envconfig"
-	"github.com/tmc/langchaingo/llms/openai"
+	"github.com/sashabaranov/go-openai"
+	lcopenai "github.com/tmc/langchaingo/llms/openai"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"googlemaps.github.io/maps"
 )
 
 func main() {
@@ -88,10 +90,15 @@ func newFirebaseApp() (*firebase.App, error) {
 
 func newServer() (*grpc.Server, error) {
 	// infrastructures
-	chat, err := openai.NewChat(
-		openai.WithToken(conf.OpenAIApiKey),
-		openai.WithModel(conf.OpenAIModel),
+	lcGpt, err := lcopenai.NewChat(
+		lcopenai.WithToken(conf.OpenAIApiKey),
+		lcopenai.WithModel(conf.OpenAIModel),
 	)
+	if err != nil {
+		return nil, err
+	}
+	gpt := openai.NewClient(conf.OpenAIApiKey)
+	gMap, err := maps.NewClient(maps.WithAPIKey(conf.GoogleMapsApiKey))
 	if err != nil {
 		return nil, err
 	}
@@ -131,10 +138,13 @@ func newServer() (*grpc.Server, error) {
 
 	// services
 	var (
-		summaryService      = service.NewSummaryService(chat)
-		conversationService = service.NewConversationService(chat)
-		msginSub            = service.NewMessagingSubscriber(messagingBus)
-		msginPub            = service.NewMessagingPublisher(messagingBus)
+		summarySvc      = service.NewSummaryService(lcGpt)
+		conversationSvc = service.NewConversationService(lcGpt)
+		msginSub        = service.NewMessagingSubscriber(messagingBus)
+		msginPub        = service.NewMessagingPublisher(messagingBus)
+		locExtSvc       = service.NewLocationExtractionService(gpt)
+		geocodingSvc    = service.NewGeocodingService(gMap)
+		msgAnaSvc       = service.NewMessageAnalysisService(locExtSvc, geocodingSvc)
 	)
 	if err := msginSub.Init(); err != nil {
 		logs.Logger.Panic(err.Error())
@@ -152,8 +162,9 @@ func newServer() (*grpc.Server, error) {
 			otomoRepo,
 			msginSub,
 			msginPub,
-			conversationService,
-			summaryService,
+			msgAnaSvc,
+			conversationSvc,
+			summarySvc,
 		)
 	)
 

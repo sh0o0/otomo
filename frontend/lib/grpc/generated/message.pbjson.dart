@@ -36,6 +36,7 @@ const Message$json = {
     {'1': 'role', '3': 3, '4': 1, '5': 14, '6': '.Role', '10': 'role'},
     {'1': 'sent_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sentAt'},
     {'1': 'client_id', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
+    {'1': 'location_analysis', '3': 6, '4': 1, '5': 11, '6': '.LocationAnalysis', '10': 'locationAnalysis'},
   ],
 };
 
@@ -44,7 +45,8 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'CgdNZXNzYWdlEg4KAmlkGAEgASgJUgJpZBISCgR0ZXh0GAIgASgJUgR0ZXh0EhkKBHJvbGUYAy'
     'ABKA4yBS5Sb2xlUgRyb2xlEjMKB3NlbnRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGlt'
     'ZXN0YW1wUgZzZW50QXQSOQoJY2xpZW50X2lkGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cm'
-    'luZ1ZhbHVlUghjbGllbnRJZA==');
+    'luZ1ZhbHVlUghjbGllbnRJZBI+ChFsb2NhdGlvbl9hbmFseXNpcxgGIAEoCzIRLkxvY2F0aW9u'
+    'QW5hbHlzaXNSEGxvY2F0aW9uQW5hbHlzaXM=');
 
 @$core.Deprecated('Use messageChunkDescriptor instead')
 const MessageChunk$json = {
@@ -66,4 +68,33 @@ final $typed_data.Uint8List messageChunkDescriptor = $convert.base64Decode(
     'Lmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSBnNlbnRBdBI5CgljbGllbnRfaWQYBSABKAsyHC'
     '5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWVSCGNsaWVudElkEhcKB2lzX2xhc3QYBiABKAhS'
     'BmlzTGFzdA==');
+
+@$core.Deprecated('Use locationAnalysisDescriptor instead')
+const LocationAnalysis$json = {
+  '1': 'LocationAnalysis',
+  '2': [
+    {'1': 'locations', '3': 1, '4': 3, '5': 11, '6': '.AnalyzedLocation', '10': 'locations'},
+    {'1': 'analyzed_at', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'analyzedAt'},
+  ],
+};
+
+/// Descriptor for `LocationAnalysis`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List locationAnalysisDescriptor = $convert.base64Decode(
+    'ChBMb2NhdGlvbkFuYWx5c2lzEi8KCWxvY2F0aW9ucxgBIAMoCzIRLkFuYWx5emVkTG9jYXRpb2'
+    '5SCWxvY2F0aW9ucxI7CgthbmFseXplZF9hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1l'
+    'c3RhbXBSCmFuYWx5emVkQXQ=');
+
+@$core.Deprecated('Use analyzedLocationDescriptor instead')
+const AnalyzedLocation$json = {
+  '1': 'AnalyzedLocation',
+  '2': [
+    {'1': 'text', '3': 1, '4': 1, '5': 9, '10': 'text'},
+    {'1': 'location', '3': 2, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
+  ],
+};
+
+/// Descriptor for `AnalyzedLocation`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List analyzedLocationDescriptor = $convert.base64Decode(
+    'ChBBbmFseXplZExvY2F0aW9uEhIKBHRleHQYASABKAlSBHRleHQSJQoIbG9jYXRpb24YAiABKA'
+    'syCS5Mb2NhdGlvblIIbG9jYXRpb24=');
 

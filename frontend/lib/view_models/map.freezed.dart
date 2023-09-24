@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MapState {
-  List<Place> get activePlaces => throw _privateConstructorUsedError;
+  List<AnalyzedLocation> get activeAnalyzedLocations =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MapStateCopyWith<MapState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $MapStateCopyWith<$Res> {
   factory $MapStateCopyWith(MapState value, $Res Function(MapState) then) =
       _$MapStateCopyWithImpl<$Res, MapState>;
   @useResult
-  $Res call({List<Place> activePlaces});
+  $Res call({List<AnalyzedLocation> activeAnalyzedLocations});
 }
 
 /// @nodoc
@@ -44,13 +45,13 @@ class _$MapStateCopyWithImpl<$Res, $Val extends MapState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? activePlaces = null,
+    Object? activeAnalyzedLocations = null,
   }) {
     return _then(_value.copyWith(
-      activePlaces: null == activePlaces
-          ? _value.activePlaces
-          : activePlaces // ignore: cast_nullable_to_non_nullable
-              as List<Place>,
+      activeAnalyzedLocations: null == activeAnalyzedLocations
+          ? _value.activeAnalyzedLocations
+          : activeAnalyzedLocations // ignore: cast_nullable_to_non_nullable
+              as List<AnalyzedLocation>,
     ) as $Val);
   }
 }
@@ -62,7 +63,7 @@ abstract class _$$_MapStateCopyWith<$Res> implements $MapStateCopyWith<$Res> {
       __$$_MapStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Place> activePlaces});
+  $Res call({List<AnalyzedLocation> activeAnalyzedLocations});
 }
 
 /// @nodoc
@@ -76,13 +77,13 @@ class __$$_MapStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? activePlaces = null,
+    Object? activeAnalyzedLocations = null,
   }) {
     return _then(_$_MapState(
-      activePlaces: null == activePlaces
-          ? _value._activePlaces
-          : activePlaces // ignore: cast_nullable_to_non_nullable
-              as List<Place>,
+      activeAnalyzedLocations: null == activeAnalyzedLocations
+          ? _value._activeAnalyzedLocations
+          : activeAnalyzedLocations // ignore: cast_nullable_to_non_nullable
+              as List<AnalyzedLocation>,
     ));
   }
 }
@@ -90,21 +91,23 @@ class __$$_MapStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_MapState extends _MapState {
-  const _$_MapState({required final List<Place> activePlaces})
-      : _activePlaces = activePlaces,
+  const _$_MapState(
+      {required final List<AnalyzedLocation> activeAnalyzedLocations})
+      : _activeAnalyzedLocations = activeAnalyzedLocations,
         super._();
 
-  final List<Place> _activePlaces;
+  final List<AnalyzedLocation> _activeAnalyzedLocations;
   @override
-  List<Place> get activePlaces {
-    if (_activePlaces is EqualUnmodifiableListView) return _activePlaces;
+  List<AnalyzedLocation> get activeAnalyzedLocations {
+    if (_activeAnalyzedLocations is EqualUnmodifiableListView)
+      return _activeAnalyzedLocations;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_activePlaces);
+    return EqualUnmodifiableListView(_activeAnalyzedLocations);
   }
 
   @override
   String toString() {
-    return 'MapState(activePlaces: $activePlaces)';
+    return 'MapState(activeAnalyzedLocations: $activeAnalyzedLocations)';
   }
 
   @override
@@ -112,13 +115,13 @@ class _$_MapState extends _MapState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MapState &&
-            const DeepCollectionEquality()
-                .equals(other._activePlaces, _activePlaces));
+            const DeepCollectionEquality().equals(
+                other._activeAnalyzedLocations, _activeAnalyzedLocations));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_activePlaces));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_activeAnalyzedLocations));
 
   @JsonKey(ignore: true)
   @override
@@ -128,12 +131,13 @@ class _$_MapState extends _MapState {
 }
 
 abstract class _MapState extends MapState {
-  const factory _MapState({required final List<Place> activePlaces}) =
+  const factory _MapState(
+          {required final List<AnalyzedLocation> activeAnalyzedLocations}) =
       _$_MapState;
   const _MapState._() : super._();
 
   @override
-  List<Place> get activePlaces;
+  List<AnalyzedLocation> get activeAnalyzedLocations;
   @override
   @JsonKey(ignore: true)
   _$$_MapStateCopyWith<_$_MapState> get copyWith =>

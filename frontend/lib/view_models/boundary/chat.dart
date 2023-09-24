@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/custom_text.dart';
 import 'package:otomo/entities/message.dart';
-import 'package:otomo/entities/place.dart';
 
 part 'chat.freezed.dart';
 
@@ -24,6 +22,7 @@ class TextMessageData with _$TextMessageData {
   const factory TextMessageData({
     required MessageData message,
     required String text,
+    @Default(LocationAnalysis(locations: [])) LocationAnalysis locationAnalysis,
   }) = _TextMessageData;
 
   factory TextMessageData.fromTextMessage(
@@ -33,7 +32,9 @@ class TextMessageData with _$TextMessageData {
   }) {
     return TextMessageData(
       message: MessageData(
-        id: message.clientId ?? message.id,
+        id: (message.clientId?.isNotEmpty == true)
+            ? message.clientId!
+            : message.id,
         author: Author.fromRole(message.role),
         sentAt: message.sentAt,
         remoteId: message.id,
@@ -41,6 +42,7 @@ class TextMessageData with _$TextMessageData {
         active: active,
       ),
       text: message.text,
+      locationAnalysis: message.locationAnalysis,
     );
   }
 
@@ -51,7 +53,9 @@ class TextMessageData with _$TextMessageData {
   }) {
     return TextMessageData(
       message: MessageData(
-        id: chunk.clientId ?? chunk.messageId,
+        id: (chunk.clientId?.isNotEmpty == true)
+            ? chunk.clientId!
+            : chunk.messageId,
         author: Author.fromRole(chunk.role),
         sentAt: chunk.sentAt,
         remoteId: chunk.messageId,
@@ -60,19 +64,6 @@ class TextMessageData with _$TextMessageData {
       ),
       text: chunk.text,
     );
-  }
-
-  List<Place> get placesFromText {
-    final places = <Place>[];
-    final customTexts = CustomText.fromAllMatches(text);
-
-    for (final customText in customTexts) {
-      final latLng = customText.latLng;
-      if (latLng == null) continue;
-      places.add(Place(name: customText.text, latLng: latLng));
-    }
-
-    return places;
   }
 }
 

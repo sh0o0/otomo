@@ -1,7 +1,7 @@
 import 'package:flutter_chat_types/flutter_chat_types.dart' as chat;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:otomo/entities/lat_lng.dart';
-import 'package:otomo/entities/place.dart';
+import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/region.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 
@@ -13,7 +13,7 @@ class ViewConverter {
   final latLng = _LatLng();
   final region = _Region();
   final message = _Message();
-  final placeAndMarker = _PlaceAndMarker();
+  final analyzedLocationAndMarker = _AnalyzedLocationAndMarker();
 }
 
 class _LatLng {
@@ -87,16 +87,15 @@ class _MessageStatus {
   }
 }
 
-class _PlaceAndMarker {
-  List<Marker> placesToMarkerList(List<Place> places) =>
-      places.map(placeToMarker).toList();
+class _AnalyzedLocationAndMarker {
+  List<Marker> locationsToMarkerList(List<AnalyzedLocation> locations) =>
+      locations.map(locationToMarker).toList();
 
-  Marker placeToMarker(Place place) => Marker(
-        markerId: MarkerId(place.name),
-        position: ViewConverter.I.latLng.entityToViewForGoogle(place.latLng),
+  Marker locationToMarker(AnalyzedLocation loc) => Marker(
+        markerId: MarkerId(loc.location.googlePlaceId),
+        position: ViewConverter.I.latLng
+            .entityToViewForGoogle(loc.location.geometry.latLng),
         infoWindow: InfoWindow(
-          title: place.name,
-          snippet: place.latLng.toString(),
-        ),
+            title: loc.text, snippet: loc.location.geometry.latLng.toString()),
       );
 }

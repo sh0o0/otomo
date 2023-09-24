@@ -14,7 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/wrappers.pb.dart' as $4;
-import 'message.pb.dart' as $5;
+import 'message.pb.dart' as $6;
 
 class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
   factory ChatService_SendMessageRequest() => create();
@@ -87,7 +87,7 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
   factory ChatService_SendMessageResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_SendMessageResponse', createEmptyInstance: create)
-    ..aOM<$5.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $5.Message.create)
+    ..aOM<$6.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $6.Message.create)
     ..hasRequiredFields = false
   ;
 
@@ -113,15 +113,15 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
   static ChatService_SendMessageResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $5.Message get message => $_getN(0);
+  $6.Message get message => $_getN(0);
   @$pb.TagNumber(1)
-  set message($5.Message v) { setField(1, v); }
+  set message($6.Message v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasMessage() => $_has(0);
   @$pb.TagNumber(1)
   void clearMessage() => clearField(1);
   @$pb.TagNumber(1)
-  $5.Message ensureMessage() => $_ensure(0);
+  $6.Message ensureMessage() => $_ensure(0);
 }
 
 class ChatService_ListMessagesRequest extends $pb.GeneratedMessage {
@@ -195,7 +195,7 @@ class ChatService_ListMessagesResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_ListMessagesResponse', createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'pageSize', $pb.PbFieldType.OU3)
     ..aOB(2, _omitFieldNames ? '' : 'hasMore')
-    ..pc<$5.Message>(3, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: $5.Message.create)
+    ..pc<$6.Message>(3, _omitFieldNames ? '' : 'messages', $pb.PbFieldType.PM, subBuilder: $6.Message.create)
     ..hasRequiredFields = false
   ;
 
@@ -239,7 +239,7 @@ class ChatService_ListMessagesResponse extends $pb.GeneratedMessage {
   void clearHasMore() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.List<$5.Message> get messages => $_getList(2);
+  $core.List<$6.Message> get messages => $_getList(2);
 }
 
 class ChatService_AskToMessageRequest extends $pb.GeneratedMessage {
@@ -291,7 +291,7 @@ class ChatService_AskToMessageResponse extends $pb.GeneratedMessage {
   factory ChatService_AskToMessageResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_AskToMessageResponse', createEmptyInstance: create)
-    ..aOM<$5.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $5.Message.create)
+    ..aOM<$6.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $6.Message.create)
     ..hasRequiredFields = false
   ;
 
@@ -317,15 +317,15 @@ class ChatService_AskToMessageResponse extends $pb.GeneratedMessage {
   static ChatService_AskToMessageResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $5.Message get message => $_getN(0);
+  $6.Message get message => $_getN(0);
   @$pb.TagNumber(1)
-  set message($5.Message v) { setField(1, v); }
+  set message($6.Message v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasMessage() => $_has(0);
   @$pb.TagNumber(1)
   void clearMessage() => clearField(1);
   @$pb.TagNumber(1)
-  $5.Message ensureMessage() => $_ensure(0);
+  $6.Message ensureMessage() => $_ensure(0);
 }
 
 class ChatService_MessagingStreamRequest extends $pb.GeneratedMessage {
@@ -377,7 +377,7 @@ class ChatService_MessagingStreamResponse extends $pb.GeneratedMessage {
   factory ChatService_MessagingStreamResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_MessagingStreamResponse', createEmptyInstance: create)
-    ..aOM<$5.MessageChunk>(1, _omitFieldNames ? '' : 'chunk', subBuilder: $5.MessageChunk.create)
+    ..aOM<$6.MessageChunk>(1, _omitFieldNames ? '' : 'chunk', subBuilder: $6.MessageChunk.create)
     ..hasRequiredFields = false
   ;
 
@@ -403,15 +403,15 @@ class ChatService_MessagingStreamResponse extends $pb.GeneratedMessage {
   static ChatService_MessagingStreamResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $5.MessageChunk get chunk => $_getN(0);
+  $6.MessageChunk get chunk => $_getN(0);
   @$pb.TagNumber(1)
-  set chunk($5.MessageChunk v) { setField(1, v); }
+  set chunk($6.MessageChunk v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasChunk() => $_has(0);
   @$pb.TagNumber(1)
   void clearChunk() => clearField(1);
   @$pb.TagNumber(1)
-  $5.MessageChunk ensureChunk() => $_ensure(0);
+  $6.MessageChunk ensureChunk() => $_ensure(0);
 }
 
 
