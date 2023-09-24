@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/grpc/generated/message.pb.dart' as grpc_msg;
+import 'package:otomo/tools/logger.dart';
 
 class ControllerConverter {
   ControllerConverter._();
@@ -21,13 +22,9 @@ class _Message {
   }
 
   TextMessage grpcToEntity(grpc_msg.Message message) {
-    return TextMessage(
-      id: message.id,
-      text: message.text,
-      role: _role.grpcToEntity(message.role),
-      sentAt: message.sentAt.toDateTime(),
-      clientId: message.clientId.hasValue() ? message.clientId.value : null,
-    );
+    logger.debug(message.writeToJsonMap().toString());
+    logger.debug(message.toProto3Json().toString());
+    return TextMessage.fromJson(message.writeToJsonMap());
   }
 
   TextMessage firestoreJsonToEntity(Map<String, dynamic> json) {
