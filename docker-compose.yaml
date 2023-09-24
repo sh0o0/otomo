@@ -15,6 +15,7 @@ services:
       - FIRESTORE_EMULATOR_HOST=firebase:8080
       # Must override
       - OPENAI_API_KEY=''
+      - GOOGLE_MAPS_API_KEY=''
     volumes:
       - ./api:/app
     working_dir: /app

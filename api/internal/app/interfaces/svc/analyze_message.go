@@ -9,5 +9,5 @@ type MessageAnalysisService interface {
 	ExtractLocationsFromMsg(
 		ctx context.Context,
 		msg *model.Message,
-	) ([]*model.Location, error)
+	) ([]*model.AnalyzedLocation, error)
 }

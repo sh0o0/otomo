@@ -130,11 +130,13 @@ func (cc *ChatController) askToMessage(
 		return nil, err
 	}
 	go func() {
-		if err := cc.analyzeAndUpdateMsg(ctx, userID, newMsg); err != nil {
+		if err := cc.analyzeAndUpdateMsg(context.Background(), userID, newMsg); err != nil {
 			logs.Logger.Error(
 				"Failed to analyze and update message",
 				logs.Error(err),
 			)
+		} else {
+			logs.Logger.Info("Analyzed and updated message")
 		}
 	}()
 

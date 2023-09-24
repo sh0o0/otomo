@@ -14,8 +14,8 @@ type converter struct {
 
 type convLocation struct{}
 
-func (convLocation) GoogleToModel(gGeo *maps.GeocodingResult) *model.Location {
-	return &model.Location{
+func (convLocation) GoogleToModel(gGeo *maps.GeocodingResult) model.Location {
+	return model.Location{
 		GooglePlaceID: gGeo.PlaceID,
 		LongName:      gGeo.FormattedAddress,
 		ShortName:     gGeo.FormattedAddress,
@@ -30,8 +30,8 @@ func (convLocation) GoogleToModel(gGeo *maps.GeocodingResult) *model.Location {
 	}
 }
 
-func (convLocation) GoogleToModelList(gGeos []*maps.GeocodingResult) []*model.Location {
-	locs := make([]*model.Location, len(gGeos))
+func (convLocation) GoogleToModelList(gGeos []*maps.GeocodingResult) []model.Location {
+	locs := make([]model.Location, len(gGeos))
 	for i, g := range gGeos {
 		locs[i] = convLocation{}.GoogleToModel(g)
 	}

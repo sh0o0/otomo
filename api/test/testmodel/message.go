@@ -21,8 +21,11 @@ func (f *TestMessageFactory) Role(role model.Role) *model.Message {
 		SentAt:   times.C.Now(),
 		ClientID: &clientId,
 		LocationAnalysis: model.LocationAnalysis{
-			Locations: []*model.Location{
-				DefaultTestLocationFactory.New(),
+			Locations: []*model.AnalyzedLocation{
+				{
+					Text:     testutil.Faker.Address().City(),
+					Location: DefaultTestLocationFactory.New(),
+				},
 			},
 		},
 	}
@@ -37,8 +40,11 @@ func (f *TestMessageFactory) SentAt(sentAt time.Time) *model.Message {
 		SentAt:   sentAt,
 		ClientID: &clientId,
 		LocationAnalysis: model.LocationAnalysis{
-			Locations: []*model.Location{
-				DefaultTestLocationFactory.New(),
+			Locations: []*model.AnalyzedLocation{
+				{
+					Text:     testutil.Faker.Address().City(),
+					Location: DefaultTestLocationFactory.New(),
+				},
 			},
 		},
 	}
@@ -54,8 +60,11 @@ func (f *TestMessageFactory) Times(t time.Time) *model.Message {
 		ClientID: &clientId,
 		LocationAnalysis: model.LocationAnalysis{
 			AnalyzedAt: &t,
-			Locations: []*model.Location{
-				DefaultTestLocationFactory.New(),
+			Locations: []*model.AnalyzedLocation{
+				{
+					Text:     testutil.Faker.Address().City(),
+					Location: DefaultTestLocationFactory.New(),
+				},
 			},
 		},
 	}

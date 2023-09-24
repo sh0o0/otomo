@@ -28,17 +28,22 @@ func (m *Message) SetLocationAnalysis(la LocationAnalysis) *Message {
 	return &newM
 }
 
+type AnalyzedLocation struct {
+	Text     string   `firestore:"text"`
+	Location Location `firestore:"location"`
+}
+
 type LocationAnalysis struct {
-	Locations  []*Location `firestore:"locations"`
-	AnalyzedAt *time.Time  `firestore:"analyzed_at"`
+	Locations  []*AnalyzedLocation `firestore:"locations"`
+	AnalyzedAt *time.Time          `firestore:"analyzed_at"`
 }
 
 func NewLocationAnalysis(
-	locations []*Location,
+	locs []*AnalyzedLocation,
 	analyzedAt *time.Time,
 ) LocationAnalysis {
 	return LocationAnalysis{
-		Locations:  locations,
+		Locations:  locs,
 		AnalyzedAt: analyzedAt,
 	}
 }
