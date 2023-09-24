@@ -31,6 +31,7 @@ class LocationAnalysis with _$LocationAnalysis {
   const factory LocationAnalysis({
     required List<AnalyzedLocation> locations,
     DateTime? analyzedAt,
+    String? error,
   }) = _LocationAnalysis;
 
   factory LocationAnalysis.fromJson(Map<String, dynamic> json) =>
