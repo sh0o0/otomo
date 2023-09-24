@@ -7,6 +7,8 @@ part 'message.g.dart';
 @freezed
 class TextMessage with _$TextMessage {
   @JsonSerializable(fieldRename: FieldRename.snake)
+  const TextMessage._();
+
   const factory TextMessage({
     required String id,
     String? clientId,
@@ -18,6 +20,8 @@ class TextMessage with _$TextMessage {
 
   factory TextMessage.fromJson(Map<String, dynamic> json) =>
       _$TextMessageFromJson(json);
+
+  bool get hasError => locationAnalysis.hasError;
 }
 
 enum Role {
@@ -28,6 +32,8 @@ enum Role {
 @freezed
 class LocationAnalysis with _$LocationAnalysis {
   @JsonSerializable(fieldRename: FieldRename.snake)
+  const LocationAnalysis._();
+
   const factory LocationAnalysis({
     required List<AnalyzedLocation> locations,
     DateTime? analyzedAt,
@@ -36,6 +42,8 @@ class LocationAnalysis with _$LocationAnalysis {
 
   factory LocationAnalysis.fromJson(Map<String, dynamic> json) =>
       _$LocationAnalysisFromJson(json);
+
+  bool get hasError => error?.isNotEmpty == true;
 }
 
 @freezed

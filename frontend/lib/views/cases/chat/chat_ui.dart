@@ -118,20 +118,19 @@ class ChatUI extends StatelessWidget {
         textMessage, {
         required int messageWidth,
         required bool showName,
-      }) {
-        return ui.TextMessage(
-          emojiEnlargementBehavior: ui.EmojiEnlargementBehavior.multi,
-          hideBackgroundOnEmojiMessages: true,
-          usePreviewData: true,
-          message: textMessage,
-          options: ui.TextMessageOptions(
-            isTextSelectable: false,
-            onLinkPressed: launchUrlString,
-            matchers: _makeTextMatchers(context, textMessage.id),
-          ),
-          showName: showName,
-        );
-      },
+      }) =>
+          ui.TextMessage(
+        emojiEnlargementBehavior: ui.EmojiEnlargementBehavior.multi,
+        hideBackgroundOnEmojiMessages: true,
+        usePreviewData: true,
+        message: textMessage,
+        options: ui.TextMessageOptions(
+          isTextSelectable: false,
+          onLinkPressed: launchUrlString,
+          matchers: _makeTextMatchers(context, textMessage.id),
+        ),
+        showName: showName,
+      ),
       onBackgroundTap: onBackgroundTap,
       inputOptions: inputOptions,
       customBottomWidget: customBottomWidget,

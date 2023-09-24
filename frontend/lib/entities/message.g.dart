@@ -9,22 +9,22 @@ part of 'message.dart';
 _$_TextMessage _$$_TextMessageFromJson(Map<String, dynamic> json) =>
     _$_TextMessage(
       id: json['id'] as String,
-      clientId: json['client_id'] as String?,
+      clientId: json['clientId'] as String?,
       text: json['text'] as String,
       role: $enumDecode(_$RoleEnumMap, json['role']),
-      sentAt: DateTime.parse(json['sent_at'] as String),
+      sentAt: DateTime.parse(json['sentAt'] as String),
       locationAnalysis: LocationAnalysis.fromJson(
-          json['location_analysis'] as Map<String, dynamic>),
+          json['locationAnalysis'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_TextMessageToJson(_$_TextMessage instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'client_id': instance.clientId,
+      'clientId': instance.clientId,
       'text': instance.text,
       'role': _$RoleEnumMap[instance.role]!,
-      'sent_at': instance.sentAt.toIso8601String(),
-      'location_analysis': instance.locationAnalysis,
+      'sentAt': instance.sentAt.toIso8601String(),
+      'locationAnalysis': instance.locationAnalysis,
     };
 
 const _$RoleEnumMap = {
@@ -37,16 +37,16 @@ _$_LocationAnalysis _$$_LocationAnalysisFromJson(Map<String, dynamic> json) =>
       locations: (json['locations'] as List<dynamic>)
           .map((e) => AnalyzedLocation.fromJson(e as Map<String, dynamic>))
           .toList(),
-      analyzedAt: json['analyzed_at'] == null
+      analyzedAt: json['analyzedAt'] == null
           ? null
-          : DateTime.parse(json['analyzed_at'] as String),
+          : DateTime.parse(json['analyzedAt'] as String),
       error: json['error'] as String?,
     );
 
 Map<String, dynamic> _$$_LocationAnalysisToJson(_$_LocationAnalysis instance) =>
     <String, dynamic>{
       'locations': instance.locations,
-      'analyzed_at': instance.analyzedAt?.toIso8601String(),
+      'analyzedAt': instance.analyzedAt?.toIso8601String(),
       'error': instance.error,
     };
 

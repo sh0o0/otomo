@@ -175,16 +175,16 @@ class __$$_TextMessageCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
-class _$_TextMessage implements _TextMessage {
+@JsonSerializable()
+class _$_TextMessage extends _TextMessage {
   const _$_TextMessage(
       {required this.id,
       this.clientId,
       required this.text,
       required this.role,
       required this.sentAt,
-      required this.locationAnalysis});
+      required this.locationAnalysis})
+      : super._();
 
   factory _$_TextMessage.fromJson(Map<String, dynamic> json) =>
       _$$_TextMessageFromJson(json);
@@ -241,7 +241,7 @@ class _$_TextMessage implements _TextMessage {
   }
 }
 
-abstract class _TextMessage implements TextMessage {
+abstract class _TextMessage extends TextMessage {
   const factory _TextMessage(
       {required final String id,
       final String? clientId,
@@ -249,6 +249,7 @@ abstract class _TextMessage implements TextMessage {
       required final Role role,
       required final DateTime sentAt,
       required final LocationAnalysis locationAnalysis}) = _$_TextMessage;
+  const _TextMessage._() : super._();
 
   factory _TextMessage.fromJson(Map<String, dynamic> json) =
       _$_TextMessage.fromJson;
@@ -376,14 +377,14 @@ class __$$_LocationAnalysisCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
-class _$_LocationAnalysis implements _LocationAnalysis {
+@JsonSerializable()
+class _$_LocationAnalysis extends _LocationAnalysis {
   const _$_LocationAnalysis(
       {required final List<AnalyzedLocation> locations,
       this.analyzedAt,
       this.error})
-      : _locations = locations;
+      : _locations = locations,
+        super._();
 
   factory _$_LocationAnalysis.fromJson(Map<String, dynamic> json) =>
       _$$_LocationAnalysisFromJson(json);
@@ -437,11 +438,12 @@ class _$_LocationAnalysis implements _LocationAnalysis {
   }
 }
 
-abstract class _LocationAnalysis implements LocationAnalysis {
+abstract class _LocationAnalysis extends LocationAnalysis {
   const factory _LocationAnalysis(
       {required final List<AnalyzedLocation> locations,
       final DateTime? analyzedAt,
       final String? error}) = _$_LocationAnalysis;
+  const _LocationAnalysis._() : super._();
 
   factory _LocationAnalysis.fromJson(Map<String, dynamic> json) =
       _$_LocationAnalysis.fromJson;
