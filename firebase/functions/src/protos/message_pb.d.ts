@@ -27,10 +27,10 @@ export class Message extends jspb.Message {
     getClientId(): google_protobuf_wrappers_pb.StringValue | undefined;
     setClientId(value?: google_protobuf_wrappers_pb.StringValue): Message;
 
-    hasAnalyzedLocation(): boolean;
-    clearAnalyzedLocation(): void;
-    getAnalyzedLocation(): AnalyzedLocation | undefined;
-    setAnalyzedLocation(value?: AnalyzedLocation): Message;
+    hasLocationAnalysis(): boolean;
+    clearLocationAnalysis(): void;
+    getLocationAnalysis(): LocationAnalysis | undefined;
+    setLocationAnalysis(value?: LocationAnalysis): Message;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Message.AsObject;
@@ -49,7 +49,7 @@ export namespace Message {
         role: Role,
         sentAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         clientId?: google_protobuf_wrappers_pb.StringValue.AsObject,
-        analyzedLocation?: AnalyzedLocation.AsObject,
+        locationAnalysis?: LocationAnalysis.AsObject,
     }
 }
 
@@ -94,16 +94,42 @@ export namespace MessageChunk {
     }
 }
 
-export class AnalyzedLocation extends jspb.Message { 
+export class LocationAnalysis extends jspb.Message { 
     clearLocationsList(): void;
-    getLocationsList(): Array<location_pb.Location>;
-    setLocationsList(value: Array<location_pb.Location>): AnalyzedLocation;
-    addLocations(value?: location_pb.Location, index?: number): location_pb.Location;
+    getLocationsList(): Array<AnalyzedLocation>;
+    setLocationsList(value: Array<AnalyzedLocation>): LocationAnalysis;
+    addLocations(value?: AnalyzedLocation, index?: number): AnalyzedLocation;
 
     hasAnalyzedAt(): boolean;
     clearAnalyzedAt(): void;
     getAnalyzedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-    setAnalyzedAt(value?: google_protobuf_timestamp_pb.Timestamp): AnalyzedLocation;
+    setAnalyzedAt(value?: google_protobuf_timestamp_pb.Timestamp): LocationAnalysis;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): LocationAnalysis.AsObject;
+    static toObject(includeInstance: boolean, msg: LocationAnalysis): LocationAnalysis.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: LocationAnalysis, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): LocationAnalysis;
+    static deserializeBinaryFromReader(message: LocationAnalysis, reader: jspb.BinaryReader): LocationAnalysis;
+}
+
+export namespace LocationAnalysis {
+    export type AsObject = {
+        locationsList: Array<AnalyzedLocation.AsObject>,
+        analyzedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    }
+}
+
+export class AnalyzedLocation extends jspb.Message { 
+    getText(): string;
+    setText(value: string): AnalyzedLocation;
+
+    hasLocation(): boolean;
+    clearLocation(): void;
+    getLocation(): location_pb.Location | undefined;
+    setLocation(value?: location_pb.Location): AnalyzedLocation;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): AnalyzedLocation.AsObject;
@@ -117,8 +143,8 @@ export class AnalyzedLocation extends jspb.Message {
 
 export namespace AnalyzedLocation {
     export type AsObject = {
-        locationsList: Array<location_pb.Location.AsObject>,
-        analyzedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        text: string,
+        location?: location_pb.Location.AsObject,
     }
 }
 

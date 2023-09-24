@@ -119,11 +119,11 @@ func (m *Message) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetAnalyzedLocation()).(type) {
+		switch v := interface{}(m.GetLocationAnalysis()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, MessageValidationError{
-					field:  "AnalyzedLocation",
+					field:  "LocationAnalysis",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -131,16 +131,16 @@ func (m *Message) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, MessageValidationError{
-					field:  "AnalyzedLocation",
+					field:  "LocationAnalysis",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetAnalyzedLocation()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetLocationAnalysis()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return MessageValidationError{
-				field:  "AnalyzedLocation",
+				field:  "LocationAnalysis",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -387,6 +387,168 @@ var _ interface {
 	ErrorName() string
 } = MessageChunkValidationError{}
 
+// Validate checks the field values on LocationAnalysis with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *LocationAnalysis) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LocationAnalysis with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// LocationAnalysisMultiError, or nil if none found.
+func (m *LocationAnalysis) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LocationAnalysis) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetLocations() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, LocationAnalysisValidationError{
+						field:  fmt.Sprintf("Locations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, LocationAnalysisValidationError{
+						field:  fmt.Sprintf("Locations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return LocationAnalysisValidationError{
+					field:  fmt.Sprintf("Locations[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if all {
+		switch v := interface{}(m.GetAnalyzedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, LocationAnalysisValidationError{
+					field:  "AnalyzedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, LocationAnalysisValidationError{
+					field:  "AnalyzedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAnalyzedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return LocationAnalysisValidationError{
+				field:  "AnalyzedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return LocationAnalysisMultiError(errors)
+	}
+	return nil
+}
+
+// LocationAnalysisMultiError is an error wrapping multiple validation errors
+// returned by LocationAnalysis.ValidateAll() if the designated constraints
+// aren't met.
+type LocationAnalysisMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LocationAnalysisMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LocationAnalysisMultiError) AllErrors() []error { return m }
+
+// LocationAnalysisValidationError is the validation error returned by
+// LocationAnalysis.Validate if the designated constraints aren't met.
+type LocationAnalysisValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LocationAnalysisValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LocationAnalysisValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LocationAnalysisValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LocationAnalysisValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LocationAnalysisValidationError) ErrorName() string { return "LocationAnalysisValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LocationAnalysisValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLocationAnalysis.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LocationAnalysisValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LocationAnalysisValidationError{}
+
 // Validate checks the field values on AnalyzedLocation with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -409,46 +571,14 @@ func (m *AnalyzedLocation) validate(all bool) error {
 
 	var errors []error
 
-	for idx, item := range m.GetLocations() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, AnalyzedLocationValidationError{
-						field:  fmt.Sprintf("Locations[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, AnalyzedLocationValidationError{
-						field:  fmt.Sprintf("Locations[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return AnalyzedLocationValidationError{
-					field:  fmt.Sprintf("Locations[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
+	// no validation rules for Text
 
 	if all {
-		switch v := interface{}(m.GetAnalyzedAt()).(type) {
+		switch v := interface{}(m.GetLocation()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, AnalyzedLocationValidationError{
-					field:  "AnalyzedAt",
+					field:  "Location",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -456,16 +586,16 @@ func (m *AnalyzedLocation) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, AnalyzedLocationValidationError{
-					field:  "AnalyzedAt",
+					field:  "Location",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetAnalyzedAt()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetLocation()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return AnalyzedLocationValidationError{
-				field:  "AnalyzedAt",
+				field:  "Location",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
