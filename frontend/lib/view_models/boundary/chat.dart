@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/custom_text.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/place.dart';
 
@@ -24,6 +23,7 @@ class TextMessageData with _$TextMessageData {
   const factory TextMessageData({
     required MessageData message,
     required String text,
+    LocationAnalysis? locationAnalysis,
   }) = _TextMessageData;
 
   factory TextMessageData.fromTextMessage(
@@ -41,6 +41,7 @@ class TextMessageData with _$TextMessageData {
         active: active,
       ),
       text: message.text,
+      locationAnalysis: message.locationAnalysis,
     );
   }
 
