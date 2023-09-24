@@ -56,6 +56,7 @@ func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, erro
 
 type convertLocationAnalysis struct {
 	analyzedLocation convertAnalyzedLocation
+	wrapper          convertWrapper
 }
 
 func (cla convertLocationAnalysis) ModelToGrpc(
@@ -68,6 +69,7 @@ func (cla convertLocationAnalysis) ModelToGrpc(
 	return &grpcgen.LocationAnalysis{
 		Locations:  cla.analyzedLocation.ModelToGrpcList(la.Locations),
 		AnalyzedAt: analyzedAt,
+		Error:      cla.wrapper.StringPtrToStringValue(la.Error),
 	}
 }
 
