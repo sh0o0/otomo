@@ -2,11 +2,13 @@ package service
 
 import (
 	"context"
-	"otomo/internal/app/model"
+	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/pkg/errs"
 
 	"googlemaps.github.io/maps"
 )
+
+var _ svc.GeocodingService = (*GeocodingService)(nil)
 
 type GeocodingService struct {
 	client *maps.Client
@@ -20,10 +22,9 @@ func NewGeocodingService(client *maps.Client) *GeocodingService {
 
 func (gs *GeocodingService) One(
 	ctx context.Context,
-	req *model.GeocodingRequest,
+	req *maps.GeocodingRequest,
 ) (*maps.GeocodingResult, error) {
-	gReq := conv.geo.requestModelToGoogle(req)
-	resp, err := gs.client.Geocode(ctx, gReq)
+	resp, err := gs.client.Geocode(ctx, req)
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +41,7 @@ func (gs *GeocodingService) One(
 
 func (gs *GeocodingService) List(
 	ctx context.Context,
-	reqs []*model.GeocodingRequest,
+	reqs []*maps.GeocodingRequest,
 ) ([]*maps.GeocodingResult, error) {
 	var (
 		results = []*maps.GeocodingResult{}

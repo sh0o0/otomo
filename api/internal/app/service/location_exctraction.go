@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	s                        = `{ "type": "object", "properties": { "locations": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "address": { "type": "object", "properties": { "street": { "type": "string" }, "city": { "type": "string" }, "state": { "type": "string" }, "country": { "type": "string" }, "zip": { "type": "string" } }, "required": ["city", "state"] } }, "required": ["name", "address"] } } } }`
+	inputLocationsSchema     = `{ "type": "object", "properties": { "locations": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "address": { "type": "object", "properties": { "street": { "type": "string" }, "city": { "type": "string" }, "state": { "type": "string" }, "country": { "type": "string" }, "zip": { "type": "string" } }, "required": ["city", "state"] } }, "required": ["name", "address"] } } } }`
 	locationExtractionPrompt = `Extract the place names only from the sentence below and, if possible, include additional information to facilitate searching on Google Maps. Then, provide the information for the input_locations function call. If there is no location in the sentence, locations should be an empty list.
 
 Sentence:
@@ -20,6 +20,8 @@ Sentence:
 type LocationExtractionResult struct {
 	Locations []svc.ExtractedLocation `json:"locations"`
 }
+
+var _ svc.LocationExtractionService = (*LocationExtractionService)(nil)
 
 type LocationExtractionService struct {
 	gpt *openai.Client
@@ -50,7 +52,7 @@ func (les *LocationExtractionService) FromText(
 				{
 					Name:        "input_locations",
 					Description: "Input locations from texts",
-					Parameters:  json.RawMessage(s),
+					Parameters:  json.RawMessage(inputLocationsSchema),
 				},
 			},
 			FunctionCall: json.RawMessage(`{"name": "input_locations"}`),

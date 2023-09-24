@@ -1,5 +1,7 @@
 package svc
 
+import "context"
+
 type ExtractedLocation struct {
 	Name    string           `json:"name"`
 	Address ExtractedAddress `json:"address"`
@@ -14,5 +16,5 @@ type ExtractedAddress struct {
 }
 
 type LocationExtractionService interface {
-	FromText(text string) ([]ExtractedLocation, error)
+	FromText(ctx context.Context, text string) ([]ExtractedLocation, error)
 }
