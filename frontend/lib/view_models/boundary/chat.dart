@@ -32,7 +32,9 @@ class TextMessageData with _$TextMessageData {
   }) {
     return TextMessageData(
       message: MessageData(
-        id: message.clientId ?? message.id,
+        id: (message.clientId?.isNotEmpty == true)
+            ? message.clientId!
+            : message.id,
         author: Author.fromRole(message.role),
         sentAt: message.sentAt,
         remoteId: message.id,
@@ -51,7 +53,9 @@ class TextMessageData with _$TextMessageData {
   }) {
     return TextMessageData(
       message: MessageData(
-        id: chunk.clientId ?? chunk.messageId,
+        id: (chunk.clientId?.isNotEmpty == true)
+            ? chunk.clientId!
+            : chunk.messageId,
         author: Author.fromRole(chunk.role),
         sentAt: chunk.sentAt,
         remoteId: chunk.messageId,
