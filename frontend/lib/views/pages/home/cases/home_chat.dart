@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as types;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/entities/place.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
@@ -32,11 +31,7 @@ class HomeChat extends HookConsumerWidget {
           : null,
       onEndReached: () => notifier.listMessagesMore(),
       onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
-      onCustomTextTap: (customText) {
-        final latLng = customText.latLng;
-        if (latLng == null) return;
-        notifier.focusPlace(Place(name: customText.text, latLng: latLng));
-      },
+      onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
       customBottomWidget: state.value?.hideTextField == true
           ? Spaces.zero
           : Animate(

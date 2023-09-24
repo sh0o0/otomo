@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/entities/message.dart';
-import 'package:otomo/entities/place.dart';
 
 part 'chat.freezed.dart';
 
@@ -23,7 +22,7 @@ class TextMessageData with _$TextMessageData {
   const factory TextMessageData({
     required MessageData message,
     required String text,
-    LocationAnalysis? locationAnalysis,
+    @Default(LocationAnalysis(locations: [])) LocationAnalysis locationAnalysis,
   }) = _TextMessageData;
 
   factory TextMessageData.fromTextMessage(
@@ -61,19 +60,6 @@ class TextMessageData with _$TextMessageData {
       ),
       text: chunk.text,
     );
-  }
-
-  List<Place> get placesFromText {
-    final places = <Place>[];
-    final customTexts = CustomText.fromAllMatches(text);
-
-    for (final customText in customTexts) {
-      final latLng = customText.latLng;
-      if (latLng == null) continue;
-      places.add(Place(name: customText.text, latLng: latLng));
-    }
-
-    return places;
   }
 }
 

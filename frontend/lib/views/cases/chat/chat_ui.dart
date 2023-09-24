@@ -83,7 +83,6 @@ class ChatUI extends StatelessWidget {
     final theme = Theme.of(context);
     final message = messages.firstWhere((e) => e.message.id == messageId);
     final locationAnalysis = message.locationAnalysis;
-    if (locationAnalysis == null) return const [];
 
     return locationAnalysis.locations
         .map((e) => MatchText(
