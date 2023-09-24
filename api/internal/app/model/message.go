@@ -83,3 +83,10 @@ func NewMessageChunk(
 		IsLast:    isLast,
 	}, nil
 }
+
+type Role string
+
+const (
+	UserRole  Role = "user"
+	OtomoRole Role = "otomo"
+)
