@@ -38,7 +38,25 @@ class _Message {
 
   TextMessage firestoreJsonToEntity(Map<String, dynamic> json) {
     final sentAt = (json['sent_at'] as Timestamp).toDate();
-    return TextMessage.fromJson(json..['sent_at'] = sentAt.toIso8601String());
+    json['sent_at'] = sentAt.toIso8601String();
+
+    if (json['location_analysis'] == null) {
+      json['location_analysis'] = {
+        'locations': [],
+        'analyzed_at': null,
+      };
+    }
+    final locationAnalysis = json['location_analysis'];
+    if (locationAnalysis['locations'] == null) {
+      locationAnalysis['locations'] = [];
+    }
+    if (locationAnalysis['analyzed_at'] != null) {
+      final analyzedAt =
+          (locationAnalysis['analyzed_at'] as Timestamp).toDate();
+      locationAnalysis['analyzed_at'] = analyzedAt.toIso8601String();
+    }
+
+    return TextMessage.fromJson(json);
   }
 }
 
