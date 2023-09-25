@@ -105,6 +105,11 @@ export class LocationAnalysis extends jspb.Message {
     getAnalyzedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
     setAnalyzedAt(value?: google_protobuf_timestamp_pb.Timestamp): LocationAnalysis;
 
+    hasError(): boolean;
+    clearError(): void;
+    getError(): google_protobuf_wrappers_pb.StringValue | undefined;
+    setError(value?: google_protobuf_wrappers_pb.StringValue): LocationAnalysis;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): LocationAnalysis.AsObject;
     static toObject(includeInstance: boolean, msg: LocationAnalysis): LocationAnalysis.AsObject;
@@ -119,6 +124,7 @@ export namespace LocationAnalysis {
     export type AsObject = {
         locationsList: Array<AnalyzedLocation.AsObject>,
         analyzedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+        error?: google_protobuf_wrappers_pb.StringValue.AsObject,
     }
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as types;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
@@ -17,6 +18,25 @@ class HomeChat extends HookConsumerWidget {
   final bool hideBottomSheet;
   final types.InputOptions inputOptions;
 
+  Widget _statusPopupBuilder(
+    BuildContext context,
+    MessageData message, {
+    required List<TextMessageData> messages,
+  }) {
+    final textMessage = messages.firstWhere((m) => m.message.id == message.id);
+    final theme = Theme.of(context);
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+          color: theme.colorScheme.background,
+          borderRadius: BorderRadius.circular(16)),
+      child: textMessage.locationAnalysis.hasError
+          ? const Text('地名の解析に失敗しました。')
+          : const Text('エラーが発生しました。'),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(chatProvider);
@@ -31,6 +51,12 @@ class HomeChat extends HookConsumerWidget {
           : null,
       onEndReached: () => notifier.listMessagesMore(),
       onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
+      showStatusPopup: (message) => message.status == MessageStatus.error,
+      statusPopupBuilder: (context, message) => _statusPopupBuilder(
+        context,
+        message,
+        messages: state.value?.messagesPage.items ?? [],
+      ),
       onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
       customBottomWidget: state.value?.hideTextField == true
           ? Spaces.zero

@@ -177,14 +177,15 @@ class __$$_TextMessageCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_TextMessage implements _TextMessage {
+class _$_TextMessage extends _TextMessage {
   const _$_TextMessage(
       {required this.id,
       this.clientId,
       required this.text,
       required this.role,
       required this.sentAt,
-      required this.locationAnalysis});
+      required this.locationAnalysis})
+      : super._();
 
   factory _$_TextMessage.fromJson(Map<String, dynamic> json) =>
       _$$_TextMessageFromJson(json);
@@ -241,7 +242,7 @@ class _$_TextMessage implements _TextMessage {
   }
 }
 
-abstract class _TextMessage implements TextMessage {
+abstract class _TextMessage extends TextMessage {
   const factory _TextMessage(
       {required final String id,
       final String? clientId,
@@ -249,6 +250,7 @@ abstract class _TextMessage implements TextMessage {
       required final Role role,
       required final DateTime sentAt,
       required final LocationAnalysis locationAnalysis}) = _$_TextMessage;
+  const _TextMessage._() : super._();
 
   factory _TextMessage.fromJson(Map<String, dynamic> json) =
       _$_TextMessage.fromJson;
@@ -279,6 +281,7 @@ LocationAnalysis _$LocationAnalysisFromJson(Map<String, dynamic> json) {
 mixin _$LocationAnalysis {
   List<AnalyzedLocation> get locations => throw _privateConstructorUsedError;
   DateTime? get analyzedAt => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -292,7 +295,8 @@ abstract class $LocationAnalysisCopyWith<$Res> {
           LocationAnalysis value, $Res Function(LocationAnalysis) then) =
       _$LocationAnalysisCopyWithImpl<$Res, LocationAnalysis>;
   @useResult
-  $Res call({List<AnalyzedLocation> locations, DateTime? analyzedAt});
+  $Res call(
+      {List<AnalyzedLocation> locations, DateTime? analyzedAt, String? error});
 }
 
 /// @nodoc
@@ -310,6 +314,7 @@ class _$LocationAnalysisCopyWithImpl<$Res, $Val extends LocationAnalysis>
   $Res call({
     Object? locations = null,
     Object? analyzedAt = freezed,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       locations: null == locations
@@ -320,6 +325,10 @@ class _$LocationAnalysisCopyWithImpl<$Res, $Val extends LocationAnalysis>
           ? _value.analyzedAt
           : analyzedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -332,7 +341,8 @@ abstract class _$$_LocationAnalysisCopyWith<$Res>
       __$$_LocationAnalysisCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<AnalyzedLocation> locations, DateTime? analyzedAt});
+  $Res call(
+      {List<AnalyzedLocation> locations, DateTime? analyzedAt, String? error});
 }
 
 /// @nodoc
@@ -348,6 +358,7 @@ class __$$_LocationAnalysisCopyWithImpl<$Res>
   $Res call({
     Object? locations = null,
     Object? analyzedAt = freezed,
+    Object? error = freezed,
   }) {
     return _then(_$_LocationAnalysis(
       locations: null == locations
@@ -358,6 +369,10 @@ class __$$_LocationAnalysisCopyWithImpl<$Res>
           ? _value.analyzedAt
           : analyzedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -365,10 +380,13 @@ class __$$_LocationAnalysisCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_LocationAnalysis implements _LocationAnalysis {
+class _$_LocationAnalysis extends _LocationAnalysis {
   const _$_LocationAnalysis(
-      {required final List<AnalyzedLocation> locations, this.analyzedAt})
-      : _locations = locations;
+      {required final List<AnalyzedLocation> locations,
+      this.analyzedAt,
+      this.error})
+      : _locations = locations,
+        super._();
 
   factory _$_LocationAnalysis.fromJson(Map<String, dynamic> json) =>
       _$$_LocationAnalysisFromJson(json);
@@ -383,10 +401,12 @@ class _$_LocationAnalysis implements _LocationAnalysis {
 
   @override
   final DateTime? analyzedAt;
+  @override
+  final String? error;
 
   @override
   String toString() {
-    return 'LocationAnalysis(locations: $locations, analyzedAt: $analyzedAt)';
+    return 'LocationAnalysis(locations: $locations, analyzedAt: $analyzedAt, error: $error)';
   }
 
   @override
@@ -397,13 +417,14 @@ class _$_LocationAnalysis implements _LocationAnalysis {
             const DeepCollectionEquality()
                 .equals(other._locations, _locations) &&
             (identical(other.analyzedAt, analyzedAt) ||
-                other.analyzedAt == analyzedAt));
+                other.analyzedAt == analyzedAt) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_locations), analyzedAt);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_locations), analyzedAt, error);
 
   @JsonKey(ignore: true)
   @override
@@ -419,10 +440,12 @@ class _$_LocationAnalysis implements _LocationAnalysis {
   }
 }
 
-abstract class _LocationAnalysis implements LocationAnalysis {
+abstract class _LocationAnalysis extends LocationAnalysis {
   const factory _LocationAnalysis(
       {required final List<AnalyzedLocation> locations,
-      final DateTime? analyzedAt}) = _$_LocationAnalysis;
+      final DateTime? analyzedAt,
+      final String? error}) = _$_LocationAnalysis;
+  const _LocationAnalysis._() : super._();
 
   factory _LocationAnalysis.fromJson(Map<String, dynamic> json) =
       _$_LocationAnalysis.fromJson;
@@ -431,6 +454,8 @@ abstract class _LocationAnalysis implements LocationAnalysis {
   List<AnalyzedLocation> get locations;
   @override
   DateTime? get analyzedAt;
+  @override
+  String? get error;
   @override
   @JsonKey(ignore: true)
   _$$_LocationAnalysisCopyWith<_$_LocationAnalysis> get copyWith =>

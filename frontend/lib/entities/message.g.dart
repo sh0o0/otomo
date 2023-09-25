@@ -40,12 +40,14 @@ _$_LocationAnalysis _$$_LocationAnalysisFromJson(Map<String, dynamic> json) =>
       analyzedAt: json['analyzed_at'] == null
           ? null
           : DateTime.parse(json['analyzed_at'] as String),
+      error: json['error'] as String?,
     );
 
 Map<String, dynamic> _$$_LocationAnalysisToJson(_$_LocationAnalysis instance) =>
     <String, dynamic>{
       'locations': instance.locations,
       'analyzed_at': instance.analyzedAt?.toIso8601String(),
+      'error': instance.error,
     };
 
 _$_AnalyzedLocation _$$_AnalyzedLocationFromJson(Map<String, dynamic> json) =>

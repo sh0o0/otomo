@@ -75,6 +75,7 @@ const LocationAnalysis$json = {
   '2': [
     {'1': 'locations', '3': 1, '4': 3, '5': 11, '6': '.AnalyzedLocation', '10': 'locations'},
     {'1': 'analyzed_at', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'analyzedAt'},
+    {'1': 'error', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'error'},
   ],
 };
 
@@ -82,7 +83,8 @@ const LocationAnalysis$json = {
 final $typed_data.Uint8List locationAnalysisDescriptor = $convert.base64Decode(
     'ChBMb2NhdGlvbkFuYWx5c2lzEi8KCWxvY2F0aW9ucxgBIAMoCzIRLkFuYWx5emVkTG9jYXRpb2'
     '5SCWxvY2F0aW9ucxI7CgthbmFseXplZF9hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1l'
-    'c3RhbXBSCmFuYWx5emVkQXQ=');
+    'c3RhbXBSCmFuYWx5emVkQXQSMgoFZXJyb3IYAyABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW'
+    '5nVmFsdWVSBWVycm9y');
 
 @$core.Deprecated('Use analyzedLocationDescriptor instead')
 const AnalyzedLocation$json = {

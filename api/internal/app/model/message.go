@@ -36,15 +36,18 @@ type AnalyzedLocation struct {
 type LocationAnalysis struct {
 	Locations  []*AnalyzedLocation `firestore:"locations"`
 	AnalyzedAt *time.Time          `firestore:"analyzed_at"`
+	Error      *string             `firestore:"error"`
 }
 
 func NewLocationAnalysis(
 	locs []*AnalyzedLocation,
 	analyzedAt *time.Time,
+	errStr *string,
 ) LocationAnalysis {
 	return LocationAnalysis{
 		Locations:  locs,
 		AnalyzedAt: analyzedAt,
+		Error:      errStr,
 	}
 }
 

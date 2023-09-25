@@ -41,10 +41,7 @@ class _Message {
     json['sent_at'] = sentAt.toIso8601String();
 
     if (json['location_analysis'] == null) {
-      json['location_analysis'] = {
-        'locations': [],
-        'analyzed_at': null,
-      };
+      json['location_analysis'] = {'locations': []};
     }
     final locationAnalysis = json['location_analysis'];
     if (locationAnalysis['locations'] == null) {
@@ -65,9 +62,11 @@ class _LocationAnalysis {
 
   LocationAnalysis grpcToEntity(grpc_msg.LocationAnalysis analysis) {
     return LocationAnalysis(
-        locations: _analyzedLocation.grpcToEntityList(analysis.locations),
-        analyzedAt:
-            analysis.hasAnalyzedAt() ? analysis.analyzedAt.toDateTime() : null);
+      locations: _analyzedLocation.grpcToEntityList(analysis.locations),
+      analyzedAt:
+          analysis.hasAnalyzedAt() ? analysis.analyzedAt.toDateTime() : null,
+      error: analysis.error.hasValue() ? analysis.error.value : null,
+    );
   }
 }
 
@@ -76,7 +75,9 @@ class _AnalyzedLocation {
 
   AnalyzedLocation grpcToEntity(grpc_msg.AnalyzedLocation loc) {
     return AnalyzedLocation(
-        text: loc.text, location: _location.grpcToEntity(loc.location));
+      text: loc.text,
+      location: _location.grpcToEntity(loc.location),
+    );
   }
 
   List<AnalyzedLocation> grpcToEntityList(

@@ -58,6 +58,7 @@ class _Message {
         createdAt: textMessage.message.sentAt.millisecondsSinceEpoch,
         status: _messageStatus.dataToView(textMessage.message.status),
         metadata: {'active': textMessage.message.active},
+        showStatus: false,
       );
 }
 
