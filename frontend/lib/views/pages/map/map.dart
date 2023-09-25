@@ -78,7 +78,6 @@ class _MapState extends ConsumerState<MapPage> {
         markers: _markers(state),
       ),
       floatingActionButton: FloatingActionButton(
-        mini: true,
         onPressed: () => _goCurrentLocation(notifier),
         child: const Icon(Icons.location_searching_rounded),
       ),
