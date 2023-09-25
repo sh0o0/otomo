@@ -21,4 +21,6 @@ class AuthNotifier extends StateNotifier<User?> {
   bool get isLoggedIn => state != null;
 
   Future<void> signOut() => _authController.signOut();
+
+  // Future<void> deleteAccount() => _authController
 }

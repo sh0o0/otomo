@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/tools/logger.dart';
 
@@ -47,7 +48,7 @@ class IdTokenControllerImpl implements IdTokenController {
 
       _setRefreshTimer(idTokenResult.expirationTime);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'internal-error') {
+      if (e.code == FirebaseAuthExceptionCode.internalError) {
         logger.debug('Error occurred. ${e.toString()} Sign out.');
         await _firebaseAuth.signOut();
       }
