@@ -6,10 +6,8 @@ import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
-import 'package:otomo/views/cases/home/swipe_selection_floating_action_button.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map/map.dart';
-import 'package:otomo/views/router.dart';
 import 'package:otomo/views/utils/controller.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
@@ -62,27 +60,34 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  Widget _buildFloatingActionButton(BuildContext context) {
+  List<Widget> _buildFloatingActionButtons(BuildContext context) {
     final padding = MediaQuery.paddingOf(context);
 
-    return Positioned(
-      bottom: padding.bottom,
-      right: 20,
-      child: FloatingActionButtonWithSwipeSelectionButtons(
-        primaryButtonIcon: Icons.chat,
-        topButton: SwipeSelectionButtonData(
-          icon: Icons.account_circle,
-          onSelected: () => ref.read(routerProvider).push(Routes.account),
+    return [
+      Positioned(
+        bottom: padding.bottom,
+        right: 20,
+        child: FloatingActionButton(
+          child: const Icon(Icons.chat),
+          onPressed: () {
+            _sheetController?.animateTo(
+              _maxSheetSize,
+              duration: _sheetAnimationDuration,
+              curve: _sheetAnimationCurve,
+            );
+          },
         ),
-        onPrimaryButtonPressed: () {
-          _sheetController?.animateTo(
-            _maxSheetSize,
-            duration: _sheetAnimationDuration,
-            curve: _sheetAnimationCurve,
-          );
-        },
       ),
-    );
+      Positioned(
+        top: padding.top,
+        left: 20,
+        child: FloatingActionButton(
+          mini: true,
+          child: const Icon(Icons.account_circle_rounded),
+          onPressed: () {},
+        ),
+      )
+    ];
   }
 
   @override
@@ -108,7 +113,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         snapSizes: _sheetSnaps,
         resizeToAvoidBottomInset: false,
         onSheetCreated: _onSheetCreated,
-        behindSheetFloatingActionButton: _buildFloatingActionButton(context),
+        behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
         bottomSheetBar: ChatBottomSheetBar(
           onPressedLeading: () => _onPressedSheetLeading(context),
         ),
