@@ -18,7 +18,7 @@ class HomePage extends StatefulHookConsumerWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  static const _sheetAnimationCurve = Curves.ease;
+  static const _sheetAnimationCurve = Curves.easeOutQuint;
   static const _sheetAnimationDuration = Duration(milliseconds: 800);
   static const _maxSheetSize = 0.95;
   static const _minSheetSize = 0.0;
