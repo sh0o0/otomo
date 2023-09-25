@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:otomo/configs/app_colors.dart';
 import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
+import 'package:settings_ui/settings_ui.dart';
 
 abstract class AppThemes {
   static const _lightSecondary = Color(0xFFC3E874);
@@ -15,7 +16,7 @@ abstract class AppThemes {
       secondary: _lightSecondary,
       onSecondary: Colors.white,
       background: Colors.white,
-      onBackground: _lightBackground
+      onBackground: _lightBackground,
     ),
     useMaterial3: true,
   );
@@ -45,8 +46,9 @@ abstract class AppThemes {
       ),
     ),
     extensions: <ThemeExtension>[
-      AppChatTheme(
-        DefaultChatTheme(
+      AppTheme(
+        dangerColor: const Color(0xFFE74C3C),
+        chatTheme: DefaultChatTheme(
           primaryColor: _light.colorScheme.primary,
           secondaryColor: const Color(0xFFF7F7F7),
           backgroundColor: _light.colorScheme.background,
@@ -63,6 +65,10 @@ abstract class AppThemes {
           ),
           inputTextDecoration: RoundedTextFormField.inputDecoration,
           messageBorderRadius: 16,
+        ),
+        settingsTheme: const SettingsThemeData(
+          settingsSectionBackground: Color(0xFFF7F7F7),
+          settingsListBackground: Colors.white,
         ),
       )
     ],
@@ -94,19 +100,26 @@ abstract class AppThemes {
   );
 }
 
-class AppChatTheme extends ThemeExtension<AppChatTheme> {
-  AppChatTheme(this.chatTheme);
+class AppTheme extends ThemeExtension<AppTheme> {
+  AppTheme({
+    required this.chatTheme,
+    required this.settingsTheme,
+    required this.dangerColor,
+  });
 
   final ChatTheme chatTheme;
+  final SettingsThemeData settingsTheme;
+
+  final Color dangerColor;
 
   @override
-  ThemeExtension<AppChatTheme> copyWith() {
-    return AppChatTheme(chatTheme);
+  ThemeExtension<AppTheme> copyWith() {
+    return this;
   }
 
   @override
-  ThemeExtension<AppChatTheme> lerp(
-    covariant ThemeExtension<AppChatTheme>? other,
+  ThemeExtension<AppTheme> lerp(
+    covariant ThemeExtension<AppTheme>? other,
     double t,
   ) {
     return this;
