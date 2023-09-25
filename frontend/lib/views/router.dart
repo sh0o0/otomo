@@ -34,7 +34,10 @@ final List<GoRoute> _signedInPages = [
   ),
   GoRoute(
     path: Routes.account,
-    builder: (context, state) => const AccountPage(),
+    pageBuilder: (context, state) => const MaterialPage(
+      fullscreenDialog: true,
+      child: AccountPage(),
+    ),
   )
 ];
 

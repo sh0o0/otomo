@@ -8,6 +8,7 @@ import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map/map.dart';
+import 'package:otomo/views/router.dart';
 import 'package:otomo/views/utils/controller.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
@@ -68,6 +69,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         bottom: padding.bottom,
         right: 20,
         child: FloatingActionButton(
+          heroTag: 'chat',
           child: const Icon(Icons.chat),
           onPressed: () {
             _sheetController?.animateTo(
@@ -82,9 +84,10 @@ class _HomePageState extends ConsumerState<HomePage> {
         top: padding.top,
         left: 20,
         child: FloatingActionButton(
+          heroTag: 'account',
           mini: true,
           child: const Icon(Icons.account_circle_rounded),
-          onPressed: () {},
+          onPressed: () => ref.read(routerProvider).push(Routes.account),
         ),
       )
     ];
