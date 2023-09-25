@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
+import 'package:otomo/tools/logger.dart';
+import 'package:otomo/view_models/auth.dart';
 import 'package:otomo/view_models/user.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -10,7 +12,18 @@ class AccountPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context).extension<AppTheme>();
-    final user = ref.watch(authProvider);
+    final dangerTitleTextStyle = TextStyle(
+      color: appTheme?.dangerColor,
+      fontWeight: FontWeight.bold,
+    );
+    final dangerValueTextStyle = TextStyle(
+      color: appTheme?.dangerColor,
+      fontSize: 12,
+    );
+
+    final user = ref.watch(userProvider);
+    final authState = ref.watch(authProvider);
+    final authNotifier = ref.read(authProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(automaticallyImplyLeading: true),
@@ -41,14 +54,8 @@ class AccountPage extends HookConsumerWidget {
           SettingsSection(
             tiles: [
               SettingsTile(
-                title: Text(
-                  'ログアウト',
-                  style: TextStyle(
-                    color: appTheme?.dangerColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onPressed: (_) => ref.read(authProvider.notifier).signOut(),
+                title: Text('ログアウト', style: dangerTitleTextStyle),
+                onPressed: (_) => authNotifier.signOut(),
               ),
             ],
           ),
@@ -56,7 +63,23 @@ class AccountPage extends HookConsumerWidget {
           // version
 
           // # Danger area
-          // Delete account
+          SettingsSection(
+            tiles: [
+              SettingsTile(
+                title: Text('アカウント削除', style: dangerTitleTextStyle),
+                value: (authState.value?.requiresRecentLogin ?? false)
+                    ? GestureDetector(
+                        onTap: () => logger.debug('message'),
+                        child: Text(
+                          '再ログインしてください',
+                          style: dangerValueTextStyle,
+                        ),
+                      )
+                    : null,
+                onPressed: (_) => authNotifier.deleteAccount(),
+              ),
+            ],
+          ),
         ],
       ),
     );
