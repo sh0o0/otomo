@@ -87,7 +87,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           heroTag: 'account',
           mini: true,
           child: const Icon(Icons.account_circle_rounded),
-          onPressed: () => ref.read(routerProvider).push(Routes.account),
+          onPressed: () => ref.read(routerProvider).push(Routes.settings),
         ),
       )
     ];

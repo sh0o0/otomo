@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/user.dart';
-import 'package:otomo/views/pages/account/account.dart';
+import 'package:otomo/views/pages/settings/settings.dart';
 import 'package:otomo/views/pages/home/home.dart';
 import 'package:otomo/views/pages/sign_in/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link/sign_in_with_email_link.dart';
@@ -11,7 +11,7 @@ abstract class Routes {
   static const signIn = '/sign_in';
   static const signInWithEmailLink = '/sign_in/email';
   static const home = '/home';
-  static const account = '/account';
+  static const settings = '/settings';
 }
 
 final _key = GlobalKey<NavigatorState>();
@@ -33,10 +33,10 @@ final List<GoRoute> _signedInPages = [
     builder: (context, state) => const HomePage(),
   ),
   GoRoute(
-    path: Routes.account,
+    path: Routes.settings,
     pageBuilder: (context, state) => const MaterialPage(
       fullscreenDialog: true,
-      child: AccountPage(),
+      child: SettingsPage(),
     ),
   )
 ];

@@ -6,8 +6,8 @@ import 'package:otomo/view_models/auth.dart';
 import 'package:otomo/view_models/user.dart';
 import 'package:settings_ui/settings_ui.dart';
 
-class AccountPage extends HookConsumerWidget {
-  const AccountPage({super.key});
+class SettingsPage extends HookConsumerWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
