@@ -17,4 +17,6 @@ class UserNotifier extends StateNotifier<User?> {
   }
 
   final AuthControllerImpl _authController;
+
+  Future<void> signOut() => _authController.signOut();
 }

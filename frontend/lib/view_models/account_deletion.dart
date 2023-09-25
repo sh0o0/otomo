@@ -6,31 +6,33 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/entities/exception.dart';
 
-part 'auth.freezed.dart';
+part 'account_deletion.freezed.dart';
 
-final authProvider = AsyncNotifierProvider<AuthNotifier, AuthState>(
-  () => AuthNotifier(getIt<AuthControllerImpl>()),
+final accountDeletionProvider =
+    AsyncNotifierProvider<AccountDeletionNotifier, AccountDeletionState>(
+  () => AccountDeletionNotifier(getIt<AuthControllerImpl>()),
 );
 
 @freezed
-class AuthState with _$AuthState {
-  const factory AuthState({
+class AccountDeletionState with _$AccountDeletionState {
+  const factory AccountDeletionState({
     @Default(false) bool requiresRecentLogin,
-  }) = _AuthState;
+  }) = _AccountDeletionState;
 }
 
-class AuthNotifier extends AsyncNotifier<AuthState> {
-  AuthNotifier(this._authController);
+class AccountDeletionNotifier extends AsyncNotifier<AccountDeletionState> {
+  AccountDeletionNotifier(this._authController);
 
   @override
-  FutureOr<AuthState> build() => const AuthState(requiresRecentLogin: true);
+  FutureOr<AccountDeletionState> build() =>
+      const AccountDeletionState(requiresRecentLogin: true);
 
   final AuthControllerImpl _authController;
 
   Future<void> signOut() async {
     state = await AsyncValue.guard(() async {
       await _authController.signOut();
-      return state.value ?? const AuthState();
+      return state.value ?? const AccountDeletionState();
     });
   }
 
@@ -39,11 +41,11 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
       try {
         await _authController.deleteAccount();
         return state.value?.copyWith(requiresRecentLogin: false) ??
-            const AuthState();
+            const AccountDeletionState();
       } on AppException catch (e) {
         if (e.cause == Cause.requiresRecentLogin) {
           return state.value?.copyWith(requiresRecentLogin: true) ??
-              const AuthState(requiresRecentLogin: true);
+              const AccountDeletionState(requiresRecentLogin: true);
         }
         rethrow;
       }
