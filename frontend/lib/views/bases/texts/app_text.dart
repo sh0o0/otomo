@@ -16,6 +16,11 @@ class AppText extends StatelessWidget {
   static TextStyle? bodyMediumStyle(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium;
 
+  static TextStyle? titleSmallStyle(BuildContext context) =>
+      Theme.of(context).textTheme.titleSmall;
+  static TextStyle? titleMediumStyle(BuildContext context) =>
+      Theme.of(context).textTheme.titleMedium;
+
   factory AppText.bodySmall(
     String text, {
     TextStyle? style,
@@ -25,7 +30,6 @@ class AppText extends StatelessWidget {
         style: style,
         styleBuilder: bodySmallStyle,
       );
-
 
   factory AppText.bodyMedium(
     String text, {
@@ -37,6 +41,26 @@ class AppText extends StatelessWidget {
         styleBuilder: bodyMediumStyle,
       );
 
+  factory AppText.titleSmall(
+    String text, {
+    TextStyle? style,
+  }) =>
+      AppText._(
+        text,
+        style: style,
+        styleBuilder: titleSmallStyle,
+      );
+
+  factory AppText.titleMedium(
+    String text, {
+    TextStyle? style,
+  }) =>
+      AppText._(
+        text,
+        style: style,
+        styleBuilder: titleMediumStyle,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -44,4 +68,8 @@ class AppText extends StatelessWidget {
       style: styleBuilder.call(context)?.merge(style),
     );
   }
+}
+
+abstract class TextStyles {
+  static const bold = TextStyle(fontWeight: FontWeight.bold);
 }

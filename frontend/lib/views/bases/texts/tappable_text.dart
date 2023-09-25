@@ -5,18 +5,23 @@ class TappableText extends StatelessWidget {
     this.text, {
     super.key,
     required this.onTap,
-    this.style = const TextStyle(decoration: TextDecoration.underline),
+    this.style,
   });
 
   final String text;
   final VoidCallback onTap;
   final TextStyle? style;
 
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium?.copyWith(
+            decoration: TextDecoration.underline,
+          );
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Text(text, style: style),
+      child: Text(text, style: styleOf(context)?.merge(style)),
     );
   }
 }

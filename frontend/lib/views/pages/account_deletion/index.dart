@@ -4,6 +4,7 @@ import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/view_models/account_deletion.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
+import 'package:otomo/views/bases/texts/app_text.dart';
 import 'package:otomo/views/bases/texts/tappable_text.dart';
 
 class AccountDeletionPage extends HookConsumerWidget {
@@ -17,11 +18,9 @@ class AccountDeletionPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: Text(
+        title: AppText.titleMedium(
           'アカウント削除',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyles.bold,
         ),
       ),
       body: SideSpaceLayout(
@@ -29,13 +28,9 @@ class AccountDeletionPage extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Spaces.h16,
-            Text(
-              'アカウントが削除されます。',
-              style: theme.textTheme.titleSmall
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
+            AppText.titleSmall('アカウントが削除されます。', style: TextStyles.bold),
             Spaces.h16,
-            const Text(
+            AppText.bodyMedium(
                 '''アカウントを削除すると、あなたのすべてデータが削除されます。その後、同じメールアドレスやソーシャルログインで再度会員登録していただきましてもアカウトのデータは復元できませんのでご注意ください。
 また、削除されたアカウントについては、Otomo運営事務局のサポート外となります'''),
             Spaces.h40,
@@ -44,10 +39,9 @@ class AccountDeletionPage extends HookConsumerWidget {
                 'アカウント削除',
                 onTap: () =>
                     ref.read(accountDeletionProvider.notifier).deleteAccount(),
-                style: theme.textTheme.bodyMedium?.copyWith(
+                style: TextStyle(
                   color: appTheme?.dangerColor,
                   fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
                   decorationColor: appTheme?.dangerColor,
                 ),
               ),

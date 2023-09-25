@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/view_models/user.dart';
-import 'package:otomo/views/bases/texts/body_medium_text.dart';
+import 'package:otomo/views/bases/texts/app_text.dart';
 import 'package:otomo/views/router.dart';
 import 'package:settings_ui/settings_ui.dart';
 
