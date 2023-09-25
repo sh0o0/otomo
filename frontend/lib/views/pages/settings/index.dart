@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/view_models/user.dart';
+import 'package:otomo/views/bases/texts/body_medium_text.dart';
 import 'package:otomo/views/router.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -25,13 +26,12 @@ class SettingsPage extends HookConsumerWidget {
         lightTheme: appTheme?.settingsTheme,
         sections: [
           SettingsSection(
-            title: const Text('Account'),
+            title: AppText.bodyMedium('アカウント'),
             tiles: [
               SettingsTile(
                 leading: const Icon(Icons.email),
-                title: const Text('メールアドレス', style: TextStyle(fontSize: 12)),
-                value: Text(user?.email ?? '',
-                    style: const TextStyle(fontSize: 14)),
+                title: AppText.bodySmall('メールアドレス'),
+                value: AppText.bodyMedium(user?.email ?? ''),
               ),
             ],
           ),
@@ -48,7 +48,7 @@ class SettingsPage extends HookConsumerWidget {
           SettingsSection(
             tiles: [
               SettingsTile(
-                title: Text('ログアウト', style: dangerTitleTextStyle),
+                title: AppText.bodyMedium('ログアウト', style: dangerTitleTextStyle),
                 onPressed: (_) => userNotifier.signOut(),
               ),
             ],
@@ -60,7 +60,8 @@ class SettingsPage extends HookConsumerWidget {
           SettingsSection(
             tiles: [
               SettingsTile(
-                  title: Text('アカウント削除', style: dangerTitleTextStyle),
+                  title: AppText.bodyMedium('アカウント削除',
+                      style: dangerTitleTextStyle),
                   trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                   onPressed: (_) =>
                       ref.read(routerProvider).push(Routes.accountDeletion)),

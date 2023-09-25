@@ -29,13 +29,6 @@ class AccountDeletionNotifier extends AsyncNotifier<AccountDeletionState> {
 
   final AuthControllerImpl _authController;
 
-  Future<void> signOut() async {
-    state = await AsyncValue.guard(() async {
-      await _authController.signOut();
-      return state.value ?? const AccountDeletionState();
-    });
-  }
-
   Future<void> deleteAccount() async {
     state = await AsyncValue.guard(() async {
       try {
