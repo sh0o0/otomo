@@ -23,8 +23,9 @@ class ChatUI extends StatelessWidget {
     this.inputOptions = const ui.InputOptions(),
     this.onBackgroundTap,
     this.customBottomWidget,
+    this.showStatusPopup,
     this.statusPopupBuilder,
-  });
+  }) : assert(showStatusPopup == null || statusPopupBuilder != null);
 
   final List<TextMessageData> messages;
   final void Function(String) onSendPressed;
@@ -36,7 +37,9 @@ class ChatUI extends StatelessWidget {
   final ui.InputOptions inputOptions;
   final VoidCallback? onBackgroundTap;
   final Widget? customBottomWidget;
-  final Widget Function(BuildContext context, MessageData message)? statusPopupBuilder;
+  final bool Function(MessageData)? showStatusPopup;
+  final Widget Function(BuildContext context, MessageData message)?
+      statusPopupBuilder;
 
   Widget _buildBubble(
     BuildContext context, {
@@ -51,7 +54,7 @@ class ChatUI extends StatelessWidget {
         messageData.author.isUser || messageData.status != MessageStatus.sent;
     final isUser = messageData.author.isUser;
 
-    Color? color;
+    late final Color color;
     if (messageData.author.isUser) {
       color = chatTheme.primaryColor;
     } else {
@@ -65,10 +68,11 @@ class ChatUI extends StatelessWidget {
       child: ui.MessageStatus(status: message.status),
     );
 
-    if (statusPopupBuilder != null) {
+    if (showStatusPopup?.call(messageData) == true) {
       statusWidget = CustomPopupMenu(
         pressType: PressType.singleClick,
-        menuBuilder: () => statusPopupBuilder!(context, messageData),
+        showArrow: false,
+        menuBuilder: () => statusPopupBuilder!.call(context, messageData),
         child: statusWidget,
       );
     }
