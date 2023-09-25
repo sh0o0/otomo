@@ -17,7 +17,12 @@ class AccountDeletionPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: const Text('アカウント削除'),
+        title: Text(
+          'アカウント削除',
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: SideSpaceLayout(
         child: Column(
@@ -26,7 +31,7 @@ class AccountDeletionPage extends HookConsumerWidget {
             Spaces.h16,
             Text(
               'アカウントが削除されます。',
-              style: theme.textTheme.titleMedium
+              style: theme.textTheme.titleSmall
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
             Spaces.h16,

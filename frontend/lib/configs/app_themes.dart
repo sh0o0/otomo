@@ -8,6 +8,7 @@ abstract class AppThemes {
   static const _lightSecondary = Color(0xFFC3E874);
   static const _lightBackground = Color(0xFF272729);
   static const _lightBottomNavIconDisabled = Color(0xFFA2A7B1);
+
   static final ThemeData _light = ThemeData.from(
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
@@ -31,6 +32,9 @@ abstract class AppThemes {
     appBarTheme: AppBarTheme(
       backgroundColor: _light.colorScheme.background,
       shadowColor: Colors.black12,
+      titleTextStyle: _light.textTheme.titleLarge?.copyWith(
+        fontWeight: FontWeight.bold,
+      ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: _light.colorScheme.background,
