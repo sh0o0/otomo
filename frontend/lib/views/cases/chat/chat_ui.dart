@@ -48,7 +48,7 @@ class ChatUI extends StatelessWidget {
   }) {
     final messageData = ViewConverter.I.message.viewToData(message);
     final theme = Theme.of(context);
-    final chatTheme = theme.extension<AppChatTheme>()!.chatTheme;
+    final chatTheme = theme.extension<AppTheme>()!.chatTheme;
     final size = MediaQuery.of(context).size;
     final showStatus =
         messageData.author.isUser || messageData.status != MessageStatus.sent;
@@ -143,7 +143,7 @@ class ChatUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatTheme = Theme.of(context).extension<AppChatTheme>()!.chatTheme;
+    final chatTheme = Theme.of(context).extension<AppTheme>()!.chatTheme;
 
     return ui.Chat(
       messages: ViewConverter.I.message.textDataToViewList(messages),

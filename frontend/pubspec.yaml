@@ -48,6 +48,7 @@ dependencies:
   animations: ^2.0.8
   flutter_animate: ^4.2.0+1
   custom_pop_up_menu: ^1.2.4
+  settings_ui: ^2.0.2
 
   ### Riverpod
   flutter_hooks: ^0.18.0

@@ -6,9 +6,11 @@ class AuthControllerImpl {
 
   final auth.FirebaseAuth _firebaseAuth;
 
-  Stream<User?> authStateChanges() => _firebaseAuth
-      .authStateChanges()
-      .map((authUser) => authUser == null ? null : User(id: authUser.uid));
+  Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges().map(
+        (authUser) => authUser == null
+            ? null
+            : User(id: authUser.uid, email: authUser.email ?? ''),
+      );
 
   Future<void> signOut() => _firebaseAuth.signOut();
 }
