@@ -17,15 +17,25 @@ class AuthControllerImpl {
             : User(id: authUser.uid, email: authUser.email),
       );
 
-  Future<void> signInWithGoogle() async {
+  Future<User> signInWithGoogle() async {
+    final credential = await _getGoogleAuthCredential();
+    return _signInWithCredential(credential);
+  }
+
+  Future<User> _signInWithCredential(auth.AuthCredential credential) async {
+    final userCred = await _firebaseAuth.signInWithCredential(credential);
+    final user = userCred.user;
+    if (user == null) throw Exception('User is null');
+    return User(id: user.uid, email: user.email);
+  }
+
+  Future<auth.OAuthCredential> _getGoogleAuthCredential() async {
     final googleUser = await _googleSignIn.signIn();
     final googleAuth = await googleUser?.authentication;
-
-    final credential = auth.GoogleAuthProvider.credential(
+    return auth.GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    await _firebaseAuth.signInWithCredential(credential);
   }
 
   Future<void> signOut() => _firebaseAuth.signOut();
@@ -47,12 +57,17 @@ class AuthControllerImpl {
   }
 
   Future<User> reauthenticate() async {
-    final provider = auth.GoogleAuthProvider();
-    final userCred =
-        await _firebaseAuth.currentUser?.reauthenticateWithProvider(provider);
+    final credential = await _getGoogleAuthCredential();
+    return _reauthenticateWithCredential(credential);
+  }
+
+  Future<User> _reauthenticateWithCredential(
+    auth.AuthCredential credential,
+  ) async {
+    final userCred = await _firebaseAuth.currentUser
+        ?.reauthenticateWithCredential(credential);
     final user = userCred?.user;
     if (user == null) throw Exception('User is null');
-
     return User(id: user.uid, email: user.email);
   }
 }

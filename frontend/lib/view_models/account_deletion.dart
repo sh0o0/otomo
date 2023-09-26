@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/entities/exception.dart';
-import 'package:otomo/tools/logger.dart';
 
 part 'account_deletion.freezed.dart';
 
@@ -25,8 +24,7 @@ class AccountDeletionNotifier extends AsyncNotifier<AccountDeletionState> {
   AccountDeletionNotifier(this._authController);
 
   @override
-  FutureOr<AccountDeletionState> build() =>
-      const AccountDeletionState(requiresRecentLogin: true);
+  FutureOr<AccountDeletionState> build() => const AccountDeletionState();
 
   final AuthControllerImpl _authController;
 
@@ -48,7 +46,6 @@ class AccountDeletionNotifier extends AsyncNotifier<AccountDeletionState> {
   }
 
   Future<void> reauthenticate() async {
-    logger.debug('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await _authController.reauthenticate();
