@@ -7,7 +7,7 @@ import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
-import 'package:otomo/views/pages/map/map.dart';
+import 'package:otomo/views/pages/map/index.dart';
 import 'package:otomo/views/router.dart';
 import 'package:otomo/views/utils/controller.dart';
 
@@ -87,7 +87,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           heroTag: 'account',
           mini: true,
           child: const Icon(Icons.account_circle_rounded),
-          onPressed: () => ref.read(routerProvider).push(Routes.account),
+          onPressed: () => ref.read(routerProvider).push(Routes.settings),
         ),
       )
     ];

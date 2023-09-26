@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String id, String email});
+  $Res call({String id, String? email});
 }
 
 /// @nodoc
@@ -45,17 +45,17 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
-    Object? email = null,
+    Object? email = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -66,7 +66,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String email});
+  $Res call({String id, String? email});
 }
 
 /// @nodoc
@@ -79,17 +79,17 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   @override
   $Res call({
     Object? id = null,
-    Object? email = null,
+    Object? email = freezed,
   }) {
     return _then(_$_User(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -97,12 +97,12 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 /// @nodoc
 
 class _$_User implements _User {
-  const _$_User({required this.id, required this.email});
+  const _$_User({required this.id, this.email});
 
   @override
   final String id;
   @override
-  final String email;
+  final String? email;
 
   @override
   String toString() {
@@ -129,13 +129,13 @@ class _$_User implements _User {
 }
 
 abstract class _User implements User {
-  const factory _User({required final String id, required final String email}) =
+  const factory _User({required final String id, final String? email}) =
       _$_User;
 
   @override
   String get id;
   @override
-  String get email;
+  String? get email;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

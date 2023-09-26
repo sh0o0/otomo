@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:otomo/views/bases/buttons/rounded_filled_button.dart';
 import 'package:otomo/views/bases/layouts/safe_area_layout.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
-import 'package:otomo/views/bases/screens/scaffold_with_only_back_button.dart';
 import 'package:otomo/views/bases/spaces/space.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
@@ -15,7 +14,8 @@ class SignInWithEmailLinkPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return ScaffoldWithOnlyBackButton(
+    return Scaffold(
+      appBar: AppBar(automaticallyImplyLeading: true),
       body: SafeAreaLayout(
         child: SideSpaceLayout(
           child: Center(

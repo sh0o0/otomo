@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/views/bases/texts/texts.dart';
 
-class TappableText extends StatelessWidget {
+class TappableText extends BaseText {
   const TappableText(
-    this.text, {
+    super.text, {
     super.key,
+    super.style,
     required this.onTap,
-    this.textStyle = const TextStyle(decoration: TextDecoration.underline),
   });
 
-  final String text;
   final VoidCallback onTap;
-  final TextStyle? textStyle;
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium?.copyWith(
+            decoration: TextDecoration.underline,
+          );
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Text(text, style: textStyle),
+      child: super.build(context)
     );
   }
 }
