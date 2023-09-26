@@ -17,12 +17,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'chat.freezed.dart';
 part 'chat.g.dart';
 
-@Freezed(makeCollectionsUnmodifiable: false)
+@freezed
 class ChatState with _$ChatState {
   const ChatState._();
 
   const factory ChatState({
-    required Pagination<TextMessageData> messagesPage,
+    required Pagination<TextMessageData> messages,
     @Default(false) bool hideTextField,
   }) = _ChatState;
 
@@ -39,7 +39,7 @@ class ChatState with _$ChatState {
   }
 
   List<TextMessageData> get _activeMessages =>
-      messagesPage.items.where((m) => m.message.active).toList();
+      messages.items.where((m) => m.message.active).toList();
 }
 
 @riverpod
@@ -61,20 +61,11 @@ class Chat extends _$Chat {
 
   @override
   Future<ChatState> build() async =>
-      ChatState(messagesPage: Pagination.emptyHasMore());
+      // Not const. Because it is not possible to add a message.
+      // ignore: prefer_const_constructors
+      ChatState(messages: Pagination(items: [], hasMore: true));
 
   Future<void> initState() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final page = await _listTextMessageData(null, null);
-      return ChatState(
-        messagesPage: Pagination(
-          items: page.items,
-          hasMore: page.hasMore,
-        ),
-      );
-    });
-
     final user = readUser(ref);
 
     final messageChangedEventSub = _chatController
@@ -129,19 +120,19 @@ class Chat extends _$Chat {
 
   Future<void> listMessagesMore() async {
     if (state.isLoading) return;
-    if (state.value?.messagesPage.hasMore == false) return;
+    if (state.value?.messages.hasMore == false) return;
 
     final ChatState preValue = state.value ??
-        const ChatState(messagesPage: Pagination(items: [], hasMore: true));
+        const ChatState(messages: Pagination(items: [], hasMore: true));
 
-    final lastMessageId = preValue.messagesPage.items.last.message.remoteId;
+    final lastMessageId = preValue.messages.items.last.message.remoteId;
 
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final page = await _listTextMessageData(null, lastMessageId);
       return preValue.copyWith(
-        messagesPage: Pagination(
-          items: [...preValue.messagesPage.items, ...page.items],
+        messages: Pagination(
+          items: [...preValue.messages.items, ...page.items],
           hasMore: page.hasMore,
         ),
       );
@@ -214,7 +205,7 @@ class Chat extends _$Chat {
     final index = _indexOfMessage(id);
     if (index == -1) return;
 
-    final msg = state.value!.messagesPage.items[index];
+    final msg = state.value!.messages.items[index];
     if (msg.message.active) {
       _deactivateMessageWithIndex(index);
     } else {
@@ -224,29 +215,19 @@ class Chat extends _$Chat {
   }
 
   void _activateMessageWithIndex(int index) {
-    final message = state.value!.messagesPage.items[index];
+    final message = state.value!.messages.items[index];
     state = state
-      ..value?.messagesPage.items[index] =
-          message.copyWith.message(active: true);
+      ..value?.messages.items[index] = message.copyWith.message(active: true);
   }
 
   void _deactivateMessageWithIndex(int index) {
-    final message = state.value!.messagesPage.items[index];
+    final message = state.value!.messages.items[index];
     state = state
-      ..value?.messagesPage.items[index] =
-          message.copyWith.message(active: false);
+      ..value?.messages.items[index] = message.copyWith.message(active: false);
   }
 
   void focusAnalyzedLocation(AnalyzedLocation loc) {
     _focusedAnalyzedLocationStreamController.add(loc);
-  }
-
-  void toggleShowOnlyMessages() {
-    final value = state.value;
-    if (value == null) return;
-
-    state =
-        AsyncValue.data(value.copyWith(hideTextField: !value.hideTextField));
   }
 
   void showTextField() {
@@ -267,51 +248,51 @@ class Chat extends _$Chat {
     final value = state.value;
     if (value == null) return false;
 
-    return value.messagesPage.items.any((m) => m.message.id == id);
+    return value.messages.items.any((m) => m.message.id == id);
   }
 
   int _indexOfMessage(String id) {
     final value = state.value;
     if (value == null) return -1;
 
-    return value.messagesPage.items.indexWhere((m) => m.message.id == id);
+    return value.messages.items.indexWhere((m) => m.message.id == id);
   }
 
   int _indexOfMessageByRemoteId(String remoteId) {
     final value = state.value;
     if (value == null) return -1;
 
-    return value.messagesPage.items
+    return value.messages.items
         .indexWhere((m) => m.message.remoteId == remoteId);
   }
 
   void _addTextMessage(TextMessageData textMessage) {
     if (_isMessageExist(textMessage.message.id)) return;
-    state = state..value?.messagesPage.items.insert(0, textMessage);
+    state = state..value?.messages.items.insert(0, textMessage);
   }
 
   void _updateTextMessage(TextMessageData textMessage) {
     final index = _indexOfMessage(textMessage.message.id);
     if (index == -1) return;
-    state = state..value?.messagesPage.items[index] = textMessage;
+    state = state..value?.messages.items[index] = textMessage;
   }
 
   void _joinTextMessageChunk(TextMessageChunk chunk) {
     final index = _indexOfMessage(chunk.messageId);
     if (index == -1) return;
-    final textMessage = state.value!.messagesPage.items[index];
+    final textMessage = state.value!.messages.items[index];
     final joinedTextMessage = textMessage.copyWith
         .message(
           sentAt: chunk.sentAt,
           status: chunk.isLast ? MessageStatus.sent : MessageStatus.sending,
         )
         .copyWith(text: textMessage.text + chunk.text);
-    state = state..value?.messagesPage.items[index] = joinedTextMessage;
+    state = state..value?.messages.items[index] = joinedTextMessage;
   }
 
   void _removeTextMessageByRemoteId(String remoteId) {
     final index = _indexOfMessageByRemoteId(remoteId);
     if (index == -1) return;
-    state = state..value?.messagesPage.items.removeAt(index);
+    state = state..value?.messages.items.removeAt(index);
   }
 }

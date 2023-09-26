@@ -5,6 +5,7 @@ part 'pagination.freezed.dart';
 @Freezed(makeCollectionsUnmodifiable: false)
 class Pagination<T> with _$Pagination<T> {
   const Pagination._();
+
   const factory Pagination({
     required List<T> items,
     required bool hasMore,

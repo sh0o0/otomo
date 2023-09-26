@@ -61,7 +61,7 @@ class HomeChat extends HookConsumerWidget {
     }, const []);
 
     return ChatUI(
-      messages: state.value?.messagesPage.items ?? [],
+      messages: state.value?.messages.items ?? [],
       onSendPressed: (text) => notifier.sendMessage(text),
       user: ChatState.user,
       emptyState: _emptyState(context, state),
@@ -71,7 +71,7 @@ class HomeChat extends HookConsumerWidget {
       statusPopupBuilder: (context, message) => _statusPopupBuilder(
         context,
         message,
-        messages: state.value?.messagesPage.items ?? [],
+        messages: state.value?.messages.items ?? [],
       ),
       onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
       customBottomWidget: state.value?.hideTextField == true
