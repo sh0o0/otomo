@@ -17,6 +17,7 @@ class AccountDeletionPage extends HookConsumerWidget {
     final appTheme = theme.extension<AppTheme>();
 
     final state = ref.watch(accountDeletionProvider);
+    final notifier = ref.read(accountDeletionProvider.notifier);
     final requiresRecentLogin = state.value?.requiresRecentLogin ?? false;
 
     return Scaffold(
@@ -45,9 +46,7 @@ class AccountDeletionPage extends HookConsumerWidget {
                 'アカウント削除',
                 onTap: requiresRecentLogin
                     ? () {}
-                    : () => ref
-                        .read(accountDeletionProvider.notifier)
-                        .deleteAccount(),
+                    : () => notifier.deleteAccount(),
                 style: requiresRecentLogin
                     ? TextStyles.disabled(context)
                         ?.copyWith(decoration: TextDecoration.none)
@@ -60,12 +59,12 @@ class AccountDeletionPage extends HookConsumerWidget {
             ),
             Spaces.h8,
             GestureDetector(
+              onTap: () => notifier.reauthenticate(),
               child: WarnText(
                 requiresRecentLogin ? '再ログインが必要です。' : null,
                 style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  decorationColor: WarnText.colorOf(context)
-                ),
+                    decoration: TextDecoration.underline,
+                    decorationColor: WarnText.colorOf(context)),
               ),
             ),
           ],

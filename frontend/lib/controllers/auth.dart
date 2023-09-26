@@ -12,7 +12,7 @@ class AuthControllerImpl {
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges().map(
         (authUser) => authUser == null
             ? null
-            : User(id: authUser.uid, email: authUser.email ?? ''),
+            : User(id: authUser.uid, email: authUser.email),
       );
 
   Future<void> signOut() => _firebaseAuth.signOut();
@@ -31,6 +31,16 @@ class AuthControllerImpl {
       }
       rethrow;
     }
+  }
+
+  Future<User> reauthenticate() async {
+    final provider = auth.GoogleAuthProvider();
+    final userCred =
+        await _firebaseAuth.currentUser?.reauthenticateWithProvider(provider);
+    final user = userCred?.user;
+    if (user == null) throw Exception('User is null');
+
+    return User(id: user.uid, email: user.email);
   }
 }
 
