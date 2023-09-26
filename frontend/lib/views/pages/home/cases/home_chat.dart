@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as types;
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
@@ -41,7 +42,9 @@ class HomeChat extends HookConsumerWidget {
 
   Widget? _emptyState(BuildContext context, AsyncValue<ChatState> state) {
     if (state.isLoading) const Center(child: AppCircularProgressIndicator());
-    if (state.hasError) return ErrorText(ErrorLibrary.fromAny(state.error!));
+    if (state.hasError) {
+      return Center(child: ErrorText(ErrorLibrary.fromAny(state.error!)));
+    }
     return null;
   }
 
@@ -49,6 +52,13 @@ class HomeChat extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(chatProvider);
     final notifier = ref.read(chatProvider.notifier);
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await notifier.initState();
+      });
+      return () {};
+    }, const []);
 
     return ChatUI(
       messages: state.value?.messagesPage.items ?? [],

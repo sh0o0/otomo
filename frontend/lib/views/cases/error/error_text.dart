@@ -11,6 +11,7 @@ class ErrorText extends BaseText {
   static TextStyle? styleOf(BuildContext context) =>
       BodyLarge.styleOf(context)?.copyWith(
         color: Theme.of(context).colorScheme.error,
+        fontWeight: FontWeight.bold,
       );
 
   @override

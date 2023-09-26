@@ -96,16 +96,17 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     useEffect(() {
-      final notifier = ref.read(chatProvider.notifier);
-      final activatedTextMessageStreamSub =
-          notifier.activatedTextMessageStream.listen((textMsg) {
+      final activatedTextMessageStreamSub = ref
+          .read(chatProvider.notifier)
+          .activatedTextMessageStream
+          .listen((textMsg) {
         _assertCanUseSheetController();
 
         _sheetController!.animateTo(_limitCanShowKeyboard,
             duration: _sheetAnimationDuration, curve: _sheetAnimationCurve);
       });
       return () => activatedTextMessageStreamSub.cancel();
-    });
+    }, const []);
 
     return Unfocus(
       child: HomeWithDraggableScrollableBottomSheet(

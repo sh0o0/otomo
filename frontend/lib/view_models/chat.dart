@@ -60,13 +60,21 @@ class Chat extends _$Chat {
       _activatedTextMessageStreamController.stream;
 
   @override
-  Future<ChatState> build() async {
-    late final Pagination<TextMessageData> page;
-    try {
-      page = await _listTextMessageData(null, null);
-    } catch (e, s) {
-      return Future.error(e, s);
-    }
+  Future<ChatState> build() async =>
+      ChatState(messagesPage: Pagination(items: [], hasMore: true));
+
+  Future<void> initState() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final page = await _listTextMessageData(null, null);
+      return ChatState(
+        messagesPage: Pagination(
+          items: page.items,
+          hasMore: page.hasMore,
+        ),
+      );
+    });
+
     final user = readUser(ref);
 
     final messageChangedEventSub = _chatController
@@ -80,13 +88,6 @@ class Chat extends _$Chat {
       messageChangedEventSub.cancel();
       messagingSub.cancel();
     });
-
-    return ChatState(
-      messagesPage: Pagination(
-        items: page.items,
-        hasMore: page.hasMore,
-      ),
-    );
   }
 
   Future<void> sendMessage(String text) async {
@@ -164,6 +165,8 @@ class Chat extends _$Chat {
   }
 
   void _onMessageChanged(List<TextMessageChangedEvent> events) {
+    logger.debug('message changed: $events');
+
     for (final changedEvent in events) {
       final message = changedEvent.data;
 

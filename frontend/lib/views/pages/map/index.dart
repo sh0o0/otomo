@@ -71,7 +71,7 @@ class _MapState extends ConsumerState<MapPage> {
         focusedAnalyzedLocationStreamSub.cancel();
         activatedTextMessageStreamSub.cancel();
       };
-    });
+    }, const []);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
