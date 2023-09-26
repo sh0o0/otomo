@@ -3,8 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/view_models/user.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/cases/settings/settings_list.dart';
+import 'package:otomo/views/cases/settings/settings_section.dart';
+import 'package:otomo/views/cases/settings/settings_tile.dart';
 import 'package:otomo/views/router.dart';
-import 'package:settings_ui/settings_ui.dart';
 
 class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});
@@ -25,13 +27,12 @@ class SettingsPage extends HookConsumerWidget {
         automaticallyImplyLeading: true,
         title: const TitleMedium('設定', style: TextStyles.bold),
       ),
-      body: SettingsList(
-        lightTheme: appTheme?.settingsTheme,
+      body: AppSettingsList(
         sections: [
-          SettingsSection(
+          AppSettingsSection(
             title: const BodyMedium('アカウント'),
             tiles: [
-              SettingsTile(
+              AppSettingsTile(
                 leading: const Icon(Icons.email),
                 title: const BodySmall('メールアドレス'),
                 value: BodyMedium(user?.email ?? ''),
@@ -48,9 +49,9 @@ class SettingsPage extends HookConsumerWidget {
           // Acknowledgements
 
           // Sign Out
-          SettingsSection(
+          AppSettingsSection(
             tiles: [
-              SettingsTile(
+              AppSettingsTile(
                 title: BodyMedium('ログアウト', style: dangerTitleTextStyle),
                 onPressed: (_) => userNotifier.signOut(),
               ),
@@ -60,9 +61,9 @@ class SettingsPage extends HookConsumerWidget {
           // version
 
           // # Danger area
-          SettingsSection(
+          AppSettingsSection(
             tiles: [
-              SettingsTile(
+              AppSettingsTile(
                   title: BodyMedium('アカウント削除', style: dangerTitleTextStyle),
                   trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                   onPressed: (_) =>
