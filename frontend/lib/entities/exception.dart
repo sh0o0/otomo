@@ -21,6 +21,8 @@ class AppException implements Exception {
   final Domain domain;
   final Field field;
 
+  bool causeIs(Cause c) => cause == c;
+
   @override
   String toString() {
     return 'AppException(message: $message, cause: $cause, domain: $domain, field: $field)';

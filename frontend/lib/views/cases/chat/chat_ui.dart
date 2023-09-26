@@ -50,8 +50,9 @@ class ChatUI extends StatelessWidget {
     final theme = Theme.of(context);
     final chatTheme = theme.extension<AppTheme>()!.chatTheme;
     final size = MediaQuery.of(context).size;
-    final showStatus =
-        messageData.author.isUser || messageData.status != MessageStatus.sent;
+    final showStatus = messageData.author.isUser ||
+        messageData.status == MessageStatus.error ||
+        messageData.status == MessageStatus.sending;
     final isUser = messageData.author.isUser;
 
     late final Color color;

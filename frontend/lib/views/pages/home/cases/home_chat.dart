@@ -7,6 +7,7 @@ import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
+import 'package:otomo/views/utils/error_text.dart';
 
 class HomeChat extends HookConsumerWidget {
   const HomeChat({
@@ -31,9 +32,9 @@ class HomeChat extends HookConsumerWidget {
       decoration: BoxDecoration(
           color: theme.colorScheme.background,
           borderRadius: BorderRadius.circular(16)),
-      child: textMessage.locationAnalysis.hasError
-          ? const Text('地名の解析に失敗しました。')
-          : const Text('エラーが発生しました。'),
+      child: Text(textMessage.locationAnalysis.hasError
+          ? ErrorLibrary.messageLocationAnalysisError
+          : ErrorLibrary.fromAppException(textMessage.message.error!)),
     );
   }
 

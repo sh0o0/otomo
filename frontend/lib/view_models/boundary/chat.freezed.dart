@@ -184,7 +184,7 @@ class __$$_MessageDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_MessageData implements _MessageData {
+class _$_MessageData extends _MessageData {
   const _$_MessageData(
       {required this.id,
       required this.author,
@@ -192,7 +192,8 @@ class _$_MessageData implements _MessageData {
       this.remoteId,
       this.active = false,
       required this.status,
-      this.error});
+      this.error})
+      : super._();
 
   @override
   final String id;
@@ -241,7 +242,7 @@ class _$_MessageData implements _MessageData {
       __$$_MessageDataCopyWithImpl<_$_MessageData>(this, _$identity);
 }
 
-abstract class _MessageData implements MessageData {
+abstract class _MessageData extends MessageData {
   const factory _MessageData(
       {required final String id,
       required final Author author,
@@ -250,6 +251,7 @@ abstract class _MessageData implements MessageData {
       final bool active,
       required final MessageStatus status,
       final AppException? error}) = _$_MessageData;
+  const _MessageData._() : super._();
 
   @override
   String get id;
