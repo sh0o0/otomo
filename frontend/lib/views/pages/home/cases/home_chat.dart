@@ -85,7 +85,6 @@ class HomeChat extends HookConsumerWidget {
                 options: inputOptions,
               ),
             ),
-      onBackgroundTap: () => notifier.toggleShowOnlyMessages(),
     );
   }
 }
