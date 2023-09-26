@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 
-class ErrorText extends StatelessWidget {
+class ErrorText extends BaseText {
   const ErrorText(
-    this.error, {
+    super.text, {
     super.key,
-    this.style,
-    this.padding = EdgeInsets.zero,
+    super.style,
   });
-
-  final String? error;
-  final TextStyle? style;
-  final EdgeInsets padding;
 
   static TextStyle? styleOf(BuildContext context) =>
       BodyLarge.styleOf(context)?.copyWith(
@@ -20,14 +14,5 @@ class ErrorText extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) {
-    final err = error;
-
-    return err == null
-        ? Spaces.zero
-        : Padding(
-            padding: padding,
-            child: Text(err, style: styleOf(context)?.merge(style)),
-          );
-  }
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }

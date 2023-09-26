@@ -60,7 +60,13 @@ class Chat extends _$Chat {
   @override
   FutureOr<ChatState> build() async {
     state = const AsyncValue.loading();
-    final page = await _listTextMessageData(null, null);
+    late final Pagination<TextMessageData> page;
+    try {
+      page = await _listTextMessageData(null, null);
+    } catch (e, s) {
+      state = AsyncValue.error(AppException.orUnknown(e), s);
+      return state.value!;
+    }
     final user = readUser(ref);
 
     final messageChangedEventSub = _chatController
@@ -76,7 +82,11 @@ class Chat extends _$Chat {
     });
 
     return ChatState(
-        messagesPage: Pagination(items: page.items, hasMore: page.hasMore));
+      messagesPage: Pagination(
+        items: page.items,
+        hasMore: page.hasMore,
+      ),
+    );
   }
 
   Future<void> sendMessage(String text) async {
@@ -103,9 +113,7 @@ class Chat extends _$Chat {
       );
     } catch (e) {
       final errorTextMessageData = newTextMessageData.copyWith.message(
-        status: MessageStatus.error,
-        error: AppException.orUnknown(e)
-      );
+          status: MessageStatus.error, error: AppException.orUnknown(e));
       _updateTextMessage(errorTextMessageData);
       return;
     }
@@ -132,8 +140,9 @@ class Chat extends _$Chat {
       final page = await _listTextMessageData(null, lastMessageId);
       return preValue.copyWith(
         messagesPage: Pagination(
-            items: [...preValue.messagesPage.items, ...page.items],
-            hasMore: page.hasMore),
+          items: [...preValue.messagesPage.items, ...page.items],
+          hasMore: page.hasMore,
+        ),
       );
     });
   }

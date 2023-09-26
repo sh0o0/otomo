@@ -7,7 +7,8 @@ import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
-import 'package:otomo/views/utils/error_text.dart';
+import 'package:otomo/views/cases/error/error_text.dart';
+import 'package:otomo/views/utils/error_library.dart';
 
 class HomeChat extends HookConsumerWidget {
   const HomeChat({
@@ -38,6 +39,12 @@ class HomeChat extends HookConsumerWidget {
     );
   }
 
+  Widget? _emptyState(BuildContext context, AsyncValue<ChatState> state) {
+    if (state.isLoading) const Center(child: AppCircularProgressIndicator());
+    if (state.hasError) return ErrorText(ErrorLibrary.fromAny(state.error!));
+    return null;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(chatProvider);
@@ -47,9 +54,7 @@ class HomeChat extends HookConsumerWidget {
       messages: state.value?.messagesPage.items ?? [],
       onSendPressed: (text) => notifier.sendMessage(text),
       user: ChatState.user,
-      emptyState: state.isLoading
-          ? const Center(child: AppCircularProgressIndicator())
-          : null,
+      emptyState: _emptyState(context, state),
       onEndReached: () => notifier.listMessagesMore(),
       onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
       showStatusPopup: (message) => message.status == MessageStatus.error,
