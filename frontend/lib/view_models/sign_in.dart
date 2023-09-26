@@ -1,5 +1,5 @@
-import 'package:otomo/controllers/sign_in.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/controllers/auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_in.g.dart';
@@ -8,7 +8,7 @@ part 'sign_in.g.dart';
 class SignIn extends _$SignIn {
   SignIn() : super();
 
-  final _controller = getIt<SignInControllerImpl>();
+  final _controller = getIt<AuthControllerImpl>();
 
   @override
   Future<void> build() async {}

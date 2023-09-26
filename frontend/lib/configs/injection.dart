@@ -48,15 +48,14 @@ abstract class InjectableModule {
   @singleton
   FirebaseFirestore get firebaseFirestore => FirebaseFirestore.instance;
 
-  @singleton
-  GoogleSignIn get googleSignIn => GoogleSignIn(
-        scopes: ['email'],
-      );
+  static final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email'],
+  );
 
   static IdTokenController get _idTokenController =>
       IdTokenControllerImpl(_firebaseAuth);
   static AuthControllerImpl get _authController =>
-      AuthControllerImpl(_firebaseAuth);
+      AuthControllerImpl(_firebaseAuth, _googleSignIn);
 
   @singleton
   IdTokenController get idTokenController => _idTokenController;
