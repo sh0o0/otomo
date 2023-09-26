@@ -24,7 +24,10 @@ class _MapState extends ConsumerState<MapPage> {
     zoom: 14.4746,
   );
 
-  void _onMapCreated(MapController controller) => _mapController = controller;
+  Future<void> _onMapCreated(MapController controller) async {
+    _mapController = controller;
+    await _goCurrentLocation(ref.read(mapProvider.notifier));
+  }
 
   Future<void> _goCurrentLocation(MapNotifier notifier) async {
     if (!_canUseMapController) return;
