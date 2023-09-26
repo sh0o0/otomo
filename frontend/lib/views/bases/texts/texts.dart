@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 abstract class TextStyles {
   static const bold = TextStyle(fontWeight: FontWeight.bold);
+  static TextStyle? disabled(BuildContext context) => TextStyle(
+        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.38),
+      );
 }
 
 abstract class BaseText extends StatelessWidget {

@@ -43,17 +43,31 @@ class AccountDeletionPage extends HookConsumerWidget {
             Center(
               child: TappableText(
                 'アカウント削除',
-                onTap: () =>
-                    ref.read(accountDeletionProvider.notifier).deleteAccount(),
-                style: TextStyle(
-                  color: appTheme?.dangerColor,
-                  fontWeight: FontWeight.bold,
-                  decorationColor: appTheme?.dangerColor,
-                ),
+                onTap: requiresRecentLogin
+                    ? () {}
+                    : () => ref
+                        .read(accountDeletionProvider.notifier)
+                        .deleteAccount(),
+                style: requiresRecentLogin
+                    ? TextStyles.disabled(context)
+                        ?.copyWith(decoration: TextDecoration.none)
+                    : TextStyle(
+                        color: appTheme?.dangerColor,
+                        fontWeight: FontWeight.bold,
+                        decorationColor: appTheme?.dangerColor,
+                      ),
               ),
             ),
             Spaces.h8,
-            WarnText(requiresRecentLogin ? '再ログインが必要です。' : null),
+            GestureDetector(
+              child: WarnText(
+                requiresRecentLogin ? '再ログインが必要です。' : null,
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  decorationColor: WarnText.colorOf(context)
+                ),
+              ),
+            ),
           ],
         ),
       ),

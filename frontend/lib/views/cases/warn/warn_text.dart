@@ -14,31 +14,34 @@ class WarnText extends StatelessWidget {
   final TextStyle? style;
   final bool showIcon;
 
+  static Color? colorOf(BuildContext context) =>
+      Theme.of(context).colorScheme.errorContainer;
+
   static TextStyle? styleOf(BuildContext context) =>
       BodyMedium.styleOf(context)?.copyWith(
-        color: Theme.of(context).colorScheme.errorContainer,
+        color: colorOf(context),
         fontWeight: FontWeight.bold,
       );
 
   @override
   Widget build(BuildContext context) {
     final textStyle = styleOf(context)?.merge(style);
-    final warnText = warn;
 
-    return warnText == null
-        ? Spaces.zero
-        : Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (showIcon)
-                Icon(
-                  Icons.warning_rounded,
-                  color: textStyle?.color,
-                  size: 18,
-                ),
-              if (showIcon) Spaces.w4,
-              BodyMedium(warnText, style: textStyle),
-            ],
-          );
+    return Visibility(
+      visible: warn != null,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (showIcon)
+            Icon(
+              Icons.warning_rounded,
+              color: textStyle?.color,
+              size: 18,
+            ),
+          if (showIcon) Spaces.w4,
+          BodyMedium(warn ?? '', style: textStyle),
+        ],
+      ),
+    );
   }
 }

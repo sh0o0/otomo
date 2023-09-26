@@ -65,14 +65,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  awesome_dialog:
-    dependency: "direct main"
-    description:
-      name: awesome_dialog
-      sha256: "7da175ea284fa5da0a4d0cbdfe835c5b71d30c7b38c1770c0f27f48272ff5a08"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -318,14 +310,6 @@ packages:
     description:
       name: faker
       sha256: "746e59f91d8b06a389e74cf76e909a05ed69c12691768e2f93557fdf29200fd0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
-  ffi:
-    dependency: transitive
-    description:
-      name: ffi
-      sha256: "7bf0adc28a23d395f19f3f1eb21dd7cfd1dd9f8e1c50051c069122e6853bc878"
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
@@ -1016,22 +1000,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
-  rive:
-    dependency: transitive
-    description:
-      name: rive
-      sha256: f2117a96a189758bc79bf7933865625c7a44a420ae537d2a8f6c492900136a71
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.11.17"
-  rive_common:
-    dependency: transitive
-    description:
-      name: rive_common
-      sha256: e41f12917cb58e0c9376836490ebaa431e12744da0c67e19dad8d4bee9fedd46
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.7"
   riverpod:
     dependency: transitive
     description:

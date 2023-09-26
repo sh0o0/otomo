@@ -44,4 +44,6 @@ class AccountDeletionNotifier extends AsyncNotifier<AccountDeletionState> {
       }
     });
   }
+
+  // Future<void> reauthenticate() async {}
 }
