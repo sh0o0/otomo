@@ -61,7 +61,7 @@ class Chat extends _$Chat {
 
   @override
   Future<ChatState> build() async =>
-      ChatState(messagesPage: Pagination(items: [], hasMore: true));
+      ChatState(messagesPage: Pagination.emptyHasMore());
 
   Future<void> initState() async {
     state = const AsyncValue.loading();
