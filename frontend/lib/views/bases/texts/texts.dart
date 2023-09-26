@@ -53,6 +53,20 @@ class BodyMedium extends BaseText {
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
 
+class BodyLarge extends BaseText {
+  const BodyLarge(
+    super.text, {
+    super.key,
+    super.style,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.bodyLarge;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
+
 class TitleSmall extends BaseText {
   const TitleSmall(
     super.text, {

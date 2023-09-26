@@ -4,8 +4,9 @@ import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/view_models/account_deletion.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
-import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/bases/texts/tappable_text.dart';
+import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/cases/warn/warn_text.dart';
 
 class AccountDeletionPage extends HookConsumerWidget {
   const AccountDeletionPage({super.key});
@@ -15,6 +16,9 @@ class AccountDeletionPage extends HookConsumerWidget {
     final theme = Theme.of(context);
     final appTheme = theme.extension<AppTheme>();
 
+    final state = ref.watch(accountDeletionProvider);
+    final requiresRecentLogin = state.value?.requiresRecentLogin ?? false;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -22,10 +26,15 @@ class AccountDeletionPage extends HookConsumerWidget {
       ),
       body: SideSpaceLayout(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Spaces.h16,
-            const TitleSmall('アカウントが削除されます。', style: TextStyles.bold),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: TitleSmall(
+                'アカウントが削除されます。',
+                style: TextStyles.bold,
+              ),
+            ),
             Spaces.h16,
             const BodyMedium(
                 '''アカウントを削除すると、あなたのすべてデータが削除されます。その後、同じメールアドレスやソーシャルログインで再度会員登録していただきましてもアカウトのデータは復元できませんのでご注意ください。
@@ -43,6 +52,8 @@ class AccountDeletionPage extends HookConsumerWidget {
                 ),
               ),
             ),
+            Spaces.h8,
+            WarnText(requiresRecentLogin ? '再ログインが必要です。' : null),
           ],
         ),
       ),
