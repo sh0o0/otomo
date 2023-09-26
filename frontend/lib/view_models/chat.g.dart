@@ -6,7 +6,7 @@ part of 'chat.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$chatHash() => r'c24fceb84140cfc8026d236c233ac7302b892fc7';
+String _$chatHash() => r'9a2a0b66a7d853390b10148105d73b216879df07';
 
 /// See also [Chat].
 @ProviderFor(Chat)
@@ -21,4 +21,4 @@ final chatProvider = AutoDisposeAsyncNotifierProvider<Chat, ChatState>.internal(
 
 typedef _$Chat = AutoDisposeAsyncNotifier<ChatState>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

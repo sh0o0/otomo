@@ -44,6 +44,8 @@ class ChatState with _$ChatState {
 
 @riverpod
 class Chat extends _$Chat {
+  Chat() : super();
+
   final _chatController = getIt<ChatControllerImpl>();
   final StreamController<AnalyzedLocation>
       _focusedAnalyzedLocationStreamController =
@@ -58,14 +60,12 @@ class Chat extends _$Chat {
       _activatedTextMessageStreamController.stream;
 
   @override
-  FutureOr<ChatState> build() async {
-    state = const AsyncValue.loading();
+  Future<ChatState> build() async {
     late final Pagination<TextMessageData> page;
     try {
       page = await _listTextMessageData(null, null);
     } catch (e, s) {
-      state = AsyncValue.error(AppException.orUnknown(e), s);
-      return state.value!;
+      return Future.error(e, s);
     }
     final user = readUser(ref);
 
