@@ -6,6 +6,7 @@ import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/controllers/utils.dart';
 import 'package:otomo/entities/changed_event.dart';
+import 'package:otomo/entities/exception.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/tools/logger.dart';
@@ -93,14 +94,26 @@ class Chat extends _$Chat {
 
     _addTextMessage(newTextMessageData);
 
-    final respTextMessage = await _chatController.sendMessage(
-      userId: readUser(ref)!.id,
-      text: text,
-      clientId: clientId,
-    );
+    late final TextMessage respTextMessage;
+    try {
+      respTextMessage = await _chatController.sendMessage(
+        userId: readUser(ref)!.id,
+        text: text,
+        clientId: clientId,
+      );
+    } catch (e) {
+      final errorTextMessageData = newTextMessageData.copyWith.message(
+        status: MessageStatus.error,
+        error: AppException.orUnknown(e)
+      );
+      _updateTextMessage(errorTextMessageData);
+      return;
+    }
 
-    final respTextMessageData = TextMessageData.fromTextMessage(respTextMessage,
-        status: MessageStatus.sent);
+    final respTextMessageData = TextMessageData.fromTextMessage(
+      respTextMessage,
+      status: MessageStatus.sent,
+    );
 
     _updateTextMessage(respTextMessageData);
   }

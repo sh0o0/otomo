@@ -22,6 +22,7 @@ mixin _$MessageData {
   String? get remoteId => throw _privateConstructorUsedError;
   bool get active => throw _privateConstructorUsedError;
   MessageStatus get status => throw _privateConstructorUsedError;
+  AppException? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MessageDataCopyWith<MessageData> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $MessageDataCopyWith<$Res> {
       DateTime sentAt,
       String? remoteId,
       bool active,
-      MessageStatus status});
+      MessageStatus status,
+      AppException? error});
 
   $AuthorCopyWith<$Res> get author;
 }
@@ -64,6 +66,7 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
     Object? remoteId = freezed,
     Object? active = null,
     Object? status = null,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -90,6 +93,10 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as MessageStatus,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as AppException?,
     ) as $Val);
   }
 
@@ -116,7 +123,8 @@ abstract class _$$_MessageDataCopyWith<$Res>
       DateTime sentAt,
       String? remoteId,
       bool active,
-      MessageStatus status});
+      MessageStatus status,
+      AppException? error});
 
   @override
   $AuthorCopyWith<$Res> get author;
@@ -139,6 +147,7 @@ class __$$_MessageDataCopyWithImpl<$Res>
     Object? remoteId = freezed,
     Object? active = null,
     Object? status = null,
+    Object? error = freezed,
   }) {
     return _then(_$_MessageData(
       id: null == id
@@ -165,6 +174,10 @@ class __$$_MessageDataCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as MessageStatus,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as AppException?,
     ));
   }
 }
@@ -178,7 +191,8 @@ class _$_MessageData implements _MessageData {
       required this.sentAt,
       this.remoteId,
       this.active = false,
-      required this.status});
+      required this.status,
+      this.error});
 
   @override
   final String id;
@@ -193,10 +207,12 @@ class _$_MessageData implements _MessageData {
   final bool active;
   @override
   final MessageStatus status;
+  @override
+  final AppException? error;
 
   @override
   String toString() {
-    return 'MessageData(id: $id, author: $author, sentAt: $sentAt, remoteId: $remoteId, active: $active, status: $status)';
+    return 'MessageData(id: $id, author: $author, sentAt: $sentAt, remoteId: $remoteId, active: $active, status: $status, error: $error)';
   }
 
   @override
@@ -210,12 +226,13 @@ class _$_MessageData implements _MessageData {
             (identical(other.remoteId, remoteId) ||
                 other.remoteId == remoteId) &&
             (identical(other.active, active) || other.active == active) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, author, sentAt, remoteId, active, status);
+  int get hashCode => Object.hash(
+      runtimeType, id, author, sentAt, remoteId, active, status, error);
 
   @JsonKey(ignore: true)
   @override
@@ -231,7 +248,8 @@ abstract class _MessageData implements MessageData {
       required final DateTime sentAt,
       final String? remoteId,
       final bool active,
-      required final MessageStatus status}) = _$_MessageData;
+      required final MessageStatus status,
+      final AppException? error}) = _$_MessageData;
 
   @override
   String get id;
@@ -245,6 +263,8 @@ abstract class _MessageData implements MessageData {
   bool get active;
   @override
   MessageStatus get status;
+  @override
+  AppException? get error;
   @override
   @JsonKey(ignore: true)
   _$$_MessageDataCopyWith<_$_MessageData> get copyWith =>
