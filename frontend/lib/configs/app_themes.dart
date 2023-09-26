@@ -35,7 +35,8 @@ abstract class AppThemes {
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: _light.colorScheme.background,
-      shadowColor: _light.shadowColor,
+      surfaceTintColor: _light.colorScheme.background,
+      shadowColor: _light.colorScheme.shadow,
       titleTextStyle: _light.textTheme.titleLarge?.copyWith(
         fontWeight: FontWeight.bold,
       ),

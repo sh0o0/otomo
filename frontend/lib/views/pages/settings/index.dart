@@ -21,7 +21,10 @@ class SettingsPage extends HookConsumerWidget {
     final userNotifier = ref.read(userProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: true),
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const TitleMedium('設定', style: TextStyles.bold),
+      ),
       body: SettingsList(
         lightTheme: appTheme?.settingsTheme,
         sections: [
@@ -60,8 +63,7 @@ class SettingsPage extends HookConsumerWidget {
           SettingsSection(
             tiles: [
               SettingsTile(
-                  title: BodyMedium('アカウント削除',
-                      style: dangerTitleTextStyle),
+                  title: BodyMedium('アカウント削除', style: dangerTitleTextStyle),
                   trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                   onPressed: (_) =>
                       ref.read(routerProvider).push(Routes.accountDeletion)),
