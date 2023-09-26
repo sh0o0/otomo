@@ -4,8 +4,8 @@ abstract class TextStyles {
   static const bold = TextStyle(fontWeight: FontWeight.bold);
 }
 
-abstract class _BaseText extends StatelessWidget {
-  const _BaseText(
+abstract class BaseText extends StatelessWidget {
+  const BaseText(
     this.text, {
     super.key,
     this.style,
@@ -14,18 +14,18 @@ abstract class _BaseText extends StatelessWidget {
   final String text;
   final TextStyle? style;
 
-  TextStyle? _styleOf(BuildContext context);
+  TextStyle? defaultStyle(BuildContext context);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: _styleOf(context)?.merge(style),
+      style: defaultStyle(context)?.merge(style),
     );
   }
 }
 
-class BodySmall extends _BaseText {
+class BodySmall extends BaseText {
   const BodySmall(
     super.text, {
     super.key,
@@ -36,10 +36,10 @@ class BodySmall extends _BaseText {
       Theme.of(context).textTheme.bodySmall;
 
   @override
-  TextStyle? _styleOf(BuildContext context) => styleOf(context);
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
 
-class BodyMedium extends _BaseText {
+class BodyMedium extends BaseText {
   const BodyMedium(
     super.text, {
     super.key,
@@ -50,10 +50,10 @@ class BodyMedium extends _BaseText {
       Theme.of(context).textTheme.bodyMedium;
 
   @override
-  TextStyle? _styleOf(BuildContext context) => styleOf(context);
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
 
-class TitleSmall extends _BaseText {
+class TitleSmall extends BaseText {
   const TitleSmall(
     super.text, {
     super.key,
@@ -64,10 +64,10 @@ class TitleSmall extends _BaseText {
       Theme.of(context).textTheme.titleSmall;
 
   @override
-  TextStyle? _styleOf(BuildContext context) => styleOf(context);
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
 
-class TitleMedium extends _BaseText {
+class TitleMedium extends BaseText {
   const TitleMedium(
     super.text, {
     super.key,
@@ -78,5 +78,5 @@ class TitleMedium extends _BaseText {
       Theme.of(context).textTheme.titleMedium;
 
   @override
-  TextStyle? _styleOf(BuildContext context) => styleOf(context);
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
