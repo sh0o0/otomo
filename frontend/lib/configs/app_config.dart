@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 AppConfig appConfig = AppConfig.fromEnv();
@@ -6,7 +7,7 @@ class Env {
   Env._();
 
   static const String flavorStr = String.fromEnvironment('FLAVOR');
-  static const bool isRelease = bool.fromEnvironment('dart.vm.product');
+  static const bool isRelease = kReleaseMode;
   static const bool isLocal =
       bool.fromEnvironment('IS_LOCAL', defaultValue: false);
   static const String otomoServerHost =
