@@ -76,6 +76,7 @@ func (cc *ChatController) askToMessage(
 		userID = model.UserID(req.GetUserId())
 	)
 
+	// TODO: Now if user is not exist, it can be requested.
 	if !ctxs.AuthRoleIs(ctx, model.AdminAuthRole) {
 		return nil, &errs.Error{
 			Message: "Only admin role can access this method",
