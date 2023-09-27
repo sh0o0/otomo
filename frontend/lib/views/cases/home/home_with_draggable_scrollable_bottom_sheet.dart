@@ -101,7 +101,7 @@ class _HomeWithDraggableScrollableBottomSheetState
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: theme.appBarTheme.shadowColor!,
+                          color: theme.colorScheme.shadow.withOpacity(0.2),
                           blurRadius: 4,
                           spreadRadius: 2,
                           offset: const Offset(0, -2),
