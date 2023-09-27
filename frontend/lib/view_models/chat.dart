@@ -75,10 +75,10 @@ class Chat extends _$Chat {
 
     final messageChangedEventSub = _chatController
         .recentMessageChangedEventsStream(userId: user!.id)
-        .listen(_onMessageChanged);
+        .listen(_onMessageChanged, onError: (e) => logger.error(e.toString()));
     final messagingSub = _chatController
         .messagingStream(userId: user.id)
-        .listen(_onBeMassaged, onError: (e) => logger.error(e.toString()));
+        .listen(_onBeMassaged, onError: (e) => logger.warn(e.toString()));
 
     ref.onDispose(() {
       messageChangedEventSub.cancel();
