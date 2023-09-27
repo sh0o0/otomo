@@ -59,13 +59,12 @@ class ChatControllerImpl {
               ControllerConverter.I.messageChunk.grpcToEntity(event.chunk))
           .asBroadcastStream();
 
-  Stream<List<TextMessageChangedEvent>> messageChangedEventsStream({
+  Stream<List<TextMessageChangedEvent>> recentMessageChangedEventsStream({
     required String userId,
   }) =>
       getIt<FirebaseFirestore>()
           .collection('versions/1/chats/$userId/messages')
-          .orderBy('sent_at', descending: true)
-          .limit(50)
+          .where('sent_at', isGreaterThan: Timestamp.now())
           .snapshots()
           .map((event) => event.docChanges.map((e) {
                 final data = e.doc.data();

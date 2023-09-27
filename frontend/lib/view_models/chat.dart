@@ -66,10 +66,16 @@ class Chat extends _$Chat {
       ChatState(messages: Pagination(items: [], hasMore: true));
 
   Future<void> initState() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final messages = await _listTextMessageData(null, null);
+      return state.value!.copyWith(messages: messages);
+    });
+
     final user = readUser(ref);
 
     final messageChangedEventSub = _chatController
-        .messageChangedEventsStream(userId: user!.id)
+        .recentMessageChangedEventsStream(userId: user!.id)
         .listen(_onMessageChanged, onError: (e) => logger.error(e.toString()));
     final messagingSub = _chatController
         .messagingStream(userId: user.id)
