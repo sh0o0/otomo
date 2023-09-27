@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as types;
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
+import 'package:otomo/views/cases/error/error_text.dart';
+import 'package:otomo/views/utils/error_library.dart';
 
 class HomeChat extends HookConsumerWidget {
   const HomeChat({
@@ -31,10 +34,18 @@ class HomeChat extends HookConsumerWidget {
       decoration: BoxDecoration(
           color: theme.colorScheme.background,
           borderRadius: BorderRadius.circular(16)),
-      child: textMessage.locationAnalysis.hasError
-          ? const Text('地名の解析に失敗しました。')
-          : const Text('エラーが発生しました。'),
+      child: Text(textMessage.locationAnalysis.hasError
+          ? ErrorLibrary.messageLocationAnalysis
+          : ErrorLibrary.fromAny(textMessage.message.error!)),
     );
+  }
+
+  Widget? _emptyState(BuildContext context, AsyncValue<ChatState> state) {
+    if (state.isLoading) const Center(child: AppCircularProgressIndicator());
+    if (state.hasError) {
+      return Center(child: ErrorText(ErrorLibrary.fromAny(state.error!)));
+    }
+    return null;
   }
 
   @override
@@ -42,20 +53,26 @@ class HomeChat extends HookConsumerWidget {
     final state = ref.watch(chatProvider);
     final notifier = ref.read(chatProvider.notifier);
 
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await notifier.initState();
+      });
+      return () {};
+    }, const []);
+
     return ChatUI(
-      messages: state.value?.messagesPage.items ?? [],
+      messages: state.value?.messages.items ?? [],
+      isLastPage: state.value?.messages.hasMore == false,
       onSendPressed: (text) => notifier.sendMessage(text),
       user: ChatState.user,
-      emptyState: state.isLoading
-          ? const Center(child: AppCircularProgressIndicator())
-          : null,
+      emptyState: _emptyState(context, state),
       onEndReached: () => notifier.listMessagesMore(),
       onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
       showStatusPopup: (message) => message.status == MessageStatus.error,
       statusPopupBuilder: (context, message) => _statusPopupBuilder(
         context,
         message,
-        messages: state.value?.messagesPage.items ?? [],
+        messages: state.value?.messages.items ?? [],
       ),
       onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
       customBottomWidget: state.value?.hideTextField == true
@@ -69,7 +86,6 @@ class HomeChat extends HookConsumerWidget {
                 options: inputOptions,
               ),
             ),
-      onBackgroundTap: () => notifier.toggleShowOnlyMessages(),
     );
   }
 }

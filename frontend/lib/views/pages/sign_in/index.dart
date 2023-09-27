@@ -32,10 +32,13 @@ class SignInPage extends HookConsumerWidget {
                   onPressed: () =>
                       ref.read(signInProvider.notifier).signInWithGoogle(),
                 ),
-                ErrorText(
-                  signIn.hasError ? signIn.error.toString() : null,
-                  padding: const EdgeInsets.only(top: 24),
-                ),
+                Visibility(
+                  visible: signIn.hasError,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: ErrorText(signIn.error.toString()),
+                  ),
+                )
                 // Spaces.h24,
                 // TappableText(
                 //   'Continue with email',

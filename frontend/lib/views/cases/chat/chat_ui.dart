@@ -25,6 +25,7 @@ class ChatUI extends StatelessWidget {
     this.customBottomWidget,
     this.showStatusPopup,
     this.statusPopupBuilder,
+    this.isLastPage = false,
   }) : assert(showStatusPopup == null || statusPopupBuilder != null);
 
   final List<TextMessageData> messages;
@@ -40,6 +41,7 @@ class ChatUI extends StatelessWidget {
   final bool Function(MessageData)? showStatusPopup;
   final Widget Function(BuildContext context, MessageData message)?
       statusPopupBuilder;
+  final bool isLastPage;
 
   Widget _buildBubble(
     BuildContext context, {
@@ -50,8 +52,9 @@ class ChatUI extends StatelessWidget {
     final theme = Theme.of(context);
     final chatTheme = theme.extension<AppTheme>()!.chatTheme;
     final size = MediaQuery.of(context).size;
-    final showStatus =
-        messageData.author.isUser || messageData.status != MessageStatus.sent;
+    final showStatus = messageData.author.isUser ||
+        messageData.status == MessageStatus.error ||
+        messageData.status == MessageStatus.sending;
     final isUser = messageData.author.isUser;
 
     late final Color color;
@@ -148,6 +151,7 @@ class ChatUI extends StatelessWidget {
     return ui.Chat(
       messages: ViewConverter.I.message.textDataToViewList(messages),
       onSendPressed: (message) => onSendPressed(message.text),
+      isLastPage: isLastPage,
       user: types.User(id: user.id),
       theme: chatTheme,
       emptyState: emptyState,

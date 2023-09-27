@@ -1,32 +1,38 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/firebase_options/dev.dart' as dev_firebase_opt;
 import 'package:otomo/configs/firebase_options/local.dart'
     as local_firebase_opt;
 import 'package:otomo/configs/injection.dart';
-import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/app.dart';
+import 'package:otomo/views/utils/error_handling.dart';
 
 void main() async {
   logger.info(appConfig.toString());
-  await setup();
-  runApp(const ProviderScope(child: App()));
+  runZonedGuarded(() async {
+    await setup();
+
+    // Hide keyboard when app is hot reloaded
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+    runApp(const ProviderScope(child: App()));
+  }, onRunZoneGuardedError);
 }
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  setupErrorHandling();
   await initializeFirebase();
-
   configureInjection();
-
-  // For initialize id token
-  await getIt<IdTokenController>().setupIdToken();
 
   if (appConfig.isLocal) {
     getIt<FirebaseFirestore>()
@@ -49,4 +55,23 @@ Future<void> initializeFirebase() async {
   }
 
   await Firebase.initializeApp(options: options);
+}
+
+void setupErrorHandling() {
+  FlutterError.onError = (details) {
+    logger.error('Caught error at FlutterError.onError');
+    FlutterError.dumpErrorToConsole(details);
+    if (details.exception is FlutterError) return;
+    showErrorSnackbar(details.exception);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    logger.error('Platform Error: $error', stackTrace: stack);
+    showErrorSnackbar(error);
+    return true;
+  };
+}
+
+void onRunZoneGuardedError(Object error, StackTrace stack) {
+  logger.error('Caught error at ZoneGuarded: $error', stackTrace: stack);
+  showErrorSnackbar(error);
 }

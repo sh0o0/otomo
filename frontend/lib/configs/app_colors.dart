@@ -9,7 +9,7 @@ abstract class AppColors {
   static const barrierColor = Colors.black54;
   static const danger = Color(0xFFE74C3C);
   static const error = Color(0xFFE00020);
-  static const shadow = Colors.black12;
+  static const shadow = Color(0xff000000);
   static const scrim = Color(0xff000000);
 }
 

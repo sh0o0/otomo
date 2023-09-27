@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:otomo/entities/exception.dart';
+import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/user.dart';
 
 class AuthControllerImpl {
@@ -16,6 +16,9 @@ class AuthControllerImpl {
             ? null
             : User(id: authUser.uid, email: authUser.email),
       );
+
+  Future<String?> getIdToken() async =>
+      await _firebaseAuth.currentUser?.getIdToken();
 
   Future<User> signInWithGoogle() async {
     final credential = await _getGoogleAuthCredential();
@@ -45,7 +48,7 @@ class AuthControllerImpl {
       return _firebaseAuth.currentUser?.delete();
     } on auth.FirebaseAuthException catch (e) {
       if (e.code == FirebaseAuthExceptionCode.requiresRecentLogin) {
-        throw AppException(
+        throw const AppException(
           message: 'Please re-authenticate',
           cause: Cause.requiresRecentLogin,
           domain: Domain.auth,
@@ -72,7 +75,10 @@ class AuthControllerImpl {
   }
 }
 
-abstract class FirebaseAuthExceptionCode {
+final class FirebaseAuthExceptionCode {
+  FirebaseAuthExceptionCode._();
+
   static const requiresRecentLogin = 'requires-recent-login';
   static const internalError = 'internal-error';
+  static const networkRequestFailed = 'network-request-failed';
 }

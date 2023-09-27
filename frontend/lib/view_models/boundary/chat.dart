@@ -5,6 +5,7 @@ part 'chat.freezed.dart';
 
 @freezed
 class MessageData with _$MessageData {
+  const MessageData._();
   const factory MessageData({
     required String id,
     required Author author,
@@ -12,7 +13,10 @@ class MessageData with _$MessageData {
     String? remoteId,
     @Default(false) bool active,
     required MessageStatus status,
+    Object? error,
   }) = _MessageData;
+
+  bool get hasError => error != null;
 }
 
 @freezed

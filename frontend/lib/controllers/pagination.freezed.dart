@@ -102,8 +102,8 @@ class __$$_PaginationCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$_Pagination<T> implements _Pagination<T> {
-  const _$_Pagination({required this.items, required this.hasMore});
+class _$_Pagination<T> extends _Pagination<T> {
+  const _$_Pagination({required this.items, required this.hasMore}) : super._();
 
   @override
   final List<T> items;
@@ -135,10 +135,11 @@ class _$_Pagination<T> implements _Pagination<T> {
       __$$_PaginationCopyWithImpl<T, _$_Pagination<T>>(this, _$identity);
 }
 
-abstract class _Pagination<T> implements Pagination<T> {
+abstract class _Pagination<T> extends Pagination<T> {
   const factory _Pagination(
       {required final List<T> items,
       required final bool hasMore}) = _$_Pagination<T>;
+  const _Pagination._() : super._();
 
   @override
   List<T> get items;

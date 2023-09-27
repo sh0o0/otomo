@@ -15,6 +15,15 @@
             ]
         },
         {
+            "name": "Local Release",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--release",
+                "--dart-define-from-file=flavor/local.json"
+            ]
+        },
+        {
             "name": "Develop Debug",
             "request": "launch",
             "type": "dart",

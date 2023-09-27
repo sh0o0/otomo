@@ -14,8 +14,8 @@ abstract class AppThemes {
       onSecondary: AppColors.onSecondary,
       background: Colors.white,
       onBackground: AppLightColors.onBackground,
-      surfaceVariant: AppLightColors.surface,
-      onSurfaceVariant: AppLightColors.onBackground,
+      surface: AppLightColors.surface,
+      onSurface: AppLightColors.onBackground,
       error: AppColors.error,
       onError: Colors.white,
       errorContainer: AppLightColors.hintColor,
@@ -40,6 +40,13 @@ abstract class AppThemes {
       titleTextStyle: _light.textTheme.titleLarge?.copyWith(
         fontWeight: FontWeight.bold,
       ),
+    ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: _light.colorScheme.surface,
+      contentTextStyle: _light.textTheme.bodyMedium,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      behavior: SnackBarBehavior.floating,
+      elevation: 2,
     ),
     extensions: <ThemeExtension>[
       AppTheme(
