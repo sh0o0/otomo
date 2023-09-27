@@ -128,15 +128,13 @@ class Chat extends _$Chat {
     final lastMessageId = preValue.messages.items.last.message.remoteId;
 
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final page = await _listTextMessageData(null, lastMessageId);
-      return preValue.copyWith(
-        messages: Pagination(
-          items: [...preValue.messages.items, ...page.items],
-          hasMore: page.hasMore,
-        ),
-      );
-    });
+    final page = await _listTextMessageData(null, lastMessageId);
+    state = AsyncValue.data(preValue.copyWith(
+      messages: Pagination(
+        items: [...preValue.messages.items, ...page.items],
+        hasMore: page.hasMore,
+      ),
+    ));
   }
 
   Future<Pagination<TextMessageData>> _listTextMessageData(

@@ -43,9 +43,7 @@ abstract class AppThemes {
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: _light.colorScheme.surface,
-      contentTextStyle: _light.textTheme.bodyMedium?.copyWith(
-        fontWeight: FontWeight.bold,
-      ),
+      contentTextStyle: _light.textTheme.bodyMedium,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       behavior: SnackBarBehavior.floating,
       elevation: 2,
