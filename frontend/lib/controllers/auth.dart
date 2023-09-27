@@ -17,6 +17,9 @@ class AuthControllerImpl {
             : User(id: authUser.uid, email: authUser.email),
       );
 
+  Future<String?> getIdToken() async =>
+      await _firebaseAuth.currentUser?.getIdToken();
+
   Future<User> signInWithGoogle() async {
     final credential = await _getGoogleAuthCredential();
     return _signInWithCredential(credential);

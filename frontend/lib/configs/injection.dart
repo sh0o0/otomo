@@ -4,11 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:otomo/controllers/auth.dart';
-import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/injection.config.dart';
-import 'package:otomo/controllers/id_token.dart';
+import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
@@ -52,13 +50,9 @@ abstract class InjectableModule {
     scopes: ['email'],
   );
 
-  static IdTokenController get _idTokenController =>
-      IdTokenControllerImpl(_firebaseAuth);
   static AuthControllerImpl get _authController =>
       AuthControllerImpl(_firebaseAuth, _googleSignIn);
 
-  @singleton
-  IdTokenController get idTokenController => _idTokenController;
   @singleton
   AuthControllerImpl get authController => _authController;
 
@@ -72,7 +66,7 @@ abstract class InjectableModule {
   static final _retryClientInterceptor =
       RetryOnUnavailableErrorClientInterceptor(retries: 1);
   static final _injectAuthHeaderClientInterceptor =
-      AuthClientInterceptor(_idTokenController, _authController);
+      AuthClientInterceptor(_authController);
 }
 
 @InjectableInit()

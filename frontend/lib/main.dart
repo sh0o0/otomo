@@ -12,7 +12,6 @@ import 'package:otomo/configs/firebase_options/dev.dart' as dev_firebase_opt;
 import 'package:otomo/configs/firebase_options/local.dart'
     as local_firebase_opt;
 import 'package:otomo/configs/injection.dart';
-import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/app.dart';
 import 'package:otomo/views/utils/error_handling.dart';
@@ -34,9 +33,6 @@ Future<void> setup() async {
   setupErrorHandling();
   await initializeFirebase();
   configureInjection();
-
-  // For initialize id token
-  await getIt<IdTokenController>().setupIdToken();
 
   if (appConfig.isLocal) {
     getIt<FirebaseFirestore>()
