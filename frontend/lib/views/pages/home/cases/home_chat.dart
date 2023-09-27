@@ -62,6 +62,7 @@ class HomeChat extends HookConsumerWidget {
 
     return ChatUI(
       messages: state.value?.messages.items ?? [],
+      isLastPage: state.value?.messages.hasMore == false,
       onSendPressed: (text) => notifier.sendMessage(text),
       user: ChatState.user,
       emptyState: _emptyState(context, state),
