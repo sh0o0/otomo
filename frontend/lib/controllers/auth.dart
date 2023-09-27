@@ -75,7 +75,10 @@ class AuthControllerImpl {
   }
 }
 
-abstract class FirebaseAuthExceptionCode {
+final class FirebaseAuthExceptionCode {
+  FirebaseAuthExceptionCode._();
+
   static const requiresRecentLogin = 'requires-recent-login';
   static const internalError = 'internal-error';
+  static const networkRequestFailed = 'network-request-failed';
 }
