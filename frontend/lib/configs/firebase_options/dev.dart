@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'dev.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -57,16 +57,16 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM',
-    appId: '1:764287781247:android:b9adf9dd0437513d38324a',
+    apiKey: 'AIzaSyBxl5wAVdAFaDOXGIiF_Rp0eiO6Y5-85gQ',
+    appId: '1:764287781247:android:3d61926b1609d8d538324a',
     messagingSenderId: '764287781247',
     projectId: 'otomo-dev-396006',
     storageBucket: 'otomo-dev-396006.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB4iZmAs6mj_th1qer5c8tkK1l9cD5QeEc',
-    appId: '1:764287781247:ios:4668d774548f187738324a',
+    apiKey: 'AIzaSyDPfVlO8PZ3mXYmtEcGURM2KIbqOHp7YnI',
+    appId: '1:764287781247:ios:30e5173bf78622a838324a',
     messagingSenderId: '764287781247',
     projectId: 'otomo-dev-396006',
     storageBucket: 'otomo-dev-396006.appspot.com',
