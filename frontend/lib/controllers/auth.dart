@@ -45,7 +45,7 @@ class AuthControllerImpl {
       return _firebaseAuth.currentUser?.delete();
     } on auth.FirebaseAuthException catch (e) {
       if (e.code == FirebaseAuthExceptionCode.requiresRecentLogin) {
-        throw AppException(
+        throw const AppException(
           message: 'Please re-authenticate',
           cause: Cause.requiresRecentLogin,
           domain: Domain.auth,
