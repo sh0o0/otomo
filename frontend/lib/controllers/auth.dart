@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/user.dart';
+import 'package:otomo/tools/logger.dart';
 
 class AuthControllerImpl {
   AuthControllerImpl(this._firebaseAuth, this._googleSignIn);
@@ -17,8 +18,17 @@ class AuthControllerImpl {
             : User(id: authUser.uid, email: authUser.email),
       );
 
-  Future<String?> getIdToken() async =>
-      await _firebaseAuth.currentUser?.getIdToken();
+  Future<String?> getIdToken() async {
+    try {
+      return await _firebaseAuth.currentUser?.getIdToken();
+    } on auth.FirebaseAuthException catch (e) {
+      if (e.code == FirebaseAuthExceptionCode.noSuchProvider) {
+        logger.warn('no such provider. signing out');
+        await _firebaseAuth.signOut();
+      }
+      rethrow;
+    }
+  }
 
   Future<User> signInWithGoogle() async {
     final credential = await _getGoogleAuthCredential();
@@ -81,4 +91,5 @@ final class FirebaseAuthExceptionCode {
   static const requiresRecentLogin = 'requires-recent-login';
   static const internalError = 'internal-error';
   static const networkRequestFailed = 'network-request-failed';
+  static const noSuchProvider = 'no-such-provider';
 }
