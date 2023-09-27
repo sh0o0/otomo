@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_config.dart';
@@ -16,15 +17,16 @@ import 'package:otomo/views/app.dart';
 
 void main() async {
   logger.info(appConfig.toString());
-  await setup();
-  runApp(const ProviderScope(child: App()));
+  runZonedGuarded(() async {
+    await setup();
+    runApp(const ProviderScope(child: App()));
+  }, (error, stack) {});
 }
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  setupErrorHandling();
   await initializeFirebase();
-
   configureInjection();
 
   // For initialize id token
@@ -51,4 +53,14 @@ Future<void> initializeFirebase() async {
   }
 
   await Firebase.initializeApp(options: options);
+}
+
+void setupErrorHandling() {
+  FlutterError.onError = (details) {
+    FlutterError.reportError(details);
+  };
+  PlatformDispatcher.instance.onError = (e, s) {
+    logger.warn('Platform Error: $e, $s');
+    return true;
+  };
 }
