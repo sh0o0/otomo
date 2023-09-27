@@ -20,7 +20,7 @@ void main() async {
   runZonedGuarded(() async {
     await setup();
     runApp(const ProviderScope(child: App()));
-  }, (error, stack) {});
+  }, runZoneGuardedLog);
 }
 
 Future<void> setup() async {
@@ -57,10 +57,14 @@ Future<void> initializeFirebase() async {
 
 void setupErrorHandling() {
   FlutterError.onError = (details) {
-    FlutterError.reportError(details);
+    FlutterError.dumpErrorToConsole(details);
   };
   PlatformDispatcher.instance.onError = (e, s) {
     logger.warn('Platform Error: $e, $s');
     return true;
   };
+}
+
+void runZoneGuardedLog(Object e, StackTrace s) {
+  logger.warn('ZoneGuarded: $e, $s');
 }

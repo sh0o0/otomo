@@ -7,11 +7,18 @@ import 'package:otomo/views/router.dart';
 class App extends ConsumerWidget {
   const App({super.key});
 
+  static final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+
+  static void showSnackBar(SnackBar snackBar) {
+    _scaffoldKey.currentState?.showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
+      scaffoldMessengerKey: _scaffoldKey,
       title: 'Otomo',
       theme: AppThemes.light,
       darkTheme: AppThemes.dark,
