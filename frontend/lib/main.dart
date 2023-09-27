@@ -14,13 +14,14 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/boundary/id_token.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/app.dart';
+import 'package:otomo/views/utils/error_handling.dart';
 
 void main() async {
   logger.info(appConfig.toString());
   runZonedGuarded(() async {
     await setup();
     runApp(const ProviderScope(child: App()));
-  }, runZoneGuardedLog);
+  }, onRunZoneGuardedError);
 }
 
 Future<void> setup() async {
@@ -57,14 +58,18 @@ Future<void> initializeFirebase() async {
 
 void setupErrorHandling() {
   FlutterError.onError = (details) {
+    logger.error('Caught error at FlutterError.onError');
     FlutterError.dumpErrorToConsole(details);
+    showErrorSnackbar(details.exception);
   };
-  PlatformDispatcher.instance.onError = (e, s) {
-    logger.warn('Platform Error: $e, $s');
+  PlatformDispatcher.instance.onError = (error, stack) {
+    logger.error('Platform Error: $error', stackTrace: stack);
+    showErrorSnackbar(error);
     return true;
   };
 }
 
-void runZoneGuardedLog(Object e, StackTrace s) {
-  logger.warn('ZoneGuarded: $e, $s');
+void onRunZoneGuardedError(Object error, StackTrace stack) {
+  logger.error('Caught error at ZoneGuarded: $error', stackTrace: stack);
+  showErrorSnackbar(error);
 }

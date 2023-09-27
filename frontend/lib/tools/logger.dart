@@ -6,8 +6,24 @@ var logger = Logger();
 class Logger {
   final _l = l.Logger(level: appConfig.logLevel);
 
-  void debug(String message) => _l.d(message);
-  void info(String message) => _l.i(message);
-  void warn(String message) => _l.w(message);
-  void error(String message) => _l.e(message);
+  void debug(
+    dynamic message, {
+    StackTrace? stackTrace,
+  }) =>
+      _l.d(message, stackTrace: stackTrace);
+  void info(
+    dynamic message, {
+    StackTrace? stackTrace,
+  }) =>
+      _l.i(message, stackTrace: stackTrace);
+  void warn(
+    dynamic message, {
+    StackTrace? stackTrace,
+  }) =>
+      _l.w(message, stackTrace: stackTrace);
+  void error(
+    dynamic message, {
+    StackTrace? stackTrace,
+  }) =>
+      _l.e(message, stackTrace: stackTrace);
 }

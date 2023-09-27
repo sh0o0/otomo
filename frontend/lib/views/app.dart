@@ -9,8 +9,11 @@ class App extends ConsumerWidget {
 
   static final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
-  static void showSnackBar(SnackBar snackBar) {
-    _scaffoldKey.currentState?.showSnackBar(snackBar);
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason>?
+      showSnackBar(
+    SnackBar snackBar,
+  ) {
+    return _scaffoldKey.currentState?.showSnackBar(snackBar);
   }
 
   @override
