@@ -64,6 +64,8 @@ class ChatControllerImpl {
   }) =>
       getIt<FirebaseFirestore>()
           .collection('versions/1/chats/$userId/messages')
+          .orderBy('sent_at', descending: true)
+          .limit(50)
           .snapshots()
           .map((event) => event.docChanges.map((e) {
                 final data = e.doc.data();

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/firebase_options/dev.dart' as dev_firebase_opt;
@@ -20,6 +21,10 @@ void main() async {
   logger.info(appConfig.toString());
   runZonedGuarded(() async {
     await setup();
+
+    // Hide keyboard when app is hot reloaded
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
     runApp(const ProviderScope(child: App()));
   }, onRunZoneGuardedError);
 }
