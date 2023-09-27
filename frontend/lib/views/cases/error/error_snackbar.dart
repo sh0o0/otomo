@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
-import 'package:otomo/views/bases/texts/texts.dart';
 
 final class ErrorSnackbar {
   ErrorSnackbar._();
@@ -20,6 +19,6 @@ final class ErrorSnackbar {
   }
 
   static SnackBar text(String text) {
-    return build(content: BodyMedium(text));
+    return build(content: Text(text));
   }
 }

@@ -60,6 +60,7 @@ void setupErrorHandling() {
   FlutterError.onError = (details) {
     logger.error('Caught error at FlutterError.onError');
     FlutterError.dumpErrorToConsole(details);
+    if (details.exception is FlutterError) return;
     showErrorSnackbar(details.exception);
   };
   PlatformDispatcher.instance.onError = (error, stack) {
