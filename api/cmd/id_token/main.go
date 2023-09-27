@@ -12,11 +12,6 @@ import (
 	firebase "firebase.google.com/go/v4"
 )
 
-const (
-	remoteVerifyCustomTokenURL = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=%s"
-	localVerifyCustomTokenURL  = "http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=%s"
-)
-
 var (
 	// # Config
 	userID            = os.Getenv("USER_ID")
@@ -27,6 +22,11 @@ var (
 	// Must set GOOGLE_APPLICATION_CREDENTIALS or FIREBASE_AUTH_EMULATOR_HOST
 	_ = os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")
 	_ = os.Getenv("FIREBASE_AUTH_EMULATOR_HOST")
+)
+
+const (
+	remoteVerifyCustomTokenURL = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=%s"
+	localVerifyCustomTokenURL  = "http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=%s"
 )
 
 func main() {
