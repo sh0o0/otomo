@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/exception.dart';
 import 'package:otomo/entities/message.dart';
 
 part 'chat.freezed.dart';
@@ -14,7 +13,7 @@ class MessageData with _$MessageData {
     String? remoteId,
     @Default(false) bool active,
     required MessageStatus status,
-    AppException? error,
+    Object? error,
   }) = _MessageData;
 
   bool get hasError => error != null;

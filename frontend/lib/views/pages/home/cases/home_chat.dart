@@ -35,8 +35,8 @@ class HomeChat extends HookConsumerWidget {
           color: theme.colorScheme.background,
           borderRadius: BorderRadius.circular(16)),
       child: Text(textMessage.locationAnalysis.hasError
-          ? ErrorLibrary.messageLocationAnalysisError
-          : ErrorLibrary.fromAppException(textMessage.message.error!)),
+          ? ErrorLibrary.messageLocationAnalysis
+          : ErrorLibrary.fromAny(textMessage.message.error!)),
     );
   }
 

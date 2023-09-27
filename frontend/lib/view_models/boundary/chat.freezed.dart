@@ -22,7 +22,7 @@ mixin _$MessageData {
   String? get remoteId => throw _privateConstructorUsedError;
   bool get active => throw _privateConstructorUsedError;
   MessageStatus get status => throw _privateConstructorUsedError;
-  AppException? get error => throw _privateConstructorUsedError;
+  Object? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MessageDataCopyWith<MessageData> get copyWith =>
@@ -42,7 +42,7 @@ abstract class $MessageDataCopyWith<$Res> {
       String? remoteId,
       bool active,
       MessageStatus status,
-      AppException? error});
+      Object? error});
 
   $AuthorCopyWith<$Res> get author;
 }
@@ -93,10 +93,7 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as MessageStatus,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as AppException?,
+      error: freezed == error ? _value.error : error,
     ) as $Val);
   }
 
@@ -124,7 +121,7 @@ abstract class _$$_MessageDataCopyWith<$Res>
       String? remoteId,
       bool active,
       MessageStatus status,
-      AppException? error});
+      Object? error});
 
   @override
   $AuthorCopyWith<$Res> get author;
@@ -174,10 +171,7 @@ class __$$_MessageDataCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as MessageStatus,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as AppException?,
+      error: freezed == error ? _value.error : error,
     ));
   }
 }
@@ -209,7 +203,7 @@ class _$_MessageData extends _MessageData {
   @override
   final MessageStatus status;
   @override
-  final AppException? error;
+  final Object? error;
 
   @override
   String toString() {
@@ -228,12 +222,12 @@ class _$_MessageData extends _MessageData {
                 other.remoteId == remoteId) &&
             (identical(other.active, active) || other.active == active) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.error, error) || other.error == error));
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, author, sentAt, remoteId, active, status, error);
+  int get hashCode => Object.hash(runtimeType, id, author, sentAt, remoteId,
+      active, status, const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -250,7 +244,7 @@ abstract class _MessageData extends MessageData {
       final String? remoteId,
       final bool active,
       required final MessageStatus status,
-      final AppException? error}) = _$_MessageData;
+      final Object? error}) = _$_MessageData;
   const _MessageData._() : super._();
 
   @override
@@ -266,7 +260,7 @@ abstract class _MessageData extends MessageData {
   @override
   MessageStatus get status;
   @override
-  AppException? get error;
+  Object? get error;
   @override
   @JsonKey(ignore: true)
   _$$_MessageDataCopyWith<_$_MessageData> get copyWith =>

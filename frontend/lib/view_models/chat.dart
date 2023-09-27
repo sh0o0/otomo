@@ -6,7 +6,6 @@ import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/controllers/utils.dart';
 import 'package:otomo/entities/changed_event.dart';
-import 'package:otomo/entities/exception.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
 import 'package:otomo/tools/logger.dart';
@@ -76,7 +75,7 @@ class Chat extends _$Chat {
 
     final messageChangedEventSub = _chatController
         .recentMessageChangedEventsStream(userId: user!.id)
-        .listen(_onMessageChanged, onError: (e) => logger.error(e.toString()));
+        .listen(_onMessageChanged);
     final messagingSub = _chatController
         .messagingStream(userId: user.id)
         .listen(_onBeMassaged, onError: (e) => logger.error(e.toString()));
@@ -111,7 +110,9 @@ class Chat extends _$Chat {
       );
     } catch (e) {
       final errorTextMessageData = newTextMessageData.copyWith.message(
-          status: MessageStatus.error, error: AppException.orUnknown(e));
+        status: MessageStatus.error,
+        error: e,
+      );
       _updateTextMessage(errorTextMessageData);
       return;
     }

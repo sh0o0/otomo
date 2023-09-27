@@ -13,9 +13,6 @@ class AppException implements Exception {
         field: Field.none,
       );
 
-  factory AppException.orUnknown(Object e) =>
-      e is AppException ? e : AppException.unknown(e.toString());
-
   final String message;
   final Cause cause;
   final Domain domain;

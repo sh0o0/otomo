@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:otomo/entities/exception.dart';
+import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/user.dart';
 
 class AuthControllerImpl {
