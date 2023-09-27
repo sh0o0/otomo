@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "764287781247-04jfo3485hq46egsobj35orn463v2lsq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nakar0.otomo.develop",
+            "certificate_hash": "bc843b984cf08dc2096c520328e026f1a083f37a"
+          }
+        },
+        {
           "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -49,6 +57,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "764287781247-38lsn1b4igo4b2ajpk10v7hg74ve2jfo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nakar0.otomo.local",
+            "certificate_hash": "bc843b984cf08dc2096c520328e026f1a083f37a"
+          }
+        },
         {
           "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
           "client_type": 3

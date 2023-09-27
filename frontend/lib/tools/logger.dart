@@ -1,10 +1,10 @@
-import 'package:logger/logger.dart' as l;
+import 'package:logger/logger.dart' as log;
 import 'package:otomo/configs/app_config.dart';
 
 var logger = Logger();
 
 class Logger {
-  final _l = l.Logger(level: appConfig.logLevel);
+  final _l = log.Logger(level: appConfig.logLevel);
 
   void debug(
     dynamic message, {

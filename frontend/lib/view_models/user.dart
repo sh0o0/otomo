@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
@@ -13,6 +14,8 @@ class UserNotifier extends StateNotifier<User?> {
     _authController.authStateChanges().listen((user) {
       state = user;
       logger.info('auth state changed. user is ${user?.id}');
+      if (user == null) return;
+      getIt<FirebaseCrashlytics>().setUserIdentifier(user.id);
     });
   }
 
