@@ -5,8 +5,6 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestYearMonth_In(t *testing.T) {
@@ -23,7 +21,39 @@ func TestYearMonth_In(t *testing.T) {
 		args   args
 		want   bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Should return true when given time is in same year and month",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: true,
+		},
+		{
+			name: "Should return false when given time is before the year and time",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: false,
+		},
+		{
+			name: "Should return false when given time is after the year and time",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2020, 2, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
@@ -53,7 +83,39 @@ func TestYearMonth_After(t *testing.T) {
 		args   args
 		want   bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Should return true when year month is after given time",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: true,
+		},
+		{
+			name: "Should return false when year month is before given time",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2020, 2, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: false,
+		},
+		{
+			name: "Should return false when year month is same given time",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
@@ -83,7 +145,39 @@ func TestYearMonth_Before(t *testing.T) {
 		args   args
 		want   bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Should return true when year month is before given time",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2021, 1, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: true,
+		},
+		{
+			name: "Should return false when year month is after given time",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2019, 2, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: false,
+		},
+		{
+			name: "Should return false when year month is same given time",
+			fields: fields{
+				Year:  2020,
+				Month: 1,
+			},
+			args: args{
+				t: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt

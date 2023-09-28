@@ -26,7 +26,7 @@ func TestOtomoRepository_Save_ShouldAddOtomo_WhenArgsAreValid(t *testing.T) {
 	}
 
 	snapshot, err := systemtest.FirestoreClient.
-		Doc(getOtomoDocPath(giveUserID)).
+		Doc(GetOtomoDocPath(giveUserID)).
 		Get(giveCtx)
 	if err != nil {
 		t.Fatal(err)
@@ -56,7 +56,7 @@ func TestOtomoRepository_Save_ShouldUpdateOtomo_WhenArgsAreValid(t *testing.T) {
 	}
 
 	snapshot, err := systemtest.FirestoreClient.
-		Doc(getOtomoDocPath(giveUserID)).
+		Doc(GetOtomoDocPath(giveUserID)).
 		Get(giveCtx)
 	if err != nil {
 		t.Fatal(err)

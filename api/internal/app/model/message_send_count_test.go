@@ -9,7 +9,7 @@ import (
 func TestMonthlySurplusSentCount_IsRemaining(t *testing.T) {
 	type fields struct {
 		YearMonth YearMonth
-		Daily     []*DailySentMessageCount
+		Daily     []*DailyMessageSentCount
 	}
 	tests := []struct {
 		name   string
@@ -20,7 +20,7 @@ func TestMonthlySurplusSentCount_IsRemaining(t *testing.T) {
 			name: "Should return false when one day count is 35",
 			fields: fields{
 				YearMonth: YearMonth{},
-				Daily: []*DailySentMessageCount{
+				Daily: []*DailyMessageSentCount{
 					{
 						Count: 35,
 					},
@@ -32,7 +32,7 @@ func TestMonthlySurplusSentCount_IsRemaining(t *testing.T) {
 			name: "Should return true when one day count is 34",
 			fields: fields{
 				YearMonth: YearMonth{},
-				Daily: []*DailySentMessageCount{
+				Daily: []*DailyMessageSentCount{
 					{
 						Count: 34,
 					},
@@ -45,7 +45,7 @@ func TestMonthlySurplusSentCount_IsRemaining(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			m := &MonthlySurplusSentMessageCount{
+			m := &MonthlySurplusMessageSentCount{
 				YearMonth: tt.fields.YearMonth,
 				Daily:     tt.fields.Daily,
 			}
@@ -58,7 +58,7 @@ func TestMonthlySurplusSentCount_IsRemaining(t *testing.T) {
 func TestMonthlySurplusSentCount_Count(t *testing.T) {
 	type fields struct {
 		YearMonth YearMonth
-		Daily     []*DailySentMessageCount
+		Daily     []*DailyMessageSentCount
 	}
 	tests := []struct {
 		name   string
@@ -69,7 +69,7 @@ func TestMonthlySurplusSentCount_Count(t *testing.T) {
 			name: "Should return 1 when one day count is 6",
 			fields: fields{
 				YearMonth: YearMonth{},
-				Daily: []*DailySentMessageCount{
+				Daily: []*DailyMessageSentCount{
 					{
 						Count: 6,
 					},
@@ -87,7 +87,7 @@ func TestMonthlySurplusSentCount_Count(t *testing.T) {
 			name: "Should return 2 when two day count is 6",
 			fields: fields{
 				YearMonth: YearMonth{},
-				Daily: []*DailySentMessageCount{
+				Daily: []*DailyMessageSentCount{
 					{
 						Count: 6,
 					},
@@ -105,7 +105,7 @@ func TestMonthlySurplusSentCount_Count(t *testing.T) {
 			name: "Should return 0 when no day count is exceeded",
 			fields: fields{
 				YearMonth: YearMonth{},
-				Daily: []*DailySentMessageCount{
+				Daily: []*DailyMessageSentCount{
 					{
 						Count: 5,
 					},
@@ -124,7 +124,7 @@ func TestMonthlySurplusSentCount_Count(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			m := &MonthlySurplusSentMessageCount{
+			m := &MonthlySurplusMessageSentCount{
 				YearMonth: tt.fields.YearMonth,
 				Daily:     tt.fields.Daily,
 			}
@@ -137,7 +137,7 @@ func TestMonthlySurplusSentCount_Count(t *testing.T) {
 func TestMonthlySurplusSentCount_CountRemaining(t *testing.T) {
 	type fields struct {
 		YearMonth YearMonth
-		Daily     []*DailySentMessageCount
+		Daily     []*DailyMessageSentCount
 	}
 	tests := []struct {
 		name   string
@@ -148,7 +148,7 @@ func TestMonthlySurplusSentCount_CountRemaining(t *testing.T) {
 			name: "Should return 0 when one day count is 35",
 			fields: fields{
 				YearMonth: YearMonth{},
-				Daily: []*DailySentMessageCount{
+				Daily: []*DailyMessageSentCount{
 					{
 						Count: 35,
 					},
@@ -160,7 +160,7 @@ func TestMonthlySurplusSentCount_CountRemaining(t *testing.T) {
 			name: "Should return 1 when one day count is 34",
 			fields: fields{
 				YearMonth: YearMonth{},
-				Daily: []*DailySentMessageCount{
+				Daily: []*DailyMessageSentCount{
 					{
 						Count: 34,
 					},
@@ -172,7 +172,7 @@ func TestMonthlySurplusSentCount_CountRemaining(t *testing.T) {
 			name: "Should return 30 when days count is 5",
 			fields: fields{
 				YearMonth: YearMonth{},
-				Daily: []*DailySentMessageCount{
+				Daily: []*DailyMessageSentCount{
 					{
 						Count: 5,
 					},
@@ -191,7 +191,7 @@ func TestMonthlySurplusSentCount_CountRemaining(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			m := &MonthlySurplusSentMessageCount{
+			m := &MonthlySurplusMessageSentCount{
 				YearMonth: tt.fields.YearMonth,
 				Daily:     tt.fields.Daily,
 			}
@@ -232,7 +232,7 @@ func TestDailySentCount_IsRemaining(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			d := &DailySentMessageCount{
+			d := &DailyMessageSentCount{
 				Day:   tt.fields.Day,
 				Count: tt.fields.Count,
 			}
@@ -281,7 +281,7 @@ func TestDailySentCount_CountRemaining(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			d := &DailySentMessageCount{
+			d := &DailyMessageSentCount{
 				Day:   tt.fields.Day,
 				Count: tt.fields.Count,
 			}
@@ -322,7 +322,7 @@ func TestDailySentCount_CountExceeded(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			d := &DailySentMessageCount{
+			d := &DailyMessageSentCount{
 				Day:   tt.fields.Day,
 				Count: tt.fields.Count,
 			}

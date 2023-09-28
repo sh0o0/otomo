@@ -10,5 +10,5 @@ type MessageSentCountQuery interface {
 		ctx context.Context,
 		userID model.UserID,
 		yearMonth model.YearMonth,
-	) (*model.MonthlySurplusSentMessageCount, error)
+	) (*model.MonthlySurplusMessageSentCount, error)
 }

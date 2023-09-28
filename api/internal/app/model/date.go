@@ -28,10 +28,10 @@ func NewYearMonth(year Year, month Month) YearMonth {
 }
 
 func NewYearMonthFromTime(t time.Time) YearMonth {
-	return NewYearMonth(
-		Year(t.Year()),
-		Month(t.Month()),
-	)
+	return YearMonth{
+		Year:  Year(t.Year()),
+		Month: Month(t.Month()),
+	}
 }
 
 func (ym YearMonth) In(t time.Time) bool {

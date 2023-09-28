@@ -142,7 +142,7 @@ func (mr *MessageRepository) getCollection(
 	ctx context.Context,
 	userID model.UserID,
 ) *firestore.CollectionRef {
-	return mr.fsClient.Collection(getMessagesColPath(userID))
+	return mr.fsClient.Collection(GetMessagesColPath(userID))
 }
 
 func (mr *MessageRepository) getDoc(
@@ -150,7 +150,7 @@ func (mr *MessageRepository) getDoc(
 	userID model.UserID,
 	id model.MessageID,
 ) *firestore.DocumentRef {
-	return mr.fsClient.Doc(getMessageDocPath(userID, id))
+	return mr.fsClient.Doc(GetMessageDocPath(userID, id))
 }
 
 func (mr *MessageRepository) snapToMessage(
