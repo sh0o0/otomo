@@ -14,6 +14,7 @@ import 'package:otomo/configs/firebase_options/local.dart'
     as local_firebase_opt;
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/tools/logger.dart';
+import 'package:otomo/tools/app_package_info.dart';
 import 'package:otomo/views/app.dart';
 import 'package:otomo/views/utils/error_handling.dart';
 
@@ -41,6 +42,8 @@ Future<void> setup() async {
     await getIt<FirebaseAuth>()
         .useAuthEmulator(appConfig.otomoServerHost, 9099);
   }
+
+  await AppPackageInfo.init();
 }
 
 Future<void> initializeFirebase() async {
