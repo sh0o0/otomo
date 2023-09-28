@@ -3,9 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/view_models/user.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
-import 'package:otomo/views/cases/settings/settings_list.dart';
-import 'package:otomo/views/cases/settings/settings_section.dart';
-import 'package:otomo/views/cases/settings/settings_tile.dart';
+import 'package:otomo/views/cases/settings/app_settings_list.dart';
+import 'package:otomo/views/cases/settings/app_settings_section.dart';
+import 'package:otomo/views/cases/settings/app_settings_tile.dart';
 import 'package:otomo/views/router.dart';
 
 class SettingsPage extends HookConsumerWidget {
