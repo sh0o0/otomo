@@ -10,17 +10,17 @@ type DailySentCount struct {
 	Count int32 `firestore:"count"`
 }
 
-type RemindingSendCount struct {
-	Monthly RemindingMonthlySendCount `firestore:"monthly"`
-	Daily   RemindingDailySendCount   `firestore:"daily"`
+type RemainingSendCount struct {
+	Monthly RemainingMonthlySendCount `firestore:"monthly"`
+	Daily   RemainingDailySendCount   `firestore:"daily"`
 }
 
-type RemindingMonthlySendCount struct {
+type RemainingMonthlySendCount struct {
 	YearMonth YearMonth `firestore:"year_month"`
 	Count     int32     `firestore:"count"`
 }
 
-type RemindingDailySendCount struct {
+type RemainingDailySendCount struct {
 	Date  Date  `firestore:"date"`
 	Count int32 `firestore:"count"`
 }

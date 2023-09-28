@@ -393,9 +393,9 @@ func (cc *ChatController) messagingStream(
 	return nil
 }
 
-func (cs *ChatController) GetReminingSendCount(
+func (cs *ChatController) GetRemainingSendCount(
 	_ context.Context,
-	_ *grpcgen.ChatService_GetReminingSendCountRequest,
-) (*grpcgen.ChatService_GetReminingSendCountResponse, error) {
+	_ *grpcgen.ChatService_GetRemainingSendCountRequest,
+) (*grpcgen.ChatService_GetRemainingSendCountResponse, error) {
 	panic("not implemented") // TODO: Implement
 }
