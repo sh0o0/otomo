@@ -392,3 +392,10 @@ func (cc *ChatController) messagingStream(
 
 	return nil
 }
+
+func (cs *ChatController) GetReminingSendCount(
+	_ context.Context,
+	_ *grpcgen.ChatService_GetReminingSendCountRequest,
+) (*grpcgen.ChatService_GetReminingSendCountResponse, error) {
+	panic("not implemented") // TODO: Implement
+}
