@@ -78,6 +78,7 @@ dependencies:
   json_annotation: ^4.8.1
   async: ^2.11.0
   faker: ^2.1.0
+  package_info_plus: ^4.1.0
 
 dev_dependencies:
   flutter_test:
