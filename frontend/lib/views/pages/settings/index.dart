@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/configs/app_themes.dart';
+import 'package:otomo/configs/links.dart';
 import 'package:otomo/view_models/user.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
-import 'package:otomo/views/cases/settings/settings_list.dart';
-import 'package:otomo/views/cases/settings/settings_section.dart';
-import 'package:otomo/views/cases/settings/settings_tile.dart';
+import 'package:otomo/views/cases/danger/danger_text.dart';
+import 'package:otomo/views/cases/settings/app_settings_list.dart';
+import 'package:otomo/views/cases/settings/app_settings_section.dart';
+import 'package:otomo/views/cases/settings/app_settings_tile.dart';
 import 'package:otomo/views/router.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appTheme = Theme.of(context).extension<AppTheme>();
-    final dangerTitleTextStyle = TextStyle(
-      color: appTheme?.dangerColor,
-      fontWeight: FontWeight.bold,
-    );
-
     final user = ref.watch(userProvider);
     final userNotifier = ref.read(userProvider.notifier);
 
@@ -30,12 +26,12 @@ class SettingsPage extends HookConsumerWidget {
       body: AppSettingsList(
         sections: [
           AppSettingsSection(
-            title: const BodyMedium('アカウント'),
+            title: const Text('アカウント'),
             tiles: [
               AppSettingsTile(
                 leading: const Icon(Icons.email),
                 title: const BodySmall('メールアドレス'),
-                value: BodyMedium(user?.email ?? ''),
+                value: Text(user?.email ?? ''),
               ),
             ],
           ),
@@ -48,11 +44,23 @@ class SettingsPage extends HookConsumerWidget {
           // Terms of service
           // Acknowledgements
 
-          // Sign Out
+          AppSettingsSection(
+            title: const Text('ヘルプ'),
+            tiles: [
+              AppSettingsTile(
+                title: const Text('お問い合わせ'),
+                leading: const Icon(Icons.question_mark_rounded),
+                trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+                onPressed: (_) => launchUrlString(
+                    Links.inquiry(user?.id ?? '', user?.email ?? '')),
+              ),
+            ],
+          ),
+
           AppSettingsSection(
             tiles: [
               AppSettingsTile(
-                title: BodyMedium('ログアウト', style: dangerTitleTextStyle),
+                title: const DangerText('ログアウト'),
                 onPressed: (_) => userNotifier.signOut(),
               ),
             ],
@@ -64,7 +72,7 @@ class SettingsPage extends HookConsumerWidget {
           AppSettingsSection(
             tiles: [
               AppSettingsTile(
-                  title: BodyMedium('アカウント削除', style: dangerTitleTextStyle),
+                  title: const DangerText('アカウント削除'),
                   trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                   onPressed: (_) =>
                       ref.read(routerProvider).push(Routes.accountDeletion)),
