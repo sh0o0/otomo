@@ -105,8 +105,6 @@ func (cl convertLocation) ModelToGrpc(
 ) *grpcgen.Location {
 	return &grpcgen.Location{
 		GooglePlaceId: location.GooglePlaceID,
-		LongName:      location.LongName,
-		ShortName:     location.ShortName,
 		Address:       location.Address,
 		Types:         location.Types,
 		Geometry:      cl.geometry.ModelToGrpc(location.Geometry),

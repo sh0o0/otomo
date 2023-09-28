@@ -2,8 +2,6 @@ package model
 
 type Location struct {
 	GooglePlaceID string   `firestore:"google_place_id"`
-	LongName      string   `firestore:"long_name"`
-	ShortName     string   `firestore:"short_name"`
 	Address       string   `firestore:"address"`
 	Types         []string `firestore:"types"`
 	Geometry      Geometry `firestore:"geometry"`

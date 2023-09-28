@@ -13,8 +13,6 @@ var DefaultTestLocationFactory = &TestLocationFactory{}
 func (f *TestLocationFactory) New() model.Location {
 	return model.Location{
 		GooglePlaceID: uuid.NewString(),
-		LongName:      testutil.Faker.Address().StreetName(),
-		ShortName:     testutil.Faker.Address().StreetName(),
 		Address:       testutil.Faker.Address().StreetAddress(),
 		Types:         []string{"street_address"},
 		Geometry: model.Geometry{

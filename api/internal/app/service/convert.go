@@ -17,8 +17,6 @@ type convLocation struct{}
 func (convLocation) GoogleToModel(gGeo *maps.GeocodingResult) model.Location {
 	return model.Location{
 		GooglePlaceID: gGeo.PlaceID,
-		LongName:      gGeo.FormattedAddress,
-		ShortName:     gGeo.FormattedAddress,
 		Address:       gGeo.FormattedAddress,
 		Types:         gGeo.Types,
 		Geometry: model.Geometry{
