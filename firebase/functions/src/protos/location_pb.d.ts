@@ -9,10 +9,6 @@ import * as jspb from "google-protobuf";
 export class Location extends jspb.Message { 
     getGooglePlaceId(): string;
     setGooglePlaceId(value: string): Location;
-    getLongName(): string;
-    setLongName(value: string): Location;
-    getShortName(): string;
-    setShortName(value: string): Location;
     getAddress(): string;
     setAddress(value: string): Location;
     clearTypesList(): void;
@@ -38,8 +34,6 @@ export class Location extends jspb.Message {
 export namespace Location {
     export type AsObject = {
         googlePlaceId: string,
-        longName: string,
-        shortName: string,
         address: string,
         typesList: Array<string>,
         geometry?: Geometry.AsObject,

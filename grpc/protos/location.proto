@@ -4,11 +4,9 @@ option go_package = ".;grpcgen";
 
 message Location {
   string google_place_id = 1;
-  string long_name = 2;
-  string short_name = 3;
-  string address = 4;
-  repeated string types = 5;
-  Geometry geometry = 6;
+  string address = 2;
+  repeated string types = 3;
+  Geometry geometry = 4;
 }
 
 message Geometry {

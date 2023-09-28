@@ -93,7 +93,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.Location.repeatedFields_ = [5];
+proto.Location.repeatedFields_ = [3];
 
 
 
@@ -127,10 +127,8 @@ proto.Location.prototype.toObject = function(opt_includeInstance) {
 proto.Location.toObject = function(includeInstance, msg) {
   var f, obj = {
     googlePlaceId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    longName: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    shortName: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    address: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    typesList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f,
+    address: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    typesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     geometry: (f = msg.getGeometry()) && proto.Geometry.toObject(includeInstance, f)
   };
 
@@ -174,21 +172,13 @@ proto.Location.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setLongName(value);
+      msg.setAddress(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setShortName(value);
-      break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setAddress(value);
-      break;
-    case 5:
-      var value = /** @type {string} */ (reader.readString());
       msg.addTypes(value);
       break;
-    case 6:
+    case 4:
       var value = new proto.Geometry;
       reader.readMessage(value,proto.Geometry.deserializeBinaryFromReader);
       msg.setGeometry(value);
@@ -229,38 +219,24 @@ proto.Location.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getLongName();
+  f = message.getAddress();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getShortName();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getAddress();
-  if (f.length > 0) {
-    writer.writeString(
-      4,
-      f
-    );
-  }
   f = message.getTypesList();
   if (f.length > 0) {
     writer.writeRepeatedString(
-      5,
+      3,
       f
     );
   }
   f = message.getGeometry();
   if (f != null) {
     writer.writeMessage(
-      6,
+      4,
       f,
       proto.Geometry.serializeBinaryToWriter
     );
@@ -287,10 +263,10 @@ proto.Location.prototype.setGooglePlaceId = function(value) {
 
 
 /**
- * optional string long_name = 2;
+ * optional string address = 2;
  * @return {string}
  */
-proto.Location.prototype.getLongName = function() {
+proto.Location.prototype.getAddress = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -299,53 +275,17 @@ proto.Location.prototype.getLongName = function() {
  * @param {string} value
  * @return {!proto.Location} returns this
  */
-proto.Location.prototype.setLongName = function(value) {
+proto.Location.prototype.setAddress = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string short_name = 3;
- * @return {string}
- */
-proto.Location.prototype.getShortName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.Location} returns this
- */
-proto.Location.prototype.setShortName = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string address = 4;
- * @return {string}
- */
-proto.Location.prototype.getAddress = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.Location} returns this
- */
-proto.Location.prototype.setAddress = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
-};
-
-
-/**
- * repeated string types = 5;
+ * repeated string types = 3;
  * @return {!Array<string>}
  */
 proto.Location.prototype.getTypesList = function() {
-  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 5));
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
@@ -354,7 +294,7 @@ proto.Location.prototype.getTypesList = function() {
  * @return {!proto.Location} returns this
  */
 proto.Location.prototype.setTypesList = function(value) {
-  return jspb.Message.setField(this, 5, value || []);
+  return jspb.Message.setField(this, 3, value || []);
 };
 
 
@@ -364,7 +304,7 @@ proto.Location.prototype.setTypesList = function(value) {
  * @return {!proto.Location} returns this
  */
 proto.Location.prototype.addTypes = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 5, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
@@ -378,12 +318,12 @@ proto.Location.prototype.clearTypesList = function() {
 
 
 /**
- * optional Geometry geometry = 6;
+ * optional Geometry geometry = 4;
  * @return {?proto.Geometry}
  */
 proto.Location.prototype.getGeometry = function() {
   return /** @type{?proto.Geometry} */ (
-    jspb.Message.getWrapperField(this, proto.Geometry, 6));
+    jspb.Message.getWrapperField(this, proto.Geometry, 4));
 };
 
 
@@ -392,7 +332,7 @@ proto.Location.prototype.getGeometry = function() {
  * @return {!proto.Location} returns this
 */
 proto.Location.prototype.setGeometry = function(value) {
-  return jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
@@ -410,7 +350,7 @@ proto.Location.prototype.clearGeometry = function() {
  * @return {boolean}
  */
 proto.Location.prototype.hasGeometry = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 4) != null;
 };
 
 

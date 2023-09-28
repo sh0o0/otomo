@@ -57,10 +57,6 @@ func (m *Location) validate(all bool) error {
 
 	// no validation rules for GooglePlaceId
 
-	// no validation rules for LongName
-
-	// no validation rules for ShortName
-
 	// no validation rules for Address
 
 	if all {

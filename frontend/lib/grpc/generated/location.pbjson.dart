@@ -18,20 +18,17 @@ const Location$json = {
   '1': 'Location',
   '2': [
     {'1': 'google_place_id', '3': 1, '4': 1, '5': 9, '10': 'googlePlaceId'},
-    {'1': 'long_name', '3': 2, '4': 1, '5': 9, '10': 'longName'},
-    {'1': 'short_name', '3': 3, '4': 1, '5': 9, '10': 'shortName'},
-    {'1': 'address', '3': 4, '4': 1, '5': 9, '10': 'address'},
-    {'1': 'types', '3': 5, '4': 3, '5': 9, '10': 'types'},
-    {'1': 'geometry', '3': 6, '4': 1, '5': 11, '6': '.Geometry', '10': 'geometry'},
+    {'1': 'address', '3': 2, '4': 1, '5': 9, '10': 'address'},
+    {'1': 'types', '3': 3, '4': 3, '5': 9, '10': 'types'},
+    {'1': 'geometry', '3': 4, '4': 1, '5': 11, '6': '.Geometry', '10': 'geometry'},
   ],
 };
 
 /// Descriptor for `Location`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List locationDescriptor = $convert.base64Decode(
-    'CghMb2NhdGlvbhImCg9nb29nbGVfcGxhY2VfaWQYASABKAlSDWdvb2dsZVBsYWNlSWQSGwoJbG'
-    '9uZ19uYW1lGAIgASgJUghsb25nTmFtZRIdCgpzaG9ydF9uYW1lGAMgASgJUglzaG9ydE5hbWUS'
-    'GAoHYWRkcmVzcxgEIAEoCVIHYWRkcmVzcxIUCgV0eXBlcxgFIAMoCVIFdHlwZXMSJQoIZ2VvbW'
-    'V0cnkYBiABKAsyCS5HZW9tZXRyeVIIZ2VvbWV0cnk=');
+    'CghMb2NhdGlvbhImCg9nb29nbGVfcGxhY2VfaWQYASABKAlSDWdvb2dsZVBsYWNlSWQSGAoHYW'
+    'RkcmVzcxgCIAEoCVIHYWRkcmVzcxIUCgV0eXBlcxgDIAMoCVIFdHlwZXMSJQoIZ2VvbWV0cnkY'
+    'BCABKAsyCS5HZW9tZXRyeVIIZ2VvbWV0cnk=');
 
 @$core.Deprecated('Use geometryDescriptor instead')
 const Geometry$json = {

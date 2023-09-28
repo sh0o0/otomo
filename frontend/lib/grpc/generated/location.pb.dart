@@ -21,11 +21,9 @@ class Location extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Location', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'googlePlaceId')
-    ..aOS(2, _omitFieldNames ? '' : 'longName')
-    ..aOS(3, _omitFieldNames ? '' : 'shortName')
-    ..aOS(4, _omitFieldNames ? '' : 'address')
-    ..pPS(5, _omitFieldNames ? '' : 'types')
-    ..aOM<Geometry>(6, _omitFieldNames ? '' : 'geometry', subBuilder: Geometry.create)
+    ..aOS(2, _omitFieldNames ? '' : 'address')
+    ..pPS(3, _omitFieldNames ? '' : 'types')
+    ..aOM<Geometry>(4, _omitFieldNames ? '' : 'geometry', subBuilder: Geometry.create)
     ..hasRequiredFields = false
   ;
 
@@ -60,45 +58,27 @@ class Location extends $pb.GeneratedMessage {
   void clearGooglePlaceId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get longName => $_getSZ(1);
+  $core.String get address => $_getSZ(1);
   @$pb.TagNumber(2)
-  set longName($core.String v) { $_setString(1, v); }
+  set address($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasLongName() => $_has(1);
+  $core.bool hasAddress() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLongName() => clearField(2);
+  void clearAddress() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get shortName => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set shortName($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasShortName() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearShortName() => clearField(3);
+  $core.List<$core.String> get types => $_getList(2);
 
   @$pb.TagNumber(4)
-  $core.String get address => $_getSZ(3);
+  Geometry get geometry => $_getN(3);
   @$pb.TagNumber(4)
-  set address($core.String v) { $_setString(3, v); }
+  set geometry(Geometry v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasAddress() => $_has(3);
+  $core.bool hasGeometry() => $_has(3);
   @$pb.TagNumber(4)
-  void clearAddress() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.List<$core.String> get types => $_getList(4);
-
-  @$pb.TagNumber(6)
-  Geometry get geometry => $_getN(5);
-  @$pb.TagNumber(6)
-  set geometry(Geometry v) { setField(6, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasGeometry() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearGeometry() => clearField(6);
-  @$pb.TagNumber(6)
-  Geometry ensureGeometry() => $_ensure(5);
+  void clearGeometry() => clearField(4);
+  @$pb.TagNumber(4)
+  Geometry ensureGeometry() => $_ensure(3);
 }
 
 class Geometry extends $pb.GeneratedMessage {
