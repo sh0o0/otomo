@@ -34,5 +34,8 @@
       "host": "0.0.0.0"
     },
     "singleProjectMode": true
+  },
+  "extensions": {
+    "delete-user-data": "firebase/delete-user-data@0.1.19"
   }
 }

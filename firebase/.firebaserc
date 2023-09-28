@@ -1,5 +1,13 @@
 {
   "projects": {
     "develop": "otomo-dev-396006"
+  },
+  "targets": {},
+  "etags": {
+    "otomo-dev-396006": {
+      "extensionInstances": {
+        "delete-user-data": "966218fb8c93af8aff3fbf931da8b17bdfb6adf7d57a6504949cbca9cf754266"
+      }
+    }
   }
 }
