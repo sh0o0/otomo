@@ -1,11 +1,13 @@
 package cq
 
-import "cloud.google.com/go/firestore"
+import (
+	"context"
+	"otomo/internal/app/model"
+)
 
-type MessageSentCountQuery struct {
-	fsClient *firestore.Client
-}
-
-func NewMessageSentCountQuery(fsClient *firestore.Client) *MessageSentCountQuery {
-	return &MessageSentCountQuery{fsClient: fsClient}
+type MessageSentCountQuery interface {
+	GetMonthlySurplusSentMessageCount(
+		ctx context.Context,
+		userID model.UserID,
+	) (*model.MonthlySurplusSentMessageCount, error)
 }
