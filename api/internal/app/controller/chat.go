@@ -3,6 +3,7 @@ package controller
 import (
 	"context"
 	"otomo/internal/app/grpcgen"
+	"otomo/internal/app/interfaces/cq"
 	"otomo/internal/app/interfaces/repo"
 	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
@@ -18,15 +19,16 @@ import (
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
 
 type ChatController struct {
-	errorPresenter errorPresenter
-	msgFactory     *model.MessageFactory
-	msgRepo        repo.MessageRepository
-	otomoRepo      repo.OtomoRepository
-	msginSub       svc.MessagingSubscriber
-	msginPub       svc.MessagingPublisher
-	msgAnaSvc      svc.MessageAnalysisService
-	converser      model.Converser
-	summarizer     model.Summarizer
+	errorPresenter    errorPresenter
+	msgFactory        *model.MessageFactory
+	msgRepo           repo.MessageRepository
+	otomoRepo         repo.OtomoRepository
+	msginSub          svc.MessagingSubscriber
+	msginPub          svc.MessagingPublisher
+	msgAnaSvc         svc.MessageAnalysisService
+	msgSentCountQuery cq.MessageSentCountQuery
+	converser         model.Converser
+	summarizer        model.Summarizer
 }
 
 func NewChatController(
@@ -37,19 +39,21 @@ func NewChatController(
 	msginSub svc.MessagingSubscriber,
 	msginPub svc.MessagingPublisher,
 	msgAnaSvc svc.MessageAnalysisService,
+	msgSentCountQuery cq.MessageSentCountQuery,
 	converser model.Converser,
 	summarizer model.Summarizer,
 ) *ChatController {
 	return &ChatController{
-		errorPresenter: errorPresenter,
-		msgFactory:     msgFactory,
-		msgRepo:        msgRepo,
-		otomoRepo:      otomoRepo,
-		msginSub:       msginSub,
-		msginPub:       msginPub,
-		msgAnaSvc:      msgAnaSvc,
-		converser:      converser,
-		summarizer:     summarizer,
+		errorPresenter:    errorPresenter,
+		msgFactory:        msgFactory,
+		msgRepo:           msgRepo,
+		otomoRepo:         otomoRepo,
+		msginSub:          msginSub,
+		msginPub:          msginPub,
+		msgAnaSvc:         msgAnaSvc,
+		msgSentCountQuery: msgSentCountQuery,
+		converser:         converser,
+		summarizer:        summarizer,
 	}
 }
 
@@ -98,6 +102,7 @@ func (cc *ChatController) sendMessage(
 		return nil, err
 	}
 
+	// This is last logic because it is not rollbackable.
 	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
 		return nil, err
 	}

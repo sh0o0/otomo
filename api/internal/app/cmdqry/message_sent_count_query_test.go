@@ -1,4 +1,4 @@
-package cq
+package cmdqry
 
 import (
 	"context"
