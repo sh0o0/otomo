@@ -1,7 +1,9 @@
 package model
 
 import (
+	"otomo/internal/pkg/times"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -196,6 +198,130 @@ func TestMonthlySurplusSentCount_CountRemaining(t *testing.T) {
 				Daily:     tt.fields.Daily,
 			}
 			got := m.CountRemaining()
+			assert.Exactly(t, tt.want, got)
+		})
+	}
+}
+
+func TestMonthlySurplusMessageSentCount_IfSent(t *testing.T) {
+	type fields struct {
+		YearMonth YearMonth
+		Daily     []*DailyMessageSentCount
+	}
+	type args struct {
+		sentAt time.Time
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		want      *MonthlySurplusMessageSentCount
+		wantIsErr bool
+	}{
+		{
+			name: "Should return error when sentAt is not in the month",
+			fields: fields{
+				YearMonth: YearMonth{Year: 2020, Month: 1},
+			},
+			args: args{
+				sentAt: time.Date(2020, 2, 1, 0, 0, 0, 0, time.UTC),
+			},
+			want:      nil,
+			wantIsErr: true,
+		},
+		{
+			name: "Should return the last day incremented count when sentAt is the last day",
+			fields: fields{
+				YearMonth: YearMonth{Year: 2020, Month: 1},
+				Daily: []*DailyMessageSentCount{
+					{
+						Day:   15,
+						Count: 5,
+					},
+					{
+						Day:   16,
+						Count: 5,
+					},
+					{
+						Day:   17,
+						Count: 4,
+					},
+				},
+			},
+			args: args{
+				sentAt: times.C.Date(2020, 1, 17, 0, 0, 0, 0),
+			},
+			want: &MonthlySurplusMessageSentCount{
+				YearMonth: YearMonth{Year: 2020, Month: 1},
+				Daily: []*DailyMessageSentCount{
+					{
+						Day:   15,
+						Count: 5,
+					},
+					{
+						Day:   16,
+						Count: 5,
+					},
+					{
+						Day:   17,
+						Count: 5,
+					},
+				},
+			},
+			wantIsErr: false,
+		},
+		{
+			name: "Should return the new day incremented count when sentAt is the new day",
+			fields: fields{
+				YearMonth: YearMonth{Year: 2020, Month: 1},
+				Daily: []*DailyMessageSentCount{
+					{
+						Day:   15,
+						Count: 5,
+					},
+					{
+						Day:   16,
+						Count: 5,
+					},
+				},
+			},
+			args: args{
+				sentAt: times.C.Date(2020, 1, 17, 0, 0, 0, 0),
+			},
+			want: &MonthlySurplusMessageSentCount{
+				YearMonth: YearMonth{Year: 2020, Month: 1},
+				Daily: []*DailyMessageSentCount{
+					{
+						Day:   15,
+						Count: 5,
+					},
+					{
+						Day:   16,
+						Count: 5,
+					},
+					{
+						Day:   17,
+						Count: 1,
+					},
+				},
+			},
+			wantIsErr: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			m := &MonthlySurplusMessageSentCount{
+				YearMonth: tt.fields.YearMonth,
+				Daily:     tt.fields.Daily,
+			}
+			got, err := m.IfSent(tt.args.sentAt)
+			if (err != nil) != tt.wantIsErr {
+				t.Errorf("MonthlySurplusMessageSentCount.IfSent() error = %v, wantIsErr %v", err, tt.wantIsErr)
+				return
+			}
+
 			assert.Exactly(t, tt.want, got)
 		})
 	}

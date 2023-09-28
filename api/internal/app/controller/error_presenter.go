@@ -54,6 +54,10 @@ func (pr errorPresenter) getCodeFromErrsErr(errsErr *errs.Error) codes.Code {
 		code = codes.Internal
 	case errs.CausePermissionDenied:
 		code = codes.PermissionDenied
+	case errs.CauseUnavailable:
+		code = codes.Unavailable
+	case errs.CauseResourceExhausted:
+		code = codes.ResourceExhausted
 	}
 
 	return code

@@ -75,15 +75,30 @@ func (cc *ChatController) sendMessage(
 	if err := req.ValidateAll(); err != nil {
 		return nil, err
 	}
-	var (
-		userID = model.UserID(req.GetUserId())
-	)
+	var userID = model.UserID(req.GetUserId())
 
 	if !ctxs.UserIs(ctx, userID) {
 		return nil, &errs.Error{
 			Message: "can only send own message",
 			Cause:   errs.CausePermissionDenied,
 			Domain:  errs.DomainUser,
+			Field:   errs.FieldNone,
+		}
+	}
+
+	now := times.C.Now()
+	currentYearMonth := model.NewYearMonthFromTime(now)
+	monthlyCount, err := cc.msgSentCountQuery.GetMonthlySurplusMessageSentCount(
+		ctx, userID, currentYearMonth,
+	)
+	if err != nil {
+		return nil, err
+	}
+	if !monthlyCount.IsRemaining() {
+		return nil, &errs.Error{
+			Message: "no remaining message sent count",
+			Cause:   errs.CauseResourceExhausted,
+			Domain:  errs.DomainMessage,
 			Field:   errs.FieldNone,
 		}
 	}
