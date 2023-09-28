@@ -49,10 +49,10 @@ export class ChatService_SendMessageResponse extends jspb.Message {
     getRemainingSendCount(): message_pb.RemainingSendCount | undefined;
     setRemainingSendCount(value?: message_pb.RemainingSendCount): ChatService_SendMessageResponse;
 
-    hasMonthlySentCount(): boolean;
-    clearMonthlySentCount(): void;
-    getMonthlySentCount(): message_pb.MonthlySentCount | undefined;
-    setMonthlySentCount(value?: message_pb.MonthlySentCount): ChatService_SendMessageResponse;
+    hasSentCount(): boolean;
+    clearSentCount(): void;
+    getSentCount(): message_pb.SentCount | undefined;
+    setSentCount(value?: message_pb.SentCount): ChatService_SendMessageResponse;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ChatService_SendMessageResponse.AsObject;
@@ -68,7 +68,7 @@ export namespace ChatService_SendMessageResponse {
     export type AsObject = {
         message?: message_pb.Message.AsObject,
         remainingSendCount?: message_pb.RemainingSendCount.AsObject,
-        monthlySentCount?: message_pb.MonthlySentCount.AsObject,
+        sentCount?: message_pb.SentCount.AsObject,
     }
 }
 
@@ -239,10 +239,10 @@ export class ChatService_GetRemainingSendCountResponse extends jspb.Message {
     getRemainingSendCount(): message_pb.RemainingSendCount | undefined;
     setRemainingSendCount(value?: message_pb.RemainingSendCount): ChatService_GetRemainingSendCountResponse;
 
-    hasMonthlySentCount(): boolean;
-    clearMonthlySentCount(): void;
-    getMonthlySentCount(): message_pb.MonthlySentCount | undefined;
-    setMonthlySentCount(value?: message_pb.MonthlySentCount): ChatService_GetRemainingSendCountResponse;
+    hasSentCount(): boolean;
+    clearSentCount(): void;
+    getSentCount(): message_pb.SentCount | undefined;
+    setSentCount(value?: message_pb.SentCount): ChatService_GetRemainingSendCountResponse;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ChatService_GetRemainingSendCountResponse.AsObject;
@@ -257,6 +257,6 @@ export class ChatService_GetRemainingSendCountResponse extends jspb.Message {
 export namespace ChatService_GetRemainingSendCountResponse {
     export type AsObject = {
         remainingSendCount?: message_pb.RemainingSendCount.AsObject,
-        monthlySentCount?: message_pb.MonthlySentCount.AsObject,
+        sentCount?: message_pb.SentCount.AsObject,
     }
 }

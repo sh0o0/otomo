@@ -35,7 +35,7 @@ const ChatService_SendMessageResponse$json = {
   '2': [
     {'1': 'message', '3': 1, '4': 1, '5': 11, '6': '.Message', '10': 'message'},
     {'1': 'remaining_send_count', '3': 2, '4': 1, '5': 11, '6': '.RemainingSendCount', '10': 'remainingSendCount'},
-    {'1': 'monthly_sent_count', '3': 3, '4': 1, '5': 11, '6': '.MonthlySentCount', '10': 'monthlySentCount'},
+    {'1': 'sent_count', '3': 3, '4': 1, '5': 11, '6': '.SentCount', '10': 'sentCount'},
   ],
 };
 
@@ -43,8 +43,8 @@ const ChatService_SendMessageResponse$json = {
 final $typed_data.Uint8List chatService_SendMessageResponseDescriptor = $convert.base64Decode(
     'Ch9DaGF0U2VydmljZV9TZW5kTWVzc2FnZVJlc3BvbnNlEiIKB21lc3NhZ2UYASABKAsyCC5NZX'
     'NzYWdlUgdtZXNzYWdlEkUKFHJlbWFpbmluZ19zZW5kX2NvdW50GAIgASgLMhMuUmVtYWluaW5n'
-    'U2VuZENvdW50UhJyZW1haW5pbmdTZW5kQ291bnQSPwoSbW9udGhseV9zZW50X2NvdW50GAMgAS'
-    'gLMhEuTW9udGhseVNlbnRDb3VudFIQbW9udGhseVNlbnRDb3VudA==');
+    'U2VuZENvdW50UhJyZW1haW5pbmdTZW5kQ291bnQSKQoKc2VudF9jb3VudBgDIAEoCzIKLlNlbn'
+    'RDb3VudFIJc2VudENvdW50');
 
 @$core.Deprecated('Use chatService_ListMessagesRequestDescriptor instead')
 const ChatService_ListMessagesRequest$json = {
@@ -148,7 +148,7 @@ const ChatService_GetRemainingSendCountResponse$json = {
   '1': 'ChatService_GetRemainingSendCountResponse',
   '2': [
     {'1': 'remaining_send_count', '3': 1, '4': 1, '5': 11, '6': '.RemainingSendCount', '10': 'remainingSendCount'},
-    {'1': 'monthly_sent_count', '3': 2, '4': 1, '5': 11, '6': '.MonthlySentCount', '10': 'monthlySentCount'},
+    {'1': 'sent_count', '3': 2, '4': 1, '5': 11, '6': '.SentCount', '10': 'sentCount'},
   ],
 };
 
@@ -156,6 +156,5 @@ const ChatService_GetRemainingSendCountResponse$json = {
 final $typed_data.Uint8List chatService_GetRemainingSendCountResponseDescriptor = $convert.base64Decode(
     'CilDaGF0U2VydmljZV9HZXRSZW1haW5pbmdTZW5kQ291bnRSZXNwb25zZRJFChRyZW1haW5pbm'
     'dfc2VuZF9jb3VudBgBIAEoCzITLlJlbWFpbmluZ1NlbmRDb3VudFIScmVtYWluaW5nU2VuZENv'
-    'dW50Ej8KEm1vbnRobHlfc2VudF9jb3VudBgCIAEoCzIRLk1vbnRobHlTZW50Q291bnRSEG1vbn'
-    'RobHlTZW50Q291bnQ=');
+    'dW50EikKCnNlbnRfY291bnQYAiABKAsyCi5TZW50Q291bnRSCXNlbnRDb3VudA==');
 

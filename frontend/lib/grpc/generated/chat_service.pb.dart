@@ -89,7 +89,7 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_SendMessageResponse', createEmptyInstance: create)
     ..aOM<$7.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $7.Message.create)
     ..aOM<$7.RemainingSendCount>(2, _omitFieldNames ? '' : 'remainingSendCount', subBuilder: $7.RemainingSendCount.create)
-    ..aOM<$7.MonthlySentCount>(3, _omitFieldNames ? '' : 'monthlySentCount', subBuilder: $7.MonthlySentCount.create)
+    ..aOM<$7.SentCount>(3, _omitFieldNames ? '' : 'sentCount', subBuilder: $7.SentCount.create)
     ..hasRequiredFields = false
   ;
 
@@ -137,15 +137,15 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
   $7.RemainingSendCount ensureRemainingSendCount() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $7.MonthlySentCount get monthlySentCount => $_getN(2);
+  $7.SentCount get sentCount => $_getN(2);
   @$pb.TagNumber(3)
-  set monthlySentCount($7.MonthlySentCount v) { setField(3, v); }
+  set sentCount($7.SentCount v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasMonthlySentCount() => $_has(2);
+  $core.bool hasSentCount() => $_has(2);
   @$pb.TagNumber(3)
-  void clearMonthlySentCount() => clearField(3);
+  void clearSentCount() => clearField(3);
   @$pb.TagNumber(3)
-  $7.MonthlySentCount ensureMonthlySentCount() => $_ensure(2);
+  $7.SentCount ensureSentCount() => $_ensure(2);
 }
 
 class ChatService_ListMessagesRequest extends $pb.GeneratedMessage {
@@ -488,7 +488,7 @@ class ChatService_GetRemainingSendCountResponse extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_GetRemainingSendCountResponse', createEmptyInstance: create)
     ..aOM<$7.RemainingSendCount>(1, _omitFieldNames ? '' : 'remainingSendCount', subBuilder: $7.RemainingSendCount.create)
-    ..aOM<$7.MonthlySentCount>(2, _omitFieldNames ? '' : 'monthlySentCount', subBuilder: $7.MonthlySentCount.create)
+    ..aOM<$7.SentCount>(2, _omitFieldNames ? '' : 'sentCount', subBuilder: $7.SentCount.create)
     ..hasRequiredFields = false
   ;
 
@@ -525,15 +525,15 @@ class ChatService_GetRemainingSendCountResponse extends $pb.GeneratedMessage {
   $7.RemainingSendCount ensureRemainingSendCount() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $7.MonthlySentCount get monthlySentCount => $_getN(1);
+  $7.SentCount get sentCount => $_getN(1);
   @$pb.TagNumber(2)
-  set monthlySentCount($7.MonthlySentCount v) { setField(2, v); }
+  set sentCount($7.SentCount v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasMonthlySentCount() => $_has(1);
+  $core.bool hasSentCount() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMonthlySentCount() => clearField(2);
+  void clearSentCount() => clearField(2);
   @$pb.TagNumber(2)
-  $7.MonthlySentCount ensureMonthlySentCount() => $_ensure(1);
+  $7.SentCount ensureSentCount() => $_ensure(1);
 }
 
 

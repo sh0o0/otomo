@@ -315,7 +315,7 @@
                 </li>
               
                 <li>
-                  <a href="#.MonthlySentCount"><span class="badge">M</span>MonthlySentCount</a>
+                  <a href="#.MonthlySurplusSentCount"><span class="badge">M</span>MonthlySurplusSentCount</a>
                 </li>
               
                 <li>
@@ -323,11 +323,15 @@
                 </li>
               
                 <li>
-                  <a href="#.RemainingMonthlySendCount"><span class="badge">M</span>RemainingMonthlySendCount</a>
+                  <a href="#.RemainingMonthlySurplusSendCount"><span class="badge">M</span>RemainingMonthlySurplusSendCount</a>
                 </li>
               
                 <li>
                   <a href="#.RemainingSendCount"><span class="badge">M</span>RemainingSendCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.SentCount"><span class="badge">M</span>SentCount</a>
                 </li>
               
               
@@ -496,8 +500,8 @@
                 </tr>
               
                 <tr>
-                  <td>monthly_sent_count</td>
-                  <td><a href="#MonthlySentCount">MonthlySentCount</a></td>
+                  <td>sent_count</td>
+                  <td><a href="#SentCount">SentCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -790,8 +794,8 @@
                 </tr>
               
                 <tr>
-                  <td>monthly_sent_count</td>
-                  <td><a href="#MonthlySentCount">MonthlySentCount</a></td>
+                  <td>sent_count</td>
+                  <td><a href="#SentCount">SentCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1340,7 +1344,7 @@ significant. </p></td>
 
         
       
-        <h3 id=".MonthlySentCount">MonthlySentCount</h3>
+        <h3 id=".MonthlySurplusSentCount">MonthlySurplusSentCount</h3>
         <p></p>
 
         
@@ -1361,13 +1365,6 @@ significant. </p></td>
                   <td>count</td>
                   <td><a href="#int32">int32</a></td>
                   <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>daily_sent_count</td>
-                  <td><a href="#DailySentCount">DailySentCount</a></td>
-                  <td>repeated</td>
                   <td><p> </p></td>
                 </tr>
               
@@ -1409,7 +1406,7 @@ significant. </p></td>
 
         
       
-        <h3 id=".RemainingMonthlySendCount">RemainingMonthlySendCount</h3>
+        <h3 id=".RemainingMonthlySurplusSendCount">RemainingMonthlySurplusSendCount</h3>
         <p></p>
 
         
@@ -1451,8 +1448,8 @@ significant. </p></td>
             <tbody>
               
                 <tr>
-                  <td>monthly</td>
-                  <td><a href="#RemainingMonthlySendCount">RemainingMonthlySendCount</a></td>
+                  <td>monthly_surplus</td>
+                  <td><a href="#RemainingMonthlySurplusSendCount">RemainingMonthlySurplusSendCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1460,6 +1457,37 @@ significant. </p></td>
                 <tr>
                   <td>daily</td>
                   <td><a href="#RemainingDailySendCount">RemainingDailySendCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SentCount">SentCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>monthly_surplus</td>
+                  <td><a href="#MonthlySurplusSentCount">MonthlySurplusSentCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>daily</td>
+                  <td><a href="#DailySentCount">DailySentCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>

@@ -363,18 +363,17 @@ func (x *AnalyzedLocation) GetLocation() *Location {
 	return nil
 }
 
-type MonthlySentCount struct {
+type SentCount struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	YearMonth      *YearMonth        `protobuf:"bytes,1,opt,name=year_month,json=yearMonth,proto3" json:"year_month,omitempty"`
-	Count          int32             `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
-	DailySentCount []*DailySentCount `protobuf:"bytes,3,rep,name=daily_sent_count,json=dailySentCount,proto3" json:"daily_sent_count,omitempty"`
+	MonthlySurplus *MonthlySurplusSentCount `protobuf:"bytes,1,opt,name=monthly_surplus,json=monthlySurplus,proto3" json:"monthly_surplus,omitempty"`
+	Daily          *DailySentCount          `protobuf:"bytes,2,opt,name=daily,proto3" json:"daily,omitempty"`
 }
 
-func (x *MonthlySentCount) Reset() {
-	*x = MonthlySentCount{}
+func (x *SentCount) Reset() {
+	*x = SentCount{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_message_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -382,13 +381,13 @@ func (x *MonthlySentCount) Reset() {
 	}
 }
 
-func (x *MonthlySentCount) String() string {
+func (x *SentCount) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MonthlySentCount) ProtoMessage() {}
+func (*SentCount) ProtoMessage() {}
 
-func (x *MonthlySentCount) ProtoReflect() protoreflect.Message {
+func (x *SentCount) ProtoReflect() protoreflect.Message {
 	mi := &file_message_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -400,30 +399,78 @@ func (x *MonthlySentCount) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MonthlySentCount.ProtoReflect.Descriptor instead.
-func (*MonthlySentCount) Descriptor() ([]byte, []int) {
+// Deprecated: Use SentCount.ProtoReflect.Descriptor instead.
+func (*SentCount) Descriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *MonthlySentCount) GetYearMonth() *YearMonth {
+func (x *SentCount) GetMonthlySurplus() *MonthlySurplusSentCount {
+	if x != nil {
+		return x.MonthlySurplus
+	}
+	return nil
+}
+
+func (x *SentCount) GetDaily() *DailySentCount {
+	if x != nil {
+		return x.Daily
+	}
+	return nil
+}
+
+type MonthlySurplusSentCount struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	YearMonth *YearMonth `protobuf:"bytes,1,opt,name=year_month,json=yearMonth,proto3" json:"year_month,omitempty"`
+	Count     int32      `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+}
+
+func (x *MonthlySurplusSentCount) Reset() {
+	*x = MonthlySurplusSentCount{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MonthlySurplusSentCount) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MonthlySurplusSentCount) ProtoMessage() {}
+
+func (x *MonthlySurplusSentCount) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MonthlySurplusSentCount.ProtoReflect.Descriptor instead.
+func (*MonthlySurplusSentCount) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *MonthlySurplusSentCount) GetYearMonth() *YearMonth {
 	if x != nil {
 		return x.YearMonth
 	}
 	return nil
 }
 
-func (x *MonthlySentCount) GetCount() int32 {
+func (x *MonthlySurplusSentCount) GetCount() int32 {
 	if x != nil {
 		return x.Count
 	}
 	return 0
-}
-
-func (x *MonthlySentCount) GetDailySentCount() []*DailySentCount {
-	if x != nil {
-		return x.DailySentCount
-	}
-	return nil
 }
 
 type DailySentCount struct {
@@ -438,7 +485,7 @@ type DailySentCount struct {
 func (x *DailySentCount) Reset() {
 	*x = DailySentCount{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[5]
+		mi := &file_message_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -451,7 +498,7 @@ func (x *DailySentCount) String() string {
 func (*DailySentCount) ProtoMessage() {}
 
 func (x *DailySentCount) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[5]
+	mi := &file_message_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -464,7 +511,7 @@ func (x *DailySentCount) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DailySentCount.ProtoReflect.Descriptor instead.
 func (*DailySentCount) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{5}
+	return file_message_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DailySentCount) GetDate() *Date {
@@ -486,14 +533,14 @@ type RemainingSendCount struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Monthly *RemainingMonthlySendCount `protobuf:"bytes,1,opt,name=monthly,proto3" json:"monthly,omitempty"`
-	Daily   *RemainingDailySendCount   `protobuf:"bytes,2,opt,name=daily,proto3" json:"daily,omitempty"`
+	MonthlySurplus *RemainingMonthlySurplusSendCount `protobuf:"bytes,1,opt,name=monthly_surplus,json=monthlySurplus,proto3" json:"monthly_surplus,omitempty"`
+	Daily          *RemainingDailySendCount          `protobuf:"bytes,2,opt,name=daily,proto3" json:"daily,omitempty"`
 }
 
 func (x *RemainingSendCount) Reset() {
 	*x = RemainingSendCount{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[6]
+		mi := &file_message_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -506,7 +553,7 @@ func (x *RemainingSendCount) String() string {
 func (*RemainingSendCount) ProtoMessage() {}
 
 func (x *RemainingSendCount) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[6]
+	mi := &file_message_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -519,12 +566,12 @@ func (x *RemainingSendCount) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemainingSendCount.ProtoReflect.Descriptor instead.
 func (*RemainingSendCount) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{6}
+	return file_message_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *RemainingSendCount) GetMonthly() *RemainingMonthlySendCount {
+func (x *RemainingSendCount) GetMonthlySurplus() *RemainingMonthlySurplusSendCount {
 	if x != nil {
-		return x.Monthly
+		return x.MonthlySurplus
 	}
 	return nil
 }
@@ -536,7 +583,7 @@ func (x *RemainingSendCount) GetDaily() *RemainingDailySendCount {
 	return nil
 }
 
-type RemainingMonthlySendCount struct {
+type RemainingMonthlySurplusSendCount struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -545,23 +592,23 @@ type RemainingMonthlySendCount struct {
 	Count     int32      `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
 }
 
-func (x *RemainingMonthlySendCount) Reset() {
-	*x = RemainingMonthlySendCount{}
+func (x *RemainingMonthlySurplusSendCount) Reset() {
+	*x = RemainingMonthlySurplusSendCount{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[7]
+		mi := &file_message_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *RemainingMonthlySendCount) String() string {
+func (x *RemainingMonthlySurplusSendCount) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RemainingMonthlySendCount) ProtoMessage() {}
+func (*RemainingMonthlySurplusSendCount) ProtoMessage() {}
 
-func (x *RemainingMonthlySendCount) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[7]
+func (x *RemainingMonthlySurplusSendCount) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -572,19 +619,19 @@ func (x *RemainingMonthlySendCount) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RemainingMonthlySendCount.ProtoReflect.Descriptor instead.
-func (*RemainingMonthlySendCount) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{7}
+// Deprecated: Use RemainingMonthlySurplusSendCount.ProtoReflect.Descriptor instead.
+func (*RemainingMonthlySurplusSendCount) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *RemainingMonthlySendCount) GetYearMonth() *YearMonth {
+func (x *RemainingMonthlySurplusSendCount) GetYearMonth() *YearMonth {
 	if x != nil {
 		return x.YearMonth
 	}
 	return nil
 }
 
-func (x *RemainingMonthlySendCount) GetCount() int32 {
+func (x *RemainingMonthlySurplusSendCount) GetCount() int32 {
 	if x != nil {
 		return x.Count
 	}
@@ -603,7 +650,7 @@ type RemainingDailySendCount struct {
 func (x *RemainingDailySendCount) Reset() {
 	*x = RemainingDailySendCount{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[8]
+		mi := &file_message_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -616,7 +663,7 @@ func (x *RemainingDailySendCount) String() string {
 func (*RemainingDailySendCount) ProtoMessage() {}
 
 func (x *RemainingDailySendCount) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[8]
+	mi := &file_message_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -629,7 +676,7 @@ func (x *RemainingDailySendCount) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemainingDailySendCount.ProtoReflect.Descriptor instead.
 func (*RemainingDailySendCount) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{8}
+	return file_message_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *RemainingDailySendCount) GetDate() *Date {
@@ -702,29 +749,35 @@ var file_message_proto_rawDesc = []byte{
 	0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x65, 0x78, 0x74, 0x12, 0x25,
 	0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x09, 0x2e, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f, 0x63,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x8e, 0x01, 0x0a, 0x10, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c,
-	0x79, 0x53, 0x65, 0x6e, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x29, 0x0a, 0x0a, 0x79, 0x65,
-	0x61, 0x72, 0x5f, 0x6d, 0x6f, 0x6e, 0x74, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a,
-	0x2e, 0x59, 0x65, 0x61, 0x72, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x52, 0x09, 0x79, 0x65, 0x61, 0x72,
-	0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x39, 0x0a, 0x10, 0x64,
-	0x61, 0x69, 0x6c, 0x79, 0x5f, 0x73, 0x65, 0x6e, 0x74, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18,
-	0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x53, 0x65, 0x6e,
-	0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x0e, 0x64, 0x61, 0x69, 0x6c, 0x79, 0x53, 0x65, 0x6e,
-	0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x41, 0x0a, 0x0e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x53,
-	0x65, 0x6e, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x19, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x05, 0x2e, 0x44, 0x61, 0x74, 0x65, 0x52, 0x04, 0x64,
-	0x61, 0x74, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x05, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x7a, 0x0a, 0x12, 0x52, 0x65, 0x6d,
-	0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x53, 0x65, 0x6e, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12,
-	0x34, 0x0a, 0x07, 0x6d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x1a, 0x2e, 0x52, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x4d, 0x6f, 0x6e, 0x74,
-	0x68, 0x6c, 0x79, 0x53, 0x65, 0x6e, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x07, 0x6d, 0x6f,
-	0x6e, 0x74, 0x68, 0x6c, 0x79, 0x12, 0x2e, 0x0a, 0x05, 0x64, 0x61, 0x69, 0x6c, 0x79, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x52, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67,
-	0x44, 0x61, 0x69, 0x6c, 0x79, 0x53, 0x65, 0x6e, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x05,
-	0x64, 0x61, 0x69, 0x6c, 0x79, 0x22, 0x5c, 0x0a, 0x19, 0x52, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69,
-	0x6e, 0x67, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x53, 0x65, 0x6e, 0x64, 0x43, 0x6f, 0x75,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x75, 0x0a, 0x09, 0x53, 0x65, 0x6e, 0x74, 0x43, 0x6f, 0x75,
+	0x6e, 0x74, 0x12, 0x41, 0x0a, 0x0f, 0x6d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x5f, 0x73, 0x75,
+	0x72, 0x70, 0x6c, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x4d, 0x6f,
+	0x6e, 0x74, 0x68, 0x6c, 0x79, 0x53, 0x75, 0x72, 0x70, 0x6c, 0x75, 0x73, 0x53, 0x65, 0x6e, 0x74,
+	0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x0e, 0x6d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x53, 0x75,
+	0x72, 0x70, 0x6c, 0x75, 0x73, 0x12, 0x25, 0x0a, 0x05, 0x64, 0x61, 0x69, 0x6c, 0x79, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x53, 0x65, 0x6e, 0x74,
+	0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x05, 0x64, 0x61, 0x69, 0x6c, 0x79, 0x22, 0x5a, 0x0a, 0x17,
+	0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x53, 0x75, 0x72, 0x70, 0x6c, 0x75, 0x73, 0x53, 0x65,
+	0x6e, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x29, 0x0a, 0x0a, 0x79, 0x65, 0x61, 0x72, 0x5f,
+	0x6d, 0x6f, 0x6e, 0x74, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x59, 0x65,
+	0x61, 0x72, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x52, 0x09, 0x79, 0x65, 0x61, 0x72, 0x4d, 0x6f, 0x6e,
+	0x74, 0x68, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x41, 0x0a, 0x0e, 0x44, 0x61, 0x69, 0x6c,
+	0x79, 0x53, 0x65, 0x6e, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x19, 0x0a, 0x04, 0x64, 0x61,
+	0x74, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x05, 0x2e, 0x44, 0x61, 0x74, 0x65, 0x52,
+	0x04, 0x64, 0x61, 0x74, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x90, 0x01, 0x0a, 0x12,
+	0x52, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x53, 0x65, 0x6e, 0x64, 0x43, 0x6f, 0x75,
+	0x6e, 0x74, 0x12, 0x4a, 0x0a, 0x0f, 0x6d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x5f, 0x73, 0x75,
+	0x72, 0x70, 0x6c, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x52, 0x65,
+	0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x53, 0x75,
+	0x72, 0x70, 0x6c, 0x75, 0x73, 0x53, 0x65, 0x6e, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x0e,
+	0x6d, 0x6f, 0x6e, 0x74, 0x68, 0x6c, 0x79, 0x53, 0x75, 0x72, 0x70, 0x6c, 0x75, 0x73, 0x12, 0x2e,
+	0x0a, 0x05, 0x64, 0x61, 0x69, 0x6c, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e,
+	0x52, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x53, 0x65,
+	0x6e, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x05, 0x64, 0x61, 0x69, 0x6c, 0x79, 0x22, 0x63,
+	0x0a, 0x20, 0x52, 0x65, 0x6d, 0x61, 0x69, 0x6e, 0x69, 0x6e, 0x67, 0x4d, 0x6f, 0x6e, 0x74, 0x68,
+	0x6c, 0x79, 0x53, 0x75, 0x72, 0x70, 0x6c, 0x75, 0x73, 0x53, 0x65, 0x6e, 0x64, 0x43, 0x6f, 0x75,
 	0x6e, 0x74, 0x12, 0x29, 0x0a, 0x0a, 0x79, 0x65, 0x61, 0x72, 0x5f, 0x6d, 0x6f, 0x6e, 0x74, 0x68,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x59, 0x65, 0x61, 0x72, 0x4d, 0x6f, 0x6e,
 	0x74, 0x68, 0x52, 0x09, 0x79, 0x65, 0x61, 0x72, 0x4d, 0x6f, 0x6e, 0x74, 0x68, 0x12, 0x14, 0x0a,
@@ -753,48 +806,50 @@ func file_message_proto_rawDescGZIP() []byte {
 }
 
 var file_message_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_message_proto_goTypes = []interface{}{
-	(Role)(0),                         // 0: Role
-	(*Message)(nil),                   // 1: Message
-	(*MessageChunk)(nil),              // 2: MessageChunk
-	(*LocationAnalysis)(nil),          // 3: LocationAnalysis
-	(*AnalyzedLocation)(nil),          // 4: AnalyzedLocation
-	(*MonthlySentCount)(nil),          // 5: MonthlySentCount
-	(*DailySentCount)(nil),            // 6: DailySentCount
-	(*RemainingSendCount)(nil),        // 7: RemainingSendCount
-	(*RemainingMonthlySendCount)(nil), // 8: RemainingMonthlySendCount
-	(*RemainingDailySendCount)(nil),   // 9: RemainingDailySendCount
-	(*timestamppb.Timestamp)(nil),     // 10: google.protobuf.Timestamp
-	(*wrapperspb.StringValue)(nil),    // 11: google.protobuf.StringValue
-	(*Location)(nil),                  // 12: Location
-	(*YearMonth)(nil),                 // 13: YearMonth
-	(*Date)(nil),                      // 14: Date
+	(Role)(0),                                // 0: Role
+	(*Message)(nil),                          // 1: Message
+	(*MessageChunk)(nil),                     // 2: MessageChunk
+	(*LocationAnalysis)(nil),                 // 3: LocationAnalysis
+	(*AnalyzedLocation)(nil),                 // 4: AnalyzedLocation
+	(*SentCount)(nil),                        // 5: SentCount
+	(*MonthlySurplusSentCount)(nil),          // 6: MonthlySurplusSentCount
+	(*DailySentCount)(nil),                   // 7: DailySentCount
+	(*RemainingSendCount)(nil),               // 8: RemainingSendCount
+	(*RemainingMonthlySurplusSendCount)(nil), // 9: RemainingMonthlySurplusSendCount
+	(*RemainingDailySendCount)(nil),          // 10: RemainingDailySendCount
+	(*timestamppb.Timestamp)(nil),            // 11: google.protobuf.Timestamp
+	(*wrapperspb.StringValue)(nil),           // 12: google.protobuf.StringValue
+	(*Location)(nil),                         // 13: Location
+	(*YearMonth)(nil),                        // 14: YearMonth
+	(*Date)(nil),                             // 15: Date
 }
 var file_message_proto_depIdxs = []int32{
 	0,  // 0: Message.role:type_name -> Role
-	10, // 1: Message.sent_at:type_name -> google.protobuf.Timestamp
-	11, // 2: Message.client_id:type_name -> google.protobuf.StringValue
+	11, // 1: Message.sent_at:type_name -> google.protobuf.Timestamp
+	12, // 2: Message.client_id:type_name -> google.protobuf.StringValue
 	3,  // 3: Message.location_analysis:type_name -> LocationAnalysis
 	0,  // 4: MessageChunk.role:type_name -> Role
-	10, // 5: MessageChunk.sent_at:type_name -> google.protobuf.Timestamp
-	11, // 6: MessageChunk.client_id:type_name -> google.protobuf.StringValue
+	11, // 5: MessageChunk.sent_at:type_name -> google.protobuf.Timestamp
+	12, // 6: MessageChunk.client_id:type_name -> google.protobuf.StringValue
 	4,  // 7: LocationAnalysis.locations:type_name -> AnalyzedLocation
-	10, // 8: LocationAnalysis.analyzed_at:type_name -> google.protobuf.Timestamp
-	11, // 9: LocationAnalysis.error:type_name -> google.protobuf.StringValue
-	12, // 10: AnalyzedLocation.location:type_name -> Location
-	13, // 11: MonthlySentCount.year_month:type_name -> YearMonth
-	6,  // 12: MonthlySentCount.daily_sent_count:type_name -> DailySentCount
-	14, // 13: DailySentCount.date:type_name -> Date
-	8,  // 14: RemainingSendCount.monthly:type_name -> RemainingMonthlySendCount
-	9,  // 15: RemainingSendCount.daily:type_name -> RemainingDailySendCount
-	13, // 16: RemainingMonthlySendCount.year_month:type_name -> YearMonth
-	14, // 17: RemainingDailySendCount.date:type_name -> Date
-	18, // [18:18] is the sub-list for method output_type
-	18, // [18:18] is the sub-list for method input_type
-	18, // [18:18] is the sub-list for extension type_name
-	18, // [18:18] is the sub-list for extension extendee
-	0,  // [0:18] is the sub-list for field type_name
+	11, // 8: LocationAnalysis.analyzed_at:type_name -> google.protobuf.Timestamp
+	12, // 9: LocationAnalysis.error:type_name -> google.protobuf.StringValue
+	13, // 10: AnalyzedLocation.location:type_name -> Location
+	6,  // 11: SentCount.monthly_surplus:type_name -> MonthlySurplusSentCount
+	7,  // 12: SentCount.daily:type_name -> DailySentCount
+	14, // 13: MonthlySurplusSentCount.year_month:type_name -> YearMonth
+	15, // 14: DailySentCount.date:type_name -> Date
+	9,  // 15: RemainingSendCount.monthly_surplus:type_name -> RemainingMonthlySurplusSendCount
+	10, // 16: RemainingSendCount.daily:type_name -> RemainingDailySendCount
+	14, // 17: RemainingMonthlySurplusSendCount.year_month:type_name -> YearMonth
+	15, // 18: RemainingDailySendCount.date:type_name -> Date
+	19, // [19:19] is the sub-list for method output_type
+	19, // [19:19] is the sub-list for method input_type
+	19, // [19:19] is the sub-list for extension type_name
+	19, // [19:19] is the sub-list for extension extendee
+	0,  // [0:19] is the sub-list for field type_name
 }
 
 func init() { file_message_proto_init() }
@@ -854,7 +909,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MonthlySentCount); i {
+			switch v := v.(*SentCount); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -866,7 +921,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DailySentCount); i {
+			switch v := v.(*MonthlySurplusSentCount); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -878,7 +933,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RemainingSendCount); i {
+			switch v := v.(*DailySentCount); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -890,7 +945,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RemainingMonthlySendCount); i {
+			switch v := v.(*RemainingSendCount); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -902,6 +957,18 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RemainingMonthlySurplusSendCount); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RemainingDailySendCount); i {
 			case 0:
 				return &v.state
@@ -920,7 +987,7 @@ func file_message_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   9,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -155,34 +155,58 @@ export namespace AnalyzedLocation {
     }
 }
 
-export class MonthlySentCount extends jspb.Message { 
+export class SentCount extends jspb.Message { 
+
+    hasMonthlySurplus(): boolean;
+    clearMonthlySurplus(): void;
+    getMonthlySurplus(): MonthlySurplusSentCount | undefined;
+    setMonthlySurplus(value?: MonthlySurplusSentCount): SentCount;
+
+    hasDaily(): boolean;
+    clearDaily(): void;
+    getDaily(): DailySentCount | undefined;
+    setDaily(value?: DailySentCount): SentCount;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): SentCount.AsObject;
+    static toObject(includeInstance: boolean, msg: SentCount): SentCount.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: SentCount, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): SentCount;
+    static deserializeBinaryFromReader(message: SentCount, reader: jspb.BinaryReader): SentCount;
+}
+
+export namespace SentCount {
+    export type AsObject = {
+        monthlySurplus?: MonthlySurplusSentCount.AsObject,
+        daily?: DailySentCount.AsObject,
+    }
+}
+
+export class MonthlySurplusSentCount extends jspb.Message { 
 
     hasYearMonth(): boolean;
     clearYearMonth(): void;
     getYearMonth(): date_pb.YearMonth | undefined;
-    setYearMonth(value?: date_pb.YearMonth): MonthlySentCount;
+    setYearMonth(value?: date_pb.YearMonth): MonthlySurplusSentCount;
     getCount(): number;
-    setCount(value: number): MonthlySentCount;
-    clearDailySentCountList(): void;
-    getDailySentCountList(): Array<DailySentCount>;
-    setDailySentCountList(value: Array<DailySentCount>): MonthlySentCount;
-    addDailySentCount(value?: DailySentCount, index?: number): DailySentCount;
+    setCount(value: number): MonthlySurplusSentCount;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): MonthlySentCount.AsObject;
-    static toObject(includeInstance: boolean, msg: MonthlySentCount): MonthlySentCount.AsObject;
+    toObject(includeInstance?: boolean): MonthlySurplusSentCount.AsObject;
+    static toObject(includeInstance: boolean, msg: MonthlySurplusSentCount): MonthlySurplusSentCount.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: MonthlySentCount, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): MonthlySentCount;
-    static deserializeBinaryFromReader(message: MonthlySentCount, reader: jspb.BinaryReader): MonthlySentCount;
+    static serializeBinaryToWriter(message: MonthlySurplusSentCount, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): MonthlySurplusSentCount;
+    static deserializeBinaryFromReader(message: MonthlySurplusSentCount, reader: jspb.BinaryReader): MonthlySurplusSentCount;
 }
 
-export namespace MonthlySentCount {
+export namespace MonthlySurplusSentCount {
     export type AsObject = {
         yearMonth?: date_pb.YearMonth.AsObject,
         count: number,
-        dailySentCountList: Array<DailySentCount.AsObject>,
     }
 }
 
@@ -214,10 +238,10 @@ export namespace DailySentCount {
 
 export class RemainingSendCount extends jspb.Message { 
 
-    hasMonthly(): boolean;
-    clearMonthly(): void;
-    getMonthly(): RemainingMonthlySendCount | undefined;
-    setMonthly(value?: RemainingMonthlySendCount): RemainingSendCount;
+    hasMonthlySurplus(): boolean;
+    clearMonthlySurplus(): void;
+    getMonthlySurplus(): RemainingMonthlySurplusSendCount | undefined;
+    setMonthlySurplus(value?: RemainingMonthlySurplusSendCount): RemainingSendCount;
 
     hasDaily(): boolean;
     clearDaily(): void;
@@ -236,31 +260,31 @@ export class RemainingSendCount extends jspb.Message {
 
 export namespace RemainingSendCount {
     export type AsObject = {
-        monthly?: RemainingMonthlySendCount.AsObject,
+        monthlySurplus?: RemainingMonthlySurplusSendCount.AsObject,
         daily?: RemainingDailySendCount.AsObject,
     }
 }
 
-export class RemainingMonthlySendCount extends jspb.Message { 
+export class RemainingMonthlySurplusSendCount extends jspb.Message { 
 
     hasYearMonth(): boolean;
     clearYearMonth(): void;
     getYearMonth(): date_pb.YearMonth | undefined;
-    setYearMonth(value?: date_pb.YearMonth): RemainingMonthlySendCount;
+    setYearMonth(value?: date_pb.YearMonth): RemainingMonthlySurplusSendCount;
     getCount(): number;
-    setCount(value: number): RemainingMonthlySendCount;
+    setCount(value: number): RemainingMonthlySurplusSendCount;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): RemainingMonthlySendCount.AsObject;
-    static toObject(includeInstance: boolean, msg: RemainingMonthlySendCount): RemainingMonthlySendCount.AsObject;
+    toObject(includeInstance?: boolean): RemainingMonthlySurplusSendCount.AsObject;
+    static toObject(includeInstance: boolean, msg: RemainingMonthlySurplusSendCount): RemainingMonthlySurplusSendCount.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: RemainingMonthlySendCount, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): RemainingMonthlySendCount;
-    static deserializeBinaryFromReader(message: RemainingMonthlySendCount, reader: jspb.BinaryReader): RemainingMonthlySendCount;
+    static serializeBinaryToWriter(message: RemainingMonthlySurplusSendCount, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RemainingMonthlySurplusSendCount;
+    static deserializeBinaryFromReader(message: RemainingMonthlySurplusSendCount, reader: jspb.BinaryReader): RemainingMonthlySurplusSendCount;
 }
 
-export namespace RemainingMonthlySendCount {
+export namespace RemainingMonthlySurplusSendCount {
     export type AsObject = {
         yearMonth?: date_pb.YearMonth.AsObject,
         count: number,

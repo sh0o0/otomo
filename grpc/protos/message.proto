@@ -41,10 +41,14 @@ enum Role {
     OTOMO = 2;
 }
 
-message MonthlySentCount {
+message SentCount {
+    MonthlySurplusSentCount monthly_surplus = 1;
+    DailySentCount daily = 2;
+}
+
+message MonthlySurplusSentCount {
     YearMonth year_month = 1;
     int32 count = 2;
-    repeated DailySentCount daily_sent_count = 3;
 }
 
 message DailySentCount {
@@ -53,11 +57,11 @@ message DailySentCount {
 }
 
 message RemainingSendCount {
-    RemainingMonthlySendCount monthly = 1;
+    RemainingMonthlySurplusSendCount monthly_surplus = 1;
     RemainingDailySendCount daily = 2;
 }
 
-message RemainingMonthlySendCount {
+message RemainingMonthlySurplusSendCount {
     YearMonth year_month = 1;
     int32 count = 2;
 }

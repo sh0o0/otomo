@@ -708,22 +708,22 @@ var _ interface {
 	ErrorName() string
 } = AnalyzedLocationValidationError{}
 
-// Validate checks the field values on MonthlySentCount with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *MonthlySentCount) Validate() error {
+// Validate checks the field values on SentCount with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SentCount) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on MonthlySentCount with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// MonthlySentCountMultiError, or nil if none found.
-func (m *MonthlySentCount) ValidateAll() error {
+// ValidateAll checks the field values on SentCount with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SentCountMultiError, or nil
+// if none found.
+func (m *SentCount) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *MonthlySentCount) validate(all bool) error {
+func (m *SentCount) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -731,83 +731,75 @@ func (m *MonthlySentCount) validate(all bool) error {
 	var errors []error
 
 	if all {
-		switch v := interface{}(m.GetYearMonth()).(type) {
+		switch v := interface{}(m.GetMonthlySurplus()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, MonthlySentCountValidationError{
-					field:  "YearMonth",
+				errors = append(errors, SentCountValidationError{
+					field:  "MonthlySurplus",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, MonthlySentCountValidationError{
-					field:  "YearMonth",
+				errors = append(errors, SentCountValidationError{
+					field:  "MonthlySurplus",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetYearMonth()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetMonthlySurplus()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return MonthlySentCountValidationError{
-				field:  "YearMonth",
+			return SentCountValidationError{
+				field:  "MonthlySurplus",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
 	}
 
-	// no validation rules for Count
-
-	for idx, item := range m.GetDailySentCount() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MonthlySentCountValidationError{
-						field:  fmt.Sprintf("DailySentCount[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MonthlySentCountValidationError{
-						field:  fmt.Sprintf("DailySentCount[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MonthlySentCountValidationError{
-					field:  fmt.Sprintf("DailySentCount[%v]", idx),
+	if all {
+		switch v := interface{}(m.GetDaily()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SentCountValidationError{
+					field:  "Daily",
 					reason: "embedded message failed validation",
 					cause:  err,
-				}
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SentCountValidationError{
+					field:  "Daily",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
 			}
 		}
-
+	} else if v, ok := interface{}(m.GetDaily()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SentCountValidationError{
+				field:  "Daily",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
-		return MonthlySentCountMultiError(errors)
+		return SentCountMultiError(errors)
 	}
 	return nil
 }
 
-// MonthlySentCountMultiError is an error wrapping multiple validation errors
-// returned by MonthlySentCount.ValidateAll() if the designated constraints
-// aren't met.
-type MonthlySentCountMultiError []error
+// SentCountMultiError is an error wrapping multiple validation errors returned
+// by SentCount.ValidateAll() if the designated constraints aren't met.
+type SentCountMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m MonthlySentCountMultiError) Error() string {
+func (m SentCountMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -816,11 +808,11 @@ func (m MonthlySentCountMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m MonthlySentCountMultiError) AllErrors() []error { return m }
+func (m SentCountMultiError) AllErrors() []error { return m }
 
-// MonthlySentCountValidationError is the validation error returned by
-// MonthlySentCount.Validate if the designated constraints aren't met.
-type MonthlySentCountValidationError struct {
+// SentCountValidationError is the validation error returned by
+// SentCount.Validate if the designated constraints aren't met.
+type SentCountValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -828,22 +820,22 @@ type MonthlySentCountValidationError struct {
 }
 
 // Field function returns field value.
-func (e MonthlySentCountValidationError) Field() string { return e.field }
+func (e SentCountValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e MonthlySentCountValidationError) Reason() string { return e.reason }
+func (e SentCountValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e MonthlySentCountValidationError) Cause() error { return e.cause }
+func (e SentCountValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e MonthlySentCountValidationError) Key() bool { return e.key }
+func (e SentCountValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e MonthlySentCountValidationError) ErrorName() string { return "MonthlySentCountValidationError" }
+func (e SentCountValidationError) ErrorName() string { return "SentCountValidationError" }
 
 // Error satisfies the builtin error interface
-func (e MonthlySentCountValidationError) Error() string {
+func (e SentCountValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -855,14 +847,14 @@ func (e MonthlySentCountValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sMonthlySentCount.%s: %s%s",
+		"invalid %sSentCount.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = MonthlySentCountValidationError{}
+var _ error = SentCountValidationError{}
 
 var _ interface {
 	Field() string
@@ -870,7 +862,139 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = MonthlySentCountValidationError{}
+} = SentCountValidationError{}
+
+// Validate checks the field values on MonthlySurplusSentCount with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MonthlySurplusSentCount) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MonthlySurplusSentCount with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MonthlySurplusSentCountMultiError, or nil if none found.
+func (m *MonthlySurplusSentCount) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MonthlySurplusSentCount) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetYearMonth()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MonthlySurplusSentCountValidationError{
+					field:  "YearMonth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MonthlySurplusSentCountValidationError{
+					field:  "YearMonth",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetYearMonth()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MonthlySurplusSentCountValidationError{
+				field:  "YearMonth",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Count
+
+	if len(errors) > 0 {
+		return MonthlySurplusSentCountMultiError(errors)
+	}
+	return nil
+}
+
+// MonthlySurplusSentCountMultiError is an error wrapping multiple validation
+// errors returned by MonthlySurplusSentCount.ValidateAll() if the designated
+// constraints aren't met.
+type MonthlySurplusSentCountMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MonthlySurplusSentCountMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MonthlySurplusSentCountMultiError) AllErrors() []error { return m }
+
+// MonthlySurplusSentCountValidationError is the validation error returned by
+// MonthlySurplusSentCount.Validate if the designated constraints aren't met.
+type MonthlySurplusSentCountValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MonthlySurplusSentCountValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MonthlySurplusSentCountValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MonthlySurplusSentCountValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MonthlySurplusSentCountValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MonthlySurplusSentCountValidationError) ErrorName() string {
+	return "MonthlySurplusSentCountValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MonthlySurplusSentCountValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMonthlySurplusSentCount.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MonthlySurplusSentCountValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MonthlySurplusSentCountValidationError{}
 
 // Validate checks the field values on DailySentCount with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -1025,11 +1149,11 @@ func (m *RemainingSendCount) validate(all bool) error {
 	var errors []error
 
 	if all {
-		switch v := interface{}(m.GetMonthly()).(type) {
+		switch v := interface{}(m.GetMonthlySurplus()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, RemainingSendCountValidationError{
-					field:  "Monthly",
+					field:  "MonthlySurplus",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -1037,16 +1161,16 @@ func (m *RemainingSendCount) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, RemainingSendCountValidationError{
-					field:  "Monthly",
+					field:  "MonthlySurplus",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetMonthly()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetMonthlySurplus()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RemainingSendCountValidationError{
-				field:  "Monthly",
+				field:  "MonthlySurplus",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -1161,22 +1285,23 @@ var _ interface {
 	ErrorName() string
 } = RemainingSendCountValidationError{}
 
-// Validate checks the field values on RemainingMonthlySendCount with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RemainingMonthlySendCount) Validate() error {
+// Validate checks the field values on RemainingMonthlySurplusSendCount with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *RemainingMonthlySurplusSendCount) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RemainingMonthlySendCount with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// RemainingMonthlySendCountMultiError, or nil if none found.
-func (m *RemainingMonthlySendCount) ValidateAll() error {
+// ValidateAll checks the field values on RemainingMonthlySurplusSendCount with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RemainingMonthlySurplusSendCountMultiError, or nil if none found.
+func (m *RemainingMonthlySurplusSendCount) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RemainingMonthlySendCount) validate(all bool) error {
+func (m *RemainingMonthlySurplusSendCount) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1187,7 +1312,7 @@ func (m *RemainingMonthlySendCount) validate(all bool) error {
 		switch v := interface{}(m.GetYearMonth()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RemainingMonthlySendCountValidationError{
+				errors = append(errors, RemainingMonthlySurplusSendCountValidationError{
 					field:  "YearMonth",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1195,7 +1320,7 @@ func (m *RemainingMonthlySendCount) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, RemainingMonthlySendCountValidationError{
+				errors = append(errors, RemainingMonthlySurplusSendCountValidationError{
 					field:  "YearMonth",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1204,7 +1329,7 @@ func (m *RemainingMonthlySendCount) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetYearMonth()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return RemainingMonthlySendCountValidationError{
+			return RemainingMonthlySurplusSendCountValidationError{
 				field:  "YearMonth",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1215,18 +1340,19 @@ func (m *RemainingMonthlySendCount) validate(all bool) error {
 	// no validation rules for Count
 
 	if len(errors) > 0 {
-		return RemainingMonthlySendCountMultiError(errors)
+		return RemainingMonthlySurplusSendCountMultiError(errors)
 	}
 	return nil
 }
 
-// RemainingMonthlySendCountMultiError is an error wrapping multiple validation
-// errors returned by RemainingMonthlySendCount.ValidateAll() if the
-// designated constraints aren't met.
-type RemainingMonthlySendCountMultiError []error
+// RemainingMonthlySurplusSendCountMultiError is an error wrapping multiple
+// validation errors returned by
+// RemainingMonthlySurplusSendCount.ValidateAll() if the designated
+// constraints aren't met.
+type RemainingMonthlySurplusSendCountMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RemainingMonthlySendCountMultiError) Error() string {
+func (m RemainingMonthlySurplusSendCountMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1235,11 +1361,12 @@ func (m RemainingMonthlySendCountMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RemainingMonthlySendCountMultiError) AllErrors() []error { return m }
+func (m RemainingMonthlySurplusSendCountMultiError) AllErrors() []error { return m }
 
-// RemainingMonthlySendCountValidationError is the validation error returned by
-// RemainingMonthlySendCount.Validate if the designated constraints aren't met.
-type RemainingMonthlySendCountValidationError struct {
+// RemainingMonthlySurplusSendCountValidationError is the validation error
+// returned by RemainingMonthlySurplusSendCount.Validate if the designated
+// constraints aren't met.
+type RemainingMonthlySurplusSendCountValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1247,24 +1374,24 @@ type RemainingMonthlySendCountValidationError struct {
 }
 
 // Field function returns field value.
-func (e RemainingMonthlySendCountValidationError) Field() string { return e.field }
+func (e RemainingMonthlySurplusSendCountValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RemainingMonthlySendCountValidationError) Reason() string { return e.reason }
+func (e RemainingMonthlySurplusSendCountValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RemainingMonthlySendCountValidationError) Cause() error { return e.cause }
+func (e RemainingMonthlySurplusSendCountValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RemainingMonthlySendCountValidationError) Key() bool { return e.key }
+func (e RemainingMonthlySurplusSendCountValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RemainingMonthlySendCountValidationError) ErrorName() string {
-	return "RemainingMonthlySendCountValidationError"
+func (e RemainingMonthlySurplusSendCountValidationError) ErrorName() string {
+	return "RemainingMonthlySurplusSendCountValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RemainingMonthlySendCountValidationError) Error() string {
+func (e RemainingMonthlySurplusSendCountValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1276,14 +1403,14 @@ func (e RemainingMonthlySendCountValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRemainingMonthlySendCount.%s: %s%s",
+		"invalid %sRemainingMonthlySurplusSendCount.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RemainingMonthlySendCountValidationError{}
+var _ error = RemainingMonthlySurplusSendCountValidationError{}
 
 var _ interface {
 	Field() string
@@ -1291,7 +1418,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RemainingMonthlySendCountValidationError{}
+} = RemainingMonthlySurplusSendCountValidationError{}
 
 // Validate checks the field values on RemainingDailySendCount with the rules
 // defined in the proto definition for this message. If any rules are

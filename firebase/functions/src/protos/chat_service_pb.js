@@ -490,7 +490,7 @@ proto.ChatService_SendMessageResponse.toObject = function(includeInstance, msg) 
   var f, obj = {
     message: (f = msg.getMessage()) && message_pb.Message.toObject(includeInstance, f),
     remainingSendCount: (f = msg.getRemainingSendCount()) && message_pb.RemainingSendCount.toObject(includeInstance, f),
-    monthlySentCount: (f = msg.getMonthlySentCount()) && message_pb.MonthlySentCount.toObject(includeInstance, f)
+    sentCount: (f = msg.getSentCount()) && message_pb.SentCount.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -538,9 +538,9 @@ proto.ChatService_SendMessageResponse.deserializeBinaryFromReader = function(msg
       msg.setRemainingSendCount(value);
       break;
     case 3:
-      var value = new message_pb.MonthlySentCount;
-      reader.readMessage(value,message_pb.MonthlySentCount.deserializeBinaryFromReader);
-      msg.setMonthlySentCount(value);
+      var value = new message_pb.SentCount;
+      reader.readMessage(value,message_pb.SentCount.deserializeBinaryFromReader);
+      msg.setSentCount(value);
       break;
     default:
       reader.skipField();
@@ -587,12 +587,12 @@ proto.ChatService_SendMessageResponse.serializeBinaryToWriter = function(message
       message_pb.RemainingSendCount.serializeBinaryToWriter
     );
   }
-  f = message.getMonthlySentCount();
+  f = message.getSentCount();
   if (f != null) {
     writer.writeMessage(
       3,
       f,
-      message_pb.MonthlySentCount.serializeBinaryToWriter
+      message_pb.SentCount.serializeBinaryToWriter
     );
   }
 };
@@ -673,20 +673,20 @@ proto.ChatService_SendMessageResponse.prototype.hasRemainingSendCount = function
 
 
 /**
- * optional MonthlySentCount monthly_sent_count = 3;
- * @return {?proto.MonthlySentCount}
+ * optional SentCount sent_count = 3;
+ * @return {?proto.SentCount}
  */
-proto.ChatService_SendMessageResponse.prototype.getMonthlySentCount = function() {
-  return /** @type{?proto.MonthlySentCount} */ (
-    jspb.Message.getWrapperField(this, message_pb.MonthlySentCount, 3));
+proto.ChatService_SendMessageResponse.prototype.getSentCount = function() {
+  return /** @type{?proto.SentCount} */ (
+    jspb.Message.getWrapperField(this, message_pb.SentCount, 3));
 };
 
 
 /**
- * @param {?proto.MonthlySentCount|undefined} value
+ * @param {?proto.SentCount|undefined} value
  * @return {!proto.ChatService_SendMessageResponse} returns this
 */
-proto.ChatService_SendMessageResponse.prototype.setMonthlySentCount = function(value) {
+proto.ChatService_SendMessageResponse.prototype.setSentCount = function(value) {
   return jspb.Message.setWrapperField(this, 3, value);
 };
 
@@ -695,8 +695,8 @@ proto.ChatService_SendMessageResponse.prototype.setMonthlySentCount = function(v
  * Clears the message field making it undefined.
  * @return {!proto.ChatService_SendMessageResponse} returns this
  */
-proto.ChatService_SendMessageResponse.prototype.clearMonthlySentCount = function() {
-  return this.setMonthlySentCount(undefined);
+proto.ChatService_SendMessageResponse.prototype.clearSentCount = function() {
+  return this.setSentCount(undefined);
 };
 
 
@@ -704,7 +704,7 @@ proto.ChatService_SendMessageResponse.prototype.clearMonthlySentCount = function
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.ChatService_SendMessageResponse.prototype.hasMonthlySentCount = function() {
+proto.ChatService_SendMessageResponse.prototype.hasSentCount = function() {
   return jspb.Message.getField(this, 3) != null;
 };
 
@@ -1844,7 +1844,7 @@ proto.ChatService_GetRemainingSendCountResponse.prototype.toObject = function(op
 proto.ChatService_GetRemainingSendCountResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     remainingSendCount: (f = msg.getRemainingSendCount()) && message_pb.RemainingSendCount.toObject(includeInstance, f),
-    monthlySentCount: (f = msg.getMonthlySentCount()) && message_pb.MonthlySentCount.toObject(includeInstance, f)
+    sentCount: (f = msg.getSentCount()) && message_pb.SentCount.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1887,9 +1887,9 @@ proto.ChatService_GetRemainingSendCountResponse.deserializeBinaryFromReader = fu
       msg.setRemainingSendCount(value);
       break;
     case 2:
-      var value = new message_pb.MonthlySentCount;
-      reader.readMessage(value,message_pb.MonthlySentCount.deserializeBinaryFromReader);
-      msg.setMonthlySentCount(value);
+      var value = new message_pb.SentCount;
+      reader.readMessage(value,message_pb.SentCount.deserializeBinaryFromReader);
+      msg.setSentCount(value);
       break;
     default:
       reader.skipField();
@@ -1928,12 +1928,12 @@ proto.ChatService_GetRemainingSendCountResponse.serializeBinaryToWriter = functi
       message_pb.RemainingSendCount.serializeBinaryToWriter
     );
   }
-  f = message.getMonthlySentCount();
+  f = message.getSentCount();
   if (f != null) {
     writer.writeMessage(
       2,
       f,
-      message_pb.MonthlySentCount.serializeBinaryToWriter
+      message_pb.SentCount.serializeBinaryToWriter
     );
   }
 };
@@ -1977,20 +1977,20 @@ proto.ChatService_GetRemainingSendCountResponse.prototype.hasRemainingSendCount 
 
 
 /**
- * optional MonthlySentCount monthly_sent_count = 2;
- * @return {?proto.MonthlySentCount}
+ * optional SentCount sent_count = 2;
+ * @return {?proto.SentCount}
  */
-proto.ChatService_GetRemainingSendCountResponse.prototype.getMonthlySentCount = function() {
-  return /** @type{?proto.MonthlySentCount} */ (
-    jspb.Message.getWrapperField(this, message_pb.MonthlySentCount, 2));
+proto.ChatService_GetRemainingSendCountResponse.prototype.getSentCount = function() {
+  return /** @type{?proto.SentCount} */ (
+    jspb.Message.getWrapperField(this, message_pb.SentCount, 2));
 };
 
 
 /**
- * @param {?proto.MonthlySentCount|undefined} value
+ * @param {?proto.SentCount|undefined} value
  * @return {!proto.ChatService_GetRemainingSendCountResponse} returns this
 */
-proto.ChatService_GetRemainingSendCountResponse.prototype.setMonthlySentCount = function(value) {
+proto.ChatService_GetRemainingSendCountResponse.prototype.setSentCount = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
@@ -1999,8 +1999,8 @@ proto.ChatService_GetRemainingSendCountResponse.prototype.setMonthlySentCount = 
  * Clears the message field making it undefined.
  * @return {!proto.ChatService_GetRemainingSendCountResponse} returns this
  */
-proto.ChatService_GetRemainingSendCountResponse.prototype.clearMonthlySentCount = function() {
-  return this.setMonthlySentCount(undefined);
+proto.ChatService_GetRemainingSendCountResponse.prototype.clearSentCount = function() {
+  return this.setSentCount(undefined);
 };
 
 
@@ -2008,7 +2008,7 @@ proto.ChatService_GetRemainingSendCountResponse.prototype.clearMonthlySentCount 
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.ChatService_GetRemainingSendCountResponse.prototype.hasMonthlySentCount = function() {
+proto.ChatService_GetRemainingSendCountResponse.prototype.hasSentCount = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 

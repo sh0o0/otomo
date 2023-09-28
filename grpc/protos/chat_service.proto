@@ -23,7 +23,7 @@ message ChatService_SendMessageRequest {
 message ChatService_SendMessageResponse {
   Message message = 1;
   RemainingSendCount remaining_send_count = 2;
-  MonthlySentCount monthly_sent_count = 3;
+  SentCount sent_count = 3;
 };
 
 message ChatService_ListMessagesRequest {
@@ -60,5 +60,5 @@ message ChatService_GetRemainingSendCountRequest {
 
 message ChatService_GetRemainingSendCountResponse {
   RemainingSendCount remaining_send_count = 1;
-  MonthlySentCount monthly_sent_count = 2;
+  SentCount sent_count = 2;
 }

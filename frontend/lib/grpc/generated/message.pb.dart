@@ -329,16 +329,15 @@ class AnalyzedLocation extends $pb.GeneratedMessage {
   $5.Location ensureLocation() => $_ensure(1);
 }
 
-class MonthlySentCount extends $pb.GeneratedMessage {
-  factory MonthlySentCount() => create();
-  MonthlySentCount._() : super();
-  factory MonthlySentCount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory MonthlySentCount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+class SentCount extends $pb.GeneratedMessage {
+  factory SentCount() => create();
+  SentCount._() : super();
+  factory SentCount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SentCount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MonthlySentCount', createEmptyInstance: create)
-    ..aOM<$6.YearMonth>(1, _omitFieldNames ? '' : 'yearMonth', subBuilder: $6.YearMonth.create)
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'count', $pb.PbFieldType.O3)
-    ..pc<DailySentCount>(3, _omitFieldNames ? '' : 'dailySentCount', $pb.PbFieldType.PM, subBuilder: DailySentCount.create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SentCount', createEmptyInstance: create)
+    ..aOM<MonthlySurplusSentCount>(1, _omitFieldNames ? '' : 'monthlySurplus', subBuilder: MonthlySurplusSentCount.create)
+    ..aOM<DailySentCount>(2, _omitFieldNames ? '' : 'daily', subBuilder: DailySentCount.create)
     ..hasRequiredFields = false
   ;
 
@@ -346,22 +345,78 @@ class MonthlySentCount extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  MonthlySentCount clone() => MonthlySentCount()..mergeFromMessage(this);
+  SentCount clone() => SentCount()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MonthlySentCount copyWith(void Function(MonthlySentCount) updates) => super.copyWith((message) => updates(message as MonthlySentCount)) as MonthlySentCount;
+  SentCount copyWith(void Function(SentCount) updates) => super.copyWith((message) => updates(message as SentCount)) as SentCount;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static MonthlySentCount create() => MonthlySentCount._();
-  MonthlySentCount createEmptyInstance() => create();
-  static $pb.PbList<MonthlySentCount> createRepeated() => $pb.PbList<MonthlySentCount>();
+  static SentCount create() => SentCount._();
+  SentCount createEmptyInstance() => create();
+  static $pb.PbList<SentCount> createRepeated() => $pb.PbList<SentCount>();
   @$core.pragma('dart2js:noInline')
-  static MonthlySentCount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MonthlySentCount>(create);
-  static MonthlySentCount? _defaultInstance;
+  static SentCount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SentCount>(create);
+  static SentCount? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  MonthlySurplusSentCount get monthlySurplus => $_getN(0);
+  @$pb.TagNumber(1)
+  set monthlySurplus(MonthlySurplusSentCount v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasMonthlySurplus() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMonthlySurplus() => clearField(1);
+  @$pb.TagNumber(1)
+  MonthlySurplusSentCount ensureMonthlySurplus() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  DailySentCount get daily => $_getN(1);
+  @$pb.TagNumber(2)
+  set daily(DailySentCount v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasDaily() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDaily() => clearField(2);
+  @$pb.TagNumber(2)
+  DailySentCount ensureDaily() => $_ensure(1);
+}
+
+class MonthlySurplusSentCount extends $pb.GeneratedMessage {
+  factory MonthlySurplusSentCount() => create();
+  MonthlySurplusSentCount._() : super();
+  factory MonthlySurplusSentCount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory MonthlySurplusSentCount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MonthlySurplusSentCount', createEmptyInstance: create)
+    ..aOM<$6.YearMonth>(1, _omitFieldNames ? '' : 'yearMonth', subBuilder: $6.YearMonth.create)
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'count', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  MonthlySurplusSentCount clone() => MonthlySurplusSentCount()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  MonthlySurplusSentCount copyWith(void Function(MonthlySurplusSentCount) updates) => super.copyWith((message) => updates(message as MonthlySurplusSentCount)) as MonthlySurplusSentCount;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MonthlySurplusSentCount create() => MonthlySurplusSentCount._();
+  MonthlySurplusSentCount createEmptyInstance() => create();
+  static $pb.PbList<MonthlySurplusSentCount> createRepeated() => $pb.PbList<MonthlySurplusSentCount>();
+  @$core.pragma('dart2js:noInline')
+  static MonthlySurplusSentCount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MonthlySurplusSentCount>(create);
+  static MonthlySurplusSentCount? _defaultInstance;
 
   @$pb.TagNumber(1)
   $6.YearMonth get yearMonth => $_getN(0);
@@ -382,9 +437,6 @@ class MonthlySentCount extends $pb.GeneratedMessage {
   $core.bool hasCount() => $_has(1);
   @$pb.TagNumber(2)
   void clearCount() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.List<DailySentCount> get dailySentCount => $_getList(2);
 }
 
 class DailySentCount extends $pb.GeneratedMessage {
@@ -448,7 +500,7 @@ class RemainingSendCount extends $pb.GeneratedMessage {
   factory RemainingSendCount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemainingSendCount', createEmptyInstance: create)
-    ..aOM<RemainingMonthlySendCount>(1, _omitFieldNames ? '' : 'monthly', subBuilder: RemainingMonthlySendCount.create)
+    ..aOM<RemainingMonthlySurplusSendCount>(1, _omitFieldNames ? '' : 'monthlySurplus', subBuilder: RemainingMonthlySurplusSendCount.create)
     ..aOM<RemainingDailySendCount>(2, _omitFieldNames ? '' : 'daily', subBuilder: RemainingDailySendCount.create)
     ..hasRequiredFields = false
   ;
@@ -475,15 +527,15 @@ class RemainingSendCount extends $pb.GeneratedMessage {
   static RemainingSendCount? _defaultInstance;
 
   @$pb.TagNumber(1)
-  RemainingMonthlySendCount get monthly => $_getN(0);
+  RemainingMonthlySurplusSendCount get monthlySurplus => $_getN(0);
   @$pb.TagNumber(1)
-  set monthly(RemainingMonthlySendCount v) { setField(1, v); }
+  set monthlySurplus(RemainingMonthlySurplusSendCount v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasMonthly() => $_has(0);
+  $core.bool hasMonthlySurplus() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMonthly() => clearField(1);
+  void clearMonthlySurplus() => clearField(1);
   @$pb.TagNumber(1)
-  RemainingMonthlySendCount ensureMonthly() => $_ensure(0);
+  RemainingMonthlySurplusSendCount ensureMonthlySurplus() => $_ensure(0);
 
   @$pb.TagNumber(2)
   RemainingDailySendCount get daily => $_getN(1);
@@ -497,13 +549,13 @@ class RemainingSendCount extends $pb.GeneratedMessage {
   RemainingDailySendCount ensureDaily() => $_ensure(1);
 }
 
-class RemainingMonthlySendCount extends $pb.GeneratedMessage {
-  factory RemainingMonthlySendCount() => create();
-  RemainingMonthlySendCount._() : super();
-  factory RemainingMonthlySendCount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory RemainingMonthlySendCount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+class RemainingMonthlySurplusSendCount extends $pb.GeneratedMessage {
+  factory RemainingMonthlySurplusSendCount() => create();
+  RemainingMonthlySurplusSendCount._() : super();
+  factory RemainingMonthlySurplusSendCount.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory RemainingMonthlySurplusSendCount.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemainingMonthlySendCount', createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RemainingMonthlySurplusSendCount', createEmptyInstance: create)
     ..aOM<$6.YearMonth>(1, _omitFieldNames ? '' : 'yearMonth', subBuilder: $6.YearMonth.create)
     ..a<$core.int>(2, _omitFieldNames ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
@@ -513,22 +565,22 @@ class RemainingMonthlySendCount extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  RemainingMonthlySendCount clone() => RemainingMonthlySendCount()..mergeFromMessage(this);
+  RemainingMonthlySurplusSendCount clone() => RemainingMonthlySurplusSendCount()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RemainingMonthlySendCount copyWith(void Function(RemainingMonthlySendCount) updates) => super.copyWith((message) => updates(message as RemainingMonthlySendCount)) as RemainingMonthlySendCount;
+  RemainingMonthlySurplusSendCount copyWith(void Function(RemainingMonthlySurplusSendCount) updates) => super.copyWith((message) => updates(message as RemainingMonthlySurplusSendCount)) as RemainingMonthlySurplusSendCount;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static RemainingMonthlySendCount create() => RemainingMonthlySendCount._();
-  RemainingMonthlySendCount createEmptyInstance() => create();
-  static $pb.PbList<RemainingMonthlySendCount> createRepeated() => $pb.PbList<RemainingMonthlySendCount>();
+  static RemainingMonthlySurplusSendCount create() => RemainingMonthlySurplusSendCount._();
+  RemainingMonthlySurplusSendCount createEmptyInstance() => create();
+  static $pb.PbList<RemainingMonthlySurplusSendCount> createRepeated() => $pb.PbList<RemainingMonthlySurplusSendCount>();
   @$core.pragma('dart2js:noInline')
-  static RemainingMonthlySendCount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RemainingMonthlySendCount>(create);
-  static RemainingMonthlySendCount? _defaultInstance;
+  static RemainingMonthlySurplusSendCount getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RemainingMonthlySurplusSendCount>(create);
+  static RemainingMonthlySurplusSendCount? _defaultInstance;
 
   @$pb.TagNumber(1)
   $6.YearMonth get yearMonth => $_getN(0);

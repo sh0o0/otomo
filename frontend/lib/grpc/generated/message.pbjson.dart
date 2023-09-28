@@ -100,21 +100,34 @@ final $typed_data.Uint8List analyzedLocationDescriptor = $convert.base64Decode(
     'ChBBbmFseXplZExvY2F0aW9uEhIKBHRleHQYASABKAlSBHRleHQSJQoIbG9jYXRpb24YAiABKA'
     'syCS5Mb2NhdGlvblIIbG9jYXRpb24=');
 
-@$core.Deprecated('Use monthlySentCountDescriptor instead')
-const MonthlySentCount$json = {
-  '1': 'MonthlySentCount',
+@$core.Deprecated('Use sentCountDescriptor instead')
+const SentCount$json = {
+  '1': 'SentCount',
   '2': [
-    {'1': 'year_month', '3': 1, '4': 1, '5': 11, '6': '.YearMonth', '10': 'yearMonth'},
-    {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
-    {'1': 'daily_sent_count', '3': 3, '4': 3, '5': 11, '6': '.DailySentCount', '10': 'dailySentCount'},
+    {'1': 'monthly_surplus', '3': 1, '4': 1, '5': 11, '6': '.MonthlySurplusSentCount', '10': 'monthlySurplus'},
+    {'1': 'daily', '3': 2, '4': 1, '5': 11, '6': '.DailySentCount', '10': 'daily'},
   ],
 };
 
-/// Descriptor for `MonthlySentCount`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List monthlySentCountDescriptor = $convert.base64Decode(
-    'ChBNb250aGx5U2VudENvdW50EikKCnllYXJfbW9udGgYASABKAsyCi5ZZWFyTW9udGhSCXllYX'
-    'JNb250aBIUCgVjb3VudBgCIAEoBVIFY291bnQSOQoQZGFpbHlfc2VudF9jb3VudBgDIAMoCzIP'
-    'LkRhaWx5U2VudENvdW50Ug5kYWlseVNlbnRDb3VudA==');
+/// Descriptor for `SentCount`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List sentCountDescriptor = $convert.base64Decode(
+    'CglTZW50Q291bnQSQQoPbW9udGhseV9zdXJwbHVzGAEgASgLMhguTW9udGhseVN1cnBsdXNTZW'
+    '50Q291bnRSDm1vbnRobHlTdXJwbHVzEiUKBWRhaWx5GAIgASgLMg8uRGFpbHlTZW50Q291bnRS'
+    'BWRhaWx5');
+
+@$core.Deprecated('Use monthlySurplusSentCountDescriptor instead')
+const MonthlySurplusSentCount$json = {
+  '1': 'MonthlySurplusSentCount',
+  '2': [
+    {'1': 'year_month', '3': 1, '4': 1, '5': 11, '6': '.YearMonth', '10': 'yearMonth'},
+    {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
+  ],
+};
+
+/// Descriptor for `MonthlySurplusSentCount`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List monthlySurplusSentCountDescriptor = $convert.base64Decode(
+    'ChdNb250aGx5U3VycGx1c1NlbnRDb3VudBIpCgp5ZWFyX21vbnRoGAEgASgLMgouWWVhck1vbn'
+    'RoUgl5ZWFyTW9udGgSFAoFY291bnQYAiABKAVSBWNvdW50');
 
 @$core.Deprecated('Use dailySentCountDescriptor instead')
 const DailySentCount$json = {
@@ -134,30 +147,30 @@ final $typed_data.Uint8List dailySentCountDescriptor = $convert.base64Decode(
 const RemainingSendCount$json = {
   '1': 'RemainingSendCount',
   '2': [
-    {'1': 'monthly', '3': 1, '4': 1, '5': 11, '6': '.RemainingMonthlySendCount', '10': 'monthly'},
+    {'1': 'monthly_surplus', '3': 1, '4': 1, '5': 11, '6': '.RemainingMonthlySurplusSendCount', '10': 'monthlySurplus'},
     {'1': 'daily', '3': 2, '4': 1, '5': 11, '6': '.RemainingDailySendCount', '10': 'daily'},
   ],
 };
 
 /// Descriptor for `RemainingSendCount`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List remainingSendCountDescriptor = $convert.base64Decode(
-    'ChJSZW1haW5pbmdTZW5kQ291bnQSNAoHbW9udGhseRgBIAEoCzIaLlJlbWFpbmluZ01vbnRobH'
-    'lTZW5kQ291bnRSB21vbnRobHkSLgoFZGFpbHkYAiABKAsyGC5SZW1haW5pbmdEYWlseVNlbmRD'
-    'b3VudFIFZGFpbHk=');
+    'ChJSZW1haW5pbmdTZW5kQ291bnQSSgoPbW9udGhseV9zdXJwbHVzGAEgASgLMiEuUmVtYWluaW'
+    '5nTW9udGhseVN1cnBsdXNTZW5kQ291bnRSDm1vbnRobHlTdXJwbHVzEi4KBWRhaWx5GAIgASgL'
+    'MhguUmVtYWluaW5nRGFpbHlTZW5kQ291bnRSBWRhaWx5');
 
-@$core.Deprecated('Use remainingMonthlySendCountDescriptor instead')
-const RemainingMonthlySendCount$json = {
-  '1': 'RemainingMonthlySendCount',
+@$core.Deprecated('Use remainingMonthlySurplusSendCountDescriptor instead')
+const RemainingMonthlySurplusSendCount$json = {
+  '1': 'RemainingMonthlySurplusSendCount',
   '2': [
     {'1': 'year_month', '3': 1, '4': 1, '5': 11, '6': '.YearMonth', '10': 'yearMonth'},
     {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
   ],
 };
 
-/// Descriptor for `RemainingMonthlySendCount`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List remainingMonthlySendCountDescriptor = $convert.base64Decode(
-    'ChlSZW1haW5pbmdNb250aGx5U2VuZENvdW50EikKCnllYXJfbW9udGgYASABKAsyCi5ZZWFyTW'
-    '9udGhSCXllYXJNb250aBIUCgVjb3VudBgCIAEoBVIFY291bnQ=');
+/// Descriptor for `RemainingMonthlySurplusSendCount`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List remainingMonthlySurplusSendCountDescriptor = $convert.base64Decode(
+    'CiBSZW1haW5pbmdNb250aGx5U3VycGx1c1NlbmRDb3VudBIpCgp5ZWFyX21vbnRoGAEgASgLMg'
+    'ouWWVhck1vbnRoUgl5ZWFyTW9udGgSFAoFY291bnQYAiABKAVSBWNvdW50');
 
 @$core.Deprecated('Use remainingDailySendCountDescriptor instead')
 const RemainingDailySendCount$json = {
