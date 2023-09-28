@@ -5,6 +5,7 @@ var grpc = require('@grpc/grpc-js');
 var chat_service_pb = require('./chat_service_pb.js');
 var google_protobuf_wrappers_pb = require('google-protobuf/google/protobuf/wrappers_pb.js');
 var message_pb = require('./message_pb.js');
+var message_send_count_pb = require('./message_send_count_pb.js');
 
 function serialize_ChatService_AskToMessageRequest(arg) {
   if (!(arg instanceof chat_service_pb.ChatService_AskToMessageRequest)) {

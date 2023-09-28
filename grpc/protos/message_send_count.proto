@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option go_package = ".;grpcgen";
+
+import "date.proto";
+
+message MessageSentCount {
+    MonthlySurplusMessageSentCount monthly_surplus = 1;
+    DailyMessageSentCount daily = 2;
+}
+
+message MonthlySurplusMessageSentCount {
+    YearMonth year_month = 1;
+    int32 count = 2;
+}
+
+message DailyMessageSentCount {
+    Date date = 1;
+    int32 count = 2;
+}
+
+message RemainingMessageSendCount {
+    RemainingMonthlySurplusMessageSendCount monthly_surplus = 1;
+    RemainingDailyMessageSendCount daily = 2;
+}
+
+message RemainingMonthlySurplusMessageSendCount {
+    YearMonth year_month = 1;
+    int32 count = 2;
+}
+
+message RemainingDailyMessageSendCount {
+    Date date = 1;
+    int32 count = 2;
+}

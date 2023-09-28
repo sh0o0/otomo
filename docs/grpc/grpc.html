@@ -299,10 +299,6 @@
                 </li>
               
                 <li>
-                  <a href="#.DailySentCount"><span class="badge">M</span>DailySentCount</a>
-                </li>
-              
-                <li>
                   <a href="#.LocationAnalysis"><span class="badge">M</span>LocationAnalysis</a>
                 </li>
               
@@ -314,30 +310,45 @@
                   <a href="#.MessageChunk"><span class="badge">M</span>MessageChunk</a>
                 </li>
               
-                <li>
-                  <a href="#.MonthlySurplusSentCount"><span class="badge">M</span>MonthlySurplusSentCount</a>
-                </li>
-              
-                <li>
-                  <a href="#.RemainingDailySendCount"><span class="badge">M</span>RemainingDailySendCount</a>
-                </li>
-              
-                <li>
-                  <a href="#.RemainingMonthlySurplusSendCount"><span class="badge">M</span>RemainingMonthlySurplusSendCount</a>
-                </li>
-              
-                <li>
-                  <a href="#.RemainingSendCount"><span class="badge">M</span>RemainingSendCount</a>
-                </li>
-              
-                <li>
-                  <a href="#.SentCount"><span class="badge">M</span>SentCount</a>
-                </li>
-              
               
                 <li>
                   <a href="#.Role"><span class="badge">E</span>Role</a>
                 </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#message_send_count.proto">message_send_count.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.DailyMessageSentCount"><span class="badge">M</span>DailyMessageSentCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.MessageSentCount"><span class="badge">M</span>MessageSentCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.MonthlySurplusMessageSentCount"><span class="badge">M</span>MonthlySurplusMessageSentCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.RemainingDailyMessageSendCount"><span class="badge">M</span>RemainingDailyMessageSendCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.RemainingMessageSendCount"><span class="badge">M</span>RemainingMessageSendCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.RemainingMonthlySurplusMessageSendCount"><span class="badge">M</span>RemainingMonthlySurplusMessageSendCount</a>
+                </li>
+              
               
               
               
@@ -494,14 +505,14 @@
               
                 <tr>
                   <td>remaining_send_count</td>
-                  <td><a href="#RemainingSendCount">RemainingSendCount</a></td>
+                  <td><a href="#RemainingMessageSendCount">RemainingMessageSendCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
               
                 <tr>
                   <td>sent_count</td>
-                  <td><a href="#SentCount">SentCount</a></td>
+                  <td><a href="#MessageSentCount">MessageSentCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -788,14 +799,14 @@
               
                 <tr>
                   <td>remaining_send_count</td>
-                  <td><a href="#RemainingSendCount">RemainingSendCount</a></td>
+                  <td><a href="#RemainingMessageSendCount">RemainingMessageSendCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
               
                 <tr>
                   <td>sent_count</td>
-                  <td><a href="#SentCount">SentCount</a></td>
+                  <td><a href="#MessageSentCount">MessageSentCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1157,37 +1168,6 @@ significant. </p></td>
 
         
       
-        <h3 id=".DailySentCount">DailySentCount</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>date</td>
-                  <td><a href="#Date">Date</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>count</td>
-                  <td><a href="#int32">int32</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
         <h3 id=".LocationAnalysis">LocationAnalysis</h3>
         <p></p>
 
@@ -1344,161 +1324,6 @@ significant. </p></td>
 
         
       
-        <h3 id=".MonthlySurplusSentCount">MonthlySurplusSentCount</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>year_month</td>
-                  <td><a href="#YearMonth">YearMonth</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>count</td>
-                  <td><a href="#int32">int32</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id=".RemainingDailySendCount">RemainingDailySendCount</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>date</td>
-                  <td><a href="#Date">Date</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>count</td>
-                  <td><a href="#int32">int32</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id=".RemainingMonthlySurplusSendCount">RemainingMonthlySurplusSendCount</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>year_month</td>
-                  <td><a href="#YearMonth">YearMonth</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>count</td>
-                  <td><a href="#int32">int32</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id=".RemainingSendCount">RemainingSendCount</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>monthly_surplus</td>
-                  <td><a href="#RemainingMonthlySurplusSendCount">RemainingMonthlySurplusSendCount</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>daily</td>
-                  <td><a href="#RemainingDailySendCount">RemainingDailySendCount</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id=".SentCount">SentCount</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>monthly_surplus</td>
-                  <td><a href="#MonthlySurplusSentCount">MonthlySurplusSentCount</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>daily</td>
-                  <td><a href="#DailySentCount">DailySentCount</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
 
       
         <h3 id=".Role">Role</h3>
@@ -1529,6 +1354,206 @@ significant. </p></td>
             
           </tbody>
         </table>
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="message_send_count.proto">message_send_count.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".DailyMessageSentCount">DailyMessageSentCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>date</td>
+                  <td><a href="#Date">Date</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".MessageSentCount">MessageSentCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>monthly_surplus</td>
+                  <td><a href="#MonthlySurplusMessageSentCount">MonthlySurplusMessageSentCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>daily</td>
+                  <td><a href="#DailyMessageSentCount">DailyMessageSentCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".MonthlySurplusMessageSentCount">MonthlySurplusMessageSentCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>year_month</td>
+                  <td><a href="#YearMonth">YearMonth</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".RemainingDailyMessageSendCount">RemainingDailyMessageSendCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>date</td>
+                  <td><a href="#Date">Date</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".RemainingMessageSendCount">RemainingMessageSendCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>monthly_surplus</td>
+                  <td><a href="#RemainingMonthlySurplusMessageSendCount">RemainingMonthlySurplusMessageSendCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>daily</td>
+                  <td><a href="#RemainingDailyMessageSendCount">RemainingDailyMessageSendCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".RemainingMonthlySurplusMessageSendCount">RemainingMonthlySurplusMessageSendCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>year_month</td>
+                  <td><a href="#YearMonth">YearMonth</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
       
 
       

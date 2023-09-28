@@ -5,6 +5,7 @@ option go_package = ".;grpcgen";
 import "google/protobuf/wrappers.proto";
 import "validate/validate.proto";
 import "message.proto";
+import "message_send_count.proto";
 
 service ChatService {
   rpc SendMessage (ChatService_SendMessageRequest) returns (ChatService_SendMessageResponse) {};
@@ -22,8 +23,8 @@ message ChatService_SendMessageRequest {
 
 message ChatService_SendMessageResponse {
   Message message = 1;
-  RemainingSendCount remaining_send_count = 2;
-  SentCount sent_count = 3;
+  RemainingMessageSendCount remaining_send_count = 2;
+  MessageSentCount sent_count = 3;
 };
 
 message ChatService_ListMessagesRequest {
@@ -59,6 +60,6 @@ message ChatService_GetRemainingSendCountRequest {
 }
 
 message ChatService_GetRemainingSendCountResponse {
-  RemainingSendCount remaining_send_count = 1;
-  SentCount sent_count = 2;
+  RemainingMessageSendCount remaining_send_count = 1;
+  MessageSentCount sent_count = 2;
 }

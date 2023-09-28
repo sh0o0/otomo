@@ -15,6 +15,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/wrappers.pb.dart' as $4;
 import 'message.pb.dart' as $7;
+import 'message_send_count.pb.dart' as $8;
 
 class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
   factory ChatService_SendMessageRequest() => create();
@@ -88,8 +89,8 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_SendMessageResponse', createEmptyInstance: create)
     ..aOM<$7.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $7.Message.create)
-    ..aOM<$7.RemainingSendCount>(2, _omitFieldNames ? '' : 'remainingSendCount', subBuilder: $7.RemainingSendCount.create)
-    ..aOM<$7.SentCount>(3, _omitFieldNames ? '' : 'sentCount', subBuilder: $7.SentCount.create)
+    ..aOM<$8.RemainingMessageSendCount>(2, _omitFieldNames ? '' : 'remainingSendCount', subBuilder: $8.RemainingMessageSendCount.create)
+    ..aOM<$8.MessageSentCount>(3, _omitFieldNames ? '' : 'sentCount', subBuilder: $8.MessageSentCount.create)
     ..hasRequiredFields = false
   ;
 
@@ -126,26 +127,26 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
   $7.Message ensureMessage() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $7.RemainingSendCount get remainingSendCount => $_getN(1);
+  $8.RemainingMessageSendCount get remainingSendCount => $_getN(1);
   @$pb.TagNumber(2)
-  set remainingSendCount($7.RemainingSendCount v) { setField(2, v); }
+  set remainingSendCount($8.RemainingMessageSendCount v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasRemainingSendCount() => $_has(1);
   @$pb.TagNumber(2)
   void clearRemainingSendCount() => clearField(2);
   @$pb.TagNumber(2)
-  $7.RemainingSendCount ensureRemainingSendCount() => $_ensure(1);
+  $8.RemainingMessageSendCount ensureRemainingSendCount() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $7.SentCount get sentCount => $_getN(2);
+  $8.MessageSentCount get sentCount => $_getN(2);
   @$pb.TagNumber(3)
-  set sentCount($7.SentCount v) { setField(3, v); }
+  set sentCount($8.MessageSentCount v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasSentCount() => $_has(2);
   @$pb.TagNumber(3)
   void clearSentCount() => clearField(3);
   @$pb.TagNumber(3)
-  $7.SentCount ensureSentCount() => $_ensure(2);
+  $8.MessageSentCount ensureSentCount() => $_ensure(2);
 }
 
 class ChatService_ListMessagesRequest extends $pb.GeneratedMessage {
@@ -487,8 +488,8 @@ class ChatService_GetRemainingSendCountResponse extends $pb.GeneratedMessage {
   factory ChatService_GetRemainingSendCountResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_GetRemainingSendCountResponse', createEmptyInstance: create)
-    ..aOM<$7.RemainingSendCount>(1, _omitFieldNames ? '' : 'remainingSendCount', subBuilder: $7.RemainingSendCount.create)
-    ..aOM<$7.SentCount>(2, _omitFieldNames ? '' : 'sentCount', subBuilder: $7.SentCount.create)
+    ..aOM<$8.RemainingMessageSendCount>(1, _omitFieldNames ? '' : 'remainingSendCount', subBuilder: $8.RemainingMessageSendCount.create)
+    ..aOM<$8.MessageSentCount>(2, _omitFieldNames ? '' : 'sentCount', subBuilder: $8.MessageSentCount.create)
     ..hasRequiredFields = false
   ;
 
@@ -514,26 +515,26 @@ class ChatService_GetRemainingSendCountResponse extends $pb.GeneratedMessage {
   static ChatService_GetRemainingSendCountResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $7.RemainingSendCount get remainingSendCount => $_getN(0);
+  $8.RemainingMessageSendCount get remainingSendCount => $_getN(0);
   @$pb.TagNumber(1)
-  set remainingSendCount($7.RemainingSendCount v) { setField(1, v); }
+  set remainingSendCount($8.RemainingMessageSendCount v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasRemainingSendCount() => $_has(0);
   @$pb.TagNumber(1)
   void clearRemainingSendCount() => clearField(1);
   @$pb.TagNumber(1)
-  $7.RemainingSendCount ensureRemainingSendCount() => $_ensure(0);
+  $8.RemainingMessageSendCount ensureRemainingSendCount() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $7.SentCount get sentCount => $_getN(1);
+  $8.MessageSentCount get sentCount => $_getN(1);
   @$pb.TagNumber(2)
-  set sentCount($7.SentCount v) { setField(2, v); }
+  set sentCount($8.MessageSentCount v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasSentCount() => $_has(1);
   @$pb.TagNumber(2)
   void clearSentCount() => clearField(2);
   @$pb.TagNumber(2)
-  $7.SentCount ensureSentCount() => $_ensure(1);
+  $8.MessageSentCount ensureSentCount() => $_ensure(1);
 }
 
 

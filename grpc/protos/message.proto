@@ -3,7 +3,6 @@ syntax = "proto3";
 option go_package = ".;grpcgen";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
-import "date.proto";
 import "location.proto";
 
 message Message {
@@ -39,34 +38,4 @@ enum Role {
     UNKNOWN = 0;
     USER = 1;
     OTOMO = 2;
-}
-
-message SentCount {
-    MonthlySurplusSentCount monthly_surplus = 1;
-    DailySentCount daily = 2;
-}
-
-message MonthlySurplusSentCount {
-    YearMonth year_month = 1;
-    int32 count = 2;
-}
-
-message DailySentCount {
-    Date date = 1;
-    int32 count = 2;
-}
-
-message RemainingSendCount {
-    RemainingMonthlySurplusSendCount monthly_surplus = 1;
-    RemainingDailySendCount daily = 2;
-}
-
-message RemainingMonthlySurplusSendCount {
-    YearMonth year_month = 1;
-    int32 count = 2;
-}
-
-message RemainingDailySendCount {
-    Date date = 1;
-    int32 count = 2;
 }

@@ -25,6 +25,8 @@ var google_protobuf_wrappers_pb = require('google-protobuf/google/protobuf/wrapp
 goog.object.extend(proto, google_protobuf_wrappers_pb);
 var message_pb = require('./message_pb.js');
 goog.object.extend(proto, message_pb);
+var message_send_count_pb = require('./message_send_count_pb.js');
+goog.object.extend(proto, message_send_count_pb);
 goog.exportSymbol('proto.ChatService_AskToMessageRequest', null, global);
 goog.exportSymbol('proto.ChatService_AskToMessageResponse', null, global);
 goog.exportSymbol('proto.ChatService_GetRemainingSendCountRequest', null, global);
@@ -489,8 +491,8 @@ proto.ChatService_SendMessageResponse.prototype.toObject = function(opt_includeI
 proto.ChatService_SendMessageResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     message: (f = msg.getMessage()) && message_pb.Message.toObject(includeInstance, f),
-    remainingSendCount: (f = msg.getRemainingSendCount()) && message_pb.RemainingSendCount.toObject(includeInstance, f),
-    sentCount: (f = msg.getSentCount()) && message_pb.SentCount.toObject(includeInstance, f)
+    remainingSendCount: (f = msg.getRemainingSendCount()) && message_send_count_pb.RemainingMessageSendCount.toObject(includeInstance, f),
+    sentCount: (f = msg.getSentCount()) && message_send_count_pb.MessageSentCount.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -533,13 +535,13 @@ proto.ChatService_SendMessageResponse.deserializeBinaryFromReader = function(msg
       msg.setMessage(value);
       break;
     case 2:
-      var value = new message_pb.RemainingSendCount;
-      reader.readMessage(value,message_pb.RemainingSendCount.deserializeBinaryFromReader);
+      var value = new message_send_count_pb.RemainingMessageSendCount;
+      reader.readMessage(value,message_send_count_pb.RemainingMessageSendCount.deserializeBinaryFromReader);
       msg.setRemainingSendCount(value);
       break;
     case 3:
-      var value = new message_pb.SentCount;
-      reader.readMessage(value,message_pb.SentCount.deserializeBinaryFromReader);
+      var value = new message_send_count_pb.MessageSentCount;
+      reader.readMessage(value,message_send_count_pb.MessageSentCount.deserializeBinaryFromReader);
       msg.setSentCount(value);
       break;
     default:
@@ -584,7 +586,7 @@ proto.ChatService_SendMessageResponse.serializeBinaryToWriter = function(message
     writer.writeMessage(
       2,
       f,
-      message_pb.RemainingSendCount.serializeBinaryToWriter
+      message_send_count_pb.RemainingMessageSendCount.serializeBinaryToWriter
     );
   }
   f = message.getSentCount();
@@ -592,7 +594,7 @@ proto.ChatService_SendMessageResponse.serializeBinaryToWriter = function(message
     writer.writeMessage(
       3,
       f,
-      message_pb.SentCount.serializeBinaryToWriter
+      message_send_count_pb.MessageSentCount.serializeBinaryToWriter
     );
   }
 };
@@ -636,17 +638,17 @@ proto.ChatService_SendMessageResponse.prototype.hasMessage = function() {
 
 
 /**
- * optional RemainingSendCount remaining_send_count = 2;
- * @return {?proto.RemainingSendCount}
+ * optional RemainingMessageSendCount remaining_send_count = 2;
+ * @return {?proto.RemainingMessageSendCount}
  */
 proto.ChatService_SendMessageResponse.prototype.getRemainingSendCount = function() {
-  return /** @type{?proto.RemainingSendCount} */ (
-    jspb.Message.getWrapperField(this, message_pb.RemainingSendCount, 2));
+  return /** @type{?proto.RemainingMessageSendCount} */ (
+    jspb.Message.getWrapperField(this, message_send_count_pb.RemainingMessageSendCount, 2));
 };
 
 
 /**
- * @param {?proto.RemainingSendCount|undefined} value
+ * @param {?proto.RemainingMessageSendCount|undefined} value
  * @return {!proto.ChatService_SendMessageResponse} returns this
 */
 proto.ChatService_SendMessageResponse.prototype.setRemainingSendCount = function(value) {
@@ -673,17 +675,17 @@ proto.ChatService_SendMessageResponse.prototype.hasRemainingSendCount = function
 
 
 /**
- * optional SentCount sent_count = 3;
- * @return {?proto.SentCount}
+ * optional MessageSentCount sent_count = 3;
+ * @return {?proto.MessageSentCount}
  */
 proto.ChatService_SendMessageResponse.prototype.getSentCount = function() {
-  return /** @type{?proto.SentCount} */ (
-    jspb.Message.getWrapperField(this, message_pb.SentCount, 3));
+  return /** @type{?proto.MessageSentCount} */ (
+    jspb.Message.getWrapperField(this, message_send_count_pb.MessageSentCount, 3));
 };
 
 
 /**
- * @param {?proto.SentCount|undefined} value
+ * @param {?proto.MessageSentCount|undefined} value
  * @return {!proto.ChatService_SendMessageResponse} returns this
 */
 proto.ChatService_SendMessageResponse.prototype.setSentCount = function(value) {
@@ -1843,8 +1845,8 @@ proto.ChatService_GetRemainingSendCountResponse.prototype.toObject = function(op
  */
 proto.ChatService_GetRemainingSendCountResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    remainingSendCount: (f = msg.getRemainingSendCount()) && message_pb.RemainingSendCount.toObject(includeInstance, f),
-    sentCount: (f = msg.getSentCount()) && message_pb.SentCount.toObject(includeInstance, f)
+    remainingSendCount: (f = msg.getRemainingSendCount()) && message_send_count_pb.RemainingMessageSendCount.toObject(includeInstance, f),
+    sentCount: (f = msg.getSentCount()) && message_send_count_pb.MessageSentCount.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1882,13 +1884,13 @@ proto.ChatService_GetRemainingSendCountResponse.deserializeBinaryFromReader = fu
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new message_pb.RemainingSendCount;
-      reader.readMessage(value,message_pb.RemainingSendCount.deserializeBinaryFromReader);
+      var value = new message_send_count_pb.RemainingMessageSendCount;
+      reader.readMessage(value,message_send_count_pb.RemainingMessageSendCount.deserializeBinaryFromReader);
       msg.setRemainingSendCount(value);
       break;
     case 2:
-      var value = new message_pb.SentCount;
-      reader.readMessage(value,message_pb.SentCount.deserializeBinaryFromReader);
+      var value = new message_send_count_pb.MessageSentCount;
+      reader.readMessage(value,message_send_count_pb.MessageSentCount.deserializeBinaryFromReader);
       msg.setSentCount(value);
       break;
     default:
@@ -1925,7 +1927,7 @@ proto.ChatService_GetRemainingSendCountResponse.serializeBinaryToWriter = functi
     writer.writeMessage(
       1,
       f,
-      message_pb.RemainingSendCount.serializeBinaryToWriter
+      message_send_count_pb.RemainingMessageSendCount.serializeBinaryToWriter
     );
   }
   f = message.getSentCount();
@@ -1933,24 +1935,24 @@ proto.ChatService_GetRemainingSendCountResponse.serializeBinaryToWriter = functi
     writer.writeMessage(
       2,
       f,
-      message_pb.SentCount.serializeBinaryToWriter
+      message_send_count_pb.MessageSentCount.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional RemainingSendCount remaining_send_count = 1;
- * @return {?proto.RemainingSendCount}
+ * optional RemainingMessageSendCount remaining_send_count = 1;
+ * @return {?proto.RemainingMessageSendCount}
  */
 proto.ChatService_GetRemainingSendCountResponse.prototype.getRemainingSendCount = function() {
-  return /** @type{?proto.RemainingSendCount} */ (
-    jspb.Message.getWrapperField(this, message_pb.RemainingSendCount, 1));
+  return /** @type{?proto.RemainingMessageSendCount} */ (
+    jspb.Message.getWrapperField(this, message_send_count_pb.RemainingMessageSendCount, 1));
 };
 
 
 /**
- * @param {?proto.RemainingSendCount|undefined} value
+ * @param {?proto.RemainingMessageSendCount|undefined} value
  * @return {!proto.ChatService_GetRemainingSendCountResponse} returns this
 */
 proto.ChatService_GetRemainingSendCountResponse.prototype.setRemainingSendCount = function(value) {
@@ -1977,17 +1979,17 @@ proto.ChatService_GetRemainingSendCountResponse.prototype.hasRemainingSendCount 
 
 
 /**
- * optional SentCount sent_count = 2;
- * @return {?proto.SentCount}
+ * optional MessageSentCount sent_count = 2;
+ * @return {?proto.MessageSentCount}
  */
 proto.ChatService_GetRemainingSendCountResponse.prototype.getSentCount = function() {
-  return /** @type{?proto.SentCount} */ (
-    jspb.Message.getWrapperField(this, message_pb.SentCount, 2));
+  return /** @type{?proto.MessageSentCount} */ (
+    jspb.Message.getWrapperField(this, message_send_count_pb.MessageSentCount, 2));
 };
 
 
 /**
- * @param {?proto.SentCount|undefined} value
+ * @param {?proto.MessageSentCount|undefined} value
  * @return {!proto.ChatService_GetRemainingSendCountResponse} returns this
 */
 proto.ChatService_GetRemainingSendCountResponse.prototype.setSentCount = function(value) {

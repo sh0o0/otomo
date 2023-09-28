@@ -8,6 +8,7 @@ import * as grpc from "grpc";
 import * as chat_service_pb from "./chat_service_pb";
 import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
 import * as message_pb from "./message_pb";
+import * as message_send_count_pb from "./message_send_count_pb";
 
 interface IChatServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     sendMessage: IChatServiceService_ISendMessage;

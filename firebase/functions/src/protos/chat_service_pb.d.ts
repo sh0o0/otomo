@@ -7,6 +7,7 @@
 import * as jspb from "google-protobuf";
 import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
 import * as message_pb from "./message_pb";
+import * as message_send_count_pb from "./message_send_count_pb";
 
 export class ChatService_SendMessageRequest extends jspb.Message { 
     getUserId(): string;
@@ -46,13 +47,13 @@ export class ChatService_SendMessageResponse extends jspb.Message {
 
     hasRemainingSendCount(): boolean;
     clearRemainingSendCount(): void;
-    getRemainingSendCount(): message_pb.RemainingSendCount | undefined;
-    setRemainingSendCount(value?: message_pb.RemainingSendCount): ChatService_SendMessageResponse;
+    getRemainingSendCount(): message_send_count_pb.RemainingMessageSendCount | undefined;
+    setRemainingSendCount(value?: message_send_count_pb.RemainingMessageSendCount): ChatService_SendMessageResponse;
 
     hasSentCount(): boolean;
     clearSentCount(): void;
-    getSentCount(): message_pb.SentCount | undefined;
-    setSentCount(value?: message_pb.SentCount): ChatService_SendMessageResponse;
+    getSentCount(): message_send_count_pb.MessageSentCount | undefined;
+    setSentCount(value?: message_send_count_pb.MessageSentCount): ChatService_SendMessageResponse;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ChatService_SendMessageResponse.AsObject;
@@ -67,8 +68,8 @@ export class ChatService_SendMessageResponse extends jspb.Message {
 export namespace ChatService_SendMessageResponse {
     export type AsObject = {
         message?: message_pb.Message.AsObject,
-        remainingSendCount?: message_pb.RemainingSendCount.AsObject,
-        sentCount?: message_pb.SentCount.AsObject,
+        remainingSendCount?: message_send_count_pb.RemainingMessageSendCount.AsObject,
+        sentCount?: message_send_count_pb.MessageSentCount.AsObject,
     }
 }
 
@@ -236,13 +237,13 @@ export class ChatService_GetRemainingSendCountResponse extends jspb.Message {
 
     hasRemainingSendCount(): boolean;
     clearRemainingSendCount(): void;
-    getRemainingSendCount(): message_pb.RemainingSendCount | undefined;
-    setRemainingSendCount(value?: message_pb.RemainingSendCount): ChatService_GetRemainingSendCountResponse;
+    getRemainingSendCount(): message_send_count_pb.RemainingMessageSendCount | undefined;
+    setRemainingSendCount(value?: message_send_count_pb.RemainingMessageSendCount): ChatService_GetRemainingSendCountResponse;
 
     hasSentCount(): boolean;
     clearSentCount(): void;
-    getSentCount(): message_pb.SentCount | undefined;
-    setSentCount(value?: message_pb.SentCount): ChatService_GetRemainingSendCountResponse;
+    getSentCount(): message_send_count_pb.MessageSentCount | undefined;
+    setSentCount(value?: message_send_count_pb.MessageSentCount): ChatService_GetRemainingSendCountResponse;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ChatService_GetRemainingSendCountResponse.AsObject;
@@ -256,7 +257,7 @@ export class ChatService_GetRemainingSendCountResponse extends jspb.Message {
 
 export namespace ChatService_GetRemainingSendCountResponse {
     export type AsObject = {
-        remainingSendCount?: message_pb.RemainingSendCount.AsObject,
-        sentCount?: message_pb.SentCount.AsObject,
+        remainingSendCount?: message_send_count_pb.RemainingMessageSendCount.AsObject,
+        sentCount?: message_send_count_pb.MessageSentCount.AsObject,
     }
 }
