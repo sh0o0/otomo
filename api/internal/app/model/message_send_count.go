@@ -1,26 +1,26 @@
 package model
 
 type MonthlySentCount struct {
-	YearMonth YearMonth `firestore:"year_month"`
-	Count     int32     `firestore:"count"`
+	YearMonth YearMonth
+	Count     int32
 }
 
 type DailySentCount struct {
-	Date  Date  `firestore:"date"`
-	Count int32 `firestore:"count"`
+	Date  Date
+	Count int32
 }
 
 type RemainingSendCount struct {
-	Monthly RemainingMonthlySendCount `firestore:"monthly"`
-	Daily   RemainingDailySendCount   `firestore:"daily"`
+	Monthly RemainingMonthlySendCount
+	Daily   RemainingDailySendCount
 }
 
 type RemainingMonthlySendCount struct {
-	YearMonth YearMonth `firestore:"year_month"`
-	Count     int32     `firestore:"count"`
+	YearMonth YearMonth
+	Count     int32
 }
 
 type RemainingDailySendCount struct {
-	Date  Date  `firestore:"date"`
-	Count int32 `firestore:"count"`
+	Date  Date
+	Count int32
 }
