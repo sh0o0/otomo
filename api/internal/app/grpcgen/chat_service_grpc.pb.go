@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ChatService_SendMessage_FullMethodName     = "/ChatService/SendMessage"
-	ChatService_ListMessages_FullMethodName    = "/ChatService/ListMessages"
-	ChatService_AskToMessage_FullMethodName    = "/ChatService/AskToMessage"
-	ChatService_MessagingStream_FullMethodName = "/ChatService/MessagingStream"
+	ChatService_SendMessage_FullMethodName          = "/ChatService/SendMessage"
+	ChatService_ListMessages_FullMethodName         = "/ChatService/ListMessages"
+	ChatService_AskToMessage_FullMethodName         = "/ChatService/AskToMessage"
+	ChatService_MessagingStream_FullMethodName      = "/ChatService/MessagingStream"
+	ChatService_GetReminingSendCount_FullMethodName = "/ChatService/GetReminingSendCount"
 )
 
 // ChatServiceClient is the client API for ChatService service.
@@ -33,6 +34,7 @@ type ChatServiceClient interface {
 	ListMessages(ctx context.Context, in *ChatService_ListMessagesRequest, opts ...grpc.CallOption) (*ChatService_ListMessagesResponse, error)
 	AskToMessage(ctx context.Context, in *ChatService_AskToMessageRequest, opts ...grpc.CallOption) (*ChatService_AskToMessageResponse, error)
 	MessagingStream(ctx context.Context, in *ChatService_MessagingStreamRequest, opts ...grpc.CallOption) (ChatService_MessagingStreamClient, error)
+	GetReminingSendCount(ctx context.Context, in *ChatService_GetReminingSendCountRequest, opts ...grpc.CallOption) (*ChatService_GetReminingSendCountResponse, error)
 }
 
 type chatServiceClient struct {
@@ -102,6 +104,15 @@ func (x *chatServiceMessagingStreamClient) Recv() (*ChatService_MessagingStreamR
 	return m, nil
 }
 
+func (c *chatServiceClient) GetReminingSendCount(ctx context.Context, in *ChatService_GetReminingSendCountRequest, opts ...grpc.CallOption) (*ChatService_GetReminingSendCountResponse, error) {
+	out := new(ChatService_GetReminingSendCountResponse)
+	err := c.cc.Invoke(ctx, ChatService_GetReminingSendCount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ChatServiceServer is the server API for ChatService service.
 // All implementations should embed UnimplementedChatServiceServer
 // for forward compatibility
@@ -110,6 +121,7 @@ type ChatServiceServer interface {
 	ListMessages(context.Context, *ChatService_ListMessagesRequest) (*ChatService_ListMessagesResponse, error)
 	AskToMessage(context.Context, *ChatService_AskToMessageRequest) (*ChatService_AskToMessageResponse, error)
 	MessagingStream(*ChatService_MessagingStreamRequest, ChatService_MessagingStreamServer) error
+	GetReminingSendCount(context.Context, *ChatService_GetReminingSendCountRequest) (*ChatService_GetReminingSendCountResponse, error)
 }
 
 // UnimplementedChatServiceServer should be embedded to have forward compatible implementations.
@@ -127,6 +139,9 @@ func (UnimplementedChatServiceServer) AskToMessage(context.Context, *ChatService
 }
 func (UnimplementedChatServiceServer) MessagingStream(*ChatService_MessagingStreamRequest, ChatService_MessagingStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method MessagingStream not implemented")
+}
+func (UnimplementedChatServiceServer) GetReminingSendCount(context.Context, *ChatService_GetReminingSendCountRequest) (*ChatService_GetReminingSendCountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReminingSendCount not implemented")
 }
 
 // UnsafeChatServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -215,6 +230,24 @@ func (x *chatServiceMessagingStreamServer) Send(m *ChatService_MessagingStreamRe
 	return x.ServerStream.SendMsg(m)
 }
 
+func _ChatService_GetReminingSendCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChatService_GetReminingSendCountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatServiceServer).GetReminingSendCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatService_GetReminingSendCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatServiceServer).GetReminingSendCount(ctx, req.(*ChatService_GetReminingSendCountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ChatService_ServiceDesc is the grpc.ServiceDesc for ChatService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -233,6 +266,10 @@ var ChatService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AskToMessage",
 			Handler:    _ChatService_AskToMessage_Handler,
+		},
+		{
+			MethodName: "GetReminingSendCount",
+			Handler:    _ChatService_GetReminingSendCount_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

@@ -28,6 +28,28 @@ function deserialize_ChatService_AskToMessageResponse(buffer_arg) {
   return chat_service_pb.ChatService_AskToMessageResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_ChatService_GetReminingSendCountRequest(arg) {
+  if (!(arg instanceof chat_service_pb.ChatService_GetReminingSendCountRequest)) {
+    throw new Error('Expected argument of type ChatService_GetReminingSendCountRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_ChatService_GetReminingSendCountRequest(buffer_arg) {
+  return chat_service_pb.ChatService_GetReminingSendCountRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_ChatService_GetReminingSendCountResponse(arg) {
+  if (!(arg instanceof chat_service_pb.ChatService_GetReminingSendCountResponse)) {
+    throw new Error('Expected argument of type ChatService_GetReminingSendCountResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_ChatService_GetReminingSendCountResponse(buffer_arg) {
+  return chat_service_pb.ChatService_GetReminingSendCountResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_ChatService_ListMessagesRequest(arg) {
   if (!(arg instanceof chat_service_pb.ChatService_ListMessagesRequest)) {
     throw new Error('Expected argument of type ChatService_ListMessagesRequest');
@@ -139,6 +161,17 @@ var ChatServiceService = exports.ChatServiceService = {
     requestDeserialize: deserialize_ChatService_MessagingStreamRequest,
     responseSerialize: serialize_ChatService_MessagingStreamResponse,
     responseDeserialize: deserialize_ChatService_MessagingStreamResponse,
+  },
+  getReminingSendCount: {
+    path: '/ChatService/GetReminingSendCount',
+    requestStream: false,
+    responseStream: false,
+    requestType: chat_service_pb.ChatService_GetReminingSendCountRequest,
+    responseType: chat_service_pb.ChatService_GetReminingSendCountResponse,
+    requestSerialize: serialize_ChatService_GetReminingSendCountRequest,
+    requestDeserialize: deserialize_ChatService_GetReminingSendCountRequest,
+    responseSerialize: serialize_ChatService_GetReminingSendCountResponse,
+    responseDeserialize: deserialize_ChatService_GetReminingSendCountResponse,
   },
 };
 

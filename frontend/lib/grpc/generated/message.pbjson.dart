@@ -100,3 +100,76 @@ final $typed_data.Uint8List analyzedLocationDescriptor = $convert.base64Decode(
     'ChBBbmFseXplZExvY2F0aW9uEhIKBHRleHQYASABKAlSBHRleHQSJQoIbG9jYXRpb24YAiABKA'
     'syCS5Mb2NhdGlvblIIbG9jYXRpb24=');
 
+@$core.Deprecated('Use monthlySentCountDescriptor instead')
+const MonthlySentCount$json = {
+  '1': 'MonthlySentCount',
+  '2': [
+    {'1': 'year_month', '3': 1, '4': 1, '5': 11, '6': '.YearMonth', '10': 'yearMonth'},
+    {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
+    {'1': 'daily_sent_count', '3': 3, '4': 3, '5': 11, '6': '.DailySentCount', '10': 'dailySentCount'},
+  ],
+};
+
+/// Descriptor for `MonthlySentCount`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List monthlySentCountDescriptor = $convert.base64Decode(
+    'ChBNb250aGx5U2VudENvdW50EikKCnllYXJfbW9udGgYASABKAsyCi5ZZWFyTW9udGhSCXllYX'
+    'JNb250aBIUCgVjb3VudBgCIAEoBVIFY291bnQSOQoQZGFpbHlfc2VudF9jb3VudBgDIAMoCzIP'
+    'LkRhaWx5U2VudENvdW50Ug5kYWlseVNlbnRDb3VudA==');
+
+@$core.Deprecated('Use dailySentCountDescriptor instead')
+const DailySentCount$json = {
+  '1': 'DailySentCount',
+  '2': [
+    {'1': 'date', '3': 1, '4': 1, '5': 11, '6': '.Date', '10': 'date'},
+    {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
+  ],
+};
+
+/// Descriptor for `DailySentCount`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List dailySentCountDescriptor = $convert.base64Decode(
+    'Cg5EYWlseVNlbnRDb3VudBIZCgRkYXRlGAEgASgLMgUuRGF0ZVIEZGF0ZRIUCgVjb3VudBgCIA'
+    'EoBVIFY291bnQ=');
+
+@$core.Deprecated('Use reminingSendCountDescriptor instead')
+const ReminingSendCount$json = {
+  '1': 'ReminingSendCount',
+  '2': [
+    {'1': 'monthly', '3': 1, '4': 1, '5': 11, '6': '.ReminingMonthlySendCount', '10': 'monthly'},
+    {'1': 'daily', '3': 2, '4': 1, '5': 11, '6': '.ReminingDailySendCount', '10': 'daily'},
+  ],
+};
+
+/// Descriptor for `ReminingSendCount`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List reminingSendCountDescriptor = $convert.base64Decode(
+    'ChFSZW1pbmluZ1NlbmRDb3VudBIzCgdtb250aGx5GAEgASgLMhkuUmVtaW5pbmdNb250aGx5U2'
+    'VuZENvdW50Ugdtb250aGx5Ei0KBWRhaWx5GAIgASgLMhcuUmVtaW5pbmdEYWlseVNlbmRDb3Vu'
+    'dFIFZGFpbHk=');
+
+@$core.Deprecated('Use reminingMonthlySendCountDescriptor instead')
+const ReminingMonthlySendCount$json = {
+  '1': 'ReminingMonthlySendCount',
+  '2': [
+    {'1': 'year_month', '3': 1, '4': 1, '5': 11, '6': '.YearMonth', '10': 'yearMonth'},
+    {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
+  ],
+};
+
+/// Descriptor for `ReminingMonthlySendCount`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List reminingMonthlySendCountDescriptor = $convert.base64Decode(
+    'ChhSZW1pbmluZ01vbnRobHlTZW5kQ291bnQSKQoKeWVhcl9tb250aBgBIAEoCzIKLlllYXJNb2'
+    '50aFIJeWVhck1vbnRoEhQKBWNvdW50GAIgASgFUgVjb3VudA==');
+
+@$core.Deprecated('Use reminingDailySendCountDescriptor instead')
+const ReminingDailySendCount$json = {
+  '1': 'ReminingDailySendCount',
+  '2': [
+    {'1': 'date', '3': 1, '4': 1, '5': 11, '6': '.Date', '10': 'date'},
+    {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
+  ],
+};
+
+/// Descriptor for `ReminingDailySendCount`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List reminingDailySendCountDescriptor = $convert.base64Decode(
+    'ChZSZW1pbmluZ0RhaWx5U2VuZENvdW50EhkKBGRhdGUYASABKAsyBS5EYXRlUgRkYXRlEhQKBW'
+    'NvdW50GAIgASgFUgVjb3VudA==');
+

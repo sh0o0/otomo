@@ -37,6 +37,10 @@ class ChatServiceClient extends $grpc.Client {
       '/ChatService/MessagingStream',
       ($0.ChatService_MessagingStreamRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.ChatService_MessagingStreamResponse.fromBuffer(value));
+  static final _$getReminingSendCount = $grpc.ClientMethod<$0.ChatService_GetReminingSendCountRequest, $0.ChatService_GetReminingSendCountResponse>(
+      '/ChatService/GetReminingSendCount',
+      ($0.ChatService_GetReminingSendCountRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.ChatService_GetReminingSendCountResponse.fromBuffer(value));
 
   ChatServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -58,6 +62,10 @@ class ChatServiceClient extends $grpc.Client {
 
   $grpc.ResponseStream<$0.ChatService_MessagingStreamResponse> messagingStream($0.ChatService_MessagingStreamRequest request, {$grpc.CallOptions? options}) {
     return $createStreamingCall(_$messagingStream, $async.Stream.fromIterable([request]), options: options);
+  }
+
+  $grpc.ResponseFuture<$0.ChatService_GetReminingSendCountResponse> getReminingSendCount($0.ChatService_GetReminingSendCountRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getReminingSendCount, request, options: options);
   }
 }
 
@@ -94,6 +102,13 @@ abstract class ChatServiceBase extends $grpc.Service {
         true,
         ($core.List<$core.int> value) => $0.ChatService_MessagingStreamRequest.fromBuffer(value),
         ($0.ChatService_MessagingStreamResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ChatService_GetReminingSendCountRequest, $0.ChatService_GetReminingSendCountResponse>(
+        'GetReminingSendCount',
+        getReminingSendCount_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ChatService_GetReminingSendCountRequest.fromBuffer(value),
+        ($0.ChatService_GetReminingSendCountResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.ChatService_SendMessageResponse> sendMessage_Pre($grpc.ServiceCall call, $async.Future<$0.ChatService_SendMessageRequest> request) async {
@@ -112,8 +127,13 @@ abstract class ChatServiceBase extends $grpc.Service {
     yield* messagingStream(call, await request);
   }
 
+  $async.Future<$0.ChatService_GetReminingSendCountResponse> getReminingSendCount_Pre($grpc.ServiceCall call, $async.Future<$0.ChatService_GetReminingSendCountRequest> request) async {
+    return getReminingSendCount(call, await request);
+  }
+
   $async.Future<$0.ChatService_SendMessageResponse> sendMessage($grpc.ServiceCall call, $0.ChatService_SendMessageRequest request);
   $async.Future<$0.ChatService_ListMessagesResponse> listMessages($grpc.ServiceCall call, $0.ChatService_ListMessagesRequest request);
   $async.Future<$0.ChatService_AskToMessageResponse> askToMessage($grpc.ServiceCall call, $0.ChatService_AskToMessageRequest request);
   $async.Stream<$0.ChatService_MessagingStreamResponse> messagingStream($grpc.ServiceCall call, $0.ChatService_MessagingStreamRequest request);
+  $async.Future<$0.ChatService_GetReminingSendCountResponse> getReminingSendCount($grpc.ServiceCall call, $0.ChatService_GetReminingSendCountRequest request);
 }

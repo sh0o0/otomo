@@ -187,6 +187,14 @@
                 </li>
               
                 <li>
+                  <a href="#.ChatService_GetReminingSendCountRequest"><span class="badge">M</span>ChatService_GetReminingSendCountRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ChatService_GetReminingSendCountResponse"><span class="badge">M</span>ChatService_GetReminingSendCountResponse</a>
+                </li>
+              
+                <li>
                   <a href="#.ChatService_ListMessagesRequest"><span class="badge">M</span>ChatService_ListMessagesRequest</a>
                 </li>
               
@@ -216,6 +224,25 @@
                 <li>
                   <a href="#.ChatService"><span class="badge">S</span>ChatService</a>
                 </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#date.proto">date.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Date"><span class="badge">M</span>Date</a>
+                </li>
+              
+                <li>
+                  <a href="#.YearMonth"><span class="badge">M</span>YearMonth</a>
+                </li>
+              
+              
+              
               
             </ul>
           </li>
@@ -272,6 +299,10 @@
                 </li>
               
                 <li>
+                  <a href="#.DailySentCount"><span class="badge">M</span>DailySentCount</a>
+                </li>
+              
+                <li>
                   <a href="#.LocationAnalysis"><span class="badge">M</span>LocationAnalysis</a>
                 </li>
               
@@ -281,6 +312,22 @@
               
                 <li>
                   <a href="#.MessageChunk"><span class="badge">M</span>MessageChunk</a>
+                </li>
+              
+                <li>
+                  <a href="#.MonthlySentCount"><span class="badge">M</span>MonthlySentCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.ReminingDailySendCount"><span class="badge">M</span>ReminingDailySendCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.ReminingMonthlySendCount"><span class="badge">M</span>ReminingMonthlySendCount</a>
+                </li>
+              
+                <li>
+                  <a href="#.ReminingSendCount"><span class="badge">M</span>ReminingSendCount</a>
                 </li>
               
               
@@ -369,6 +416,88 @@
                 <tr>
                   <td>message</td>
                   <td><a href="#Message">Message</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ChatService_GetReminingSendCountRequest">ChatService_GetReminingSendCountRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+            
+            
+            <h4>Validated Fields</h4>
+            <table>
+              <thead>
+                <tr>
+                  <td>Field</td>
+                  <td>Validations</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>user_id</td>
+                  <td>
+                    <ul>
+                    
+                      <li>string.min_len: 1</li>
+                    
+                    </ul>
+                  </td>
+                </tr>
+              
+              </tbody>
+            </table>
+            
+          
+
+        
+      
+        <h3 id=".ChatService_GetReminingSendCountResponse">ChatService_GetReminingSendCountResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>remining_send_count</td>
+                  <td><a href="#ReminingSendCount">ReminingSendCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>monthly_sent_count</td>
+                  <td><a href="#MonthlySentCount">MonthlySentCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -653,6 +782,20 @@
                   <td><p> </p></td>
                 </tr>
               
+                <tr>
+                  <td>remining_send_count</td>
+                  <td><a href="#ReminingSendCount">ReminingSendCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>monthly_sent_count</td>
+                  <td><a href="#MonthlySentCount">MonthlySentCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -702,10 +845,104 @@
                 <td><p></p></td>
               </tr>
             
+              <tr>
+                <td>GetReminingSendCount</td>
+                <td><a href="#ChatService_GetReminingSendCountRequest">.ChatService_GetReminingSendCountRequest</a></td>
+                <td><a href="#ChatService_GetReminingSendCountResponse">.ChatService_GetReminingSendCountResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
           </tbody>
         </table>
 
         
+    
+      
+      <div class="file-heading">
+        <h2 id="date.proto">date.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".Date">Date</h3>
+        <p>Represents a whole or partial calendar date, such as a birthday. The time of</p><p>day and time zone are either specified elsewhere or are insignificant. The</p><p>date is relative to the Gregorian Calendar. This can represent one of the</p><p>following:</p><p>* A full date, with non-zero year, month, and day values</p><p>* A month and day value, with a zero year, such as an anniversary</p><p>* A year on its own, with zero month and day values</p><p>* A year and month value, with a zero day, such as a credit card expiration</p><p>date</p><p>Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and</p><p>`google.protobuf.Timestamp`.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>year</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Year of the date. Must be from 1 to 9999, or 0 to specify a date without
+a year. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>month</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Month of a year. Must be from 1 to 12, or 0 to specify a year without a
+month and day. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>day</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
+to specify a year by itself or a year and month where the day isn&#39;t
+significant. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".YearMonth">YearMonth</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>year</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>month</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
     
       
       <div class="file-heading">
@@ -916,6 +1153,37 @@
 
         
       
+        <h3 id=".DailySentCount">DailySentCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>date</td>
+                  <td><a href="#Date">Date</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id=".LocationAnalysis">LocationAnalysis</h3>
         <p></p>
 
@@ -1061,6 +1329,137 @@
                 <tr>
                   <td>is_last</td>
                   <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".MonthlySentCount">MonthlySentCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>year_month</td>
+                  <td><a href="#YearMonth">YearMonth</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>daily_sent_count</td>
+                  <td><a href="#DailySentCount">DailySentCount</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ReminingDailySendCount">ReminingDailySendCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>date</td>
+                  <td><a href="#Date">Date</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ReminingMonthlySendCount">ReminingMonthlySendCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>year_month</td>
+                  <td><a href="#YearMonth">YearMonth</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>count</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ReminingSendCount">ReminingSendCount</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>monthly</td>
+                  <td><a href="#ReminingMonthlySendCount">ReminingMonthlySendCount</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>daily</td>
+                  <td><a href="#ReminingDailySendCount">ReminingDailySendCount</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>

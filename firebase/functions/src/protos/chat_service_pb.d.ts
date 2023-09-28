@@ -44,6 +44,16 @@ export class ChatService_SendMessageResponse extends jspb.Message {
     getMessage(): message_pb.Message | undefined;
     setMessage(value?: message_pb.Message): ChatService_SendMessageResponse;
 
+    hasReminingSendCount(): boolean;
+    clearReminingSendCount(): void;
+    getReminingSendCount(): message_pb.ReminingSendCount | undefined;
+    setReminingSendCount(value?: message_pb.ReminingSendCount): ChatService_SendMessageResponse;
+
+    hasMonthlySentCount(): boolean;
+    clearMonthlySentCount(): void;
+    getMonthlySentCount(): message_pb.MonthlySentCount | undefined;
+    setMonthlySentCount(value?: message_pb.MonthlySentCount): ChatService_SendMessageResponse;
+
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ChatService_SendMessageResponse.AsObject;
     static toObject(includeInstance: boolean, msg: ChatService_SendMessageResponse): ChatService_SendMessageResponse.AsObject;
@@ -57,6 +67,8 @@ export class ChatService_SendMessageResponse extends jspb.Message {
 export namespace ChatService_SendMessageResponse {
     export type AsObject = {
         message?: message_pb.Message.AsObject,
+        reminingSendCount?: message_pb.ReminingSendCount.AsObject,
+        monthlySentCount?: message_pb.MonthlySentCount.AsObject,
     }
 }
 
@@ -197,5 +209,54 @@ export class ChatService_MessagingStreamResponse extends jspb.Message {
 export namespace ChatService_MessagingStreamResponse {
     export type AsObject = {
         chunk?: message_pb.MessageChunk.AsObject,
+    }
+}
+
+export class ChatService_GetReminingSendCountRequest extends jspb.Message { 
+    getUserId(): string;
+    setUserId(value: string): ChatService_GetReminingSendCountRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ChatService_GetReminingSendCountRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: ChatService_GetReminingSendCountRequest): ChatService_GetReminingSendCountRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ChatService_GetReminingSendCountRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ChatService_GetReminingSendCountRequest;
+    static deserializeBinaryFromReader(message: ChatService_GetReminingSendCountRequest, reader: jspb.BinaryReader): ChatService_GetReminingSendCountRequest;
+}
+
+export namespace ChatService_GetReminingSendCountRequest {
+    export type AsObject = {
+        userId: string,
+    }
+}
+
+export class ChatService_GetReminingSendCountResponse extends jspb.Message { 
+
+    hasReminingSendCount(): boolean;
+    clearReminingSendCount(): void;
+    getReminingSendCount(): message_pb.ReminingSendCount | undefined;
+    setReminingSendCount(value?: message_pb.ReminingSendCount): ChatService_GetReminingSendCountResponse;
+
+    hasMonthlySentCount(): boolean;
+    clearMonthlySentCount(): void;
+    getMonthlySentCount(): message_pb.MonthlySentCount | undefined;
+    setMonthlySentCount(value?: message_pb.MonthlySentCount): ChatService_GetReminingSendCountResponse;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): ChatService_GetReminingSendCountResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: ChatService_GetReminingSendCountResponse): ChatService_GetReminingSendCountResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: ChatService_GetReminingSendCountResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ChatService_GetReminingSendCountResponse;
+    static deserializeBinaryFromReader(message: ChatService_GetReminingSendCountResponse, reader: jspb.BinaryReader): ChatService_GetReminingSendCountResponse;
+}
+
+export namespace ChatService_GetReminingSendCountResponse {
+    export type AsObject = {
+        reminingSendCount?: message_pb.ReminingSendCount.AsObject,
+        monthlySentCount?: message_pb.MonthlySentCount.AsObject,
     }
 }
