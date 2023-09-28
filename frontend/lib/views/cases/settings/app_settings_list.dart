@@ -6,9 +6,11 @@ class AppSettingsList extends StatelessWidget {
   const AppSettingsList({
     super.key,
     required this.sections,
+    this.shrinkWrap = false,
   });
 
   final List<AbstractSettingsSection> sections;
+  final bool shrinkWrap;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class AppSettingsList extends StatelessWidget {
       lightTheme: appTheme,
       darkTheme: appTheme,
       sections: sections,
+      shrinkWrap: shrinkWrap,
     );
   }
 }
