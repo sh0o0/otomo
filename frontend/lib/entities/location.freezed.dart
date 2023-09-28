@@ -21,8 +21,6 @@ Location _$LocationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Location {
   String get googlePlaceId => throw _privateConstructorUsedError;
-  String get longName => throw _privateConstructorUsedError;
-  String get shortName => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   List<String> get types => throw _privateConstructorUsedError;
   Geometry get geometry => throw _privateConstructorUsedError;
@@ -40,8 +38,6 @@ abstract class $LocationCopyWith<$Res> {
   @useResult
   $Res call(
       {String googlePlaceId,
-      String longName,
-      String shortName,
       String address,
       List<String> types,
       Geometry geometry});
@@ -63,8 +59,6 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
   @override
   $Res call({
     Object? googlePlaceId = null,
-    Object? longName = null,
-    Object? shortName = null,
     Object? address = null,
     Object? types = null,
     Object? geometry = null,
@@ -73,14 +67,6 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
       googlePlaceId: null == googlePlaceId
           ? _value.googlePlaceId
           : googlePlaceId // ignore: cast_nullable_to_non_nullable
-              as String,
-      longName: null == longName
-          ? _value.longName
-          : longName // ignore: cast_nullable_to_non_nullable
-              as String,
-      shortName: null == shortName
-          ? _value.shortName
-          : shortName // ignore: cast_nullable_to_non_nullable
               as String,
       address: null == address
           ? _value.address
@@ -115,8 +101,6 @@ abstract class _$$_LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
   @useResult
   $Res call(
       {String googlePlaceId,
-      String longName,
-      String shortName,
       String address,
       List<String> types,
       Geometry geometry});
@@ -137,8 +121,6 @@ class __$$_LocationCopyWithImpl<$Res>
   @override
   $Res call({
     Object? googlePlaceId = null,
-    Object? longName = null,
-    Object? shortName = null,
     Object? address = null,
     Object? types = null,
     Object? geometry = null,
@@ -147,14 +129,6 @@ class __$$_LocationCopyWithImpl<$Res>
       googlePlaceId: null == googlePlaceId
           ? _value.googlePlaceId
           : googlePlaceId // ignore: cast_nullable_to_non_nullable
-              as String,
-      longName: null == longName
-          ? _value.longName
-          : longName // ignore: cast_nullable_to_non_nullable
-              as String,
-      shortName: null == shortName
-          ? _value.shortName
-          : shortName // ignore: cast_nullable_to_non_nullable
               as String,
       address: null == address
           ? _value.address
@@ -178,8 +152,6 @@ class __$$_LocationCopyWithImpl<$Res>
 class _$_Location implements _Location {
   const _$_Location(
       {required this.googlePlaceId,
-      required this.longName,
-      required this.shortName,
       required this.address,
       required final List<String> types,
       required this.geometry})
@@ -190,10 +162,6 @@ class _$_Location implements _Location {
 
   @override
   final String googlePlaceId;
-  @override
-  final String longName;
-  @override
-  final String shortName;
   @override
   final String address;
   final List<String> _types;
@@ -209,7 +177,7 @@ class _$_Location implements _Location {
 
   @override
   String toString() {
-    return 'Location(googlePlaceId: $googlePlaceId, longName: $longName, shortName: $shortName, address: $address, types: $types, geometry: $geometry)';
+    return 'Location(googlePlaceId: $googlePlaceId, address: $address, types: $types, geometry: $geometry)';
   }
 
   @override
@@ -219,10 +187,6 @@ class _$_Location implements _Location {
             other is _$_Location &&
             (identical(other.googlePlaceId, googlePlaceId) ||
                 other.googlePlaceId == googlePlaceId) &&
-            (identical(other.longName, longName) ||
-                other.longName == longName) &&
-            (identical(other.shortName, shortName) ||
-                other.shortName == shortName) &&
             (identical(other.address, address) || other.address == address) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
             (identical(other.geometry, geometry) ||
@@ -231,14 +195,8 @@ class _$_Location implements _Location {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      googlePlaceId,
-      longName,
-      shortName,
-      address,
-      const DeepCollectionEquality().hash(_types),
-      geometry);
+  int get hashCode => Object.hash(runtimeType, googlePlaceId, address,
+      const DeepCollectionEquality().hash(_types), geometry);
 
   @JsonKey(ignore: true)
   @override
@@ -257,8 +215,6 @@ class _$_Location implements _Location {
 abstract class _Location implements Location {
   const factory _Location(
       {required final String googlePlaceId,
-      required final String longName,
-      required final String shortName,
       required final String address,
       required final List<String> types,
       required final Geometry geometry}) = _$_Location;
@@ -267,10 +223,6 @@ abstract class _Location implements Location {
 
   @override
   String get googlePlaceId;
-  @override
-  String get longName;
-  @override
-  String get shortName;
   @override
   String get address;
   @override

@@ -8,8 +8,6 @@ part of 'location.dart';
 
 _$_Location _$$_LocationFromJson(Map<String, dynamic> json) => _$_Location(
       googlePlaceId: json['google_place_id'] as String,
-      longName: json['long_name'] as String,
-      shortName: json['short_name'] as String,
       address: json['address'] as String,
       types: (json['types'] as List<dynamic>).map((e) => e as String).toList(),
       geometry: Geometry.fromJson(json['geometry'] as Map<String, dynamic>),
@@ -18,8 +16,6 @@ _$_Location _$$_LocationFromJson(Map<String, dynamic> json) => _$_Location(
 Map<String, dynamic> _$$_LocationToJson(_$_Location instance) =>
     <String, dynamic>{
       'google_place_id': instance.googlePlaceId,
-      'long_name': instance.longName,
-      'short_name': instance.shortName,
       'address': instance.address,
       'types': instance.types,
       'geometry': instance.geometry,

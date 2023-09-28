@@ -92,8 +92,6 @@ class _Location {
     return Location(
       googlePlaceId: location.googlePlaceId,
       address: location.address,
-      longName: location.longName,
-      shortName: location.shortName,
       types: location.types,
       geometry: _geometry.grpcToEntity(location.geometry),
     );
