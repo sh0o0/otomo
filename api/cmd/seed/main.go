@@ -37,9 +37,9 @@ func main() {
 			)
 
 			for i := 0; i < count; i++ {
-				msg := testmodel.DefaultMessageFactory.Times(
+				msg := testmodel.DefaultMessageFactory.SentAt(
 					times.C.Now().Add(-time.Hour * time.Duration(i)),
-				)
+				).New()
 				results[i] = msg
 			}
 			return results

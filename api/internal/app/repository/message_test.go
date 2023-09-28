@@ -24,7 +24,7 @@ func TestMessageRepository_Last_ShouldGetLastMsg_WhenArgsAreValid(t *testing.T) 
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
-		giveMsg    = testmodel.DefaultMessageFactory.Role(model.UserRole)
+		giveMsg    = testmodel.DefaultMessageFactory.Role(model.UserRole).New()
 	)
 
 	if err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
@@ -52,7 +52,7 @@ func TestMessageRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
-		giveMsg    = testmodel.DefaultMessageFactory.Role(model.OtomoRole)
+		giveMsg    = testmodel.DefaultMessageFactory.Role(model.OtomoRole).New()
 	)
 
 	if err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
@@ -78,7 +78,7 @@ func TestMessageRepository_Add_ShouldReturnErr_WhenAddDuplicateMsg(t *testing.T)
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
-		giveMsg    = testmodel.DefaultMessageFactory.Role(model.OtomoRole)
+		giveMsg    = testmodel.DefaultMessageFactory.Role(model.OtomoRole).New()
 	)
 
 	if err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
@@ -92,10 +92,10 @@ func TestMessageRepository_Update_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
-		addMsg     = testmodel.DefaultMessageFactory.Times(times.C.Now())
-		updatedMsg = testmodel.DefaultMessageFactory.Times(
+		addMsg     = testmodel.DefaultMessageFactory.SentAt(times.C.Now()).New()
+		updatedMsg = testmodel.DefaultMessageFactory.SentAt(
 			times.C.Now().Add(time.Second * 10),
-		)
+		).New()
 	)
 	updatedMsg.ID = addMsg.ID
 
@@ -117,7 +117,7 @@ func TestMessageRepository_Update_ShouldReturnErr_WhenNotFoundMsg(t *testing.T) 
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
-		giveMsg    = testmodel.DefaultMessageFactory.Role(model.OtomoRole)
+		giveMsg    = testmodel.DefaultMessageFactory.Role(model.OtomoRole).New()
 	)
 
 	err := testMsgRepo.Update(giveCtx, giveUserID, giveMsg)
@@ -128,7 +128,7 @@ func TestMessageRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
-		giveMsg    = testmodel.DefaultMessageFactory.Role(model.OtomoRole)
+		giveMsg    = testmodel.DefaultMessageFactory.Role(model.OtomoRole).New()
 	)
 
 	if err := testMsgRepo.Add(giveCtx, giveUserID, giveMsg); err != nil {
@@ -173,7 +173,7 @@ func TestMessageRepository_List(t *testing.T) {
 	// Add messages for tests
 	for i := 0; i < messagesCount; i++ {
 		msgs[i] = testmodel.DefaultMessageFactory.
-			SentAt(times.C.Now().Add(time.Second * time.Duration(i)))
+			SentAt(times.C.Now().Add(time.Second * time.Duration(i))).New()
 		descBySentAtMsgs[messagesCount-i-1] = msgs[i]
 
 		err := testMsgRepo.Add(context.TODO(), userID, msgs[i])
