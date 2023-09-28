@@ -6,7 +6,7 @@ import (
 )
 
 type MessageSentCountQuery interface {
-	GetMonthlySurplusSentMessageCount(
+	GetMonthlySurplusMessageSentCount(
 		ctx context.Context,
 		userID model.UserID,
 		yearMonth model.YearMonth,

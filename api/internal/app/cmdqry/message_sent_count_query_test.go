@@ -22,7 +22,7 @@ var (
 	msgRepo = repository.NewMessageRepository(systemtest.FirestoreClient)
 )
 
-func TestMessageSentCountQuery_GetMonthlySurplusSentMessageCount(t *testing.T) {
+func TestMessageSentCountQuery_GetMonthlySurplusMessageSentCount(t *testing.T) {
 	var (
 		now           = times.C.Now()
 		thisMonth     = model.NewYearMonthFromTime(now)
@@ -117,7 +117,7 @@ func TestMessageSentCountQuery_GetMonthlySurplusSentMessageCount(t *testing.T) {
 			mscq := &MessageSentCountQuery{
 				fsClient: systemtest.FirestoreClient,
 			}
-			got, err := mscq.GetMonthlySurplusSentMessageCount(
+			got, err := mscq.GetMonthlySurplusMessageSentCount(
 				tt.args.ctx,
 				tt.args.userID,
 				tt.args.yearMonth,

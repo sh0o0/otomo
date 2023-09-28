@@ -26,7 +26,7 @@ func NewMessageSentCountQuery(
 	return &MessageSentCountQuery{fsClient: fsClient}
 }
 
-func (mscq *MessageSentCountQuery) GetMonthlySurplusSentMessageCount(
+func (mscq *MessageSentCountQuery) GetMonthlySurplusMessageSentCount(
 	ctx context.Context,
 	userID model.UserID,
 	yearMonth model.YearMonth,
