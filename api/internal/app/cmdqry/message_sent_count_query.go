@@ -79,6 +79,7 @@ func (mscq *MessageSentCountQuery) getDailyMessageSentCount(
 
 	q := mscq.fsClient.
 		Collection(repository.GetMessagesColPath(userID)).
+		Where("role", "==", model.UserRole).
 		Where("sent_at", ">=", start).
 		Where("sent_at", "<", end)
 	result, err := q.NewAggregationQuery().WithCount(alias).Get(ctx)

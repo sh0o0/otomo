@@ -37,22 +37,22 @@ func TestMessageSentCountQuery_GetMonthlySurplusSentMessageCount(t *testing.T) {
 		daily2  = make([]*model.DailyMessageSentCount, now.Day())
 	)
 	for day := 1; day <= lastMonthLast.Day(); day++ {
-		msg := testmodel.DefaultMessageFactory.SentAt(
-			times.C.Date(
-				lastMonthLast.Year(),
+		msg := testmodel.DefaultMessageFactory.
+			Role(model.UserRole).
+			SentAt(times.C.Date(lastMonthLast.Year(),
 				lastMonthLast.Month(), day, 0, 0, 0, 0),
-		).New()
+			).New()
 		if err := msgRepo.Add(context.Background(), userID1, msg); err != nil {
 			t.Fatal(err)
 		}
 		daily1[day-1] = model.NewDailyMessageSentCount(model.Day(day), 1)
 	}
 	for day := 1; day <= now.Day(); day++ {
-		msg := testmodel.DefaultMessageFactory.SentAt(
-			times.C.Date(
-				now.Year(),
+		msg := testmodel.DefaultMessageFactory.
+			Role(model.UserRole).
+			SentAt(times.C.Date(now.Year(),
 				now.Month(), day, 0, 0, 0, 0),
-		).New()
+			).New()
 		if err := msgRepo.Add(context.Background(), userID2, msg); err != nil {
 			t.Fatal(err)
 		}
