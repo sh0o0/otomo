@@ -18,7 +18,7 @@ func TestOtomoRepository_Save_ShouldAddOtomo_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx    = context.Background()
 		giveUserID = model.UserID(uuid.NewString())
-		giveOtomo  = testmodel.DefaultTestOtomoFactory.UserID(giveUserID).New()
+		giveOtomo  = testmodel.DefaultOtomoFactory.UserID(giveUserID).New()
 	)
 
 	if err := testOtomoRepo.Save(giveCtx, giveOtomo); err != nil {
@@ -44,8 +44,8 @@ func TestOtomoRepository_Save_ShouldUpdateOtomo_WhenArgsAreValid(t *testing.T) {
 	var (
 		giveCtx          = context.Background()
 		giveUserID       = model.UserID(uuid.NewString())
-		initialOtomo     = testmodel.DefaultTestOtomoFactory.UserID(giveUserID).New()
-		giveUpdatedOtomo = testmodel.DefaultTestOtomoFactory.UserID(giveUserID).New()
+		initialOtomo     = testmodel.DefaultOtomoFactory.UserID(giveUserID).New()
+		giveUpdatedOtomo = testmodel.DefaultOtomoFactory.UserID(giveUserID).New()
 	)
 
 	if err := testOtomoRepo.Save(giveCtx, initialOtomo); err != nil {
@@ -73,7 +73,7 @@ func TestOtomoRepository_GetByID_ShouldReturnOtomo_WhenFound(t *testing.T) {
 	var (
 		giveCtx   = context.Background()
 		userID    = model.UserID(uuid.NewString())
-		giveOtomo = testmodel.DefaultTestOtomoFactory.UserID(userID).New()
+		giveOtomo = testmodel.DefaultOtomoFactory.UserID(userID).New()
 	)
 
 	if err := testOtomoRepo.Save(giveCtx, giveOtomo); err != nil {

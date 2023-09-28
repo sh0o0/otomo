@@ -37,7 +37,7 @@ func main() {
 			)
 
 			for i := 0; i < count; i++ {
-				msg := testmodel.DefaultTestMessageFactory.Times(
+				msg := testmodel.DefaultMessageFactory.Times(
 					times.C.Now().Add(-time.Hour * time.Duration(i)),
 				)
 				results[i] = msg

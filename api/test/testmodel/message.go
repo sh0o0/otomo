@@ -8,11 +8,11 @@ import (
 	"time"
 )
 
-type TestMessageFactory struct{}
+type MessageFactory struct{}
 
-var DefaultTestMessageFactory = &TestMessageFactory{}
+var DefaultMessageFactory = &MessageFactory{}
 
-func (f *TestMessageFactory) Role(role model.Role) *model.Message {
+func (f *MessageFactory) Role(role model.Role) *model.Message {
 	clientId := uuid.NewString()
 	return &model.Message{
 		ID:       model.MessageID(uuid.NewString()),
@@ -24,14 +24,14 @@ func (f *TestMessageFactory) Role(role model.Role) *model.Message {
 			Locations: []*model.AnalyzedLocation{
 				{
 					Text:     testutil.Faker.Address().City(),
-					Location: DefaultTestLocationFactory.New(),
+					Location: DefaultLocationFactory.New(),
 				},
 			},
 		},
 	}
 }
 
-func (f *TestMessageFactory) SentAt(sentAt time.Time) *model.Message {
+func (f *MessageFactory) SentAt(sentAt time.Time) *model.Message {
 	clientId := uuid.NewString()
 	return &model.Message{
 		ID:       model.MessageID(uuid.NewString()),
@@ -43,14 +43,14 @@ func (f *TestMessageFactory) SentAt(sentAt time.Time) *model.Message {
 			Locations: []*model.AnalyzedLocation{
 				{
 					Text:     testutil.Faker.Address().City(),
-					Location: DefaultTestLocationFactory.New(),
+					Location: DefaultLocationFactory.New(),
 				},
 			},
 		},
 	}
 }
 
-func (f *TestMessageFactory) Times(t time.Time) *model.Message {
+func (f *MessageFactory) Times(t time.Time) *model.Message {
 	clientId := uuid.NewString()
 	return &model.Message{
 		ID:       model.MessageID(uuid.NewString()),
@@ -63,7 +63,7 @@ func (f *TestMessageFactory) Times(t time.Time) *model.Message {
 			Locations: []*model.AnalyzedLocation{
 				{
 					Text:     testutil.Faker.Address().City(),
-					Location: DefaultTestLocationFactory.New(),
+					Location: DefaultLocationFactory.New(),
 				},
 			},
 		},
