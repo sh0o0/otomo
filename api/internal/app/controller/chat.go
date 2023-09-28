@@ -53,6 +53,85 @@ func NewChatController(
 	}
 }
 
+func (cc *ChatController) SendMessage(
+	ctx context.Context,
+	req *grpcgen.ChatService_SendMessageRequest,
+) (*grpcgen.ChatService_SendMessageResponse, error) {
+	resp, err := cc.sendMessage(ctx, req)
+	if err != nil {
+		return nil, cc.toGrpcError(ctx, err)
+	}
+	return resp, nil
+}
+
+func (cc *ChatController) sendMessage(
+	ctx context.Context,
+	req *grpcgen.ChatService_SendMessageRequest,
+) (*grpcgen.ChatService_SendMessageResponse, error) {
+	if err := req.ValidateAll(); err != nil {
+		return nil, err
+	}
+	var (
+		userID = model.UserID(req.GetUserId())
+	)
+
+	if !ctxs.UserIs(ctx, userID) {
+		return nil, &errs.Error{
+			Message: "can only send own message",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainUser,
+			Field:   errs.FieldNone,
+		}
+	}
+
+	msg, err := cc.msgFactory.New(
+		req.GetText(),
+		model.UserRole,
+		conv.Wrapper.StringValueToPtr(req.ClientId),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	grpcMsg, err := conv.Message.ModelToGrpc(msg)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
+		return nil, err
+	}
+
+	return &grpcgen.ChatService_SendMessageResponse{
+		Message: grpcMsg,
+	}, nil
+}
+
+func (cc *ChatController) saveMsgAndOtomo(
+	ctx context.Context,
+	userID model.UserID,
+	msg *model.Message,
+	otomo *model.Otomo,
+) error {
+	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
+		return err
+	}
+	if err := cc.otomoRepo.Save(ctx, otomo); err != nil {
+		if err := cc.msgRepo.DeleteByIDAndUserID(
+			ctx, userID, msg.ID); err != nil {
+
+			return &errs.Error{
+				Message: "Failed rollback. ERROR: " + err.Error(),
+				Cause:   errs.CauseInternal,
+				Domain:  errs.DomainMessage,
+				Field:   errs.FieldNone,
+			}
+		}
+		return err
+	}
+	return nil
+}
+
 func (cc *ChatController) AskToMessage(
 	ctx context.Context,
 	req *grpcgen.ChatService_AskToMessageRequest,
@@ -233,87 +312,6 @@ func (cc *ChatController) listMessages(
 		HasMore:  hasMore,
 		Messages: resMsgs,
 	}, nil
-}
-
-// TODO: Implement transaction
-// Deprecated: Use AskToMessage instead.
-func (cc *ChatController) SendMessage(
-	ctx context.Context,
-	req *grpcgen.ChatService_SendMessageRequest,
-) (*grpcgen.ChatService_SendMessageResponse, error) {
-	resp, err := cc.sendMessage(ctx, req)
-	if err != nil {
-		return nil, cc.toGrpcError(ctx, err)
-	}
-	return resp, nil
-}
-
-func (cc *ChatController) sendMessage(
-	ctx context.Context,
-	req *grpcgen.ChatService_SendMessageRequest,
-) (*grpcgen.ChatService_SendMessageResponse, error) {
-	if err := req.ValidateAll(); err != nil {
-		return nil, err
-	}
-	var (
-		userID = model.UserID(req.GetUserId())
-	)
-
-	if !ctxs.UserIs(ctx, userID) {
-		return nil, &errs.Error{
-			Message: "can only send own message",
-			Cause:   errs.CausePermissionDenied,
-			Domain:  errs.DomainUser,
-			Field:   errs.FieldNone,
-		}
-	}
-
-	msg, err := cc.msgFactory.New(
-		req.GetText(),
-		model.UserRole,
-		conv.Wrapper.StringValueToPtr(req.ClientId),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	grpcMsg, err := conv.Message.ModelToGrpc(msg)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
-		return nil, err
-	}
-
-	return &grpcgen.ChatService_SendMessageResponse{
-		Message: grpcMsg,
-	}, nil
-}
-
-func (cc *ChatController) saveMsgAndOtomo(
-	ctx context.Context,
-	userID model.UserID,
-	msg *model.Message,
-	otomo *model.Otomo,
-) error {
-	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
-		return err
-	}
-	if err := cc.otomoRepo.Save(ctx, otomo); err != nil {
-		if err := cc.msgRepo.DeleteByIDAndUserID(
-			ctx, userID, msg.ID); err != nil {
-
-			return &errs.Error{
-				Message: "Failed rollback. ERROR: " + err.Error(),
-				Cause:   errs.CauseInternal,
-				Domain:  errs.DomainMessage,
-				Field:   errs.FieldNone,
-			}
-		}
-		return err
-	}
-	return nil
 }
 
 func (cc *ChatController) toGrpcError(ctx context.Context, err error) error {
