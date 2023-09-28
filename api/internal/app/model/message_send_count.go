@@ -5,26 +5,26 @@ const (
 	maxDailySendCount          = 5
 )
 
-type MonthlySurplusSentCount struct {
+type MonthlySurplusSentMessageCount struct {
 	YearMonth YearMonth
-	Daily     []*DailySentCount
+	Daily     []*DailySentMessageCount
 }
 
-func NewMonthlySurplusSentCount(
+func NewMonthlySurplusSentMessageCount(
 	yearMonth YearMonth,
-	daily []*DailySentCount,
-) *MonthlySurplusSentCount {
-	return &MonthlySurplusSentCount{
+	daily []*DailySentMessageCount,
+) *MonthlySurplusSentMessageCount {
+	return &MonthlySurplusSentMessageCount{
 		YearMonth: yearMonth,
 		Daily:     daily,
 	}
 }
 
-func (m *MonthlySurplusSentCount) IsOver() bool {
-	return m.Count() >= maxMonthlySurplusSendCount
+func (m *MonthlySurplusSentMessageCount) IsRemaining() bool {
+	return m.Count() < maxMonthlySurplusSendCount
 }
 
-func (m *MonthlySurplusSentCount) Count() int {
+func (m *MonthlySurplusSentMessageCount) Count() int {
 	var exceeded int
 	for _, d := range m.Daily {
 		exceeded += d.CountExceeded()
@@ -32,7 +32,7 @@ func (m *MonthlySurplusSentCount) Count() int {
 	return exceeded
 }
 
-func (m *MonthlySurplusSentCount) CountRemaining() int {
+func (m *MonthlySurplusSentMessageCount) CountRemaining() int {
 	remaining := maxMonthlySurplusSendCount - m.Count()
 	if remaining < 0 {
 		return 0
@@ -40,23 +40,23 @@ func (m *MonthlySurplusSentCount) CountRemaining() int {
 	return remaining
 }
 
-type DailySentCount struct {
+type DailySentMessageCount struct {
 	Day   Day
 	Count int
 }
 
-func NewDailySentCount(day Day, count int) *DailySentCount {
-	return &DailySentCount{
+func NewDailySentMessageCount(day Day, count int) *DailySentMessageCount {
+	return &DailySentMessageCount{
 		Day:   day,
 		Count: count,
 	}
 }
 
-func (d *DailySentCount) IsOver() bool {
-	return d.Count >= maxDailySendCount
+func (d *DailySentMessageCount) IsRemaining() bool {
+	return d.Count < maxDailySendCount
 }
 
-func (d *DailySentCount) CountRemaining() int {
+func (d *DailySentMessageCount) CountRemaining() int {
 	remaining := maxDailySendCount - d.Count
 	if remaining < 0 {
 		return 0
@@ -64,7 +64,7 @@ func (d *DailySentCount) CountRemaining() int {
 	return remaining
 }
 
-func (d *DailySentCount) CountExceeded() int {
+func (d *DailySentMessageCount) CountExceeded() int {
 	exceeded := d.Count - maxDailySendCount
 	if exceeded < 0 {
 		return 0
