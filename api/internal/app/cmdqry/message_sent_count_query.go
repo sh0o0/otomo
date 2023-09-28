@@ -4,6 +4,8 @@ import (
 	"context"
 	"otomo/internal/app/interfaces/cq"
 	"otomo/internal/app/model"
+	"otomo/internal/pkg/times"
+	"time"
 
 	"cloud.google.com/go/firestore"
 )
@@ -25,5 +27,6 @@ func (mscq *MessageSentCountQuery) GetMonthlySurplusSentMessageCount(
 	userID model.UserID,
 	yearMonth model.YearMonth,
 ) (*model.MonthlySurplusSentMessageCount, error) {
-	panic("not implemented") // TODO: Implement
+	date := times.C.Date(
+		int(yearMonth.Year), time.Month(yearMonth.Month), 1, 0, 0, 0, 0)
 }

@@ -1,6 +1,7 @@
 package model
 
 import (
+	"otomo/internal/pkg/times"
 	"time"
 )
 
@@ -22,10 +23,8 @@ type YearMonth struct {
 }
 
 func NewYearMonth(year Year, month Month) YearMonth {
-	return YearMonth{
-		Year:  year,
-		Month: month,
-	}
+	t := times.C.Date(int(year), time.Month(month), 1, 0, 0, 0, 0)
+	return NewYearMonthFromTime(t)
 }
 
 func NewYearMonthFromTime(t time.Time) YearMonth {
@@ -33,4 +32,30 @@ func NewYearMonthFromTime(t time.Time) YearMonth {
 		Year(t.Year()),
 		Month(t.Month()),
 	)
+}
+
+func (ym YearMonth) In(t time.Time) bool {
+	return ym.Year == Year(t.Year()) && ym.Month == Month(t.Month())
+}
+
+func (ym YearMonth) After(t time.Time) bool {
+	if ym.Year > Year(t.Year()) {
+		return true
+	}
+
+	if ym.Year == Year(t.Year()) && ym.Month > Month(t.Month()) {
+		return true
+	}
+	return false
+}
+
+func (ym YearMonth) Before(t time.Time) bool {
+	if ym.Year < Year(t.Year()) {
+		return true
+	}
+
+	if ym.Year == Year(t.Year()) && ym.Month < Month(t.Month()) {
+		return true
+	}
+	return false
 }

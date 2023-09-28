@@ -22,7 +22,7 @@ func TestMessageSentCountQuery_GetMonthlySurplusSentMessageCount(t *testing.T) {
 		now           = times.C.Now()
 		thisMonth     = model.NewYearMonthFromTime(now)
 		nextMonth     = model.NewYearMonth(model.Year(now.Year()), model.Month(now.Month()+1))
-		lastMonthLast = times.C.Date(now.Year(), now.Month(), -1, 0, 0, 0, 0)
+		lastMonthLast = times.C.Date(now.Year(), now.Month(), 0, 0, 0, 0, 0)
 		lastMonth     = model.NewYearMonthFromTime(lastMonthLast)
 
 		userID1 = model.UserID(uuid.NewString())
