@@ -1002,22 +1002,22 @@ var _ interface {
 	ErrorName() string
 } = DailySentCountValidationError{}
 
-// Validate checks the field values on ReminingSendCount with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *ReminingSendCount) Validate() error {
+// Validate checks the field values on RemainingSendCount with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RemainingSendCount) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ReminingSendCount with the rules
+// ValidateAll checks the field values on RemainingSendCount with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ReminingSendCountMultiError, or nil if none found.
-func (m *ReminingSendCount) ValidateAll() error {
+// RemainingSendCountMultiError, or nil if none found.
+func (m *RemainingSendCount) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ReminingSendCount) validate(all bool) error {
+func (m *RemainingSendCount) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1028,7 +1028,7 @@ func (m *ReminingSendCount) validate(all bool) error {
 		switch v := interface{}(m.GetMonthly()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ReminingSendCountValidationError{
+				errors = append(errors, RemainingSendCountValidationError{
 					field:  "Monthly",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1036,7 +1036,7 @@ func (m *ReminingSendCount) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ReminingSendCountValidationError{
+				errors = append(errors, RemainingSendCountValidationError{
 					field:  "Monthly",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1045,7 +1045,7 @@ func (m *ReminingSendCount) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetMonthly()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ReminingSendCountValidationError{
+			return RemainingSendCountValidationError{
 				field:  "Monthly",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1057,7 +1057,7 @@ func (m *ReminingSendCount) validate(all bool) error {
 		switch v := interface{}(m.GetDaily()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ReminingSendCountValidationError{
+				errors = append(errors, RemainingSendCountValidationError{
 					field:  "Daily",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1065,7 +1065,7 @@ func (m *ReminingSendCount) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ReminingSendCountValidationError{
+				errors = append(errors, RemainingSendCountValidationError{
 					field:  "Daily",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1074,7 +1074,7 @@ func (m *ReminingSendCount) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetDaily()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ReminingSendCountValidationError{
+			return RemainingSendCountValidationError{
 				field:  "Daily",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1083,18 +1083,18 @@ func (m *ReminingSendCount) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ReminingSendCountMultiError(errors)
+		return RemainingSendCountMultiError(errors)
 	}
 	return nil
 }
 
-// ReminingSendCountMultiError is an error wrapping multiple validation errors
-// returned by ReminingSendCount.ValidateAll() if the designated constraints
+// RemainingSendCountMultiError is an error wrapping multiple validation errors
+// returned by RemainingSendCount.ValidateAll() if the designated constraints
 // aren't met.
-type ReminingSendCountMultiError []error
+type RemainingSendCountMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ReminingSendCountMultiError) Error() string {
+func (m RemainingSendCountMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1103,11 +1103,11 @@ func (m ReminingSendCountMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ReminingSendCountMultiError) AllErrors() []error { return m }
+func (m RemainingSendCountMultiError) AllErrors() []error { return m }
 
-// ReminingSendCountValidationError is the validation error returned by
-// ReminingSendCount.Validate if the designated constraints aren't met.
-type ReminingSendCountValidationError struct {
+// RemainingSendCountValidationError is the validation error returned by
+// RemainingSendCount.Validate if the designated constraints aren't met.
+type RemainingSendCountValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1115,24 +1115,24 @@ type ReminingSendCountValidationError struct {
 }
 
 // Field function returns field value.
-func (e ReminingSendCountValidationError) Field() string { return e.field }
+func (e RemainingSendCountValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ReminingSendCountValidationError) Reason() string { return e.reason }
+func (e RemainingSendCountValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ReminingSendCountValidationError) Cause() error { return e.cause }
+func (e RemainingSendCountValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ReminingSendCountValidationError) Key() bool { return e.key }
+func (e RemainingSendCountValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ReminingSendCountValidationError) ErrorName() string {
-	return "ReminingSendCountValidationError"
+func (e RemainingSendCountValidationError) ErrorName() string {
+	return "RemainingSendCountValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ReminingSendCountValidationError) Error() string {
+func (e RemainingSendCountValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1144,14 +1144,14 @@ func (e ReminingSendCountValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sReminingSendCount.%s: %s%s",
+		"invalid %sRemainingSendCount.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ReminingSendCountValidationError{}
+var _ error = RemainingSendCountValidationError{}
 
 var _ interface {
 	Field() string
@@ -1159,24 +1159,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ReminingSendCountValidationError{}
+} = RemainingSendCountValidationError{}
 
-// Validate checks the field values on ReminingMonthlySendCount with the rules
+// Validate checks the field values on RemainingMonthlySendCount with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ReminingMonthlySendCount) Validate() error {
+func (m *RemainingMonthlySendCount) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ReminingMonthlySendCount with the
+// ValidateAll checks the field values on RemainingMonthlySendCount with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ReminingMonthlySendCountMultiError, or nil if none found.
-func (m *ReminingMonthlySendCount) ValidateAll() error {
+// RemainingMonthlySendCountMultiError, or nil if none found.
+func (m *RemainingMonthlySendCount) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ReminingMonthlySendCount) validate(all bool) error {
+func (m *RemainingMonthlySendCount) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1187,7 +1187,7 @@ func (m *ReminingMonthlySendCount) validate(all bool) error {
 		switch v := interface{}(m.GetYearMonth()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ReminingMonthlySendCountValidationError{
+				errors = append(errors, RemainingMonthlySendCountValidationError{
 					field:  "YearMonth",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1195,7 +1195,7 @@ func (m *ReminingMonthlySendCount) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ReminingMonthlySendCountValidationError{
+				errors = append(errors, RemainingMonthlySendCountValidationError{
 					field:  "YearMonth",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1204,7 +1204,7 @@ func (m *ReminingMonthlySendCount) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetYearMonth()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ReminingMonthlySendCountValidationError{
+			return RemainingMonthlySendCountValidationError{
 				field:  "YearMonth",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1215,18 +1215,18 @@ func (m *ReminingMonthlySendCount) validate(all bool) error {
 	// no validation rules for Count
 
 	if len(errors) > 0 {
-		return ReminingMonthlySendCountMultiError(errors)
+		return RemainingMonthlySendCountMultiError(errors)
 	}
 	return nil
 }
 
-// ReminingMonthlySendCountMultiError is an error wrapping multiple validation
-// errors returned by ReminingMonthlySendCount.ValidateAll() if the designated
-// constraints aren't met.
-type ReminingMonthlySendCountMultiError []error
+// RemainingMonthlySendCountMultiError is an error wrapping multiple validation
+// errors returned by RemainingMonthlySendCount.ValidateAll() if the
+// designated constraints aren't met.
+type RemainingMonthlySendCountMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ReminingMonthlySendCountMultiError) Error() string {
+func (m RemainingMonthlySendCountMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1235,11 +1235,11 @@ func (m ReminingMonthlySendCountMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ReminingMonthlySendCountMultiError) AllErrors() []error { return m }
+func (m RemainingMonthlySendCountMultiError) AllErrors() []error { return m }
 
-// ReminingMonthlySendCountValidationError is the validation error returned by
-// ReminingMonthlySendCount.Validate if the designated constraints aren't met.
-type ReminingMonthlySendCountValidationError struct {
+// RemainingMonthlySendCountValidationError is the validation error returned by
+// RemainingMonthlySendCount.Validate if the designated constraints aren't met.
+type RemainingMonthlySendCountValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1247,24 +1247,24 @@ type ReminingMonthlySendCountValidationError struct {
 }
 
 // Field function returns field value.
-func (e ReminingMonthlySendCountValidationError) Field() string { return e.field }
+func (e RemainingMonthlySendCountValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ReminingMonthlySendCountValidationError) Reason() string { return e.reason }
+func (e RemainingMonthlySendCountValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ReminingMonthlySendCountValidationError) Cause() error { return e.cause }
+func (e RemainingMonthlySendCountValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ReminingMonthlySendCountValidationError) Key() bool { return e.key }
+func (e RemainingMonthlySendCountValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ReminingMonthlySendCountValidationError) ErrorName() string {
-	return "ReminingMonthlySendCountValidationError"
+func (e RemainingMonthlySendCountValidationError) ErrorName() string {
+	return "RemainingMonthlySendCountValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ReminingMonthlySendCountValidationError) Error() string {
+func (e RemainingMonthlySendCountValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1276,14 +1276,14 @@ func (e ReminingMonthlySendCountValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sReminingMonthlySendCount.%s: %s%s",
+		"invalid %sRemainingMonthlySendCount.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ReminingMonthlySendCountValidationError{}
+var _ error = RemainingMonthlySendCountValidationError{}
 
 var _ interface {
 	Field() string
@@ -1291,24 +1291,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ReminingMonthlySendCountValidationError{}
+} = RemainingMonthlySendCountValidationError{}
 
-// Validate checks the field values on ReminingDailySendCount with the rules
+// Validate checks the field values on RemainingDailySendCount with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ReminingDailySendCount) Validate() error {
+func (m *RemainingDailySendCount) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ReminingDailySendCount with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on RemainingDailySendCount with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ReminingDailySendCountMultiError, or nil if none found.
-func (m *ReminingDailySendCount) ValidateAll() error {
+// RemainingDailySendCountMultiError, or nil if none found.
+func (m *RemainingDailySendCount) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ReminingDailySendCount) validate(all bool) error {
+func (m *RemainingDailySendCount) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1319,7 +1319,7 @@ func (m *ReminingDailySendCount) validate(all bool) error {
 		switch v := interface{}(m.GetDate()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ReminingDailySendCountValidationError{
+				errors = append(errors, RemainingDailySendCountValidationError{
 					field:  "Date",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1327,7 +1327,7 @@ func (m *ReminingDailySendCount) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ReminingDailySendCountValidationError{
+				errors = append(errors, RemainingDailySendCountValidationError{
 					field:  "Date",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1336,7 +1336,7 @@ func (m *ReminingDailySendCount) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetDate()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ReminingDailySendCountValidationError{
+			return RemainingDailySendCountValidationError{
 				field:  "Date",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1347,18 +1347,18 @@ func (m *ReminingDailySendCount) validate(all bool) error {
 	// no validation rules for Count
 
 	if len(errors) > 0 {
-		return ReminingDailySendCountMultiError(errors)
+		return RemainingDailySendCountMultiError(errors)
 	}
 	return nil
 }
 
-// ReminingDailySendCountMultiError is an error wrapping multiple validation
-// errors returned by ReminingDailySendCount.ValidateAll() if the designated
+// RemainingDailySendCountMultiError is an error wrapping multiple validation
+// errors returned by RemainingDailySendCount.ValidateAll() if the designated
 // constraints aren't met.
-type ReminingDailySendCountMultiError []error
+type RemainingDailySendCountMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ReminingDailySendCountMultiError) Error() string {
+func (m RemainingDailySendCountMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1367,11 +1367,11 @@ func (m ReminingDailySendCountMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ReminingDailySendCountMultiError) AllErrors() []error { return m }
+func (m RemainingDailySendCountMultiError) AllErrors() []error { return m }
 
-// ReminingDailySendCountValidationError is the validation error returned by
-// ReminingDailySendCount.Validate if the designated constraints aren't met.
-type ReminingDailySendCountValidationError struct {
+// RemainingDailySendCountValidationError is the validation error returned by
+// RemainingDailySendCount.Validate if the designated constraints aren't met.
+type RemainingDailySendCountValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1379,24 +1379,24 @@ type ReminingDailySendCountValidationError struct {
 }
 
 // Field function returns field value.
-func (e ReminingDailySendCountValidationError) Field() string { return e.field }
+func (e RemainingDailySendCountValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ReminingDailySendCountValidationError) Reason() string { return e.reason }
+func (e RemainingDailySendCountValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ReminingDailySendCountValidationError) Cause() error { return e.cause }
+func (e RemainingDailySendCountValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ReminingDailySendCountValidationError) Key() bool { return e.key }
+func (e RemainingDailySendCountValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ReminingDailySendCountValidationError) ErrorName() string {
-	return "ReminingDailySendCountValidationError"
+func (e RemainingDailySendCountValidationError) ErrorName() string {
+	return "RemainingDailySendCountValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ReminingDailySendCountValidationError) Error() string {
+func (e RemainingDailySendCountValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1408,14 +1408,14 @@ func (e ReminingDailySendCountValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sReminingDailySendCount.%s: %s%s",
+		"invalid %sRemainingDailySendCount.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ReminingDailySendCountValidationError{}
+var _ error = RemainingDailySendCountValidationError{}
 
 var _ interface {
 	Field() string
@@ -1423,4 +1423,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ReminingDailySendCountValidationError{}
+} = RemainingDailySendCountValidationError{}

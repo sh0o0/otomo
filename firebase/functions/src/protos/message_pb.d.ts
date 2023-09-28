@@ -212,81 +212,81 @@ export namespace DailySentCount {
     }
 }
 
-export class ReminingSendCount extends jspb.Message { 
+export class RemainingSendCount extends jspb.Message { 
 
     hasMonthly(): boolean;
     clearMonthly(): void;
-    getMonthly(): ReminingMonthlySendCount | undefined;
-    setMonthly(value?: ReminingMonthlySendCount): ReminingSendCount;
+    getMonthly(): RemainingMonthlySendCount | undefined;
+    setMonthly(value?: RemainingMonthlySendCount): RemainingSendCount;
 
     hasDaily(): boolean;
     clearDaily(): void;
-    getDaily(): ReminingDailySendCount | undefined;
-    setDaily(value?: ReminingDailySendCount): ReminingSendCount;
+    getDaily(): RemainingDailySendCount | undefined;
+    setDaily(value?: RemainingDailySendCount): RemainingSendCount;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ReminingSendCount.AsObject;
-    static toObject(includeInstance: boolean, msg: ReminingSendCount): ReminingSendCount.AsObject;
+    toObject(includeInstance?: boolean): RemainingSendCount.AsObject;
+    static toObject(includeInstance: boolean, msg: RemainingSendCount): RemainingSendCount.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ReminingSendCount, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ReminingSendCount;
-    static deserializeBinaryFromReader(message: ReminingSendCount, reader: jspb.BinaryReader): ReminingSendCount;
+    static serializeBinaryToWriter(message: RemainingSendCount, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RemainingSendCount;
+    static deserializeBinaryFromReader(message: RemainingSendCount, reader: jspb.BinaryReader): RemainingSendCount;
 }
 
-export namespace ReminingSendCount {
+export namespace RemainingSendCount {
     export type AsObject = {
-        monthly?: ReminingMonthlySendCount.AsObject,
-        daily?: ReminingDailySendCount.AsObject,
+        monthly?: RemainingMonthlySendCount.AsObject,
+        daily?: RemainingDailySendCount.AsObject,
     }
 }
 
-export class ReminingMonthlySendCount extends jspb.Message { 
+export class RemainingMonthlySendCount extends jspb.Message { 
 
     hasYearMonth(): boolean;
     clearYearMonth(): void;
     getYearMonth(): date_pb.YearMonth | undefined;
-    setYearMonth(value?: date_pb.YearMonth): ReminingMonthlySendCount;
+    setYearMonth(value?: date_pb.YearMonth): RemainingMonthlySendCount;
     getCount(): number;
-    setCount(value: number): ReminingMonthlySendCount;
+    setCount(value: number): RemainingMonthlySendCount;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ReminingMonthlySendCount.AsObject;
-    static toObject(includeInstance: boolean, msg: ReminingMonthlySendCount): ReminingMonthlySendCount.AsObject;
+    toObject(includeInstance?: boolean): RemainingMonthlySendCount.AsObject;
+    static toObject(includeInstance: boolean, msg: RemainingMonthlySendCount): RemainingMonthlySendCount.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ReminingMonthlySendCount, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ReminingMonthlySendCount;
-    static deserializeBinaryFromReader(message: ReminingMonthlySendCount, reader: jspb.BinaryReader): ReminingMonthlySendCount;
+    static serializeBinaryToWriter(message: RemainingMonthlySendCount, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RemainingMonthlySendCount;
+    static deserializeBinaryFromReader(message: RemainingMonthlySendCount, reader: jspb.BinaryReader): RemainingMonthlySendCount;
 }
 
-export namespace ReminingMonthlySendCount {
+export namespace RemainingMonthlySendCount {
     export type AsObject = {
         yearMonth?: date_pb.YearMonth.AsObject,
         count: number,
     }
 }
 
-export class ReminingDailySendCount extends jspb.Message { 
+export class RemainingDailySendCount extends jspb.Message { 
 
     hasDate(): boolean;
     clearDate(): void;
     getDate(): date_pb.Date | undefined;
-    setDate(value?: date_pb.Date): ReminingDailySendCount;
+    setDate(value?: date_pb.Date): RemainingDailySendCount;
     getCount(): number;
-    setCount(value: number): ReminingDailySendCount;
+    setCount(value: number): RemainingDailySendCount;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ReminingDailySendCount.AsObject;
-    static toObject(includeInstance: boolean, msg: ReminingDailySendCount): ReminingDailySendCount.AsObject;
+    toObject(includeInstance?: boolean): RemainingDailySendCount.AsObject;
+    static toObject(includeInstance: boolean, msg: RemainingDailySendCount): RemainingDailySendCount.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ReminingDailySendCount, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ReminingDailySendCount;
-    static deserializeBinaryFromReader(message: ReminingDailySendCount, reader: jspb.BinaryReader): ReminingDailySendCount;
+    static serializeBinaryToWriter(message: RemainingDailySendCount, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RemainingDailySendCount;
+    static deserializeBinaryFromReader(message: RemainingDailySendCount, reader: jspb.BinaryReader): RemainingDailySendCount;
 }
 
-export namespace ReminingDailySendCount {
+export namespace RemainingDailySendCount {
     export type AsObject = {
         date?: date_pb.Date.AsObject,
         count: number,

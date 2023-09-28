@@ -14,7 +14,7 @@ interface IChatServiceService extends grpc.ServiceDefinition<grpc.UntypedService
     listMessages: IChatServiceService_IListMessages;
     askToMessage: IChatServiceService_IAskToMessage;
     messagingStream: IChatServiceService_IMessagingStream;
-    getReminingSendCount: IChatServiceService_IGetReminingSendCount;
+    getRemainingSendCount: IChatServiceService_IGetRemainingSendCount;
 }
 
 interface IChatServiceService_ISendMessage extends grpc.MethodDefinition<chat_service_pb.ChatService_SendMessageRequest, chat_service_pb.ChatService_SendMessageResponse> {
@@ -53,14 +53,14 @@ interface IChatServiceService_IMessagingStream extends grpc.MethodDefinition<cha
     responseSerialize: grpc.serialize<chat_service_pb.ChatService_MessagingStreamResponse>;
     responseDeserialize: grpc.deserialize<chat_service_pb.ChatService_MessagingStreamResponse>;
 }
-interface IChatServiceService_IGetReminingSendCount extends grpc.MethodDefinition<chat_service_pb.ChatService_GetReminingSendCountRequest, chat_service_pb.ChatService_GetReminingSendCountResponse> {
-    path: "/ChatService/GetReminingSendCount";
+interface IChatServiceService_IGetRemainingSendCount extends grpc.MethodDefinition<chat_service_pb.ChatService_GetRemainingSendCountRequest, chat_service_pb.ChatService_GetRemainingSendCountResponse> {
+    path: "/ChatService/GetRemainingSendCount";
     requestStream: false;
     responseStream: false;
-    requestSerialize: grpc.serialize<chat_service_pb.ChatService_GetReminingSendCountRequest>;
-    requestDeserialize: grpc.deserialize<chat_service_pb.ChatService_GetReminingSendCountRequest>;
-    responseSerialize: grpc.serialize<chat_service_pb.ChatService_GetReminingSendCountResponse>;
-    responseDeserialize: grpc.deserialize<chat_service_pb.ChatService_GetReminingSendCountResponse>;
+    requestSerialize: grpc.serialize<chat_service_pb.ChatService_GetRemainingSendCountRequest>;
+    requestDeserialize: grpc.deserialize<chat_service_pb.ChatService_GetRemainingSendCountRequest>;
+    responseSerialize: grpc.serialize<chat_service_pb.ChatService_GetRemainingSendCountResponse>;
+    responseDeserialize: grpc.deserialize<chat_service_pb.ChatService_GetRemainingSendCountResponse>;
 }
 
 export const ChatServiceService: IChatServiceService;
@@ -70,7 +70,7 @@ export interface IChatServiceServer {
     listMessages: grpc.handleUnaryCall<chat_service_pb.ChatService_ListMessagesRequest, chat_service_pb.ChatService_ListMessagesResponse>;
     askToMessage: grpc.handleUnaryCall<chat_service_pb.ChatService_AskToMessageRequest, chat_service_pb.ChatService_AskToMessageResponse>;
     messagingStream: grpc.handleServerStreamingCall<chat_service_pb.ChatService_MessagingStreamRequest, chat_service_pb.ChatService_MessagingStreamResponse>;
-    getReminingSendCount: grpc.handleUnaryCall<chat_service_pb.ChatService_GetReminingSendCountRequest, chat_service_pb.ChatService_GetReminingSendCountResponse>;
+    getRemainingSendCount: grpc.handleUnaryCall<chat_service_pb.ChatService_GetRemainingSendCountRequest, chat_service_pb.ChatService_GetRemainingSendCountResponse>;
 }
 
 export interface IChatServiceClient {
@@ -85,9 +85,9 @@ export interface IChatServiceClient {
     askToMessage(request: chat_service_pb.ChatService_AskToMessageRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_AskToMessageResponse) => void): grpc.ClientUnaryCall;
     messagingStream(request: chat_service_pb.ChatService_MessagingStreamRequest, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<chat_service_pb.ChatService_MessagingStreamResponse>;
     messagingStream(request: chat_service_pb.ChatService_MessagingStreamRequest, metadata?: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<chat_service_pb.ChatService_MessagingStreamResponse>;
-    getReminingSendCount(request: chat_service_pb.ChatService_GetReminingSendCountRequest, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetReminingSendCountResponse) => void): grpc.ClientUnaryCall;
-    getReminingSendCount(request: chat_service_pb.ChatService_GetReminingSendCountRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetReminingSendCountResponse) => void): grpc.ClientUnaryCall;
-    getReminingSendCount(request: chat_service_pb.ChatService_GetReminingSendCountRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetReminingSendCountResponse) => void): grpc.ClientUnaryCall;
+    getRemainingSendCount(request: chat_service_pb.ChatService_GetRemainingSendCountRequest, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetRemainingSendCountResponse) => void): grpc.ClientUnaryCall;
+    getRemainingSendCount(request: chat_service_pb.ChatService_GetRemainingSendCountRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetRemainingSendCountResponse) => void): grpc.ClientUnaryCall;
+    getRemainingSendCount(request: chat_service_pb.ChatService_GetRemainingSendCountRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetRemainingSendCountResponse) => void): grpc.ClientUnaryCall;
 }
 
 export class ChatServiceClient extends grpc.Client implements IChatServiceClient {
@@ -103,7 +103,7 @@ export class ChatServiceClient extends grpc.Client implements IChatServiceClient
     public askToMessage(request: chat_service_pb.ChatService_AskToMessageRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_AskToMessageResponse) => void): grpc.ClientUnaryCall;
     public messagingStream(request: chat_service_pb.ChatService_MessagingStreamRequest, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<chat_service_pb.ChatService_MessagingStreamResponse>;
     public messagingStream(request: chat_service_pb.ChatService_MessagingStreamRequest, metadata?: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<chat_service_pb.ChatService_MessagingStreamResponse>;
-    public getReminingSendCount(request: chat_service_pb.ChatService_GetReminingSendCountRequest, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetReminingSendCountResponse) => void): grpc.ClientUnaryCall;
-    public getReminingSendCount(request: chat_service_pb.ChatService_GetReminingSendCountRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetReminingSendCountResponse) => void): grpc.ClientUnaryCall;
-    public getReminingSendCount(request: chat_service_pb.ChatService_GetReminingSendCountRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetReminingSendCountResponse) => void): grpc.ClientUnaryCall;
+    public getRemainingSendCount(request: chat_service_pb.ChatService_GetRemainingSendCountRequest, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetRemainingSendCountResponse) => void): grpc.ClientUnaryCall;
+    public getRemainingSendCount(request: chat_service_pb.ChatService_GetRemainingSendCountRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetRemainingSendCountResponse) => void): grpc.ClientUnaryCall;
+    public getRemainingSendCount(request: chat_service_pb.ChatService_GetRemainingSendCountRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: chat_service_pb.ChatService_GetRemainingSendCountResponse) => void): grpc.ClientUnaryCall;
 }

@@ -52,17 +52,17 @@ message DailySentCount {
     int32 count = 2;
 }
 
-message ReminingSendCount {
-    ReminingMonthlySendCount monthly = 1;
-    ReminingDailySendCount daily = 2;
+message RemainingSendCount {
+    RemainingMonthlySendCount monthly = 1;
+    RemainingDailySendCount daily = 2;
 }
 
-message ReminingMonthlySendCount {
+message RemainingMonthlySendCount {
     YearMonth year_month = 1;
     int32 count = 2;
 }
 
-message ReminingDailySendCount {
+message RemainingDailySendCount {
     Date date = 1;
     int32 count = 2;
 }
