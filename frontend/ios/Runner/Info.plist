@@ -63,5 +63,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- Added by developer -->
+	<key>GOOGLE_MAP_API_KEY</key>
+	<string>$(IOS_GOOGLE_MAP_API_KEY)</string>
 </dict>
 </plist>
