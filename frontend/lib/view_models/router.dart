@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/view_models/user.dart';
+import 'package:otomo/view_models/account.dart';
 import 'package:otomo/views/pages/account_deletion/index.dart';
 import 'package:otomo/views/pages/settings/index.dart';
 import 'package:otomo/views/pages/home/index.dart';
@@ -48,8 +48,8 @@ final List<GoRoute> _signedInPages = [
 ];
 
 final routerProvider = Provider((ref) {
-  final user = ref.watch(accountProvider);
-  if (user == null) {
+  final account = ref.watch(accountProvider);
+  if (account == null) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.signIn,
