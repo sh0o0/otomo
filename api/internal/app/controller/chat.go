@@ -115,10 +115,7 @@ func (cc *ChatController) sendMessage(
 	}
 
 	newMonthlySurplusCount := monthlySurplusCount.IfSent(day)
-	newDailyCount, err := newMonthlySurplusCount.Daily.WhereByDay(day)
-	if err != nil {
-		return nil, err
-	}
+	newDailyCount := newMonthlySurplusCount.Daily.WhereByDay(day)
 
 	grpcMsg, err := conv.Message.ModelToGrpc(msg)
 	if err != nil {
@@ -465,10 +462,8 @@ func (cc *ChatController) getRemainingSendCount(
 	if err != nil {
 		return nil, err
 	}
-	dailyCount, err := monthlySurplusCount.Daily.WhereByDay(day)
-	if err != nil {
-		return nil, err
-	}
+	dailyCount := monthlySurplusCount.Daily.WhereByDay(day)
+
 	return &grpcgen.ChatService_GetRemainingSendCountResponse{
 		RemainingSendCount: conv.RemainingMessageSendCount.ModelToGrpc(
 			monthlySurplusCount,

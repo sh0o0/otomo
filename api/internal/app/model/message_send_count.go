@@ -1,9 +1,5 @@
 package model
 
-import (
-	"errors"
-)
-
 const (
 	maxMonthlySurplusSendCount = 30
 	maxDailySendCount          = 5
@@ -28,11 +24,8 @@ func (m *MonthlySurplusMessageSentCount) IsRemaining() bool {
 	return m.Count() < maxMonthlySurplusSendCount
 }
 func (m *MonthlySurplusMessageSentCount) IsRemainingDay(day Day) bool {
-	targetDaily, err := m.Daily.WhereByDay(day)
-	if err != nil {
-		return m.IsRemaining()
-	}
-	return targetDaily.IsRemaining() || m.IsRemaining()
+	d := m.Daily.WhereByDay(day)
+	return d.IsRemaining() || m.IsRemaining()
 }
 
 func (m *MonthlySurplusMessageSentCount) Count() int {
@@ -114,10 +107,10 @@ func (list DailyMessageSentCountList) IndexByDay(day Day) int {
 
 func (list DailyMessageSentCountList) WhereByDay(
 	day Day,
-) (*DailyMessageSentCount, error) {
+) *DailyMessageSentCount {
 	index := list.IndexByDay(day)
 	if index == -1 {
-		return nil, errors.New("daily message sent count not found")
+		return &DailyMessageSentCount{Day: day, Count: 0}
 	}
-	return list[index], nil
+	return list[index]
 }

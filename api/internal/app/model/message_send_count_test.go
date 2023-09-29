@@ -578,14 +578,13 @@ func TestDailyMessageSentCountList_WhereByDay(t *testing.T) {
 		day Day
 	}
 	tests := []struct {
-		name      string
-		list      DailyMessageSentCountList
-		args      args
-		want      *DailyMessageSentCount
-		wantIsErr bool
+		name string
+		list DailyMessageSentCountList
+		args args
+		want *DailyMessageSentCount
 	}{
 		{
-			name: "Should return error when day is not found",
+			name: "Should return count zero when day is not found",
 			list: DailyMessageSentCountList{
 				{
 					Day: 1,
@@ -597,8 +596,10 @@ func TestDailyMessageSentCountList_WhereByDay(t *testing.T) {
 			args: args{
 				day: 3,
 			},
-			want:      nil,
-			wantIsErr: true,
+			want: &DailyMessageSentCount{
+				Day:   3,
+				Count: 0,
+			},
 		},
 		{
 			name: "Should return count when day is found",
@@ -616,18 +617,13 @@ func TestDailyMessageSentCountList_WhereByDay(t *testing.T) {
 			want: &DailyMessageSentCount{
 				Day: 2,
 			},
-			wantIsErr: false,
 		},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got, err := tt.list.WhereByDay(tt.args.day)
-			if (err != nil) != tt.wantIsErr {
-				t.Errorf("DailyMessageSentCountList.WhereByDay() error = %v, wantIsErr %v", err, tt.wantIsErr)
-				return
-			}
+			got := tt.list.WhereByDay(tt.args.day)
 
 			assert.Exactly(t, tt.want, got)
 		})
