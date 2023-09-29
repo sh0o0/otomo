@@ -98,3 +98,31 @@ class TitleMedium extends BaseText {
   @override
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
+
+class TitleLarge extends BaseText {
+  const TitleLarge(
+    super.text, {
+    super.key,
+    super.style,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.titleLarge;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
+
+class DisplayLarge extends BaseText {
+  const DisplayLarge(
+    super.text, {
+    super.key,
+    super.style,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.displayLarge;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}

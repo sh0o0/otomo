@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/view_models/router.dart';
 import 'package:otomo/view_models/sign_in.dart';
 import 'package:otomo/views/bases/layouts/safe_area_layout.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
 import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
+import 'package:otomo/views/bases/texts/tappable_text.dart';
+import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/cases/sign_in/sign_in_button.dart';
 import 'package:otomo/views/utils/error_library.dart';
@@ -16,10 +19,9 @@ class SignInPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-
     final state = ref.watch(signInProvider);
     final notifier = ref.watch(signInProvider.notifier);
+    final router = ref.watch(routerProvider);
 
     return ScaffoldWithBarrierIndicator(
       isProcessing: state.isLoading,
@@ -29,18 +31,23 @@ class SignInPage extends HookConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Otomo', style: theme.textTheme.displayLarge),
+                const DisplayLarge('Otomo'),
                 Spaces.h40,
                 GoogleSignInButton(
                   text: 'Continue with Google',
                   onPressed: () => notifier.signInWithGoogle(),
                 ),
-                Spaces.h16,
                 if (!Platform.isAndroid)
-                  AppleSignInButton(
-                    text: 'Continue with Apple',
-                    onPressed: () => notifier.signInWithApple(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: AppleSignInButton(
+                      text: 'Continue with Apple',
+                      onPressed: () => notifier.signInWithApple(),
+                    ),
                   ),
+                Spaces.h32,
+                TappableText('Continue with email',
+                    onTap: () => router.push(Routes.signInWithEmailLink)),
                 Visibility(
                   visible: state.hasError,
                   child: Padding(

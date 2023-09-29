@@ -5,3 +5,12 @@ void afterBuildCallback(VoidCallback callback) {
     callback();
   });
 }
+
+bool validateAndSaveForm(GlobalKey<FormState> formKey) {
+  final currentState = formKey.currentState;
+  assert(currentState != null);
+
+  if (!(currentState!.validate())) return false;
+  currentState.save();
+  return true;
+}
