@@ -7,6 +7,8 @@ import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/sign_in/sign_in_button.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
+import 'package:otomo/views/utils/error_library.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 class SignInPage extends HookConsumerWidget {
   const SignInPage({super.key});
@@ -15,10 +17,11 @@ class SignInPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
-    final signIn = ref.watch(signInProvider);
+    final state = ref.watch(signInProvider);
+    final notifier = ref.watch(signInProvider.notifier);
 
     return ScaffoldWithBarrierIndicator(
-      isProcessing: signIn.isLoading,
+      isProcessing: state.isLoading,
       body: SafeAreaLayout(
         child: SideSpaceLayout(
           child: Center(
@@ -29,14 +32,26 @@ class SignInPage extends HookConsumerWidget {
                 Spaces.h40,
                 GoogleSignInButton(
                   text: 'Continue with Google',
-                  onPressed: () =>
-                      ref.read(signInProvider.notifier).signInWithGoogle(),
+                  onPressed: () => notifier.signInWithGoogle(),
                 ),
+                Spaces.h16,
+                SignInButton(
+                  Buttons.apple,
+                  text: 'Continue with Apple',
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10000),
+                    side: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  onPressed: () => notifier.signInWithApple(),
+                ),
+
                 Visibility(
-                  visible: signIn.hasError,
+                  visible: state.hasError,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 24),
-                    child: ErrorText(signIn.error.toString()),
+                    child: ErrorText(ErrorLibrary.fromAny(state.error ?? '')),
                   ),
                 )
                 // Spaces.h24,

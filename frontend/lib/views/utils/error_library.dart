@@ -26,8 +26,7 @@ abstract class ErrorLibrary {
   }
 
   static String fromGrpcError(GrpcError e) {
-    final details = e.details;
-    final detail = details?.first;
+    final detail = e.details?.isEmpty == true ? null : e.details![0];
 
     switch (e.code) {
       case StatusCode.invalidArgument:

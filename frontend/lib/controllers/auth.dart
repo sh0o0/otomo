@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/user.dart';
@@ -33,6 +34,21 @@ class AuthControllerImpl {
   Future<User> signInWithGoogle() async {
     final credential = await _getGoogleAuthCredential();
     return _signInWithCredential(credential);
+  }
+
+  Future<User> signInWithApple() async {
+    final appleProvider = auth.AppleAuthProvider();
+    appleProvider.addScope('email');
+
+    late final auth.UserCredential credential;
+    if (kIsWeb) {
+      credential = await _firebaseAuth.signInWithPopup(appleProvider);
+    } else {
+      credential = await _firebaseAuth.signInWithProvider(appleProvider);
+    }
+    final user = credential.user;
+    if (user == null) throw Exception('User is null');
+    return User(id: user.uid, email: user.email);
   }
 
   Future<User> _signInWithCredential(auth.AuthCredential credential) async {
