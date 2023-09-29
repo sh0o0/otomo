@@ -3,6 +3,7 @@ package controller
 import (
 	"context"
 	"otomo/internal/app/grpcgen"
+	"otomo/internal/app/interfaces/cq"
 	"otomo/internal/app/interfaces/repo"
 	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
@@ -18,15 +19,16 @@ import (
 var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
 
 type ChatController struct {
-	errorPresenter errorPresenter
-	msgFactory     *model.MessageFactory
-	msgRepo        repo.MessageRepository
-	otomoRepo      repo.OtomoRepository
-	msginSub       svc.MessagingSubscriber
-	msginPub       svc.MessagingPublisher
-	msgAnaSvc      svc.MessageAnalysisService
-	converser      model.Converser
-	summarizer     model.Summarizer
+	errorPresenter    errorPresenter
+	msgFactory        *model.MessageFactory
+	msgRepo           repo.MessageRepository
+	otomoRepo         repo.OtomoRepository
+	msginSub          svc.MessagingSubscriber
+	msginPub          svc.MessagingPublisher
+	msgAnaSvc         svc.MessageAnalysisService
+	msgSentCountQuery cq.MessageSentCountQuery
+	converser         model.Converser
+	summarizer        model.Summarizer
 }
 
 func NewChatController(
@@ -37,19 +39,21 @@ func NewChatController(
 	msginSub svc.MessagingSubscriber,
 	msginPub svc.MessagingPublisher,
 	msgAnaSvc svc.MessageAnalysisService,
+	msgSentCountQuery cq.MessageSentCountQuery,
 	converser model.Converser,
 	summarizer model.Summarizer,
 ) *ChatController {
 	return &ChatController{
-		errorPresenter: errorPresenter,
-		msgFactory:     msgFactory,
-		msgRepo:        msgRepo,
-		otomoRepo:      otomoRepo,
-		msginSub:       msginSub,
-		msginPub:       msginPub,
-		msgAnaSvc:      msgAnaSvc,
-		converser:      converser,
-		summarizer:     summarizer,
+		errorPresenter:    errorPresenter,
+		msgFactory:        msgFactory,
+		msgRepo:           msgRepo,
+		otomoRepo:         otomoRepo,
+		msginSub:          msginSub,
+		msginPub:          msginPub,
+		msgAnaSvc:         msgAnaSvc,
+		msgSentCountQuery: msgSentCountQuery,
+		converser:         converser,
+		summarizer:        summarizer,
 	}
 }
 
@@ -72,7 +76,10 @@ func (cc *ChatController) sendMessage(
 		return nil, err
 	}
 	var (
-		userID = model.UserID(req.GetUserId())
+		userID           = model.UserID(req.GetUserId())
+		now              = times.C.Now()
+		currentYearMonth = model.NewYearMonthFromTime(now)
+		day              = model.Day(now.Day())
 	)
 
 	if !ctxs.UserIs(ctx, userID) {
@@ -80,6 +87,20 @@ func (cc *ChatController) sendMessage(
 			Message: "can only send own message",
 			Cause:   errs.CausePermissionDenied,
 			Domain:  errs.DomainUser,
+			Field:   errs.FieldNone,
+		}
+	}
+
+	monthlySurplusCount, err := cc.msgSentCountQuery.
+		GetMonthlySurplusMessageSentCount(ctx, userID, currentYearMonth)
+	if err != nil {
+		return nil, err
+	}
+	if !monthlySurplusCount.IsRemainingDay(day) {
+		return nil, &errs.Error{
+			Message: "no remaining message sent count",
+			Cause:   errs.CauseResourceExhausted,
+			Domain:  errs.DomainMessage,
 			Field:   errs.FieldNone,
 		}
 	}
@@ -93,17 +114,32 @@ func (cc *ChatController) sendMessage(
 		return nil, err
 	}
 
+	newMonthlySurplusCount := monthlySurplusCount.IfSent(day)
+	newDailyCount, err := newMonthlySurplusCount.Daily.WhereByDay(day)
+	if err != nil {
+		return nil, err
+	}
+
 	grpcMsg, err := conv.Message.ModelToGrpc(msg)
 	if err != nil {
 		return nil, err
 	}
 
+	// This is last logic because it is not rollbackable.
 	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
 		return nil, err
 	}
 
 	return &grpcgen.ChatService_SendMessageResponse{
 		Message: grpcMsg,
+		RemainingSendCount: conv.RemainingMessageSendCount.ModelToGrpc(
+			newMonthlySurplusCount,
+			newDailyCount,
+		),
+		SentCount: conv.MessageSentCount.ModelToGrpc(
+			newMonthlySurplusCount,
+			newDailyCount,
+		),
 	}, nil
 }
 
@@ -393,9 +429,55 @@ func (cc *ChatController) messagingStream(
 	return nil
 }
 
-func (cs *ChatController) GetReminingSendCount(
-	_ context.Context,
-	_ *grpcgen.ChatService_GetReminingSendCountRequest,
-) (*grpcgen.ChatService_GetReminingSendCountResponse, error) {
-	panic("not implemented") // TODO: Implement
+func (cc *ChatController) GetRemainingSendCount(
+	ctx context.Context,
+	req *grpcgen.ChatService_GetRemainingSendCountRequest,
+) (*grpcgen.ChatService_GetRemainingSendCountResponse, error) {
+	resp, err := cc.getRemainingSendCount(ctx, req)
+	if err != nil {
+		return nil, cc.toGrpcError(ctx, err)
+	}
+	return resp, nil
+}
+
+func (cc *ChatController) getRemainingSendCount(
+	ctx context.Context,
+	req *grpcgen.ChatService_GetRemainingSendCountRequest,
+) (*grpcgen.ChatService_GetRemainingSendCountResponse, error) {
+	var (
+		userID           = model.UserID(req.GetUserId())
+		now              = times.C.Now()
+		currentYearMonth = model.NewYearMonthFromTime(now)
+		day              = model.Day(now.Day())
+	)
+
+	if !ctxs.UserIs(ctx, userID) {
+		return nil, &errs.Error{
+			Message: "can only get own remaining send count",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainUser,
+			Field:   errs.FieldNone,
+		}
+	}
+
+	monthlySurplusCount, err := cc.msgSentCountQuery.
+		GetMonthlySurplusMessageSentCount(ctx, userID, currentYearMonth)
+	if err != nil {
+		return nil, err
+	}
+	dailyCount, err := monthlySurplusCount.Daily.WhereByDay(day)
+	if err != nil {
+		return nil, err
+	}
+	return &grpcgen.ChatService_GetRemainingSendCountResponse{
+		RemainingSendCount: conv.RemainingMessageSendCount.ModelToGrpc(
+			monthlySurplusCount,
+			dailyCount,
+		),
+		SentCount: conv.MessageSentCount.ModelToGrpc(
+			monthlySurplusCount,
+			dailyCount,
+		),
+	}, nil
+
 }

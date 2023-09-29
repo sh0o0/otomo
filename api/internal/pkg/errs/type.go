@@ -28,6 +28,9 @@ const (
 
 	// Unavailable.
 	CauseUnavailable Cause = "unavailable"
+
+	// Resource exhausted.
+	CauseResourceExhausted Cause = "resource_exhausted"
 )
 
 // Domains
@@ -47,6 +50,7 @@ const (
 	FieldRole     Field = "role"
 	FieldAuthRole Field = "auth_role"
 	FieldAbility  Field = "ability"
+	FieldSentAt   Field = "sent_at"
 )
 
 type Error struct {

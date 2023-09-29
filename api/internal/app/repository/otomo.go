@@ -52,5 +52,5 @@ func (r *OtomoRepository) getDoc(
 	ctx context.Context,
 	userID model.UserID,
 ) *firestore.DocumentRef {
-	return r.fsClient.Doc(getOtomoDocPath(userID))
+	return r.fsClient.Doc(GetOtomoDocPath(userID))
 }

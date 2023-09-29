@@ -7,6 +7,7 @@
 import * as jspb from "google-protobuf";
 import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
 import * as message_pb from "./message_pb";
+import * as message_send_count_pb from "./message_send_count_pb";
 
 export class ChatService_SendMessageRequest extends jspb.Message { 
     getUserId(): string;
@@ -44,15 +45,15 @@ export class ChatService_SendMessageResponse extends jspb.Message {
     getMessage(): message_pb.Message | undefined;
     setMessage(value?: message_pb.Message): ChatService_SendMessageResponse;
 
-    hasReminingSendCount(): boolean;
-    clearReminingSendCount(): void;
-    getReminingSendCount(): message_pb.ReminingSendCount | undefined;
-    setReminingSendCount(value?: message_pb.ReminingSendCount): ChatService_SendMessageResponse;
+    hasRemainingSendCount(): boolean;
+    clearRemainingSendCount(): void;
+    getRemainingSendCount(): message_send_count_pb.RemainingMessageSendCount | undefined;
+    setRemainingSendCount(value?: message_send_count_pb.RemainingMessageSendCount): ChatService_SendMessageResponse;
 
-    hasMonthlySentCount(): boolean;
-    clearMonthlySentCount(): void;
-    getMonthlySentCount(): message_pb.MonthlySentCount | undefined;
-    setMonthlySentCount(value?: message_pb.MonthlySentCount): ChatService_SendMessageResponse;
+    hasSentCount(): boolean;
+    clearSentCount(): void;
+    getSentCount(): message_send_count_pb.MessageSentCount | undefined;
+    setSentCount(value?: message_send_count_pb.MessageSentCount): ChatService_SendMessageResponse;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ChatService_SendMessageResponse.AsObject;
@@ -67,8 +68,8 @@ export class ChatService_SendMessageResponse extends jspb.Message {
 export namespace ChatService_SendMessageResponse {
     export type AsObject = {
         message?: message_pb.Message.AsObject,
-        reminingSendCount?: message_pb.ReminingSendCount.AsObject,
-        monthlySentCount?: message_pb.MonthlySentCount.AsObject,
+        remainingSendCount?: message_send_count_pb.RemainingMessageSendCount.AsObject,
+        sentCount?: message_send_count_pb.MessageSentCount.AsObject,
     }
 }
 
@@ -212,51 +213,51 @@ export namespace ChatService_MessagingStreamResponse {
     }
 }
 
-export class ChatService_GetReminingSendCountRequest extends jspb.Message { 
+export class ChatService_GetRemainingSendCountRequest extends jspb.Message { 
     getUserId(): string;
-    setUserId(value: string): ChatService_GetReminingSendCountRequest;
+    setUserId(value: string): ChatService_GetRemainingSendCountRequest;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ChatService_GetReminingSendCountRequest.AsObject;
-    static toObject(includeInstance: boolean, msg: ChatService_GetReminingSendCountRequest): ChatService_GetReminingSendCountRequest.AsObject;
+    toObject(includeInstance?: boolean): ChatService_GetRemainingSendCountRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: ChatService_GetRemainingSendCountRequest): ChatService_GetRemainingSendCountRequest.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ChatService_GetReminingSendCountRequest, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ChatService_GetReminingSendCountRequest;
-    static deserializeBinaryFromReader(message: ChatService_GetReminingSendCountRequest, reader: jspb.BinaryReader): ChatService_GetReminingSendCountRequest;
+    static serializeBinaryToWriter(message: ChatService_GetRemainingSendCountRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ChatService_GetRemainingSendCountRequest;
+    static deserializeBinaryFromReader(message: ChatService_GetRemainingSendCountRequest, reader: jspb.BinaryReader): ChatService_GetRemainingSendCountRequest;
 }
 
-export namespace ChatService_GetReminingSendCountRequest {
+export namespace ChatService_GetRemainingSendCountRequest {
     export type AsObject = {
         userId: string,
     }
 }
 
-export class ChatService_GetReminingSendCountResponse extends jspb.Message { 
+export class ChatService_GetRemainingSendCountResponse extends jspb.Message { 
 
-    hasReminingSendCount(): boolean;
-    clearReminingSendCount(): void;
-    getReminingSendCount(): message_pb.ReminingSendCount | undefined;
-    setReminingSendCount(value?: message_pb.ReminingSendCount): ChatService_GetReminingSendCountResponse;
+    hasRemainingSendCount(): boolean;
+    clearRemainingSendCount(): void;
+    getRemainingSendCount(): message_send_count_pb.RemainingMessageSendCount | undefined;
+    setRemainingSendCount(value?: message_send_count_pb.RemainingMessageSendCount): ChatService_GetRemainingSendCountResponse;
 
-    hasMonthlySentCount(): boolean;
-    clearMonthlySentCount(): void;
-    getMonthlySentCount(): message_pb.MonthlySentCount | undefined;
-    setMonthlySentCount(value?: message_pb.MonthlySentCount): ChatService_GetReminingSendCountResponse;
+    hasSentCount(): boolean;
+    clearSentCount(): void;
+    getSentCount(): message_send_count_pb.MessageSentCount | undefined;
+    setSentCount(value?: message_send_count_pb.MessageSentCount): ChatService_GetRemainingSendCountResponse;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): ChatService_GetReminingSendCountResponse.AsObject;
-    static toObject(includeInstance: boolean, msg: ChatService_GetReminingSendCountResponse): ChatService_GetReminingSendCountResponse.AsObject;
+    toObject(includeInstance?: boolean): ChatService_GetRemainingSendCountResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: ChatService_GetRemainingSendCountResponse): ChatService_GetRemainingSendCountResponse.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: ChatService_GetReminingSendCountResponse, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): ChatService_GetReminingSendCountResponse;
-    static deserializeBinaryFromReader(message: ChatService_GetReminingSendCountResponse, reader: jspb.BinaryReader): ChatService_GetReminingSendCountResponse;
+    static serializeBinaryToWriter(message: ChatService_GetRemainingSendCountResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): ChatService_GetRemainingSendCountResponse;
+    static deserializeBinaryFromReader(message: ChatService_GetRemainingSendCountResponse, reader: jspb.BinaryReader): ChatService_GetRemainingSendCountResponse;
 }
 
-export namespace ChatService_GetReminingSendCountResponse {
+export namespace ChatService_GetRemainingSendCountResponse {
     export type AsObject = {
-        reminingSendCount?: message_pb.ReminingSendCount.AsObject,
-        monthlySentCount?: message_pb.MonthlySentCount.AsObject,
+        remainingSendCount?: message_send_count_pb.RemainingMessageSendCount.AsObject,
+        sentCount?: message_send_count_pb.MessageSentCount.AsObject,
     }
 }

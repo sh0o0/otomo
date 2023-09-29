@@ -12,9 +12,11 @@ import (
 var conv = &convert{}
 
 type convert struct {
-	Message      convertMessage
-	MessageChunk convertMessageChunk
-	Wrapper      convertWrapper
+	Message                   convertMessage
+	MessageChunk              convertMessageChunk
+	Wrapper                   convertWrapper
+	MessageSentCount          convertMessageSentCount
+	RemainingMessageSendCount convertRemainingMessageSendCount
 }
 
 type convertMessage struct {
@@ -168,6 +170,112 @@ func (convertRole) ModelToGrpc(r model.Role) (grpcgen.Role, error) {
 			Cause:  errs.CauseNotExist,
 			Field:  errs.FieldRole,
 		}
+	}
+}
+
+type convertMessageSentCount struct {
+	monthlySurplus convertMonthlySurplusMessageSentCount
+	daily          convertDailyMessageSentCount
+}
+
+func (c convertMessageSentCount) ModelToGrpc(
+	m *model.MonthlySurplusMessageSentCount,
+	d *model.DailyMessageSentCount,
+) *grpcgen.MessageSentCount {
+	return &grpcgen.MessageSentCount{
+		MonthlySurplus: c.monthlySurplus.ModelToGrpc(m),
+		Daily:          c.daily.ModelToGrpc(d, &m.YearMonth),
+	}
+}
+
+type convertMonthlySurplusMessageSentCount struct {
+	yearMonth convertYearMonth
+}
+
+func (c convertMonthlySurplusMessageSentCount) ModelToGrpc(
+	count *model.MonthlySurplusMessageSentCount,
+) *grpcgen.MonthlySurplusMessageSentCount {
+	return &grpcgen.MonthlySurplusMessageSentCount{
+		YearMonth: c.yearMonth.ModelToGrpc(&count.YearMonth),
+		Count:     int32(count.Count()),
+	}
+}
+
+type convertDailyMessageSentCount struct {
+	date convertDate
+}
+
+func (c convertDailyMessageSentCount) ModelToGrpc(
+	count *model.DailyMessageSentCount,
+	ym *model.YearMonth,
+) *grpcgen.DailyMessageSentCount {
+	return &grpcgen.DailyMessageSentCount{
+		Date:  c.date.ModelToGrpc(ym, count.Day),
+		Count: int32(count.Count),
+	}
+}
+
+type convertRemainingMessageSendCount struct {
+	monthlySurplus convertRemainingMonthlySurplusMessageSendCount
+	daily          convertRemainingDailyMessageSendCount
+}
+
+func (c convertRemainingMessageSendCount) ModelToGrpc(
+	m *model.MonthlySurplusMessageSentCount,
+	d *model.DailyMessageSentCount,
+) *grpcgen.RemainingMessageSendCount {
+	return &grpcgen.RemainingMessageSendCount{
+		MonthlySurplus: c.monthlySurplus.ModelToGrpc(m),
+		Daily:          c.daily.ModelToGrpc(d, &m.YearMonth),
+	}
+}
+
+type convertRemainingMonthlySurplusMessageSendCount struct {
+	yearMonth convertYearMonth
+}
+
+func (c convertRemainingMonthlySurplusMessageSendCount) ModelToGrpc(
+	count *model.MonthlySurplusMessageSentCount,
+) *grpcgen.RemainingMonthlySurplusMessageSendCount {
+	return &grpcgen.RemainingMonthlySurplusMessageSendCount{
+		YearMonth: c.yearMonth.ModelToGrpc(&count.YearMonth),
+		Count:     int32(count.CountRemaining()),
+	}
+}
+
+type convertRemainingDailyMessageSendCount struct {
+	date convertDate
+}
+
+func (c convertRemainingDailyMessageSendCount) ModelToGrpc(
+	count *model.DailyMessageSentCount,
+	ym *model.YearMonth,
+) *grpcgen.RemainingDailyMessageSendCount {
+	return &grpcgen.RemainingDailyMessageSendCount{
+		Date:  c.date.ModelToGrpc(ym, count.Day),
+		Count: int32(count.CountRemaining()),
+	}
+}
+
+type convertDate struct{}
+
+func (convertDate) ModelToGrpc(
+	ym *model.YearMonth,
+	day model.Day,
+) *grpcgen.Date {
+	return &grpcgen.Date{
+		Year:  int32(ym.Year),
+		Month: int32(ym.Month),
+		Day:   int32(day),
+	}
+}
+
+type convertYearMonth struct{}
+
+func (convertYearMonth) ModelToGrpc(ym *model.YearMonth) *grpcgen.YearMonth {
+	return &grpcgen.YearMonth{
+		Year:  int32(ym.Year),
+		Month: int32(ym.Month),
 	}
 }
 

@@ -5,13 +5,14 @@ option go_package = ".;grpcgen";
 import "google/protobuf/wrappers.proto";
 import "validate/validate.proto";
 import "message.proto";
+import "message_send_count.proto";
 
 service ChatService {
   rpc SendMessage (ChatService_SendMessageRequest) returns (ChatService_SendMessageResponse) {};
   rpc ListMessages(ChatService_ListMessagesRequest) returns (ChatService_ListMessagesResponse) {};
   rpc AskToMessage(ChatService_AskToMessageRequest) returns (ChatService_AskToMessageResponse) {};
   rpc MessagingStream(ChatService_MessagingStreamRequest) returns (stream ChatService_MessagingStreamResponse) {};
-  rpc GetReminingSendCount(ChatService_GetReminingSendCountRequest) returns (ChatService_GetReminingSendCountResponse) {};
+  rpc GetRemainingSendCount(ChatService_GetRemainingSendCountRequest) returns (ChatService_GetRemainingSendCountResponse) {};
 };
 
 message ChatService_SendMessageRequest {
@@ -22,8 +23,8 @@ message ChatService_SendMessageRequest {
 
 message ChatService_SendMessageResponse {
   Message message = 1;
-  ReminingSendCount remining_send_count = 2;
-  MonthlySentCount monthly_sent_count = 3;
+  RemainingMessageSendCount remaining_send_count = 2;
+  MessageSentCount sent_count = 3;
 };
 
 message ChatService_ListMessagesRequest {
@@ -54,11 +55,11 @@ message ChatService_MessagingStreamResponse {
   MessageChunk chunk = 1;
 }
 
-message ChatService_GetReminingSendCountRequest {
+message ChatService_GetRemainingSendCountRequest {
   string user_id = 1 [(validate.rules).string.min_len = 1];
 }
 
-message ChatService_GetReminingSendCountResponse {
-  ReminingSendCount remining_send_count = 1;
-  MonthlySentCount monthly_sent_count = 2;
+message ChatService_GetRemainingSendCountResponse {
+  RemainingMessageSendCount remaining_send_count = 1;
+  MessageSentCount sent_count = 2;
 }

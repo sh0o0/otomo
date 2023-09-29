@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otomo/entities/changed_event.dart';
+import 'package:otomo/entities/date.dart';
 import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/entities/location.dart';
 import 'package:otomo/entities/message.dart';
+import 'package:otomo/entities/message_send_count.dart';
 import 'package:otomo/grpc/generated/location.pb.dart' as grpc_loc;
 import 'package:otomo/grpc/generated/message.pb.dart' as grpc_msg;
+import 'package:otomo/grpc/generated/message_send_count.pb.dart' as grpc_count;
+import 'package:otomo/grpc/generated/date.pb.dart' as grpc_date;
 
 class ControllerConverter {
   ControllerConverter._();
@@ -14,6 +18,8 @@ class ControllerConverter {
   final message = _Message();
   final messageChunk = _MessageChunk();
   final changedEventType = _ChangedEventType();
+  final messageSentCount = _MessageSentCount();
+  final remainingMessageSendCount = _RemainingMessageSendCount();
 }
 
 class _Message {
@@ -152,5 +158,89 @@ class _Role {
       default:
         throw Exception('Unknown role: $role');
     }
+  }
+}
+
+class _MessageSentCount {
+  final _monthlySurplus = _MonthlySurplusMessageSentCount();
+  final _daily = _DailyMessageSentCount();
+
+  MessageSentCount grpcToEntity(grpc_count.MessageSentCount count) {
+    return MessageSentCount(
+      monthlySurplus: _monthlySurplus.grpcToEntity(count.monthlySurplus),
+      daily: _daily.grpcToEntity(count.daily),
+    );
+  }
+}
+
+class _MonthlySurplusMessageSentCount {
+  final _yearMonth = _YearMonth();
+
+  MonthlySurplusMessageSentCount grpcToEntity(
+      grpc_count.MonthlySurplusMessageSentCount count) {
+    return MonthlySurplusMessageSentCount(
+      yearMonth: _yearMonth.grpcToEntity(count.yearMonth),
+      count: count.count,
+    );
+  }
+}
+
+class _DailyMessageSentCount {
+  final _date = _Date();
+
+  DailyMessageSentCount grpcToEntity(grpc_count.DailyMessageSentCount count) {
+    return DailyMessageSentCount(
+      date: _date.grpcToEntity(count.date),
+      count: count.count,
+    );
+  }
+}
+
+class _RemainingMessageSendCount {
+  final _monthlySurplus = _RemainingMonthlySurplusMessageSendCount();
+  final _daily = _RemainingDailyMessageSendCount();
+
+  RemainingMessageSendCount grpcToEntity(
+      grpc_count.RemainingMessageSendCount count) {
+    return RemainingMessageSendCount(
+      monthlySurplus: _monthlySurplus.grpcToEntity(count.monthlySurplus),
+      daily: _daily.grpcToEntity(count.daily),
+    );
+  }
+}
+
+class _RemainingMonthlySurplusMessageSendCount {
+  final _yearMonth = _YearMonth();
+
+  RemainingMonthlySurplusMessageSendCount grpcToEntity(
+      grpc_count.RemainingMonthlySurplusMessageSendCount count) {
+    return RemainingMonthlySurplusMessageSendCount(
+      yearMonth: _yearMonth.grpcToEntity(count.yearMonth),
+      count: count.count,
+    );
+  }
+}
+
+class _RemainingDailyMessageSendCount {
+  final _date = _Date();
+
+  RemainingDailyMessageSendCount grpcToEntity(
+      grpc_count.RemainingDailyMessageSendCount count) {
+    return RemainingDailyMessageSendCount(
+      date: _date.grpcToEntity(count.date),
+      count: count.count,
+    );
+  }
+}
+
+class _Date {
+  Date grpcToEntity(grpc_date.Date date) {
+    return Date(year: date.year, month: date.month, day: date.day);
+  }
+}
+
+class _YearMonth {
+  YearMonth grpcToEntity(grpc_date.YearMonth yearMonth) {
+    return YearMonth(year: yearMonth.year, month: yearMonth.month);
   }
 }

@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/controllers/utils.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
+import 'package:otomo/entities/message_send_count.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
@@ -22,6 +24,7 @@ class ChatState with _$ChatState {
 
   const factory ChatState({
     required Pagination<TextMessageData> messages,
+    required RemainingMessageSendCount remainingMessageSendCount,
     @Default(false) bool hideTextField,
   }) = _ChatState;
 
@@ -62,13 +65,20 @@ class Chat extends _$Chat {
   Future<ChatState> build() async =>
       // Not const. Because it is not possible to add a message.
       // ignore: prefer_const_constructors
-      ChatState(messages: Pagination(items: [], hasMore: true));
+      ChatState(
+        messages: Pagination.emptyHasMore(),
+        remainingMessageSendCount: RemainingMessageSendCount.empty(),
+      );
 
   Future<void> initState() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final messages = await _listTextMessageData(null, null);
-      return state.value!.copyWith(messages: messages);
+      final remainingMessageSendCount = await _getRemainingMessageSendCount();
+      return state.value!.copyWith(
+        messages: messages,
+        remainingMessageSendCount: remainingMessageSendCount,
+      );
     });
 
     final user = readUser(ref);
@@ -101,14 +111,15 @@ class Chat extends _$Chat {
 
     _addTextMessage(newTextMessageData);
 
-    late final TextMessage respTextMessage;
+    late final SendMessageOutput output;
     try {
-      respTextMessage = await _chatController.sendMessage(
+      output = await _chatController.sendMessage(
         userId: readUser(ref)!.id,
         text: text,
         clientId: clientId,
       );
     } on Exception catch (e) {
+      logger.warn(e);
       final errorTextMessageData = newTextMessageData.copyWith.message(
         status: MessageStatus.error,
         error: e,
@@ -118,11 +129,12 @@ class Chat extends _$Chat {
     }
 
     final respTextMessageData = TextMessageData.fromTextMessage(
-      respTextMessage,
+      output.message,
       status: MessageStatus.sent,
     );
 
     _updateTextMessage(respTextMessageData);
+    _updateRemainingMessageSendCount(output.remainingMessageSendCount);
   }
 
   Future<void> listMessagesMore() async {
@@ -130,7 +142,10 @@ class Chat extends _$Chat {
     if (state.value?.messages.hasMore == false) return;
 
     final ChatState preValue = state.value ??
-        const ChatState(messages: Pagination(items: [], hasMore: true));
+        ChatState(
+          messages: Pagination.emptyHasMore(),
+          remainingMessageSendCount: RemainingMessageSendCount.empty(),
+        );
 
     final lastMessageId = preValue.messages.items.last.message.remoteId;
 
@@ -142,6 +157,12 @@ class Chat extends _$Chat {
         hasMore: page.hasMore,
       ),
     ));
+  }
+
+  Future<RemainingMessageSendCount> _getRemainingMessageSendCount() async {
+    final output =
+        await _chatController.getRemainingMessageSendCount(readUser(ref)!.id);
+    return output.remainingMessageSendCount;
   }
 
   Future<Pagination<TextMessageData>> _listTextMessageData(
@@ -299,5 +320,21 @@ class Chat extends _$Chat {
     final index = _indexOfMessageByRemoteId(remoteId);
     if (index == -1) return;
     state = state..value?.messages.items.removeAt(index);
+  }
+
+  void _updateRemainingMessageSendCount(
+      RemainingMessageSendCount remainingMessageSendCount) {
+    final value = state.value;
+    if (value == null) {
+      state = AsyncValue.data(ChatState(
+        messages: Pagination.emptyHasMore(),
+        remainingMessageSendCount: remainingMessageSendCount,
+      ));
+      return;
+    }
+
+    state = AsyncValue.data(value.copyWith(
+      remainingMessageSendCount: remainingMessageSendCount,
+    ));
   }
 }

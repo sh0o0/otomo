@@ -238,11 +238,11 @@ func (m *ChatService_SendMessageResponse) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetReminingSendCount()).(type) {
+		switch v := interface{}(m.GetRemainingSendCount()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, ChatService_SendMessageResponseValidationError{
-					field:  "ReminingSendCount",
+					field:  "RemainingSendCount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -250,16 +250,16 @@ func (m *ChatService_SendMessageResponse) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, ChatService_SendMessageResponseValidationError{
-					field:  "ReminingSendCount",
+					field:  "RemainingSendCount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetReminingSendCount()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetRemainingSendCount()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ChatService_SendMessageResponseValidationError{
-				field:  "ReminingSendCount",
+				field:  "RemainingSendCount",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -267,11 +267,11 @@ func (m *ChatService_SendMessageResponse) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetMonthlySentCount()).(type) {
+		switch v := interface{}(m.GetSentCount()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, ChatService_SendMessageResponseValidationError{
-					field:  "MonthlySentCount",
+					field:  "SentCount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -279,16 +279,16 @@ func (m *ChatService_SendMessageResponse) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, ChatService_SendMessageResponseValidationError{
-					field:  "MonthlySentCount",
+					field:  "SentCount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetMonthlySentCount()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetSentCount()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ChatService_SendMessageResponseValidationError{
-				field:  "MonthlySentCount",
+				field:  "SentCount",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -1128,24 +1128,24 @@ var _ interface {
 	ErrorName() string
 } = ChatService_MessagingStreamResponseValidationError{}
 
-// Validate checks the field values on ChatService_GetReminingSendCountRequest
+// Validate checks the field values on ChatService_GetRemainingSendCountRequest
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if
 // there are no violations.
-func (m *ChatService_GetReminingSendCountRequest) Validate() error {
+func (m *ChatService_GetRemainingSendCountRequest) Validate() error {
 	return m.validate(false)
 }
 
 // ValidateAll checks the field values on
-// ChatService_GetReminingSendCountRequest with the rules defined in the proto
-// definition for this message. If any rules are violated, the result is a
-// list of violation errors wrapped in
-// ChatService_GetReminingSendCountRequestMultiError, or nil if none found.
-func (m *ChatService_GetReminingSendCountRequest) ValidateAll() error {
+// ChatService_GetRemainingSendCountRequest with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// ChatService_GetRemainingSendCountRequestMultiError, or nil if none found.
+func (m *ChatService_GetRemainingSendCountRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ChatService_GetReminingSendCountRequest) validate(all bool) error {
+func (m *ChatService_GetRemainingSendCountRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1153,7 +1153,7 @@ func (m *ChatService_GetReminingSendCountRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetUserId()) < 1 {
-		err := ChatService_GetReminingSendCountRequestValidationError{
+		err := ChatService_GetRemainingSendCountRequestValidationError{
 			field:  "UserId",
 			reason: "value length must be at least 1 runes",
 		}
@@ -1164,19 +1164,19 @@ func (m *ChatService_GetReminingSendCountRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ChatService_GetReminingSendCountRequestMultiError(errors)
+		return ChatService_GetRemainingSendCountRequestMultiError(errors)
 	}
 	return nil
 }
 
-// ChatService_GetReminingSendCountRequestMultiError is an error wrapping
+// ChatService_GetRemainingSendCountRequestMultiError is an error wrapping
 // multiple validation errors returned by
-// ChatService_GetReminingSendCountRequest.ValidateAll() if the designated
+// ChatService_GetRemainingSendCountRequest.ValidateAll() if the designated
 // constraints aren't met.
-type ChatService_GetReminingSendCountRequestMultiError []error
+type ChatService_GetRemainingSendCountRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ChatService_GetReminingSendCountRequestMultiError) Error() string {
+func (m ChatService_GetRemainingSendCountRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1185,12 +1185,12 @@ func (m ChatService_GetReminingSendCountRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ChatService_GetReminingSendCountRequestMultiError) AllErrors() []error { return m }
+func (m ChatService_GetRemainingSendCountRequestMultiError) AllErrors() []error { return m }
 
-// ChatService_GetReminingSendCountRequestValidationError is the validation
-// error returned by ChatService_GetReminingSendCountRequest.Validate if the
+// ChatService_GetRemainingSendCountRequestValidationError is the validation
+// error returned by ChatService_GetRemainingSendCountRequest.Validate if the
 // designated constraints aren't met.
-type ChatService_GetReminingSendCountRequestValidationError struct {
+type ChatService_GetRemainingSendCountRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1198,24 +1198,24 @@ type ChatService_GetReminingSendCountRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e ChatService_GetReminingSendCountRequestValidationError) Field() string { return e.field }
+func (e ChatService_GetRemainingSendCountRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ChatService_GetReminingSendCountRequestValidationError) Reason() string { return e.reason }
+func (e ChatService_GetRemainingSendCountRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ChatService_GetReminingSendCountRequestValidationError) Cause() error { return e.cause }
+func (e ChatService_GetRemainingSendCountRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ChatService_GetReminingSendCountRequestValidationError) Key() bool { return e.key }
+func (e ChatService_GetRemainingSendCountRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ChatService_GetReminingSendCountRequestValidationError) ErrorName() string {
-	return "ChatService_GetReminingSendCountRequestValidationError"
+func (e ChatService_GetRemainingSendCountRequestValidationError) ErrorName() string {
+	return "ChatService_GetRemainingSendCountRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ChatService_GetReminingSendCountRequestValidationError) Error() string {
+func (e ChatService_GetRemainingSendCountRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1227,14 +1227,14 @@ func (e ChatService_GetReminingSendCountRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sChatService_GetReminingSendCountRequest.%s: %s%s",
+		"invalid %sChatService_GetRemainingSendCountRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ChatService_GetReminingSendCountRequestValidationError{}
+var _ error = ChatService_GetRemainingSendCountRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1242,26 +1242,26 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ChatService_GetReminingSendCountRequestValidationError{}
+} = ChatService_GetRemainingSendCountRequestValidationError{}
 
-// Validate checks the field values on ChatService_GetReminingSendCountResponse
-// with the rules defined in the proto definition for this message. If any
-// rules are violated, the first error encountered is returned, or nil if
-// there are no violations.
-func (m *ChatService_GetReminingSendCountResponse) Validate() error {
+// Validate checks the field values on
+// ChatService_GetRemainingSendCountResponse with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ChatService_GetRemainingSendCountResponse) Validate() error {
 	return m.validate(false)
 }
 
 // ValidateAll checks the field values on
-// ChatService_GetReminingSendCountResponse with the rules defined in the
+// ChatService_GetRemainingSendCountResponse with the rules defined in the
 // proto definition for this message. If any rules are violated, the result is
 // a list of violation errors wrapped in
-// ChatService_GetReminingSendCountResponseMultiError, or nil if none found.
-func (m *ChatService_GetReminingSendCountResponse) ValidateAll() error {
+// ChatService_GetRemainingSendCountResponseMultiError, or nil if none found.
+func (m *ChatService_GetRemainingSendCountResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ChatService_GetReminingSendCountResponse) validate(all bool) error {
+func (m *ChatService_GetRemainingSendCountResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1269,28 +1269,28 @@ func (m *ChatService_GetReminingSendCountResponse) validate(all bool) error {
 	var errors []error
 
 	if all {
-		switch v := interface{}(m.GetReminingSendCount()).(type) {
+		switch v := interface{}(m.GetRemainingSendCount()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ChatService_GetReminingSendCountResponseValidationError{
-					field:  "ReminingSendCount",
+				errors = append(errors, ChatService_GetRemainingSendCountResponseValidationError{
+					field:  "RemainingSendCount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ChatService_GetReminingSendCountResponseValidationError{
-					field:  "ReminingSendCount",
+				errors = append(errors, ChatService_GetRemainingSendCountResponseValidationError{
+					field:  "RemainingSendCount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetReminingSendCount()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetRemainingSendCount()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ChatService_GetReminingSendCountResponseValidationError{
-				field:  "ReminingSendCount",
+			return ChatService_GetRemainingSendCountResponseValidationError{
+				field:  "RemainingSendCount",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -1298,28 +1298,28 @@ func (m *ChatService_GetReminingSendCountResponse) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetMonthlySentCount()).(type) {
+		switch v := interface{}(m.GetSentCount()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ChatService_GetReminingSendCountResponseValidationError{
-					field:  "MonthlySentCount",
+				errors = append(errors, ChatService_GetRemainingSendCountResponseValidationError{
+					field:  "SentCount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ChatService_GetReminingSendCountResponseValidationError{
-					field:  "MonthlySentCount",
+				errors = append(errors, ChatService_GetRemainingSendCountResponseValidationError{
+					field:  "SentCount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetMonthlySentCount()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetSentCount()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ChatService_GetReminingSendCountResponseValidationError{
-				field:  "MonthlySentCount",
+			return ChatService_GetRemainingSendCountResponseValidationError{
+				field:  "SentCount",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -1327,19 +1327,19 @@ func (m *ChatService_GetReminingSendCountResponse) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ChatService_GetReminingSendCountResponseMultiError(errors)
+		return ChatService_GetRemainingSendCountResponseMultiError(errors)
 	}
 	return nil
 }
 
-// ChatService_GetReminingSendCountResponseMultiError is an error wrapping
+// ChatService_GetRemainingSendCountResponseMultiError is an error wrapping
 // multiple validation errors returned by
-// ChatService_GetReminingSendCountResponse.ValidateAll() if the designated
+// ChatService_GetRemainingSendCountResponse.ValidateAll() if the designated
 // constraints aren't met.
-type ChatService_GetReminingSendCountResponseMultiError []error
+type ChatService_GetRemainingSendCountResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ChatService_GetReminingSendCountResponseMultiError) Error() string {
+func (m ChatService_GetRemainingSendCountResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1348,12 +1348,12 @@ func (m ChatService_GetReminingSendCountResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ChatService_GetReminingSendCountResponseMultiError) AllErrors() []error { return m }
+func (m ChatService_GetRemainingSendCountResponseMultiError) AllErrors() []error { return m }
 
-// ChatService_GetReminingSendCountResponseValidationError is the validation
-// error returned by ChatService_GetReminingSendCountResponse.Validate if the
+// ChatService_GetRemainingSendCountResponseValidationError is the validation
+// error returned by ChatService_GetRemainingSendCountResponse.Validate if the
 // designated constraints aren't met.
-type ChatService_GetReminingSendCountResponseValidationError struct {
+type ChatService_GetRemainingSendCountResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1361,24 +1361,24 @@ type ChatService_GetReminingSendCountResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e ChatService_GetReminingSendCountResponseValidationError) Field() string { return e.field }
+func (e ChatService_GetRemainingSendCountResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ChatService_GetReminingSendCountResponseValidationError) Reason() string { return e.reason }
+func (e ChatService_GetRemainingSendCountResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ChatService_GetReminingSendCountResponseValidationError) Cause() error { return e.cause }
+func (e ChatService_GetRemainingSendCountResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ChatService_GetReminingSendCountResponseValidationError) Key() bool { return e.key }
+func (e ChatService_GetRemainingSendCountResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ChatService_GetReminingSendCountResponseValidationError) ErrorName() string {
-	return "ChatService_GetReminingSendCountResponseValidationError"
+func (e ChatService_GetRemainingSendCountResponseValidationError) ErrorName() string {
+	return "ChatService_GetRemainingSendCountResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ChatService_GetReminingSendCountResponseValidationError) Error() string {
+func (e ChatService_GetRemainingSendCountResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1390,14 +1390,14 @@ func (e ChatService_GetReminingSendCountResponseValidationError) Error() string 
 	}
 
 	return fmt.Sprintf(
-		"invalid %sChatService_GetReminingSendCountResponse.%s: %s%s",
+		"invalid %sChatService_GetRemainingSendCountResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ChatService_GetReminingSendCountResponseValidationError{}
+var _ error = ChatService_GetRemainingSendCountResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -1405,4 +1405,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ChatService_GetReminingSendCountResponseValidationError{}
+} = ChatService_GetRemainingSendCountResponseValidationError{}

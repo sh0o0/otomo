@@ -34,17 +34,17 @@ const ChatService_SendMessageResponse$json = {
   '1': 'ChatService_SendMessageResponse',
   '2': [
     {'1': 'message', '3': 1, '4': 1, '5': 11, '6': '.Message', '10': 'message'},
-    {'1': 'remining_send_count', '3': 2, '4': 1, '5': 11, '6': '.ReminingSendCount', '10': 'reminingSendCount'},
-    {'1': 'monthly_sent_count', '3': 3, '4': 1, '5': 11, '6': '.MonthlySentCount', '10': 'monthlySentCount'},
+    {'1': 'remaining_send_count', '3': 2, '4': 1, '5': 11, '6': '.RemainingMessageSendCount', '10': 'remainingSendCount'},
+    {'1': 'sent_count', '3': 3, '4': 1, '5': 11, '6': '.MessageSentCount', '10': 'sentCount'},
   ],
 };
 
 /// Descriptor for `ChatService_SendMessageResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List chatService_SendMessageResponseDescriptor = $convert.base64Decode(
     'Ch9DaGF0U2VydmljZV9TZW5kTWVzc2FnZVJlc3BvbnNlEiIKB21lc3NhZ2UYASABKAsyCC5NZX'
-    'NzYWdlUgdtZXNzYWdlEkIKE3JlbWluaW5nX3NlbmRfY291bnQYAiABKAsyEi5SZW1pbmluZ1Nl'
-    'bmRDb3VudFIRcmVtaW5pbmdTZW5kQ291bnQSPwoSbW9udGhseV9zZW50X2NvdW50GAMgASgLMh'
-    'EuTW9udGhseVNlbnRDb3VudFIQbW9udGhseVNlbnRDb3VudA==');
+    'NzYWdlUgdtZXNzYWdlEkwKFHJlbWFpbmluZ19zZW5kX2NvdW50GAIgASgLMhouUmVtYWluaW5n'
+    'TWVzc2FnZVNlbmRDb3VudFIScmVtYWluaW5nU2VuZENvdW50EjAKCnNlbnRfY291bnQYAyABKA'
+    'syES5NZXNzYWdlU2VudENvdW50UglzZW50Q291bnQ=');
 
 @$core.Deprecated('Use chatService_ListMessagesRequestDescriptor instead')
 const ChatService_ListMessagesRequest$json = {
@@ -130,32 +130,32 @@ final $typed_data.Uint8List chatService_MessagingStreamResponseDescriptor = $con
     'CiNDaGF0U2VydmljZV9NZXNzYWdpbmdTdHJlYW1SZXNwb25zZRIjCgVjaHVuaxgBIAEoCzINLk'
     '1lc3NhZ2VDaHVua1IFY2h1bms=');
 
-@$core.Deprecated('Use chatService_GetReminingSendCountRequestDescriptor instead')
-const ChatService_GetReminingSendCountRequest$json = {
-  '1': 'ChatService_GetReminingSendCountRequest',
+@$core.Deprecated('Use chatService_GetRemainingSendCountRequestDescriptor instead')
+const ChatService_GetRemainingSendCountRequest$json = {
+  '1': 'ChatService_GetRemainingSendCountRequest',
   '2': [
     {'1': 'user_id', '3': 1, '4': 1, '5': 9, '8': {}, '10': 'userId'},
   ],
 };
 
-/// Descriptor for `ChatService_GetReminingSendCountRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List chatService_GetReminingSendCountRequestDescriptor = $convert.base64Decode(
-    'CidDaGF0U2VydmljZV9HZXRSZW1pbmluZ1NlbmRDb3VudFJlcXVlc3QSIAoHdXNlcl9pZBgBIA'
-    'EoCUIH+kIEcgIQAVIGdXNlcklk');
+/// Descriptor for `ChatService_GetRemainingSendCountRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_GetRemainingSendCountRequestDescriptor = $convert.base64Decode(
+    'CihDaGF0U2VydmljZV9HZXRSZW1haW5pbmdTZW5kQ291bnRSZXF1ZXN0EiAKB3VzZXJfaWQYAS'
+    'ABKAlCB/pCBHICEAFSBnVzZXJJZA==');
 
-@$core.Deprecated('Use chatService_GetReminingSendCountResponseDescriptor instead')
-const ChatService_GetReminingSendCountResponse$json = {
-  '1': 'ChatService_GetReminingSendCountResponse',
+@$core.Deprecated('Use chatService_GetRemainingSendCountResponseDescriptor instead')
+const ChatService_GetRemainingSendCountResponse$json = {
+  '1': 'ChatService_GetRemainingSendCountResponse',
   '2': [
-    {'1': 'remining_send_count', '3': 1, '4': 1, '5': 11, '6': '.ReminingSendCount', '10': 'reminingSendCount'},
-    {'1': 'monthly_sent_count', '3': 2, '4': 1, '5': 11, '6': '.MonthlySentCount', '10': 'monthlySentCount'},
+    {'1': 'remaining_send_count', '3': 1, '4': 1, '5': 11, '6': '.RemainingMessageSendCount', '10': 'remainingSendCount'},
+    {'1': 'sent_count', '3': 2, '4': 1, '5': 11, '6': '.MessageSentCount', '10': 'sentCount'},
   ],
 };
 
-/// Descriptor for `ChatService_GetReminingSendCountResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List chatService_GetReminingSendCountResponseDescriptor = $convert.base64Decode(
-    'CihDaGF0U2VydmljZV9HZXRSZW1pbmluZ1NlbmRDb3VudFJlc3BvbnNlEkIKE3JlbWluaW5nX3'
-    'NlbmRfY291bnQYASABKAsyEi5SZW1pbmluZ1NlbmRDb3VudFIRcmVtaW5pbmdTZW5kQ291bnQS'
-    'PwoSbW9udGhseV9zZW50X2NvdW50GAIgASgLMhEuTW9udGhseVNlbnRDb3VudFIQbW9udGhseV'
-    'NlbnRDb3VudA==');
+/// Descriptor for `ChatService_GetRemainingSendCountResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatService_GetRemainingSendCountResponseDescriptor = $convert.base64Decode(
+    'CilDaGF0U2VydmljZV9HZXRSZW1haW5pbmdTZW5kQ291bnRSZXNwb25zZRJMChRyZW1haW5pbm'
+    'dfc2VuZF9jb3VudBgBIAEoCzIaLlJlbWFpbmluZ01lc3NhZ2VTZW5kQ291bnRSEnJlbWFpbmlu'
+    'Z1NlbmRDb3VudBIwCgpzZW50X2NvdW50GAIgASgLMhEuTWVzc2FnZVNlbnRDb3VudFIJc2VudE'
+    'NvdW50');
 

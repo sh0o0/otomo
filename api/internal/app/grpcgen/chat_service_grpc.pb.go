@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ChatService_SendMessage_FullMethodName          = "/ChatService/SendMessage"
-	ChatService_ListMessages_FullMethodName         = "/ChatService/ListMessages"
-	ChatService_AskToMessage_FullMethodName         = "/ChatService/AskToMessage"
-	ChatService_MessagingStream_FullMethodName      = "/ChatService/MessagingStream"
-	ChatService_GetReminingSendCount_FullMethodName = "/ChatService/GetReminingSendCount"
+	ChatService_SendMessage_FullMethodName           = "/ChatService/SendMessage"
+	ChatService_ListMessages_FullMethodName          = "/ChatService/ListMessages"
+	ChatService_AskToMessage_FullMethodName          = "/ChatService/AskToMessage"
+	ChatService_MessagingStream_FullMethodName       = "/ChatService/MessagingStream"
+	ChatService_GetRemainingSendCount_FullMethodName = "/ChatService/GetRemainingSendCount"
 )
 
 // ChatServiceClient is the client API for ChatService service.
@@ -34,7 +34,7 @@ type ChatServiceClient interface {
 	ListMessages(ctx context.Context, in *ChatService_ListMessagesRequest, opts ...grpc.CallOption) (*ChatService_ListMessagesResponse, error)
 	AskToMessage(ctx context.Context, in *ChatService_AskToMessageRequest, opts ...grpc.CallOption) (*ChatService_AskToMessageResponse, error)
 	MessagingStream(ctx context.Context, in *ChatService_MessagingStreamRequest, opts ...grpc.CallOption) (ChatService_MessagingStreamClient, error)
-	GetReminingSendCount(ctx context.Context, in *ChatService_GetReminingSendCountRequest, opts ...grpc.CallOption) (*ChatService_GetReminingSendCountResponse, error)
+	GetRemainingSendCount(ctx context.Context, in *ChatService_GetRemainingSendCountRequest, opts ...grpc.CallOption) (*ChatService_GetRemainingSendCountResponse, error)
 }
 
 type chatServiceClient struct {
@@ -104,9 +104,9 @@ func (x *chatServiceMessagingStreamClient) Recv() (*ChatService_MessagingStreamR
 	return m, nil
 }
 
-func (c *chatServiceClient) GetReminingSendCount(ctx context.Context, in *ChatService_GetReminingSendCountRequest, opts ...grpc.CallOption) (*ChatService_GetReminingSendCountResponse, error) {
-	out := new(ChatService_GetReminingSendCountResponse)
-	err := c.cc.Invoke(ctx, ChatService_GetReminingSendCount_FullMethodName, in, out, opts...)
+func (c *chatServiceClient) GetRemainingSendCount(ctx context.Context, in *ChatService_GetRemainingSendCountRequest, opts ...grpc.CallOption) (*ChatService_GetRemainingSendCountResponse, error) {
+	out := new(ChatService_GetRemainingSendCountResponse)
+	err := c.cc.Invoke(ctx, ChatService_GetRemainingSendCount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ type ChatServiceServer interface {
 	ListMessages(context.Context, *ChatService_ListMessagesRequest) (*ChatService_ListMessagesResponse, error)
 	AskToMessage(context.Context, *ChatService_AskToMessageRequest) (*ChatService_AskToMessageResponse, error)
 	MessagingStream(*ChatService_MessagingStreamRequest, ChatService_MessagingStreamServer) error
-	GetReminingSendCount(context.Context, *ChatService_GetReminingSendCountRequest) (*ChatService_GetReminingSendCountResponse, error)
+	GetRemainingSendCount(context.Context, *ChatService_GetRemainingSendCountRequest) (*ChatService_GetRemainingSendCountResponse, error)
 }
 
 // UnimplementedChatServiceServer should be embedded to have forward compatible implementations.
@@ -140,8 +140,8 @@ func (UnimplementedChatServiceServer) AskToMessage(context.Context, *ChatService
 func (UnimplementedChatServiceServer) MessagingStream(*ChatService_MessagingStreamRequest, ChatService_MessagingStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method MessagingStream not implemented")
 }
-func (UnimplementedChatServiceServer) GetReminingSendCount(context.Context, *ChatService_GetReminingSendCountRequest) (*ChatService_GetReminingSendCountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetReminingSendCount not implemented")
+func (UnimplementedChatServiceServer) GetRemainingSendCount(context.Context, *ChatService_GetRemainingSendCountRequest) (*ChatService_GetRemainingSendCountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRemainingSendCount not implemented")
 }
 
 // UnsafeChatServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -230,20 +230,20 @@ func (x *chatServiceMessagingStreamServer) Send(m *ChatService_MessagingStreamRe
 	return x.ServerStream.SendMsg(m)
 }
 
-func _ChatService_GetReminingSendCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ChatService_GetReminingSendCountRequest)
+func _ChatService_GetRemainingSendCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChatService_GetRemainingSendCountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatServiceServer).GetReminingSendCount(ctx, in)
+		return srv.(ChatServiceServer).GetRemainingSendCount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ChatService_GetReminingSendCount_FullMethodName,
+		FullMethod: ChatService_GetRemainingSendCount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).GetReminingSendCount(ctx, req.(*ChatService_GetReminingSendCountRequest))
+		return srv.(ChatServiceServer).GetRemainingSendCount(ctx, req.(*ChatService_GetRemainingSendCountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -268,8 +268,8 @@ var ChatService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ChatService_AskToMessage_Handler,
 		},
 		{
-			MethodName: "GetReminingSendCount",
-			Handler:    _ChatService_GetReminingSendCount_Handler,
+			MethodName: "GetRemainingSendCount",
+			Handler:    _ChatService_GetRemainingSendCount_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

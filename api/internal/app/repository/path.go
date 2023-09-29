@@ -14,16 +14,16 @@ const (
 )
 
 // versions/1/otomos/{userID}
-func getOtomoDocPath(userID model.UserID) string {
+func GetOtomoDocPath(userID model.UserID) string {
 	return strings.Join([]string{v1DocPath, otomoColPath, string(userID)}, "/")
 }
 
 // versions/1/chats/{userID}/messages
-func getMessagesColPath(userID model.UserID) string {
+func GetMessagesColPath(userID model.UserID) string {
 	return strings.Join([]string{v1DocPath, chatsColPath, string(userID), messageColName}, "/")
 }
 
 // versions/1/chats/{userID}/messages/{messageID}
-func getMessageDocPath(userID model.UserID, messageID model.MessageID) string {
-	return strings.Join([]string{getMessagesColPath(userID), string(messageID)}, "/")
+func GetMessageDocPath(userID model.UserID, messageID model.MessageID) string {
+	return strings.Join([]string{GetMessagesColPath(userID), string(messageID)}, "/")
 }

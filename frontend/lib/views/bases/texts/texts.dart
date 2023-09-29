@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class TextStyles {
   static const bold = TextStyle(fontWeight: FontWeight.bold);
+  static const ellipsis = TextStyle(overflow: TextOverflow.ellipsis);
   static TextStyle? disabled(BuildContext context) => TextStyle(
         color: Theme.of(context).colorScheme.onBackground.withOpacity(0.38),
       );

@@ -15,6 +15,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/wrappers.pb.dart' as $4;
 import 'message.pb.dart' as $7;
+import 'message_send_count.pb.dart' as $8;
 
 class ChatService_SendMessageRequest extends $pb.GeneratedMessage {
   factory ChatService_SendMessageRequest() => create();
@@ -88,8 +89,8 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_SendMessageResponse', createEmptyInstance: create)
     ..aOM<$7.Message>(1, _omitFieldNames ? '' : 'message', subBuilder: $7.Message.create)
-    ..aOM<$7.ReminingSendCount>(2, _omitFieldNames ? '' : 'reminingSendCount', subBuilder: $7.ReminingSendCount.create)
-    ..aOM<$7.MonthlySentCount>(3, _omitFieldNames ? '' : 'monthlySentCount', subBuilder: $7.MonthlySentCount.create)
+    ..aOM<$8.RemainingMessageSendCount>(2, _omitFieldNames ? '' : 'remainingSendCount', subBuilder: $8.RemainingMessageSendCount.create)
+    ..aOM<$8.MessageSentCount>(3, _omitFieldNames ? '' : 'sentCount', subBuilder: $8.MessageSentCount.create)
     ..hasRequiredFields = false
   ;
 
@@ -126,26 +127,26 @@ class ChatService_SendMessageResponse extends $pb.GeneratedMessage {
   $7.Message ensureMessage() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $7.ReminingSendCount get reminingSendCount => $_getN(1);
+  $8.RemainingMessageSendCount get remainingSendCount => $_getN(1);
   @$pb.TagNumber(2)
-  set reminingSendCount($7.ReminingSendCount v) { setField(2, v); }
+  set remainingSendCount($8.RemainingMessageSendCount v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasReminingSendCount() => $_has(1);
+  $core.bool hasRemainingSendCount() => $_has(1);
   @$pb.TagNumber(2)
-  void clearReminingSendCount() => clearField(2);
+  void clearRemainingSendCount() => clearField(2);
   @$pb.TagNumber(2)
-  $7.ReminingSendCount ensureReminingSendCount() => $_ensure(1);
+  $8.RemainingMessageSendCount ensureRemainingSendCount() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $7.MonthlySentCount get monthlySentCount => $_getN(2);
+  $8.MessageSentCount get sentCount => $_getN(2);
   @$pb.TagNumber(3)
-  set monthlySentCount($7.MonthlySentCount v) { setField(3, v); }
+  set sentCount($8.MessageSentCount v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasMonthlySentCount() => $_has(2);
+  $core.bool hasSentCount() => $_has(2);
   @$pb.TagNumber(3)
-  void clearMonthlySentCount() => clearField(3);
+  void clearSentCount() => clearField(3);
   @$pb.TagNumber(3)
-  $7.MonthlySentCount ensureMonthlySentCount() => $_ensure(2);
+  $8.MessageSentCount ensureSentCount() => $_ensure(2);
 }
 
 class ChatService_ListMessagesRequest extends $pb.GeneratedMessage {
@@ -438,13 +439,13 @@ class ChatService_MessagingStreamResponse extends $pb.GeneratedMessage {
   $7.MessageChunk ensureChunk() => $_ensure(0);
 }
 
-class ChatService_GetReminingSendCountRequest extends $pb.GeneratedMessage {
-  factory ChatService_GetReminingSendCountRequest() => create();
-  ChatService_GetReminingSendCountRequest._() : super();
-  factory ChatService_GetReminingSendCountRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ChatService_GetReminingSendCountRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+class ChatService_GetRemainingSendCountRequest extends $pb.GeneratedMessage {
+  factory ChatService_GetRemainingSendCountRequest() => create();
+  ChatService_GetRemainingSendCountRequest._() : super();
+  factory ChatService_GetRemainingSendCountRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChatService_GetRemainingSendCountRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_GetReminingSendCountRequest', createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_GetRemainingSendCountRequest', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'userId')
     ..hasRequiredFields = false
   ;
@@ -453,22 +454,22 @@ class ChatService_GetReminingSendCountRequest extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  ChatService_GetReminingSendCountRequest clone() => ChatService_GetReminingSendCountRequest()..mergeFromMessage(this);
+  ChatService_GetRemainingSendCountRequest clone() => ChatService_GetRemainingSendCountRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChatService_GetReminingSendCountRequest copyWith(void Function(ChatService_GetReminingSendCountRequest) updates) => super.copyWith((message) => updates(message as ChatService_GetReminingSendCountRequest)) as ChatService_GetReminingSendCountRequest;
+  ChatService_GetRemainingSendCountRequest copyWith(void Function(ChatService_GetRemainingSendCountRequest) updates) => super.copyWith((message) => updates(message as ChatService_GetRemainingSendCountRequest)) as ChatService_GetRemainingSendCountRequest;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static ChatService_GetReminingSendCountRequest create() => ChatService_GetReminingSendCountRequest._();
-  ChatService_GetReminingSendCountRequest createEmptyInstance() => create();
-  static $pb.PbList<ChatService_GetReminingSendCountRequest> createRepeated() => $pb.PbList<ChatService_GetReminingSendCountRequest>();
+  static ChatService_GetRemainingSendCountRequest create() => ChatService_GetRemainingSendCountRequest._();
+  ChatService_GetRemainingSendCountRequest createEmptyInstance() => create();
+  static $pb.PbList<ChatService_GetRemainingSendCountRequest> createRepeated() => $pb.PbList<ChatService_GetRemainingSendCountRequest>();
   @$core.pragma('dart2js:noInline')
-  static ChatService_GetReminingSendCountRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChatService_GetReminingSendCountRequest>(create);
-  static ChatService_GetReminingSendCountRequest? _defaultInstance;
+  static ChatService_GetRemainingSendCountRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChatService_GetRemainingSendCountRequest>(create);
+  static ChatService_GetRemainingSendCountRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get userId => $_getSZ(0);
@@ -480,15 +481,15 @@ class ChatService_GetReminingSendCountRequest extends $pb.GeneratedMessage {
   void clearUserId() => clearField(1);
 }
 
-class ChatService_GetReminingSendCountResponse extends $pb.GeneratedMessage {
-  factory ChatService_GetReminingSendCountResponse() => create();
-  ChatService_GetReminingSendCountResponse._() : super();
-  factory ChatService_GetReminingSendCountResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ChatService_GetReminingSendCountResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+class ChatService_GetRemainingSendCountResponse extends $pb.GeneratedMessage {
+  factory ChatService_GetRemainingSendCountResponse() => create();
+  ChatService_GetRemainingSendCountResponse._() : super();
+  factory ChatService_GetRemainingSendCountResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ChatService_GetRemainingSendCountResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_GetReminingSendCountResponse', createEmptyInstance: create)
-    ..aOM<$7.ReminingSendCount>(1, _omitFieldNames ? '' : 'reminingSendCount', subBuilder: $7.ReminingSendCount.create)
-    ..aOM<$7.MonthlySentCount>(2, _omitFieldNames ? '' : 'monthlySentCount', subBuilder: $7.MonthlySentCount.create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ChatService_GetRemainingSendCountResponse', createEmptyInstance: create)
+    ..aOM<$8.RemainingMessageSendCount>(1, _omitFieldNames ? '' : 'remainingSendCount', subBuilder: $8.RemainingMessageSendCount.create)
+    ..aOM<$8.MessageSentCount>(2, _omitFieldNames ? '' : 'sentCount', subBuilder: $8.MessageSentCount.create)
     ..hasRequiredFields = false
   ;
 
@@ -496,44 +497,44 @@ class ChatService_GetReminingSendCountResponse extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  ChatService_GetReminingSendCountResponse clone() => ChatService_GetReminingSendCountResponse()..mergeFromMessage(this);
+  ChatService_GetRemainingSendCountResponse clone() => ChatService_GetRemainingSendCountResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ChatService_GetReminingSendCountResponse copyWith(void Function(ChatService_GetReminingSendCountResponse) updates) => super.copyWith((message) => updates(message as ChatService_GetReminingSendCountResponse)) as ChatService_GetReminingSendCountResponse;
+  ChatService_GetRemainingSendCountResponse copyWith(void Function(ChatService_GetRemainingSendCountResponse) updates) => super.copyWith((message) => updates(message as ChatService_GetRemainingSendCountResponse)) as ChatService_GetRemainingSendCountResponse;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static ChatService_GetReminingSendCountResponse create() => ChatService_GetReminingSendCountResponse._();
-  ChatService_GetReminingSendCountResponse createEmptyInstance() => create();
-  static $pb.PbList<ChatService_GetReminingSendCountResponse> createRepeated() => $pb.PbList<ChatService_GetReminingSendCountResponse>();
+  static ChatService_GetRemainingSendCountResponse create() => ChatService_GetRemainingSendCountResponse._();
+  ChatService_GetRemainingSendCountResponse createEmptyInstance() => create();
+  static $pb.PbList<ChatService_GetRemainingSendCountResponse> createRepeated() => $pb.PbList<ChatService_GetRemainingSendCountResponse>();
   @$core.pragma('dart2js:noInline')
-  static ChatService_GetReminingSendCountResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChatService_GetReminingSendCountResponse>(create);
-  static ChatService_GetReminingSendCountResponse? _defaultInstance;
+  static ChatService_GetRemainingSendCountResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ChatService_GetRemainingSendCountResponse>(create);
+  static ChatService_GetRemainingSendCountResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $7.ReminingSendCount get reminingSendCount => $_getN(0);
+  $8.RemainingMessageSendCount get remainingSendCount => $_getN(0);
   @$pb.TagNumber(1)
-  set reminingSendCount($7.ReminingSendCount v) { setField(1, v); }
+  set remainingSendCount($8.RemainingMessageSendCount v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasReminingSendCount() => $_has(0);
+  $core.bool hasRemainingSendCount() => $_has(0);
   @$pb.TagNumber(1)
-  void clearReminingSendCount() => clearField(1);
+  void clearRemainingSendCount() => clearField(1);
   @$pb.TagNumber(1)
-  $7.ReminingSendCount ensureReminingSendCount() => $_ensure(0);
+  $8.RemainingMessageSendCount ensureRemainingSendCount() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $7.MonthlySentCount get monthlySentCount => $_getN(1);
+  $8.MessageSentCount get sentCount => $_getN(1);
   @$pb.TagNumber(2)
-  set monthlySentCount($7.MonthlySentCount v) { setField(2, v); }
+  set sentCount($8.MessageSentCount v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasMonthlySentCount() => $_has(1);
+  $core.bool hasSentCount() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMonthlySentCount() => clearField(2);
+  void clearSentCount() => clearField(2);
   @$pb.TagNumber(2)
-  $7.MonthlySentCount ensureMonthlySentCount() => $_ensure(1);
+  $8.MessageSentCount ensureSentCount() => $_ensure(1);
 }
 
 

@@ -30,7 +30,7 @@ func Test_getOtomoDocPath(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := getOtomoDocPath(tt.args.userID)
+			got := GetOtomoDocPath(tt.args.userID)
 			assert.Exactly(t, tt.want, got)
 		})
 	}
@@ -58,7 +58,7 @@ func Test_getChatMessagesColPath(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := getMessagesColPath(tt.args.userID)
+			got := GetMessagesColPath(tt.args.userID)
 			assert.Exactly(t, tt.want, got)
 		})
 	}
@@ -87,7 +87,7 @@ func Test_getChatMessageDocPath(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := getMessageDocPath(tt.args.userID, tt.args.messageID)
+			got := GetMessageDocPath(tt.args.userID, tt.args.messageID)
 			assert.Exactly(t, tt.want, got)
 		})
 	}

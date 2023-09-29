@@ -5,6 +5,7 @@ var grpc = require('@grpc/grpc-js');
 var chat_service_pb = require('./chat_service_pb.js');
 var google_protobuf_wrappers_pb = require('google-protobuf/google/protobuf/wrappers_pb.js');
 var message_pb = require('./message_pb.js');
+var message_send_count_pb = require('./message_send_count_pb.js');
 
 function serialize_ChatService_AskToMessageRequest(arg) {
   if (!(arg instanceof chat_service_pb.ChatService_AskToMessageRequest)) {
@@ -28,26 +29,26 @@ function deserialize_ChatService_AskToMessageResponse(buffer_arg) {
   return chat_service_pb.ChatService_AskToMessageResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_ChatService_GetReminingSendCountRequest(arg) {
-  if (!(arg instanceof chat_service_pb.ChatService_GetReminingSendCountRequest)) {
-    throw new Error('Expected argument of type ChatService_GetReminingSendCountRequest');
+function serialize_ChatService_GetRemainingSendCountRequest(arg) {
+  if (!(arg instanceof chat_service_pb.ChatService_GetRemainingSendCountRequest)) {
+    throw new Error('Expected argument of type ChatService_GetRemainingSendCountRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_ChatService_GetReminingSendCountRequest(buffer_arg) {
-  return chat_service_pb.ChatService_GetReminingSendCountRequest.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_ChatService_GetRemainingSendCountRequest(buffer_arg) {
+  return chat_service_pb.ChatService_GetRemainingSendCountRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_ChatService_GetReminingSendCountResponse(arg) {
-  if (!(arg instanceof chat_service_pb.ChatService_GetReminingSendCountResponse)) {
-    throw new Error('Expected argument of type ChatService_GetReminingSendCountResponse');
+function serialize_ChatService_GetRemainingSendCountResponse(arg) {
+  if (!(arg instanceof chat_service_pb.ChatService_GetRemainingSendCountResponse)) {
+    throw new Error('Expected argument of type ChatService_GetRemainingSendCountResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_ChatService_GetReminingSendCountResponse(buffer_arg) {
-  return chat_service_pb.ChatService_GetReminingSendCountResponse.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_ChatService_GetRemainingSendCountResponse(buffer_arg) {
+  return chat_service_pb.ChatService_GetRemainingSendCountResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_ChatService_ListMessagesRequest(arg) {
@@ -162,16 +163,16 @@ var ChatServiceService = exports.ChatServiceService = {
     responseSerialize: serialize_ChatService_MessagingStreamResponse,
     responseDeserialize: deserialize_ChatService_MessagingStreamResponse,
   },
-  getReminingSendCount: {
-    path: '/ChatService/GetReminingSendCount',
+  getRemainingSendCount: {
+    path: '/ChatService/GetRemainingSendCount',
     requestStream: false,
     responseStream: false,
-    requestType: chat_service_pb.ChatService_GetReminingSendCountRequest,
-    responseType: chat_service_pb.ChatService_GetReminingSendCountResponse,
-    requestSerialize: serialize_ChatService_GetReminingSendCountRequest,
-    requestDeserialize: deserialize_ChatService_GetReminingSendCountRequest,
-    responseSerialize: serialize_ChatService_GetReminingSendCountResponse,
-    responseDeserialize: deserialize_ChatService_GetReminingSendCountResponse,
+    requestType: chat_service_pb.ChatService_GetRemainingSendCountRequest,
+    responseType: chat_service_pb.ChatService_GetRemainingSendCountResponse,
+    requestSerialize: serialize_ChatService_GetRemainingSendCountRequest,
+    requestDeserialize: deserialize_ChatService_GetRemainingSendCountRequest,
+    responseSerialize: serialize_ChatService_GetRemainingSendCountResponse,
+    responseDeserialize: deserialize_ChatService_GetRemainingSendCountResponse,
   },
 };
 

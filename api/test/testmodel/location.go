@@ -6,11 +6,11 @@ import (
 	"otomo/test/testutil"
 )
 
-type TestLocationFactory struct{}
+type LocationFactory struct{}
 
-var DefaultTestLocationFactory = &TestLocationFactory{}
+var DefaultLocationFactory = &LocationFactory{}
 
-func (f *TestLocationFactory) New() model.Location {
+func (f *LocationFactory) New() model.Location {
 	return model.Location{
 		GooglePlaceID: uuid.NewString(),
 		Address:       testutil.Faker.Address().StreetAddress(),

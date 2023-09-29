@@ -6,13 +6,13 @@ import (
 	"otomo/test/testutil"
 )
 
-type TestOtomoFactory struct {
+type OtomoFactory struct {
 	userID model.UserID
 }
 
-var DefaultTestOtomoFactory = &TestOtomoFactory{}
+var DefaultOtomoFactory = &OtomoFactory{}
 
-func (f *TestOtomoFactory) New() *model.Otomo {
+func (f *OtomoFactory) New() *model.Otomo {
 	newF := *f
 
 	if newF.userID == "" {
@@ -27,7 +27,7 @@ func (f *TestOtomoFactory) New() *model.Otomo {
 	}
 }
 
-func (f *TestOtomoFactory) UserID(userID model.UserID) *TestOtomoFactory {
+func (f *OtomoFactory) UserID(userID model.UserID) *OtomoFactory {
 	newF := *f
 	newF.userID = userID
 	return &newF
