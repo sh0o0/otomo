@@ -49,7 +49,7 @@ abstract class InjectableModule {
   RetryOnUnavailableErrorClientInterceptor get _retryClientInterceptor =>
       RetryOnUnavailableErrorClientInterceptor(retries: 1);
   AuthClientInterceptor get _injectAuthHeaderClientInterceptor =>
-      AuthClientInterceptor(_authController);
+      AuthClientInterceptor(authController);
 
   @singleton
   ClientChannel get clientChannel => _clientChannel;
@@ -76,7 +76,7 @@ abstract class InjectableModule {
       FirebaseDynamicLinks.instance;
 
   @singleton
-  AuthControllerImpl get _authController =>
+  AuthControllerImpl get authController =>
       AuthControllerImpl(_firebaseAuth, _googleSignIn, _sharedPreferences);
 
   @singleton
