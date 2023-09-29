@@ -12,9 +12,11 @@ import (
 var conv = &convert{}
 
 type convert struct {
-	Message      convertMessage
-	MessageChunk convertMessageChunk
-	Wrapper      convertWrapper
+	Message                   convertMessage
+	MessageChunk              convertMessageChunk
+	Wrapper                   convertWrapper
+	MessageSentCount          convertMessageSentCount
+	RemainingMessageSendCount convertRemainingMessageSendCount
 }
 
 type convertMessage struct {
@@ -171,12 +173,12 @@ func (convertRole) ModelToGrpc(r model.Role) (grpcgen.Role, error) {
 	}
 }
 
-type convertMessageSendCount struct {
+type convertMessageSentCount struct {
 	monthlySurplus convertMonthlySurplusMessageSentCount
 	daily          convertDailyMessageSentCount
 }
 
-func (c convertMessageSendCount) ModelToGrpc(
+func (c convertMessageSentCount) ModelToGrpc(
 	m *model.MonthlySurplusMessageSentCount,
 	d *model.DailyMessageSentCount,
 ) *grpcgen.MessageSentCount {

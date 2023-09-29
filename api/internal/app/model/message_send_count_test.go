@@ -457,3 +457,115 @@ func TestDailySentCount_CountExceeded(t *testing.T) {
 		})
 	}
 }
+
+func TestDailyMessageSentCountList_IndexByDay(t *testing.T) {
+	type args struct {
+		day Day
+	}
+	tests := []struct {
+		name string
+		list DailyMessageSentCountList
+		args args
+		want int
+	}{
+		{
+			name: "Should return -1 when day is not found",
+			list: DailyMessageSentCountList{
+				{
+					Day: 1,
+				},
+				{
+					Day: 2,
+				},
+			},
+			args: args{
+				day: 3,
+			},
+			want: -1,
+		},
+		{
+			name: "Should return index when day is found",
+			list: DailyMessageSentCountList{
+				{
+					Day: 1,
+				},
+				{
+					Day: 2,
+				},
+			},
+			args: args{
+				day: 2,
+			},
+			want: 1,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got := tt.list.IndexByDay(tt.args.day)
+			assert.Exactly(t, tt.want, got)
+		})
+	}
+}
+
+func TestDailyMessageSentCountList_WhereByDay(t *testing.T) {
+	type args struct {
+		day Day
+	}
+	tests := []struct {
+		name      string
+		list      DailyMessageSentCountList
+		args      args
+		want      *DailyMessageSentCount
+		wantIsErr bool
+	}{
+		{
+			name: "Should return error when day is not found",
+			list: DailyMessageSentCountList{
+				{
+					Day: 1,
+				},
+				{
+					Day: 2,
+				},
+			},
+			args: args{
+				day: 3,
+			},
+			want:      nil,
+			wantIsErr: true,
+		},
+		{
+			name: "Should return count when day is found",
+			list: DailyMessageSentCountList{
+				{
+					Day: 1,
+				},
+				{
+					Day: 2,
+				},
+			},
+			args: args{
+				day: 2,
+			},
+			want: &DailyMessageSentCount{
+				Day: 2,
+			},
+			wantIsErr: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got, err := tt.list.WhereByDay(tt.args.day)
+			if (err != nil) != tt.wantIsErr {
+				t.Errorf("DailyMessageSentCountList.WhereByDay() error = %v, wantIsErr %v", err, tt.wantIsErr)
+				return
+			}
+
+			assert.Exactly(t, tt.want, got)
+		})
+	}
+}

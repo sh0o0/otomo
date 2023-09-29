@@ -75,7 +75,11 @@ func (cc *ChatController) sendMessage(
 	if err := req.ValidateAll(); err != nil {
 		return nil, err
 	}
-	var userID = model.UserID(req.GetUserId())
+	var (
+		userID           = model.UserID(req.GetUserId())
+		now              = times.C.Now()
+		currentYearMonth = model.NewYearMonthFromTime(now)
+	)
 
 	if !ctxs.UserIs(ctx, userID) {
 		return nil, &errs.Error{
@@ -86,8 +90,6 @@ func (cc *ChatController) sendMessage(
 		}
 	}
 
-	now := times.C.Now()
-	currentYearMonth := model.NewYearMonthFromTime(now)
 	monthlyCount, err := cc.msgSentCountQuery.GetMonthlySurplusMessageSentCount(
 		ctx, userID, currentYearMonth,
 	)
@@ -117,7 +119,12 @@ func (cc *ChatController) sendMessage(
 		return nil, err
 	}
 
-	newMonthlyCount, err := monthlyCount.IfSent(now)
+	newMonthlySurplusCount, err := monthlyCount.IfSent(now)
+	if err != nil {
+		return nil, err
+	}
+	newDailyCount, err := newMonthlySurplusCount.Daily.WhereByDay(
+		model.Day(now.Day()))
 	if err != nil {
 		return nil, err
 	}
@@ -129,11 +136,14 @@ func (cc *ChatController) sendMessage(
 
 	return &grpcgen.ChatService_SendMessageResponse{
 		Message: grpcMsg,
-		RemainingSendCount: &grpcgen.RemainingMessageSendCount{
-			MonthlySurplus: &grpcgen.RemainingMonthlySurplusMessageSendCount{
-				YearMonth: &grpcgen.YearMonth{},
-			},
-		},
+		RemainingSendCount: conv.RemainingMessageSendCount.ModelToGrpc(
+			newMonthlySurplusCount,
+			newDailyCount,
+		),
+		SentCount: conv.MessageSentCount.ModelToGrpc(
+			newMonthlySurplusCount,
+			newDailyCount,
+		),
 	}, nil
 }
 

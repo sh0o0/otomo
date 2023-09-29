@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"otomo/internal/pkg/errs"
 	"time"
 )
@@ -12,7 +13,7 @@ const (
 
 type MonthlySurplusMessageSentCount struct {
 	YearMonth YearMonth
-	Daily     []*DailyMessageSentCount
+	Daily     DailyMessageSentCountList
 }
 
 func NewMonthlySurplusMessageSentCount(
@@ -57,22 +58,18 @@ func (m *MonthlySurplusMessageSentCount) IfSent(
 		}
 	}
 
-	var newDaily = make([]*DailyMessageSentCount, len(m.Daily))
+	var (
+		day      = Day(sentAt.Day())
+		newDaily = make(DailyMessageSentCountList, len(m.Daily))
+	)
 	copy(newDaily, m.Daily)
 
-	var dayIndex int = -1
-	for i, d := range newDaily {
-		if d.Day == Day(sentAt.Day()) {
-			dayIndex = i
-			break
-		}
-	}
-
+	dayIndex := newDaily.IndexByDay(day)
 	if dayIndex == -1 {
-		d := NewDailyMessageSentCount(Day(sentAt.Day()), 1)
+		d := NewDailyMessageSentCount(day, 1)
 		newDaily = append(newDaily, d)
 	} else {
-		d := NewDailyMessageSentCount(Day(sentAt.Day()), m.Daily[dayIndex].Count+1)
+		d := NewDailyMessageSentCount(day, newDaily[dayIndex].Count+1)
 		newDaily[dayIndex] = d
 	}
 
@@ -109,4 +106,25 @@ func (d *DailyMessageSentCount) CountExceeded() int {
 		return 0
 	}
 	return exceeded
+}
+
+type DailyMessageSentCountList []*DailyMessageSentCount
+
+func (list DailyMessageSentCountList) IndexByDay(day Day) int {
+	for i, d := range list {
+		if d.Day == day {
+			return i
+		}
+	}
+	return -1
+}
+
+func (list DailyMessageSentCountList) WhereByDay(
+	day Day,
+) (*DailyMessageSentCount, error) {
+	index := list.IndexByDay(day)
+	if index == -1 {
+		return nil, errors.New("daily message sent count not found")
+	}
+	return list[index], nil
 }
