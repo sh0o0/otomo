@@ -1,9 +1,7 @@
 package model
 
 import (
-	"otomo/internal/pkg/times"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -209,26 +207,14 @@ func TestMonthlySurplusMessageSentCount_IfSent(t *testing.T) {
 		Daily     []*DailyMessageSentCount
 	}
 	type args struct {
-		sentAt time.Time
+		day Day
 	}
 	tests := []struct {
-		name      string
-		fields    fields
-		args      args
-		want      *MonthlySurplusMessageSentCount
-		wantIsErr bool
+		name   string
+		fields fields
+		args   args
+		want   *MonthlySurplusMessageSentCount
 	}{
-		{
-			name: "Should return error when sentAt is not in the month",
-			fields: fields{
-				YearMonth: YearMonth{Year: 2020, Month: 1},
-			},
-			args: args{
-				sentAt: time.Date(2020, 2, 1, 0, 0, 0, 0, time.UTC),
-			},
-			want:      nil,
-			wantIsErr: true,
-		},
 		{
 			name: "Should return the last day incremented count when sentAt is the last day",
 			fields: fields{
@@ -249,7 +235,7 @@ func TestMonthlySurplusMessageSentCount_IfSent(t *testing.T) {
 				},
 			},
 			args: args{
-				sentAt: times.C.Date(2020, 1, 17, 0, 0, 0, 0),
+				day: 17,
 			},
 			want: &MonthlySurplusMessageSentCount{
 				YearMonth: YearMonth{Year: 2020, Month: 1},
@@ -268,7 +254,6 @@ func TestMonthlySurplusMessageSentCount_IfSent(t *testing.T) {
 					},
 				},
 			},
-			wantIsErr: false,
 		},
 		{
 			name: "Should return the new day incremented count when sentAt is the new day",
@@ -286,7 +271,7 @@ func TestMonthlySurplusMessageSentCount_IfSent(t *testing.T) {
 				},
 			},
 			args: args{
-				sentAt: times.C.Date(2020, 1, 17, 0, 0, 0, 0),
+				day: 17,
 			},
 			want: &MonthlySurplusMessageSentCount{
 				YearMonth: YearMonth{Year: 2020, Month: 1},
@@ -305,7 +290,6 @@ func TestMonthlySurplusMessageSentCount_IfSent(t *testing.T) {
 					},
 				},
 			},
-			wantIsErr: false,
 		},
 	}
 	for _, tt := range tests {
@@ -316,12 +300,7 @@ func TestMonthlySurplusMessageSentCount_IfSent(t *testing.T) {
 				YearMonth: tt.fields.YearMonth,
 				Daily:     tt.fields.Daily,
 			}
-			got, err := m.IfSent(tt.args.sentAt)
-			if (err != nil) != tt.wantIsErr {
-				t.Errorf("MonthlySurplusMessageSentCount.IfSent() error = %v, wantIsErr %v", err, tt.wantIsErr)
-				return
-			}
-
+			got := m.IfSent(tt.args.day)
 			assert.Exactly(t, tt.want, got)
 		})
 	}

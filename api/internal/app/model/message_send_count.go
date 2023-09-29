@@ -2,8 +2,6 @@ package model
 
 import (
 	"errors"
-	"otomo/internal/pkg/errs"
-	"time"
 )
 
 const (
@@ -54,21 +52,9 @@ func (m *MonthlySurplusMessageSentCount) CountRemaining() int {
 }
 
 func (m *MonthlySurplusMessageSentCount) IfSent(
-	sentAt time.Time,
-) (*MonthlySurplusMessageSentCount, error) {
-	if !m.YearMonth.In(sentAt) {
-		return nil, &errs.Error{
-			Message: "Message sent date is not in the month",
-			Cause:   errs.CauseInvalidArg,
-			Domain:  errs.DomainMessage,
-			Field:   errs.FieldSentAt,
-		}
-	}
-
-	var (
-		day      = Day(sentAt.Day())
-		newDaily = make(DailyMessageSentCountList, len(m.Daily))
-	)
+	day Day,
+) *MonthlySurplusMessageSentCount {
+	var newDaily = make(DailyMessageSentCountList, len(m.Daily))
 	copy(newDaily, m.Daily)
 
 	dayIndex := newDaily.IndexByDay(day)
@@ -80,7 +66,7 @@ func (m *MonthlySurplusMessageSentCount) IfSent(
 		newDaily[dayIndex] = d
 	}
 
-	return NewMonthlySurplusMessageSentCount(m.YearMonth, newDaily), nil
+	return NewMonthlySurplusMessageSentCount(m.YearMonth, newDaily)
 }
 
 type DailyMessageSentCount struct {
