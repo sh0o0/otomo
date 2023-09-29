@@ -117,6 +117,11 @@ func (cc *ChatController) sendMessage(
 		return nil, err
 	}
 
+	newMonthlyCount, err := monthlyCount.IfSent(now)
+	if err != nil {
+		return nil, err
+	}
+
 	// This is last logic because it is not rollbackable.
 	if err := cc.msgRepo.Add(ctx, userID, msg); err != nil {
 		return nil, err
@@ -124,6 +129,11 @@ func (cc *ChatController) sendMessage(
 
 	return &grpcgen.ChatService_SendMessageResponse{
 		Message: grpcMsg,
+		RemainingSendCount: &grpcgen.RemainingMessageSendCount{
+			MonthlySurplus: &grpcgen.RemainingMonthlySurplusMessageSendCount{
+				YearMonth: &grpcgen.YearMonth{},
+			},
+		},
 	}, nil
 }
 
