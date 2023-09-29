@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/user.dart';
+import 'package:otomo/entities/account.dart';
 import 'package:otomo/tools/logger.dart';
 
 class AuthControllerImpl {
@@ -13,10 +13,14 @@ class AuthControllerImpl {
   final auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges().map(
+  Stream<Account?> authStateChanges() => _firebaseAuth.authStateChanges().map(
         (authUser) => authUser == null
             ? null
-            : User(id: authUser.uid, email: authUser.email),
+            : Account(
+                uid: authUser.uid,
+                email: authUser.email,
+                authProvider: _getAuthProvider(authUser),
+              ),
       );
 
   Future<String?> getIdToken() async {
@@ -31,12 +35,12 @@ class AuthControllerImpl {
     }
   }
 
-  Future<User> signInWithGoogle() async {
+  Future<Account> signInWithGoogle() async {
     final credential = await _getGoogleAuthCredential();
     return _signInWithCredential(credential);
   }
 
-  Future<User> signInWithApple() async {
+  Future<Account> signInWithApple() async {
     final appleProvider = auth.AppleAuthProvider();
     appleProvider.addScope('email');
 
@@ -47,15 +51,23 @@ class AuthControllerImpl {
       credential = await _firebaseAuth.signInWithProvider(appleProvider);
     }
     final user = credential.user;
-    if (user == null) throw Exception('User is null');
-    return User(id: user.uid, email: user.email);
+    if (user == null) throw AppException.unknown('User is null');
+    return Account(
+      uid: user.uid,
+      email: user.email,
+      authProvider: AuthProvider.apple,
+    );
   }
 
-  Future<User> _signInWithCredential(auth.AuthCredential credential) async {
+  Future<Account> _signInWithCredential(auth.AuthCredential credential) async {
     final userCred = await _firebaseAuth.signInWithCredential(credential);
     final user = userCred.user;
-    if (user == null) throw Exception('User is null');
-    return User(id: user.uid, email: user.email);
+    if (user == null) throw AppException.unknown('User is null');
+    return Account(
+      uid: user.uid,
+      email: user.email,
+      authProvider: _getAuthProvider(user),
+    );
   }
 
   Future<auth.OAuthCredential> _getGoogleAuthCredential() async {
@@ -85,19 +97,39 @@ class AuthControllerImpl {
     }
   }
 
-  Future<User> reauthenticate() async {
+  Future<Account> reauthenticate() async {
     final credential = await _getGoogleAuthCredential();
     return _reauthenticateWithCredential(credential);
   }
 
-  Future<User> _reauthenticateWithCredential(
+  Future<Account> _reauthenticateWithCredential(
     auth.AuthCredential credential,
   ) async {
     final userCred = await _firebaseAuth.currentUser
         ?.reauthenticateWithCredential(credential);
     final user = userCred?.user;
     if (user == null) throw Exception('User is null');
-    return User(id: user.uid, email: user.email);
+    return Account(
+      uid: user.uid,
+      email: user.email,
+      authProvider: _getAuthProvider(user),
+    );
+  }
+
+  AuthProvider _getAuthProvider(auth.User user) {
+    if (user.providerData.isEmpty) {
+      throw AppException.unknown('User has no provider data');
+    }
+
+    final provider = user.providerData.first.providerId;
+    switch (provider) {
+      case 'google.com':
+        return AuthProvider.google;
+      case 'apple.com':
+        return AuthProvider.apple;
+      default:
+        throw AppException.unknown('Unknown provider: $provider');
+    }
   }
 }
 

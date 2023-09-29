@@ -15,8 +15,8 @@ class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});
 
   Widget _buildSettingsList(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
-    final userNotifier = ref.read(userProvider.notifier);
+    final account = ref.watch(accountProvider);
+    final accountNotifier = ref.read(accountProvider.notifier);
     return AppSettingsList(
       shrinkWrap: true,
       sections: [
@@ -26,7 +26,7 @@ class SettingsPage extends HookConsumerWidget {
             AppSettingsTile(
               leading: const Icon(Icons.email),
               title: const BodySmall('メールアドレス'),
-              value: Text(user?.email ?? ''),
+              value: Text(account?.email ?? ''),
             ),
           ],
         ),
@@ -47,7 +47,7 @@ class SettingsPage extends HookConsumerWidget {
               leading: const Icon(Icons.question_mark_rounded),
               trailing: const Icon(Icons.keyboard_arrow_right_rounded),
               onPressed: (_) => launchUrlString(
-                  Links.inquiry(user?.id ?? '', user?.email ?? '')),
+                  Links.inquiry(account?.uid ?? '', account?.email ?? '')),
             ),
           ],
         ),
@@ -56,7 +56,7 @@ class SettingsPage extends HookConsumerWidget {
           tiles: [
             AppSettingsTile(
               title: const DangerText('ログアウト'),
-              onPressed: (_) => userNotifier.signOut(),
+              onPressed: (_) => accountNotifier.signOut(),
             ),
           ],
         ),

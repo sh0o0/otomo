@@ -81,13 +81,13 @@ class Chat extends _$Chat {
       );
     });
 
-    final user = readUser(ref);
+    final account = readAccount(ref);
 
     final messageChangedEventSub = _chatController
-        .recentMessageChangedEventsStream(userId: user!.id)
+        .recentMessageChangedEventsStream(userId: account!.uid)
         .listen(_onMessageChanged);
     final messagingSub = _chatController
-        .messagingStream(userId: user.id)
+        .messagingStream(userId: account.uid)
         .listen(_onBeMassaged, onError: (e) => logger.warn(e.toString()));
 
     ref.onDispose(() {
@@ -114,7 +114,7 @@ class Chat extends _$Chat {
     late final SendMessageOutput output;
     try {
       output = await _chatController.sendMessage(
-        userId: readUser(ref)!.id,
+        userId: readAccount(ref)!.uid,
         text: text,
         clientId: clientId,
       );
@@ -161,7 +161,7 @@ class Chat extends _$Chat {
 
   Future<RemainingMessageSendCount> _getRemainingMessageSendCount() async {
     final output =
-        await _chatController.getRemainingMessageSendCount(readUser(ref)!.id);
+        await _chatController.getRemainingMessageSendCount(readAccount(ref)!.uid);
     return output.remainingMessageSendCount;
   }
 
@@ -170,7 +170,7 @@ class Chat extends _$Chat {
     String? pageStartAfterMessageId,
   ) async {
     final page = await _chatController.listMessages(
-        readUser(ref)!.id, pageSize, pageStartAfterMessageId);
+        readAccount(ref)!.uid, pageSize, pageStartAfterMessageId);
 
     return Pagination(
       items: page.items
