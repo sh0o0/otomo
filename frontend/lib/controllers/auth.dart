@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/user.dart';
+import 'package:otomo/entities/account.dart';
 import 'package:otomo/tools/logger.dart';
+
+const _appleEmailScope = 'email';
 
 class AuthControllerImpl {
   AuthControllerImpl(this._firebaseAuth, this._googleSignIn);
@@ -12,11 +16,9 @@ class AuthControllerImpl {
   final auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges().map(
-        (authUser) => authUser == null
-            ? null
-            : User(id: authUser.uid, email: authUser.email),
-      );
+  Stream<Account?> authStateChanges() => _firebaseAuth
+      .authStateChanges()
+      .map((user) => user == null ? null : _userToAccount(user));
 
   Future<String?> getIdToken() async {
     try {
@@ -30,16 +32,31 @@ class AuthControllerImpl {
     }
   }
 
-  Future<User> signInWithGoogle() async {
+  Future<Account> signInWithGoogle() async {
     final credential = await _getGoogleAuthCredential();
     return _signInWithCredential(credential);
   }
 
-  Future<User> _signInWithCredential(auth.AuthCredential credential) async {
+  Future<Account> signInWithApple() async {
+    if (Platform.isAndroid) {
+      throw AppException.unknown('Apple sign in is not supported on Android');
+    }
+
+    final appleProvider = auth.AppleAuthProvider();
+    appleProvider.addScope(_appleEmailScope);
+
+    late final auth.UserCredential credential;
+    if (kIsWeb) {
+      credential = await _firebaseAuth.signInWithPopup(appleProvider);
+    } else {
+      credential = await _firebaseAuth.signInWithProvider(appleProvider);
+    }
+    return _userToAccount(credential.user);
+  }
+
+  Future<Account> _signInWithCredential(auth.AuthCredential credential) async {
     final userCred = await _firebaseAuth.signInWithCredential(credential);
-    final user = userCred.user;
-    if (user == null) throw Exception('User is null');
-    return User(id: user.uid, email: user.email);
+    return _userToAccount(userCred.user);
   }
 
   Future<auth.OAuthCredential> _getGoogleAuthCredential() async {
@@ -69,20 +86,69 @@ class AuthControllerImpl {
     }
   }
 
-  Future<User> reauthenticate() async {
-    final credential = await _getGoogleAuthCredential();
-    return _reauthenticateWithCredential(credential);
+  Future<Account> reauthenticate() async {
+    final account = _userToAccount(_firebaseAuth.currentUser);
+    switch (account.authProvider) {
+      case AuthProvider.google:
+        final credential = await _getGoogleAuthCredential();
+        return _reauthenticateWithCredential(credential);
+      case AuthProvider.apple:
+        return _reauthenticateWithApple();
+      default:
+        throw AppException.unknown(
+            'Unknown auth provider: ${account.authProvider}');
+    }
   }
 
-  Future<User> _reauthenticateWithCredential(
+  Future<Account> _reauthenticateWithCredential(
     auth.AuthCredential credential,
   ) async {
     final userCred = await _firebaseAuth.currentUser
         ?.reauthenticateWithCredential(credential);
-    final user = userCred?.user;
-    if (user == null) throw Exception('User is null');
-    return User(id: user.uid, email: user.email);
+    return _userToAccount(userCred?.user);
   }
+
+  Future<Account> _reauthenticateWithApple() async {
+    final appleProvider = _getAppleOAuthProvider();
+
+    late final auth.UserCredential? credential;
+    if (kIsWeb) {
+      credential = await _firebaseAuth.currentUser
+          ?.reauthenticateWithPopup(appleProvider);
+    } else {
+      credential = await _firebaseAuth.currentUser
+          ?.reauthenticateWithProvider(appleProvider);
+    }
+    return _userToAccount(credential?.user);
+  }
+
+  Account _userToAccount(auth.User? user) {
+    if (user == null) throw AppException.unknown('User is null');
+    return Account(
+      uid: user.uid,
+      email: user.email,
+      authProvider: _getAuthProvider(user),
+    );
+  }
+
+  AuthProvider _getAuthProvider(auth.User user) {
+    if (user.providerData.isEmpty) {
+      throw AppException.unknown('User has no provider data');
+    }
+
+    final provider = user.providerData.first.providerId;
+    switch (provider) {
+      case 'google.com':
+        return AuthProvider.google;
+      case 'apple.com':
+        return AuthProvider.apple;
+      default:
+        throw AppException.unknown('Unknown provider: $provider');
+    }
+  }
+
+  auth.AppleAuthProvider _getAppleOAuthProvider() =>
+      auth.AppleAuthProvider().addScope(_appleEmailScope);
 }
 
 final class FirebaseAuthExceptionCode {

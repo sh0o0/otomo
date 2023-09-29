@@ -17,4 +17,9 @@ class SignIn extends _$SignIn {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(_controller.signInWithGoogle);
   }
+
+  Future<void> signInWithApple() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(_controller.signInWithApple);
+  }
 }
