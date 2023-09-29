@@ -119,6 +119,7 @@ class Chat extends _$Chat {
         clientId: clientId,
       );
     } on Exception catch (e) {
+      logger.warn(e);
       final errorTextMessageData = newTextMessageData.copyWith.message(
         status: MessageStatus.error,
         error: e,

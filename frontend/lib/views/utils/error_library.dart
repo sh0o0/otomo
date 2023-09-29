@@ -26,6 +26,9 @@ abstract class ErrorLibrary {
   }
 
   static String fromGrpcError(GrpcError e) {
+    final details = e.details;
+    final detail = details?.first;
+
     switch (e.code) {
       case StatusCode.invalidArgument:
         return invalidArgument;
@@ -37,6 +40,12 @@ abstract class ErrorLibrary {
         return permissionDenied;
       case StatusCode.unauthenticated:
         return unauthenticated;
+      case StatusCode.resourceExhausted:
+        if (detail == null) return unknown;
+        if (detail is ErrorInfo) {
+          if (detail.domain == Domain.message.name) return messageSendLimit;
+        }
+        return network;
       default:
         return network;
     }
@@ -63,6 +72,8 @@ abstract class ErrorLibrary {
   static const String permissionDenied = 'アクセス権限がありません。';
   static const String unauthenticated = '認証に失敗しました。';
 
+  // app
   static const String requiresRecentLogin = '再ログインが必要です。';
   static const String messageLocationAnalysis = '地名の解析に失敗しました。';
+  static const String messageSendLimit = 'メッセージの送信回数が上限に達しました。';
 }

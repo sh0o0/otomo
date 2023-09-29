@@ -35,6 +35,20 @@ enum Cause {
 enum Domain {
   none,
   auth,
+  message,
+}
+
+extension DomainExtension on Domain {
+  String get name {
+    switch (this) {
+      case Domain.none:
+        return '';
+      case Domain.auth:
+        return 'Auth';
+      case Domain.message:
+        return 'Message';
+    }
+  }
 }
 
 enum Field {
