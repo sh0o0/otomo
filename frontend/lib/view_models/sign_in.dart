@@ -22,4 +22,16 @@ class SignIn extends _$SignIn {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(_controller.signInWithApple);
   }
+
+  Future<void> sendSignInEmailLink(String email) async {
+    state = const AsyncValue.loading();
+    state =
+        await AsyncValue.guard(() => _controller.sendSignInEmailLink(email));
+  }
+
+  Future<void> signInWithEmailLinkIfLinkCorrect(String link) async {
+    if (!_controller.isSignInWithEmailLink(link)) return;
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() => _controller.signInWithEmailLink(link));
+  }
 }

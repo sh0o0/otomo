@@ -7,6 +7,7 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/view_models/router.dart';
+import 'package:otomo/view_models/sign_in.dart';
 import 'package:otomo/views/utils/flutter.dart';
 
 class App extends HookConsumerWidget {
@@ -21,32 +22,36 @@ class App extends HookConsumerWidget {
   }
 
   // TODO: Move this logic to other place.
-  void _handleDynamicLink(PendingDynamicLinkData data) {
+  void _handleDynamicLink(PendingDynamicLinkData data, WidgetRef ref) {
     logger
         .info('handel dynamic link. do nothing. Link: ${data.link.toString()}');
+
+    // Email link sign-in flow.
+    final signInNotifier = ref.read(signInProvider.notifier);
+    signInNotifier.signInWithEmailLinkIfLinkCorrect(data.link.toString());
   }
 
   // TODO: Move this logic to other place.
-  Future<void> _initDynamicLinks() async {
+  Future<void> _initDynamicLinks(WidgetRef ref) async {
     final dynamicLinks = getIt<FirebaseDynamicLinks>();
     final initialLink = await dynamicLinks.getInitialLink();
     if (initialLink == null) {
       logger.info('initial dynamic link is null');
     } else {
       logger.info('got initial dynamic link');
-      _handleDynamicLink(initialLink);
+      _handleDynamicLink(initialLink, ref);
     }
 
     dynamicLinks.onLink.listen((data) {
       logger.info('dynamic link received');
-      _handleDynamicLink(data);
+      _handleDynamicLink(data, ref);
     });
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
-      afterBuildCallback(_initDynamicLinks);
+      afterBuildCallback(() => _initDynamicLinks(ref));
       return () {};
     }, const []);
 
