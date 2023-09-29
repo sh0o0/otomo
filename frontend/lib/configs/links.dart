@@ -3,6 +3,8 @@ import 'dart:io';
 final class Links {
   const Links._();
 
+  static const String serviceSide = 'https://azure992416.studio.site/';
+
   static String inquiry(String userId, String email) {
     late final String device;
     if (Platform.isAndroid) {

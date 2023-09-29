@@ -13,11 +13,19 @@ import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
 import 'package:otomo/grpc/generated/interceptors/logging.dart';
 import 'package:otomo/grpc/generated/interceptors/retry.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
 @module
 abstract class InjectableModule {
+  static final _firebaseAuth = FirebaseAuth.instance;
+  static final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email'],
+  );
+  // Must set before calling `getIt.init()`
+  static late final SharedPreferences _sharedPreferences;
+
   final _clientChannel = ClientChannel(
     appConfig.otomoServerHost,
     port: appConfig.otomoServerPort,
@@ -28,6 +36,19 @@ abstract class InjectableModule {
       connectTimeout: const Duration(seconds: 10),
     ),
   );
+
+  List<ClientInterceptor> get _clientInterceptors => [
+        _loggingClientInterceptor,
+        _retryClientInterceptor,
+        _injectAuthHeaderClientInterceptor,
+      ];
+
+  LoggingClientInterceptor get _loggingClientInterceptor =>
+      LoggingClientInterceptor();
+  RetryOnUnavailableErrorClientInterceptor get _retryClientInterceptor =>
+      RetryOnUnavailableErrorClientInterceptor(retries: 1);
+  AuthClientInterceptor get _injectAuthHeaderClientInterceptor =>
+      AuthClientInterceptor(_authController);
 
   @singleton
   ClientChannel get clientChannel => _clientChannel;
@@ -40,7 +61,6 @@ abstract class InjectableModule {
   ChatServiceClient get chatServiceClient =>
       ChatServiceClient(clientChannel, interceptors: _clientInterceptors);
 
-  static final _firebaseAuth = FirebaseAuth.instance;
   @singleton
   FirebaseAuth get firebaseAuth => _firebaseAuth;
 
@@ -50,28 +70,16 @@ abstract class InjectableModule {
   @singleton
   FirebaseCrashlytics get firebaseCrashlytics => FirebaseCrashlytics.instance;
 
-  static final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: ['email'],
-  );
-
-  static AuthControllerImpl get _authController =>
-      AuthControllerImpl(_firebaseAuth, _googleSignIn);
+  @singleton
+  AuthControllerImpl get _authController =>
+      AuthControllerImpl(_firebaseAuth, _googleSignIn, _sharedPreferences);
 
   @singleton
-  AuthControllerImpl get authController => _authController;
-
-  final List<ClientInterceptor> _clientInterceptors = [
-    _loggingClientInterceptor,
-    _retryClientInterceptor,
-    _injectAuthHeaderClientInterceptor,
-  ];
-
-  static final _loggingClientInterceptor = LoggingClientInterceptor();
-  static final _retryClientInterceptor =
-      RetryOnUnavailableErrorClientInterceptor(retries: 1);
-  static final _injectAuthHeaderClientInterceptor =
-      AuthClientInterceptor(_authController);
+  SharedPreferences get sharedPreferences => _sharedPreferences;
 }
 
 @InjectableInit()
-void configureInjection() => getIt.init();
+Future<void> configureInjection() async {
+  InjectableModule._sharedPreferences = await SharedPreferences.getInstance();
+  getIt.init();
+}
