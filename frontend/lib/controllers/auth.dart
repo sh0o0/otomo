@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/foundation.dart';
@@ -37,6 +38,10 @@ class AuthControllerImpl {
   }
 
   Future<Account> signInWithApple() async {
+    if (Platform.isAndroid) {
+      throw AppException.unknown('Apple sign in is not supported on Android');
+    }
+
     final appleProvider = auth.AppleAuthProvider();
     appleProvider.addScope(_appleEmailScope);
 
