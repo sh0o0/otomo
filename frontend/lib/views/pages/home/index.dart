@@ -108,6 +108,8 @@ class _HomePageState extends ConsumerState<HomePage> {
       return () => activatedTextMessageStreamSub.cancel();
     }, const []);
 
+    final chatState = ref.watch(chatProvider);
+
     return Unfocus(
       child: HomeWithDraggableScrollableBottomSheet(
         initialSheetSize: _minSheetSize,
@@ -120,6 +122,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
         bottomSheetBar: ChatBottomSheetBar(
           onPressedLeading: () => _onPressedSheetLeading(context),
+          remainingMessageSendCount: chatState.value?.remainingMessageSendCount,
         ),
         bottomSheet: HomeChat(
           inputOptions: InputOptions(
