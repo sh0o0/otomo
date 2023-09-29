@@ -7,21 +7,17 @@ import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/account.dart';
 import 'package:otomo/tools/logger.dart';
 
+const _appleEmailScope = 'email';
+
 class AuthControllerImpl {
   AuthControllerImpl(this._firebaseAuth, this._googleSignIn);
 
   final auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  Stream<Account?> authStateChanges() => _firebaseAuth.authStateChanges().map(
-        (authUser) => authUser == null
-            ? null
-            : Account(
-                uid: authUser.uid,
-                email: authUser.email,
-                authProvider: _getAuthProvider(authUser),
-              ),
-      );
+  Stream<Account?> authStateChanges() => _firebaseAuth
+      .authStateChanges()
+      .map((user) => user == null ? null : _userToAccount(user));
 
   Future<String?> getIdToken() async {
     try {
@@ -42,7 +38,7 @@ class AuthControllerImpl {
 
   Future<Account> signInWithApple() async {
     final appleProvider = auth.AppleAuthProvider();
-    appleProvider.addScope('email');
+    appleProvider.addScope(_appleEmailScope);
 
     late final auth.UserCredential credential;
     if (kIsWeb) {
@@ -50,24 +46,12 @@ class AuthControllerImpl {
     } else {
       credential = await _firebaseAuth.signInWithProvider(appleProvider);
     }
-    final user = credential.user;
-    if (user == null) throw AppException.unknown('User is null');
-    return Account(
-      uid: user.uid,
-      email: user.email,
-      authProvider: AuthProvider.apple,
-    );
+    return _userToAccount(credential.user);
   }
 
   Future<Account> _signInWithCredential(auth.AuthCredential credential) async {
     final userCred = await _firebaseAuth.signInWithCredential(credential);
-    final user = userCred.user;
-    if (user == null) throw AppException.unknown('User is null');
-    return Account(
-      uid: user.uid,
-      email: user.email,
-      authProvider: _getAuthProvider(user),
-    );
+    return _userToAccount(userCred.user);
   }
 
   Future<auth.OAuthCredential> _getGoogleAuthCredential() async {
@@ -98,8 +82,17 @@ class AuthControllerImpl {
   }
 
   Future<Account> reauthenticate() async {
-    final credential = await _getGoogleAuthCredential();
-    return _reauthenticateWithCredential(credential);
+    final account = _userToAccount(_firebaseAuth.currentUser);
+    switch (account.authProvider) {
+      case AuthProvider.google:
+        final credential = await _getGoogleAuthCredential();
+        return _reauthenticateWithCredential(credential);
+      case AuthProvider.apple:
+        return _reauthenticateWithApple();
+      default:
+        throw AppException.unknown(
+            'Unknown auth provider: ${account.authProvider}');
+    }
   }
 
   Future<Account> _reauthenticateWithCredential(
@@ -107,8 +100,25 @@ class AuthControllerImpl {
   ) async {
     final userCred = await _firebaseAuth.currentUser
         ?.reauthenticateWithCredential(credential);
-    final user = userCred?.user;
-    if (user == null) throw Exception('User is null');
+    return _userToAccount(userCred?.user);
+  }
+
+  Future<Account> _reauthenticateWithApple() async {
+    final appleProvider = _getAppleOAuthProvider();
+
+    late final auth.UserCredential? credential;
+    if (kIsWeb) {
+      credential = await _firebaseAuth.currentUser
+          ?.reauthenticateWithPopup(appleProvider);
+    } else {
+      credential = await _firebaseAuth.currentUser
+          ?.reauthenticateWithProvider(appleProvider);
+    }
+    return _userToAccount(credential?.user);
+  }
+
+  Account _userToAccount(auth.User? user) {
+    if (user == null) throw AppException.unknown('User is null');
     return Account(
       uid: user.uid,
       email: user.email,
@@ -131,6 +141,9 @@ class AuthControllerImpl {
         throw AppException.unknown('Unknown provider: $provider');
     }
   }
+
+  auth.AppleAuthProvider _getAppleOAuthProvider() =>
+      auth.AppleAuthProvider().addScope(_appleEmailScope);
 }
 
 final class FirebaseAuthExceptionCode {
