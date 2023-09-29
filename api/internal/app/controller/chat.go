@@ -79,6 +79,7 @@ func (cc *ChatController) sendMessage(
 		userID           = model.UserID(req.GetUserId())
 		now              = times.C.Now()
 		currentYearMonth = model.NewYearMonthFromTime(now)
+		day              = model.Day(now.Day())
 	)
 
 	if !ctxs.UserIs(ctx, userID) {
@@ -95,7 +96,7 @@ func (cc *ChatController) sendMessage(
 	if err != nil {
 		return nil, err
 	}
-	if !monthlySurplusCount.IsRemaining() {
+	if !monthlySurplusCount.IsRemainingDay(day) {
 		return nil, &errs.Error{
 			Message: "no remaining message sent count",
 			Cause:   errs.CauseResourceExhausted,
@@ -113,12 +114,8 @@ func (cc *ChatController) sendMessage(
 		return nil, err
 	}
 
-	newMonthlySurplusCount, err := monthlySurplusCount.IfSent(now)
-	if err != nil {
-		return nil, err
-	}
-	newDailyCount, err := newMonthlySurplusCount.Daily.WhereByDay(
-		model.Day(now.Day()))
+	newMonthlySurplusCount := monthlySurplusCount.IfSent(day)
+	newDailyCount, err := newMonthlySurplusCount.Daily.WhereByDay(day)
 	if err != nil {
 		return nil, err
 	}
@@ -451,6 +448,7 @@ func (cc *ChatController) getRemainingSendCount(
 		userID           = model.UserID(req.GetUserId())
 		now              = times.C.Now()
 		currentYearMonth = model.NewYearMonthFromTime(now)
+		day              = model.Day(now.Day())
 	)
 
 	if !ctxs.UserIs(ctx, userID) {
@@ -467,8 +465,7 @@ func (cc *ChatController) getRemainingSendCount(
 	if err != nil {
 		return nil, err
 	}
-	dailyCount, err := monthlySurplusCount.Daily.WhereByDay(
-		model.Day(now.Day()))
+	dailyCount, err := monthlySurplusCount.Daily.WhereByDay(day)
 	if err != nil {
 		return nil, err
 	}
