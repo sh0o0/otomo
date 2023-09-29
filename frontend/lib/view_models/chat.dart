@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/controllers/utils.dart';
@@ -101,9 +102,9 @@ class Chat extends _$Chat {
 
     _addTextMessage(newTextMessageData);
 
-    late final TextMessage respTextMessage;
+    late final SendMessageOutput output;
     try {
-      respTextMessage = await _chatController.sendMessage(
+      output = await _chatController.sendMessage(
         userId: readUser(ref)!.id,
         text: text,
         clientId: clientId,
@@ -118,7 +119,7 @@ class Chat extends _$Chat {
     }
 
     final respTextMessageData = TextMessageData.fromTextMessage(
-      respTextMessage,
+      output.message,
       status: MessageStatus.sent,
     );
 
