@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"net"
+	"otomo/internal/app/cmdqry"
 	"otomo/internal/app/controller"
 	"otomo/internal/app/grpcgen"
 	"otomo/internal/app/model"
@@ -136,6 +137,11 @@ func newServer() (*grpc.Server, error) {
 		otomoRepo = repository.NewOtomoRepository(fsClient)
 	)
 
+	// commands and queries
+	var (
+		msgSendCountQry = cmdqry.NewMessageSentCountQuery(fsClient)
+	)
+
 	// services
 	var (
 		summarySvc      = service.NewSummaryService(lcGpt)
@@ -163,6 +169,7 @@ func newServer() (*grpc.Server, error) {
 			msginSub,
 			msginPub,
 			msgAnaSvc,
+			msgSendCountQry,
 			conversationSvc,
 			summarySvc,
 		)
