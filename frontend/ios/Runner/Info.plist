@@ -33,9 +33,19 @@
 				<string>com.googleusercontent.apps.764287781247-an3o1b7n6sk3ps7f67f82657hb53g65g</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>GOOGLE_MAP_API_KEY</key>
+	<string>$(IOS_GOOGLE_MAP_API_KEY)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -63,8 +73,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<!-- Added by developer -->
-	<key>GOOGLE_MAP_API_KEY</key>
-	<string>$(IOS_GOOGLE_MAP_API_KEY)</string>
 </dict>
 </plist>

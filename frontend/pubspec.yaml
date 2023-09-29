@@ -80,6 +80,7 @@ dependencies:
   faker: ^2.1.0
   package_info_plus: ^4.1.0
   shared_preferences: ^2.2.1
+  firebase_dynamic_links: ^5.3.6
 
 dev_dependencies:
   flutter_test:
