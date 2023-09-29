@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/converter.dart';
 import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/entities/message.dart';
@@ -30,7 +31,7 @@ class ChatControllerImpl {
     );
   }
 
-  Future<TextMessage> sendMessage({
+  Future<SendMessageOutput> sendMessage({
     required String userId,
     required String text,
     String? clientId,
@@ -45,7 +46,7 @@ class ChatControllerImpl {
       ..text = text
       ..clientId = clientIdVal;
     final resp = await _chatService.sendMessage(req);
-    return ControllerConverter.I.message.grpcToEntity(resp.message);
+    return SendMessageOutput.fromResponse(resp);
   }
 
   Stream<TextMessageChunk> messagingStream({
@@ -79,4 +80,12 @@ class ChatControllerImpl {
                 );
               }).toList())
           .asBroadcastStream();
+
+  Future<GetRemainingMessageSendCountOutput> getRemainingMessageSendCount(
+    String userId,
+  ) async {
+    final req = ChatService_GetRemainingSendCountRequest()..userId = userId;
+    final resp = await _chatService.getRemainingSendCount(req);
+    return GetRemainingMessageSendCountOutput.fromResponse(resp);
+  }
 }
