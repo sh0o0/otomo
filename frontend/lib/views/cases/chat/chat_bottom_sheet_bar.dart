@@ -13,6 +13,29 @@ class ChatBottomSheetBar extends StatelessWidget {
 
   final VoidCallback? onPressedLeading;
 
+  Widget _buildLeft(BuildContext context) {
+    return Row(
+      children: [
+        BottomSheetLeading(onPressedLeading: onPressedLeading),
+        Spaces.w8,
+        const OtomoAvatar(),
+        Spaces.w8,
+        const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Otomo'),
+            OnlineStatus(online: true),
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _buildRight(BuildContext context) {
+    return Spaces.zero;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -29,19 +52,10 @@ class ChatBottomSheetBar extends StatelessWidget {
           Spaces.h8,
           const BottomSheetBarHandle(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BottomSheetLeading(onPressedLeading: onPressedLeading),
-              Spaces.w8,
-              const OtomoAvatar(),
-              Spaces.w8,
-              const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Otomo'),
-                  OnlineStatus(online: true),
-                ],
-              )
+              _buildLeft(context),
+              _buildRight(context),
             ],
           ),
         ],

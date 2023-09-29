@@ -9,28 +9,28 @@ part of 'message_send_count.dart';
 _$_MessageSentCount _$$_MessageSentCountFromJson(Map<String, dynamic> json) =>
     _$_MessageSentCount(
       monthlySurplus: MonthlySurplusMessageSentCount.fromJson(
-          json['monthlySurplus'] as Map<String, dynamic>),
+          json['monthly_surplus'] as Map<String, dynamic>),
       daily:
           DailyMessageSentCount.fromJson(json['daily'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_MessageSentCountToJson(_$_MessageSentCount instance) =>
     <String, dynamic>{
-      'monthlySurplus': instance.monthlySurplus,
+      'monthly_surplus': instance.monthlySurplus,
       'daily': instance.daily,
     };
 
 _$_MonthlySurplusMessageSentCount _$$_MonthlySurplusMessageSentCountFromJson(
         Map<String, dynamic> json) =>
     _$_MonthlySurplusMessageSentCount(
-      yearMonth: YearMonth.fromJson(json['yearMonth'] as Map<String, dynamic>),
+      yearMonth: YearMonth.fromJson(json['year_month'] as Map<String, dynamic>),
       count: json['count'] as int,
     );
 
 Map<String, dynamic> _$$_MonthlySurplusMessageSentCountToJson(
         _$_MonthlySurplusMessageSentCount instance) =>
     <String, dynamic>{
-      'yearMonth': instance.yearMonth,
+      'year_month': instance.yearMonth,
       'count': instance.count,
     };
 
@@ -52,7 +52,7 @@ _$_RemainingMessageSendCount _$$_RemainingMessageSendCountFromJson(
         Map<String, dynamic> json) =>
     _$_RemainingMessageSendCount(
       monthlySurplus: RemainingMonthlySurplusMessageSendCount.fromJson(
-          json['monthlySurplus'] as Map<String, dynamic>),
+          json['monthly_surplus'] as Map<String, dynamic>),
       daily: RemainingDailyMessageSendCount.fromJson(
           json['daily'] as Map<String, dynamic>),
     );
@@ -60,7 +60,7 @@ _$_RemainingMessageSendCount _$$_RemainingMessageSendCountFromJson(
 Map<String, dynamic> _$$_RemainingMessageSendCountToJson(
         _$_RemainingMessageSendCount instance) =>
     <String, dynamic>{
-      'monthlySurplus': instance.monthlySurplus,
+      'monthly_surplus': instance.monthlySurplus,
       'daily': instance.daily,
     };
 
@@ -69,14 +69,14 @@ _$_RemainingMonthlySurplusMessageSendCount
             Map<String, dynamic> json) =>
         _$_RemainingMonthlySurplusMessageSendCount(
           yearMonth:
-              YearMonth.fromJson(json['yearMonth'] as Map<String, dynamic>),
+              YearMonth.fromJson(json['year_month'] as Map<String, dynamic>),
           count: json['count'] as int,
         );
 
 Map<String, dynamic> _$$_RemainingMonthlySurplusMessageSendCountToJson(
         _$_RemainingMonthlySurplusMessageSendCount instance) =>
     <String, dynamic>{
-      'yearMonth': instance.yearMonth,
+      'year_month': instance.yearMonth,
       'count': instance.count,
     };
 

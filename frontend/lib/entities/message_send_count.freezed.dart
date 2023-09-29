@@ -136,7 +136,8 @@ class __$$_MessageSentCountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_MessageSentCount implements _MessageSentCount {
   const _$_MessageSentCount(
       {required this.monthlySurplus, required this.daily});
@@ -312,7 +313,8 @@ class __$$_MonthlySurplusMessageSentCountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_MonthlySurplusMessageSentCount
     implements _MonthlySurplusMessageSentCount {
   const _$_MonthlySurplusMessageSentCount(
@@ -487,7 +489,8 @@ class __$$_DailyMessageSentCountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_DailyMessageSentCount implements _DailyMessageSentCount {
   const _$_DailyMessageSentCount({required this.date, required this.count});
 
@@ -678,7 +681,8 @@ class __$$_RemainingMessageSendCountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_RemainingMessageSendCount implements _RemainingMessageSendCount {
   const _$_RemainingMessageSendCount(
       {required this.monthlySurplus, required this.daily});
@@ -859,7 +863,8 @@ class __$$_RemainingMonthlySurplusMessageSendCountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_RemainingMonthlySurplusMessageSendCount
     implements _RemainingMonthlySurplusMessageSendCount {
   const _$_RemainingMonthlySurplusMessageSendCount(
@@ -1042,7 +1047,8 @@ class __$$_RemainingDailyMessageSendCountCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_RemainingDailyMessageSendCount
     implements _RemainingDailyMessageSendCount {
   const _$_RemainingDailyMessageSendCount(
