@@ -112,8 +112,9 @@ class __$$_DateCopyWithImpl<$Res> extends _$DateCopyWithImpl<$Res, _$_Date>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Date implements _Date {
-  const _$_Date({required this.year, required this.month, required this.day});
+class _$_Date extends _Date {
+  const _$_Date({required this.year, required this.month, required this.day})
+      : super._();
 
   factory _$_Date.fromJson(Map<String, dynamic> json) => _$$_DateFromJson(json);
 
@@ -157,11 +158,12 @@ class _$_Date implements _Date {
   }
 }
 
-abstract class _Date implements Date {
+abstract class _Date extends Date {
   const factory _Date(
       {required final int year,
       required final int month,
       required final int day}) = _$_Date;
+  const _Date._() : super._();
 
   factory _Date.fromJson(Map<String, dynamic> json) = _$_Date.fromJson;
 
@@ -267,8 +269,8 @@ class __$$_YearMonthCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_YearMonth implements _YearMonth {
-  const _$_YearMonth({required this.year, required this.month});
+class _$_YearMonth extends _YearMonth {
+  const _$_YearMonth({required this.year, required this.month}) : super._();
 
   factory _$_YearMonth.fromJson(Map<String, dynamic> json) =>
       _$$_YearMonthFromJson(json);
@@ -310,9 +312,10 @@ class _$_YearMonth implements _YearMonth {
   }
 }
 
-abstract class _YearMonth implements YearMonth {
+abstract class _YearMonth extends YearMonth {
   const factory _YearMonth(
       {required final int year, required final int month}) = _$_YearMonth;
+  const _YearMonth._() : super._();
 
   factory _YearMonth.fromJson(Map<String, dynamic> json) =
       _$_YearMonth.fromJson;

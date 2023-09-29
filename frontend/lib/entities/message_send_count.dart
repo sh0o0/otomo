@@ -44,6 +44,9 @@ class RemainingMessageSendCount with _$RemainingMessageSendCount {
   }) = _RemainingMessageSendCount;
   factory RemainingMessageSendCount.fromJson(Map<String, dynamic> json) =>
       _$RemainingMessageSendCountFromJson(json);
+  factory RemainingMessageSendCount.empty() => RemainingMessageSendCount(
+      daily: RemainingDailyMessageSendCount.empty(),
+      monthlySurplus: RemainingMonthlySurplusMessageSendCount.empty());
 }
 
 @freezed
@@ -56,6 +59,11 @@ class RemainingMonthlySurplusMessageSendCount
   factory RemainingMonthlySurplusMessageSendCount.fromJson(
           Map<String, dynamic> json) =>
       _$RemainingMonthlySurplusMessageSendCountFromJson(json);
+  factory RemainingMonthlySurplusMessageSendCount.empty() =>
+      RemainingMonthlySurplusMessageSendCount(
+        yearMonth: YearMonth.empty(),
+        count: 0,
+      );
 }
 
 @freezed
@@ -66,4 +74,6 @@ class RemainingDailyMessageSendCount with _$RemainingDailyMessageSendCount {
   }) = _RemainingDailyMessageSendCount;
   factory RemainingDailyMessageSendCount.fromJson(Map<String, dynamic> json) =>
       _$RemainingDailyMessageSendCountFromJson(json);
+  factory RemainingDailyMessageSendCount.empty() =>
+      RemainingDailyMessageSendCount(date: Date.empty(), count: 0);
 }

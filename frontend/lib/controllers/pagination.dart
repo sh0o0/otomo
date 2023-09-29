@@ -11,7 +11,9 @@ class Pagination<T> with _$Pagination<T> {
     required bool hasMore,
   }) = _Pagination<T>;
 
-  factory Pagination.empty() => const Pagination(items: [], hasMore: false);
+  // ignore: prefer_const_constructors
+  factory Pagination.empty() => Pagination(items: [], hasMore: false);
   factory Pagination.emptyHasMore() =>
-      const Pagination(items: [], hasMore: true);
+      // ignore: prefer_const_constructors
+      Pagination(items: [], hasMore: true);
 }
