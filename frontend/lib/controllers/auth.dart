@@ -81,7 +81,10 @@ class AuthControllerImpl {
     await _sharedPreferences.setString(_emailOfSignInWithEmailLinkKey, email);
   }
 
-  Future<Account> signInWithEmailLink(String email, String link) async {
+  bool isSignInWithEmailLink(String link) =>
+      _firebaseAuth.isSignInWithEmailLink(link);
+
+  Future<Account> signInWithEmailLink(String link) async {
     if (!_firebaseAuth.isSignInWithEmailLink(link)) {
       throw AppException.unknown('incorrect email link');
     }
@@ -89,12 +92,14 @@ class AuthControllerImpl {
     final savedEmail =
         _sharedPreferences.getString(_emailOfSignInWithEmailLinkKey);
     if (savedEmail == null) throw AppException.unknown('email was not saved');
-    if (savedEmail != email) throw AppException.unknown('incorrect email');
 
     final userCredential = await _firebaseAuth.signInWithEmailLink(
-      email: email,
+      email: savedEmail,
       emailLink: link,
     );
+
+    await _sharedPreferences.remove(_emailOfSignInWithEmailLinkKey);
+
     return _userToAccount(userCredential.user);
   }
 
