@@ -368,6 +368,91 @@ func TestDailySentCount_IsRemaining(t *testing.T) {
 	}
 }
 
+func TestMonthlySurplusMessageSentCount_IsRemainingDay(t *testing.T) {
+	type fields struct {
+		YearMonth YearMonth
+		Daily     DailyMessageSentCountList
+	}
+	type args struct {
+		day Day
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+		want   bool
+	}{
+		{
+			name: "Should return true when daily count is not remaining monthly daily count is remaining",
+			fields: fields{
+				YearMonth: YearMonth{},
+				Daily: DailyMessageSentCountList{
+					{
+						Day:   1,
+						Count: 6,
+					},
+				},
+			},
+			args: args{
+				day: 1,
+			},
+			want: true,
+		},
+		{
+			name: "Should return true when daily count is remaining monthly daily count is not remaining",
+			fields: fields{
+				YearMonth: YearMonth{},
+				Daily: DailyMessageSentCountList{
+					{
+						Day:   1,
+						Count: 35,
+					},
+					{
+						Day:   2,
+						Count: 4,
+					},
+				},
+			},
+			args: args{
+				day: 2,
+			},
+			want: true,
+		},
+		{
+			name: "Should return false when daily count is not remaining monthly daily count is not remaining",
+			fields: fields{
+				YearMonth: YearMonth{},
+				Daily: DailyMessageSentCountList{
+					{
+						Day:   1,
+						Count: 35,
+					},
+					{
+						Day:   2,
+						Count: 5,
+					},
+				},
+			},
+			args: args{
+				day: 2,
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			m := &MonthlySurplusMessageSentCount{
+				YearMonth: tt.fields.YearMonth,
+				Daily:     tt.fields.Daily,
+			}
+			got := m.IsRemainingDay(tt.args.day)
+			assert.Exactly(t, tt.want, got)
+		})
+	}
+}
+
 func TestDailySentCount_CountRemaining(t *testing.T) {
 	type fields struct {
 		Day   Day

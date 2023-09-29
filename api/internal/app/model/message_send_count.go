@@ -29,6 +29,13 @@ func NewMonthlySurplusMessageSentCount(
 func (m *MonthlySurplusMessageSentCount) IsRemaining() bool {
 	return m.Count() < maxMonthlySurplusSendCount
 }
+func (m *MonthlySurplusMessageSentCount) IsRemainingDay(day Day) bool {
+	targetDaily, err := m.Daily.WhereByDay(day)
+	if err != nil {
+		return m.IsRemaining()
+	}
+	return targetDaily.IsRemaining() || m.IsRemaining()
+}
 
 func (m *MonthlySurplusMessageSentCount) Count() int {
 	var exceeded int
