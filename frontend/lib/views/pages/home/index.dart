@@ -8,7 +8,7 @@ import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map/index.dart';
-import 'package:otomo/views/router.dart';
+import 'package:otomo/view_models/router.dart';
 import 'package:otomo/views/utils/controller.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
