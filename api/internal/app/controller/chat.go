@@ -90,13 +90,12 @@ func (cc *ChatController) sendMessage(
 		}
 	}
 
-	monthlyCount, err := cc.msgSentCountQuery.GetMonthlySurplusMessageSentCount(
-		ctx, userID, currentYearMonth,
-	)
+	monthlySurplusCount, err := cc.msgSentCountQuery.
+		GetMonthlySurplusMessageSentCount(ctx, userID, currentYearMonth)
 	if err != nil {
 		return nil, err
 	}
-	if !monthlyCount.IsRemaining() {
+	if !monthlySurplusCount.IsRemaining() {
 		return nil, &errs.Error{
 			Message: "no remaining message sent count",
 			Cause:   errs.CauseResourceExhausted,
@@ -114,17 +113,17 @@ func (cc *ChatController) sendMessage(
 		return nil, err
 	}
 
-	grpcMsg, err := conv.Message.ModelToGrpc(msg)
-	if err != nil {
-		return nil, err
-	}
-
-	newMonthlySurplusCount, err := monthlyCount.IfSent(now)
+	newMonthlySurplusCount, err := monthlySurplusCount.IfSent(now)
 	if err != nil {
 		return nil, err
 	}
 	newDailyCount, err := newMonthlySurplusCount.Daily.WhereByDay(
 		model.Day(now.Day()))
+	if err != nil {
+		return nil, err
+	}
+
+	grpcMsg, err := conv.Message.ModelToGrpc(msg)
 	if err != nil {
 		return nil, err
 	}
@@ -433,9 +432,55 @@ func (cc *ChatController) messagingStream(
 	return nil
 }
 
-func (cs *ChatController) GetRemainingSendCount(
-	_ context.Context,
-	_ *grpcgen.ChatService_GetRemainingSendCountRequest,
+func (cc *ChatController) GetRemainingSendCount(
+	ctx context.Context,
+	req *grpcgen.ChatService_GetRemainingSendCountRequest,
 ) (*grpcgen.ChatService_GetRemainingSendCountResponse, error) {
-	panic("not implemented") // TODO: Implement
+	resp, err := cc.getRemainingSendCount(ctx, req)
+	if err != nil {
+		return nil, cc.toGrpcError(ctx, err)
+	}
+	return resp, nil
+}
+
+func (cc *ChatController) getRemainingSendCount(
+	ctx context.Context,
+	req *grpcgen.ChatService_GetRemainingSendCountRequest,
+) (*grpcgen.ChatService_GetRemainingSendCountResponse, error) {
+	var (
+		userID           = model.UserID(req.GetUserId())
+		now              = times.C.Now()
+		currentYearMonth = model.NewYearMonthFromTime(now)
+	)
+
+	if !ctxs.UserIs(ctx, userID) {
+		return nil, &errs.Error{
+			Message: "can only get own remaining send count",
+			Cause:   errs.CausePermissionDenied,
+			Domain:  errs.DomainUser,
+			Field:   errs.FieldNone,
+		}
+	}
+
+	monthlySurplusCount, err := cc.msgSentCountQuery.
+		GetMonthlySurplusMessageSentCount(ctx, userID, currentYearMonth)
+	if err != nil {
+		return nil, err
+	}
+	dailyCount, err := monthlySurplusCount.Daily.WhereByDay(
+		model.Day(now.Day()))
+	if err != nil {
+		return nil, err
+	}
+	return &grpcgen.ChatService_GetRemainingSendCountResponse{
+		RemainingSendCount: conv.RemainingMessageSendCount.ModelToGrpc(
+			monthlySurplusCount,
+			dailyCount,
+		),
+		SentCount: conv.MessageSentCount.ModelToGrpc(
+			monthlySurplusCount,
+			dailyCount,
+		),
+	}, nil
+
 }
