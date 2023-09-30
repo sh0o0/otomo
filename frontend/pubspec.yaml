@@ -50,6 +50,7 @@ dependencies:
   custom_pop_up_menu: ^1.2.4
   settings_ui: ^2.0.2
   form_field_validator: ^1.1.0
+  awesome_dialog: ^3.1.0
 
   ### Riverpod
   flutter_hooks: ^0.18.0

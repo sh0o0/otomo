@@ -10,6 +10,7 @@ import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
 import 'package:otomo/views/bases/text_fields/text_field_label.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/cases/inform/inform_dialog.dart';
 import 'package:otomo/views/utils/flutter.dart';
 
 class SignInWithEmailLinkPage extends StatefulHookConsumerWidget {
@@ -44,6 +45,7 @@ class _SignInWithEmailLinkPageState
                       keyboardType: TextInputType.emailAddress,
                       hintText: 'メールアドレス',
                       onChanged: (value) => setState(() => _email = value),
+                      onSaved: (value) => setState(() => _email = value!),
                       validator: MultiValidator(
                         [
                           RequiredValidator(errorText: 'メールアドレスを入力してください。'),
@@ -61,6 +63,15 @@ class _SignInWithEmailLinkPageState
                           await ref
                               .read(signInProvider.notifier)
                               .sendSignInEmailLink(_email);
+                          afterBuildCallback(() {
+                            InformDialog(
+                              context: context,
+                              btnOkText: 'OK',
+                              btnOkOnPress: () {},
+                              body: const BodyMedium(
+                                  'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。'),
+                            ).show();
+                          });
                         },
                   child: const Text('認証メールを送信'),
                 )
