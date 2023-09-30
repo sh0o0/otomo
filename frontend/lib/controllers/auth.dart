@@ -67,7 +67,7 @@ class AuthControllerImpl {
 
   Future<void> sendSignInEmailLink(String email) async {
     final settings = auth.ActionCodeSettings(
-      url: Links.serviceSide,
+      url: Links.finishSignInWithEmailLink,
       handleCodeInApp: true,
       iOSBundleId: AppPackageInfo.packageName,
       androidPackageName: AppPackageInfo.packageName,

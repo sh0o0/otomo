@@ -3,7 +3,8 @@ import 'dart:io';
 final class Links {
   const Links._();
 
-  static const String serviceSide = 'https://azure992416.studio.site/';
+  static const String finishSignInWithEmailLink =
+      'https://azure992416.studio.site/finish-sign-in-with-email-link';
 
   static String inquiry(String userId, String email) {
     late final String device;
