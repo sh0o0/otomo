@@ -7,7 +7,7 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/view_models/router.dart';
-import 'package:otomo/view_models/sign_in.dart';
+import 'package:otomo/view_models/sign_in_with_email_link.dart';
 import 'package:otomo/views/utils/flutter.dart';
 
 class App extends HookConsumerWidget {
@@ -27,8 +27,9 @@ class App extends HookConsumerWidget {
         .info('handel dynamic link. do nothing. Link: ${data.link.toString()}');
 
     // Email link sign-in flow.
-    final signInNotifier = ref.read(signInProvider.notifier);
-    signInNotifier.signInWithEmailLinkIfLinkCorrect(data.link.toString());
+    ref
+        .read(signInWithEmailLinkProvider.notifier)
+        .signInWithEmailLinkIfLinkCorrect(data.link.toString());
   }
 
   // TODO: Move this logic to other place.

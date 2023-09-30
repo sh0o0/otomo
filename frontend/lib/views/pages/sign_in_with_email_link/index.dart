@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/view_models/sign_in.dart';
+import 'package:otomo/view_models/sign_in_with_email_link.dart';
 import 'package:otomo/views/bases/buttons/rounded_filled_button.dart';
 import 'package:otomo/views/bases/layouts/side_space_layout.dart';
 import 'package:otomo/views/bases/spaces/space.dart';
@@ -61,7 +61,7 @@ class _SignInWithEmailLinkPageState
                       : () async {
                           if (!validateAndSaveForm(_formKey)) return;
                           await ref
-                              .read(signInProvider.notifier)
+                              .read(signInWithEmailLinkProvider.notifier)
                               .sendSignInEmailLink(_email);
                           afterBuildCallback(() {
                             InformDialog(
