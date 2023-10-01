@@ -12,8 +12,12 @@ class HomePlaceDetails extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(placeDetailsProvider);
 
+    if (state.value?.isNotSpecified == true) {
+      return const Center(child: Text('No place specified'));
+    }
+
     return state.when(
-      data: (value) => PlaceDetails(basic: value),
+      data: (value) => PlaceDetails(basic: value.basic!),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, _) => Center(
         child: ErrorText(ErrorLibrary.fromAny(error)),

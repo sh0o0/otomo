@@ -44,8 +44,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i9.HealthServiceClient>(injectableModule.healthServiceClient);
     gh.factory<_i10.LocationControllerImpl>(
         () => _i10.LocationControllerImpl());
-    gh.factory<_i11.PlaceControllerImpl>(
-        () => _i11.PlaceControllerImpl(gh<String>()));
+    gh.singleton<_i11.PlaceControllerImpl>(injectableModule.placeController);
     gh.factory<_i12.ChatControllerImpl>(
         () => _i12.ChatControllerImpl(gh<_i4.ChatServiceClient>()));
     return this;

@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
+import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/place.dart';
+import 'package:otomo/tools/logger.dart';
 
-@injectable
 class PlaceControllerImpl {
-  PlaceControllerImpl(
-    String apiKey,
-  ) : _client = Dio(
+  PlaceControllerImpl(String apiKey)
+      : _client = Dio(
           BaseOptions(
             baseUrl: 'https://maps.googleapis.com',
             queryParameters: {'key': apiKey},
@@ -18,6 +17,7 @@ class PlaceControllerImpl {
   static const _detailsUrl = '/maps/api/place/details/json';
 
   Future<BasicPlaceDetails> getBasicPlaceDetails(String googlePlaceId) async {
+    logger.debug('getBasicPlaceDetails');
     final response = await _client.get(
       _detailsUrl,
       queryParameters: {
@@ -25,6 +25,11 @@ class PlaceControllerImpl {
         'language': 'ja',
       },
     );
+
+    final errorMessage = response.data['error_message'];
+    if (errorMessage != null) {
+      throw AppException.unknown(errorMessage);
+    }
 
     return BasicPlaceDetails.fromJson(response.data['result']);
   }
