@@ -5,8 +5,8 @@ import 'package:otomo/view_models/home.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_page_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
+import 'package:otomo/views/pages/home/cases/home_place_details.dart';
 import 'package:otomo/views/pages/map.dart';
-import 'package:otomo/views/pages/place_details.dart';
 import 'package:otomo/views/router.dart';
 import 'package:otomo/views/utils/controller.dart';
 
@@ -139,7 +139,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 onTextFieldTap: () => _onChatTextFieldTap(context),
               );
             case 1:
-              return const PlaceDetailsPage();
+              return const HomePlaceDetails();
             default:
               throw RangeError.index(index, 1);
           }
