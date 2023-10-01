@@ -21,6 +21,7 @@ import 'package:otomo/views/utils/error_handling.dart';
 void main() async {
   setNewLogger(Logger(level: appConfig.logLevel));
   logger.info(appConfig.toString());
+
   runZonedGuarded(() async {
     await setup();
 
@@ -45,6 +46,7 @@ Future<void> setup() async {
   }
 
   await AppPackageInfo.init();
+  logger.info(AppPackageInfo.expose());
 }
 
 Future<void> initializeFirebase() async {

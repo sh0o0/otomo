@@ -13,7 +13,7 @@ import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/utils/error_library.dart';
 import 'package:otomo/views/utils/flutter.dart';
 
-class HomeChat extends HookConsumerWidget {
+class HomeChat extends StatefulHookConsumerWidget {
   const HomeChat({
     super.key,
     this.onLeadingPressed,
@@ -22,6 +22,15 @@ class HomeChat extends HookConsumerWidget {
 
   final VoidCallback? onLeadingPressed;
   final VoidCallback? onTextFieldTap;
+
+  @override
+  ConsumerState<HomeChat> createState() => _HomeChatState();
+}
+
+class _HomeChatState extends ConsumerState<HomeChat>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
 
   Widget _statusPopupBuilder(
     BuildContext context,
@@ -51,7 +60,8 @@ class HomeChat extends HookConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    super.build(context);
     final state = ref.watch(chatProvider);
     final notifier = ref.read(chatProvider.notifier);
 
@@ -65,7 +75,7 @@ class HomeChat extends HookConsumerWidget {
         SizedBox(
           height: 72,
           child: ChatBottomSheetBar(
-            onLeadingPressed: onLeadingPressed,
+            onLeadingPressed: widget.onLeadingPressed,
             remainingMessageSendCount: state.value?.remainingMessageSendCount,
           ),
         ),
@@ -94,7 +104,7 @@ class HomeChat extends HookConsumerWidget {
                     child: types.Input(
                       onSendPressed: (text) => notifier.sendMessage(text.text),
                       options: types.InputOptions(
-                        onTextFieldTap: onTextFieldTap,
+                        onTextFieldTap: widget.onTextFieldTap,
                       ),
                     ),
                   ),

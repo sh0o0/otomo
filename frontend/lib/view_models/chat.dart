@@ -61,12 +61,12 @@ class Chat extends _$Chat {
 
   @override
   Future<ChatState> build() async =>
-      // Not const. Because it is not possible to add a message.
-      // ignore: prefer_const_constructors
-      ChatState(
-        messages: Pagination.emptyHasMore(),
-        remainingMessageSendCount: RemainingMessageSendCount.empty(),
-      );
+        // Not const. Because it is not possible to add a message.
+        // ignore: prefer_const_constructors
+        ChatState(
+            messages: Pagination.emptyHasMore(),
+            remainingMessageSendCount: RemainingMessageSendCount.empty(),
+          );
 
   Future<void> initState() async {
     state = const AsyncValue.loading();
@@ -158,8 +158,8 @@ class Chat extends _$Chat {
   }
 
   Future<RemainingMessageSendCount> _getRemainingMessageSendCount() async {
-    final output =
-        await _chatController.getRemainingMessageSendCount(readAccount(ref)!.uid);
+    final output = await _chatController
+        .getRemainingMessageSendCount(readAccount(ref)!.uid);
     return output.remainingMessageSendCount;
   }
 
