@@ -55,8 +55,9 @@ dependencies:
   hooks_riverpod: ^2.4.0
   riverpod_annotation: ^2.1.2
 
-  ### gRPC
+  ### Network
   grpc: ^3.2.3
+  dio: ^5.3.3
 
   ### Firebase
   firebase_core: ^2.15.0

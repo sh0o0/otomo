@@ -19,6 +19,7 @@ import 'package:otomo/views/app.dart';
 import 'package:otomo/views/utils/error_handling.dart';
 
 void main() async {
+  setNewLogger(Logger(level: appConfig.logLevel));
   logger.info(appConfig.toString());
   runZonedGuarded(() async {
     await setup();
