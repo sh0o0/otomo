@@ -13,10 +13,12 @@ abstract class BaseText extends StatelessWidget {
     this.text, {
     super.key,
     this.style,
+    this.overflow
   });
 
   final String text;
   final TextStyle? style;
+  final TextOverflow? overflow;
 
   TextStyle? defaultStyle(BuildContext context);
 
@@ -25,6 +27,7 @@ abstract class BaseText extends StatelessWidget {
     return Text(
       text,
       style: defaultStyle(context)?.merge(style),
+      overflow: overflow,
     );
   }
 }
@@ -48,6 +51,7 @@ class BodyMedium extends BaseText {
     super.text, {
     super.key,
     super.style,
+    super.overflow,
   });
 
   static TextStyle? styleOf(BuildContext context) =>
@@ -94,6 +98,20 @@ class TitleMedium extends BaseText {
 
   static TextStyle? styleOf(BuildContext context) =>
       Theme.of(context).textTheme.titleMedium;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
+
+class TitleLarge extends BaseText {
+  const TitleLarge(
+    super.text, {
+    super.key,
+    super.style,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.titleLarge;
 
   @override
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
