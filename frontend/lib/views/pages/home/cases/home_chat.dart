@@ -7,19 +7,21 @@ import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
+import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/utils/error_library.dart';
+import 'package:otomo/views/utils/flutter.dart';
 
 class HomeChat extends HookConsumerWidget {
   const HomeChat({
     super.key,
-    this.hideBottomSheet = false,
-    this.inputOptions = const types.InputOptions(),
+    this.onLeadingPressed,
+    this.onTextFieldTap,
   });
 
-  final bool hideBottomSheet;
-  final types.InputOptions inputOptions;
+  final VoidCallback? onLeadingPressed;
+  final VoidCallback? onTextFieldTap;
 
   Widget _statusPopupBuilder(
     BuildContext context,
@@ -54,38 +56,51 @@ class HomeChat extends HookConsumerWidget {
     final notifier = ref.read(chatProvider.notifier);
 
     useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await notifier.initState();
-      });
+      afterBuildCallback(notifier.initState);
       return () {};
     }, const []);
 
-    return ChatUI(
-      messages: state.value?.messages.items ?? [],
-      isLastPage: state.value?.messages.hasMore == false,
-      onSendPressed: (text) => notifier.sendMessage(text),
-      user: ChatState.user,
-      emptyState: _emptyState(context, state),
-      onEndReached: () => notifier.listMessagesMore(),
-      onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
-      showStatusPopup: (message) => message.status == MessageStatus.error,
-      statusPopupBuilder: (context, message) => _statusPopupBuilder(
-        context,
-        message,
-        messages: state.value?.messages.items ?? [],
-      ),
-      onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
-      customBottomWidget: state.value?.hideTextField == true
-          ? Spaces.zero
-          : Animate(
-              effects: const [
-                FadeEffect(duration: Duration(milliseconds: 100)),
-              ],
-              child: types.Input(
-                onSendPressed: (text) => notifier.sendMessage(text.text),
-                options: inputOptions,
-              ),
+    return Column(
+      children: [
+        SizedBox(
+          height: 72,
+          child: ChatBottomSheetBar(
+            onLeadingPressed: onLeadingPressed,
+            remainingMessageSendCount: state.value?.remainingMessageSendCount,
+          ),
+        ),
+        Expanded(
+          child: ChatUI(
+            messages: state.value?.messages.items ?? [],
+            isLastPage: state.value?.messages.hasMore == false,
+            onSendPressed: (text) => notifier.sendMessage(text),
+            user: ChatState.user,
+            emptyState: _emptyState(context, state),
+            onEndReached: () => notifier.listMessagesMore(),
+            onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
+            showStatusPopup: (message) => message.status == MessageStatus.error,
+            statusPopupBuilder: (context, message) => _statusPopupBuilder(
+              context,
+              message,
+              messages: state.value?.messages.items ?? [],
             ),
+            onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
+            customBottomWidget: state.value?.hideTextField == true
+                ? Spaces.zero
+                : Animate(
+                    effects: const [
+                      FadeEffect(duration: Duration(milliseconds: 100)),
+                    ],
+                    child: types.Input(
+                      onSendPressed: (text) => notifier.sendMessage(text.text),
+                      options: types.InputOptions(
+                        onTextFieldTap: onTextFieldTap,
+                      ),
+                    ),
+                  ),
+          ),
+        ),
+      ],
     );
   }
 }

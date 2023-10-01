@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
-import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map/index.dart';
@@ -42,7 +40,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     });
   }
 
-  void _onPressedSheetLeading(BuildContext context) {
+  void _onSheetLeadingPressed(BuildContext context) {
     _assertCanUseSheetController();
 
     _sheetController!.animateTo(
@@ -108,8 +106,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       return () => activatedTextMessageStreamSub.cancel();
     }, const []);
 
-    final chatState = ref.watch(chatProvider);
-
     return Unfocus(
       child: HomeWithDraggableScrollableBottomSheet(
         initialSheetSize: _minSheetSize,
@@ -120,14 +116,9 @@ class _HomePageState extends ConsumerState<HomePage> {
         resizeToAvoidBottomInset: false,
         onSheetCreated: _onSheetCreated,
         behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
-        bottomSheetBar: ChatBottomSheetBar(
-          onPressedLeading: () => _onPressedSheetLeading(context),
-          remainingMessageSendCount: chatState.value?.remainingMessageSendCount,
-        ),
         bottomSheet: HomeChat(
-          inputOptions: InputOptions(
-            onTextFieldTap: () => _onChatTextFieldTap(context),
-          ),
+          onLeadingPressed: () => _onSheetLeadingPressed(context),
+          onTextFieldTap: () => _onChatTextFieldTap(context),
         ),
         child: const MapPage(),
       ),

@@ -13,7 +13,6 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.behindSheetFloatingActionButtons,
-    required this.bottomSheetBar,
     required this.bottomSheet,
     required this.child,
   });
@@ -28,7 +27,6 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final List<Widget>? behindSheetFloatingActionButtons;
-  final Widget bottomSheetBar;
   final Widget bottomSheet;
   final Widget child;
 
@@ -39,8 +37,6 @@ class HomeWithDraggableScrollableBottomSheet extends StatefulWidget {
 
 class _HomeWithDraggableScrollableBottomSheetState
     extends State<HomeWithDraggableScrollableBottomSheet> {
-  static const double _sheetBarHeight = 72;
-
   final _sheetController = DraggableScrollableController();
 
   double? _sheetHeight;
@@ -110,17 +106,7 @@ class _HomeWithDraggableScrollableBottomSheetState
                     ),
                     clipBehavior: Clip.hardEdge,
                     height: _sheetHeight ?? _initialSheetHeight(context),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: _sheetBarHeight,
-                          child: widget.bottomSheetBar,
-                        ),
-                        Expanded(
-                          child: widget.bottomSheet,
-                        ),
-                      ],
-                    ),
+                    child: widget.bottomSheet,
                   ),
                 );
               },

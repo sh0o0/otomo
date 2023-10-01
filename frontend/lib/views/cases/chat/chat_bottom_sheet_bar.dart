@@ -10,17 +10,17 @@ import 'package:otomo/views/cases/chat/otomo_avatar.dart';
 class ChatBottomSheetBar extends StatelessWidget {
   const ChatBottomSheetBar({
     super.key,
-    this.onPressedLeading,
+    this.onLeadingPressed,
     this.remainingMessageSendCount,
   });
 
-  final VoidCallback? onPressedLeading;
+  final VoidCallback? onLeadingPressed;
   final RemainingMessageSendCount? remainingMessageSendCount;
 
   Widget _buildLeft(BuildContext context) {
     return Row(
       children: [
-        BottomSheetLeading(onPressedLeading: onPressedLeading),
+        BottomSheetLeading(onPressedLeading: onLeadingPressed),
         Spaces.w8,
         const OtomoAvatar(),
         Spaces.w8,
