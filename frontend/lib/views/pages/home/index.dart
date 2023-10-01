@@ -5,7 +5,7 @@ import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_page_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
-import 'package:otomo/views/pages/map/index.dart';
+import 'package:otomo/views/pages/map.dart';
 import 'package:otomo/views/router.dart';
 import 'package:otomo/views/utils/controller.dart';
 
