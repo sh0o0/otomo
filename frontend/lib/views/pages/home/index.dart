@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
-import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
+import 'package:otomo/views/cases/home/home_with_draggable_page_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map/index.dart';
 import 'package:otomo/views/router.dart';
@@ -107,7 +107,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     }, const []);
 
     return Unfocus(
-      child: HomeWithDraggableScrollableBottomSheet(
+      child: HomeWithDraggablePageBottomSheet(
         initialSheetSize: _minSheetSize,
         maxSheetSize: _maxSheetSize,
         minSheetSize: _minSheetSize,
@@ -116,10 +116,13 @@ class _HomePageState extends ConsumerState<HomePage> {
         resizeToAvoidBottomInset: false,
         onSheetCreated: _onSheetCreated,
         behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
-        bottomSheet: HomeChat(
-          onLeadingPressed: () => _onSheetLeadingPressed(context),
-          onTextFieldTap: () => _onChatTextFieldTap(context),
-        ),
+        pageCount: 2,
+        bottomSheetBuilder: (context, index) {
+          return HomeChat(
+            onLeadingPressed: () => _onSheetLeadingPressed(context),
+            onTextFieldTap: () => _onChatTextFieldTap(context),
+          );
+        },
         child: const MapPage(),
       ),
     );
