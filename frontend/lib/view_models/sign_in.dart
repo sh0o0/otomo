@@ -6,7 +6,6 @@ part 'sign_in.g.dart';
 
 @riverpod
 class SignIn extends _$SignIn {
-  SignIn() : super();
 
   final _controller = getIt<AuthControllerImpl>();
 

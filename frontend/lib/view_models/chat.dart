@@ -46,8 +46,6 @@ class ChatState with _$ChatState {
 
 @riverpod
 class Chat extends _$Chat {
-  Chat() : super();
-
   final _chatController = getIt<ChatControllerImpl>();
   final StreamController<AnalyzedLocation>
       _focusedAnalyzedLocationStreamController =
