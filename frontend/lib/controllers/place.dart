@@ -17,7 +17,7 @@ class PlaceControllerImpl {
   static const _detailsUrl = '/maps/api/place/details/json';
 
   Future<BasicPlaceDetails> getBasicPlaceDetails(String googlePlaceId) async {
-    logger.debug('getBasicPlaceDetails');
+    logger.debug('getBasicPlaceDetails. googlePlaceId: $googlePlaceId');
     final response = await _client.get(
       _detailsUrl,
       queryParameters: {

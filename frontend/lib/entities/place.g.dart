@@ -8,29 +8,34 @@ part of 'place.dart';
 
 _$_BasicPlaceDetails _$$_BasicPlaceDetailsFromJson(Map<String, dynamic> json) =>
     _$_BasicPlaceDetails(
-      name: json['name'] as String,
-      formattedAddress: json['formatted_address'] as String,
-      formattedPhoneNumber: json['formatted_phone_number'] as String,
-      website: json['website'] as String,
-      url: json['url'] as String,
-      rating: (json['rating'] as num).toDouble(),
-      userRatingsTotal: json['user_ratings_total'] as int,
-      placeId: json['place_id'] as String,
-      vicinity: json['vicinity'] as String,
-      icon: json['icon'] as String,
-      internationalPhoneNumber: json['international_phone_number'] as String,
-      reference: json['reference'] as String,
-      types: (json['types'] as List<dynamic>).map((e) => e as String).toList(),
-      geometry: BasicPlaceDetailsGeometry.fromJson(
-          json['geometry'] as Map<String, dynamic>),
-      openingHours: BasicPlaceDetailsOpeningHours.fromJson(
-          json['opening_hours'] as Map<String, dynamic>),
-      photos: (json['photos'] as List<dynamic>)
-          .map(
+      name: json['name'] as String?,
+      formattedAddress: json['formatted_address'] as String?,
+      formattedPhoneNumber: json['formatted_phone_number'] as String?,
+      website: json['website'] as String?,
+      url: json['url'] as String?,
+      rating: (json['rating'] as num?)?.toDouble(),
+      userRatingsTotal: json['user_ratings_total'] as int?,
+      placeId: json['place_id'] as String?,
+      vicinity: json['vicinity'] as String?,
+      icon: json['icon'] as String?,
+      internationalPhoneNumber: json['international_phone_number'] as String?,
+      reference: json['reference'] as String?,
+      types:
+          (json['types'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      geometry: json['geometry'] == null
+          ? null
+          : BasicPlaceDetailsGeometry.fromJson(
+              json['geometry'] as Map<String, dynamic>),
+      openingHours: json['opening_hours'] == null
+          ? null
+          : BasicPlaceDetailsOpeningHours.fromJson(
+              json['opening_hours'] as Map<String, dynamic>),
+      photos: (json['photos'] as List<dynamic>?)
+          ?.map(
               (e) => BasicPlaceDetailsPhoto.fromJson(e as Map<String, dynamic>))
           .toList(),
-      reviews: (json['reviews'] as List<dynamic>)
-          .map((e) =>
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) =>
               BasicPlaceDetailsReview.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -87,13 +92,13 @@ Map<String, dynamic> _$$_BasicPlaceDetailsLocationToJson(
 _$_BasicPlaceDetailsOpeningHours _$$_BasicPlaceDetailsOpeningHoursFromJson(
         Map<String, dynamic> json) =>
     _$_BasicPlaceDetailsOpeningHours(
-      openNow: json['open_now'] as bool,
-      periods: (json['periods'] as List<dynamic>)
-          .map((e) =>
+      openNow: json['open_now'] as bool?,
+      periods: (json['periods'] as List<dynamic>?)
+          ?.map((e) =>
               BasicPlaceDetailsPeriod.fromJson(e as Map<String, dynamic>))
           .toList(),
-      weekdayText: (json['weekday_text'] as List<dynamic>)
-          .map((e) => e as String)
+      weekdayText: (json['weekday_text'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
     );
 
@@ -108,8 +113,10 @@ Map<String, dynamic> _$$_BasicPlaceDetailsOpeningHoursToJson(
 _$_BasicPlaceDetailsPeriod _$$_BasicPlaceDetailsPeriodFromJson(
         Map<String, dynamic> json) =>
     _$_BasicPlaceDetailsPeriod(
-      close: BasicPlaceDetailsPeriodClose.fromJson(
-          json['close'] as Map<String, dynamic>),
+      close: json['close'] == null
+          ? null
+          : BasicPlaceDetailsPeriodClose.fromJson(
+              json['close'] as Map<String, dynamic>),
       open: BasicPlaceDetailsPeriodOpen.fromJson(
           json['open'] as Map<String, dynamic>),
     );
@@ -173,12 +180,12 @@ _$_BasicPlaceDetailsReview _$$_BasicPlaceDetailsReviewFromJson(
         Map<String, dynamic> json) =>
     _$_BasicPlaceDetailsReview(
       authorName: json['author_name'] as String,
-      authorUrl: json['author_url'] as String,
-      language: json['language'] as String,
-      profilePhotoUrl: json['profile_photo_url'] as String,
+      authorUrl: json['author_url'] as String?,
+      language: json['language'] as String?,
+      profilePhotoUrl: json['profile_photo_url'] as String?,
       rating: json['rating'] as int,
       relativeTimeDescription: json['relative_time_description'] as String,
-      text: json['text'] as String,
+      text: json['text'] as String?,
       time: json['time'] as int,
     );
 

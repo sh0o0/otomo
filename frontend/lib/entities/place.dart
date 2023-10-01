@@ -5,23 +5,23 @@ part 'place.g.dart';
 @freezed
 class BasicPlaceDetails with _$BasicPlaceDetails {
   const factory BasicPlaceDetails({
-    required String name,
-    required String formattedAddress,
-    required String formattedPhoneNumber,
-    required String website,
-    required String url,
-    required double rating,
-    required int userRatingsTotal,
-    required String placeId,
-    required String vicinity,
-    required String icon,
-    required String internationalPhoneNumber,
-    required String reference,
-    required List<String> types,
-    required BasicPlaceDetailsGeometry geometry,
-    required BasicPlaceDetailsOpeningHours openingHours,
-    required List<BasicPlaceDetailsPhoto> photos,
-    required List<BasicPlaceDetailsReview> reviews,
+    required String? name,
+    required String? formattedAddress,
+    required String? formattedPhoneNumber,
+    required String? website,
+    required String? url,
+    required double? rating,
+    required int? userRatingsTotal,
+    required String? placeId,
+    required String? vicinity,
+    required String? icon,
+    required String? internationalPhoneNumber,
+    required String? reference,
+    required List<String>? types,
+    required BasicPlaceDetailsGeometry? geometry,
+    required BasicPlaceDetailsOpeningHours? openingHours,
+    required List<BasicPlaceDetailsPhoto>? photos,
+    required List<BasicPlaceDetailsReview>? reviews,
   }) = _BasicPlaceDetails;
 
   factory BasicPlaceDetails.fromJson(Map<String, dynamic> json) =>
@@ -52,9 +52,9 @@ class BasicPlaceDetailsLocation with _$BasicPlaceDetailsLocation {
 @freezed
 class BasicPlaceDetailsOpeningHours with _$BasicPlaceDetailsOpeningHours {
   const factory BasicPlaceDetailsOpeningHours({
-    required bool openNow,
-    required List<BasicPlaceDetailsPeriod> periods,
-    required List<String> weekdayText,
+    required bool? openNow,
+    required List<BasicPlaceDetailsPeriod>? periods,
+    required List<String>? weekdayText,
   }) = _BasicPlaceDetailsOpeningHours;
 
   factory BasicPlaceDetailsOpeningHours.fromJson(Map<String, dynamic> json) =>
@@ -64,7 +64,7 @@ class BasicPlaceDetailsOpeningHours with _$BasicPlaceDetailsOpeningHours {
 @freezed
 class BasicPlaceDetailsPeriod with _$BasicPlaceDetailsPeriod {
   const factory BasicPlaceDetailsPeriod({
-    required BasicPlaceDetailsPeriodClose close,
+    required BasicPlaceDetailsPeriodClose? close,
     required BasicPlaceDetailsPeriodOpen open,
   }) = _BasicPlaceDetailsPeriod;
 
@@ -111,12 +111,12 @@ class BasicPlaceDetailsPhoto with _$BasicPlaceDetailsPhoto {
 class BasicPlaceDetailsReview with _$BasicPlaceDetailsReview {
   const factory BasicPlaceDetailsReview({
     required String authorName,
-    required String authorUrl,
-    required String language,
-    required String profilePhotoUrl,
+    required String? authorUrl,
+    required String? language,
+    required String? profilePhotoUrl,
     required int rating,
     required String relativeTimeDescription,
-    required String text,
+    required String? text,
     required int time,
   }) = _BasicPlaceDetailsReview;
 

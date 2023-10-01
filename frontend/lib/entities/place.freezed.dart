@@ -20,24 +20,25 @@ BasicPlaceDetails _$BasicPlaceDetailsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BasicPlaceDetails {
-  String get name => throw _privateConstructorUsedError;
-  String get formattedAddress => throw _privateConstructorUsedError;
-  String get formattedPhoneNumber => throw _privateConstructorUsedError;
-  String get website => throw _privateConstructorUsedError;
-  String get url => throw _privateConstructorUsedError;
-  double get rating => throw _privateConstructorUsedError;
-  int get userRatingsTotal => throw _privateConstructorUsedError;
-  String get placeId => throw _privateConstructorUsedError;
-  String get vicinity => throw _privateConstructorUsedError;
-  String get icon => throw _privateConstructorUsedError;
-  String get internationalPhoneNumber => throw _privateConstructorUsedError;
-  String get reference => throw _privateConstructorUsedError;
-  List<String> get types => throw _privateConstructorUsedError;
-  BasicPlaceDetailsGeometry get geometry => throw _privateConstructorUsedError;
-  BasicPlaceDetailsOpeningHours get openingHours =>
+  String? get name => throw _privateConstructorUsedError;
+  String? get formattedAddress => throw _privateConstructorUsedError;
+  String? get formattedPhoneNumber => throw _privateConstructorUsedError;
+  String? get website => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
+  double? get rating => throw _privateConstructorUsedError;
+  int? get userRatingsTotal => throw _privateConstructorUsedError;
+  String? get placeId => throw _privateConstructorUsedError;
+  String? get vicinity => throw _privateConstructorUsedError;
+  String? get icon => throw _privateConstructorUsedError;
+  String? get internationalPhoneNumber => throw _privateConstructorUsedError;
+  String? get reference => throw _privateConstructorUsedError;
+  List<String>? get types => throw _privateConstructorUsedError;
+  BasicPlaceDetailsGeometry? get geometry => throw _privateConstructorUsedError;
+  BasicPlaceDetailsOpeningHours? get openingHours =>
       throw _privateConstructorUsedError;
-  List<BasicPlaceDetailsPhoto> get photos => throw _privateConstructorUsedError;
-  List<BasicPlaceDetailsReview> get reviews =>
+  List<BasicPlaceDetailsPhoto>? get photos =>
+      throw _privateConstructorUsedError;
+  List<BasicPlaceDetailsReview>? get reviews =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,26 +54,26 @@ abstract class $BasicPlaceDetailsCopyWith<$Res> {
       _$BasicPlaceDetailsCopyWithImpl<$Res, BasicPlaceDetails>;
   @useResult
   $Res call(
-      {String name,
-      String formattedAddress,
-      String formattedPhoneNumber,
-      String website,
-      String url,
-      double rating,
-      int userRatingsTotal,
-      String placeId,
-      String vicinity,
-      String icon,
-      String internationalPhoneNumber,
-      String reference,
-      List<String> types,
-      BasicPlaceDetailsGeometry geometry,
-      BasicPlaceDetailsOpeningHours openingHours,
-      List<BasicPlaceDetailsPhoto> photos,
-      List<BasicPlaceDetailsReview> reviews});
+      {String? name,
+      String? formattedAddress,
+      String? formattedPhoneNumber,
+      String? website,
+      String? url,
+      double? rating,
+      int? userRatingsTotal,
+      String? placeId,
+      String? vicinity,
+      String? icon,
+      String? internationalPhoneNumber,
+      String? reference,
+      List<String>? types,
+      BasicPlaceDetailsGeometry? geometry,
+      BasicPlaceDetailsOpeningHours? openingHours,
+      List<BasicPlaceDetailsPhoto>? photos,
+      List<BasicPlaceDetailsReview>? reviews});
 
-  $BasicPlaceDetailsGeometryCopyWith<$Res> get geometry;
-  $BasicPlaceDetailsOpeningHoursCopyWith<$Res> get openingHours;
+  $BasicPlaceDetailsGeometryCopyWith<$Res>? get geometry;
+  $BasicPlaceDetailsOpeningHoursCopyWith<$Res>? get openingHours;
 }
 
 /// @nodoc
@@ -88,108 +89,116 @@ class _$BasicPlaceDetailsCopyWithImpl<$Res, $Val extends BasicPlaceDetails>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? formattedAddress = null,
-    Object? formattedPhoneNumber = null,
-    Object? website = null,
-    Object? url = null,
-    Object? rating = null,
-    Object? userRatingsTotal = null,
-    Object? placeId = null,
-    Object? vicinity = null,
-    Object? icon = null,
-    Object? internationalPhoneNumber = null,
-    Object? reference = null,
-    Object? types = null,
-    Object? geometry = null,
-    Object? openingHours = null,
-    Object? photos = null,
-    Object? reviews = null,
+    Object? name = freezed,
+    Object? formattedAddress = freezed,
+    Object? formattedPhoneNumber = freezed,
+    Object? website = freezed,
+    Object? url = freezed,
+    Object? rating = freezed,
+    Object? userRatingsTotal = freezed,
+    Object? placeId = freezed,
+    Object? vicinity = freezed,
+    Object? icon = freezed,
+    Object? internationalPhoneNumber = freezed,
+    Object? reference = freezed,
+    Object? types = freezed,
+    Object? geometry = freezed,
+    Object? openingHours = freezed,
+    Object? photos = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      formattedAddress: null == formattedAddress
+              as String?,
+      formattedAddress: freezed == formattedAddress
           ? _value.formattedAddress
           : formattedAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      formattedPhoneNumber: null == formattedPhoneNumber
+              as String?,
+      formattedPhoneNumber: freezed == formattedPhoneNumber
           ? _value.formattedPhoneNumber
           : formattedPhoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      website: null == website
+              as String?,
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
-              as String,
-      url: null == url
+              as String?,
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      rating: null == rating
+              as String?,
+      rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as double,
-      userRatingsTotal: null == userRatingsTotal
+              as double?,
+      userRatingsTotal: freezed == userRatingsTotal
           ? _value.userRatingsTotal
           : userRatingsTotal // ignore: cast_nullable_to_non_nullable
-              as int,
-      placeId: null == placeId
+              as int?,
+      placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      vicinity: null == vicinity
+              as String?,
+      vicinity: freezed == vicinity
           ? _value.vicinity
           : vicinity // ignore: cast_nullable_to_non_nullable
-              as String,
-      icon: null == icon
+              as String?,
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String,
-      internationalPhoneNumber: null == internationalPhoneNumber
+              as String?,
+      internationalPhoneNumber: freezed == internationalPhoneNumber
           ? _value.internationalPhoneNumber
           : internationalPhoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      reference: null == reference
+              as String?,
+      reference: freezed == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
-              as String,
-      types: null == types
+              as String?,
+      types: freezed == types
           ? _value.types
           : types // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      geometry: null == geometry
+              as List<String>?,
+      geometry: freezed == geometry
           ? _value.geometry
           : geometry // ignore: cast_nullable_to_non_nullable
-              as BasicPlaceDetailsGeometry,
-      openingHours: null == openingHours
+              as BasicPlaceDetailsGeometry?,
+      openingHours: freezed == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
-              as BasicPlaceDetailsOpeningHours,
-      photos: null == photos
+              as BasicPlaceDetailsOpeningHours?,
+      photos: freezed == photos
           ? _value.photos
           : photos // ignore: cast_nullable_to_non_nullable
-              as List<BasicPlaceDetailsPhoto>,
-      reviews: null == reviews
+              as List<BasicPlaceDetailsPhoto>?,
+      reviews: freezed == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
-              as List<BasicPlaceDetailsReview>,
+              as List<BasicPlaceDetailsReview>?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $BasicPlaceDetailsGeometryCopyWith<$Res> get geometry {
-    return $BasicPlaceDetailsGeometryCopyWith<$Res>(_value.geometry, (value) {
+  $BasicPlaceDetailsGeometryCopyWith<$Res>? get geometry {
+    if (_value.geometry == null) {
+      return null;
+    }
+
+    return $BasicPlaceDetailsGeometryCopyWith<$Res>(_value.geometry!, (value) {
       return _then(_value.copyWith(geometry: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $BasicPlaceDetailsOpeningHoursCopyWith<$Res> get openingHours {
-    return $BasicPlaceDetailsOpeningHoursCopyWith<$Res>(_value.openingHours,
+  $BasicPlaceDetailsOpeningHoursCopyWith<$Res>? get openingHours {
+    if (_value.openingHours == null) {
+      return null;
+    }
+
+    return $BasicPlaceDetailsOpeningHoursCopyWith<$Res>(_value.openingHours!,
         (value) {
       return _then(_value.copyWith(openingHours: value) as $Val);
     });
@@ -205,28 +214,28 @@ abstract class _$$_BasicPlaceDetailsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
-      String formattedAddress,
-      String formattedPhoneNumber,
-      String website,
-      String url,
-      double rating,
-      int userRatingsTotal,
-      String placeId,
-      String vicinity,
-      String icon,
-      String internationalPhoneNumber,
-      String reference,
-      List<String> types,
-      BasicPlaceDetailsGeometry geometry,
-      BasicPlaceDetailsOpeningHours openingHours,
-      List<BasicPlaceDetailsPhoto> photos,
-      List<BasicPlaceDetailsReview> reviews});
+      {String? name,
+      String? formattedAddress,
+      String? formattedPhoneNumber,
+      String? website,
+      String? url,
+      double? rating,
+      int? userRatingsTotal,
+      String? placeId,
+      String? vicinity,
+      String? icon,
+      String? internationalPhoneNumber,
+      String? reference,
+      List<String>? types,
+      BasicPlaceDetailsGeometry? geometry,
+      BasicPlaceDetailsOpeningHours? openingHours,
+      List<BasicPlaceDetailsPhoto>? photos,
+      List<BasicPlaceDetailsReview>? reviews});
 
   @override
-  $BasicPlaceDetailsGeometryCopyWith<$Res> get geometry;
+  $BasicPlaceDetailsGeometryCopyWith<$Res>? get geometry;
   @override
-  $BasicPlaceDetailsOpeningHoursCopyWith<$Res> get openingHours;
+  $BasicPlaceDetailsOpeningHoursCopyWith<$Res>? get openingHours;
 }
 
 /// @nodoc
@@ -240,93 +249,93 @@ class __$$_BasicPlaceDetailsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? formattedAddress = null,
-    Object? formattedPhoneNumber = null,
-    Object? website = null,
-    Object? url = null,
-    Object? rating = null,
-    Object? userRatingsTotal = null,
-    Object? placeId = null,
-    Object? vicinity = null,
-    Object? icon = null,
-    Object? internationalPhoneNumber = null,
-    Object? reference = null,
-    Object? types = null,
-    Object? geometry = null,
-    Object? openingHours = null,
-    Object? photos = null,
-    Object? reviews = null,
+    Object? name = freezed,
+    Object? formattedAddress = freezed,
+    Object? formattedPhoneNumber = freezed,
+    Object? website = freezed,
+    Object? url = freezed,
+    Object? rating = freezed,
+    Object? userRatingsTotal = freezed,
+    Object? placeId = freezed,
+    Object? vicinity = freezed,
+    Object? icon = freezed,
+    Object? internationalPhoneNumber = freezed,
+    Object? reference = freezed,
+    Object? types = freezed,
+    Object? geometry = freezed,
+    Object? openingHours = freezed,
+    Object? photos = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_$_BasicPlaceDetails(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      formattedAddress: null == formattedAddress
+              as String?,
+      formattedAddress: freezed == formattedAddress
           ? _value.formattedAddress
           : formattedAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      formattedPhoneNumber: null == formattedPhoneNumber
+              as String?,
+      formattedPhoneNumber: freezed == formattedPhoneNumber
           ? _value.formattedPhoneNumber
           : formattedPhoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      website: null == website
+              as String?,
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
-              as String,
-      url: null == url
+              as String?,
+      url: freezed == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      rating: null == rating
+              as String?,
+      rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as double,
-      userRatingsTotal: null == userRatingsTotal
+              as double?,
+      userRatingsTotal: freezed == userRatingsTotal
           ? _value.userRatingsTotal
           : userRatingsTotal // ignore: cast_nullable_to_non_nullable
-              as int,
-      placeId: null == placeId
+              as int?,
+      placeId: freezed == placeId
           ? _value.placeId
           : placeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      vicinity: null == vicinity
+              as String?,
+      vicinity: freezed == vicinity
           ? _value.vicinity
           : vicinity // ignore: cast_nullable_to_non_nullable
-              as String,
-      icon: null == icon
+              as String?,
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String,
-      internationalPhoneNumber: null == internationalPhoneNumber
+              as String?,
+      internationalPhoneNumber: freezed == internationalPhoneNumber
           ? _value.internationalPhoneNumber
           : internationalPhoneNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      reference: null == reference
+              as String?,
+      reference: freezed == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
-              as String,
-      types: null == types
+              as String?,
+      types: freezed == types
           ? _value._types
           : types // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      geometry: null == geometry
+              as List<String>?,
+      geometry: freezed == geometry
           ? _value.geometry
           : geometry // ignore: cast_nullable_to_non_nullable
-              as BasicPlaceDetailsGeometry,
-      openingHours: null == openingHours
+              as BasicPlaceDetailsGeometry?,
+      openingHours: freezed == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
-              as BasicPlaceDetailsOpeningHours,
-      photos: null == photos
+              as BasicPlaceDetailsOpeningHours?,
+      photos: freezed == photos
           ? _value._photos
           : photos // ignore: cast_nullable_to_non_nullable
-              as List<BasicPlaceDetailsPhoto>,
-      reviews: null == reviews
+              as List<BasicPlaceDetailsPhoto>?,
+      reviews: freezed == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
-              as List<BasicPlaceDetailsReview>,
+              as List<BasicPlaceDetailsReview>?,
     ));
   }
 }
@@ -347,11 +356,11 @@ class _$_BasicPlaceDetails implements _BasicPlaceDetails {
       required this.icon,
       required this.internationalPhoneNumber,
       required this.reference,
-      required final List<String> types,
+      required final List<String>? types,
       required this.geometry,
       required this.openingHours,
-      required final List<BasicPlaceDetailsPhoto> photos,
-      required final List<BasicPlaceDetailsReview> reviews})
+      required final List<BasicPlaceDetailsPhoto>? photos,
+      required final List<BasicPlaceDetailsReview>? reviews})
       : _types = types,
         _photos = photos,
         _reviews = reviews;
@@ -360,55 +369,61 @@ class _$_BasicPlaceDetails implements _BasicPlaceDetails {
       _$$_BasicPlaceDetailsFromJson(json);
 
   @override
-  final String name;
+  final String? name;
   @override
-  final String formattedAddress;
+  final String? formattedAddress;
   @override
-  final String formattedPhoneNumber;
+  final String? formattedPhoneNumber;
   @override
-  final String website;
+  final String? website;
   @override
-  final String url;
+  final String? url;
   @override
-  final double rating;
+  final double? rating;
   @override
-  final int userRatingsTotal;
+  final int? userRatingsTotal;
   @override
-  final String placeId;
+  final String? placeId;
   @override
-  final String vicinity;
+  final String? vicinity;
   @override
-  final String icon;
+  final String? icon;
   @override
-  final String internationalPhoneNumber;
+  final String? internationalPhoneNumber;
   @override
-  final String reference;
-  final List<String> _types;
+  final String? reference;
+  final List<String>? _types;
   @override
-  List<String> get types {
+  List<String>? get types {
+    final value = _types;
+    if (value == null) return null;
     if (_types is EqualUnmodifiableListView) return _types;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_types);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  final BasicPlaceDetailsGeometry geometry;
+  final BasicPlaceDetailsGeometry? geometry;
   @override
-  final BasicPlaceDetailsOpeningHours openingHours;
-  final List<BasicPlaceDetailsPhoto> _photos;
+  final BasicPlaceDetailsOpeningHours? openingHours;
+  final List<BasicPlaceDetailsPhoto>? _photos;
   @override
-  List<BasicPlaceDetailsPhoto> get photos {
+  List<BasicPlaceDetailsPhoto>? get photos {
+    final value = _photos;
+    if (value == null) return null;
     if (_photos is EqualUnmodifiableListView) return _photos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_photos);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<BasicPlaceDetailsReview> _reviews;
+  final List<BasicPlaceDetailsReview>? _reviews;
   @override
-  List<BasicPlaceDetailsReview> get reviews {
+  List<BasicPlaceDetailsReview>? get reviews {
+    final value = _reviews;
+    if (value == null) return null;
     if (_reviews is EqualUnmodifiableListView) return _reviews;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_reviews);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -488,62 +503,62 @@ class _$_BasicPlaceDetails implements _BasicPlaceDetails {
 
 abstract class _BasicPlaceDetails implements BasicPlaceDetails {
   const factory _BasicPlaceDetails(
-          {required final String name,
-          required final String formattedAddress,
-          required final String formattedPhoneNumber,
-          required final String website,
-          required final String url,
-          required final double rating,
-          required final int userRatingsTotal,
-          required final String placeId,
-          required final String vicinity,
-          required final String icon,
-          required final String internationalPhoneNumber,
-          required final String reference,
-          required final List<String> types,
-          required final BasicPlaceDetailsGeometry geometry,
-          required final BasicPlaceDetailsOpeningHours openingHours,
-          required final List<BasicPlaceDetailsPhoto> photos,
-          required final List<BasicPlaceDetailsReview> reviews}) =
+          {required final String? name,
+          required final String? formattedAddress,
+          required final String? formattedPhoneNumber,
+          required final String? website,
+          required final String? url,
+          required final double? rating,
+          required final int? userRatingsTotal,
+          required final String? placeId,
+          required final String? vicinity,
+          required final String? icon,
+          required final String? internationalPhoneNumber,
+          required final String? reference,
+          required final List<String>? types,
+          required final BasicPlaceDetailsGeometry? geometry,
+          required final BasicPlaceDetailsOpeningHours? openingHours,
+          required final List<BasicPlaceDetailsPhoto>? photos,
+          required final List<BasicPlaceDetailsReview>? reviews}) =
       _$_BasicPlaceDetails;
 
   factory _BasicPlaceDetails.fromJson(Map<String, dynamic> json) =
       _$_BasicPlaceDetails.fromJson;
 
   @override
-  String get name;
+  String? get name;
   @override
-  String get formattedAddress;
+  String? get formattedAddress;
   @override
-  String get formattedPhoneNumber;
+  String? get formattedPhoneNumber;
   @override
-  String get website;
+  String? get website;
   @override
-  String get url;
+  String? get url;
   @override
-  double get rating;
+  double? get rating;
   @override
-  int get userRatingsTotal;
+  int? get userRatingsTotal;
   @override
-  String get placeId;
+  String? get placeId;
   @override
-  String get vicinity;
+  String? get vicinity;
   @override
-  String get icon;
+  String? get icon;
   @override
-  String get internationalPhoneNumber;
+  String? get internationalPhoneNumber;
   @override
-  String get reference;
+  String? get reference;
   @override
-  List<String> get types;
+  List<String>? get types;
   @override
-  BasicPlaceDetailsGeometry get geometry;
+  BasicPlaceDetailsGeometry? get geometry;
   @override
-  BasicPlaceDetailsOpeningHours get openingHours;
+  BasicPlaceDetailsOpeningHours? get openingHours;
   @override
-  List<BasicPlaceDetailsPhoto> get photos;
+  List<BasicPlaceDetailsPhoto>? get photos;
   @override
-  List<BasicPlaceDetailsReview> get reviews;
+  List<BasicPlaceDetailsReview>? get reviews;
   @override
   @JsonKey(ignore: true)
   _$$_BasicPlaceDetailsCopyWith<_$_BasicPlaceDetails> get copyWith =>
@@ -875,10 +890,10 @@ BasicPlaceDetailsOpeningHours _$BasicPlaceDetailsOpeningHoursFromJson(
 
 /// @nodoc
 mixin _$BasicPlaceDetailsOpeningHours {
-  bool get openNow => throw _privateConstructorUsedError;
-  List<BasicPlaceDetailsPeriod> get periods =>
+  bool? get openNow => throw _privateConstructorUsedError;
+  List<BasicPlaceDetailsPeriod>? get periods =>
       throw _privateConstructorUsedError;
-  List<String> get weekdayText => throw _privateConstructorUsedError;
+  List<String>? get weekdayText => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -895,9 +910,9 @@ abstract class $BasicPlaceDetailsOpeningHoursCopyWith<$Res> {
           BasicPlaceDetailsOpeningHours>;
   @useResult
   $Res call(
-      {bool openNow,
-      List<BasicPlaceDetailsPeriod> periods,
-      List<String> weekdayText});
+      {bool? openNow,
+      List<BasicPlaceDetailsPeriod>? periods,
+      List<String>? weekdayText});
 }
 
 /// @nodoc
@@ -914,23 +929,23 @@ class _$BasicPlaceDetailsOpeningHoursCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? openNow = null,
-    Object? periods = null,
-    Object? weekdayText = null,
+    Object? openNow = freezed,
+    Object? periods = freezed,
+    Object? weekdayText = freezed,
   }) {
     return _then(_value.copyWith(
-      openNow: null == openNow
+      openNow: freezed == openNow
           ? _value.openNow
           : openNow // ignore: cast_nullable_to_non_nullable
-              as bool,
-      periods: null == periods
+              as bool?,
+      periods: freezed == periods
           ? _value.periods
           : periods // ignore: cast_nullable_to_non_nullable
-              as List<BasicPlaceDetailsPeriod>,
-      weekdayText: null == weekdayText
+              as List<BasicPlaceDetailsPeriod>?,
+      weekdayText: freezed == weekdayText
           ? _value.weekdayText
           : weekdayText // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -945,9 +960,9 @@ abstract class _$$_BasicPlaceDetailsOpeningHoursCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool openNow,
-      List<BasicPlaceDetailsPeriod> periods,
-      List<String> weekdayText});
+      {bool? openNow,
+      List<BasicPlaceDetailsPeriod>? periods,
+      List<String>? weekdayText});
 }
 
 /// @nodoc
@@ -963,23 +978,23 @@ class __$$_BasicPlaceDetailsOpeningHoursCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? openNow = null,
-    Object? periods = null,
-    Object? weekdayText = null,
+    Object? openNow = freezed,
+    Object? periods = freezed,
+    Object? weekdayText = freezed,
   }) {
     return _then(_$_BasicPlaceDetailsOpeningHours(
-      openNow: null == openNow
+      openNow: freezed == openNow
           ? _value.openNow
           : openNow // ignore: cast_nullable_to_non_nullable
-              as bool,
-      periods: null == periods
+              as bool?,
+      periods: freezed == periods
           ? _value._periods
           : periods // ignore: cast_nullable_to_non_nullable
-              as List<BasicPlaceDetailsPeriod>,
-      weekdayText: null == weekdayText
+              as List<BasicPlaceDetailsPeriod>?,
+      weekdayText: freezed == weekdayText
           ? _value._weekdayText
           : weekdayText // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
     ));
   }
 }
@@ -990,8 +1005,8 @@ class _$_BasicPlaceDetailsOpeningHours
     implements _BasicPlaceDetailsOpeningHours {
   const _$_BasicPlaceDetailsOpeningHours(
       {required this.openNow,
-      required final List<BasicPlaceDetailsPeriod> periods,
-      required final List<String> weekdayText})
+      required final List<BasicPlaceDetailsPeriod>? periods,
+      required final List<String>? weekdayText})
       : _periods = periods,
         _weekdayText = weekdayText;
 
@@ -1000,21 +1015,25 @@ class _$_BasicPlaceDetailsOpeningHours
       _$$_BasicPlaceDetailsOpeningHoursFromJson(json);
 
   @override
-  final bool openNow;
-  final List<BasicPlaceDetailsPeriod> _periods;
+  final bool? openNow;
+  final List<BasicPlaceDetailsPeriod>? _periods;
   @override
-  List<BasicPlaceDetailsPeriod> get periods {
+  List<BasicPlaceDetailsPeriod>? get periods {
+    final value = _periods;
+    if (value == null) return null;
     if (_periods is EqualUnmodifiableListView) return _periods;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_periods);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _weekdayText;
+  final List<String>? _weekdayText;
   @override
-  List<String> get weekdayText {
+  List<String>? get weekdayText {
+    final value = _weekdayText;
+    if (value == null) return null;
     if (_weekdayText is EqualUnmodifiableListView) return _weekdayText;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_weekdayText);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -1059,20 +1078,20 @@ class _$_BasicPlaceDetailsOpeningHours
 abstract class _BasicPlaceDetailsOpeningHours
     implements BasicPlaceDetailsOpeningHours {
   const factory _BasicPlaceDetailsOpeningHours(
-          {required final bool openNow,
-          required final List<BasicPlaceDetailsPeriod> periods,
-          required final List<String> weekdayText}) =
+          {required final bool? openNow,
+          required final List<BasicPlaceDetailsPeriod>? periods,
+          required final List<String>? weekdayText}) =
       _$_BasicPlaceDetailsOpeningHours;
 
   factory _BasicPlaceDetailsOpeningHours.fromJson(Map<String, dynamic> json) =
       _$_BasicPlaceDetailsOpeningHours.fromJson;
 
   @override
-  bool get openNow;
+  bool? get openNow;
   @override
-  List<BasicPlaceDetailsPeriod> get periods;
+  List<BasicPlaceDetailsPeriod>? get periods;
   @override
-  List<String> get weekdayText;
+  List<String>? get weekdayText;
   @override
   @JsonKey(ignore: true)
   _$$_BasicPlaceDetailsOpeningHoursCopyWith<_$_BasicPlaceDetailsOpeningHours>
@@ -1086,7 +1105,7 @@ BasicPlaceDetailsPeriod _$BasicPlaceDetailsPeriodFromJson(
 
 /// @nodoc
 mixin _$BasicPlaceDetailsPeriod {
-  BasicPlaceDetailsPeriodClose get close => throw _privateConstructorUsedError;
+  BasicPlaceDetailsPeriodClose? get close => throw _privateConstructorUsedError;
   BasicPlaceDetailsPeriodOpen get open => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1102,9 +1121,9 @@ abstract class $BasicPlaceDetailsPeriodCopyWith<$Res> {
       _$BasicPlaceDetailsPeriodCopyWithImpl<$Res, BasicPlaceDetailsPeriod>;
   @useResult
   $Res call(
-      {BasicPlaceDetailsPeriodClose close, BasicPlaceDetailsPeriodOpen open});
+      {BasicPlaceDetailsPeriodClose? close, BasicPlaceDetailsPeriodOpen open});
 
-  $BasicPlaceDetailsPeriodCloseCopyWith<$Res> get close;
+  $BasicPlaceDetailsPeriodCloseCopyWith<$Res>? get close;
   $BasicPlaceDetailsPeriodOpenCopyWith<$Res> get open;
 }
 
@@ -1122,14 +1141,14 @@ class _$BasicPlaceDetailsPeriodCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? close = null,
+    Object? close = freezed,
     Object? open = null,
   }) {
     return _then(_value.copyWith(
-      close: null == close
+      close: freezed == close
           ? _value.close
           : close // ignore: cast_nullable_to_non_nullable
-              as BasicPlaceDetailsPeriodClose,
+              as BasicPlaceDetailsPeriodClose?,
       open: null == open
           ? _value.open
           : open // ignore: cast_nullable_to_non_nullable
@@ -1139,8 +1158,12 @@ class _$BasicPlaceDetailsPeriodCopyWithImpl<$Res,
 
   @override
   @pragma('vm:prefer-inline')
-  $BasicPlaceDetailsPeriodCloseCopyWith<$Res> get close {
-    return $BasicPlaceDetailsPeriodCloseCopyWith<$Res>(_value.close, (value) {
+  $BasicPlaceDetailsPeriodCloseCopyWith<$Res>? get close {
+    if (_value.close == null) {
+      return null;
+    }
+
+    return $BasicPlaceDetailsPeriodCloseCopyWith<$Res>(_value.close!, (value) {
       return _then(_value.copyWith(close: value) as $Val);
     });
   }
@@ -1163,10 +1186,10 @@ abstract class _$$_BasicPlaceDetailsPeriodCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {BasicPlaceDetailsPeriodClose close, BasicPlaceDetailsPeriodOpen open});
+      {BasicPlaceDetailsPeriodClose? close, BasicPlaceDetailsPeriodOpen open});
 
   @override
-  $BasicPlaceDetailsPeriodCloseCopyWith<$Res> get close;
+  $BasicPlaceDetailsPeriodCloseCopyWith<$Res>? get close;
   @override
   $BasicPlaceDetailsPeriodOpenCopyWith<$Res> get open;
 }
@@ -1183,14 +1206,14 @@ class __$$_BasicPlaceDetailsPeriodCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? close = null,
+    Object? close = freezed,
     Object? open = null,
   }) {
     return _then(_$_BasicPlaceDetailsPeriod(
-      close: null == close
+      close: freezed == close
           ? _value.close
           : close // ignore: cast_nullable_to_non_nullable
-              as BasicPlaceDetailsPeriodClose,
+              as BasicPlaceDetailsPeriodClose?,
       open: null == open
           ? _value.open
           : open // ignore: cast_nullable_to_non_nullable
@@ -1208,7 +1231,7 @@ class _$_BasicPlaceDetailsPeriod implements _BasicPlaceDetailsPeriod {
       _$$_BasicPlaceDetailsPeriodFromJson(json);
 
   @override
-  final BasicPlaceDetailsPeriodClose close;
+  final BasicPlaceDetailsPeriodClose? close;
   @override
   final BasicPlaceDetailsPeriodOpen open;
 
@@ -1248,7 +1271,7 @@ class _$_BasicPlaceDetailsPeriod implements _BasicPlaceDetailsPeriod {
 
 abstract class _BasicPlaceDetailsPeriod implements BasicPlaceDetailsPeriod {
   const factory _BasicPlaceDetailsPeriod(
-          {required final BasicPlaceDetailsPeriodClose close,
+          {required final BasicPlaceDetailsPeriodClose? close,
           required final BasicPlaceDetailsPeriodOpen open}) =
       _$_BasicPlaceDetailsPeriod;
 
@@ -1256,7 +1279,7 @@ abstract class _BasicPlaceDetailsPeriod implements BasicPlaceDetailsPeriod {
       _$_BasicPlaceDetailsPeriod.fromJson;
 
   @override
-  BasicPlaceDetailsPeriodClose get close;
+  BasicPlaceDetailsPeriodClose? get close;
   @override
   BasicPlaceDetailsPeriodOpen get open;
   @override
@@ -1819,12 +1842,12 @@ BasicPlaceDetailsReview _$BasicPlaceDetailsReviewFromJson(
 /// @nodoc
 mixin _$BasicPlaceDetailsReview {
   String get authorName => throw _privateConstructorUsedError;
-  String get authorUrl => throw _privateConstructorUsedError;
-  String get language => throw _privateConstructorUsedError;
-  String get profilePhotoUrl => throw _privateConstructorUsedError;
+  String? get authorUrl => throw _privateConstructorUsedError;
+  String? get language => throw _privateConstructorUsedError;
+  String? get profilePhotoUrl => throw _privateConstructorUsedError;
   int get rating => throw _privateConstructorUsedError;
   String get relativeTimeDescription => throw _privateConstructorUsedError;
-  String get text => throw _privateConstructorUsedError;
+  String? get text => throw _privateConstructorUsedError;
   int get time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1841,12 +1864,12 @@ abstract class $BasicPlaceDetailsReviewCopyWith<$Res> {
   @useResult
   $Res call(
       {String authorName,
-      String authorUrl,
-      String language,
-      String profilePhotoUrl,
+      String? authorUrl,
+      String? language,
+      String? profilePhotoUrl,
       int rating,
       String relativeTimeDescription,
-      String text,
+      String? text,
       int time});
 }
 
@@ -1865,12 +1888,12 @@ class _$BasicPlaceDetailsReviewCopyWithImpl<$Res,
   @override
   $Res call({
     Object? authorName = null,
-    Object? authorUrl = null,
-    Object? language = null,
-    Object? profilePhotoUrl = null,
+    Object? authorUrl = freezed,
+    Object? language = freezed,
+    Object? profilePhotoUrl = freezed,
     Object? rating = null,
     Object? relativeTimeDescription = null,
-    Object? text = null,
+    Object? text = freezed,
     Object? time = null,
   }) {
     return _then(_value.copyWith(
@@ -1878,18 +1901,18 @@ class _$BasicPlaceDetailsReviewCopyWithImpl<$Res,
           ? _value.authorName
           : authorName // ignore: cast_nullable_to_non_nullable
               as String,
-      authorUrl: null == authorUrl
+      authorUrl: freezed == authorUrl
           ? _value.authorUrl
           : authorUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      language: null == language
+              as String?,
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String,
-      profilePhotoUrl: null == profilePhotoUrl
+              as String?,
+      profilePhotoUrl: freezed == profilePhotoUrl
           ? _value.profilePhotoUrl
           : profilePhotoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -1898,10 +1921,10 @@ class _$BasicPlaceDetailsReviewCopyWithImpl<$Res,
           ? _value.relativeTimeDescription
           : relativeTimeDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      text: null == text
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -1920,12 +1943,12 @@ abstract class _$$_BasicPlaceDetailsReviewCopyWith<$Res>
   @useResult
   $Res call(
       {String authorName,
-      String authorUrl,
-      String language,
-      String profilePhotoUrl,
+      String? authorUrl,
+      String? language,
+      String? profilePhotoUrl,
       int rating,
       String relativeTimeDescription,
-      String text,
+      String? text,
       int time});
 }
 
@@ -1942,12 +1965,12 @@ class __$$_BasicPlaceDetailsReviewCopyWithImpl<$Res>
   @override
   $Res call({
     Object? authorName = null,
-    Object? authorUrl = null,
-    Object? language = null,
-    Object? profilePhotoUrl = null,
+    Object? authorUrl = freezed,
+    Object? language = freezed,
+    Object? profilePhotoUrl = freezed,
     Object? rating = null,
     Object? relativeTimeDescription = null,
-    Object? text = null,
+    Object? text = freezed,
     Object? time = null,
   }) {
     return _then(_$_BasicPlaceDetailsReview(
@@ -1955,18 +1978,18 @@ class __$$_BasicPlaceDetailsReviewCopyWithImpl<$Res>
           ? _value.authorName
           : authorName // ignore: cast_nullable_to_non_nullable
               as String,
-      authorUrl: null == authorUrl
+      authorUrl: freezed == authorUrl
           ? _value.authorUrl
           : authorUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      language: null == language
+              as String?,
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String,
-      profilePhotoUrl: null == profilePhotoUrl
+              as String?,
+      profilePhotoUrl: freezed == profilePhotoUrl
           ? _value.profilePhotoUrl
           : profilePhotoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -1975,10 +1998,10 @@ class __$$_BasicPlaceDetailsReviewCopyWithImpl<$Res>
           ? _value.relativeTimeDescription
           : relativeTimeDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      text: null == text
+      text: freezed == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -2006,17 +2029,17 @@ class _$_BasicPlaceDetailsReview implements _BasicPlaceDetailsReview {
   @override
   final String authorName;
   @override
-  final String authorUrl;
+  final String? authorUrl;
   @override
-  final String language;
+  final String? language;
   @override
-  final String profilePhotoUrl;
+  final String? profilePhotoUrl;
   @override
   final int rating;
   @override
   final String relativeTimeDescription;
   @override
-  final String text;
+  final String? text;
   @override
   final int time;
 
@@ -2070,12 +2093,12 @@ class _$_BasicPlaceDetailsReview implements _BasicPlaceDetailsReview {
 abstract class _BasicPlaceDetailsReview implements BasicPlaceDetailsReview {
   const factory _BasicPlaceDetailsReview(
       {required final String authorName,
-      required final String authorUrl,
-      required final String language,
-      required final String profilePhotoUrl,
+      required final String? authorUrl,
+      required final String? language,
+      required final String? profilePhotoUrl,
       required final int rating,
       required final String relativeTimeDescription,
-      required final String text,
+      required final String? text,
       required final int time}) = _$_BasicPlaceDetailsReview;
 
   factory _BasicPlaceDetailsReview.fromJson(Map<String, dynamic> json) =
@@ -2084,17 +2107,17 @@ abstract class _BasicPlaceDetailsReview implements BasicPlaceDetailsReview {
   @override
   String get authorName;
   @override
-  String get authorUrl;
+  String? get authorUrl;
   @override
-  String get language;
+  String? get language;
   @override
-  String get profilePhotoUrl;
+  String? get profilePhotoUrl;
   @override
   int get rating;
   @override
   String get relativeTimeDescription;
   @override
-  String get text;
+  String? get text;
   @override
   int get time;
   @override
