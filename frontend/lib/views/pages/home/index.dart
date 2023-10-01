@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/view_models/chat.dart';
+import 'package:otomo/view_models/home.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_page_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
@@ -94,16 +94,23 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     useEffect(() {
-      final activatedTextMessageStreamSub = ref
-          .read(chatProvider.notifier)
-          .activatedTextMessageStream
-          .listen((textMsg) {
+      final notifier = ref.read(homeProvider.notifier);
+      final activatedTextMessageStreamSub =
+          notifier.activatedTextMessageStream.listen((textMsg) {
         _assertCanUseSheetController();
 
         _sheetController!.animateTo(_limitCanShowKeyboard,
             duration: _sheetAnimationDuration, curve: _sheetAnimationCurve);
       });
-      return () => activatedTextMessageStreamSub.cancel();
+      final focusedPlaceStreamSub =
+          notifier.focusedPlaceStream.listen((location) {
+        _assertCanUseSheetController();
+      });
+
+      return () {
+        activatedTextMessageStreamSub.cancel();
+        focusedPlaceStreamSub.cancel();
+      };
     }, const []);
 
     return Unfocus(
