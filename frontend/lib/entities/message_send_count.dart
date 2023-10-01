@@ -5,7 +5,6 @@ part 'message_send_count.g.dart';
 
 @freezed
 class MessageSentCount with _$MessageSentCount {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory MessageSentCount({
     required MonthlySurplusMessageSentCount monthlySurplus,
     required DailyMessageSentCount daily,
@@ -17,7 +16,6 @@ class MessageSentCount with _$MessageSentCount {
 
 @freezed
 class MonthlySurplusMessageSentCount with _$MonthlySurplusMessageSentCount {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory MonthlySurplusMessageSentCount({
     required YearMonth yearMonth,
     required int count,
@@ -29,7 +27,6 @@ class MonthlySurplusMessageSentCount with _$MonthlySurplusMessageSentCount {
 
 @freezed
 class DailyMessageSentCount with _$DailyMessageSentCount {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory DailyMessageSentCount({
     required Date date,
     required int count,
@@ -41,7 +38,6 @@ class DailyMessageSentCount with _$DailyMessageSentCount {
 
 @freezed
 class RemainingMessageSendCount with _$RemainingMessageSendCount {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory RemainingMessageSendCount({
     required RemainingMonthlySurplusMessageSendCount monthlySurplus,
     required RemainingDailyMessageSendCount daily,
@@ -56,7 +52,6 @@ class RemainingMessageSendCount with _$RemainingMessageSendCount {
 @freezed
 class RemainingMonthlySurplusMessageSendCount
     with _$RemainingMonthlySurplusMessageSendCount {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory RemainingMonthlySurplusMessageSendCount({
     required YearMonth yearMonth,
     required int count,
@@ -73,7 +68,6 @@ class RemainingMonthlySurplusMessageSendCount
 
 @freezed
 class RemainingDailyMessageSendCount with _$RemainingDailyMessageSendCount {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory RemainingDailyMessageSendCount({
     required Date date,
     required int count,

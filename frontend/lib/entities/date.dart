@@ -4,7 +4,6 @@ part 'date.g.dart';
 
 @freezed
 class Date with _$Date {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const Date._();
   const factory Date({
     required int year,
@@ -20,7 +19,6 @@ class Date with _$Date {
 
 @freezed
 class YearMonth with _$YearMonth {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const YearMonth._();
   const factory YearMonth({
     required int year,
