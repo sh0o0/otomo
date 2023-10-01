@@ -6,6 +6,7 @@ import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/cases/home/home_with_draggable_page_bottom_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/map.dart';
+import 'package:otomo/views/pages/place_details.dart';
 import 'package:otomo/views/router.dart';
 import 'package:otomo/views/utils/controller.dart';
 
@@ -25,6 +26,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   static const _sheetSnaps = [_limitCanShowKeyboard];
 
   DraggableScrollableController? _sheetController;
+  final _pageController = PageController();
 
   void _assertCanUseSheetController() {
     assert(_sheetController != null && _sheetController!.isAttached);
@@ -105,6 +107,11 @@ class _HomePageState extends ConsumerState<HomePage> {
       final focusedPlaceStreamSub =
           notifier.focusedPlaceStream.listen((location) {
         _assertCanUseSheetController();
+        _pageController.animateToPage(
+          1,
+          duration: const Duration(milliseconds: 100),
+          curve: Curves.easeOutQuint,
+        );
       });
 
       return () {
@@ -125,11 +132,19 @@ class _HomePageState extends ConsumerState<HomePage> {
         behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
         pageCount: 2,
         bottomSheetBuilder: (context, index) {
-          return HomeChat(
-            onLeadingPressed: () => _onSheetLeadingPressed(context),
-            onTextFieldTap: () => _onChatTextFieldTap(context),
-          );
+          switch (index) {
+            case 0:
+              return HomeChat(
+                onLeadingPressed: () => _onSheetLeadingPressed(context),
+                onTextFieldTap: () => _onChatTextFieldTap(context),
+              );
+            case 1:
+              return const PlaceDetailsPage();
+            default:
+              throw RangeError.index(index, 1);
+          }
         },
+        pageController: _pageController,
         child: const MapPage(),
       ),
     );

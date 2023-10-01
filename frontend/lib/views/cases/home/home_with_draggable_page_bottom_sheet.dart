@@ -15,6 +15,7 @@ class HomeWithDraggablePageBottomSheet extends StatefulWidget {
     this.behindSheetFloatingActionButtons,
     required this.pageCount,
     required this.bottomSheetBuilder,
+    this.pageController,
     required this.child,
   });
 
@@ -27,6 +28,7 @@ class HomeWithDraggablePageBottomSheet extends StatefulWidget {
   final void Function(DraggableScrollableController controller)? onSheetCreated;
   final int pageCount;
   final Widget Function(BuildContext context, int index) bottomSheetBuilder;
+  final PageController? pageController;
   final List<Widget>? behindSheetFloatingActionButtons;
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
@@ -126,6 +128,7 @@ class _HomeWithDraggablePageBottomSheetState
                   child: _buildSizedBox(
                     context,
                     PageView.builder(
+                      controller: widget.pageController,
                       itemCount: widget.pageCount,
                       itemBuilder: (context, index) => _buildTopCorner(
                         context,
