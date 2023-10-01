@@ -35,9 +35,12 @@ class _MapState extends ConsumerState<MapPage> {
     _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 8);
   }
 
-  Set<Marker> _markers(MapState state) =>
-      ViewConverter.I.analyzedLocationAndMarker
-          .locationsToMarkerList(state.activeAnalyzedLocations)
+  Set<Marker> _markers(MapState state, Map notifier) =>
+      state.activeAnalyzedLocations
+          .map(
+            (e) => ViewConverter.I.analyzedLocationAndMarker.locationToMarker(e,
+                onTap: () => notifier.focusPlace(e.location)),
+          )
           .toSet();
 
   @override
@@ -78,7 +81,7 @@ class _MapState extends ConsumerState<MapPage> {
       body: AppMap(
         initialCameraPosition: _initialCameraPosition,
         onMapCreated: _onMapCreated,
-        markers: _markers(state),
+        markers: _markers(state, notifier),
       ),
       floatingActionButton: FloatingActionButton(
         mini: true,

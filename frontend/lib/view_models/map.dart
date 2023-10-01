@@ -31,15 +31,10 @@ class MapState with _$MapState {
 
 @riverpod
 class Map extends _$Map {
+  Map();
+
   @override
   MapState build() {
-    final chatNotifier = ref.read(chatProvider.notifier);
-    focusedLocationStream = chatNotifier.focusedAnalyzedLocationStream;
-    activatedTextMessageStream = chatNotifier.activatedTextMessageStream;
-
-    final activeAnalyzedLocations =
-        ref.watch(chatProvider.select((v) => v.value?.activeAnalyzedLocations));
-
     final focusedLocationStreamSub =
         focusedLocationStream.listen((focusedLocation) {
       state = state.copyWith(focusingLocation: focusedLocation.location);
@@ -49,19 +44,24 @@ class Map extends _$Map {
       focusedLocationStreamSub.cancel();
     });
 
+    final activeAnalyzedLocations = ref.watch(
+      chatProvider.select((v) => v.value?.activeAnalyzedLocations),
+    );
+
     return MapState(
       activeAnalyzedLocations: activeAnalyzedLocations ?? [],
     );
   }
-
-  late final Stream<AnalyzedLocation> focusedLocationStream;
-  late final Stream<TextMessageData> activatedTextMessageStream;
 
   final LocationControllerImpl _locationController =
       getIt<LocationControllerImpl>();
   final StreamController<Location> _focusedPlaceStreamController =
       StreamController<Location>.broadcast();
 
+  Stream<AnalyzedLocation> get focusedLocationStream =>
+      ref.read(chatProvider.notifier).focusedAnalyzedLocationStream;
+  Stream<TextMessageData> get activatedTextMessageStream =>
+      ref.read(chatProvider.notifier).activatedTextMessageStream;
   Stream<Location> get focusedPlaceStream =>
       _focusedPlaceStreamController.stream;
 
