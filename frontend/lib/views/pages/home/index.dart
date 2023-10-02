@@ -107,11 +107,11 @@ class _HomePageState extends ConsumerState<HomePage> {
       final focusedPlaceStreamSub =
           notifier.focusedPlaceStream.listen((location) {
         _assertCanUseSheetController();
-        _pageController.animateToPage(
-          1,
-          duration: const Duration(milliseconds: 100),
-          curve: Curves.easeOutQuint,
-        );
+        // _pageController.animateToPage(
+        //   0,
+        //   duration: const Duration(milliseconds: 100),
+        //   curve: Curves.easeOutQuint,
+        // );
       });
 
       return () {
@@ -130,8 +130,12 @@ class _HomePageState extends ConsumerState<HomePage> {
         resizeToAvoidBottomInset: false,
         onSheetCreated: _onSheetCreated,
         behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
-        pageCount: 2,
+        pageCount: 1,
         bottomSheetBuilder: (context, index) {
+          return HomeChat(
+            onLeadingPressed: () => _onSheetLeadingPressed(context),
+            onTextFieldTap: () => _onChatTextFieldTap(context),
+          );
           switch (index) {
             case 0:
               return HomeChat(
@@ -144,9 +148,37 @@ class _HomePageState extends ConsumerState<HomePage> {
               throw RangeError.index(index, 1);
           }
         },
+        additional: Additional(),
         pageController: _pageController,
         child: const MapPage(),
       ),
+    );
+  }
+}
+
+class Additional extends StatelessWidget {
+  const Additional({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.1,
+      maxChildSize: 0.95,
+      minChildSize: 0.1,
+      snap: true,
+      snapSizes: [0.45],
+      expand: true,
+      builder: (context, controller) {
+        return CustomScrollView(
+          controller: controller,
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: HomePlaceDetails()
+            )
+          ],
+        );
+      },
     );
   }
 }

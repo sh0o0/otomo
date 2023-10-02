@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/views/bases/spaces/spaces.dart';
 
 class HomeWithDraggablePageBottomSheet extends StatefulWidget {
   const HomeWithDraggablePageBottomSheet({
@@ -17,6 +18,7 @@ class HomeWithDraggablePageBottomSheet extends StatefulWidget {
     required this.bottomSheetBuilder,
     this.pageController,
     required this.child,
+    this.additional,
   });
 
   final double maxSheetSize;
@@ -33,6 +35,7 @@ class HomeWithDraggablePageBottomSheet extends StatefulWidget {
   final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Widget child;
+  final Widget? additional;
 
   @override
   State<HomeWithDraggablePageBottomSheet> createState() =>
@@ -137,6 +140,7 @@ class _HomeWithDraggablePageBottomSheetState
               );
             },
           ),
+          widget.additional ?? Spaces.zero,
         ],
       ),
     );
