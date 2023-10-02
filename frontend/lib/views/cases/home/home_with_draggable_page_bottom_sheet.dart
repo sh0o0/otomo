@@ -28,7 +28,11 @@ class HomeWithDraggablePageBottomSheet extends StatefulWidget {
   final bool? resizeToAvoidBottomInset;
   final void Function(DraggableScrollableController controller)? onSheetCreated;
   final int pageCount;
-  final Widget Function(BuildContext context, int index) bottomSheetBuilder;
+  final Widget Function(
+    BuildContext context,
+    int index,
+    PageContentScrollController controller,
+  ) bottomSheetBuilder;
   final PageController? pageController;
   final List<Widget>? behindSheetFloatingActionButtons;
   final Widget? floatingActionButton;
@@ -135,12 +139,10 @@ class _HomeWithDraggablePageBottomSheetState
             itemBuilder: (context, page) {
               return Container(
                 color: Colors.white,
-                child: ListView.builder(
-                  controller: PageContentScrollController.of(context),
-                  itemCount: 50,
-                  itemBuilder: (context, index) {
-                    return ListTile(title: Text('Item#$index'));
-                  },
+                child: widget.bottomSheetBuilder(
+                  context,
+                  page,
+                  PageContentScrollController.of(context)!,
                 ),
               );
             },

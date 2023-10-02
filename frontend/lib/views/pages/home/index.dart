@@ -131,15 +131,25 @@ class _HomePageState extends ConsumerState<HomePage> {
         onSheetCreated: _onSheetCreated,
         behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
         pageCount: 2,
-        bottomSheetBuilder: (context, index) {
+        bottomSheetBuilder: (context, index, controller) {
+          return SingleChildScrollView(
+            controller: controller,
+            child: const HomePlaceDetails(),
+          );
           switch (index) {
             case 0:
-              return HomeChat(
-                onLeadingPressed: () => _onSheetLeadingPressed(context),
-                onTextFieldTap: () => _onChatTextFieldTap(context),
+              return SingleChildScrollView(
+                controller: controller,
+                child: HomeChat(
+                  onLeadingPressed: () => _onSheetLeadingPressed(context),
+                  onTextFieldTap: () => _onChatTextFieldTap(context),
+                ),
               );
             case 1:
-              return const HomePlaceDetails();
+              return SingleChildScrollView(
+                controller: controller,
+                child: const HomePlaceDetails(),
+              );
             default:
               throw RangeError.index(index, 1);
           }
