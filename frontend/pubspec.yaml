@@ -48,6 +48,7 @@ dependencies:
   custom_pop_up_menu: ^1.2.4
   settings_ui: ^2.0.2
   cached_network_image: ^3.3.0
+  sliding_up_panel: ^2.0.0+1
 
   ### Map
   google_maps_flutter: ^2.5.0

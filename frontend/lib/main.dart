@@ -16,6 +16,7 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/app_package_info.dart';
 import 'package:otomo/views/app.dart';
+import 'package:otomo/views/developments/development_app.dart';
 import 'package:otomo/views/utils/error_handling.dart';
 
 void main() async {
@@ -28,7 +29,9 @@ void main() async {
     // Hide keyboard when app is hot reloaded
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-    runApp(const ProviderScope(child: App()));
+    runApp(ProviderScope(
+      child: appConfig.isPlayground ? const PlaygroundApp() : const App(),
+    ));
   }, onRunZoneGuardedError);
 }
 

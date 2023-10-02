@@ -12,6 +12,8 @@ class Env {
   static const bool isRelease = kReleaseMode;
   static const bool isLocal =
       bool.fromEnvironment('IS_LOCAL', defaultValue: false);
+  static const bool isPlayground =
+      bool.fromEnvironment('IS_PLAYGROUND', defaultValue: false);
   static const String otomoServerHost =
       String.fromEnvironment('OTOMO_SERVER_HOST');
   static const int otomoServerPort = int.fromEnvironment('OTOMO_SERVER_PORT');
@@ -27,6 +29,7 @@ class AppConfig {
   AppConfig.fromEnv()
       : isRelease = Env.isRelease,
         isLocal = Env.isLocal,
+        isPlayground = Env.isPlayground,
         flavor = Flavor.values.byName(Env.flavorStr),
         otomoServerHost = Env.otomoServerHost,
         otomoServerPort = Env.otomoServerPort,
@@ -38,6 +41,7 @@ class AppConfig {
 
   final bool isRelease;
   final bool isLocal;
+  final bool isPlayground;
   final Flavor flavor;
   final String otomoServerHost;
   final int otomoServerPort;
