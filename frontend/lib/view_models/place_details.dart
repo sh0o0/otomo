@@ -17,7 +17,7 @@ class PlaceDetailsState with _$PlaceDetailsState {
 
 final placeDetailsProvider =
     FutureProvider.autoDispose<PlaceDetailsState>((ref) async {
-  final placeId = 'ChIJN1t_tDeuEmsRUsoyG83frY4';
+  final placeId = ref.watch(mapProvider).focusingLocation?.googlePlaceId;
   if (placeId == null) {
     return const PlaceDetailsState(isNotSpecified: true);
   }
