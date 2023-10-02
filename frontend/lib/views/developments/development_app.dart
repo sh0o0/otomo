@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/views/developments/development_home.dart';
 
 class PlaygroundApp extends StatelessWidget {
@@ -6,9 +7,10 @@ class PlaygroundApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Playground',
-      home: DevelopmentHome()
+      theme: AppThemes.light,
+      home: const DevelopmentHome()
     );
   }
 }
