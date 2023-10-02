@@ -70,50 +70,47 @@ class _HomeChatState extends ConsumerState<HomeChat>
       return () {};
     }, const []);
 
-    return Flexible(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: 72,
-            child: ChatBottomSheetBar(
-              onLeadingPressed: widget.onLeadingPressed,
-              remainingMessageSendCount: state.value?.remainingMessageSendCount,
-            ),
+    return Column(
+      children: [
+        SizedBox(
+          height: 72,
+          child: ChatBottomSheetBar(
+            onLeadingPressed: widget.onLeadingPressed,
+            remainingMessageSendCount: state.value?.remainingMessageSendCount,
           ),
-          Expanded(
-            child: ChatUI(
+        ),
+        Expanded(
+          child: ChatUI(
+            messages: state.value?.messages.items ?? [],
+            isLastPage: state.value?.messages.hasMore == false,
+            onSendPressed: (text) => notifier.sendMessage(text),
+            user: ChatState.user,
+            emptyState: _emptyState(context, state),
+            onEndReached: () => notifier.listMessagesMore(),
+            onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
+            showStatusPopup: (message) => message.status == MessageStatus.error,
+            statusPopupBuilder: (context, message) => _statusPopupBuilder(
+              context,
+              message,
               messages: state.value?.messages.items ?? [],
-              isLastPage: state.value?.messages.hasMore == false,
-              onSendPressed: (text) => notifier.sendMessage(text),
-              user: ChatState.user,
-              emptyState: _emptyState(context, state),
-              onEndReached: () => notifier.listMessagesMore(),
-              onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
-              showStatusPopup: (message) => message.status == MessageStatus.error,
-              statusPopupBuilder: (context, message) => _statusPopupBuilder(
-                context,
-                message,
-                messages: state.value?.messages.items ?? [],
-              ),
-              onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
-              customBottomWidget: state.value?.hideTextField == true
-                  ? Spaces.zero
-                  : Animate(
-                      effects: const [
-                        FadeEffect(duration: Duration(milliseconds: 100)),
-                      ],
-                      child: types.Input(
-                        onSendPressed: (text) => notifier.sendMessage(text.text),
-                        options: types.InputOptions(
-                          onTextFieldTap: widget.onTextFieldTap,
-                        ),
+            ),
+            onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
+            customBottomWidget: state.value?.hideTextField == true
+                ? Spaces.zero
+                : Animate(
+                    effects: const [
+                      FadeEffect(duration: Duration(milliseconds: 100)),
+                    ],
+                    child: types.Input(
+                      onSendPressed: (text) => notifier.sendMessage(text.text),
+                      options: types.InputOptions(
+                        onTextFieldTap: widget.onTextFieldTap,
                       ),
                     ),
-            ),
+                  ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
