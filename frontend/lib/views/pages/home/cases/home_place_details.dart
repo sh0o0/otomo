@@ -17,7 +17,7 @@ class HomePlaceDetails extends ConsumerWidget {
     }
 
     return state.when(
-      data: (value) => PlaceDetails(basic: value.basic!),
+      data: (value) => PlaceDetails(place: value.place!),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, _) => Center(
         child: ErrorText(ErrorLibrary.fromAny(error)),

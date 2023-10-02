@@ -4,7 +4,11 @@ import 'package:otomo/tools/logger.dart';
 
 void main() {
   const apiKey = String.fromEnvironment('GOOGLE_MAP_API_KEY');
-  const googlePlaceId = 'ChIJN1t_tDeuEmsRUsoyG83frY4';
+  const googlePlaceIds = [
+    'ChIJN1t_tDeuEmsRUsoyG83frY4',
+    'ChIJ39-uHhSuEmsRM7AE1NF_fK0',
+    'ChIJ51cu8IcbXWARiRtXIothAS4',
+  ];
 
   late PlaceControllerImpl controller;
 
@@ -14,16 +18,18 @@ void main() {
 
   group('System test.', () {
     group('PlaceControllerImpl class.', () {
-      group('getBasicPlaceDetails method.', () {
+      group('getPlaceDetails method.', () {
         test(
           'should show log'
           'when give google place id',
           () async {
-            final resp = await controller.getBasicPlaceDetails(googlePlaceId);
-            logger.info(resp);
+            for (final id in googlePlaceIds) {
+              final resp = await controller.getPlaceDetails(id);
+              logger.info(resp);
+            }
           },
         );
       });
     });
-  }, skip: 'Skip system test.');
+  }, skip: 'Skip PlaceControllerImpl class.');
 }

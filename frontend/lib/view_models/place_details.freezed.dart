@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PlaceDetailsState {
-  BasicPlaceDetails? get basic => throw _privateConstructorUsedError;
+  PlaceDetails? get place => throw _privateConstructorUsedError;
   bool get isNotSpecified => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,9 +30,9 @@ abstract class $PlaceDetailsStateCopyWith<$Res> {
           PlaceDetailsState value, $Res Function(PlaceDetailsState) then) =
       _$PlaceDetailsStateCopyWithImpl<$Res, PlaceDetailsState>;
   @useResult
-  $Res call({BasicPlaceDetails? basic, bool isNotSpecified});
+  $Res call({PlaceDetails? place, bool isNotSpecified});
 
-  $BasicPlaceDetailsCopyWith<$Res>? get basic;
+  $PlaceDetailsCopyWith<$Res>? get place;
 }
 
 /// @nodoc
@@ -48,14 +48,14 @@ class _$PlaceDetailsStateCopyWithImpl<$Res, $Val extends PlaceDetailsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? basic = freezed,
+    Object? place = freezed,
     Object? isNotSpecified = null,
   }) {
     return _then(_value.copyWith(
-      basic: freezed == basic
-          ? _value.basic
-          : basic // ignore: cast_nullable_to_non_nullable
-              as BasicPlaceDetails?,
+      place: freezed == place
+          ? _value.place
+          : place // ignore: cast_nullable_to_non_nullable
+              as PlaceDetails?,
       isNotSpecified: null == isNotSpecified
           ? _value.isNotSpecified
           : isNotSpecified // ignore: cast_nullable_to_non_nullable
@@ -65,13 +65,13 @@ class _$PlaceDetailsStateCopyWithImpl<$Res, $Val extends PlaceDetailsState>
 
   @override
   @pragma('vm:prefer-inline')
-  $BasicPlaceDetailsCopyWith<$Res>? get basic {
-    if (_value.basic == null) {
+  $PlaceDetailsCopyWith<$Res>? get place {
+    if (_value.place == null) {
       return null;
     }
 
-    return $BasicPlaceDetailsCopyWith<$Res>(_value.basic!, (value) {
-      return _then(_value.copyWith(basic: value) as $Val);
+    return $PlaceDetailsCopyWith<$Res>(_value.place!, (value) {
+      return _then(_value.copyWith(place: value) as $Val);
     });
   }
 }
@@ -84,10 +84,10 @@ abstract class _$$_PlaceDetailsStateCopyWith<$Res>
       __$$_PlaceDetailsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({BasicPlaceDetails? basic, bool isNotSpecified});
+  $Res call({PlaceDetails? place, bool isNotSpecified});
 
   @override
-  $BasicPlaceDetailsCopyWith<$Res>? get basic;
+  $PlaceDetailsCopyWith<$Res>? get place;
 }
 
 /// @nodoc
@@ -101,14 +101,14 @@ class __$$_PlaceDetailsStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? basic = freezed,
+    Object? place = freezed,
     Object? isNotSpecified = null,
   }) {
     return _then(_$_PlaceDetailsState(
-      basic: freezed == basic
-          ? _value.basic
-          : basic // ignore: cast_nullable_to_non_nullable
-              as BasicPlaceDetails?,
+      place: freezed == place
+          ? _value.place
+          : place // ignore: cast_nullable_to_non_nullable
+              as PlaceDetails?,
       isNotSpecified: null == isNotSpecified
           ? _value.isNotSpecified
           : isNotSpecified // ignore: cast_nullable_to_non_nullable
@@ -120,17 +120,17 @@ class __$$_PlaceDetailsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PlaceDetailsState implements _PlaceDetailsState {
-  const _$_PlaceDetailsState({this.basic, this.isNotSpecified = false});
+  const _$_PlaceDetailsState({this.place, this.isNotSpecified = false});
 
   @override
-  final BasicPlaceDetails? basic;
+  final PlaceDetails? place;
   @override
   @JsonKey()
   final bool isNotSpecified;
 
   @override
   String toString() {
-    return 'PlaceDetailsState(basic: $basic, isNotSpecified: $isNotSpecified)';
+    return 'PlaceDetailsState(place: $place, isNotSpecified: $isNotSpecified)';
   }
 
   @override
@@ -138,13 +138,13 @@ class _$_PlaceDetailsState implements _PlaceDetailsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PlaceDetailsState &&
-            (identical(other.basic, basic) || other.basic == basic) &&
+            (identical(other.place, place) || other.place == place) &&
             (identical(other.isNotSpecified, isNotSpecified) ||
                 other.isNotSpecified == isNotSpecified));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, basic, isNotSpecified);
+  int get hashCode => Object.hash(runtimeType, place, isNotSpecified);
 
   @JsonKey(ignore: true)
   @override
@@ -156,11 +156,11 @@ class _$_PlaceDetailsState implements _PlaceDetailsState {
 
 abstract class _PlaceDetailsState implements PlaceDetailsState {
   const factory _PlaceDetailsState(
-      {final BasicPlaceDetails? basic,
+      {final PlaceDetails? place,
       final bool isNotSpecified}) = _$_PlaceDetailsState;
 
   @override
-  BasicPlaceDetails? get basic;
+  PlaceDetails? get place;
   @override
   bool get isNotSpecified;
   @override

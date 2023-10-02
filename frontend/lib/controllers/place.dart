@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/place.dart';
+import 'package:otomo/entities/place_details.dart';
 import 'package:otomo/tools/logger.dart';
 
 class PlaceControllerImpl {
@@ -16,8 +16,8 @@ class PlaceControllerImpl {
 
   static const _detailsUrl = '/maps/api/place/details/json';
 
-  Future<BasicPlaceDetails> getBasicPlaceDetails(String googlePlaceId) async {
-    logger.debug('getBasicPlaceDetails. googlePlaceId: $googlePlaceId');
+  Future<PlaceDetails> getPlaceDetails(String googlePlaceId) async {
+    logger.debug('getPlaceDetails. googlePlaceId: $googlePlaceId');
     final response = await _client.get(
       _detailsUrl,
       queryParameters: {
@@ -31,6 +31,6 @@ class PlaceControllerImpl {
       throw AppException.unknown(errorMessage);
     }
 
-    return BasicPlaceDetails.fromJson(response.data['result']);
+    return PlaceDetails.fromJson(response.data['result']);
   }
 }

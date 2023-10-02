@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/configs/app_config.dart';
-import 'package:otomo/entities/place.dart';
+import 'package:otomo/entities/place_details.dart' as place_details;
 import 'package:otomo/views/bases/images/app_cached_network_image.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
@@ -8,10 +8,10 @@ import 'package:otomo/views/bases/texts/texts.dart';
 class PlaceDetails extends StatelessWidget {
   const PlaceDetails({
     super.key,
-    required this.basic,
+    required this.place,
   });
 
-  final BasicPlaceDetails basic;
+  final place_details.PlaceDetails place;
 
   String _getImageUrl({
     required String photoReference,
@@ -20,7 +20,7 @@ class PlaceDetails extends StatelessWidget {
       'https://maps.googleapis.com/maps/api/place/photo?maxheight=$maxHeight&photo_reference=$photoReference&key=${appConfig.googleMapApiKey}';
 
   Widget _buildTopImages(BuildContext context) {
-    final photos = basic.photos;
+    final photos = place.photos;
     if (photos == null || photos.isEmpty) {
       final theme = Theme.of(context);
       return Container(
@@ -44,7 +44,7 @@ class PlaceDetails extends StatelessWidget {
   }
 
   Widget _buildTop(BuildContext context) {
-    final openNow = basic.openingHours?.openNow;
+    final openNow = place.openingHours?.openNow;
     const whiteStyle = TextStyle(color: Colors.white);
     const boldWhiteStyle = TextStyle(
       color: Colors.white,
@@ -76,7 +76,7 @@ class PlaceDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleLarge(
-                  basic.name ?? '',
+                  place.name ?? '',
                   style: boldWhiteStyle,
                 ),
                 Spaces.h8,
@@ -90,7 +90,7 @@ class PlaceDetails extends StatelessWidget {
                     Spaces.w4,
                     Flexible(
                       child: BodyMedium(
-                        basic.formattedAddress ?? '',
+                        place.formattedAddress ?? '',
                         style: boldWhiteStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -118,26 +118,26 @@ class PlaceDetails extends StatelessWidget {
             children: [
               const Icon(Icons.star, color: Colors.amber, size: 16),
               Spaces.w4,
-              BodyMedium(basic.rating.toString()),
+              BodyMedium(place.rating.toString()),
               Spaces.w8,
-              BodyMedium('${basic.userRatingsTotal} ratings'),
+              BodyMedium('${place.userRatingsTotal} ratings'),
             ],
           ),
         ),
         Spaces.h16,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: BodyMedium(basic.formattedPhoneNumber ?? ''),
+          child: BodyMedium(place.formattedPhoneNumber ?? ''),
         ),
         Spaces.h16,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: BodyMedium(basic.website ?? ''),
+          child: BodyMedium(place.website ?? ''),
         ),
         Spaces.h16,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: BodyMedium(basic.url ?? ''),
+          child: BodyMedium(place.url ?? ''),
         ),
         Spaces.h16,
       ],
