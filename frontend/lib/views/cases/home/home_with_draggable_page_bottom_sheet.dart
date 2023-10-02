@@ -1,4 +1,3 @@
-import 'package:exprollable_page_view/exprollable_page_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeWithDraggablePageBottomSheet extends StatefulWidget {
@@ -43,22 +42,7 @@ class HomeWithDraggablePageBottomSheet extends StatefulWidget {
 class _HomeWithDraggablePageBottomSheetState
     extends State<HomeWithDraggablePageBottomSheet> {
   final _sheetController = DraggableScrollableController();
-  final controller = ExprollablePageController(
-    initialPage: 0,
-    viewportConfiguration: const ViewportConfiguration.raw(
-      extendPage: true,
-      minFraction: 1.0,
-      shrunkInset: ViewportInset.fractional(0.9),
-      maxInset: ViewportInset.fractional(0.9),
-      minInset: ViewportInset.expanded,
-      initialInset: ViewportInset.fractional(0.9),
-      snapInsets: [
-        ViewportInset.fractional(0.1),
-        ViewportInset.fractional(0.6),
-        ViewportInset.fractional(0.9),
-      ],
-    ),
-  );
+
   double? _sheetSize;
   double? _sheetHeight;
 
@@ -129,46 +113,30 @@ class _HomeWithDraggablePageBottomSheetState
         children: [
           widget.child,
           ...widget.behindSheetFloatingActionButtons ?? [],
-          ExprollablePageView(
-            controller: controller,
-            itemCount: widget.pageCount,
-            itemBuilder: (context, page) {
-              return Container(
-                color: Colors.white,
-                child: ListView.builder(
-                  controller: PageContentScrollController.of(context),
-                  itemCount: 50,
-                  itemBuilder: (context, index) {
-                    return ListTile(title: Text('Item#$index'));
-                  },
+          DraggableScrollableSheet(
+            maxChildSize: widget.maxSheetSize,
+            initialChildSize: _sheetSize ?? widget.initialSheetSize,
+            minChildSize: widget.minSheetSize,
+            controller: _sheetController,
+            snap: widget.snap,
+            snapSizes: widget.snapSizes,
+            builder: (context, controller) {
+              return SingleChildScrollView(
+                controller: controller,
+                child: _buildSizedBox(
+                  context,
+                  PageView.builder(
+                    controller: widget.pageController,
+                    itemCount: widget.pageCount,
+                    itemBuilder: (context, index) => _buildTopCorner(
+                      context,
+                      widget.bottomSheetBuilder(context, index),
+                    ),
+                  ),
                 ),
               );
             },
           ),
-          // DraggableScrollableSheet(
-          //   maxChildSize: widget.maxSheetSize,
-          //   initialChildSize: _sheetSize ?? widget.initialSheetSize,
-          //   minChildSize: widget.minSheetSize,
-          //   controller: _sheetController,
-          //   snap: widget.snap,
-          //   snapSizes: widget.snapSizes,
-          //   builder: (context, controller) {
-          //     return SingleChildScrollView(
-          //       controller: controller,
-          //       child: _buildSizedBox(
-          //         context,
-          //         PageView.builder(
-          //           controller: widget.pageController,
-          //           itemCount: widget.pageCount,
-          //           itemBuilder: (context, index) => _buildTopCorner(
-          //             context,
-          //             widget.bottomSheetBuilder(context, index),
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // ),
         ],
       ),
     );
