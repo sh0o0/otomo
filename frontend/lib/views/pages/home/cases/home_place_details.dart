@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/place_details.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
-import 'package:otomo/views/cases/place/place_details.dart';
+import 'package:otomo/views/cases/place/google_place_details.dart';
 import 'package:otomo/views/utils/error_library.dart';
 
 class HomePlaceDetails extends ConsumerWidget {
@@ -17,7 +17,7 @@ class HomePlaceDetails extends ConsumerWidget {
     }
 
     return state.when(
-      data: (value) => PlaceDetails(place: value.place!),
+      data: (value) => GooglePlaceDetails(place: value.place!),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, _) => Center(
         child: ErrorText(ErrorLibrary.fromAny(error)),
