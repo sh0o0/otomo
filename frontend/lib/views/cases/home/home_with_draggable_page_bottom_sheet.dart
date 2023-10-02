@@ -41,7 +41,7 @@ class HomeWithDraggablePageBottomSheet extends StatefulWidget {
 
 class _HomeWithDraggablePageBottomSheetState
     extends State<HomeWithDraggablePageBottomSheet> {
-  final _sheetController = DraggableScrollableController();
+  DraggableScrollableController? _sheetController;
 
   double? _sheetSize;
   double? _sheetHeight;
@@ -51,22 +51,23 @@ class _HomeWithDraggablePageBottomSheetState
     return mediaSize.height * widget.initialSheetSize;
   }
 
-  @override
-  void initState() {
-    widget.onSheetCreated?.call(_sheetController);
-    _sheetController.addListener(() {
+  void setNewScrollController() {
+    _sheetController?.dispose();
+    final newController = DraggableScrollableController();
+    _sheetController = newController;
+    newController.addListener(() {
       setState(() {
-        _sheetSize = _sheetController.size;
-        _sheetHeight = _sheetController.pixels;
+        _sheetSize = _sheetController?.size;
+        _sheetHeight = _sheetController?.pixels;
       });
     });
 
-    super.initState();
+    widget.onSheetCreated?.call(newController);
   }
 
   @override
   void dispose() {
-    _sheetController.dispose();
+    _sheetController?.dispose();
     super.dispose();
   }
 
@@ -113,30 +114,54 @@ class _HomeWithDraggablePageBottomSheetState
         children: [
           widget.child,
           ...widget.behindSheetFloatingActionButtons ?? [],
-          DraggableScrollableSheet(
-            maxChildSize: widget.maxSheetSize,
-            initialChildSize: _sheetSize ?? widget.initialSheetSize,
-            minChildSize: widget.minSheetSize,
-            controller: _sheetController,
-            snap: widget.snap,
-            snapSizes: widget.snapSizes,
-            builder: (context, controller) {
-              return SingleChildScrollView(
-                controller: controller,
-                child: _buildSizedBox(
-                  context,
-                  PageView.builder(
-                    controller: widget.pageController,
-                    itemCount: widget.pageCount,
-                    itemBuilder: (context, index) => _buildTopCorner(
+          PageView.builder(
+            itemCount: widget.pageCount,
+            itemBuilder: (context, index) {
+              setNewScrollController();
+              return DraggableScrollableSheet(
+                maxChildSize: widget.maxSheetSize,
+                initialChildSize: _sheetSize ?? widget.initialSheetSize,
+                minChildSize: widget.minSheetSize,
+                controller: _sheetController,
+                snap: widget.snap,
+                snapSizes: widget.snapSizes,
+                builder: (context, controller) {
+                  return SingleChildScrollView(
+                    controller: controller,
+                    child: _buildTopCorner(
                       context,
                       widget.bottomSheetBuilder(context, index),
                     ),
-                  ),
-                ),
+                  );
+                },
               );
             },
-          ),
+          )
+
+          // DraggableScrollableSheet(
+          //   maxChildSize: widget.maxSheetSize,
+          //   initialChildSize: _sheetSize ?? widget.initialSheetSize,
+          //   minChildSize: widget.minSheetSize,
+          //   controller: _sheetController,
+          //   snap: widget.snap,
+          //   snapSizes: widget.snapSizes,
+          //   builder: (context, controller) {
+          //     return SingleChildScrollView(
+          //       controller: controller,
+          //       child: _buildSizedBox(
+          //         context,
+          //         PageView.builder(
+          //           controller: widget.pageController,
+          //           itemCount: widget.pageCount,
+          //           itemBuilder: (context, index) => _buildTopCorner(
+          //             context,
+          //             widget.bottomSheetBuilder(context, index),
+          //           ),
+          //         ),
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );
