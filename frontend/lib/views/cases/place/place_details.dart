@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/entities/place.dart';
-import 'package:otomo/tools/logger.dart';
-import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/views/bases/images/app_cached_network_image.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
@@ -101,14 +99,48 @@ class PlaceDetails extends StatelessWidget {
                 ),
                 (openNow == null)
                     ? Spaces.zero
-                    : openNow
-                        ? BodyMedium('Open', style: whiteStyle)
-                        : BodyMedium('Closed', style: whiteStyle),
+                    : BodyMedium(openNow ? 'Open' : 'Closed', style: whiteStyle)
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
+    return Column(
+      children: [
+        Spaces.h16,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              const Icon(Icons.star, color: Colors.amber, size: 16),
+              Spaces.w4,
+              BodyMedium(basic.rating.toString()),
+              Spaces.w8,
+              BodyMedium('${basic.userRatingsTotal} ratings'),
+            ],
+          ),
+        ),
+        Spaces.h16,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: BodyMedium(basic.formattedPhoneNumber ?? ''),
+        ),
+        Spaces.h16,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: BodyMedium(basic.website ?? ''),
+        ),
+        Spaces.h16,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: BodyMedium(basic.url ?? ''),
+        ),
+        Spaces.h16,
+      ],
     );
   }
 
@@ -120,50 +152,7 @@ class PlaceDetails extends StatelessWidget {
       child: Column(
         children: [
           _buildTop(context),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
-          BodyMedium(uuid()),
+          _buildContent(context),
         ],
       ),
     );

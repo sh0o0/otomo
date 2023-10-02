@@ -113,32 +113,29 @@ class _HomeWithDraggablePageBottomSheetState
         children: [
           widget.child,
           ...widget.behindSheetFloatingActionButtons ?? [],
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 1),
-            child: DraggableScrollableSheet(
-              maxChildSize: widget.maxSheetSize,
-              initialChildSize: _sheetSize ?? widget.initialSheetSize,
-              minChildSize: widget.minSheetSize,
-              controller: _sheetController,
-              snap: widget.snap,
-              snapSizes: widget.snapSizes,
-              builder: (context, controller) {
-                return SingleChildScrollView(
-                  controller: controller,
-                  child: _buildSizedBox(
-                    context,
-                    PageView.builder(
-                      controller: widget.pageController,
-                      itemCount: widget.pageCount,
-                      itemBuilder: (context, index) => _buildTopCorner(
-                        context,
-                        widget.bottomSheetBuilder(context, index),
-                      ),
+          DraggableScrollableSheet(
+            maxChildSize: widget.maxSheetSize,
+            initialChildSize: _sheetSize ?? widget.initialSheetSize,
+            minChildSize: widget.minSheetSize,
+            controller: _sheetController,
+            snap: widget.snap,
+            snapSizes: widget.snapSizes,
+            builder: (context, controller) {
+              return SingleChildScrollView(
+                controller: controller,
+                child: _buildSizedBox(
+                  context,
+                  PageView.builder(
+                    controller: widget.pageController,
+                    itemCount: widget.pageCount,
+                    itemBuilder: (context, index) => _buildTopCorner(
+                      context,
+                      widget.bottomSheetBuilder(context, index),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ],
       ),
