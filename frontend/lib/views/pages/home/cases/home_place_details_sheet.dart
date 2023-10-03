@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/place_details.dart';
+import 'package:otomo/views/bases/sheets/sheet_form.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/cases/place/google_place_details.dart';
 import 'package:otomo/views/utils/error_library.dart';
@@ -23,18 +24,37 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
   final List<double>? snapSizes;
   final DraggableScrollableController? sheetController;
 
+  Widget _buildTopPadding({
+    required BuildContext context,
+    required Widget child,
+  }) {
+    return Padding(padding: const EdgeInsets.only(top: 40), child: child);
+  }
+
   Widget _buildContent(BuildContext context, WidgetRef ref) {
     final state = ref.watch(placeDetailsProvider);
+    final theme = Theme.of(context);
 
     if (state.value?.isNotSpecified == true) {
-      return const Center(child: Text('No place specified'));
+      return _buildTopPadding(
+        context: context,
+        child: Icon(
+          Icons.pin_drop_rounded,
+          size: 80,
+          color: theme.colorScheme.secondary,
+        ),
+      );
     }
 
     return state.when(
       data: (value) => GooglePlaceDetails(place: value.place!),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, _) => Center(
-        child: ErrorText(ErrorLibrary.fromAny(error)),
+      loading: () => _buildTopPadding(
+        context: context,
+        child: const Center(child: CircularProgressIndicator()),
+      ),
+      error: (error, _) => _buildTopPadding(
+        context: context,
+        child: Center(child: ErrorText(ErrorLibrary.fromAny(error))),
       ),
     );
   }
@@ -49,8 +69,7 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
       snapSizes: snapSizes,
       controller: sheetController,
       builder: (context, controller) {
-        return Container(
-          color: Theme.of(context).colorScheme.background,
+        return SheetForm(
           child: CustomScrollView(
             controller: controller,
             slivers: [

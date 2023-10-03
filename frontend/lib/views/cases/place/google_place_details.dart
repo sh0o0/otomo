@@ -4,6 +4,8 @@ import 'package:otomo/entities/place_details.dart' as place_details;
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/cases/place/place_review_card.dart';
+import 'package:otomo/views/cases/place/place_type_chips.dart';
 
 class GooglePlaceDetails extends StatelessWidget {
   const GooglePlaceDetails({
@@ -40,7 +42,7 @@ class GooglePlaceDetails extends StatelessWidget {
             child: Wrap(
               spacing: 8,
               children: place.types!
-                  .map((type) => PlaceTypeTips(type: type))
+                  .map((type) => PlaceTypeChips(type: type))
                   .toList(),
             ),
           ),
@@ -86,7 +88,7 @@ class GooglePlaceDetails extends StatelessWidget {
                     child: Image.network(
                       _getImageUrl(
                         photoReference: photo.photoReference,
-                        maxHeight: 240,
+                        maxHeight: 980,
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -169,99 +171,6 @@ class GooglePlaceDetails extends StatelessWidget {
           _buildBody(context),
         ],
       ),
-    );
-  }
-}
-
-class PlaceTypeTips extends StatelessWidget {
-  const PlaceTypeTips({
-    super.key,
-    required this.type,
-  });
-
-  final String type;
-
-  @override
-  Widget build(BuildContext context) {
-    return Chip(
-      label: BodySmall(type),
-      padding: const EdgeInsets.all(0),
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    );
-  }
-}
-
-class PlaceReviewCard extends StatelessWidget {
-  const PlaceReviewCard({
-    super.key,
-    required this.review,
-    this.height,
-    this.width,
-  });
-
-  final double? height;
-  final double? width;
-  final place_details.PlaceDetailsReview review;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      height: height,
-      width: width,
-      color: theme.colorScheme.surface,
-      child: Column(
-        children: [
-          BodySmall(review.text ?? ''),
-          Row(
-            children: [
-              CircleAvatar(
-                onBackgroundImageError: (exception, stackTrace) =>
-                    logger.warn(exception),
-                backgroundImage: NetworkImage(review.profilePhotoUrl ?? ''),
-              ),
-              Column(
-                children: [
-                  PlaceReviewStars(rating: review.rating),
-                  Row(
-                    children: [
-                      BodySmall(review.authorName),
-                      BodySmall(review.relativeTimeDescription),
-                    ],
-                  )
-                ],
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class PlaceReviewStars extends StatelessWidget {
-  const PlaceReviewStars({
-    super.key,
-    required this.rating,
-  });
-
-  final int rating;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        for (var i = 0; i < rating; i++)
-          Icon(
-            Icons.star,
-            color: Colors.yellow,
-          ),
-        for (var i = 0; i < 5 - rating; i++)
-          Icon(
-            Icons.star,
-            color: Colors.grey,
-          ),
-      ],
     );
   }
 }

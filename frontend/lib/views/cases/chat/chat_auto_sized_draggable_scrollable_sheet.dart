@@ -57,7 +57,6 @@ class _ChatAutoSizedDraggableScrollableSheetState
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return DraggableScrollableSheet(
       maxChildSize: widget.maxChildSize,
       initialChildSize: widget.initialChildSize,
@@ -66,29 +65,12 @@ class _ChatAutoSizedDraggableScrollableSheetState
       snap: widget.snap,
       snapSizes: widget.snapSizes,
       builder: (context, controller) {
-        return Container(
-          // To not show background screen
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter,
-              colors: [
-                Colors.transparent,
-                theme.colorScheme.background,
-              ],
-              stops: const [
-                0.5,
-                0.5,
-              ],
-            ),
-          ),
+        return SheetForm(
           child: SingleChildScrollView(
             controller: controller,
-            child: SheetForm(
-              child: SizedBox(
-                height: _sheetHeight ?? _initialSheetHeight(context),
-                child: widget.child,
-              ),
+            child: SizedBox(
+              height: _sheetHeight ?? _initialSheetHeight(context),
+              child: widget.child,
             ),
           ),
         );
