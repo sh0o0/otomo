@@ -163,19 +163,10 @@ class GooglePlaceDetails extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       color: theme.colorScheme.background,
-      child: Stack(
+      child: Column(
         children: [
-          Positioned(
-            top: 40,
-            child: SingleChildScrollView(
-
-              child: _buildBody(context),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            child: TitleLarge(place.name ?? ''),
-          ),
+          TitleLarge(place.name ?? ''),
+          _buildBody(context),
         ],
       ),
     );

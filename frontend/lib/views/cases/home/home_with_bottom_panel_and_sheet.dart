@@ -14,7 +14,7 @@ class HomeWithBottomPanelAndSheet extends StatefulWidget {
     required this.sheetMinSize,
     required this.sheetInitialSize,
     required this.snap,
-    required this.sheetSnapSizes,
+    this.sheetSnapSizes,
     required this.onReady,
   });
 

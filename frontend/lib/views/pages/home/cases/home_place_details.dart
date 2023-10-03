@@ -5,11 +5,12 @@ import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/cases/place/google_place_details.dart';
 import 'package:otomo/views/utils/error_library.dart';
 
-class HomePlaceDetails extends ConsumerWidget {
-  const HomePlaceDetails({super.key});
+class HomePlaceDetailsScrollView extends ConsumerWidget {
+  const HomePlaceDetailsScrollView({super.key, required this.scrollController});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  final ScrollController scrollController;
+
+  Widget _buildContent(BuildContext context, WidgetRef ref) {
     final state = ref.watch(placeDetailsProvider);
 
     if (state.value?.isNotSpecified == true) {
@@ -21,6 +22,24 @@ class HomePlaceDetails extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, _) => Center(
         child: ErrorText(ErrorLibrary.fromAny(error)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      color: Theme.of(context).colorScheme.background,
+      child: CustomScrollView(
+        controller: scrollController,
+        slivers: [
+          SliverToBoxAdapter(
+            child: _buildContent(context, ref),
+          ),
+          // SliverFillRemaining(
+          //   hasScrollBody: false,
+          // ),
+        ],
       ),
     );
   }

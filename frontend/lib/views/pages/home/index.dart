@@ -3,12 +3,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/home.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
-import 'package:otomo/views/cases/home/home_with_draggable_page_bottom_sheet.dart';
+import 'package:otomo/views/cases/home/home_with_bottom_panel_and_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/home/cases/home_place_details.dart';
 import 'package:otomo/views/pages/map.dart';
 import 'package:otomo/views/router.dart';
-import 'package:otomo/views/utils/controller.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
   const HomePage({super.key});
@@ -25,40 +24,24 @@ class _HomePageState extends ConsumerState<HomePage> {
   static const _limitCanShowKeyboard = 0.45;
   static const _sheetSnaps = [_limitCanShowKeyboard];
 
-  DraggableScrollableController? _sheetController;
-  final _pageController = PageController();
+  late final PanelAndSheetController _controller;
 
-  void _assertCanUseSheetController() {
-    assert(_sheetController != null && _sheetController!.isAttached);
+  void _onHomeReady(PanelAndSheetController controller) {
+    _controller = controller;
+    // _controller.panelController.addListener(() {
+    //   _assertCanUseSheetController();
+    //   if (_sheetController!.size < _limitCanShowKeyboard) {
+    //     ViewUtilsController.I.unfocus(context);
+    //   }
+    // });
   }
 
-  void _onSheetCreated(DraggableScrollableController controller) {
-    _sheetController = controller;
-    controller.addListener(() {
-      _assertCanUseSheetController();
-      if (_sheetController!.size < _limitCanShowKeyboard) {
-        ViewUtilsController.I.unfocus(context);
-      }
-    });
-  }
-
-  void _onSheetLeadingPressed(BuildContext context) {
-    _assertCanUseSheetController();
-
-    _sheetController!.animateTo(
-      _minSheetSize,
-      duration: _sheetAnimationDuration,
-      curve: _sheetAnimationCurve,
-    );
+  void _onPanelLeadingPressed(BuildContext context) {
+    _controller.panelController.close();
   }
 
   void _onChatTextFieldTap(BuildContext context) {
-    _assertCanUseSheetController();
-    _sheetController?.animateTo(
-      _maxSheetSize,
-      duration: _sheetAnimationDuration,
-      curve: _sheetAnimationCurve,
-    );
+    _controller.panelController.animatePanelToSnapPoint();
   }
 
   List<Widget> _buildFloatingActionButtons(BuildContext context) {
@@ -72,11 +55,11 @@ class _HomePageState extends ConsumerState<HomePage> {
           heroTag: 'chat',
           child: const Icon(Icons.chat),
           onPressed: () {
-            _sheetController?.animateTo(
-              _maxSheetSize,
-              duration: _sheetAnimationDuration,
-              curve: _sheetAnimationCurve,
-            );
+            // _sheetController?.animateTo(
+            //   _maxSheetSize,
+            //   duration: _sheetAnimationDuration,
+            //   curve: _sheetAnimationCurve,
+            // );
           },
         ),
       ),
@@ -99,19 +82,11 @@ class _HomePageState extends ConsumerState<HomePage> {
       final notifier = ref.read(homeProvider.notifier);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen((textMsg) {
-        _assertCanUseSheetController();
-
-        _sheetController!.animateTo(_limitCanShowKeyboard,
-            duration: _sheetAnimationDuration, curve: _sheetAnimationCurve);
+        _controller.panelController.animatePanelToSnapPoint();
       });
       final focusedPlaceStreamSub =
           notifier.focusedPlaceStream.listen((location) {
-        _assertCanUseSheetController();
-        _pageController.animateToPage(
-          1,
-          duration: const Duration(milliseconds: 100),
-          curve: Curves.easeOutQuint,
-        );
+        _controller.openSheet();
       });
 
       return () {
@@ -120,32 +95,28 @@ class _HomePageState extends ConsumerState<HomePage> {
       };
     }, const []);
 
+    final size = MediaQuery.of(context).size;
+
     return Unfocus(
-      child: HomeWithDraggablePageBottomSheet(
-        initialSheetSize: _minSheetSize,
-        maxSheetSize: _maxSheetSize,
-        minSheetSize: _minSheetSize,
+      child: HomeWithBottomPanelAndSheet(
+        body: const MapPage(),
+        panel: HomeChat(
+          onLeadingPressed: () => _onPanelLeadingPressed(context),
+          onHeaderTap: () => _controller.panelController.open(),
+          onTextFieldTap: () => _onChatTextFieldTap(context),
+        ),
+        sheetBuilder: (context, controller) => HomePlaceDetailsScrollView(
+          scrollController: controller,
+        ),
+        panelMinHeight: 100,
+        panelMaxHeight: size.height * 0.95,
+        panelSnapPoint: 0.3,
+        sheetMaxSize: 0.95,
+        sheetMinSize: 0.0,
+        sheetInitialSize: 0.0,
         snap: true,
-        snapSizes: _sheetSnaps,
-        resizeToAvoidBottomInset: false,
-        onSheetCreated: _onSheetCreated,
-        behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
-        pageCount: 2,
-        bottomSheetBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return HomeChat(
-                onLeadingPressed: () => _onSheetLeadingPressed(context),
-                onTextFieldTap: () => _onChatTextFieldTap(context),
-              );
-            case 1:
-              return const HomePlaceDetails();
-            default:
-              throw RangeError.index(index, 1);
-          }
-        },
-        pageController: _pageController,
-        child: const MapPage(),
+        sheetSnapSizes: const [0.45],
+        onReady: _onHomeReady,
       ),
     );
   }

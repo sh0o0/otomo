@@ -17,10 +17,12 @@ class HomeChat extends StatefulHookConsumerWidget {
   const HomeChat({
     super.key,
     this.onLeadingPressed,
+    this.onHeaderTap,
     this.onTextFieldTap,
   });
 
   final VoidCallback? onLeadingPressed;
+  final VoidCallback? onHeaderTap;
   final VoidCallback? onTextFieldTap;
 
   @override
@@ -72,11 +74,14 @@ class _HomeChatState extends ConsumerState<HomeChat>
 
     return Column(
       children: [
-        SizedBox(
-          height: 72,
-          child: ChatBottomSheetBar(
-            onLeadingPressed: widget.onLeadingPressed,
-            remainingMessageSendCount: state.value?.remainingMessageSendCount,
+        GestureDetector(
+          onTap: widget.onHeaderTap,
+          child: SizedBox(
+            height: 72,
+            child: ChatBottomSheetBar(
+              onLeadingPressed: widget.onLeadingPressed,
+              remainingMessageSendCount: state.value?.remainingMessageSendCount,
+            ),
           ),
         ),
         Expanded(
