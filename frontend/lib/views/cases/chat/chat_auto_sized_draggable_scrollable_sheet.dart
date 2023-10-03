@@ -67,7 +67,21 @@ class _ChatAutoSizedDraggableScrollableSheetState
       snapSizes: widget.snapSizes,
       builder: (context, controller) {
         return Container(
-          color: theme.colorScheme.background,
+          // To not show background screen
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: FractionalOffset.topCenter,
+              end: FractionalOffset.bottomCenter,
+              colors: [
+                Colors.transparent,
+                theme.colorScheme.background,
+              ],
+              stops: const [
+                0.5,
+                0.5,
+              ],
+            ),
+          ),
           child: SingleChildScrollView(
             controller: controller,
             child: SheetForm(

@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/home.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
-import 'package:otomo/views/pages/home/cases/home_chat.dart';
-import 'package:otomo/views/pages/home/cases/home_place_details.dart';
+import 'package:otomo/views/pages/home/cases/home_chat_sheet.dart';
+import 'package:otomo/views/pages/home/cases/home_place_details_sheet.dart';
 import 'package:otomo/views/pages/map.dart';
 import 'package:otomo/views/router.dart';
 
