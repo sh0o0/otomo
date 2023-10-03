@@ -1,51 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class HomeWithBottomPanelAndSheet extends StatefulWidget {
-  const HomeWithBottomPanelAndSheet({
+class HomeWithTwiceBottomSheet extends StatefulWidget {
+  const HomeWithTwiceBottomSheet({
     super.key,
     required this.body,
-    required this.panel,
-    required this.sheetBuilder,
-    required this.panelMinHeight,
-    required this.panelMaxHeight,
-    required this.panelSnapPoint,
-    required this.sheetMaxSize,
-    required this.sheetMinSize,
-    required this.sheetInitialSize,
-    required this.snap,
-    this.sheetSnapSizes,
-    required this.onReady,
+    required this.primarySheetBuilder,
+    required this.secondarySheetBuilder,
+    this.sheetMaxSize = 0.95,
+    this.sheetMinSize = 0.0,
+    this.primarySheetInitialSize = 0.1,
+    this.secondarySheetInitialSize = 0.0,
+    this.sheetSnapSize = 0.45,
+    this.onReady,
+    this.floatingActionButtons,
   });
 
   final Widget body;
-  final Widget panel;
-  final Widget Function(BuildContext, ScrollController) sheetBuilder;
-  final double panelMinHeight;
-  final double panelMaxHeight;
-  final double panelSnapPoint;
+  final Widget Function(BuildContext, ScrollController) primarySheetBuilder;
+  final Widget Function(BuildContext, ScrollController) secondarySheetBuilder;
   final double sheetMaxSize;
   final double sheetMinSize;
-  final double sheetInitialSize;
-  final bool snap;
-  final List<double>? sheetSnapSizes;
-  final void Function(PanelAndSheetController)? onReady;
+  final double primarySheetInitialSize;
+  final double secondarySheetInitialSize;
+  final double sheetSnapSize;
+  final void Function(TwiceBottomSheetController)? onReady;
+  final List<Widget>? floatingActionButtons;
 
   @override
-  State<HomeWithBottomPanelAndSheet> createState() =>
-      _HomeWithBottomPanelAndSheetState();
+  State<HomeWithTwiceBottomSheet> createState() =>
+      _HomeWithTwiceBottomSheetState();
 }
 
-class _HomeWithBottomPanelAndSheetState
-    extends State<HomeWithBottomPanelAndSheet> {
-  late final PanelAndSheetController _controller;
+class _HomeWithTwiceBottomSheetState extends State<HomeWithTwiceBottomSheet> {
+  late final TwiceBottomSheetController _controller;
 
   @override
   void initState() {
-    _controller = PanelAndSheetController(
-      panelController: PanelController(),
-      sheetController: DraggableScrollableController(),
-      sheetMaxSize: widget.sheetMaxSize,
+    _controller = TwiceBottomSheetController(
+      primary: DraggableScrollableController(),
+      secondary: DraggableScrollableController(),
+      maxSize: widget.sheetMaxSize,
+      minSize: widget.sheetMinSize,
+      snapSize: widget.sheetSnapSize,
     );
     widget.onReady?.call(_controller);
     super.initState();
@@ -56,23 +52,25 @@ class _HomeWithBottomPanelAndSheetState
     return Scaffold(
       body: Stack(
         children: [
-          SlidingUpPanel(
-            controller: _controller.panelController,
-            minHeight: widget.panelMinHeight,
-            maxHeight: widget.panelMaxHeight,
-            snapPoint: widget.panelSnapPoint,
-            parallaxEnabled: true,
-            body: widget.body,
-            panel: widget.panel,
-          ),
+          widget.body,
+          ...widget.floatingActionButtons ?? [],
           DraggableScrollableSheet(
-            controller: _controller.sheetController,
-            initialChildSize: widget.sheetInitialSize,
+            controller: _controller.primary,
+            initialChildSize: widget.primarySheetInitialSize,
             maxChildSize: widget.sheetMaxSize,
             minChildSize: widget.sheetMinSize,
-            snap: widget.snap,
-            snapSizes: widget.sheetSnapSizes,
-            builder: widget.sheetBuilder,
+            snap: true,
+            snapSizes: [widget.sheetSnapSize],
+            builder: widget.primarySheetBuilder,
+          ),
+          DraggableScrollableSheet(
+            controller: _controller.secondary,
+            initialChildSize: widget.secondarySheetInitialSize,
+            maxChildSize: widget.sheetMaxSize,
+            minChildSize: widget.sheetMinSize,
+            snap: true,
+            snapSizes: [widget.sheetSnapSize],
+            builder: widget.secondarySheetBuilder,
           )
         ],
       ),
@@ -80,28 +78,60 @@ class _HomeWithBottomPanelAndSheetState
   }
 }
 
-class PanelAndSheetController {
-  const PanelAndSheetController({
-    required this.panelController,
-    required this.sheetController,
-    required this.sheetMaxSize,
+class TwiceBottomSheetController {
+  const TwiceBottomSheetController({
+    required this.primary,
+    required this.secondary,
+    required this.maxSize,
+    required this.minSize,
+    required this.snapSize,
     this.animationDuration = const Duration(milliseconds: 500),
     this.animationCurve = Curves.easeOutExpo,
   });
 
-  final PanelController panelController;
-  final DraggableScrollableController sheetController;
-  final double sheetMaxSize;
+  final DraggableScrollableController primary;
+  final DraggableScrollableController secondary;
+  final double maxSize;
+  final double minSize;
+  final double snapSize;
   final Duration animationDuration;
   final Curve animationCurve;
 
+  void openPrimary() {
+    primary.animateTo(
+      maxSize,
+      duration: animationDuration,
+      curve: animationCurve,
+    );
+  }
+
+  void closePrimary() {
+    primary.animateTo(
+      minSize,
+      duration: animationDuration,
+      curve: animationCurve,
+    );
+  }
+
+  void movePrimaryToSnap() {
+    primary.animateTo(
+      snapSize,
+      duration: animationDuration,
+      curve: animationCurve,
+    );
+  }
+
   void openSheet() {
-    if (panelController.isPanelOpen) {
-      panelController.animatePanelToSnapPoint();
+    if (primary.size > snapSize) {
+      primary.animateTo(
+        snapSize,
+        duration: animationDuration,
+        curve: animationCurve,
+      );
     }
 
-    sheetController.animateTo(
-      sheetMaxSize,
+    secondary.animateTo(
+      maxSize,
       duration: animationDuration,
       curve: animationCurve,
     );

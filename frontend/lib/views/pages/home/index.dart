@@ -8,6 +8,7 @@ import 'package:otomo/views/pages/home/cases/home_chat.dart';
 import 'package:otomo/views/pages/home/cases/home_place_details.dart';
 import 'package:otomo/views/pages/map.dart';
 import 'package:otomo/views/router.dart';
+import 'package:otomo/views/utils/flutter.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
   const HomePage({super.key});
@@ -17,31 +18,15 @@ class HomePage extends StatefulHookConsumerWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  static const _sheetAnimationCurve = Curves.easeOutQuint;
-  static const _sheetAnimationDuration = Duration(milliseconds: 800);
-  static const _maxSheetSize = 0.95;
-  static const _minSheetSize = 0.0;
-  static const _limitCanShowKeyboard = 0.45;
-  static const _sheetSnaps = [_limitCanShowKeyboard];
+  late final TwiceBottomSheetController _controller;
 
-  late final PanelAndSheetController _controller;
-
-  void _onHomeReady(PanelAndSheetController controller) {
+  void _onHomeReady(TwiceBottomSheetController controller) {
     _controller = controller;
-    // _controller.panelController.addListener(() {
-    //   _assertCanUseSheetController();
-    //   if (_sheetController!.size < _limitCanShowKeyboard) {
-    //     ViewUtilsController.I.unfocus(context);
-    //   }
-    // });
-  }
-
-  void _onPanelLeadingPressed(BuildContext context) {
-    _controller.panelController.close();
-  }
-
-  void _onChatTextFieldTap(BuildContext context) {
-    _controller.panelController.animatePanelToSnapPoint();
+    _controller.primary.addListener(() {
+      if (_controller.primary.size < 0.5) {
+        FlutterUtils.unfocus(context);
+      }
+    });
   }
 
   List<Widget> _buildFloatingActionButtons(BuildContext context) {
@@ -54,13 +39,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: FloatingActionButton(
           heroTag: 'chat',
           child: const Icon(Icons.chat),
-          onPressed: () {
-            // _sheetController?.animateTo(
-            //   _maxSheetSize,
-            //   duration: _sheetAnimationDuration,
-            //   curve: _sheetAnimationCurve,
-            // );
-          },
+          onPressed: () => _controller.openPrimary(),
         ),
       ),
       Positioned(
@@ -82,7 +61,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       final notifier = ref.read(homeProvider.notifier);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen((textMsg) {
-        _controller.panelController.animatePanelToSnapPoint();
+        _controller.movePrimaryToSnap();
       });
       final focusedPlaceStreamSub =
           notifier.focusedPlaceStream.listen((location) {
@@ -95,28 +74,19 @@ class _HomePageState extends ConsumerState<HomePage> {
       };
     }, const []);
 
-    final size = MediaQuery.of(context).size;
-
     return Unfocus(
-      child: HomeWithBottomPanelAndSheet(
+      child: HomeWithTwiceBottomSheet(
         body: const MapPage(),
-        panel: HomeChat(
-          onLeadingPressed: () => _onPanelLeadingPressed(context),
-          onHeaderTap: () => _controller.panelController.open(),
-          onTextFieldTap: () => _onChatTextFieldTap(context),
-        ),
-        sheetBuilder: (context, controller) => HomePlaceDetailsScrollView(
+        primarySheetBuilder: (context, controller) => HomeChatScrollView(
           scrollController: controller,
+          onLeadingPressed: () => _controller.closePrimary(),
+          onHeaderTap: () => _controller.openPrimary(),
+          onTextFieldTap: () => _controller.openPrimary(),
         ),
-        panelMinHeight: 100,
-        panelMaxHeight: size.height * 0.95,
-        panelSnapPoint: 0.3,
-        sheetMaxSize: 0.95,
-        sheetMinSize: 0.0,
-        sheetInitialSize: 0.0,
-        snap: true,
-        sheetSnapSizes: const [0.45],
+        secondarySheetBuilder: (context, controller) =>
+            HomePlaceDetailsScrollView(scrollController: controller),
         onReady: _onHomeReady,
+        floatingActionButtons: _buildFloatingActionButtons(context),
       ),
     );
   }

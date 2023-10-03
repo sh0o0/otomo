@@ -13,23 +13,25 @@ import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/utils/error_library.dart';
 import 'package:otomo/views/utils/flutter.dart';
 
-class HomeChat extends StatefulHookConsumerWidget {
-  const HomeChat({
+class HomeChatScrollView extends StatefulHookConsumerWidget {
+  const HomeChatScrollView({
     super.key,
+    required this.scrollController,
     this.onLeadingPressed,
     this.onHeaderTap,
     this.onTextFieldTap,
   });
 
+  final ScrollController scrollController;
   final VoidCallback? onLeadingPressed;
   final VoidCallback? onHeaderTap;
   final VoidCallback? onTextFieldTap;
 
   @override
-  ConsumerState<HomeChat> createState() => _HomeChatState();
+  ConsumerState<HomeChatScrollView> createState() => _HomeChatState();
 }
 
-class _HomeChatState extends ConsumerState<HomeChat>
+class _HomeChatState extends ConsumerState<HomeChatScrollView>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -68,54 +70,60 @@ class _HomeChatState extends ConsumerState<HomeChat>
     final notifier = ref.read(chatProvider.notifier);
 
     useEffect(() {
-      afterBuildCallback(notifier.initState);
+      FlutterUtils.afterBuildCallback(notifier.initState);
       return () {};
     }, const []);
-
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: widget.onHeaderTap,
-          child: SizedBox(
-            height: 72,
-            child: ChatBottomSheetBar(
-              onLeadingPressed: widget.onLeadingPressed,
-              remainingMessageSendCount: state.value?.remainingMessageSendCount,
+  final theme = Theme.of(context);
+    return Container(
+      color: theme.colorScheme.background,
+      child: SingleChildScrollView(
+        controller: widget.scrollController,
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: widget.onHeaderTap,
+              child: SizedBox(
+                height: 72,
+                child: ChatBottomSheetBar(
+                  onLeadingPressed: widget.onLeadingPressed,
+                  remainingMessageSendCount: state.value?.remainingMessageSendCount,
+                ),
+              ),
             ),
-          ),
-        ),
-        Expanded(
-          child: ChatUI(
-            messages: state.value?.messages.items ?? [],
-            isLastPage: state.value?.messages.hasMore == false,
-            onSendPressed: (text) => notifier.sendMessage(text),
-            user: ChatState.user,
-            emptyState: _emptyState(context, state),
-            onEndReached: () => notifier.listMessagesMore(),
-            onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
-            showStatusPopup: (message) => message.status == MessageStatus.error,
-            statusPopupBuilder: (context, message) => _statusPopupBuilder(
-              context,
-              message,
-              messages: state.value?.messages.items ?? [],
-            ),
-            onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
-            customBottomWidget: state.value?.hideTextField == true
-                ? Spaces.zero
-                : Animate(
-                    effects: const [
-                      FadeEffect(duration: Duration(milliseconds: 100)),
-                    ],
-                    child: types.Input(
-                      onSendPressed: (text) => notifier.sendMessage(text.text),
-                      options: types.InputOptions(
-                        onTextFieldTap: widget.onTextFieldTap,
+            Expanded(
+              child: ChatUI(
+                messages: state.value?.messages.items ?? [],
+                isLastPage: state.value?.messages.hasMore == false,
+                onSendPressed: (text) => notifier.sendMessage(text),
+                user: ChatState.user,
+                emptyState: _emptyState(context, state),
+                onEndReached: () => notifier.listMessagesMore(),
+                onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
+                showStatusPopup: (message) => message.status == MessageStatus.error,
+                statusPopupBuilder: (context, message) => _statusPopupBuilder(
+                  context,
+                  message,
+                  messages: state.value?.messages.items ?? [],
+                ),
+                onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
+                customBottomWidget: state.value?.hideTextField == true
+                    ? Spaces.zero
+                    : Animate(
+                        effects: const [
+                          FadeEffect(duration: Duration(milliseconds: 100)),
+                        ],
+                        child: types.Input(
+                          onSendPressed: (text) => notifier.sendMessage(text.text),
+                          options: types.InputOptions(
+                            onTextFieldTap: widget.onTextFieldTap,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-          ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
