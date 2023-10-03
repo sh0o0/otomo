@@ -5,10 +5,23 @@ import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/cases/place/google_place_details.dart';
 import 'package:otomo/views/utils/error_library.dart';
 
-class HomePlaceDetailsScrollView extends ConsumerWidget {
-  const HomePlaceDetailsScrollView({super.key, required this.scrollController});
+class HomePlaceDetailsSheet extends ConsumerWidget {
+  const HomePlaceDetailsSheet({
+    super.key,
+    required this.maxSheetSize,
+    required this.minSheetSize,
+    required this.initialSheetSize,
+    this.snap = false,
+    this.snapSizes,
+    this.sheetController,
+  });
 
-  final ScrollController scrollController;
+  final double maxSheetSize;
+  final double minSheetSize;
+  final double initialSheetSize;
+  final bool snap;
+  final List<double>? snapSizes;
+  final DraggableScrollableController? sheetController;
 
   Widget _buildContent(BuildContext context, WidgetRef ref) {
     final state = ref.watch(placeDetailsProvider);
@@ -28,19 +41,26 @@ class HomePlaceDetailsScrollView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      color: Theme.of(context).colorScheme.background,
-      child: CustomScrollView(
-        controller: scrollController,
-        slivers: [
-          SliverToBoxAdapter(
-            child: _buildContent(context, ref),
+    return DraggableScrollableSheet(
+      initialChildSize: initialSheetSize,
+      maxChildSize: maxSheetSize,
+      minChildSize: minSheetSize,
+      snap: snap,
+      snapSizes: snapSizes,
+      controller: sheetController,
+      builder: (context, controller) {
+        return Container(
+          color: Theme.of(context).colorScheme.background,
+          child: CustomScrollView(
+            controller: controller,
+            slivers: [
+              SliverToBoxAdapter(
+                child: _buildContent(context, ref),
+              ),
+            ],
           ),
-          // SliverFillRemaining(
-          //   hasScrollBody: false,
-          // ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

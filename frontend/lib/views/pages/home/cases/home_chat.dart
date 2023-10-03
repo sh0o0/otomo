@@ -7,34 +7,53 @@ import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
+import 'package:otomo/views/cases/chat/chat_auto_sized_draggable_scrollable_sheet.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/utils/error_library.dart';
 import 'package:otomo/views/utils/flutter.dart';
 
-class HomeChatScrollView extends StatefulHookConsumerWidget {
-  const HomeChatScrollView({
+class HomeChatSheet extends StatefulHookConsumerWidget {
+  const HomeChatSheet({
     super.key,
-    required this.scrollController,
+    required this.maxSheetSize,
+    required this.minSheetSize,
+    required this.initialSheetSize,
+    this.snap = false,
+    this.snapSizes,
+    this.onSheetCreated,
     this.onLeadingPressed,
     this.onHeaderTap,
     this.onTextFieldTap,
   });
 
-  final ScrollController scrollController;
+  final double maxSheetSize;
+  final double minSheetSize;
+  final double initialSheetSize;
+  final bool snap;
+  final List<double>? snapSizes;
+  final void Function(DraggableScrollableController)? onSheetCreated;
   final VoidCallback? onLeadingPressed;
   final VoidCallback? onHeaderTap;
   final VoidCallback? onTextFieldTap;
 
   @override
-  ConsumerState<HomeChatScrollView> createState() => _HomeChatState();
+  ConsumerState<HomeChatSheet> createState() => _HomeChatState();
 }
 
-class _HomeChatState extends ConsumerState<HomeChatScrollView>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _HomeChatState extends ConsumerState<HomeChatSheet> {
+  late final DraggableScrollableController _sheetController;
+
+  void _onSheetCreated(DraggableScrollableController controller) {
+    widget.onSheetCreated?.call(controller);
+    _sheetController = controller;
+    _sheetController.addListener(() {
+      if (_sheetController.size < 0.5) {
+        FlutterUtils.unfocus(context);
+      }
+    });
+  }
 
   Widget _statusPopupBuilder(
     BuildContext context,
@@ -65,7 +84,6 @@ class _HomeChatState extends ConsumerState<HomeChatScrollView>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     final state = ref.watch(chatProvider);
     final notifier = ref.read(chatProvider.notifier);
 
@@ -73,56 +91,61 @@ class _HomeChatState extends ConsumerState<HomeChatScrollView>
       FlutterUtils.afterBuildCallback(notifier.initState);
       return () {};
     }, const []);
-  final theme = Theme.of(context);
-    return Container(
-      color: theme.colorScheme.background,
-      child: SingleChildScrollView(
-        controller: widget.scrollController,
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: widget.onHeaderTap,
-              child: SizedBox(
-                height: 72,
-                child: ChatBottomSheetBar(
-                  onLeadingPressed: widget.onLeadingPressed,
-                  remainingMessageSendCount: state.value?.remainingMessageSendCount,
-                ),
+
+    return ChatAutoSizedDraggableScrollableSheet(
+      initialChildSize: widget.initialSheetSize,
+      minChildSize: widget.minSheetSize,
+      maxChildSize: widget.maxSheetSize,
+      snap: widget.snap,
+      snapSizes: widget.snapSizes,
+      onSheetCreated: _onSheetCreated,
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: widget.onHeaderTap,
+            child: SizedBox(
+              height: 72,
+              child: ChatBottomSheetBar(
+                onLeadingPressed: widget.onLeadingPressed,
+                remainingMessageSendCount:
+                    state.value?.remainingMessageSendCount,
               ),
             ),
-            Expanded(
-              child: ChatUI(
+          ),
+          Expanded(
+            child: ChatUI(
+              messages: state.value?.messages.items ?? [],
+              isLastPage: state.value?.messages.hasMore == false,
+              onSendPressed: (text) => notifier.sendMessage(text),
+              user: ChatState.user,
+              emptyState: _emptyState(context, state),
+              onEndReached: () => notifier.listMessagesMore(),
+              onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
+              showStatusPopup: (message) =>
+                  message.status == MessageStatus.error,
+              statusPopupBuilder: (context, message) => _statusPopupBuilder(
+                context,
+                message,
                 messages: state.value?.messages.items ?? [],
-                isLastPage: state.value?.messages.hasMore == false,
-                onSendPressed: (text) => notifier.sendMessage(text),
-                user: ChatState.user,
-                emptyState: _emptyState(context, state),
-                onEndReached: () => notifier.listMessagesMore(),
-                onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
-                showStatusPopup: (message) => message.status == MessageStatus.error,
-                statusPopupBuilder: (context, message) => _statusPopupBuilder(
-                  context,
-                  message,
-                  messages: state.value?.messages.items ?? [],
-                ),
-                onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
-                customBottomWidget: state.value?.hideTextField == true
-                    ? Spaces.zero
-                    : Animate(
-                        effects: const [
-                          FadeEffect(duration: Duration(milliseconds: 100)),
-                        ],
-                        child: types.Input(
-                          onSendPressed: (text) => notifier.sendMessage(text.text),
-                          options: types.InputOptions(
-                            onTextFieldTap: widget.onTextFieldTap,
-                          ),
+              ),
+              onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
+              customBottomWidget: state.value?.hideTextField == true
+                  ? Spaces.zero
+                  : Animate(
+                      effects: const [
+                        FadeEffect(duration: Duration(milliseconds: 100)),
+                      ],
+                      child: types.Input(
+                        onSendPressed: (text) =>
+                            notifier.sendMessage(text.text),
+                        options: types.InputOptions(
+                          onTextFieldTap: widget.onTextFieldTap,
                         ),
                       ),
-              ),
+                    ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
