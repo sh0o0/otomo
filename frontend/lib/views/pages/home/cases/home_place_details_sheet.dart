@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/place_details.dart';
 import 'package:otomo/views/bases/sheets/sheet_form.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
-import 'package:otomo/views/cases/place/google_place_details.dart';
+import 'package:otomo/views/cases/place/place_details_scroll_view.dart';
 import 'package:otomo/views/utils/error_library.dart';
 
 class HomePlaceDetailsSheet extends ConsumerWidget {
@@ -24,7 +24,7 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
   final List<double>? snapSizes;
   final DraggableScrollableController? sheetController;
 
-  Widget _buildContent({
+  List<Widget> _buildSlivers({
     required BuildContext context,
     required WidgetRef ref,
     required ScrollController scrollController,
@@ -33,30 +33,32 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
     final theme = Theme.of(context);
 
     if (state.value?.isNotSpecified == true) {
-      return _SingleContent(
-        scrollController: scrollController,
-        child: Icon(
-          Icons.pin_drop_rounded,
-          size: 80,
-          color: theme.colorScheme.secondary,
-        ),
-      );
+      return [
+        _SingleContent(
+          child: Icon(
+            Icons.pin_drop_rounded,
+            size: 80,
+            color: theme.colorScheme.secondary,
+          ),
+        )
+      ];
     }
 
     return state.when(
-      data: (value) => GooglePlaceDetails(
-        scrollController: scrollController,
+      data: (value) => PlaceDetailsScrollView.slivers(
+        context: context,
         place: value.place!,
-        removeTopPadding: true,
       ),
-      loading: () => _SingleContent(
-        scrollController: scrollController,
-        child: const CircularProgressIndicator(),
-      ),
-      error: (error, _) => _SingleContent(
-        scrollController: scrollController,
-        child: ErrorText(ErrorLibrary.fromAny(error)),
-      ),
+      loading: () => [
+        const _SingleContent(
+          child: CircularProgressIndicator(),
+        )
+      ],
+      error: (error, _) => [
+        _SingleContent(
+          child: ErrorText(ErrorLibrary.fromAny(error)),
+        )
+      ],
     );
   }
 
@@ -71,10 +73,13 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
       controller: sheetController,
       builder: (context, controller) {
         return SheetForm(
-          child: _buildContent(
-            context: context,
-            ref: ref,
-            scrollController: controller,
+          child: CustomScrollView(
+            controller: controller,
+            slivers: _buildSlivers(
+              context: context,
+              ref: ref,
+              scrollController: controller,
+            ),
           ),
         );
       },
@@ -84,21 +89,16 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
 
 class _SingleContent extends StatelessWidget {
   const _SingleContent({
-    required this.scrollController,
     required this.child,
   });
 
-  final ScrollController scrollController;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: Center(child: child),
-      ),
+    return SliverPadding(
+      padding: const EdgeInsets.only(top: 40),
+      sliver: SliverToBoxAdapter(child: Center(child: child)),
     );
   }
 }

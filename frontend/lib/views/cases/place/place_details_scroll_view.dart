@@ -4,10 +4,11 @@ import 'package:otomo/entities/place_details.dart' as place_details;
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/place/place_review_card.dart';
+import 'package:otomo/views/cases/place/place_sliver_app_bar.dart';
 import 'package:otomo/views/cases/place/place_type_chips.dart';
 
-class GooglePlaceDetails extends StatelessWidget {
-  const GooglePlaceDetails({
+class PlaceDetailsScrollView extends StatelessWidget {
+  const PlaceDetailsScrollView({
     super.key,
     required this.place,
     this.scrollController,
@@ -164,33 +165,23 @@ class GooglePlaceDetails extends StatelessWidget {
     );
   }
 
+  static List<Widget> slivers({
+    required BuildContext context,
+    required place_details.PlaceDetails place,
+  }) {
+    return [
+      PlaceSliverAppBar(
+        name: place.name ?? '',
+        removeTopPadding: true,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return CustomScrollView(
       controller: scrollController,
-      slivers: [
-        MediaQuery.removePadding(
-          context: context,
-          removeTop: removeTopPadding,
-          child: SliverAppBar(
-            pinned: true,
-            title: Align(
-              alignment: Alignment.centerLeft,
-              child: TitleLarge(place.name ?? ''),
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: onClosePressed,
-              ),
-            ],
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: _buildBody(context),
-        ),
-      ],
+      slivers: slivers(context: context, place: place),
     );
   }
 }

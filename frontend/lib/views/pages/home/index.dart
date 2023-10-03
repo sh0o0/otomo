@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/home.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/pages/home/cases/home_chat_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_place_details_sheet.dart';
 import 'package:otomo/views/pages/map.dart';
 import 'package:otomo/views/router.dart';
+import 'package:otomo/views/utils/flutter.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
   const HomePage({super.key});
@@ -63,11 +63,15 @@ class _HomePageState extends ConsumerState<HomePage> {
       final notifier = ref.read(homeProvider.notifier);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen((textMsg) {
-        _homeController.moveChatSheetToSnap();
+        FlutterUtils.afterBuildCallback(() {
+          _homeController.moveChatSheetToSnap();
+        });
       });
       final focusedPlaceStreamSub =
           notifier.focusedPlaceStream.listen((location) {
-        _homeController.openPlaceDetailsSheet();
+        FlutterUtils.afterBuildCallback(() async {
+          _homeController.openPlaceDetailsSheet();
+        });
       });
 
       return () {
@@ -76,7 +80,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       };
     }, const []);
 
-    logger.debug(chatMinSheetSize);
 
     return Unfocus(
       child: Scaffold(
