@@ -3,14 +3,16 @@ import 'package:flutter/rendering.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class Playground extends StatefulWidget {
-  const Playground({super.key});
+class HomeWithTwiceSideUpPanelPlayground extends StatefulWidget {
+  const HomeWithTwiceSideUpPanelPlayground({super.key});
 
   @override
-  State<Playground> createState() => _PlaygroundState();
+  State<HomeWithTwiceSideUpPanelPlayground> createState() =>
+      _HomeWithTwiceSideUpPanelPlaygroundState();
 }
 
-class _PlaygroundState extends State<Playground> {
+class _HomeWithTwiceSideUpPanelPlaygroundState
+    extends State<HomeWithTwiceSideUpPanelPlayground> {
   late final HomeController _homeController;
 
   void _onControllerReady(HomeController controller) {
@@ -46,7 +48,8 @@ class _PlaygroundState extends State<Playground> {
             Expanded(
               child: ListView.builder(
                 itemCount: 50,
-                itemBuilder: (context, index) => ListTile(title: Text('$index')),
+                itemBuilder: (context, index) =>
+                    ListTile(title: Text('$index')),
               ),
             ),
           ],

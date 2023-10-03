@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/views/app.dart';
-import 'package:otomo/views/developments/playground.dart';
+import 'package:otomo/views/developments/stored/slide_up_panel_and_draggable_scrollable_sheet.dart';
 
 class DevelopmentHome extends StatelessWidget {
   const DevelopmentHome({super.key});
@@ -20,7 +20,7 @@ class DevelopmentHome extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const Playground(),
+                builder: (context) => const SlideUpPanelAndDraggableScrollableSheet(),
               )),
               child: const Text('Playground'),
             )
