@@ -61,6 +61,7 @@ class _HomeWithBottomPanelAndSheetState
             minHeight: widget.panelMinHeight,
             maxHeight: widget.panelMaxHeight,
             snapPoint: widget.panelSnapPoint,
+            parallaxEnabled: true,
             body: widget.body,
             panel: widget.panel,
           ),
@@ -84,8 +85,8 @@ class PanelAndSheetController {
     required this.panelController,
     required this.sheetController,
     required this.sheetMaxSize,
-    this.animationDuration = const Duration(milliseconds: 800),
-    this.animationCurve = Curves.easeOutQuint,
+    this.animationDuration = const Duration(milliseconds: 500),
+    this.animationCurve = Curves.easeOutExpo,
   });
 
   final PanelController panelController;
