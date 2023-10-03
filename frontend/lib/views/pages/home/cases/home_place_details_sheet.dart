@@ -24,20 +24,17 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
   final List<double>? snapSizes;
   final DraggableScrollableController? sheetController;
 
-  Widget _buildTopPadding({
+  Widget _buildContent({
     required BuildContext context,
-    required Widget child,
+    required WidgetRef ref,
+    required ScrollController scrollController,
   }) {
-    return Padding(padding: const EdgeInsets.only(top: 40), child: child);
-  }
-
-  Widget _buildContent(BuildContext context, WidgetRef ref) {
     final state = ref.watch(placeDetailsProvider);
     final theme = Theme.of(context);
 
     if (state.value?.isNotSpecified == true) {
-      return _buildTopPadding(
-        context: context,
+      return _SingleContent(
+        scrollController: scrollController,
         child: Icon(
           Icons.pin_drop_rounded,
           size: 80,
@@ -47,14 +44,18 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
     }
 
     return state.when(
-      data: (value) => GooglePlaceDetails(place: value.place!),
-      loading: () => _buildTopPadding(
-        context: context,
-        child: const Center(child: CircularProgressIndicator()),
+      data: (value) => GooglePlaceDetails(
+        scrollController: scrollController,
+        place: value.place!,
+        removeTopPadding: true,
       ),
-      error: (error, _) => _buildTopPadding(
-        context: context,
-        child: Center(child: ErrorText(ErrorLibrary.fromAny(error))),
+      loading: () => _SingleContent(
+        scrollController: scrollController,
+        child: const CircularProgressIndicator(),
+      ),
+      error: (error, _) => _SingleContent(
+        scrollController: scrollController,
+        child: ErrorText(ErrorLibrary.fromAny(error)),
       ),
     );
   }
@@ -70,16 +71,34 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
       controller: sheetController,
       builder: (context, controller) {
         return SheetForm(
-          child: CustomScrollView(
-            controller: controller,
-            slivers: [
-              SliverToBoxAdapter(
-                child: _buildContent(context, ref),
-              ),
-            ],
+          child: _buildContent(
+            context: context,
+            ref: ref,
+            scrollController: controller,
           ),
         );
       },
+    );
+  }
+}
+
+class _SingleContent extends StatelessWidget {
+  const _SingleContent({
+    required this.scrollController,
+    required this.child,
+  });
+
+  final ScrollController scrollController;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      controller: scrollController,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 40),
+        child: Center(child: child),
+      ),
     );
   }
 }

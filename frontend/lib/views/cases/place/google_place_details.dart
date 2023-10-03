@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/entities/place_details.dart' as place_details;
-import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/place/place_review_card.dart';
@@ -11,9 +10,15 @@ class GooglePlaceDetails extends StatelessWidget {
   const GooglePlaceDetails({
     super.key,
     required this.place,
+    this.scrollController,
+    this.removeTopPadding = false,
+    this.onClosePressed,
   });
 
   final place_details.PlaceDetails place;
+  final ScrollController? scrollController;
+  final bool removeTopPadding;
+  final VoidCallback? onClosePressed;
 
   String _getImageUrl({
     required String photoReference,
@@ -88,7 +93,7 @@ class GooglePlaceDetails extends StatelessWidget {
                     child: Image.network(
                       _getImageUrl(
                         photoReference: photo.photoReference,
-                        maxHeight: 980,
+                        maxHeight: 1240,
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -161,16 +166,31 @@ class GooglePlaceDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.debug(place);
     final theme = Theme.of(context);
-    return Container(
-      color: theme.colorScheme.background,
-      child: Column(
-        children: [
-          TitleLarge(place.name ?? ''),
-          _buildBody(context),
-        ],
-      ),
+    return CustomScrollView(
+      controller: scrollController,
+      slivers: [
+        MediaQuery.removePadding(
+          context: context,
+          removeTop: removeTopPadding,
+          child: SliverAppBar(
+            pinned: true,
+            title: Align(
+              alignment: Alignment.centerLeft,
+              child: TitleLarge(place.name ?? ''),
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: onClosePressed,
+              ),
+            ],
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: _buildBody(context),
+        ),
+      ],
     );
   }
 }

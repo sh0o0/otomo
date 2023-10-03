@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/home.dart';
 import 'package:otomo/views/bases/text_fields/unfocus.dart';
 import 'package:otomo/views/pages/home/cases/home_chat_sheet.dart';
@@ -16,12 +17,14 @@ class HomePage extends StatefulHookConsumerWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  static const maxSheetSize = 0.95;
-  static const chatMinSheetSize = 0.1;
-  static const placeDetailsMinSheetSize = 0.0;
-  static const chatSheetInitialSheetSize = 0.1;
-  static const placeDetailsSheetInitialSheetSize = 0.0;
-  static const snapSizes = [0.45];
+  double get screenHeight => MediaQuery.of(context).size.height;
+  double get maxSheetSize =>
+      1 / screenHeight * (screenHeight - MediaQuery.paddingOf(context).top);
+  double get chatMinSheetSize => 1 / screenHeight * 100;
+  final placeDetailsMinSheetSize = 0.0;
+  double get chatSheetInitialSheetSize => chatMinSheetSize;
+  double get placeDetailsSheetInitialSheetSize => placeDetailsMinSheetSize;
+  final snapSizes = [0.45];
 
   final _placeDetailsSheetController = DraggableScrollableController();
   late final HomeController _homeController;
@@ -72,6 +75,8 @@ class _HomePageState extends ConsumerState<HomePage> {
         focusedPlaceStreamSub.cancel();
       };
     }, const []);
+
+    logger.debug(chatMinSheetSize);
 
     return Unfocus(
       child: Scaffold(
