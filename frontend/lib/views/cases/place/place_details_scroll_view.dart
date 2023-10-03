@@ -3,9 +3,10 @@ import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/entities/place_details.dart' as place_details;
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/cases/place/place_impressions.dart';
 import 'package:otomo/views/cases/place/place_review_card.dart';
 import 'package:otomo/views/cases/place/place_sliver_app_bar.dart';
-import 'package:otomo/views/cases/place/place_type_chips.dart';
+import 'package:otomo/views/cases/place/place_type_chip.dart';
 
 class PlaceDetailsScrollView extends StatelessWidget {
   const PlaceDetailsScrollView({
@@ -48,7 +49,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
             child: Wrap(
               spacing: 8,
               children: place.types!
-                  .map((type) => PlaceTypeChips(type: type))
+                  .map((type) => PlaceTypeChip(type: type))
                   .toList(),
             ),
           ),
@@ -160,7 +161,6 @@ class PlaceDetailsScrollView extends StatelessWidget {
             ]).toList(),
           ),
         )
-        // hours details
       ],
     );
   }
@@ -173,6 +173,17 @@ class PlaceDetailsScrollView extends StatelessWidget {
       PlaceSliverAppBar(
         name: place.name ?? '',
         removeTopPadding: true,
+      ),
+      const SliverToBoxAdapter(child: Spaces.h16),
+      SliverToBoxAdapter(
+        child: PlaceTypeChip.wrap(context: context, types: place.types ?? []),
+      ),
+      const SliverToBoxAdapter(child: Spaces.h8),
+      SliverToBoxAdapter(
+        child: PlaceImpressions(
+          openingHours: place.openingHours,
+          rating: place.rating,
+        ),
       ),
     ];
   }

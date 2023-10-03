@@ -18,4 +18,5 @@ class AppLightColors {
   static const surface = Color(0xFFF7F7F7);
   static const inputFillColor = Color(0xFFE9E9EA);
   static const hintColor = Color(0xFFB5B5B8);
+  static const outline = Color(0xFFB9B6B0);
 }

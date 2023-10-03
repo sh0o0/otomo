@@ -22,6 +22,7 @@ abstract class AppThemes {
       onErrorContainer: Colors.white,
       shadow: AppColors.shadow,
       scrim: AppColors.scrim,
+      outlineVariant: AppLightColors.outline,
     ),
     useMaterial3: true,
   );
@@ -51,6 +52,7 @@ abstract class AppThemes {
     extensions: <ThemeExtension>[
       AppTheme(
         dangerColor: AppColors.danger,
+        activeColor: AppColors.activeGreen,
         chatTheme: DefaultChatTheme(
           primaryColor: _light.colorScheme.primary,
           secondaryColor: _light.colorScheme.surfaceVariant,
@@ -110,12 +112,14 @@ class AppTheme extends ThemeExtension<AppTheme> {
     required this.chatTheme,
     required this.settingsTheme,
     required this.dangerColor,
+    required this.activeColor,
   });
 
   final ChatTheme chatTheme;
   final SettingsThemeData settingsTheme;
 
   final Color dangerColor;
+  final Color activeColor;
 
   @override
   ThemeExtension<AppTheme> copyWith() {
