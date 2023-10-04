@@ -14,7 +14,7 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
     required this.initialSheetSize,
     this.snap = false,
     this.snapSizes,
-    this.sheetController,
+    required this.sheetController,
   });
 
   final double maxSheetSize;
@@ -22,7 +22,7 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
   final double initialSheetSize;
   final bool snap;
   final List<double>? snapSizes;
-  final DraggableScrollableController? sheetController;
+  final DraggableScrollableController sheetController;
 
   List<Widget> _buildSlivers({
     required BuildContext context,
@@ -48,6 +48,11 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
       data: (value) => PlaceDetailsScrollView.slivers(
         context: context,
         place: value.place!,
+        onClosePressed: () => sheetController.animateTo(
+          minSheetSize,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeOutExpo,
+        ),
       ),
       loading: () => [
         const _SingleContent(

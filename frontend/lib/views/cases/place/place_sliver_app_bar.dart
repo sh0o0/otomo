@@ -6,10 +6,12 @@ class PlaceSliverAppBar extends StatelessWidget {
     super.key,
     required this.name,
     this.removeTopSafePadding = false,
+    this.onClosePressed,
   });
 
   final String name;
   final bool removeTopSafePadding;
+  final VoidCallback? onClosePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +57,14 @@ class PlaceSliverAppBar extends StatelessWidget {
             }),
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {},
-          ),
-        ],
+        actions: onClosePressed != null
+            ? [
+                IconButton(
+                  icon: const Icon(Icons.close_rounded),
+                  onPressed: onClosePressed,
+                ),
+              ]
+            : null,
       ),
     );
   }

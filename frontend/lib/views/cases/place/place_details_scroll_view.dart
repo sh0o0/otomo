@@ -26,11 +26,13 @@ class PlaceDetailsScrollView extends StatelessWidget {
   static List<Widget> slivers({
     required BuildContext context,
     required PlaceDetails place,
+    VoidCallback? onClosePressed,
   }) {
     return [
       PlaceSliverAppBar(
         name: place.name ?? '',
         removeTopSafePadding: true,
+        onClosePressed: onClosePressed,
       ),
       const SliverToBoxAdapter(child: Spaces.h16),
       SliverToBoxAdapter(
