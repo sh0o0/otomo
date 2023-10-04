@@ -32,7 +32,7 @@ class _MapState extends ConsumerState<MapPage> {
   Future<void> _goCurrentLocation(Map notifier) async {
     if (!_canUseMapController) return;
     final position = await notifier.getCurrentPosition();
-    _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 8);
+    _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 14);
   }
 
   Set<Marker> _markers(MapState state, Map notifier) =>
