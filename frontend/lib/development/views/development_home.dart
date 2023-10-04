@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/views/app.dart';
-import 'package:otomo/views/developments/stored/slide_up_panel_and_draggable_scrollable_sheet.dart';
+import 'package:otomo/development/views/stored/slide_up_panel_and_draggable_scrollable_sheet.dart';
 
 class DevelopmentHome extends StatelessWidget {
   const DevelopmentHome({super.key});

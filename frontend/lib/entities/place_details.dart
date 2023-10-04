@@ -164,7 +164,7 @@ class PlaceDetailsSpecialDay with _$PlaceDetailsSpecialDay {
 
 @freezed
 class PlaceDetailsPhoto with _$PlaceDetailsPhoto {
-  PlaceDetailsPhoto._();
+  const PlaceDetailsPhoto._();
   const factory PlaceDetailsPhoto({
     required int height,
     required List<String> htmlAttributions,
@@ -179,7 +179,8 @@ class PlaceDetailsPhoto with _$PlaceDetailsPhoto {
     int? maxHeight,
   }) {
     // For when assigning fake image url
-    if (RegExps.url.hasMatch(photoReference)) photoReference;
+    if (RegExps.url.hasMatch(photoReference)) return photoReference;
+
     final mh = maxHeight ?? height;
     return 'https://maps.googleapis.com/maps/api/place/photo?maxheight=$mh&photo_reference=$photoReference&key=${appConfig.googleMapApiKey}';
   }

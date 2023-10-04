@@ -86,7 +86,7 @@ class PlaceRating extends StatelessWidget {
       children: [
         const TitleSmall('Rating'),
         BodyLarge(
-          rating.toString(),
+          rating.toStringAsFixed(1),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ],

@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/views/bases/images/app_cached_network_image.dart';
 import 'package:otomo/views/cases/warn/warn_text.dart';
 
 class PlacePhotosPageView extends StatelessWidget {
@@ -46,7 +46,7 @@ class PlaceImage extends StatelessWidget {
       borderRadius: borderRadius,
       child: Container(
         color: theme.colorScheme.surface,
-        child: CachedNetworkImage(
+        child: AppCachedNetworkImage(
           imageUrl: imageUrl,
           fit: fit,
           errorWidget: (context, url, error) =>

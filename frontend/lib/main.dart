@@ -16,7 +16,7 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/app_package_info.dart';
 import 'package:otomo/views/app.dart';
-import 'package:otomo/views/developments/development_app.dart';
+import 'package:otomo/development/views/development_app.dart';
 import 'package:otomo/views/utils/error_handling.dart';
 
 void main() async {
