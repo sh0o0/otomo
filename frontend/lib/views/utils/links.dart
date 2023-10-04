@@ -45,8 +45,10 @@ final class Launcher {
   }) async {
     assert(query.isNotEmpty || placeId.isNotEmpty);
 
+    final encodedQuery = Uri.encodeComponent(query);
+
     final url =
-        'https://www.google.com/maps/search/?api=1&query=$query&query_place_id=$placeId';
+        'https://www.google.com/maps/search/?api=1&query=$encodedQuery&query_place_id=$placeId';
     return urlString(url);
   }
 }

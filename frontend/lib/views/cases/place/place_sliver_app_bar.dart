@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 
 class PlaceSliverAppBar extends StatelessWidget {
@@ -25,7 +24,6 @@ class PlaceSliverAppBar extends StatelessWidget {
     )..layout(minWidth: 0, maxWidth: titleWidth - 24);
     final titleHeight = textPainter.height + 12;
 
-    logger.debug(textPainter.size);
     final theme = Theme.of(context);
     return MediaQuery.removePadding(
       context: context,

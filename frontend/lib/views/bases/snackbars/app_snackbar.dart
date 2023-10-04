@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/bases/spaces/spaces.dart';
 
 final class AppSnackbar {
   AppSnackbar._();
@@ -7,15 +6,7 @@ final class AppSnackbar {
   static SnackBar build({
     required Widget content,
   }) {
-    return SnackBar(
-      content: Row(
-        children: [
-          const Icon(Icons.error_outline_rounded),
-          Spaces.w8,
-          content,
-        ],
-      ),
-    );
+    return SnackBar(content: content);
   }
 
   static SnackBar text(String text) {

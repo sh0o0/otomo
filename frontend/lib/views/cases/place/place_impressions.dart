@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/place_details.dart' as place_details;
+import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 
 class PlaceImpressions extends StatelessWidget {
@@ -19,12 +20,17 @@ class PlaceImpressions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final impressions = _impressions(context: context);
+    if (impressions.isEmpty) {
+      return Spaces.zero;
+    }
+
     return Column(
       children: [
         const Divider(),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: _impressions(context: context)
+          children: impressions
               .asMap()
               .entries
               .map((entry) => Container(

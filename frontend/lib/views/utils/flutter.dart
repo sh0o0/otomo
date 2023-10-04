@@ -16,7 +16,9 @@ final class FlutterUtils {
     }
   }
 
-  static void hideKeyboard(BuildContext context) {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-  }
+  static Future<void> hideKeyboard(BuildContext context) =>
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+  static Future<void> copyText(String text) =>
+      Clipboard.setData(ClipboardData(text: text));
 }

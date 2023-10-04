@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/views/bases/snackbars/app_snackbar.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/utils/flutter.dart';
 import 'package:otomo/views/utils/links.dart';
 
 class PlaceDetailsView extends StatelessWidget {
@@ -34,7 +36,10 @@ class PlaceDetailsView extends StatelessWidget {
               if (place.website != null)
                 PlaceWebsiteListTile(website: place.website!),
               if (place.formattedAddress != null)
-                PlaceAddressListTile(address: place.formattedAddress!),
+                PlaceAddressListTile(
+                  address: place.formattedAddress!,
+                  googlePlaceId: place.placeId ?? '',
+                ),
               if (place.currentOpeningHours != null)
                 PlaceOpeningHoursPeriodsExpansionTile(
                   openingHours: place.currentOpeningHours!,
@@ -105,16 +110,25 @@ class PlaceAddressListTile extends StatelessWidget {
   const PlaceAddressListTile({
     super.key,
     required this.address,
+    this.googlePlaceId,
   });
 
   final String address;
+  final String? googlePlaceId;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.location_on_rounded),
       title: BodyMedium(address),
-      onTap: () => Launcher.searchOnGoogleMap(placeId: address),
+      onTap: () => Launcher.searchOnGoogleMap(
+        query: address,
+        placeId: googlePlaceId ?? '',
+      ),
+      onLongPress: () async {
+        await FlutterUtils.copyText(address);
+        AppSnackbar.text('コピーしました。');
+      },
     );
   }
 }
@@ -133,6 +147,10 @@ class PlaceWebsiteListTile extends StatelessWidget {
       leading: const Icon(Icons.web_rounded),
       title: BodyMedium(website),
       onTap: () => Launcher.urlString(website),
+      onLongPress: () async {
+        await FlutterUtils.copyText(website);
+        AppSnackbar.text('コピーしました。');
+      },
     );
   }
 }
@@ -151,6 +169,10 @@ class PlacePhoneNumberListTile extends StatelessWidget {
       leading: const Icon(Icons.phone_rounded),
       title: BodyMedium(phoneNumber),
       onTap: () => Launcher.anyFormatTel(phoneNumber),
+      onLongPress: () async {
+        await FlutterUtils.copyText(phoneNumber);
+        AppSnackbar.text('コピーしました。');
+      },
     );
   }
 }
