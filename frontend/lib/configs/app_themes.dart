@@ -24,6 +24,9 @@ abstract class AppThemes {
       scrim: AppColors.scrim,
       outlineVariant: AppLightColors.outline,
     ),
+    textTheme: const TextTheme(
+      titleLarge: TextStyle(fontWeight: FontWeight.bold),
+    ),
     useMaterial3: true,
   );
 
@@ -38,9 +41,7 @@ abstract class AppThemes {
       backgroundColor: _light.colorScheme.background,
       surfaceTintColor: _light.colorScheme.background,
       shadowColor: _light.colorScheme.shadow,
-      titleTextStyle: _light.textTheme.titleLarge?.copyWith(
-        fontWeight: FontWeight.bold,
-      ),
+      titleTextStyle: _light.textTheme.titleLarge,
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: _light.colorScheme.surface,
