@@ -1,3 +1,4 @@
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:otomo/entities/place_details.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
@@ -29,7 +30,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
     return [
       PlaceSliverAppBar(
         name: place.name ?? '',
-        removeTopPadding: true,
+        removeTopSafePadding: true,
       ),
       const SliverToBoxAdapter(child: Spaces.h16),
       SliverToBoxAdapter(

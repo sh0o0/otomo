@@ -40,6 +40,8 @@ class HeadlineMedium extends BaseText {
     super.text, {
     super.key,
     super.style,
+    super.overflow,
+    super.maxLines,
   });
 
   static TextStyle? styleOf(BuildContext context) =>
