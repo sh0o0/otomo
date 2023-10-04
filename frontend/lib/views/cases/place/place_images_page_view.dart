@@ -1,25 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:otomo/entities/place_details.dart';
 import 'package:otomo/views/cases/warn/warn_text.dart';
 
-class PlaceImagesPageView extends StatelessWidget {
-  const PlaceImagesPageView({
+class PlacePhotosPageView extends StatelessWidget {
+  const PlacePhotosPageView({
     super.key,
-    required this.imageUrls,
+    required this.photos,
     this.padding = const EdgeInsets.all(0),
   });
 
-  final List<String> imageUrls;
+  final List<PlaceDetailsPhoto> photos;
   final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
-      itemCount: imageUrls.length,
+      itemCount: photos.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: padding,
-          child: PlaceImage(imageUrl: imageUrls[index]),
+          child: PlaceImage(imageUrl: photos[index].photoUrl(maxHeight: 980)),
         );
       },
     );

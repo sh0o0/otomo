@@ -3034,13 +3034,14 @@ class __$$_PlaceDetailsPhotoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsPhoto implements _PlaceDetailsPhoto {
+class _$_PlaceDetailsPhoto extends _PlaceDetailsPhoto {
   const _$_PlaceDetailsPhoto(
       {required this.height,
       required final List<String> htmlAttributions,
       required this.photoReference,
       required this.width})
-      : _htmlAttributions = htmlAttributions;
+      : _htmlAttributions = htmlAttributions,
+        super._();
 
   factory _$_PlaceDetailsPhoto.fromJson(Map<String, dynamic> json) =>
       _$$_PlaceDetailsPhotoFromJson(json);
@@ -3103,12 +3104,13 @@ class _$_PlaceDetailsPhoto implements _PlaceDetailsPhoto {
   }
 }
 
-abstract class _PlaceDetailsPhoto implements PlaceDetailsPhoto {
+abstract class _PlaceDetailsPhoto extends PlaceDetailsPhoto {
   const factory _PlaceDetailsPhoto(
       {required final int height,
       required final List<String> htmlAttributions,
       required final String photoReference,
       required final int width}) = _$_PlaceDetailsPhoto;
+  const _PlaceDetailsPhoto._() : super._();
 
   factory _PlaceDetailsPhoto.fromJson(Map<String, dynamic> json) =
       _$_PlaceDetailsPhoto.fromJson;

@@ -1,4 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:otomo/configs/app_config.dart';
+import 'package:otomo/tools/reg_exps.dart';
+
 part 'place_details.freezed.dart';
 part 'place_details.g.dart';
 
@@ -161,6 +164,7 @@ class PlaceDetailsSpecialDay with _$PlaceDetailsSpecialDay {
 
 @freezed
 class PlaceDetailsPhoto with _$PlaceDetailsPhoto {
+  PlaceDetailsPhoto._();
   const factory PlaceDetailsPhoto({
     required int height,
     required List<String> htmlAttributions,
@@ -170,6 +174,15 @@ class PlaceDetailsPhoto with _$PlaceDetailsPhoto {
 
   factory PlaceDetailsPhoto.fromJson(Map<String, dynamic> json) =>
       _$PlaceDetailsPhotoFromJson(json);
+
+  String photoUrl({
+    int? maxHeight,
+  }) {
+    // For when assigning fake image url
+    if (RegExps.url.hasMatch(photoReference)) photoReference;
+    final mh = maxHeight ?? height;
+    return 'https://maps.googleapis.com/maps/api/place/photo?maxheight=$mh&photo_reference=$photoReference&key=${appConfig.googleMapApiKey}';
+  }
 }
 
 @freezed
