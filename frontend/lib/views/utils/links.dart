@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:otomo/entities/app_exception.dart';
-import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 final class Launcher {
@@ -16,8 +15,8 @@ final class Launcher {
   }
 
   static Future<bool> anyFormatTel(String number) {
-    final phoneNumber = PhoneNumber.parse(number);
-    return tel(phoneNumber.international);
+    final normalizedNumber = phoneNumberNormalize(number);
+    return tel(normalizedNumber);
   }
 
   static Future<bool> tel(String number) async {
@@ -52,3 +51,45 @@ final class Launcher {
     return urlString(url);
   }
 }
+
+String phoneNumberNormalize(String unformatedPhoneNumber) {
+  return unformatedPhoneNumber
+      .split('')
+      .map((char) => allNormalizationMappings[char] ?? '')
+      .join('');
+}
+
+const Map<String, String> allNormalizationMappings = {
+  '+': '+',
+  '＋': '+',
+  '0': '0',
+  '1': '1',
+  '2': '2',
+  '3': '3',
+  '4': '4',
+  '5': '5',
+  '6': '6',
+  '7': '7',
+  '8': '8',
+  '9': '9',
+  '٠': '0',
+  '١': '1',
+  '٢': '2',
+  '٣': '3',
+  '٤': '4',
+  '٥': '5',
+  '٦': '6',
+  '٧': '7',
+  '٨': '8',
+  '٩': '9',
+  '۰': '0',
+  '۱': '1',
+  '۲': '2',
+  '۳': '3',
+  '۴': '4',
+  '۵': '5',
+  '۶': '6',
+  '۷': '7',
+  '۸': '8',
+  '۹': '9',
+};
