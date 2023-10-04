@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/configs/links.dart';
 import 'package:otomo/tools/app_package_info.dart';
 import 'package:otomo/view_models/user.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
@@ -9,7 +8,7 @@ import 'package:otomo/views/cases/settings/app_settings_list.dart';
 import 'package:otomo/views/cases/settings/app_settings_section.dart';
 import 'package:otomo/views/cases/settings/app_settings_tile.dart';
 import 'package:otomo/views/router.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:otomo/views/utils/links.dart';
 
 class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});
@@ -46,8 +45,8 @@ class SettingsPage extends HookConsumerWidget {
               title: const Text('お問い合わせ'),
               leading: const Icon(Icons.question_mark_rounded),
               trailing: const Icon(Icons.keyboard_arrow_right_rounded),
-              onPressed: (_) => launchUrlString(
-                  Links.inquiry(account?.uid ?? '', account?.email ?? '')),
+              onPressed: (_) =>
+                  Launcher.inquiry(account?.uid ?? '', account?.email ?? ''),
             ),
           ],
         ),
@@ -92,10 +91,7 @@ class SettingsPage extends HookConsumerWidget {
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildSettingsList(context, ref),
-          _buildVersion(context)
-        ],
+        children: [_buildSettingsList(context, ref), _buildVersion(context)],
       ),
     );
   }
