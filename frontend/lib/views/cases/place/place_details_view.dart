@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/views/app.dart';
 import 'package:otomo/views/bases/snackbars/app_snackbar.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
@@ -127,7 +128,7 @@ class PlaceAddressListTile extends StatelessWidget {
       ),
       onLongPress: () async {
         await FlutterUtils.copyText(address);
-        AppSnackbar.text('コピーしました。');
+        App.showSnackBar(AppSnackbar.text('コピーしました。'));
       },
     );
   }
@@ -149,7 +150,7 @@ class PlaceWebsiteListTile extends StatelessWidget {
       onTap: () => Launcher.urlString(website),
       onLongPress: () async {
         await FlutterUtils.copyText(website);
-        AppSnackbar.text('コピーしました。');
+        App.showSnackBar(AppSnackbar.text('コピーしました。'));
       },
     );
   }
@@ -171,7 +172,7 @@ class PlacePhoneNumberListTile extends StatelessWidget {
       onTap: () => Launcher.anyFormatTel(phoneNumber),
       onLongPress: () async {
         await FlutterUtils.copyText(phoneNumber);
-        AppSnackbar.text('コピーしました。');
+        App.showSnackBar(AppSnackbar.text('コピーしました。'));
       },
     );
   }
