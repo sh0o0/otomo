@@ -164,41 +164,49 @@ class PlaceReviewProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        CircleAvatar(
-          onBackgroundImageError: (exception, stackTrace) =>
-              logger.warn(exception),
-          backgroundImage: CachedNetworkImageProvider(
-            review.profilePhotoUrl ?? '',
+    return LayoutBuilder(builder: (context, constrains) {
+      logger.debug(constrains);
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          CircleAvatar(
+            onBackgroundImageError: (exception, stackTrace) =>
+                logger.warn(exception),
+            backgroundImage: CachedNetworkImageProvider(
+              review.profilePhotoUrl ?? '',
+            ),
           ),
-        ),
-        Spaces.w8,
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PlaceReviewStars(rating: review.rating),
-            Row(
-              children: [
-                BodySmall(
-                  review.authorName,
-                  overflow: TextOverflow.ellipsis,
+          Spaces.w8,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PlaceReviewStars(rating: review.rating),
+              SizedBox(
+                width: constrains.maxWidth - 48,
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: BodySmall(
+                        review.authorName,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Spaces.w8,
+                    BodySmall(
+                      review.relativeTimeDescription,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyles.disabled(context),
+                    ),
+                  ],
                 ),
-                Spaces.w8,
-                BodySmall(
-                  review.relativeTimeDescription,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyles.disabled(context),
-                ),
-              ],
-            )
-          ],
-        )
-      ],
-    );
+              )
+            ],
+          )
+        ],
+      );
+    });
   }
 }
 
