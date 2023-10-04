@@ -20,7 +20,7 @@ class PlaceSliverAppBar extends StatelessWidget {
         pinned: true,
         title: Align(
           alignment: Alignment.centerLeft,
-          child: TitleLarge(name),
+          child: HeadlineMedium(name),
         ),
         actions: [
           IconButton(

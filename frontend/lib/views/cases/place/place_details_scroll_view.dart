@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/configs/app_config.dart';
-import 'package:otomo/entities/place_details.dart' as place_details;
+import 'package:otomo/entities/place_details.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/place/place_images_page_view.dart';
@@ -18,7 +18,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
     this.onClosePressed,
   });
 
-  final place_details.PlaceDetails place;
+  final PlaceDetails place;
   final ScrollController? scrollController;
   final bool removeTopPadding;
   final VoidCallback? onClosePressed;
@@ -107,7 +107,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
 
   static List<Widget> slivers({
     required BuildContext context,
-    required place_details.PlaceDetails place,
+    required PlaceDetails place,
   }) {
     return [
       PlaceSliverAppBar(
@@ -145,6 +145,11 @@ class PlaceDetailsScrollView extends StatelessWidget {
       SliverToBoxAdapter(
         child: BodyMedium(place.editorialSummary?.overview ?? ''),
       ),
+      const SliverToBoxAdapter(child: Spaces.h16),
+      if (place.reviews != null)
+        SliverToBoxAdapter(
+          child: PlaceRatingsAndReviews(reviews: place.reviews!),
+        ),
     ];
   }
 
@@ -156,3 +161,4 @@ class PlaceDetailsScrollView extends StatelessWidget {
     );
   }
 }
+

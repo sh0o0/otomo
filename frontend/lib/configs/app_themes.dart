@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:otomo/configs/app_colors.dart';
 import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
+import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 abstract class AppThemes {
@@ -25,7 +26,9 @@ abstract class AppThemes {
       outlineVariant: AppLightColors.outline,
     ),
     textTheme: const TextTheme(
-      titleLarge: TextStyle(fontWeight: FontWeight.bold),
+      headlineMedium: TextStyles.bold,
+      titleLarge: TextStyles.bold,
+      titleMedium: TextStyles.bold,
     ),
     useMaterial3: true,
   );
