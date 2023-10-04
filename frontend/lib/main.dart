@@ -72,7 +72,7 @@ void setupErrorHandling() {
     logger.error('Caught error at FlutterError.onError');
     FlutterError.dumpErrorToConsole(details);
     FirebaseCrashlytics.instance.recordFlutterFatalError(details);
-    if (details.exception is FlutterError) return;
+    if (details.exception is Error) return;
     showErrorSnackbar(details.exception);
   };
   PlatformDispatcher.instance.onError = (error, stack) {

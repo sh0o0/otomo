@@ -12,19 +12,27 @@ class PlaceRatingsAndReviews extends StatelessWidget {
     this.reviewCardHeight = 160,
     this.reviewCardWidth = 240,
     this.reviewTextMaxLines = 4,
+    this.sidePadding = 0,
   });
 
   final List<PlaceDetailsReview> reviews;
   final double reviewCardHeight;
   final double reviewCardWidth;
   final int reviewTextMaxLines;
+  final double sidePadding;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const HeadlineSmall('Rating & Reviews', style: TextStyles.bold),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: sidePadding),
+          child: const HeadlineSmall(
+            'Rating & Reviews',
+            style: TextStyles.bold,
+          ),
+        ),
         Spaces.h8,
         SizedBox(
           height: reviewCardHeight,
@@ -32,6 +40,7 @@ class PlaceRatingsAndReviews extends StatelessWidget {
             reviews: reviews,
             reviewCardWidth: reviewCardWidth,
             reviewTextMaxLines: reviewTextMaxLines,
+            firstPadding: sidePadding,
           ),
         )
       ],
@@ -45,11 +54,15 @@ class PlaceReviewListView extends StatelessWidget {
     required this.reviews,
     required this.reviewCardWidth,
     required this.reviewTextMaxLines,
+    this.firstPadding = 0,
+    this.padding = 8,
   });
 
   final List<PlaceDetailsReview> reviews;
   final double reviewCardWidth;
   final int reviewTextMaxLines;
+  final double firstPadding;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +70,9 @@ class PlaceReviewListView extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: reviews.length,
       itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: index == 0
+            ? EdgeInsets.only(left: firstPadding, right: padding)
+            : EdgeInsets.symmetric(horizontal: padding),
         child: PlaceReviewCard(
           review: reviews[index],
           width: reviewCardWidth,

@@ -48,6 +48,8 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
       data: (value) => PlaceDetailsScrollView.slivers(
         context: context,
         place: value.place!,
+        removeTopPadding: true,
+        bottomPadding: true,
         onClosePressed: () => sheetController.animateTo(
           minSheetSize,
           duration: const Duration(milliseconds: 1000),

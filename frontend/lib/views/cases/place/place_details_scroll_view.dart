@@ -26,49 +26,67 @@ class PlaceDetailsScrollView extends StatelessWidget {
   static List<Widget> slivers({
     required BuildContext context,
     required PlaceDetails place,
+    double sidePadding = 16,
     VoidCallback? onClosePressed,
+    bool removeTopPadding = false,
+    bool bottomPadding = true,
   }) {
+    final horizontalPadding = EdgeInsets.symmetric(horizontal: sidePadding);
+    Widget addPadding(Widget sliver) {
+      return SliverPadding(
+        padding: horizontalPadding,
+        sliver: sliver,
+      );
+    }
+
     return [
       PlaceSliverAppBar(
         name: place.name ?? '',
-        removeTopSafePadding: true,
+        removeTopSafePadding: removeTopPadding,
         onClosePressed: onClosePressed,
       ),
       const SliverToBoxAdapter(child: Spaces.h16),
-      SliverToBoxAdapter(
+      addPadding(SliverToBoxAdapter(
         child: PlaceTypeChip.wrap(context: context, types: place.types ?? []),
-      ),
+      )),
       const SliverToBoxAdapter(child: Spaces.h8),
-      SliverToBoxAdapter(
+      addPadding(SliverToBoxAdapter(
         child: PlaceImpressions(
           openingHours: place.openingHours,
           rating: place.rating,
         ),
-      ),
+      )),
       const SliverToBoxAdapter(child: Spaces.h8),
       if (place.photos != null)
         SliverToBoxAdapter(
           child: SizedBox(
             height: 240,
             child: PlacePhotosPageView(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: horizontalPadding,
               photos: place.photos!.toList(),
             ),
           ),
         ),
       const SliverToBoxAdapter(child: Spaces.h8),
-      SliverToBoxAdapter(
+      addPadding(SliverToBoxAdapter(
         child: BodyMedium(place.editorialSummary?.overview ?? ''),
-      ),
+      )),
       const SliverToBoxAdapter(child: Spaces.h16),
       if (place.reviews != null)
         SliverToBoxAdapter(
-          child: PlaceRatingsAndReviews(reviews: place.reviews!),
+          child: PlaceRatingsAndReviews(
+            reviews: place.reviews!,
+            sidePadding: sidePadding,
+          ),
         ),
       const SliverToBoxAdapter(child: Spaces.h16),
-      SliverToBoxAdapter(
+      addPadding(SliverToBoxAdapter(
         child: PlaceDetailsView(place: place),
-      ),
+      )),
+      if (bottomPadding)
+        SliverToBoxAdapter(
+          child: SizedBox(height: MediaQuery.paddingOf(context).bottom + 40),
+        ),
     ];
   }
 
