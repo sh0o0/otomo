@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/utils/controller.dart';
+import 'package:otomo/views/utils/flutter.dart';
 
 class Unfocus extends StatelessWidget {
   const Unfocus({
@@ -14,7 +14,7 @@ class Unfocus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: tap ? () => ViewUtilsController.I.unfocus(context) : null,
+      onTap: tap ? () => FlutterUtils.unfocus(context) : null,
       child: child,
     );
   }

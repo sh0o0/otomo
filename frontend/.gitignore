@@ -47,7 +47,7 @@ app.*.map.json
 .fvm/flutter_sdk
 .vscode/settings.json
 /flavor/
-!/flavor/template.json
+!/flavor/template.*.json
 **/android/app/google-services.json
 **/ios/Runner/GoogleService-Info.plist
 **/ios/firebase_app_id_file.json

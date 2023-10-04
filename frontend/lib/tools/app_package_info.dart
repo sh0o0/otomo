@@ -13,4 +13,11 @@ final class AppPackageInfo {
   static String get buildNumber => _packageInfo.buildNumber;
   static String get buildSignature => _packageInfo.buildSignature;
   static String get packageName => _packageInfo.packageName;
+
+  static String expose() => '''
+version: $version
+buildNumber: $buildNumber
+buildSignature: $buildSignature
+packageName: $packageName
+''';
 }

@@ -175,8 +175,7 @@ class __$$_TextMessageCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_TextMessage extends _TextMessage {
   const _$_TextMessage(
       {required this.id,
@@ -378,8 +377,7 @@ class __$$_LocationAnalysisCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LocationAnalysis extends _LocationAnalysis {
   const _$_LocationAnalysis(
       {required final List<AnalyzedLocation> locations,
@@ -567,8 +565,7 @@ class __$$_AnalyzedLocationCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_AnalyzedLocation implements _AnalyzedLocation {
   const _$_AnalyzedLocation({required this.text, required this.location});
 

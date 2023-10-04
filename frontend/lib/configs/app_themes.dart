@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:otomo/configs/app_colors.dart';
 import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
+import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 abstract class AppThemes {
@@ -9,9 +10,7 @@ abstract class AppThemes {
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
       primary: AppColors.primary,
-      onPrimary: AppColors.onSecondary,
-      secondary: AppColors.secondary,
-      onSecondary: AppColors.onSecondary,
+      onPrimary: Colors.white,
       background: Colors.white,
       onBackground: AppLightColors.onBackground,
       surface: AppLightColors.surface,
@@ -22,6 +21,12 @@ abstract class AppThemes {
       onErrorContainer: Colors.white,
       shadow: AppColors.shadow,
       scrim: AppColors.scrim,
+      outlineVariant: AppLightColors.outline,
+    ),
+    textTheme: const TextTheme(
+      headlineMedium: TextStyles.bold,
+      titleLarge: TextStyles.bold,
+      titleMedium: TextStyles.bold,
     ),
     useMaterial3: true,
   );
@@ -37,20 +42,21 @@ abstract class AppThemes {
       backgroundColor: _light.colorScheme.background,
       surfaceTintColor: _light.colorScheme.background,
       shadowColor: _light.colorScheme.shadow,
-      titleTextStyle: _light.textTheme.titleLarge?.copyWith(
-        fontWeight: FontWeight.bold,
-      ),
+      titleTextStyle: _light.textTheme.titleLarge,
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: _light.colorScheme.surface,
+      closeIconColor: _light.colorScheme.onSurface,
       contentTextStyle: _light.textTheme.bodyMedium,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       behavior: SnackBarBehavior.floating,
       elevation: 2,
+      showCloseIcon: true,
     ),
     extensions: <ThemeExtension>[
       AppTheme(
         dangerColor: AppColors.danger,
+        activeColor: AppColors.activeGreen,
         chatTheme: DefaultChatTheme(
           primaryColor: _light.colorScheme.primary,
           secondaryColor: _light.colorScheme.surfaceVariant,
@@ -110,12 +116,14 @@ class AppTheme extends ThemeExtension<AppTheme> {
     required this.chatTheme,
     required this.settingsTheme,
     required this.dangerColor,
+    required this.activeColor,
   });
 
   final ChatTheme chatTheme;
   final SettingsThemeData settingsTheme;
 
   final Color dangerColor;
+  final Color activeColor;
 
   @override
   ThemeExtension<AppTheme> copyWith() {

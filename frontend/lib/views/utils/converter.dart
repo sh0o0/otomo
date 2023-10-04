@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as chat;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:label_marker/label_marker.dart';
 import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/region.dart';
@@ -92,11 +95,29 @@ class _AnalyzedLocationAndMarker {
   List<Marker> locationsToMarkerList(List<AnalyzedLocation> locations) =>
       locations.map(locationToMarker).toList();
 
-  Marker locationToMarker(AnalyzedLocation loc) => Marker(
+  Marker locationToMarker(
+    AnalyzedLocation loc, {
+    VoidCallback? onTap,
+  }) =>
+      Marker(
         markerId: MarkerId(loc.location.googlePlaceId),
         position: ViewConverter.I.latLng
             .entityToViewForGoogle(loc.location.geometry.latLng),
+        onTap: onTap,
         infoWindow: InfoWindow(
             title: loc.text, snippet: loc.location.geometry.latLng.toString()),
+      );
+
+  LabelMarker locationToLabelMarker(
+    AnalyzedLocation loc, {
+    VoidCallback? onTap,
+  }) =>
+      LabelMarker(
+        label: loc.text,
+        markerId: MarkerId(loc.location.googlePlaceId),
+        position: ViewConverter.I.latLng
+            .entityToViewForGoogle(loc.location.geometry.latLng),
+        backgroundColor: Colors.red,
+        onTap: onTap,
       );
 }

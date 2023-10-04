@@ -13,10 +13,14 @@ abstract class BaseText extends StatelessWidget {
     this.text, {
     super.key,
     this.style,
+    this.overflow,
+    this.maxLines,
   });
 
   final String text;
   final TextStyle? style;
+  final TextOverflow? overflow;
+  final int? maxLines;
 
   TextStyle? defaultStyle(BuildContext context);
 
@@ -25,47 +29,65 @@ abstract class BaseText extends StatelessWidget {
     return Text(
       text,
       style: defaultStyle(context)?.merge(style),
+      overflow: overflow,
+      maxLines: maxLines,
     );
   }
 }
 
-class BodySmall extends BaseText {
-  const BodySmall(
+class HeadlineMedium extends BaseText {
+  const HeadlineMedium(
     super.text, {
     super.key,
     super.style,
+    super.overflow,
+    super.maxLines,
   });
 
   static TextStyle? styleOf(BuildContext context) =>
-      Theme.of(context).textTheme.bodySmall;
+      Theme.of(context).textTheme.headlineMedium;
 
   @override
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
 
-class BodyMedium extends BaseText {
-  const BodyMedium(
+class HeadlineSmall extends BaseText {
+  const HeadlineSmall(
     super.text, {
     super.key,
     super.style,
   });
 
   static TextStyle? styleOf(BuildContext context) =>
-      Theme.of(context).textTheme.bodyMedium;
+      Theme.of(context).textTheme.headlineSmall;
 
   @override
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
 
-class BodyLarge extends BaseText {
-  const BodyLarge(
+class TitleLarge extends BaseText {
+  const TitleLarge(
     super.text, {
     super.key,
     super.style,
   });
 
   static TextStyle? styleOf(BuildContext context) =>
-      Theme.of(context).textTheme.bodyLarge;
+      Theme.of(context).textTheme.titleLarge;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
+
+class TitleMedium extends BaseText {
+  const TitleMedium(
+    super.text, {
+    super.key,
+    super.style,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.titleMedium;
 
   @override
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
@@ -85,15 +107,47 @@ class TitleSmall extends BaseText {
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
 
-class TitleMedium extends BaseText {
-  const TitleMedium(
+class BodyLarge extends BaseText {
+  const BodyLarge(
     super.text, {
     super.key,
     super.style,
   });
 
   static TextStyle? styleOf(BuildContext context) =>
-      Theme.of(context).textTheme.titleMedium;
+      Theme.of(context).textTheme.bodyLarge;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
+
+class BodyMedium extends BaseText {
+  const BodyMedium(
+    super.text, {
+    super.key,
+    super.style,
+    super.overflow,
+    super.maxLines,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
+
+class BodySmall extends BaseText {
+  const BodySmall(
+    super.text, {
+    super.key,
+    super.style,
+    super.overflow,
+    super.maxLines,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.bodySmall;
 
   @override
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);

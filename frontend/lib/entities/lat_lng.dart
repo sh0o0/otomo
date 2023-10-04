@@ -6,7 +6,6 @@ part 'lat_lng.g.dart';
 
 @freezed
 class AppLatLng with _$AppLatLng {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const AppLatLng._();
   const factory AppLatLng({
     required double latitude,

@@ -41,22 +41,28 @@ dependencies:
   sign_in_button: ^3.2.0
   flutter_chat_ui: ^1.6.9
   flutter_chat_types: ^3.6.2
-  google_maps_flutter: ^2.5.0
-  geolocator: ^10.0.1
   flutter_parsed_text: ^2.2.1
   url_launcher: ^6.1.14
   animations: ^2.0.8
   flutter_animate: ^4.2.0+1
   custom_pop_up_menu: ^1.2.4
   settings_ui: ^2.0.2
+  cached_network_image: ^3.3.0
+  sliding_up_panel: ^2.0.0+1
+
+  ### Map
+  google_maps_flutter: ^2.5.0
+  label_marker: ^1.0.1
+  geolocator: ^10.0.1
 
   ### Riverpod
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^2.4.0
   riverpod_annotation: ^2.1.2
 
-  ### gRPC
+  ### Network
   grpc: ^3.2.3
+  dio: ^5.3.3
 
   ### Firebase
   firebase_core: ^2.15.0
@@ -79,6 +85,7 @@ dependencies:
   async: ^2.11.0
   faker: ^2.1.0
   package_info_plus: ^4.1.0
+  phone_numbers_parser: ^8.0.0
 
 dev_dependencies:
   flutter_test:

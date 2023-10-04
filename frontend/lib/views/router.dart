@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/user.dart';
-import 'package:otomo/views/pages/account_deletion/index.dart';
-import 'package:otomo/views/pages/settings/index.dart';
+import 'package:otomo/views/pages/account_deletion.dart';
+import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/home/index.dart';
-import 'package:otomo/views/pages/sign_in/index.dart';
-import 'package:otomo/views/pages/sign_in_with_email_link/index.dart';
+import 'package:otomo/views/pages/sign_in.dart';
+import 'package:otomo/views/pages/sign_in_with_email_link.dart';
 
 abstract class Routes {
   static const signIn = '/sign_in';

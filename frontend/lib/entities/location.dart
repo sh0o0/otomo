@@ -5,7 +5,6 @@ part 'location.g.dart';
 
 @freezed
 class Location with _$Location {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Location({
     required String googlePlaceId,
     required String address,
@@ -19,7 +18,6 @@ class Location with _$Location {
 
 @freezed
 class Geometry with _$Geometry {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Geometry({
     required AppLatLng latLng,
   }) = _Geometry;

@@ -147,8 +147,7 @@ class __$$_LocationCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_Location implements _Location {
   const _$_Location(
       {required this.googlePlaceId,
@@ -327,8 +326,7 @@ class __$$_GeometryCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_Geometry implements _Geometry {
   const _$_Geometry({required this.latLng});
 
