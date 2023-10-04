@@ -11,6 +11,8 @@ abstract class AppThemes {
       brightness: Brightness.light,
       primary: AppColors.primary,
       onPrimary: Colors.white,
+      secondary: AppColors.secondary,
+      onSecondary: Colors.white,
       background: Colors.white,
       onBackground: AppLightColors.onBackground,
       surface: AppLightColors.surface,
