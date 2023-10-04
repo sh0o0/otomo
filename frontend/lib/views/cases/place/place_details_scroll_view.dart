@@ -44,67 +44,6 @@ class PlaceDetailsScrollView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (place.types?.isNotEmpty == true)
-          _buildWidthSized(
-            context: context,
-            child: Wrap(
-              spacing: 8,
-              children: place.types!
-                  .map((type) => PlaceTypeChip(type: type))
-                  .toList(),
-            ),
-          ),
-        // hours | rating
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // hours
-            if (place.openingHours?.openNow != null)
-              Column(
-                children: [
-                  const TitleSmall('Hours'),
-                  Spaces.h8,
-                  BodyMedium(
-                    place.openingHours!.openNow! ? 'Open' : 'Closed',
-                  )
-                ],
-              ),
-            // rating
-            if (place.rating != null)
-              Column(
-                children: [
-                  const TitleSmall('Rating'),
-                  Spaces.h8,
-                  BodyMedium(place.rating.toString()),
-                ],
-              ),
-          ],
-        ),
-        // images page view
-        if (place.photos != null)
-          SizedBox(
-            height: 240,
-            child: _buildWidthSized(
-              context: context,
-              child: PageView.builder(
-                itemCount: place.photos!.length,
-                itemBuilder: (context, index) {
-                  final photo = place.photos![index];
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Image.network(
-                      _getImageUrl(
-                        photoReference: photo.photoReference,
-                        maxHeight: 1240,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
         // overview
         if (place.editorialSummary?.overview != null)
           _buildWidthSized(
@@ -202,6 +141,10 @@ class PlaceDetailsScrollView extends StatelessWidget {
             ),
           ),
         ),
+      const SliverToBoxAdapter(child: Spaces.h8),
+      SliverToBoxAdapter(
+        child: BodyMedium(place.editorialSummary?.overview ?? ''),
+      ),
     ];
   }
 
