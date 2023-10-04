@@ -10,9 +10,7 @@ abstract class AppThemes {
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
       primary: AppColors.primary,
-      onPrimary: AppColors.onSecondary,
-      secondary: AppColors.secondary,
-      onSecondary: AppColors.onSecondary,
+      onPrimary: Colors.white,
       background: Colors.white,
       onBackground: AppLightColors.onBackground,
       surface: AppLightColors.surface,
@@ -48,10 +46,12 @@ abstract class AppThemes {
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: _light.colorScheme.surface,
+      closeIconColor: _light.colorScheme.onSurface,
       contentTextStyle: _light.textTheme.bodyMedium,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       behavior: SnackBarBehavior.floating,
       elevation: 2,
+      showCloseIcon: true,
     ),
     extensions: <ThemeExtension>[
       AppTheme(

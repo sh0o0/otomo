@@ -6,7 +6,9 @@ final class AppSnackbar {
   static SnackBar build({
     required Widget content,
   }) {
-    return SnackBar(content: content);
+    return SnackBar(
+      content: content,
+    );
   }
 
   static SnackBar text(String text) {
