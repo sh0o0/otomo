@@ -3,6 +3,7 @@ import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/entities/place_details.dart' as place_details;
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/cases/place/place_images_page_view.dart';
 import 'package:otomo/views/cases/place/place_impressions.dart';
 import 'package:otomo/views/cases/place/place_review_card.dart';
 import 'package:otomo/views/cases/place/place_sliver_app_bar.dart';
@@ -22,7 +23,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
   final bool removeTopPadding;
   final VoidCallback? onClosePressed;
 
-  String _getImageUrl({
+  static String _getImageUrl({
     required String photoReference,
     required int maxHeight,
   }) =>
@@ -185,6 +186,22 @@ class PlaceDetailsScrollView extends StatelessWidget {
           rating: place.rating,
         ),
       ),
+      const SliverToBoxAdapter(child: Spaces.h8),
+      if (place.photos != null)
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 240,
+            child: PlaceImagesPageView(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              imageUrls: place.photos!
+                  .map((e) => _getImageUrl(
+                        photoReference: e.photoReference,
+                        maxHeight: 980,
+                      ))
+                  .toList(),
+            ),
+          ),
+        ),
     ];
   }
 
