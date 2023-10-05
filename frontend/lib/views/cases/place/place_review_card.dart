@@ -74,7 +74,7 @@ class PlaceReviewCardListView extends StatelessWidget {
             ? EdgeInsets.only(left: firstPadding, right: padding)
             : EdgeInsets.symmetric(horizontal: padding),
         child: GestureDetector(
-          onTap: () => PlaceReviewsPage.show(
+          onTap: () => PlaceReviewsPage.showBottomSheet(
             context: context,
             reviews: reviews,
           ),

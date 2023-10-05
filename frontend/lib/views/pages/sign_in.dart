@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/sign_in.dart';
-import 'package:otomo/views/bases/layouts/safe_area_layout.dart';
-import 'package:otomo/views/bases/layouts/side_space_layout.dart';
+import 'package:otomo/views/bases/layouts/edge_layout.dart';
 import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
@@ -23,8 +22,8 @@ class SignInPage extends HookConsumerWidget {
 
     return ScaffoldWithBarrierIndicator(
       isProcessing: state.isLoading,
-      body: SafeAreaLayout(
-        child: SideSpaceLayout(
+      body: SafeArea(
+        child: EdgeLayout(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

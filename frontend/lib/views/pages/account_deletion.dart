@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/view_models/account_deletion.dart';
-import 'package:otomo/views/bases/layouts/side_space_layout.dart';
+import 'package:otomo/views/bases/layouts/edge_layout.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/tappable_text.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
@@ -25,7 +25,7 @@ class AccountDeletionPage extends HookConsumerWidget {
         automaticallyImplyLeading: true,
         title: const TitleMedium('アカウント削除', style: TextStyles.bold),
       ),
-      body: SideSpaceLayout(
+      body: EdgeLayout(
         child: Column(
           children: [
             Spaces.h16,

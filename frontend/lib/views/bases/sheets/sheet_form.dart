@@ -4,10 +4,12 @@ class SheetForm extends StatelessWidget {
   const SheetForm({
     super.key,
     this.backgroundColor,
+    this.shadow = true,
     required this.child,
   });
 
   final Color? backgroundColor;
+  final bool shadow;
   final Widget child;
 
   @override
@@ -19,14 +21,16 @@ class SheetForm extends StatelessWidget {
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(16),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.2),
-            blurRadius: 4,
-            spreadRadius: 2,
-            offset: const Offset(0, -2),
-          ),
-        ],
+        boxShadow: shadow
+            ? [
+                BoxShadow(
+                  color: theme.colorScheme.shadow.withOpacity(0.2),
+                  blurRadius: 4,
+                  spreadRadius: 2,
+                  offset: const Offset(0, -2),
+                ),
+              ]
+            : null,
       ),
       clipBehavior: Clip.hardEdge,
       child: child,
