@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
-import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/chat/chat_auto_sized_draggable_scrollable_sheet.dart';
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
@@ -113,37 +112,43 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
             ),
           ),
           Expanded(
-            child: ChatUI(
-              messages: state.value?.messages.items ?? [],
-              isLastPage: state.value?.messages.hasMore == false,
-              onSendPressed: (text) => notifier.sendMessage(text),
-              user: ChatState.user,
-              emptyState: _emptyState(context, state),
-              onEndReached: () => notifier.listMessagesMore(),
-              onMessageTap: (_, m) => notifier.toggleMessageActiveWithId(m.id),
-              showStatusPopup: (message) =>
-                  message.status == MessageStatus.error,
-              statusPopupBuilder: (context, message) => _statusPopupBuilder(
-                context,
-                message,
+            child: LayoutBuilder(builder: (context, constraints) {
+              final bottomPadding = MediaQuery.paddingOf(context).bottom;
+              final textFieldHeight = 100 + bottomPadding;
+              final showTextField = constraints.maxHeight > textFieldHeight;
+              return ChatUI(
                 messages: state.value?.messages.items ?? [],
-              ),
-              onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
-              customBottomWidget: state.value?.hideTextField == true
-                  ? Spaces.zero
-                  : Animate(
-                      effects: const [
-                        FadeEffect(duration: Duration(milliseconds: 100)),
-                      ],
-                      child: types.Input(
-                        onSendPressed: (text) =>
-                            notifier.sendMessage(text.text),
-                        options: types.InputOptions(
-                          onTextFieldTap: widget.onTextFieldTap,
-                        ),
+                isLastPage: state.value?.messages.hasMore == false,
+                onSendPressed: (text) => notifier.sendMessage(text),
+                user: ChatState.user,
+                emptyState: _emptyState(context, state),
+                onEndReached: () => notifier.listMessagesMore(),
+                onMessageTap: (_, m) =>
+                    notifier.toggleMessageActiveWithId(m.id),
+                showStatusPopup: (message) =>
+                    message.status == MessageStatus.error,
+                statusPopupBuilder: (context, message) => _statusPopupBuilder(
+                  context,
+                  message,
+                  messages: state.value?.messages.items ?? [],
+                ),
+                onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
+                customBottomWidget: Visibility(
+                  visible: showTextField,
+                  child: Animate(
+                    effects: const [
+                      FadeEffect(duration: Duration(milliseconds: 100))
+                    ],
+                    child: types.Input(
+                      onSendPressed: (text) => notifier.sendMessage(text.text),
+                      options: types.InputOptions(
+                        onTextFieldTap: widget.onTextFieldTap,
                       ),
                     ),
-            ),
+                  ),
+                ),
+              );
+            }),
           ),
         ],
       ),
