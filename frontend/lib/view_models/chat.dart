@@ -25,7 +25,6 @@ class ChatState with _$ChatState {
   const factory ChatState({
     required Pagination<TextMessageData> messages,
     required RemainingMessageSendCount remainingMessageSendCount,
-    @Default(false) bool hideTextField,
   }) = _ChatState;
 
   static final user = Author.fromRole(Role.user);
@@ -61,12 +60,12 @@ class Chat extends _$Chat {
 
   @override
   Future<ChatState> build() async =>
-        // Not const. Because it is not possible to add a message.
-        // ignore: prefer_const_constructors
-        ChatState(
-            messages: Pagination.emptyHasMore(),
-            remainingMessageSendCount: RemainingMessageSendCount.empty(),
-          );
+      // Not const. Because it is not possible to add a message.
+      // ignore: prefer_const_constructors
+      ChatState(
+        messages: Pagination.emptyHasMore(),
+        remainingMessageSendCount: RemainingMessageSendCount.empty(),
+      );
 
   Future<void> initState() async {
     state = const AsyncValue.loading();
@@ -252,20 +251,6 @@ class Chat extends _$Chat {
 
   void focusAnalyzedLocation(AnalyzedLocation loc) {
     _focusedAnalyzedLocationStreamController.add(loc);
-  }
-
-  void showTextField() {
-    final value = state.value;
-    if (value == null) return;
-
-    state = AsyncValue.data(value.copyWith(hideTextField: false));
-  }
-
-  void hideTextField() {
-    final value = state.value;
-    if (value == null) return;
-
-    state = AsyncValue.data(value.copyWith(hideTextField: true));
   }
 
   bool _isMessageExist(String id) {

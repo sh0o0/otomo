@@ -63,6 +63,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       final notifier = ref.read(homeProvider.notifier);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen((textMsg) {
+        if (textMsg.locationAnalysis.locations.isEmpty) return;
         FlutterUtils.afterBuildCallback(() {
           _homeController.moveChatSheetToSnap();
         });
@@ -79,7 +80,6 @@ class _HomePageState extends ConsumerState<HomePage> {
         focusedPlaceStreamSub.cancel();
       };
     }, const []);
-
 
     return Unfocus(
       child: Scaffold(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:otomo/configs/app_colors.dart';
@@ -54,6 +55,9 @@ abstract class AppThemes {
       behavior: SnackBarBehavior.floating,
       elevation: 2,
       showCloseIcon: true,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      elevation: 3,
     ),
     extensions: <ThemeExtension>[
       AppTheme(

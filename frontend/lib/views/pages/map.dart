@@ -38,24 +38,30 @@ class _MapState extends ConsumerState<MapPage> {
     _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 14);
   }
 
-  void _setMarkers(List<AnalyzedLocation> locs) async {
+  Future<void> _addMarker(AnalyzedLocation loc, {bool notify = true}) async {
     final notifier = ref.read(mapProvider.notifier);
+    _markers.add(await MarkerMaker.fromAnalyzedLocationWithLabel(
+      context: context,
+      loc: loc,
+      onTap: () => notifier.focusPlace(loc.location),
+    ));
+    if (notify) setState(() {});
+  }
+
+  void _setMarkers(List<AnalyzedLocation> locs) async {
     _markers = {};
     for (final loc in locs) {
-      _markers.add(await MarkerMaker.fromAnalyzedLocationWithLabel(
-        context: context,
-        loc: loc,
-        onTap: () => notifier.focusPlace(loc.location),
-      ));
+      await _addMarker(loc, notify: false);
     }
     setState(() {});
   }
 
   void _onLocationFocused(AnalyzedLocation loc) {
     if (!_canUseMapController) return;
+    _addMarker(loc);
     _mapController!.moveWithLatLng(
       latLng: loc.location.geometry.latLng,
-      zoom: 8,
+      zoom: 15,
     );
   }
 
