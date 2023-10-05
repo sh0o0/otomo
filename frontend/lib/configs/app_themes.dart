@@ -55,6 +55,7 @@ abstract class AppThemes {
       elevation: 2,
       showCloseIcon: true,
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(),
     extensions: <ThemeExtension>[
       AppTheme(
         dangerColor: AppColors.danger,
