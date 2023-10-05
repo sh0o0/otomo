@@ -4,7 +4,7 @@ import 'package:otomo/views/bases/layouts/edge_layout.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/place/place_details_view.dart';
-import 'package:otomo/views/cases/place/place_images_page_view.dart';
+import 'package:otomo/views/cases/place/place_photos_page_view.dart';
 import 'package:otomo/views/cases/place/place_impressions.dart';
 import 'package:otomo/views/cases/place/place_review_card.dart';
 import 'package:otomo/views/cases/place/place_sliver_app_bar.dart';
@@ -31,6 +31,8 @@ class PlaceDetailsScrollView extends StatelessWidget {
     VoidCallback? onClosePressed,
     bool removeTopPadding = false,
     bool bottomPadding = true,
+    ReviewCardTapCallback? onReviewCardTap,
+    PhotoTapCallback? onPhotoTap,
   }) {
     final horizontalPadding = EdgeInsets.symmetric(horizontal: sidePadding);
     Widget addPadding(Widget sliver) {
@@ -60,15 +62,13 @@ class PlaceDetailsScrollView extends StatelessWidget {
       const SliverToBoxAdapter(child: Spaces.h8),
       if (place.photos != null)
         SliverToBoxAdapter(
-          child: SizedBox(
-            height: 240,
-            child: PlacePhotosPageView(
-              padding: horizontalPadding,
-              photos: place.photos!.toList(),
-            ),
+          child: PlacePhotosPageView(
+            padding: horizontalPadding,
+            photos: place.photos!.toList(),
+            onTap: onPhotoTap,
           ),
         ),
-      const SliverToBoxAdapter(child: Spaces.h8),
+      const SliverToBoxAdapter(child: Spaces.h16),
       addPadding(SliverToBoxAdapter(
         child: BodyMedium(place.editorialSummary?.overview ?? ''),
       )),
@@ -78,6 +78,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
           child: PlaceRatingsAndReviews(
             reviews: place.reviews!,
             sidePadding: sidePadding,
+            onTap: onReviewCardTap,
           ),
         ),
       const SliverToBoxAdapter(child: Spaces.h16),

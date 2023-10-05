@@ -66,16 +66,11 @@ class _PlaceReviewListViewState extends State<PlaceReviewListView> {
       ],
     ).toList();
     return [
-      SliverAppBar(
+      const SliverAppBar(
         automaticallyImplyLeading: false,
         pinned: true,
-        title: const AppBarTitle(title: 'Reviews'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close_rounded),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
+        title: AppBarTitle(title: 'Reviews'),
+        actions: [CloseButton()],
       ),
       EdgeLayout(
         top: 0.0,

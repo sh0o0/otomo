@@ -8,6 +8,7 @@ import 'package:otomo/views/cases/settings/app_settings_list.dart';
 import 'package:otomo/views/cases/settings/app_settings_section.dart';
 import 'package:otomo/views/cases/settings/app_settings_tile.dart';
 import 'package:otomo/views/router.dart';
+import 'package:otomo/views/routes.dart';
 import 'package:otomo/views/utils/links.dart';
 
 class SettingsPage extends HookConsumerWidget {
@@ -86,8 +87,9 @@ class SettingsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
         title: const TitleMedium('設定', style: TextStyles.bold),
+        actions: const [CloseButton()],
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,

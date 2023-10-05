@@ -65,6 +65,7 @@ abstract class AppThemes {
       AppTheme(
         dangerColor: AppColors.danger,
         activeColor: AppColors.activeGreen,
+        photoGalleryBackground: AppColors.photoGalleryBackground,
         chatTheme: DefaultChatTheme(
           primaryColor: _light.colorScheme.primary,
           secondaryColor: _light.colorScheme.surfaceVariant,
@@ -125,6 +126,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
     required this.settingsTheme,
     required this.dangerColor,
     required this.activeColor,
+    required this.photoGalleryBackground,
   });
 
   final ChatTheme chatTheme;
@@ -132,6 +134,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
 
   final Color dangerColor;
   final Color activeColor;
+  final Color photoGalleryBackground;
 
   @override
   ThemeExtension<AppTheme> copyWith() {

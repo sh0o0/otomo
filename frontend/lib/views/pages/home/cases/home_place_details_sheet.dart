@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/place_details.dart';
 import 'package:otomo/views/bases/sheets/sheet_form.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
+import 'package:otomo/views/cases/photo/photo_gallery_screen.dart';
 import 'package:otomo/views/cases/place/place_details_scroll_view.dart';
+import 'package:otomo/views/cases/place/place_reviews_sheet.dart';
 import 'package:otomo/views/utils/error_library.dart';
 
 class HomePlaceDetailsSheet extends ConsumerWidget {
@@ -55,6 +58,22 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
           duration: const Duration(milliseconds: 1000),
           curve: Curves.easeOutExpo,
         ),
+        onReviewCardTap: (context, index) => PlaceReviewsSheet.show(
+          context: context,
+          reviews: value.place?.reviews ?? [],
+          initialIndex: index,
+        ),
+        onPhotoTap: (context, index) => PhotoGalleryScreen.showFullscreenDialog(
+            context: context,
+            initialIndex: index,
+            images: value.place?.photos
+                    ?.map(
+                      (e) => CachedNetworkImageProvider(
+                        e.photoUrl(maxHeight: 980),
+                      ),
+                    )
+                    .toList() ??
+                []),
       ),
       loading: () => [
         const _SingleContent(
