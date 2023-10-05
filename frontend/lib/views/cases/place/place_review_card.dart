@@ -1,9 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:otomo/entities/place_details.dart';
-import 'package:otomo/tools/logger.dart';
+import 'package:otomo/views/bases/avatars/app_circle_avatar.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/pages/place_reviews.dart';
 
 class PlaceRatingsAndReviews extends StatelessWidget {
   const PlaceRatingsAndReviews({
@@ -36,7 +36,7 @@ class PlaceRatingsAndReviews extends StatelessWidget {
         Spaces.h8,
         SizedBox(
           height: reviewCardHeight,
-          child: PlaceReviewListView(
+          child: PlaceReviewCardListView(
             reviews: reviews,
             reviewCardWidth: reviewCardWidth,
             reviewTextMaxLines: reviewTextMaxLines,
@@ -48,8 +48,8 @@ class PlaceRatingsAndReviews extends StatelessWidget {
   }
 }
 
-class PlaceReviewListView extends StatelessWidget {
-  const PlaceReviewListView({
+class PlaceReviewCardListView extends StatelessWidget {
+  const PlaceReviewCardListView({
     super.key,
     required this.reviews,
     required this.reviewCardWidth,
@@ -73,10 +73,16 @@ class PlaceReviewListView extends StatelessWidget {
         padding: index == 0
             ? EdgeInsets.only(left: firstPadding, right: padding)
             : EdgeInsets.symmetric(horizontal: padding),
-        child: PlaceReviewCard(
-          review: reviews[index],
-          width: reviewCardWidth,
-          reviewTextMaxLines: reviewTextMaxLines,
+        child: GestureDetector(
+          onTap: () => PlaceReviewsPage.showBottomSheet(
+            context: context,
+            reviews: reviews,
+          ),
+          child: PlaceReviewCard(
+            review: reviews[index],
+            width: reviewCardWidth,
+            reviewTextMaxLines: reviewTextMaxLines,
+          ),
         ),
       ),
     );
@@ -165,18 +171,11 @@ class PlaceReviewProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constrains) {
-      logger.debug(constrains);
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CircleAvatar(
-            onBackgroundImageError: (exception, stackTrace) =>
-                logger.warn(exception),
-            backgroundImage: CachedNetworkImageProvider(
-              review.profilePhotoUrl ?? '',
-            ),
-          ),
+          AppCircleAvatar(imageUrl: review.profilePhotoUrl ?? ''),
           Spaces.w8,
           Column(
             mainAxisAlignment: MainAxisAlignment.end,

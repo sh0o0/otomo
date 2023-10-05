@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/views/bases/layouts/edge_layout.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/place/place_details_view.dart';
@@ -83,10 +84,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
       addPadding(SliverToBoxAdapter(
         child: PlaceDetailsView(place: place),
       )),
-      if (bottomPadding)
-        SliverToBoxAdapter(
-          child: SizedBox(height: MediaQuery.paddingOf(context).bottom + 40),
-        ),
+      if (bottomPadding) const EdgeLayout(sliver: true),
     ];
   }
 

@@ -46,6 +46,9 @@ abstract class AppThemes {
       surfaceTintColor: _light.colorScheme.background,
       shadowColor: _light.colorScheme.shadow,
       titleTextStyle: _light.textTheme.titleLarge,
+      elevation: 0.0,
+      scrolledUnderElevation: 2.0,
+      shape: Border(bottom: BorderSide(color: _light.dividerColor)),
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: _light.colorScheme.surface,
