@@ -49,6 +49,7 @@ dependencies:
   settings_ui: ^2.0.2
   cached_network_image: ^3.3.0
   sliding_up_panel: ^2.0.0+1
+  scroll_to_index: ^3.0.1
 
   ### Map
   google_maps_flutter: ^2.5.0

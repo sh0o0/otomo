@@ -77,6 +77,7 @@ class PlaceReviewCardListView extends StatelessWidget {
           onTap: () => PlaceReviewsPage.showBottomSheet(
             context: context,
             reviews: reviews,
+            initialIndex: index,
           ),
           child: PlaceReviewCard(
             review: reviews[index],
