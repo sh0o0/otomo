@@ -8,6 +8,7 @@ import 'package:otomo/views/cases/settings/app_settings_list.dart';
 import 'package:otomo/views/cases/settings/app_settings_section.dart';
 import 'package:otomo/views/cases/settings/app_settings_tile.dart';
 import 'package:otomo/views/router.dart';
+import 'package:otomo/views/routes.dart';
 import 'package:otomo/views/utils/links.dart';
 
 class SettingsPage extends HookConsumerWidget {

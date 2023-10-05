@@ -7,18 +7,11 @@ import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/home/index.dart';
 import 'package:otomo/views/pages/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link.dart';
-
-abstract class Routes {
-  static const signIn = '/sign_in';
-  static const signInWithEmailLink = '$signIn/email';
-  static const home = '/home';
-  static const settings = '/settings';
-  static const accountDeletion = '$settings/account_deletion';
-}
+import 'package:otomo/views/routes.dart';
 
 final _key = GlobalKey<NavigatorState>();
 
-final List<GoRoute> _notSignedInPages = [
+final List<RouteBase> _notSignedInPages = [
   GoRoute(
     path: Routes.signIn,
     builder: (context, state) => const SignInPage(),
@@ -29,7 +22,7 @@ final List<GoRoute> _notSignedInPages = [
   ),
 ];
 
-final List<GoRoute> _signedInPages = [
+final List<RouteBase> _signedInPages = [
   GoRoute(
     path: Routes.home,
     builder: (context, state) => const HomePage(),
@@ -44,7 +37,8 @@ final List<GoRoute> _signedInPages = [
   GoRoute(
     path: Routes.accountDeletion,
     builder: (context, state) => const AccountDeletionPage(),
-  )
+  ),
+  ...$appRoutes,
 ];
 
 final routerProvider = Provider((ref) {

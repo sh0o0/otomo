@@ -103,7 +103,7 @@ dev_dependencies:
 
   ### Builder
   build_runner:
-  go_router_builder: ^2.3.0
+  go_router_builder: ^2.3.3
   injectable_generator:
   freezed: ^2.4.1
   json_serializable: ^6.7.1
