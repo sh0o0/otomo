@@ -26,16 +26,12 @@ class PlaceSliverAppBar extends StatelessWidget {
     )..layout(minWidth: 0, maxWidth: titleWidth - 24);
     final titleHeight = textPainter.height + 12;
 
-    final theme = Theme.of(context);
     return MediaQuery.removePadding(
       context: context,
       removeTop: removeTopSafePadding,
       child: SliverAppBar(
         pinned: true,
-        elevation: 0.0,
-        scrolledUnderElevation: 0.0,
         expandedHeight: titleHeight,
-        shape: Border(bottom: BorderSide(color: theme.dividerColor)),
         flexibleSpace: FlexibleSpaceBar(
           expandedTitleScale: 1,
           titlePadding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
