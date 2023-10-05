@@ -18,13 +18,12 @@ class ChatBottomSheetBar extends StatelessWidget {
   final RemainingMessageSendCount? remainingMessageSendCount;
 
   Widget _buildLeft(BuildContext context) {
-    return Row(
+    return const Row(
       children: [
-        BottomSheetLeading(onPressedLeading: onLeadingPressed),
+        Spaces.w16,
+        OtomoAvatar(),
         Spaces.w8,
-        const OtomoAvatar(),
-        Spaces.w8,
-        const Column(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,13 +41,9 @@ class ChatBottomSheetBar extends StatelessWidget {
       return Spaces.zero;
     }
 
-    final size = MediaQuery.of(context).size;
-
-    return Flexible(
-      child: Container(
-        padding: const EdgeInsets.only(right: 20.0),
-        width: size.width * 0.5,
-        child: Column(
+    return Row(
+      children: [
+        Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             BodySmall('今日の残り: ${remainingCount.daily.count} 回'),
@@ -57,7 +52,8 @@ class ChatBottomSheetBar extends StatelessWidget {
             ),
           ],
         ),
-      ),
+        BottomSheetLeading(onPressedLeading: onLeadingPressed),
+      ],
     );
   }
 
