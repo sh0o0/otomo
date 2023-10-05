@@ -20,7 +20,6 @@ class PlaceReviewsPage extends StatelessWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      isDismissible: true,
       backgroundColor: Colors.transparent,
       useSafeArea: true,
       builder: (context) => Scaffold(
