@@ -3,9 +3,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/entities/lat_lng.dart';
+import 'package:otomo/entities/message.dart';
+import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/map.dart';
 import 'package:otomo/views/cases/map/app_map.dart';
-import 'package:otomo/views/utils/converter.dart';
+import 'package:otomo/views/utils/marker_maker.dart';
 
 class MapPage extends StatefulHookConsumerWidget {
   const MapPage({super.key});
@@ -16,6 +18,7 @@ class MapPage extends StatefulHookConsumerWidget {
 
 class _MapState extends ConsumerState<MapPage> {
   MapController? _mapController;
+  Set<Marker> _markers = {};
 
   bool get _canUseMapController => _mapController != null;
 
@@ -35,40 +38,55 @@ class _MapState extends ConsumerState<MapPage> {
     _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 14);
   }
 
-  Set<Marker> _markers(MapState state, Map notifier) =>
-      state.activeAnalyzedLocations
-          .map(
-            (e) => ViewConverter.I.analyzedLocationAndMarker.locationToMarker(e,
-                onTap: () => notifier.focusPlace(e.location)),
-          )
-          .toSet();
+  void _setMarkers(List<AnalyzedLocation> locs) async {
+    final notifier = ref.read(mapProvider.notifier);
+    _markers = {};
+    for (final loc in locs) {
+      _markers.add(await MarkerMaker.fromAnalyzedLocationWithLabel(
+        context: context,
+        loc: loc,
+        onTap: () => notifier.focusPlace(loc.location),
+      ));
+    }
+    setState(() {});
+  }
+
+  void _onLocationFocused(AnalyzedLocation loc) {
+    if (!_canUseMapController) return;
+    _mapController!.moveWithLatLng(
+      latLng: loc.location.geometry.latLng,
+      zoom: 8,
+    );
+  }
+
+  void _onTextMsgActivated(TextMessageData textMsg) {
+    if (!_canUseMapController) return;
+
+    final latLngList = AppLatLngList(
+      textMsg.locationAnalysis.locations
+          .map((e) => e.location.geometry.latLng)
+          .toList(),
+    );
+    final region = latLngList.edge();
+    if (region == null) return;
+    _mapController!.moveWithRegion(region: region, padding: 40);
+  }
 
   @override
+  @override
   Widget build(BuildContext context) {
-    final state = ref.watch(mapProvider);
+    ref.listen(
+      mapProvider.select((value) => value.activeAnalyzedLocations),
+      (prev, next) => _setMarkers(next),
+    );
+
     final notifier = ref.read(mapProvider.notifier);
 
     useEffect(() {
       final focusedAnalyzedLocationStreamSub =
-          notifier.focusedLocationStream.listen((analyzedLoc) {
-        if (!_canUseMapController) return;
-        _mapController!.moveWithLatLng(
-          latLng: analyzedLoc.location.geometry.latLng,
-          zoom: 8,
-        );
-      });
-
+          notifier.focusedLocationStream.listen(_onLocationFocused);
       final activatedTextMessageStreamSub =
-          notifier.activatedTextMessageStream.listen((textMsg) {
-        if (!_canUseMapController) return;
-
-        final latLngList = AppLatLngList(textMsg.locationAnalysis.locations
-            .map((e) => e.location.geometry.latLng)
-            .toList());
-        final region = latLngList.edge();
-        if (region == null) return;
-        _mapController!.moveWithRegion(region: region);
-      });
+          notifier.activatedTextMessageStream.listen(_onTextMsgActivated);
 
       return () {
         focusedAnalyzedLocationStreamSub.cancel();
@@ -81,7 +99,7 @@ class _MapState extends ConsumerState<MapPage> {
       body: AppMap(
         initialCameraPosition: _initialCameraPosition,
         onMapCreated: _onMapCreated,
-        markers: _markers(state, notifier),
+        markers: _markers,
       ),
       floatingActionButton: FloatingActionButton(
         mini: true,

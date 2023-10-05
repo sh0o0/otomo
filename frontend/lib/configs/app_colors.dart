@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 abstract class AppColors {
   static const primary = Color(0xFF01A0E9);
   static const onPrimary = Colors.white;
-  static const secondary = Color(0xFFC3E874);
+  // static const secondary = Color(0xFFC3E874);
+  static const secondary = Color(0xFF24405E);
   static const activeGreen = Color(0xFF6DE566);
   static const barrierColor = Colors.black54;
   static const danger = Color(0xFFE74C3C);
