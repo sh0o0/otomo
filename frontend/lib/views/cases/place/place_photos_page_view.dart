@@ -5,6 +5,8 @@ import 'package:otomo/views/bases/images/app_cached_network_image.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/warn/warn_text.dart';
 
+typedef PhotoTapCallback = void Function(BuildContext context, int index);
+
 class PlacePhotosPageView extends StatefulWidget {
   const PlacePhotosPageView({
     super.key,
@@ -13,6 +15,7 @@ class PlacePhotosPageView extends StatefulWidget {
     this.photoHeight = 240,
     this.photoWidth,
     this.dotsIndicator = true,
+    this.onTap,
   });
 
   final List<PlaceDetailsPhoto> photos;
@@ -20,6 +23,7 @@ class PlacePhotosPageView extends StatefulWidget {
   final double? photoWidth;
   final double photoHeight;
   final bool dotsIndicator;
+  final PhotoTapCallback? onTap;
 
   @override
   State<PlacePhotosPageView> createState() => _PlacePhotosPageViewState();
@@ -43,7 +47,7 @@ class _PlacePhotosPageViewState extends State<PlacePhotosPageView> {
               return Padding(
                 padding: widget.padding,
                 child: GestureDetector(
-                  // onTap: () =>
+                  onTap: () => widget.onTap?.call(context, index),
                   child: PlaceImage(
                     imageUrl: widget.photos[index].photoUrl(maxHeight: 980),
                     width: widget.photoWidth,

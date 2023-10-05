@@ -3,15 +3,17 @@ import 'package:otomo/entities/place_details.dart';
 import 'package:otomo/views/bases/sheets/sheet_form.dart';
 import 'package:otomo/views/cases/place/place_review_list_view.dart';
 
-class PlaceReviewsPage extends StatelessWidget {
-  const PlaceReviewsPage({
+class PlaceReviewsSheet extends StatelessWidget {
+  const PlaceReviewsSheet({
     super.key,
     required this.reviews,
+    this.initialIndex,
   });
 
   final List<PlaceDetailsReview> reviews;
+  final int? initialIndex;
 
-  static Future<void> showBottomSheet({
+  static Future<void> show({
     required BuildContext context,
     required List<PlaceDetailsReview> reviews,
     int? initialIndex,
@@ -23,12 +25,9 @@ class PlaceReviewsPage extends StatelessWidget {
       useSafeArea: true,
       builder: (context) => Scaffold(
         backgroundColor: Colors.transparent,
-        body: SheetForm(
-          shadow: false,
-          child: PlaceReviewListView(
-            reviews: reviews,
-            initialIndex: initialIndex,
-          ),
+        body: PlaceReviewsSheet(
+          reviews: reviews,
+          initialIndex: initialIndex,
         ),
       ),
     );
@@ -36,8 +35,12 @@ class PlaceReviewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PlaceReviewListView(reviews: reviews),
+    return SheetForm(
+      shadow: false,
+      child: PlaceReviewListView(
+        reviews: reviews,
+        initialIndex: initialIndex,
+      ),
     );
   }
 }

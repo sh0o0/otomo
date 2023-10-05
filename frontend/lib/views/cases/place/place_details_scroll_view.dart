@@ -31,6 +31,8 @@ class PlaceDetailsScrollView extends StatelessWidget {
     VoidCallback? onClosePressed,
     bool removeTopPadding = false,
     bool bottomPadding = true,
+    ReviewCardTapCallback? onReviewCardTap,
+    PhotoTapCallback? onPhotoTap,
   }) {
     final horizontalPadding = EdgeInsets.symmetric(horizontal: sidePadding);
     Widget addPadding(Widget sliver) {
@@ -63,6 +65,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
           child: PlacePhotosPageView(
             padding: horizontalPadding,
             photos: place.photos!.toList(),
+            onTap: onPhotoTap,
           ),
         ),
       const SliverToBoxAdapter(child: Spaces.h16),
@@ -75,6 +78,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
           child: PlaceRatingsAndReviews(
             reviews: place.reviews!,
             sidePadding: sidePadding,
+            onTap: onReviewCardTap,
           ),
         ),
       const SliverToBoxAdapter(child: Spaces.h16),

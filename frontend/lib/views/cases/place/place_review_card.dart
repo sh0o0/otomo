@@ -3,7 +3,8 @@ import 'package:otomo/entities/place_details.dart';
 import 'package:otomo/views/bases/avatars/app_circle_avatar.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
-import 'package:otomo/views/pages/place_reviews.dart';
+
+typedef ReviewCardTapCallback = void Function(BuildContext context, int index);
 
 class PlaceRatingsAndReviews extends StatelessWidget {
   const PlaceRatingsAndReviews({
@@ -13,6 +14,7 @@ class PlaceRatingsAndReviews extends StatelessWidget {
     this.reviewCardWidth = 240,
     this.reviewTextMaxLines = 4,
     this.sidePadding = 0,
+    this.onTap,
   });
 
   final List<PlaceDetailsReview> reviews;
@@ -20,6 +22,7 @@ class PlaceRatingsAndReviews extends StatelessWidget {
   final double reviewCardWidth;
   final int reviewTextMaxLines;
   final double sidePadding;
+  final ReviewCardTapCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +59,7 @@ class PlaceReviewCardListView extends StatelessWidget {
     required this.reviewTextMaxLines,
     this.firstPadding = 0,
     this.padding = 8,
+    this.onTap,
   });
 
   final List<PlaceDetailsReview> reviews;
@@ -63,6 +67,7 @@ class PlaceReviewCardListView extends StatelessWidget {
   final int reviewTextMaxLines;
   final double firstPadding;
   final double padding;
+  final ReviewCardTapCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +79,7 @@ class PlaceReviewCardListView extends StatelessWidget {
             ? EdgeInsets.only(left: firstPadding, right: padding)
             : EdgeInsets.symmetric(horizontal: padding),
         child: GestureDetector(
-          onTap: () => PlaceReviewsPage.showBottomSheet(
-            context: context,
-            reviews: reviews,
-            initialIndex: index,
-          ),
+          onTap: () => onTap?.call(context, index),
           child: PlaceReviewCard(
             review: reviews[index],
             width: reviewCardWidth,

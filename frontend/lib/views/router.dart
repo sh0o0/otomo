@@ -38,7 +38,6 @@ final List<RouteBase> _signedInPages = [
     path: Routes.accountDeletion,
     builder: (context, state) => const AccountDeletionPage(),
   ),
-  ...$appRoutes,
 ];
 
 final routerProvider = Provider((ref) {
