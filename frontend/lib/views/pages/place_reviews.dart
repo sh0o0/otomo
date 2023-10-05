@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:otomo/entities/place_details.dart';
 import 'package:otomo/views/bases/app_bars/app_bar_title.dart';
 import 'package:otomo/views/bases/app_bars/app_sliver_app_bar.dart';
+import 'package:otomo/views/bases/layouts/edge_layout.dart';
 import 'package:otomo/views/bases/sheets/sheet_form.dart';
 import 'package:otomo/views/cases/place/place_review_list.dart';
 
@@ -59,13 +60,10 @@ class PlaceReviewsPage extends StatelessWidget {
           ),
         ],
       ),
-      SliverPadding(
-        padding: EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: MediaQuery.paddingOf(context).bottom + 40,
-        ),
-        sliver: SliverList(
+      EdgeLayout(
+        top: 0.0,
+        sliver: true,
+        child: SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) => tiles[index],
             childCount: reviews.length,
