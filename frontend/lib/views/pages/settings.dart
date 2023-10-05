@@ -87,8 +87,9 @@ class SettingsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
         title: const TitleMedium('設定', style: TextStyles.bold),
+        actions: const [CloseButton()],
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,

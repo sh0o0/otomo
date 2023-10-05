@@ -57,11 +57,7 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         actions: [
-          if (widget.showClose)
-            IconButton(
-              icon: const Icon(Icons.close_rounded, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
+          if (widget.showClose) const CloseButton(color: Colors.white),
         ],
       ),
       backgroundColor: backgroundColor,

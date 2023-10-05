@@ -54,12 +54,7 @@ class PlaceSliverAppBar extends StatelessWidget {
           ),
         ),
         actions: onClosePressed != null
-            ? [
-                IconButton(
-                  icon: const Icon(Icons.close_rounded),
-                  onPressed: onClosePressed,
-                ),
-              ]
+            ? [CloseButton(onPressed: onClosePressed)]
             : null,
       ),
     );
