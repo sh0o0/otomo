@@ -13,3 +13,4 @@ analyzer:
     - "**/*.pbjson.dart"
     - "**/*.pbenum.dart"
     - "lib/injection.config.dart"
+    - "lib/development/**"
