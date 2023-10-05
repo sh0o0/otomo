@@ -11,6 +11,7 @@ abstract class AppColors {
   static const error = Color(0xFFE00020);
   static const shadow = Color(0xff000000);
   static const scrim = Color(0xff000000);
+  static const photoGalleryBackground = Color(0xFF202125);
 }
 
 class AppLightColors {

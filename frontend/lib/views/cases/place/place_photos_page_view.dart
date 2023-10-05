@@ -42,9 +42,12 @@ class _PlacePhotosPageViewState extends State<PlacePhotosPageView> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: widget.padding,
-                child: PlaceImage(
-                  imageUrl: widget.photos[index].photoUrl(maxHeight: 980),
-                  width: widget.photoWidth,
+                child: GestureDetector(
+                  // onTap: () =>
+                  child: PlaceImage(
+                    imageUrl: widget.photos[index].photoUrl(maxHeight: 980),
+                    width: widget.photoWidth,
+                  ),
                 ),
               );
             },
