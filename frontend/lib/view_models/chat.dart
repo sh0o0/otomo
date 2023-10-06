@@ -48,14 +48,14 @@ class ChatState with _$ChatState {
 class Chat extends _$Chat {
   final _chatController = getIt<ChatControllerImpl>();
   final StreamController<ExtractedPlace>
-      _focusedAnalyzedLocationStreamController =
+      _focusedPlaceStreamController =
       StreamController<ExtractedPlace>.broadcast();
   final StreamController<TextMessageData>
       _activatedTextMessageStreamController =
       StreamController<TextMessageData>.broadcast();
 
   Stream<ExtractedPlace> get focusedExtractedPlaceStream =>
-      _focusedAnalyzedLocationStreamController.stream;
+      _focusedPlaceStreamController.stream;
   Stream<TextMessageData> get activatedTextMessageStream =>
       _activatedTextMessageStreamController.stream;
 
@@ -257,8 +257,8 @@ class Chat extends _$Chat {
       ..value?.messages.items[index] = message.copyWith.message(active: false);
   }
 
-  void focusAnalyzedLocation(ExtractedPlace loc) {
-    _focusedAnalyzedLocationStreamController.add(loc);
+  void focusPlace(ExtractedPlace place) {
+    _focusedPlaceStreamController.add(place);
   }
 
   bool _isMessageExist(String id) {

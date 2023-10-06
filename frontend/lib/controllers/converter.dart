@@ -44,17 +44,17 @@ class _Message {
     final sentAt = (json['sent_at'] as Timestamp).toDate();
     json['sent_at'] = sentAt.toIso8601String();
 
-    if (json['location_analysis'] == null) {
-      json['location_analysis'] = {'locations': []};
+    if (json['place_extraction'] == null) {
+      json['place_extraction'] = {'places': []};
     }
-    final locationAnalysis = json['location_analysis'];
-    if (locationAnalysis['locations'] == null) {
-      locationAnalysis['locations'] = [];
+    final placeExtraction = json['place_extraction'];
+    if (placeExtraction['places'] == null) {
+      placeExtraction['places'] = [];
     }
-    if (locationAnalysis['analyzed_at'] != null) {
-      final analyzedAt =
-          (locationAnalysis['analyzed_at'] as Timestamp).toDate();
-      locationAnalysis['analyzed_at'] = analyzedAt.toIso8601String();
+    if (placeExtraction['processed_at'] != null) {
+      final processedAt =
+          (placeExtraction['processed_at'] as Timestamp).toDate();
+      placeExtraction['processed_at'] = processedAt.toIso8601String();
     }
 
     return TextMessage.fromJson(json);
@@ -77,10 +77,10 @@ class _PlaceExtraction {
 class _ExtractedPlace {
   final _geocodedPlace = _GeocodedPlace();
 
-  ExtractedPlace grpcToEntity(grpc_msg.ExtractedPlace loc) {
+  ExtractedPlace grpcToEntity(grpc_msg.ExtractedPlace place) {
     return ExtractedPlace(
-      text: loc.text,
-      geocodedPlace: _geocodedPlace.grpcToEntity(loc.geocodedPlace),
+      text: place.text,
+      geocodedPlace: _geocodedPlace.grpcToEntity(place.geocodedPlace),
     );
   }
 

@@ -68,8 +68,8 @@ class Map extends _$Map {
     return _locationController.determinePosition();
   }
 
-  void focusPlace(ExtractedPlace location) {
-    _focusedPlaceStreamController.add(location);
-    state = state.copyWith(focusingPlace: location);
+  void focusPlace(ExtractedPlace place) {
+    _focusedPlaceStreamController.add(place);
+    state = state.copyWith(focusingPlace: place);
   }
 }

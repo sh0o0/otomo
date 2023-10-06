@@ -7,11 +7,11 @@ import 'package:otomo/views/utils/converter.dart';
 final class MarkerMaker {
   MarkerMaker._();
 
-  static List<Marker> fromAnalyzedLocationList(
-          List<ExtractedPlace> locations) =>
-      locations.map(fromAnalyzedLocation).toList();
+  static List<Marker> fromExtractedPlaceList(
+          List<ExtractedPlace> places) =>
+      places.map(fromExtractedPlace).toList();
 
-  static Marker fromAnalyzedLocation(
+  static Marker fromExtractedPlace(
     ExtractedPlace place, {
     VoidCallback? onTap,
   }) =>
@@ -26,20 +26,20 @@ final class MarkerMaker {
         ),
       );
 
-  static Future<Marker> fromAnalyzedLocationWithLabel({
+  static Future<Marker> fromExtractedPlaceWithLabel({
     required BuildContext context,
-    required ExtractedPlace loc,
+    required ExtractedPlace place,
     VoidCallback? onTap,
   }) async {
     final theme = Theme.of(context);
     return Marker(
-      markerId: MarkerId(loc.geocodedPlace.googlePlaceId),
+      markerId: MarkerId(place.geocodedPlace.googlePlaceId),
       position: ViewConverter.I.latLng.entityToViewForGoogle(
-        loc.geocodedPlace.latLng,
+        place.geocodedPlace.latLng,
       ),
       onTap: onTap,
       icon: await createCustomMarkerBitmap(
-        loc.text,
+        place.text,
         backgroundColor: theme.colorScheme.secondary,
         textStyle: TextStyle(
           fontSize: 40,

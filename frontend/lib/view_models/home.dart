@@ -12,7 +12,7 @@ class Home extends _$Home {
       ref.read(chatProvider.notifier).activatedTextMessageStream;
   Stream<ExtractedPlace> get focusedTextOfPlaceStream =>
       ref.read(mapProvider.notifier).focusedTextOfPlaceStream;
-  Stream<ExtractedPlace> get focusedAnalyzedLocationStream =>
+  Stream<ExtractedPlace> get focusedPlaceStream =>
       ref.read(chatProvider.notifier).focusedExtractedPlaceStream;
 
   @override

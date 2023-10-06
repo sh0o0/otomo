@@ -40,9 +40,9 @@ class _MapState extends ConsumerState<MapPage> {
 
   Future<void> _addMarker(ExtractedPlace place, {bool notify = true}) async {
     final notifier = ref.read(mapProvider.notifier);
-    _markers.add(await MarkerMaker.fromAnalyzedLocationWithLabel(
+    _markers.add(await MarkerMaker.fromExtractedPlaceWithLabel(
       context: context,
-      loc: place,
+      place: place,
       onTap: () => notifier.focusPlace(place),
     ));
     if (notify) setState(() {});
@@ -56,7 +56,7 @@ class _MapState extends ConsumerState<MapPage> {
     setState(() {});
   }
 
-  void _onLocationFocused(ExtractedPlace place) {
+  void _onPlaceFocused(ExtractedPlace place) {
     if (!_canUseMapController) return;
     _addMarker(place);
     _mapController!.moveWithLatLng(
@@ -89,13 +89,13 @@ class _MapState extends ConsumerState<MapPage> {
     final notifier = ref.read(mapProvider.notifier);
 
     useEffect(() {
-      final focusedAnalyzedLocationStreamSub =
-          notifier.focusedTextOfPlaceStream.listen(_onLocationFocused);
+      final focusedTextOfPlaceStreamSub =
+          notifier.focusedTextOfPlaceStream.listen(_onPlaceFocused);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen(_onTextMsgActivated);
 
       return () {
-        focusedAnalyzedLocationStreamSub.cancel();
+        focusedTextOfPlaceStreamSub.cancel();
         activatedTextMessageStreamSub.cancel();
       };
     }, const []);
