@@ -90,7 +90,7 @@ class _MapState extends ConsumerState<MapPage> {
 
     useEffect(() {
       final focusedAnalyzedLocationStreamSub =
-          notifier.focusedLocationStream.listen(_onLocationFocused);
+          notifier.focusedTextOfPlaceStream.listen(_onLocationFocused);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen(_onTextMsgActivated);
 

@@ -26,7 +26,7 @@ class TextMessageData with _$TextMessageData {
   const factory TextMessageData({
     required MessageData message,
     required String text,
-    @Default(PlaceExtraction(places: [])) PlaceExtraction locationAnalysis,
+    @Default(PlaceExtraction(places: [])) PlaceExtraction placeExtraction,
   }) = _TextMessageData;
 
   factory TextMessageData.fromTextMessage(
@@ -46,7 +46,7 @@ class TextMessageData with _$TextMessageData {
         active: active,
       ),
       text: message.text,
-      locationAnalysis: message.locationAnalysis,
+      placeExtraction: message.placeExtraction,
     );
   }
 

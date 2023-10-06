@@ -70,7 +70,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         });
       });
       final focusedPlaceStreamSub =
-          notifier.focusedPlaceStream.listen((location) {
+          notifier.focusedTextOfPlaceStream.listen((location) {
         FlutterUtils.afterBuildCallback(() async {
           _homeController.openPlaceDetailsSheet();
         });

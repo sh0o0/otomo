@@ -30,14 +30,14 @@ class ChatState with _$ChatState {
 
   static final user = Author.fromRole(Role.user);
 
-  List<ExtractedPlace> get activeAnalyzedLocations {
-    final locations = <ExtractedPlace>[];
+  List<ExtractedPlace> get activePlaces {
+    final places = <ExtractedPlace>[];
 
     for (final message in _activeMessages) {
-      locations.addAll(message.locationAnalysis.locations);
+      places.addAll(message.placeExtraction.places);
     }
 
-    return locations;
+    return places;
   }
 
   List<TextMessageData> get _activeMessages =>
@@ -54,7 +54,7 @@ class Chat extends _$Chat {
       _activatedTextMessageStreamController =
       StreamController<TextMessageData>.broadcast();
 
-  Stream<ExtractedPlace> get focusedAnalyzedLocationStream =>
+  Stream<ExtractedPlace> get focusedExtractedPlaceStream =>
       _focusedAnalyzedLocationStreamController.stream;
   Stream<TextMessageData> get activatedTextMessageStream =>
       _activatedTextMessageStreamController.stream;
