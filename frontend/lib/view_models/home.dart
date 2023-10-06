@@ -10,10 +10,10 @@ part 'home.g.dart';
 class Home extends _$Home {
   Stream<TextMessageData> get activatedTextMessageStream =>
       ref.read(chatProvider.notifier).activatedTextMessageStream;
-  Stream<ExtractedPlace> get focusedTextOfPlaceStream =>
-      ref.read(mapProvider.notifier).focusedTextOfPlaceStream;
   Stream<ExtractedPlace> get focusedPlaceStream =>
-      ref.read(chatProvider.notifier).focusedExtractedPlaceStream;
+      ref.read(mapProvider.notifier).focusedPlaceStream;
+  Stream<ExtractedPlace> get focusedTextOfPlaceStream =>
+      ref.read(chatProvider.notifier).focusedPlaceStream;
 
   @override
   void build() {}

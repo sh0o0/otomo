@@ -34,15 +34,6 @@ class Map extends _$Map {
 
   @override
   MapState build() {
-    final focusedPlacesStreamSub =
-        focusedTextOfPlaceStream.listen((focusedPlace) {
-      state = state.copyWith(focusingPlace: focusedPlace);
-    });
-
-    ref.onDispose(() {
-      focusedPlacesStreamSub.cancel();
-    });
-
     final activePlaces = ref.watch(
       chatProvider.select((v) => v.value?.activePlaces),
     );
@@ -58,7 +49,7 @@ class Map extends _$Map {
       StreamController<ExtractedPlace>.broadcast();
 
   Stream<ExtractedPlace> get focusedTextOfPlaceStream =>
-      ref.read(chatProvider.notifier).focusedExtractedPlaceStream;
+      ref.read(chatProvider.notifier).focusedPlaceStream;
   Stream<TextMessageData> get activatedTextMessageStream =>
       ref.read(chatProvider.notifier).activatedTextMessageStream;
   Stream<ExtractedPlace> get focusedPlaceStream =>
@@ -69,7 +60,7 @@ class Map extends _$Map {
   }
 
   void focusPlace(ExtractedPlace place) {
-    _focusedPlaceStreamController.add(place);
     state = state.copyWith(focusingPlace: place);
+    _focusedPlaceStreamController.add(place);
   }
 }
