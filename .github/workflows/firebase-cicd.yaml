@@ -2,12 +2,12 @@ name: Firebase CI/CD
 
 on:
   push:
-    branches:
-      - main
-      - develop
-      - release**
-    paths:
-      - 'firebase/**'
+    # branches:
+    #   - main
+    #   - develop
+    #   - release**
+    # paths:
+    #   - 'firebase/**'
 
 env:
   CARGO_TERM_COLOR: always
@@ -15,17 +15,16 @@ env:
 jobs:
   develop:
     runs-on: ubuntu-latest
-    if: github.ref_name == 'develop'
-    environment: develop
+    # if: github.ref_name == 'develop'
     steps:
       - uses: actions/checkout@v3
       - name: Develop Firebase CI/CD
         uses: ./.github/actions/firebase-cicd/
         with:
-          firebaseToken: ${{ secrets.FIREBASE_TOKEN }}
-          firebaseProjectId: ${{ secrets.GCP_PROJECT_ID }}
-          slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
-          slackChannel: ${{ secrets.SLACK_CHANNEL }}
+          firebaseToken: ${{ secrets.DEV_FIREBASE_TOKEN }}
+          firebaseProjectId: ${{ secrets.DEV_GCP_PROJECT_ID }}
+          slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.DEV_SLACK_CHANNEL }}
 
       - name: Notify to slack
         uses: ./.github/actions/notify-to-slack/
@@ -33,13 +32,13 @@ jobs:
         with:
           isSuccess: true
           title: 'Firebase CI/CD succeed'
-          slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
-          slackChannel: ${{ secrets.SLACK_CHANNEL }}
+          slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.DEV_SLACK_CHANNEL }}
       - name: Notify to slack
         uses: ./.github/actions/notify-to-slack/
         if: failure()
         with:
           isSuccess: false
           title: 'Firebase CI/CD failed'
-          slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
-          slackChannel: ${{ secrets.SLACK_CHANNEL }}
+          slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.DEV_SLACK_CHANNEL }}
