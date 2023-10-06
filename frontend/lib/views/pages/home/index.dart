@@ -76,9 +76,19 @@ class _HomePageState extends ConsumerState<HomePage> {
         });
       });
 
+      final focusedAnalyzedLocationStreamSub = ref
+          .read(homeProvider.notifier)
+          .focusedAnalyzedLocationStream
+          .listen((loc) {
+        FlutterUtils.afterBuildCallback(() {
+          _homeController.moveChatSheetToSnap();
+        });
+      });
+
       return () {
         activatedTextMessageStreamSub.cancel();
         focusedPlaceStreamSub.cancel();
+        focusedAnalyzedLocationStreamSub.cancel();
       };
     }, const []);
 
