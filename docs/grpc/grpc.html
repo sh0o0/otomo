@@ -272,15 +272,7 @@
             <ul>
               
                 <li>
-                  <a href="#.Geometry"><span class="badge">M</span>Geometry</a>
-                </li>
-              
-                <li>
                   <a href="#.LatLng"><span class="badge">M</span>LatLng</a>
-                </li>
-              
-                <li>
-                  <a href="#.Location"><span class="badge">M</span>Location</a>
                 </li>
               
               
@@ -295,11 +287,7 @@
             <ul>
               
                 <li>
-                  <a href="#.AnalyzedLocation"><span class="badge">M</span>AnalyzedLocation</a>
-                </li>
-              
-                <li>
-                  <a href="#.LocationAnalysis"><span class="badge">M</span>LocationAnalysis</a>
+                  <a href="#.ExtractedPlace"><span class="badge">M</span>ExtractedPlace</a>
                 </li>
               
                 <li>
@@ -308,6 +296,10 @@
               
                 <li>
                   <a href="#.MessageChunk"><span class="badge">M</span>MessageChunk</a>
+                </li>
+              
+                <li>
+                  <a href="#.PlaceExtraction"><span class="badge">M</span>PlaceExtraction</a>
                 </li>
               
               
@@ -1023,30 +1015,6 @@ significant. </p></td>
       <p></p>
 
       
-        <h3 id=".Geometry">Geometry</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>lat_lng</td>
-                  <td><a href="#LatLng">LatLng</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
         <h3 id=".LatLng">LatLng</h3>
         <p></p>
 
@@ -1078,51 +1046,6 @@ significant. </p></td>
 
         
       
-        <h3 id=".Location">Location</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>google_place_id</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>address</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>types</td>
-                  <td><a href="#string">string</a></td>
-                  <td>repeated</td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>geometry</td>
-                  <td><a href="#Geometry">Geometry</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
 
       
 
@@ -1137,7 +1060,7 @@ significant. </p></td>
       <p></p>
 
       
-        <h3 id=".AnalyzedLocation">AnalyzedLocation</h3>
+        <h3 id=".ExtractedPlace">ExtractedPlace</h3>
         <p></p>
 
         
@@ -1155,46 +1078,8 @@ significant. </p></td>
                 </tr>
               
                 <tr>
-                  <td>location</td>
-                  <td><a href="#Location">Location</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
-          
-
-        
-      
-        <h3 id=".LocationAnalysis">LocationAnalysis</h3>
-        <p></p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>locations</td>
-                  <td><a href="#AnalyzedLocation">AnalyzedLocation</a></td>
-                  <td>repeated</td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>analyzed_at</td>
-                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>error</td>
-                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td>lat_lng</td>
+                  <td><a href="#LatLng">LatLng</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1252,8 +1137,8 @@ significant. </p></td>
                 </tr>
               
                 <tr>
-                  <td>location_analysis</td>
-                  <td><a href="#LocationAnalysis">LocationAnalysis</a></td>
+                  <td>place_extraction</td>
+                  <td><a href="#PlaceExtraction">PlaceExtraction</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1313,6 +1198,44 @@ significant. </p></td>
                 <tr>
                   <td>is_last</td>
                   <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PlaceExtraction">PlaceExtraction</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>places</td>
+                  <td><a href="#ExtractedPlace">ExtractedPlace</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>processed_at</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>error</td>
+                  <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>

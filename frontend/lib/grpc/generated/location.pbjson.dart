@@ -13,35 +13,6 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use locationDescriptor instead')
-const Location$json = {
-  '1': 'Location',
-  '2': [
-    {'1': 'google_place_id', '3': 1, '4': 1, '5': 9, '10': 'googlePlaceId'},
-    {'1': 'address', '3': 2, '4': 1, '5': 9, '10': 'address'},
-    {'1': 'types', '3': 3, '4': 3, '5': 9, '10': 'types'},
-    {'1': 'geometry', '3': 4, '4': 1, '5': 11, '6': '.Geometry', '10': 'geometry'},
-  ],
-};
-
-/// Descriptor for `Location`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List locationDescriptor = $convert.base64Decode(
-    'CghMb2NhdGlvbhImCg9nb29nbGVfcGxhY2VfaWQYASABKAlSDWdvb2dsZVBsYWNlSWQSGAoHYW'
-    'RkcmVzcxgCIAEoCVIHYWRkcmVzcxIUCgV0eXBlcxgDIAMoCVIFdHlwZXMSJQoIZ2VvbWV0cnkY'
-    'BCABKAsyCS5HZW9tZXRyeVIIZ2VvbWV0cnk=');
-
-@$core.Deprecated('Use geometryDescriptor instead')
-const Geometry$json = {
-  '1': 'Geometry',
-  '2': [
-    {'1': 'lat_lng', '3': 1, '4': 1, '5': 11, '6': '.LatLng', '10': 'latLng'},
-  ],
-};
-
-/// Descriptor for `Geometry`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List geometryDescriptor = $convert.base64Decode(
-    'CghHZW9tZXRyeRIgCgdsYXRfbG5nGAEgASgLMgcuTGF0TG5nUgZsYXRMbmc=');
-
 @$core.Deprecated('Use latLngDescriptor instead')
 const LatLng$json = {
   '1': 'LatLng',

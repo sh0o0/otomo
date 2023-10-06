@@ -32,7 +32,7 @@ class Message extends $pb.GeneratedMessage {
     ..e<Role>(3, _omitFieldNames ? '' : 'role', $pb.PbFieldType.OE, defaultOrMaker: Role.UNKNOWN, valueOf: Role.valueOf, enumValues: Role.values)
     ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', subBuilder: $3.Timestamp.create)
     ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
-    ..aOM<LocationAnalysis>(6, _omitFieldNames ? '' : 'locationAnalysis', subBuilder: LocationAnalysis.create)
+    ..aOM<PlaceExtraction>(6, _omitFieldNames ? '' : 'placeExtraction', subBuilder: PlaceExtraction.create)
     ..hasRequiredFields = false
   ;
 
@@ -107,15 +107,129 @@ class Message extends $pb.GeneratedMessage {
   $4.StringValue ensureClientId() => $_ensure(4);
 
   @$pb.TagNumber(6)
-  LocationAnalysis get locationAnalysis => $_getN(5);
+  PlaceExtraction get placeExtraction => $_getN(5);
   @$pb.TagNumber(6)
-  set locationAnalysis(LocationAnalysis v) { setField(6, v); }
+  set placeExtraction(PlaceExtraction v) { setField(6, v); }
   @$pb.TagNumber(6)
-  $core.bool hasLocationAnalysis() => $_has(5);
+  $core.bool hasPlaceExtraction() => $_has(5);
   @$pb.TagNumber(6)
-  void clearLocationAnalysis() => clearField(6);
+  void clearPlaceExtraction() => clearField(6);
   @$pb.TagNumber(6)
-  LocationAnalysis ensureLocationAnalysis() => $_ensure(5);
+  PlaceExtraction ensurePlaceExtraction() => $_ensure(5);
+}
+
+class PlaceExtraction extends $pb.GeneratedMessage {
+  factory PlaceExtraction() => create();
+  PlaceExtraction._() : super();
+  factory PlaceExtraction.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory PlaceExtraction.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PlaceExtraction', createEmptyInstance: create)
+    ..pc<ExtractedPlace>(1, _omitFieldNames ? '' : 'places', $pb.PbFieldType.PM, subBuilder: ExtractedPlace.create)
+    ..aOM<$3.Timestamp>(2, _omitFieldNames ? '' : 'processedAt', subBuilder: $3.Timestamp.create)
+    ..aOM<$4.StringValue>(3, _omitFieldNames ? '' : 'error', subBuilder: $4.StringValue.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  PlaceExtraction clone() => PlaceExtraction()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  PlaceExtraction copyWith(void Function(PlaceExtraction) updates) => super.copyWith((message) => updates(message as PlaceExtraction)) as PlaceExtraction;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static PlaceExtraction create() => PlaceExtraction._();
+  PlaceExtraction createEmptyInstance() => create();
+  static $pb.PbList<PlaceExtraction> createRepeated() => $pb.PbList<PlaceExtraction>();
+  @$core.pragma('dart2js:noInline')
+  static PlaceExtraction getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PlaceExtraction>(create);
+  static PlaceExtraction? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<ExtractedPlace> get places => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $3.Timestamp get processedAt => $_getN(1);
+  @$pb.TagNumber(2)
+  set processedAt($3.Timestamp v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasProcessedAt() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProcessedAt() => clearField(2);
+  @$pb.TagNumber(2)
+  $3.Timestamp ensureProcessedAt() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $4.StringValue get error => $_getN(2);
+  @$pb.TagNumber(3)
+  set error($4.StringValue v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasError() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearError() => clearField(3);
+  @$pb.TagNumber(3)
+  $4.StringValue ensureError() => $_ensure(2);
+}
+
+class ExtractedPlace extends $pb.GeneratedMessage {
+  factory ExtractedPlace() => create();
+  ExtractedPlace._() : super();
+  factory ExtractedPlace.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ExtractedPlace.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ExtractedPlace', createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'text')
+    ..aOM<$5.LatLng>(2, _omitFieldNames ? '' : 'latLng', subBuilder: $5.LatLng.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ExtractedPlace clone() => ExtractedPlace()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ExtractedPlace copyWith(void Function(ExtractedPlace) updates) => super.copyWith((message) => updates(message as ExtractedPlace)) as ExtractedPlace;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ExtractedPlace create() => ExtractedPlace._();
+  ExtractedPlace createEmptyInstance() => create();
+  static $pb.PbList<ExtractedPlace> createRepeated() => $pb.PbList<ExtractedPlace>();
+  @$core.pragma('dart2js:noInline')
+  static ExtractedPlace getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ExtractedPlace>(create);
+  static ExtractedPlace? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get text => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set text($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasText() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearText() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $5.LatLng get latLng => $_getN(1);
+  @$pb.TagNumber(2)
+  set latLng($5.LatLng v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLatLng() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLatLng() => clearField(2);
+  @$pb.TagNumber(2)
+  $5.LatLng ensureLatLng() => $_ensure(1);
 }
 
 class MessageChunk extends $pb.GeneratedMessage {
@@ -212,120 +326,6 @@ class MessageChunk extends $pb.GeneratedMessage {
   $core.bool hasIsLast() => $_has(5);
   @$pb.TagNumber(6)
   void clearIsLast() => clearField(6);
-}
-
-class LocationAnalysis extends $pb.GeneratedMessage {
-  factory LocationAnalysis() => create();
-  LocationAnalysis._() : super();
-  factory LocationAnalysis.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory LocationAnalysis.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LocationAnalysis', createEmptyInstance: create)
-    ..pc<AnalyzedLocation>(1, _omitFieldNames ? '' : 'locations', $pb.PbFieldType.PM, subBuilder: AnalyzedLocation.create)
-    ..aOM<$3.Timestamp>(2, _omitFieldNames ? '' : 'analyzedAt', subBuilder: $3.Timestamp.create)
-    ..aOM<$4.StringValue>(3, _omitFieldNames ? '' : 'error', subBuilder: $4.StringValue.create)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  LocationAnalysis clone() => LocationAnalysis()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  LocationAnalysis copyWith(void Function(LocationAnalysis) updates) => super.copyWith((message) => updates(message as LocationAnalysis)) as LocationAnalysis;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static LocationAnalysis create() => LocationAnalysis._();
-  LocationAnalysis createEmptyInstance() => create();
-  static $pb.PbList<LocationAnalysis> createRepeated() => $pb.PbList<LocationAnalysis>();
-  @$core.pragma('dart2js:noInline')
-  static LocationAnalysis getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LocationAnalysis>(create);
-  static LocationAnalysis? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.List<AnalyzedLocation> get locations => $_getList(0);
-
-  @$pb.TagNumber(2)
-  $3.Timestamp get analyzedAt => $_getN(1);
-  @$pb.TagNumber(2)
-  set analyzedAt($3.Timestamp v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasAnalyzedAt() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearAnalyzedAt() => clearField(2);
-  @$pb.TagNumber(2)
-  $3.Timestamp ensureAnalyzedAt() => $_ensure(1);
-
-  @$pb.TagNumber(3)
-  $4.StringValue get error => $_getN(2);
-  @$pb.TagNumber(3)
-  set error($4.StringValue v) { setField(3, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasError() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearError() => clearField(3);
-  @$pb.TagNumber(3)
-  $4.StringValue ensureError() => $_ensure(2);
-}
-
-class AnalyzedLocation extends $pb.GeneratedMessage {
-  factory AnalyzedLocation() => create();
-  AnalyzedLocation._() : super();
-  factory AnalyzedLocation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AnalyzedLocation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AnalyzedLocation', createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'text')
-    ..aOM<$5.Location>(2, _omitFieldNames ? '' : 'location', subBuilder: $5.Location.create)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  AnalyzedLocation clone() => AnalyzedLocation()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  AnalyzedLocation copyWith(void Function(AnalyzedLocation) updates) => super.copyWith((message) => updates(message as AnalyzedLocation)) as AnalyzedLocation;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static AnalyzedLocation create() => AnalyzedLocation._();
-  AnalyzedLocation createEmptyInstance() => create();
-  static $pb.PbList<AnalyzedLocation> createRepeated() => $pb.PbList<AnalyzedLocation>();
-  @$core.pragma('dart2js:noInline')
-  static AnalyzedLocation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AnalyzedLocation>(create);
-  static AnalyzedLocation? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get text => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set text($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasText() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearText() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $5.Location get location => $_getN(1);
-  @$pb.TagNumber(2)
-  set location($5.Location v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasLocation() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearLocation() => clearField(2);
-  @$pb.TagNumber(2)
-  $5.Location ensureLocation() => $_ensure(1);
 }
 
 
