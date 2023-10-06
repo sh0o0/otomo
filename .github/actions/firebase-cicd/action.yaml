@@ -47,9 +47,3 @@ runs:
       env:
         FIREBASE_TOKEN: ${{ inputs.firebaseToken }}
         PROJECT_PATH: ./firebase
-
-    - name: Notify to slack
-      uses: ./.github/actions/notify-to-slack/
-      with:
-        slackWebhookUrl: ${{ inputs.slackWebhookUrl }}
-        slackChannel: ${{ inputs.slackChannel }}

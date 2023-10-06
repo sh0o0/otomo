@@ -23,4 +23,6 @@ module "otomo" {
   android_package_name                = var.android_package_name
   ios_bundle_name                     = var.ios_bundle_name
   openai_api_key                      = var.openai_api_key
+  google_maps_api_key                 = var.google_maps_api_key
 }
+

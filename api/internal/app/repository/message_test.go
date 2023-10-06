@@ -18,7 +18,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-var testMsgRepo = NewMessageRepository(systemtest.FirestoreClient)
+var testMsgRepo = NewMessageRepository(systemtest.FirestoreClient())
 
 func TestMessageRepository_Last_ShouldGetLastMsg_WhenArgsAreValid(t *testing.T) {
 	var (
@@ -59,7 +59,7 @@ func TestMessageRepository_Add_ShouldAddMsg_WhenArgsAreValid(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	snapshot, err := systemtest.FirestoreClient.
+	snapshot, err := systemtest.FirestoreClient().
 		Doc(GetMessageDocPath(giveUserID, giveMsg.ID)).
 		Get(giveCtx)
 	if err != nil {
@@ -139,7 +139,7 @@ func TestMessageRepository_DeleteByIDAndUserID_ShouldDelete_WhenArgsAreValid(t *
 		t.Fatal(err)
 	}
 
-	_, err := systemtest.FirestoreClient.
+	_, err := systemtest.FirestoreClient().
 		Doc(GetMessageDocPath(giveUserID, giveMsg.ID)).
 		Get(giveCtx)
 	assert.Equal(t, codes.NotFound, status.Code(err))

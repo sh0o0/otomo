@@ -23,6 +23,7 @@ module "cloud_run" {
   google_application_credentials_json = var.google_application_credentials_json
   basic_auth_pairs                    = var.basic_auth_pairs
   openai_api_key                      = var.openai_api_key
+  google_maps_api_key                 = var.google_maps_api_key
 }
 
 module "load_balancer" {
