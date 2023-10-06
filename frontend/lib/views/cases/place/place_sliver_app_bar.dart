@@ -1,34 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/cases/menu/menu.dart';
+import 'package:otomo/views/utils/links.dart';
 
-class PlaceSliverAppBar extends StatelessWidget {
+class PlaceSliverAppBar extends StatefulWidget {
   const PlaceSliverAppBar({
     super.key,
     required this.name,
+    required this.placeId,
     this.removeTopSafePadding = false,
     this.onClosePressed,
   });
 
   final String name;
+  final String placeId;
   final bool removeTopSafePadding;
   final VoidCallback? onClosePressed;
 
   @override
+  State<PlaceSliverAppBar> createState() => _PlaceSliverAppBarState();
+}
+
+class _PlaceSliverAppBarState extends State<PlaceSliverAppBar> {
+  Widget _moreHoriz(BuildContext context) {
+    return AppPopupMenuButton(
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          height: 40,
+          onTap: () => Launcher.searchOnGoogleMap(
+            query: widget.name,
+            placeId: widget.placeId,
+          ),
+          child: const MenuItem(
+            icon: Icon(Icons.map_rounded),
+            title: Text('Google Mapで開く'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    const leadingWidth = 52;
+    const actionsWidth = 96;
+    const titlePadding = 8.0;
     final size = MediaQuery.of(context).size;
-    final titleWidth = size.width - leadingWidth;
+    final titleWidth = size.width - actionsWidth - titlePadding;
 
     final textPainter = TextPainter(
-      text: TextSpan(text: name, style: HeadlineMedium.styleOf(context)),
+      text: TextSpan(text: widget.name, style: HeadlineMedium.styleOf(context)),
       textAlign: TextAlign.start,
       textDirection: TextDirection.ltr,
-    )..layout(minWidth: 0, maxWidth: titleWidth - 24);
-    final titleHeight = textPainter.height + 12;
+    )..layout(minWidth: 0, maxWidth: titleWidth - 20);
+    final titleHeight = textPainter.height + 16;
 
     return MediaQuery.removePadding(
       context: context,
-      removeTop: removeTopSafePadding,
+      removeTop: widget.removeTopSafePadding,
       child: SliverAppBar(
         pinned: true,
         expandedHeight: titleHeight,
@@ -39,12 +67,9 @@ class PlaceSliverAppBar extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: LayoutBuilder(builder: (context, constraints) {
               return ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: size.width - leadingWidth,
-                  maxHeight: titleWidth,
-                ),
+                constraints: BoxConstraints(maxWidth: titleWidth),
                 child: HeadlineMedium(
-                  name,
+                  widget.name,
                   overflow: constraints.maxHeight == 40
                       ? TextOverflow.ellipsis
                       : null,
@@ -53,9 +78,11 @@ class PlaceSliverAppBar extends StatelessWidget {
             }),
           ),
         ),
-        actions: onClosePressed != null
-            ? [CloseButton(onPressed: onClosePressed)]
-            : null,
+        actions: [
+          _moreHoriz(context),
+          if (widget.onClosePressed != null)
+            CloseButton(onPressed: widget.onClosePressed),
+        ],
       ),
     );
   }

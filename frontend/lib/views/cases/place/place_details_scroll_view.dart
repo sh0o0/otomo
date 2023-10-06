@@ -45,6 +45,7 @@ class PlaceDetailsScrollView extends StatelessWidget {
     return [
       PlaceSliverAppBar(
         name: place.name ?? '',
+        placeId: place.placeId ?? '',
         removeTopSafePadding: removeTopPadding,
         onClosePressed: onClosePressed,
       ),
