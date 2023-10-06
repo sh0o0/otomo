@@ -40,6 +40,14 @@ abstract class AppThemes {
         color: AppLightColors.hintColor,
       ),
     ),
+    popupMenuTheme: PopupMenuThemeData(
+      color: _light.colorScheme.background,
+      surfaceTintColor: _light.colorScheme.background,
+      position: PopupMenuPosition.under,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: _light.colorScheme.background,
       surfaceTintColor: _light.colorScheme.background,
