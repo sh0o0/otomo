@@ -44,6 +44,7 @@ class PlaceRatingsAndReviews extends StatelessWidget {
             reviewCardWidth: reviewCardWidth,
             reviewTextMaxLines: reviewTextMaxLines,
             firstPadding: sidePadding,
+            onTap: onTap,
           ),
         )
       ],
