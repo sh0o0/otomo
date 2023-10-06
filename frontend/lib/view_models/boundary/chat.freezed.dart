@@ -271,7 +271,7 @@ abstract class _MessageData extends MessageData {
 mixin _$TextMessageData {
   MessageData get message => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
-  LocationAnalysis get locationAnalysis => throw _privateConstructorUsedError;
+  PlaceExtraction get locationAnalysis => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TextMessageDataCopyWith<TextMessageData> get copyWith =>
@@ -285,10 +285,10 @@ abstract class $TextMessageDataCopyWith<$Res> {
       _$TextMessageDataCopyWithImpl<$Res, TextMessageData>;
   @useResult
   $Res call(
-      {MessageData message, String text, LocationAnalysis locationAnalysis});
+      {MessageData message, String text, PlaceExtraction locationAnalysis});
 
   $MessageDataCopyWith<$Res> get message;
-  $LocationAnalysisCopyWith<$Res> get locationAnalysis;
+  $PlaceExtractionCopyWith<$Res> get locationAnalysis;
 }
 
 /// @nodoc
@@ -320,7 +320,7 @@ class _$TextMessageDataCopyWithImpl<$Res, $Val extends TextMessageData>
       locationAnalysis: null == locationAnalysis
           ? _value.locationAnalysis
           : locationAnalysis // ignore: cast_nullable_to_non_nullable
-              as LocationAnalysis,
+              as PlaceExtraction,
     ) as $Val);
   }
 
@@ -334,8 +334,8 @@ class _$TextMessageDataCopyWithImpl<$Res, $Val extends TextMessageData>
 
   @override
   @pragma('vm:prefer-inline')
-  $LocationAnalysisCopyWith<$Res> get locationAnalysis {
-    return $LocationAnalysisCopyWith<$Res>(_value.locationAnalysis, (value) {
+  $PlaceExtractionCopyWith<$Res> get locationAnalysis {
+    return $PlaceExtractionCopyWith<$Res>(_value.locationAnalysis, (value) {
       return _then(_value.copyWith(locationAnalysis: value) as $Val);
     });
   }
@@ -350,12 +350,12 @@ abstract class _$$TextMessageDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {MessageData message, String text, LocationAnalysis locationAnalysis});
+      {MessageData message, String text, PlaceExtraction locationAnalysis});
 
   @override
   $MessageDataCopyWith<$Res> get message;
   @override
-  $LocationAnalysisCopyWith<$Res> get locationAnalysis;
+  $PlaceExtractionCopyWith<$Res> get locationAnalysis;
 }
 
 /// @nodoc
@@ -385,7 +385,7 @@ class __$$TextMessageDataImplCopyWithImpl<$Res>
       locationAnalysis: null == locationAnalysis
           ? _value.locationAnalysis
           : locationAnalysis // ignore: cast_nullable_to_non_nullable
-              as LocationAnalysis,
+              as PlaceExtraction,
     ));
   }
 }
@@ -396,7 +396,7 @@ class _$TextMessageDataImpl extends _TextMessageData {
   const _$TextMessageDataImpl(
       {required this.message,
       required this.text,
-      this.locationAnalysis = const LocationAnalysis(locations: [])})
+      this.locationAnalysis = const PlaceExtraction(places: [])})
       : super._();
 
   @override
@@ -405,7 +405,7 @@ class _$TextMessageDataImpl extends _TextMessageData {
   final String text;
   @override
   @JsonKey()
-  final LocationAnalysis locationAnalysis;
+  final PlaceExtraction locationAnalysis;
 
   @override
   String toString() {
@@ -438,7 +438,7 @@ abstract class _TextMessageData extends TextMessageData {
   const factory _TextMessageData(
       {required final MessageData message,
       required final String text,
-      final LocationAnalysis locationAnalysis}) = _$TextMessageDataImpl;
+      final PlaceExtraction locationAnalysis}) = _$TextMessageDataImpl;
   const _TextMessageData._() : super._();
 
   @override
@@ -446,7 +446,7 @@ abstract class _TextMessageData extends TextMessageData {
   @override
   String get text;
   @override
-  LocationAnalysis get locationAnalysis;
+  PlaceExtraction get locationAnalysis;
   @override
   @JsonKey(ignore: true)
   _$$TextMessageDataImplCopyWith<_$TextMessageDataImpl> get copyWith =>

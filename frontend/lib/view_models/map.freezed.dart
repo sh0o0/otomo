@@ -16,9 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MapState {
-  List<AnalyzedLocation> get activeAnalyzedLocations =>
+  List<ExtractedPlace> get activeAnalyzedLocations =>
       throw _privateConstructorUsedError;
-  Location? get focusingLocation => throw _privateConstructorUsedError;
+  GeocodedPlace? get focusingLocation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MapStateCopyWith<MapState> get copyWith =>
@@ -31,10 +31,10 @@ abstract class $MapStateCopyWith<$Res> {
       _$MapStateCopyWithImpl<$Res, MapState>;
   @useResult
   $Res call(
-      {List<AnalyzedLocation> activeAnalyzedLocations,
-      Location? focusingLocation});
+      {List<ExtractedPlace> activeAnalyzedLocations,
+      GeocodedPlace? focusingLocation});
 
-  $LocationCopyWith<$Res>? get focusingLocation;
+  $GeocodedPlaceCopyWith<$Res>? get focusingLocation;
 }
 
 /// @nodoc
@@ -57,22 +57,22 @@ class _$MapStateCopyWithImpl<$Res, $Val extends MapState>
       activeAnalyzedLocations: null == activeAnalyzedLocations
           ? _value.activeAnalyzedLocations
           : activeAnalyzedLocations // ignore: cast_nullable_to_non_nullable
-              as List<AnalyzedLocation>,
+              as List<ExtractedPlace>,
       focusingLocation: freezed == focusingLocation
           ? _value.focusingLocation
           : focusingLocation // ignore: cast_nullable_to_non_nullable
-              as Location?,
+              as GeocodedPlace?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $LocationCopyWith<$Res>? get focusingLocation {
+  $GeocodedPlaceCopyWith<$Res>? get focusingLocation {
     if (_value.focusingLocation == null) {
       return null;
     }
 
-    return $LocationCopyWith<$Res>(_value.focusingLocation!, (value) {
+    return $GeocodedPlaceCopyWith<$Res>(_value.focusingLocation!, (value) {
       return _then(_value.copyWith(focusingLocation: value) as $Val);
     });
   }
@@ -87,11 +87,11 @@ abstract class _$$MapStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<AnalyzedLocation> activeAnalyzedLocations,
-      Location? focusingLocation});
+      {List<ExtractedPlace> activeAnalyzedLocations,
+      GeocodedPlace? focusingLocation});
 
   @override
-  $LocationCopyWith<$Res>? get focusingLocation;
+  $GeocodedPlaceCopyWith<$Res>? get focusingLocation;
 }
 
 /// @nodoc
@@ -112,11 +112,11 @@ class __$$MapStateImplCopyWithImpl<$Res>
       activeAnalyzedLocations: null == activeAnalyzedLocations
           ? _value._activeAnalyzedLocations
           : activeAnalyzedLocations // ignore: cast_nullable_to_non_nullable
-              as List<AnalyzedLocation>,
+              as List<ExtractedPlace>,
       focusingLocation: freezed == focusingLocation
           ? _value.focusingLocation
           : focusingLocation // ignore: cast_nullable_to_non_nullable
-              as Location?,
+              as GeocodedPlace?,
     ));
   }
 }
@@ -125,14 +125,14 @@ class __$$MapStateImplCopyWithImpl<$Res>
 
 class _$MapStateImpl extends _MapState {
   const _$MapStateImpl(
-      {required final List<AnalyzedLocation> activeAnalyzedLocations,
+      {required final List<ExtractedPlace> activeAnalyzedLocations,
       this.focusingLocation})
       : _activeAnalyzedLocations = activeAnalyzedLocations,
         super._();
 
-  final List<AnalyzedLocation> _activeAnalyzedLocations;
+  final List<ExtractedPlace> _activeAnalyzedLocations;
   @override
-  List<AnalyzedLocation> get activeAnalyzedLocations {
+  List<ExtractedPlace> get activeAnalyzedLocations {
     if (_activeAnalyzedLocations is EqualUnmodifiableListView)
       return _activeAnalyzedLocations;
     // ignore: implicit_dynamic_type
@@ -140,7 +140,7 @@ class _$MapStateImpl extends _MapState {
   }
 
   @override
-  final Location? focusingLocation;
+  final GeocodedPlace? focusingLocation;
 
   @override
   String toString() {
@@ -173,14 +173,14 @@ class _$MapStateImpl extends _MapState {
 
 abstract class _MapState extends MapState {
   const factory _MapState(
-      {required final List<AnalyzedLocation> activeAnalyzedLocations,
-      final Location? focusingLocation}) = _$MapStateImpl;
+      {required final List<ExtractedPlace> activeAnalyzedLocations,
+      final GeocodedPlace? focusingLocation}) = _$MapStateImpl;
   const _MapState._() : super._();
 
   @override
-  List<AnalyzedLocation> get activeAnalyzedLocations;
+  List<ExtractedPlace> get activeAnalyzedLocations;
   @override
-  Location? get focusingLocation;
+  GeocodedPlace? get focusingLocation;
   @override
   @JsonKey(ignore: true)
   _$$MapStateImplCopyWith<_$MapStateImpl> get copyWith =>

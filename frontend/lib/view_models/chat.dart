@@ -30,8 +30,8 @@ class ChatState with _$ChatState {
 
   static final user = Author.fromRole(Role.user);
 
-  List<AnalyzedLocation> get activeAnalyzedLocations {
-    final locations = <AnalyzedLocation>[];
+  List<ExtractedPlace> get activeAnalyzedLocations {
+    final locations = <ExtractedPlace>[];
 
     for (final message in _activeMessages) {
       locations.addAll(message.locationAnalysis.locations);
@@ -47,14 +47,14 @@ class ChatState with _$ChatState {
 @riverpod
 class Chat extends _$Chat {
   final _chatController = getIt<ChatControllerImpl>();
-  final StreamController<AnalyzedLocation>
+  final StreamController<ExtractedPlace>
       _focusedAnalyzedLocationStreamController =
-      StreamController<AnalyzedLocation>.broadcast();
+      StreamController<ExtractedPlace>.broadcast();
   final StreamController<TextMessageData>
       _activatedTextMessageStreamController =
       StreamController<TextMessageData>.broadcast();
 
-  Stream<AnalyzedLocation> get focusedAnalyzedLocationStream =>
+  Stream<ExtractedPlace> get focusedAnalyzedLocationStream =>
       _focusedAnalyzedLocationStreamController.stream;
   Stream<TextMessageData> get activatedTextMessageStream =>
       _activatedTextMessageStreamController.stream;
@@ -257,7 +257,7 @@ class Chat extends _$Chat {
       ..value?.messages.items[index] = message.copyWith.message(active: false);
   }
 
-  void focusAnalyzedLocation(AnalyzedLocation loc) {
+  void focusAnalyzedLocation(ExtractedPlace loc) {
     _focusedAnalyzedLocationStreamController.add(loc);
   }
 

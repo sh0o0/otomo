@@ -34,7 +34,7 @@ class ChatUI extends StatelessWidget {
   final Widget? emptyState;
   final Future<void> Function()? onEndReached;
   final void Function(BuildContext context, MessageData message)? onMessageTap;
-  final void Function(AnalyzedLocation)? onLocationTextTap;
+  final void Function(ExtractedPlace)? onLocationTextTap;
   final ui.InputOptions inputOptions;
   final VoidCallback? onBackgroundTap;
   final Widget? customBottomWidget;

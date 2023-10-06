@@ -8,11 +8,11 @@ final class MarkerMaker {
   MarkerMaker._();
 
   static List<Marker> fromAnalyzedLocationList(
-          List<AnalyzedLocation> locations) =>
+          List<ExtractedPlace> locations) =>
       locations.map(fromAnalyzedLocation).toList();
 
   static Marker fromAnalyzedLocation(
-    AnalyzedLocation loc, {
+    ExtractedPlace loc, {
     VoidCallback? onTap,
   }) =>
       Marker(
@@ -28,7 +28,7 @@ final class MarkerMaker {
 
   static Future<Marker> fromAnalyzedLocationWithLabel({
     required BuildContext context,
-    required AnalyzedLocation loc,
+    required ExtractedPlace loc,
     VoidCallback? onTap,
   }) async {
     final theme = Theme.of(context);

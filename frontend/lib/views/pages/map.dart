@@ -38,7 +38,7 @@ class _MapState extends ConsumerState<MapPage> {
     _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 14);
   }
 
-  Future<void> _addMarker(AnalyzedLocation loc, {bool notify = true}) async {
+  Future<void> _addMarker(ExtractedPlace loc, {bool notify = true}) async {
     final notifier = ref.read(mapProvider.notifier);
     _markers.add(await MarkerMaker.fromAnalyzedLocationWithLabel(
       context: context,
@@ -48,7 +48,7 @@ class _MapState extends ConsumerState<MapPage> {
     if (notify) setState(() {});
   }
 
-  void _setMarkers(List<AnalyzedLocation> locs) async {
+  void _setMarkers(List<ExtractedPlace> locs) async {
     _markers = {};
     for (final loc in locs) {
       await _addMarker(loc, notify: false);
@@ -56,7 +56,7 @@ class _MapState extends ConsumerState<MapPage> {
     setState(() {});
   }
 
-  void _onLocationFocused(AnalyzedLocation loc) {
+  void _onLocationFocused(ExtractedPlace loc) {
     if (!_canUseMapController) return;
     _addMarker(loc);
     _mapController!.moveWithLatLng(

@@ -18,8 +18,8 @@ part 'map.g.dart';
 class MapState with _$MapState {
   const MapState._();
   const factory MapState({
-    required List<AnalyzedLocation> activeAnalyzedLocations,
-    Location? focusingLocation,
+    required List<ExtractedPlace> activeAnalyzedLocations,
+    GeocodedPlace? focusingLocation,
   }) = _MapState;
 
   AppLatLngList get activeLocationLatLngList {
@@ -55,21 +55,21 @@ class Map extends _$Map {
 
   final LocationControllerImpl _locationController =
       getIt<LocationControllerImpl>();
-  final StreamController<Location> _focusedPlaceStreamController =
-      StreamController<Location>.broadcast();
+  final StreamController<GeocodedPlace> _focusedPlaceStreamController =
+      StreamController<GeocodedPlace>.broadcast();
 
-  Stream<AnalyzedLocation> get focusedLocationStream =>
+  Stream<ExtractedPlace> get focusedLocationStream =>
       ref.read(chatProvider.notifier).focusedAnalyzedLocationStream;
   Stream<TextMessageData> get activatedTextMessageStream =>
       ref.read(chatProvider.notifier).activatedTextMessageStream;
-  Stream<Location> get focusedPlaceStream =>
+  Stream<GeocodedPlace> get focusedPlaceStream =>
       _focusedPlaceStreamController.stream;
 
   Future<Position> getCurrentPosition() {
     return _locationController.determinePosition();
   }
 
-  void focusPlace(Location location) {
+  void focusPlace(GeocodedPlace location) {
     _focusedPlaceStreamController.add(location);
     state = state.copyWith(focusingLocation: location);
   }

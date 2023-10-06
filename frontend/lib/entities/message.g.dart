@@ -13,8 +13,8 @@ _$TextMessageImpl _$$TextMessageImplFromJson(Map<String, dynamic> json) =>
       text: json['text'] as String,
       role: $enumDecode(_$RoleEnumMap, json['role']),
       sentAt: DateTime.parse(json['sent_at'] as String),
-      locationAnalysis: LocationAnalysis.fromJson(
-          json['location_analysis'] as Map<String, dynamic>),
+      placeExtraction: PlaceExtraction.fromJson(
+          json['place_extraction'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$TextMessageImplToJson(_$TextMessageImpl instance) =>
@@ -24,7 +24,7 @@ Map<String, dynamic> _$$TextMessageImplToJson(_$TextMessageImpl instance) =>
       'text': instance.text,
       'role': _$RoleEnumMap[instance.role]!,
       'sent_at': instance.sentAt.toIso8601String(),
-      'location_analysis': instance.locationAnalysis,
+      'place_extraction': instance.placeExtraction,
     };
 
 const _$RoleEnumMap = {
@@ -32,36 +32,48 @@ const _$RoleEnumMap = {
   Role.otomo: 'otomo',
 };
 
-_$LocationAnalysisImpl _$$LocationAnalysisImplFromJson(
+_$PlaceExtractionImpl _$$PlaceExtractionImplFromJson(
         Map<String, dynamic> json) =>
-    _$LocationAnalysisImpl(
-      locations: (json['locations'] as List<dynamic>)
-          .map((e) => AnalyzedLocation.fromJson(e as Map<String, dynamic>))
+    _$PlaceExtractionImpl(
+      places: (json['places'] as List<dynamic>)
+          .map((e) => ExtractedPlace.fromJson(e as Map<String, dynamic>))
           .toList(),
-      analyzedAt: json['analyzed_at'] == null
+      processedAt: json['processed_at'] == null
           ? null
-          : DateTime.parse(json['analyzed_at'] as String),
+          : DateTime.parse(json['processed_at'] as String),
       error: json['error'] as String?,
     );
 
-Map<String, dynamic> _$$LocationAnalysisImplToJson(
-        _$LocationAnalysisImpl instance) =>
+Map<String, dynamic> _$$PlaceExtractionImplToJson(
+        _$PlaceExtractionImpl instance) =>
     <String, dynamic>{
-      'locations': instance.locations,
-      'analyzed_at': instance.analyzedAt?.toIso8601String(),
+      'places': instance.places,
+      'processed_at': instance.processedAt?.toIso8601String(),
       'error': instance.error,
     };
 
-_$AnalyzedLocationImpl _$$AnalyzedLocationImplFromJson(
-        Map<String, dynamic> json) =>
-    _$AnalyzedLocationImpl(
+_$ExtractedPlaceImpl _$$ExtractedPlaceImplFromJson(Map<String, dynamic> json) =>
+    _$ExtractedPlaceImpl(
       text: json['text'] as String,
-      location: Location.fromJson(json['location'] as Map<String, dynamic>),
+      geocodedPlace: GeocodedPlace.fromJson(
+          json['geocoded_place'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$AnalyzedLocationImplToJson(
-        _$AnalyzedLocationImpl instance) =>
+Map<String, dynamic> _$$ExtractedPlaceImplToJson(
+        _$ExtractedPlaceImpl instance) =>
     <String, dynamic>{
       'text': instance.text,
-      'location': instance.location,
+      'geocoded_place': instance.geocodedPlace,
+    };
+
+_$GeocodedPlaceImpl _$$GeocodedPlaceImplFromJson(Map<String, dynamic> json) =>
+    _$GeocodedPlaceImpl(
+      googlePlaceId: json['google_place_id'] as String,
+      latLng: AppLatLng.fromJson(json['lat_lng'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$GeocodedPlaceImplToJson(_$GeocodedPlaceImpl instance) =>
+    <String, dynamic>{
+      'google_place_id': instance.googlePlaceId,
+      'lat_lng': instance.latLng,
     };

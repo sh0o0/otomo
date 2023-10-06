@@ -25,7 +25,7 @@ mixin _$TextMessage {
   String get text => throw _privateConstructorUsedError;
   Role get role => throw _privateConstructorUsedError;
   DateTime get sentAt => throw _privateConstructorUsedError;
-  LocationAnalysis get locationAnalysis => throw _privateConstructorUsedError;
+  PlaceExtraction get placeExtraction => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,9 +45,9 @@ abstract class $TextMessageCopyWith<$Res> {
       String text,
       Role role,
       DateTime sentAt,
-      LocationAnalysis locationAnalysis});
+      PlaceExtraction placeExtraction});
 
-  $LocationAnalysisCopyWith<$Res> get locationAnalysis;
+  $PlaceExtractionCopyWith<$Res> get placeExtraction;
 }
 
 /// @nodoc
@@ -68,7 +68,7 @@ class _$TextMessageCopyWithImpl<$Res, $Val extends TextMessage>
     Object? text = null,
     Object? role = null,
     Object? sentAt = null,
-    Object? locationAnalysis = null,
+    Object? placeExtraction = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -91,18 +91,18 @@ class _$TextMessageCopyWithImpl<$Res, $Val extends TextMessage>
           ? _value.sentAt
           : sentAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      locationAnalysis: null == locationAnalysis
-          ? _value.locationAnalysis
-          : locationAnalysis // ignore: cast_nullable_to_non_nullable
-              as LocationAnalysis,
+      placeExtraction: null == placeExtraction
+          ? _value.placeExtraction
+          : placeExtraction // ignore: cast_nullable_to_non_nullable
+              as PlaceExtraction,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $LocationAnalysisCopyWith<$Res> get locationAnalysis {
-    return $LocationAnalysisCopyWith<$Res>(_value.locationAnalysis, (value) {
-      return _then(_value.copyWith(locationAnalysis: value) as $Val);
+  $PlaceExtractionCopyWith<$Res> get placeExtraction {
+    return $PlaceExtractionCopyWith<$Res>(_value.placeExtraction, (value) {
+      return _then(_value.copyWith(placeExtraction: value) as $Val);
     });
   }
 }
@@ -121,10 +121,10 @@ abstract class _$$TextMessageImplCopyWith<$Res>
       String text,
       Role role,
       DateTime sentAt,
-      LocationAnalysis locationAnalysis});
+      PlaceExtraction placeExtraction});
 
   @override
-  $LocationAnalysisCopyWith<$Res> get locationAnalysis;
+  $PlaceExtractionCopyWith<$Res> get placeExtraction;
 }
 
 /// @nodoc
@@ -143,7 +143,7 @@ class __$$TextMessageImplCopyWithImpl<$Res>
     Object? text = null,
     Object? role = null,
     Object? sentAt = null,
-    Object? locationAnalysis = null,
+    Object? placeExtraction = null,
   }) {
     return _then(_$TextMessageImpl(
       id: null == id
@@ -166,10 +166,10 @@ class __$$TextMessageImplCopyWithImpl<$Res>
           ? _value.sentAt
           : sentAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      locationAnalysis: null == locationAnalysis
-          ? _value.locationAnalysis
-          : locationAnalysis // ignore: cast_nullable_to_non_nullable
-              as LocationAnalysis,
+      placeExtraction: null == placeExtraction
+          ? _value.placeExtraction
+          : placeExtraction // ignore: cast_nullable_to_non_nullable
+              as PlaceExtraction,
     ));
   }
 }
@@ -183,7 +183,7 @@ class _$TextMessageImpl extends _TextMessage {
       required this.text,
       required this.role,
       required this.sentAt,
-      required this.locationAnalysis})
+      required this.placeExtraction})
       : super._();
 
   factory _$TextMessageImpl.fromJson(Map<String, dynamic> json) =>
@@ -200,11 +200,11 @@ class _$TextMessageImpl extends _TextMessage {
   @override
   final DateTime sentAt;
   @override
-  final LocationAnalysis locationAnalysis;
+  final PlaceExtraction placeExtraction;
 
   @override
   String toString() {
-    return 'TextMessage(id: $id, clientId: $clientId, text: $text, role: $role, sentAt: $sentAt, locationAnalysis: $locationAnalysis)';
+    return 'TextMessage(id: $id, clientId: $clientId, text: $text, role: $role, sentAt: $sentAt, placeExtraction: $placeExtraction)';
   }
 
   @override
@@ -218,14 +218,14 @@ class _$TextMessageImpl extends _TextMessage {
             (identical(other.text, text) || other.text == text) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.sentAt, sentAt) || other.sentAt == sentAt) &&
-            (identical(other.locationAnalysis, locationAnalysis) ||
-                other.locationAnalysis == locationAnalysis));
+            (identical(other.placeExtraction, placeExtraction) ||
+                other.placeExtraction == placeExtraction));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, clientId, text, role, sentAt, locationAnalysis);
+      runtimeType, id, clientId, text, role, sentAt, placeExtraction);
 
   @JsonKey(ignore: true)
   @override
@@ -248,7 +248,7 @@ abstract class _TextMessage extends TextMessage {
       required final String text,
       required final Role role,
       required final DateTime sentAt,
-      required final LocationAnalysis locationAnalysis}) = _$TextMessageImpl;
+      required final PlaceExtraction placeExtraction}) = _$TextMessageImpl;
   const _TextMessage._() : super._();
 
   factory _TextMessage.fromJson(Map<String, dynamic> json) =
@@ -265,43 +265,43 @@ abstract class _TextMessage extends TextMessage {
   @override
   DateTime get sentAt;
   @override
-  LocationAnalysis get locationAnalysis;
+  PlaceExtraction get placeExtraction;
   @override
   @JsonKey(ignore: true)
   _$$TextMessageImplCopyWith<_$TextMessageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-LocationAnalysis _$LocationAnalysisFromJson(Map<String, dynamic> json) {
-  return _LocationAnalysis.fromJson(json);
+PlaceExtraction _$PlaceExtractionFromJson(Map<String, dynamic> json) {
+  return _PlaceExtraction.fromJson(json);
 }
 
 /// @nodoc
-mixin _$LocationAnalysis {
-  List<AnalyzedLocation> get locations => throw _privateConstructorUsedError;
-  DateTime? get analyzedAt => throw _privateConstructorUsedError;
+mixin _$PlaceExtraction {
+  List<ExtractedPlace> get places => throw _privateConstructorUsedError;
+  DateTime? get processedAt => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocationAnalysisCopyWith<LocationAnalysis> get copyWith =>
+  $PlaceExtractionCopyWith<PlaceExtraction> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocationAnalysisCopyWith<$Res> {
-  factory $LocationAnalysisCopyWith(
-          LocationAnalysis value, $Res Function(LocationAnalysis) then) =
-      _$LocationAnalysisCopyWithImpl<$Res, LocationAnalysis>;
+abstract class $PlaceExtractionCopyWith<$Res> {
+  factory $PlaceExtractionCopyWith(
+          PlaceExtraction value, $Res Function(PlaceExtraction) then) =
+      _$PlaceExtractionCopyWithImpl<$Res, PlaceExtraction>;
   @useResult
   $Res call(
-      {List<AnalyzedLocation> locations, DateTime? analyzedAt, String? error});
+      {List<ExtractedPlace> places, DateTime? processedAt, String? error});
 }
 
 /// @nodoc
-class _$LocationAnalysisCopyWithImpl<$Res, $Val extends LocationAnalysis>
-    implements $LocationAnalysisCopyWith<$Res> {
-  _$LocationAnalysisCopyWithImpl(this._value, this._then);
+class _$PlaceExtractionCopyWithImpl<$Res, $Val extends PlaceExtraction>
+    implements $PlaceExtractionCopyWith<$Res> {
+  _$PlaceExtractionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -311,18 +311,18 @@ class _$LocationAnalysisCopyWithImpl<$Res, $Val extends LocationAnalysis>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? locations = null,
-    Object? analyzedAt = freezed,
+    Object? places = null,
+    Object? processedAt = freezed,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
-      locations: null == locations
-          ? _value.locations
-          : locations // ignore: cast_nullable_to_non_nullable
-              as List<AnalyzedLocation>,
-      analyzedAt: freezed == analyzedAt
-          ? _value.analyzedAt
-          : analyzedAt // ignore: cast_nullable_to_non_nullable
+      places: null == places
+          ? _value.places
+          : places // ignore: cast_nullable_to_non_nullable
+              as List<ExtractedPlace>,
+      processedAt: freezed == processedAt
+          ? _value.processedAt
+          : processedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       error: freezed == error
           ? _value.error
@@ -333,40 +333,40 @@ class _$LocationAnalysisCopyWithImpl<$Res, $Val extends LocationAnalysis>
 }
 
 /// @nodoc
-abstract class _$$LocationAnalysisImplCopyWith<$Res>
-    implements $LocationAnalysisCopyWith<$Res> {
-  factory _$$LocationAnalysisImplCopyWith(_$LocationAnalysisImpl value,
-          $Res Function(_$LocationAnalysisImpl) then) =
-      __$$LocationAnalysisImplCopyWithImpl<$Res>;
+abstract class _$$PlaceExtractionImplCopyWith<$Res>
+    implements $PlaceExtractionCopyWith<$Res> {
+  factory _$$PlaceExtractionImplCopyWith(_$PlaceExtractionImpl value,
+          $Res Function(_$PlaceExtractionImpl) then) =
+      __$$PlaceExtractionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {List<AnalyzedLocation> locations, DateTime? analyzedAt, String? error});
+      {List<ExtractedPlace> places, DateTime? processedAt, String? error});
 }
 
 /// @nodoc
-class __$$LocationAnalysisImplCopyWithImpl<$Res>
-    extends _$LocationAnalysisCopyWithImpl<$Res, _$LocationAnalysisImpl>
-    implements _$$LocationAnalysisImplCopyWith<$Res> {
-  __$$LocationAnalysisImplCopyWithImpl(_$LocationAnalysisImpl _value,
-      $Res Function(_$LocationAnalysisImpl) _then)
+class __$$PlaceExtractionImplCopyWithImpl<$Res>
+    extends _$PlaceExtractionCopyWithImpl<$Res, _$PlaceExtractionImpl>
+    implements _$$PlaceExtractionImplCopyWith<$Res> {
+  __$$PlaceExtractionImplCopyWithImpl(
+      _$PlaceExtractionImpl _value, $Res Function(_$PlaceExtractionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? locations = null,
-    Object? analyzedAt = freezed,
+    Object? places = null,
+    Object? processedAt = freezed,
     Object? error = freezed,
   }) {
-    return _then(_$LocationAnalysisImpl(
-      locations: null == locations
-          ? _value._locations
-          : locations // ignore: cast_nullable_to_non_nullable
-              as List<AnalyzedLocation>,
-      analyzedAt: freezed == analyzedAt
-          ? _value.analyzedAt
-          : analyzedAt // ignore: cast_nullable_to_non_nullable
+    return _then(_$PlaceExtractionImpl(
+      places: null == places
+          ? _value._places
+          : places // ignore: cast_nullable_to_non_nullable
+              as List<ExtractedPlace>,
+      processedAt: freezed == processedAt
+          ? _value.processedAt
+          : processedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       error: freezed == error
           ? _value.error
@@ -378,119 +378,118 @@ class __$$LocationAnalysisImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LocationAnalysisImpl extends _LocationAnalysis {
-  const _$LocationAnalysisImpl(
-      {required final List<AnalyzedLocation> locations,
-      this.analyzedAt,
+class _$PlaceExtractionImpl extends _PlaceExtraction {
+  const _$PlaceExtractionImpl(
+      {required final List<ExtractedPlace> places,
+      this.processedAt,
       this.error})
-      : _locations = locations,
+      : _places = places,
         super._();
 
-  factory _$LocationAnalysisImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LocationAnalysisImplFromJson(json);
+  factory _$PlaceExtractionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceExtractionImplFromJson(json);
 
-  final List<AnalyzedLocation> _locations;
+  final List<ExtractedPlace> _places;
   @override
-  List<AnalyzedLocation> get locations {
-    if (_locations is EqualUnmodifiableListView) return _locations;
+  List<ExtractedPlace> get places {
+    if (_places is EqualUnmodifiableListView) return _places;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_locations);
+    return EqualUnmodifiableListView(_places);
   }
 
   @override
-  final DateTime? analyzedAt;
+  final DateTime? processedAt;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'LocationAnalysis(locations: $locations, analyzedAt: $analyzedAt, error: $error)';
+    return 'PlaceExtraction(places: $places, processedAt: $processedAt, error: $error)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocationAnalysisImpl &&
-            const DeepCollectionEquality()
-                .equals(other._locations, _locations) &&
-            (identical(other.analyzedAt, analyzedAt) ||
-                other.analyzedAt == analyzedAt) &&
+            other is _$PlaceExtractionImpl &&
+            const DeepCollectionEquality().equals(other._places, _places) &&
+            (identical(other.processedAt, processedAt) ||
+                other.processedAt == processedAt) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_locations), analyzedAt, error);
+      const DeepCollectionEquality().hash(_places), processedAt, error);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocationAnalysisImplCopyWith<_$LocationAnalysisImpl> get copyWith =>
-      __$$LocationAnalysisImplCopyWithImpl<_$LocationAnalysisImpl>(
+  _$$PlaceExtractionImplCopyWith<_$PlaceExtractionImpl> get copyWith =>
+      __$$PlaceExtractionImplCopyWithImpl<_$PlaceExtractionImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocationAnalysisImplToJson(
+    return _$$PlaceExtractionImplToJson(
       this,
     );
   }
 }
 
-abstract class _LocationAnalysis extends LocationAnalysis {
-  const factory _LocationAnalysis(
-      {required final List<AnalyzedLocation> locations,
-      final DateTime? analyzedAt,
-      final String? error}) = _$LocationAnalysisImpl;
-  const _LocationAnalysis._() : super._();
+abstract class _PlaceExtraction extends PlaceExtraction {
+  const factory _PlaceExtraction(
+      {required final List<ExtractedPlace> places,
+      final DateTime? processedAt,
+      final String? error}) = _$PlaceExtractionImpl;
+  const _PlaceExtraction._() : super._();
 
-  factory _LocationAnalysis.fromJson(Map<String, dynamic> json) =
-      _$LocationAnalysisImpl.fromJson;
+  factory _PlaceExtraction.fromJson(Map<String, dynamic> json) =
+      _$PlaceExtractionImpl.fromJson;
 
   @override
-  List<AnalyzedLocation> get locations;
+  List<ExtractedPlace> get places;
   @override
-  DateTime? get analyzedAt;
+  DateTime? get processedAt;
   @override
   String? get error;
   @override
   @JsonKey(ignore: true)
-  _$$LocationAnalysisImplCopyWith<_$LocationAnalysisImpl> get copyWith =>
+  _$$PlaceExtractionImplCopyWith<_$PlaceExtractionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-AnalyzedLocation _$AnalyzedLocationFromJson(Map<String, dynamic> json) {
-  return _AnalyzedLocation.fromJson(json);
+ExtractedPlace _$ExtractedPlaceFromJson(Map<String, dynamic> json) {
+  return _ExtractedPlace.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AnalyzedLocation {
+mixin _$ExtractedPlace {
   String get text => throw _privateConstructorUsedError;
-  Location get location => throw _privateConstructorUsedError;
+  GeocodedPlace get geocodedPlace => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AnalyzedLocationCopyWith<AnalyzedLocation> get copyWith =>
+  $ExtractedPlaceCopyWith<ExtractedPlace> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AnalyzedLocationCopyWith<$Res> {
-  factory $AnalyzedLocationCopyWith(
-          AnalyzedLocation value, $Res Function(AnalyzedLocation) then) =
-      _$AnalyzedLocationCopyWithImpl<$Res, AnalyzedLocation>;
+abstract class $ExtractedPlaceCopyWith<$Res> {
+  factory $ExtractedPlaceCopyWith(
+          ExtractedPlace value, $Res Function(ExtractedPlace) then) =
+      _$ExtractedPlaceCopyWithImpl<$Res, ExtractedPlace>;
   @useResult
-  $Res call({String text, Location location});
+  $Res call({String text, GeocodedPlace geocodedPlace});
 
-  $LocationCopyWith<$Res> get location;
+  $GeocodedPlaceCopyWith<$Res> get geocodedPlace;
 }
 
 /// @nodoc
-class _$AnalyzedLocationCopyWithImpl<$Res, $Val extends AnalyzedLocation>
-    implements $AnalyzedLocationCopyWith<$Res> {
-  _$AnalyzedLocationCopyWithImpl(this._value, this._then);
+class _$ExtractedPlaceCopyWithImpl<$Res, $Val extends ExtractedPlace>
+    implements $ExtractedPlaceCopyWith<$Res> {
+  _$ExtractedPlaceCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -501,132 +500,301 @@ class _$AnalyzedLocationCopyWithImpl<$Res, $Val extends AnalyzedLocation>
   @override
   $Res call({
     Object? text = null,
-    Object? location = null,
+    Object? geocodedPlace = null,
   }) {
     return _then(_value.copyWith(
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as Location,
+      geocodedPlace: null == geocodedPlace
+          ? _value.geocodedPlace
+          : geocodedPlace // ignore: cast_nullable_to_non_nullable
+              as GeocodedPlace,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $LocationCopyWith<$Res> get location {
-    return $LocationCopyWith<$Res>(_value.location, (value) {
-      return _then(_value.copyWith(location: value) as $Val);
+  $GeocodedPlaceCopyWith<$Res> get geocodedPlace {
+    return $GeocodedPlaceCopyWith<$Res>(_value.geocodedPlace, (value) {
+      return _then(_value.copyWith(geocodedPlace: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$AnalyzedLocationImplCopyWith<$Res>
-    implements $AnalyzedLocationCopyWith<$Res> {
-  factory _$$AnalyzedLocationImplCopyWith(_$AnalyzedLocationImpl value,
-          $Res Function(_$AnalyzedLocationImpl) then) =
-      __$$AnalyzedLocationImplCopyWithImpl<$Res>;
+abstract class _$$ExtractedPlaceImplCopyWith<$Res>
+    implements $ExtractedPlaceCopyWith<$Res> {
+  factory _$$ExtractedPlaceImplCopyWith(_$ExtractedPlaceImpl value,
+          $Res Function(_$ExtractedPlaceImpl) then) =
+      __$$ExtractedPlaceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String text, Location location});
+  $Res call({String text, GeocodedPlace geocodedPlace});
 
   @override
-  $LocationCopyWith<$Res> get location;
+  $GeocodedPlaceCopyWith<$Res> get geocodedPlace;
 }
 
 /// @nodoc
-class __$$AnalyzedLocationImplCopyWithImpl<$Res>
-    extends _$AnalyzedLocationCopyWithImpl<$Res, _$AnalyzedLocationImpl>
-    implements _$$AnalyzedLocationImplCopyWith<$Res> {
-  __$$AnalyzedLocationImplCopyWithImpl(_$AnalyzedLocationImpl _value,
-      $Res Function(_$AnalyzedLocationImpl) _then)
+class __$$ExtractedPlaceImplCopyWithImpl<$Res>
+    extends _$ExtractedPlaceCopyWithImpl<$Res, _$ExtractedPlaceImpl>
+    implements _$$ExtractedPlaceImplCopyWith<$Res> {
+  __$$ExtractedPlaceImplCopyWithImpl(
+      _$ExtractedPlaceImpl _value, $Res Function(_$ExtractedPlaceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? text = null,
-    Object? location = null,
+    Object? geocodedPlace = null,
   }) {
-    return _then(_$AnalyzedLocationImpl(
+    return _then(_$ExtractedPlaceImpl(
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as Location,
+      geocodedPlace: null == geocodedPlace
+          ? _value.geocodedPlace
+          : geocodedPlace // ignore: cast_nullable_to_non_nullable
+              as GeocodedPlace,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AnalyzedLocationImpl implements _AnalyzedLocation {
-  const _$AnalyzedLocationImpl({required this.text, required this.location});
+class _$ExtractedPlaceImpl implements _ExtractedPlace {
+  const _$ExtractedPlaceImpl({required this.text, required this.geocodedPlace});
 
-  factory _$AnalyzedLocationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AnalyzedLocationImplFromJson(json);
+  factory _$ExtractedPlaceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ExtractedPlaceImplFromJson(json);
 
   @override
   final String text;
   @override
-  final Location location;
+  final GeocodedPlace geocodedPlace;
 
   @override
   String toString() {
-    return 'AnalyzedLocation(text: $text, location: $location)';
+    return 'ExtractedPlace(text: $text, geocodedPlace: $geocodedPlace)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AnalyzedLocationImpl &&
+            other is _$ExtractedPlaceImpl &&
             (identical(other.text, text) || other.text == text) &&
-            (identical(other.location, location) ||
-                other.location == location));
+            (identical(other.geocodedPlace, geocodedPlace) ||
+                other.geocodedPlace == geocodedPlace));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, text, location);
+  int get hashCode => Object.hash(runtimeType, text, geocodedPlace);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AnalyzedLocationImplCopyWith<_$AnalyzedLocationImpl> get copyWith =>
-      __$$AnalyzedLocationImplCopyWithImpl<_$AnalyzedLocationImpl>(
+  _$$ExtractedPlaceImplCopyWith<_$ExtractedPlaceImpl> get copyWith =>
+      __$$ExtractedPlaceImplCopyWithImpl<_$ExtractedPlaceImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AnalyzedLocationImplToJson(
+    return _$$ExtractedPlaceImplToJson(
       this,
     );
   }
 }
 
-abstract class _AnalyzedLocation implements AnalyzedLocation {
-  const factory _AnalyzedLocation(
+abstract class _ExtractedPlace implements ExtractedPlace {
+  const factory _ExtractedPlace(
       {required final String text,
-      required final Location location}) = _$AnalyzedLocationImpl;
+      required final GeocodedPlace geocodedPlace}) = _$ExtractedPlaceImpl;
 
-  factory _AnalyzedLocation.fromJson(Map<String, dynamic> json) =
-      _$AnalyzedLocationImpl.fromJson;
+  factory _ExtractedPlace.fromJson(Map<String, dynamic> json) =
+      _$ExtractedPlaceImpl.fromJson;
 
   @override
   String get text;
   @override
-  Location get location;
+  GeocodedPlace get geocodedPlace;
   @override
   @JsonKey(ignore: true)
-  _$$AnalyzedLocationImplCopyWith<_$AnalyzedLocationImpl> get copyWith =>
+  _$$ExtractedPlaceImplCopyWith<_$ExtractedPlaceImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+GeocodedPlace _$GeocodedPlaceFromJson(Map<String, dynamic> json) {
+  return _GeocodedPlace.fromJson(json);
+}
+
+/// @nodoc
+mixin _$GeocodedPlace {
+  String get googlePlaceId => throw _privateConstructorUsedError;
+  AppLatLng get latLng => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GeocodedPlaceCopyWith<GeocodedPlace> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GeocodedPlaceCopyWith<$Res> {
+  factory $GeocodedPlaceCopyWith(
+          GeocodedPlace value, $Res Function(GeocodedPlace) then) =
+      _$GeocodedPlaceCopyWithImpl<$Res, GeocodedPlace>;
+  @useResult
+  $Res call({String googlePlaceId, AppLatLng latLng});
+
+  $AppLatLngCopyWith<$Res> get latLng;
+}
+
+/// @nodoc
+class _$GeocodedPlaceCopyWithImpl<$Res, $Val extends GeocodedPlace>
+    implements $GeocodedPlaceCopyWith<$Res> {
+  _$GeocodedPlaceCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? googlePlaceId = null,
+    Object? latLng = null,
+  }) {
+    return _then(_value.copyWith(
+      googlePlaceId: null == googlePlaceId
+          ? _value.googlePlaceId
+          : googlePlaceId // ignore: cast_nullable_to_non_nullable
+              as String,
+      latLng: null == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
+              as AppLatLng,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AppLatLngCopyWith<$Res> get latLng {
+    return $AppLatLngCopyWith<$Res>(_value.latLng, (value) {
+      return _then(_value.copyWith(latLng: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$GeocodedPlaceImplCopyWith<$Res>
+    implements $GeocodedPlaceCopyWith<$Res> {
+  factory _$$GeocodedPlaceImplCopyWith(
+          _$GeocodedPlaceImpl value, $Res Function(_$GeocodedPlaceImpl) then) =
+      __$$GeocodedPlaceImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String googlePlaceId, AppLatLng latLng});
+
+  @override
+  $AppLatLngCopyWith<$Res> get latLng;
+}
+
+/// @nodoc
+class __$$GeocodedPlaceImplCopyWithImpl<$Res>
+    extends _$GeocodedPlaceCopyWithImpl<$Res, _$GeocodedPlaceImpl>
+    implements _$$GeocodedPlaceImplCopyWith<$Res> {
+  __$$GeocodedPlaceImplCopyWithImpl(
+      _$GeocodedPlaceImpl _value, $Res Function(_$GeocodedPlaceImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? googlePlaceId = null,
+    Object? latLng = null,
+  }) {
+    return _then(_$GeocodedPlaceImpl(
+      googlePlaceId: null == googlePlaceId
+          ? _value.googlePlaceId
+          : googlePlaceId // ignore: cast_nullable_to_non_nullable
+              as String,
+      latLng: null == latLng
+          ? _value.latLng
+          : latLng // ignore: cast_nullable_to_non_nullable
+              as AppLatLng,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$GeocodedPlaceImpl implements _GeocodedPlace {
+  const _$GeocodedPlaceImpl(
+      {required this.googlePlaceId, required this.latLng});
+
+  factory _$GeocodedPlaceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GeocodedPlaceImplFromJson(json);
+
+  @override
+  final String googlePlaceId;
+  @override
+  final AppLatLng latLng;
+
+  @override
+  String toString() {
+    return 'GeocodedPlace(googlePlaceId: $googlePlaceId, latLng: $latLng)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GeocodedPlaceImpl &&
+            (identical(other.googlePlaceId, googlePlaceId) ||
+                other.googlePlaceId == googlePlaceId) &&
+            (identical(other.latLng, latLng) || other.latLng == latLng));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, googlePlaceId, latLng);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GeocodedPlaceImplCopyWith<_$GeocodedPlaceImpl> get copyWith =>
+      __$$GeocodedPlaceImplCopyWithImpl<_$GeocodedPlaceImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$GeocodedPlaceImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _GeocodedPlace implements GeocodedPlace {
+  const factory _GeocodedPlace(
+      {required final String googlePlaceId,
+      required final AppLatLng latLng}) = _$GeocodedPlaceImpl;
+
+  factory _GeocodedPlace.fromJson(Map<String, dynamic> json) =
+      _$GeocodedPlaceImpl.fromJson;
+
+  @override
+  String get googlePlaceId;
+  @override
+  AppLatLng get latLng;
+  @override
+  @JsonKey(ignore: true)
+  _$$GeocodedPlaceImplCopyWith<_$GeocodedPlaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

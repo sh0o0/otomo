@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/location.dart';
+import 'package:otomo/entities/lat_lng.dart';
 
 part 'message.freezed.dart';
 part 'message.g.dart';
@@ -14,13 +14,13 @@ class TextMessage with _$TextMessage {
     required String text,
     required Role role,
     required DateTime sentAt,
-    required LocationAnalysis locationAnalysis,
+    required PlaceExtraction placeExtraction,
   }) = _TextMessage;
 
   factory TextMessage.fromJson(Map<String, dynamic> json) =>
       _$TextMessageFromJson(json);
 
-  bool get hasError => locationAnalysis.hasError;
+  bool get hasError => placeExtraction.hasError;
 }
 
 enum Role {
@@ -29,30 +29,41 @@ enum Role {
 }
 
 @freezed
-class LocationAnalysis with _$LocationAnalysis {
-  const LocationAnalysis._();
+class PlaceExtraction with _$PlaceExtraction {
+  const PlaceExtraction._();
 
-  const factory LocationAnalysis({
-    required List<AnalyzedLocation> locations,
-    DateTime? analyzedAt,
+  const factory PlaceExtraction({
+    required List<ExtractedPlace> places,
+    DateTime? processedAt,
     String? error,
-  }) = _LocationAnalysis;
+  }) = _PlaceExtraction;
 
-  factory LocationAnalysis.fromJson(Map<String, dynamic> json) =>
-      _$LocationAnalysisFromJson(json);
+  factory PlaceExtraction.fromJson(Map<String, dynamic> json) =>
+      _$PlaceExtractionFromJson(json);
 
   bool get hasError => error?.isNotEmpty == true;
 }
 
 @freezed
-class AnalyzedLocation with _$AnalyzedLocation {
-  const factory AnalyzedLocation({
+class ExtractedPlace with _$ExtractedPlace {
+  const factory ExtractedPlace({
     required String text,
-    required Location location,
-  }) = _AnalyzedLocation;
+    required GeocodedPlace geocodedPlace,
+  }) = _ExtractedPlace;
 
-  factory AnalyzedLocation.fromJson(Map<String, dynamic> json) =>
-      _$AnalyzedLocationFromJson(json);
+  factory ExtractedPlace.fromJson(Map<String, dynamic> json) =>
+      _$ExtractedPlaceFromJson(json);
+}
+
+@freezed
+class GeocodedPlace with _$GeocodedPlace {
+  const factory GeocodedPlace({
+    required String googlePlaceId,
+    required AppLatLng latLng,
+  }) = _GeocodedPlace;
+
+  factory GeocodedPlace.fromJson(Map<String, dynamic> json) =>
+      _$GeocodedPlaceFromJson(json);
 }
 
 @freezed

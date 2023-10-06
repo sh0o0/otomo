@@ -11,9 +11,9 @@ part 'home.g.dart';
 class Home extends _$Home {
   Stream<TextMessageData> get activatedTextMessageStream =>
       ref.read(chatProvider.notifier).activatedTextMessageStream;
-  Stream<Location> get focusedPlaceStream =>
+  Stream<GeocodedPlace> get focusedPlaceStream =>
       ref.read(mapProvider.notifier).focusedPlaceStream;
-  Stream<AnalyzedLocation> get focusedAnalyzedLocationStream =>
+  Stream<ExtractedPlace> get focusedAnalyzedLocationStream =>
       ref.read(chatProvider.notifier).focusedAnalyzedLocationStream;
 
   @override

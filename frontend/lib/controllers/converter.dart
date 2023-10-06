@@ -66,9 +66,9 @@ class _Message {
 class _LocationAnalysis {
   final _analyzedLocation = _AnalyzedLocation();
 
-  LocationAnalysis grpcToEntity(grpc_msg.LocationAnalysis analysis) {
-    return LocationAnalysis(
-      locations: _analyzedLocation.grpcToEntityList(analysis.locations),
+  PlaceExtraction grpcToEntity(grpc_msg.LocationAnalysis analysis) {
+    return PlaceExtraction(
+      places: _analyzedLocation.grpcToEntityList(analysis.locations),
       analyzedAt:
           analysis.hasAnalyzedAt() ? analysis.analyzedAt.toDateTime() : null,
       error: analysis.error.hasValue() ? analysis.error.value : null,
@@ -79,14 +79,14 @@ class _LocationAnalysis {
 class _AnalyzedLocation {
   final _location = _Location();
 
-  AnalyzedLocation grpcToEntity(grpc_msg.AnalyzedLocation loc) {
-    return AnalyzedLocation(
+  ExtractedPlace grpcToEntity(grpc_msg.AnalyzedLocation loc) {
+    return ExtractedPlace(
       text: loc.text,
       location: _location.grpcToEntity(loc.location),
     );
   }
 
-  List<AnalyzedLocation> grpcToEntityList(
+  List<ExtractedPlace> grpcToEntityList(
           List<grpc_msg.AnalyzedLocation> locs) =>
       locs.map((e) => grpcToEntity(e)).toList();
 }
@@ -94,8 +94,8 @@ class _AnalyzedLocation {
 class _Location {
   final _geometry = _Geometry();
 
-  Location grpcToEntity(grpc_loc.Location location) {
-    return Location(
+  GeocodedPlace grpcToEntity(grpc_loc.Location location) {
+    return GeocodedPlace(
       googlePlaceId: location.googlePlaceId,
       address: location.address,
       types: location.types,
