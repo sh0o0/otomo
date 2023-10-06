@@ -57,8 +57,8 @@ func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, erro
 }
 
 type convertPlaceExtraction struct {
-	analyzedLocation convertExtractedPlace
-	wrapper          convertWrapper
+	extractedPlace convertExtractedPlace
+	wrapper        convertWrapper
 }
 
 func (cla convertPlaceExtraction) ModelToGrpc(
@@ -69,29 +69,29 @@ func (cla convertPlaceExtraction) ModelToGrpc(
 		processedAt = timestamppb.New(*pe.ProcessedAt)
 	}
 	return &grpcgen.PlaceExtraction{
-		Places:      cla.analyzedLocation.ModelToGrpcList(pe.Places),
+		Places:      cla.extractedPlace.ModelToGrpcList(pe.Places),
 		ProcessedAt: processedAt,
 		Error:       cla.wrapper.StringPtrToStringValue(pe.Error),
 	}
 }
 
 type convertExtractedPlace struct {
-	location convertGeocodedPlace
+	geocodedPlace convertGeocodedPlace
 }
 
 func (ca convertExtractedPlace) ModelToGrpc(
 	ep *model.ExtractedPlace,
 ) *grpcgen.ExtractedPlace {
 	return &grpcgen.ExtractedPlace{
-		Text:     ep.Text,
-		Location: ca.location.ModelToGrpc(ep.Location),
+		Text:          ep.Text,
+		GeocodedPlace: ca.geocodedPlace.ModelToGrpc(ep.GeocodedPlace),
 	}
 }
 
 func (ca convertExtractedPlace) ModelToGrpcList(
 	als []*model.ExtractedPlace,
-) []*grpcgen.AnalyzedLocation {
-	grpcAls := make([]*grpcgen.AnalyzedLocation, len(als))
+) []*grpcgen.ExtractedPlace {
+	grpcAls := make([]*grpcgen.ExtractedPlace, len(als))
 	for i, al := range als {
 		grpcAls[i] = ca.ModelToGrpc(al)
 	}
@@ -104,9 +104,10 @@ type convertGeocodedPlace struct {
 
 func (cl convertGeocodedPlace) ModelToGrpc(
 	gp *model.GeocodedPlace,
-) *grpcgen.Location {
-	return &grpcgen.Location{
+) *grpcgen.GeocodedPlace {
+	return &grpcgen.GeocodedPlace{
 		GooglePlaceId: gp.GooglePlaceID,
+		LatLng:        cl.latLng.ModelToGrpc(gp.LatLng),
 	}
 }
 
