@@ -134,3 +134,7 @@ func (o *Otomo) validateAbilities() error {
 	}
 	return nil
 }
+
+type Memory struct {
+	Summary string `firestore:"summary"`
+}
