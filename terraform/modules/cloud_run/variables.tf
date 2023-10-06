@@ -38,3 +38,9 @@ variable "openai_api_key" {
   description = "OpenAI API key"
   type        = string
 }
+
+variable "google_maps_api_key" {
+  description = "Google Maps API key"
+  type        = string
+}
+

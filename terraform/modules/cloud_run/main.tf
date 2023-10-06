@@ -41,6 +41,10 @@ resource "google_cloud_run_service" "default" {
           name  = "OPENAI_API_KEY"
           value = var.openai_api_key
         }
+        env {
+          name  = "GOOGLE_MAPS_API_KEY"
+          value = var.google_maps_api_key
+        }
       }
     }
   }
