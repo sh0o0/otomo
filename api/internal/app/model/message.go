@@ -9,12 +9,12 @@ import (
 type MessageID string
 
 type Message struct {
-	ID               MessageID        `firestore:"id"`
-	ClientID         *string          `firestore:"client_id"`
-	Text             string           `firestore:"text"`
-	Role             Role             `firestore:"role"`
-	SentAt           time.Time        `firestore:"sent_at"`
-	LocationAnalysis LocationAnalysis `firestore:"location_analysis"`
+	ID              MessageID       `firestore:"id"`
+	ClientID        *string         `firestore:"client_id"`
+	Text            string          `firestore:"text"`
+	Role            Role            `firestore:"role"`
+	SentAt          time.Time       `firestore:"sent_at"`
+	PlaceExtraction PlaceExtraction `firestore:"place_extraction"`
 }
 
 // TODO: Add test
@@ -22,32 +22,46 @@ func (m *Message) RoleIs(role Role) bool {
 	return m.Role == role
 }
 
-func (m *Message) SetLocationAnalysis(la LocationAnalysis) *Message {
+func (m *Message) SetLocationAnalysis(la PlaceExtraction) *Message {
 	newM := *m
-	newM.LocationAnalysis = la
+	newM.PlaceExtraction = la
 	return &newM
 }
 
-type AnalyzedLocation struct {
-	Text     string   `firestore:"text"`
-	Location Location `firestore:"location"`
+type PlaceExtraction struct {
+	Places      []*ExtractedPlace `firestore:"places"`
+	ProcessedAt *time.Time        `firestore:"processed_at"`
+	Error       *string           `firestore:"error"`
 }
 
-type LocationAnalysis struct {
-	Locations  []*AnalyzedLocation `firestore:"locations"`
-	AnalyzedAt *time.Time          `firestore:"analyzed_at"`
-	Error      *string             `firestore:"error"`
+type ExtractedPlace struct {
+	Text           string         `firestore:"text"`
+	GuessedAddress GuessedAddress `firestore:"guessed_address"`
+	GeocodedPlace  *GeocodedPlace `firestore:"geocoded_place"`
+}
+
+type GuessedAddress struct {
+	Street  string `firestore:"street"`
+	City    string `firestore:"city"`
+	State   string `firestore:"state"`
+	Country string `firestore:"country"`
+	Zip     string `firestore:"zip"`
+}
+
+type GeocodedPlace struct {
+	GooglePlaceID string `firestore:"google_place_id"`
+	LatLng        LatLng `firestore:"lat_lng"`
 }
 
 func NewLocationAnalysis(
-	locs []*AnalyzedLocation,
+	places []*ExtractedPlace,
 	analyzedAt *time.Time,
 	errStr *string,
-) LocationAnalysis {
-	return LocationAnalysis{
-		Locations:  locs,
-		AnalyzedAt: analyzedAt,
-		Error:      errStr,
+) PlaceExtraction {
+	return PlaceExtraction{
+		Places:      places,
+		ProcessedAt: analyzedAt,
+		Error:       errStr,
 	}
 }
 

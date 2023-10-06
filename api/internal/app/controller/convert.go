@@ -52,7 +52,7 @@ func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, erro
 		Role:             role,
 		SentAt:           timestamppb.New(msg.SentAt),
 		ClientId:         cm.Wrapper.StringPtrToStringValue(msg.ClientID),
-		LocationAnalysis: cm.locationAnalysis.ModelToGrpc(&msg.LocationAnalysis),
+		LocationAnalysis: cm.locationAnalysis.ModelToGrpc(&msg.PlaceExtraction),
 	}, nil
 }
 
@@ -62,11 +62,11 @@ type convertLocationAnalysis struct {
 }
 
 func (cla convertLocationAnalysis) ModelToGrpc(
-	la *model.LocationAnalysis,
+	la *model.PlaceExtraction,
 ) *grpcgen.LocationAnalysis {
 	var analyzedAt *timestamppb.Timestamp
-	if la.AnalyzedAt != nil {
-		analyzedAt = timestamppb.New(*la.AnalyzedAt)
+	if la.ProcessedAt != nil {
+		analyzedAt = timestamppb.New(*la.ProcessedAt)
 	}
 	return &grpcgen.LocationAnalysis{
 		Locations:  cla.analyzedLocation.ModelToGrpcList(la.Locations),
@@ -80,7 +80,7 @@ type convertAnalyzedLocation struct {
 }
 
 func (ca convertAnalyzedLocation) ModelToGrpc(
-	al *model.AnalyzedLocation,
+	al *model.ExtractedPlace,
 ) *grpcgen.AnalyzedLocation {
 	return &grpcgen.AnalyzedLocation{
 		Text:     al.Text,
@@ -89,7 +89,7 @@ func (ca convertAnalyzedLocation) ModelToGrpc(
 }
 
 func (ca convertAnalyzedLocation) ModelToGrpcList(
-	als []*model.AnalyzedLocation,
+	als []*model.ExtractedPlace,
 ) []*grpcgen.AnalyzedLocation {
 	grpcAls := make([]*grpcgen.AnalyzedLocation, len(als))
 	for i, al := range als {

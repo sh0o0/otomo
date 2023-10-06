@@ -16,14 +16,14 @@ var (
 type MessageFactory struct {
 	role             model.Role
 	sentAt           time.Time
-	locationAnalysis *model.LocationAnalysis
+	locationAnalysis *model.PlaceExtraction
 }
 
 func (f *MessageFactory) New() *model.Message {
 	var (
 		role             model.Role
 		sentAt           time.Time
-		locationAnalysis model.LocationAnalysis
+		locationAnalysis model.PlaceExtraction
 
 		clientId = uuid.NewString()
 	)
@@ -47,12 +47,12 @@ func (f *MessageFactory) New() *model.Message {
 	}
 
 	return &model.Message{
-		ID:               model.MessageID(uuid.NewString()),
-		Text:             testutil.Faker.Lorem().Sentence(10),
-		Role:             role,
-		SentAt:           sentAt,
-		ClientID:         &clientId,
-		LocationAnalysis: locationAnalysis,
+		ID:              model.MessageID(uuid.NewString()),
+		Text:            testutil.Faker.Lorem().Sentence(10),
+		Role:            role,
+		SentAt:          sentAt,
+		ClientID:        &clientId,
+		PlaceExtraction: locationAnalysis,
 	}
 }
 
@@ -68,7 +68,7 @@ func (f *MessageFactory) SentAt(t time.Time) *MessageFactory {
 	return &newF
 }
 
-func (f *MessageFactory) LocationAnalysis(la *model.LocationAnalysis) *MessageFactory {
+func (f *MessageFactory) LocationAnalysis(la *model.PlaceExtraction) *MessageFactory {
 	newF := *f
 	newF.locationAnalysis = la
 	return &newF
@@ -78,7 +78,7 @@ type LocationAnalysisFactory struct {
 	analyzedAt time.Time
 }
 
-func (f *LocationAnalysisFactory) New() *model.LocationAnalysis {
+func (f *LocationAnalysisFactory) New() *model.PlaceExtraction {
 	var analyzedAt *time.Time
 
 	if f.analyzedAt.IsZero() {
@@ -86,9 +86,9 @@ func (f *LocationAnalysisFactory) New() *model.LocationAnalysis {
 	} else {
 		analyzedAt = &f.analyzedAt
 	}
-	return &model.LocationAnalysis{
-		AnalyzedAt: analyzedAt,
-		Locations: []*model.AnalyzedLocation{
+	return &model.PlaceExtraction{
+		ProcessedAt: analyzedAt,
+		Locations: []*model.ExtractedPlace{
 			{
 				Text:     testutil.Faker.Address().City(),
 				Location: DefaultLocationFactory.New(),
