@@ -2,12 +2,12 @@ name: Firebase CI/CD
 
 on:
   push:
-    # branches:
-    #   - main
-    #   - develop
-    #   - release**
-    # paths:
-    #   - 'firebase/**'
+    branches:
+      - main
+      - develop
+      - release**
+    paths:
+      - 'firebase/**'
 
 env:
   CARGO_TERM_COLOR: always
@@ -15,7 +15,7 @@ env:
 jobs:
   develop:
     runs-on: ubuntu-latest
-    # if: github.ref_name == 'develop'
+    if: github.ref_name == 'develop'
     steps:
       - uses: actions/checkout@v3
       - name: Develop Firebase CI/CD
