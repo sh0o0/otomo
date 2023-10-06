@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/menu/menu.dart';
-import 'package:otomo/views/utils/links.dart';
+import 'package:otomo/views/utils/launcher.dart';
 
 class PlaceSliverAppBar extends StatefulWidget {
   const PlaceSliverAppBar({

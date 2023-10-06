@@ -5,7 +5,7 @@ import 'package:otomo/views/bases/snackbars/app_snackbar.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/utils/flutter.dart';
-import 'package:otomo/views/utils/links.dart';
+import 'package:otomo/views/utils/launcher.dart';
 
 class PlaceDetailsView extends StatelessWidget {
   const PlaceDetailsView({
