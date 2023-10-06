@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:otomo/controllers/firebase.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/account.dart';
 import 'package:otomo/tools/logger.dart';
@@ -24,7 +25,7 @@ class AuthControllerImpl {
     try {
       return await _firebaseAuth.currentUser?.getIdToken();
     } on auth.FirebaseAuthException catch (e) {
-      if (e.code == FirebaseAuthExceptionCode.noSuchProvider) {
+      if (e.code == FirebaseExceptionCode.noSuchProvider) {
         logger.warn('no such provider. signing out');
         await _firebaseAuth.signOut();
       }
@@ -74,7 +75,7 @@ class AuthControllerImpl {
     try {
       return _firebaseAuth.currentUser?.delete();
     } on auth.FirebaseAuthException catch (e) {
-      if (e.code == FirebaseAuthExceptionCode.requiresRecentLogin) {
+      if (e.code == FirebaseExceptionCode.requiresRecentLogin) {
         throw const AppException(
           message: 'Please re-authenticate',
           cause: Cause.requiresRecentLogin,
@@ -151,11 +152,3 @@ class AuthControllerImpl {
       auth.AppleAuthProvider().addScope(_appleEmailScope);
 }
 
-final class FirebaseAuthExceptionCode {
-  FirebaseAuthExceptionCode._();
-
-  static const requiresRecentLogin = 'requires-recent-login';
-  static const internalError = 'internal-error';
-  static const networkRequestFailed = 'network-request-failed';
-  static const noSuchProvider = 'no-such-provider';
-}

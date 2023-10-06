@@ -6,6 +6,7 @@ import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/controllers/utils.dart';
+import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
@@ -82,7 +83,14 @@ class Chat extends _$Chat {
 
     final messageChangedEventSub = _chatController
         .recentMessageChangedEventsStream(userId: account!.uid)
-        .listen(_onMessageChanged);
+        .listen(
+      _onMessageChanged,
+      onError: (error) {
+        if (error is AppException && error.causeIs(Cause.permissionDenied)) {
+          logger.warn(error);
+        }
+      },
+    );
     final messagingSub = _chatController
         .messagingStream(userId: account.uid)
         .listen(_onBeMassaged, onError: (e) => logger.warn(e.toString()));

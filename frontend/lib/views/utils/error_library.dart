@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grpc/grpc.dart';
-import 'package:otomo/controllers/auth.dart';
+import 'package:otomo/controllers/firebase.dart';
 import 'package:otomo/entities/app_exception.dart';
 
 abstract class ErrorLibrary {
@@ -52,10 +52,10 @@ abstract class ErrorLibrary {
 
   static String fromFirebaseAuthException(FirebaseAuthException e) {
     switch (e.code) {
-      case FirebaseAuthExceptionCode.requiresRecentLogin:
+      case FirebaseExceptionCode.requiresRecentLogin:
         return requiresRecentLogin;
-      case FirebaseAuthExceptionCode.internalError:
-      case FirebaseAuthExceptionCode.networkRequestFailed:
+      case FirebaseExceptionCode.internalError:
+      case FirebaseExceptionCode.networkRequestFailed:
         return network;
       default:
         return unknown;
