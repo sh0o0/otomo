@@ -5,14 +5,18 @@ import (
 )
 
 var (
-	MapsClient *maps.Client
+	mapsClient *maps.Client
 )
 
-func initMapsClient() error {
+func MapsClient() *maps.Client {
+	if mapsClient != nil {
+		return mapsClient
+	}
+
 	c, err := maps.NewClient(maps.WithAPIKey(mapsApiKey))
 	if err != nil {
-		return err
+		panic(err)
 	}
-	MapsClient = c
-	return nil
+	mapsClient = c
+	return mapsClient
 }

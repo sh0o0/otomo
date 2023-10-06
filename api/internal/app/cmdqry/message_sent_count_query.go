@@ -60,7 +60,7 @@ func (mscq *MessageSentCountQuery) getQueryDays(
 	}
 
 	lastDay := times.C.Date(
-		int(yearMonth.Year), time.Month(yearMonth.Month), 0, 0, 0, 0, 0)
+		int(yearMonth.Year), time.Month(yearMonth.Month)+1, 0, 0, 0, 0, 0)
 	return lastDay.Day()
 }
 

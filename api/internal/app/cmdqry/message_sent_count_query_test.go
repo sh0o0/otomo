@@ -2,6 +2,7 @@ package cmdqry
 
 import (
 	"context"
+	"fmt"
 	"otomo/internal/app/model"
 	"otomo/internal/app/repository"
 	"otomo/internal/pkg/times"
@@ -19,7 +20,7 @@ func init() {
 }
 
 var (
-	msgRepo = repository.NewMessageRepository(systemtest.FirestoreClient)
+	msgRepo = repository.NewMessageRepository(systemtest.FirestoreClient())
 )
 
 func TestMessageSentCountQuery_GetMonthlySurplusMessageSentCount(t *testing.T) {
@@ -30,22 +31,23 @@ func TestMessageSentCountQuery_GetMonthlySurplusMessageSentCount(t *testing.T) {
 		lastMonthLast = times.C.Date(now.Year(), now.Month(), 0, 0, 0, 0, 0)
 		lastMonth     = model.NewYearMonthFromTime(lastMonthLast)
 
-		userID1 = model.UserID(uuid.NewString())
-		daily1  = make([]*model.DailyMessageSentCount, lastMonthLast.Day())
+		lastMonthUserID = model.UserID(uuid.NewString())
+		lastMonthDaily  = make([]*model.DailyMessageSentCount, lastMonthLast.Day())
 
-		userID2 = model.UserID(uuid.NewString())
-		daily2  = make([]*model.DailyMessageSentCount, now.Day())
+		currentMonthUserID = model.UserID(uuid.NewString())
+		currentMonthDaily  = make([]*model.DailyMessageSentCount, now.Day())
 	)
+	fmt.Println(lastMonthLast.Day())
 	for day := 1; day <= lastMonthLast.Day(); day++ {
 		msg := testmodel.DefaultMessageFactory.
 			Role(model.UserRole).
 			SentAt(times.C.Date(lastMonthLast.Year(),
 				lastMonthLast.Month(), day, 0, 0, 0, 0),
 			).New()
-		if err := msgRepo.Add(context.Background(), userID1, msg); err != nil {
+		if err := msgRepo.Add(context.Background(), lastMonthUserID, msg); err != nil {
 			t.Fatal(err)
 		}
-		daily1[day-1] = model.NewDailyMessageSentCount(model.Day(day), 1)
+		lastMonthDaily[day-1] = model.NewDailyMessageSentCount(model.Day(day), 1)
 	}
 	for day := 1; day <= now.Day(); day++ {
 		msg := testmodel.DefaultMessageFactory.
@@ -53,10 +55,10 @@ func TestMessageSentCountQuery_GetMonthlySurplusMessageSentCount(t *testing.T) {
 			SentAt(times.C.Date(now.Year(),
 				now.Month(), day, 0, 0, 0, 0),
 			).New()
-		if err := msgRepo.Add(context.Background(), userID2, msg); err != nil {
+		if err := msgRepo.Add(context.Background(), currentMonthUserID, msg); err != nil {
 			t.Fatal(err)
 		}
-		daily2[day-1] = model.NewDailyMessageSentCount(model.Day(day), 1)
+		currentMonthDaily[day-1] = model.NewDailyMessageSentCount(model.Day(day), 1)
 	}
 
 	type args struct {
@@ -74,12 +76,12 @@ func TestMessageSentCountQuery_GetMonthlySurplusMessageSentCount(t *testing.T) {
 			name: "Should return whole month count when give last month",
 			args: args{
 				ctx:       context.Background(),
-				userID:    userID1,
+				userID:    lastMonthUserID,
 				yearMonth: lastMonth,
 			},
 			want: &model.MonthlySurplusMessageSentCount{
 				YearMonth: lastMonth,
-				Daily:     daily1,
+				Daily:     lastMonthDaily,
 			},
 			wantIsErr: false,
 		},
@@ -87,12 +89,12 @@ func TestMessageSentCountQuery_GetMonthlySurplusMessageSentCount(t *testing.T) {
 			name: "Should return until today count when give this month",
 			args: args{
 				ctx:       context.Background(),
-				userID:    userID2,
+				userID:    currentMonthUserID,
 				yearMonth: thisMonth,
 			},
 			want: &model.MonthlySurplusMessageSentCount{
 				YearMonth: thisMonth,
-				Daily:     daily2,
+				Daily:     currentMonthDaily,
 			},
 			wantIsErr: false,
 		},
@@ -115,7 +117,7 @@ func TestMessageSentCountQuery_GetMonthlySurplusMessageSentCount(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			mscq := &MessageSentCountQuery{
-				fsClient: systemtest.FirestoreClient,
+				fsClient: systemtest.FirestoreClient(),
 			}
 			got, err := mscq.GetMonthlySurplusMessageSentCount(
 				tt.args.ctx,
