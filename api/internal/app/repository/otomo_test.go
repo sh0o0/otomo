@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var testOtomoRepo = NewOtomoRepository(systemtest.FirestoreClient)
+var testOtomoRepo = NewOtomoRepository(systemtest.FirestoreClient())
 
 func TestOtomoRepository_Save_ShouldAddOtomo_WhenArgsAreValid(t *testing.T) {
 	var (
@@ -25,7 +25,7 @@ func TestOtomoRepository_Save_ShouldAddOtomo_WhenArgsAreValid(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	snapshot, err := systemtest.FirestoreClient.
+	snapshot, err := systemtest.FirestoreClient().
 		Doc(GetOtomoDocPath(giveUserID)).
 		Get(giveCtx)
 	if err != nil {
@@ -55,7 +55,7 @@ func TestOtomoRepository_Save_ShouldUpdateOtomo_WhenArgsAreValid(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	snapshot, err := systemtest.FirestoreClient.
+	snapshot, err := systemtest.FirestoreClient().
 		Doc(GetOtomoDocPath(giveUserID)).
 		Get(giveCtx)
 	if err != nil {

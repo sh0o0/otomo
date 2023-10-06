@@ -8,7 +8,7 @@ import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/views/utils/converter.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:otomo/views/utils/links.dart';
 
 class ChatUI extends StatelessWidget {
   const ChatUI({
@@ -170,7 +170,7 @@ class ChatUI extends StatelessWidget {
         message: textMessage,
         options: ui.TextMessageOptions(
           isTextSelectable: false,
-          onLinkPressed: launchUrlString,
+          onLinkPressed: Launcher.urlString,
           matchers: _makeTextMatchers(context, textMessage.id),
         ),
         showName: showName,

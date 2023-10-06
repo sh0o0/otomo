@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/configs/app_colors.dart';
+import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 
 class OnlineStatus extends StatelessWidget {
@@ -22,7 +22,9 @@ class OnlineStatus extends StatelessWidget {
           width: 8,
           decoration: BoxDecoration(
             // TODO: Fix color for dark theme
-            color: online ? AppColors.activeGreen : Colors.black26,
+            color: online
+                ? theme.extension<AppTheme>()!.activeColor
+                : Colors.black26,
             shape: BoxShape.circle,
           ),
         ),

@@ -20,7 +20,6 @@ mixin _$ChatState {
       throw _privateConstructorUsedError;
   RemainingMessageSendCount get remainingMessageSendCount =>
       throw _privateConstructorUsedError;
-  bool get hideTextField => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChatStateCopyWith<ChatState> get copyWith =>
@@ -34,8 +33,7 @@ abstract class $ChatStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Pagination<TextMessageData> messages,
-      RemainingMessageSendCount remainingMessageSendCount,
-      bool hideTextField});
+      RemainingMessageSendCount remainingMessageSendCount});
 
   $PaginationCopyWith<TextMessageData, $Res> get messages;
   $RemainingMessageSendCountCopyWith<$Res> get remainingMessageSendCount;
@@ -56,7 +54,6 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
   $Res call({
     Object? messages = null,
     Object? remainingMessageSendCount = null,
-    Object? hideTextField = null,
   }) {
     return _then(_value.copyWith(
       messages: null == messages
@@ -67,10 +64,6 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
           ? _value.remainingMessageSendCount
           : remainingMessageSendCount // ignore: cast_nullable_to_non_nullable
               as RemainingMessageSendCount,
-      hideTextField: null == hideTextField
-          ? _value.hideTextField
-          : hideTextField // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 
@@ -93,16 +86,16 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
 }
 
 /// @nodoc
-abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
-  factory _$$_ChatStateCopyWith(
-          _$_ChatState value, $Res Function(_$_ChatState) then) =
-      __$$_ChatStateCopyWithImpl<$Res>;
+abstract class _$$ChatStateImplCopyWith<$Res>
+    implements $ChatStateCopyWith<$Res> {
+  factory _$$ChatStateImplCopyWith(
+          _$ChatStateImpl value, $Res Function(_$ChatStateImpl) then) =
+      __$$ChatStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {Pagination<TextMessageData> messages,
-      RemainingMessageSendCount remainingMessageSendCount,
-      bool hideTextField});
+      RemainingMessageSendCount remainingMessageSendCount});
 
   @override
   $PaginationCopyWith<TextMessageData, $Res> get messages;
@@ -111,11 +104,11 @@ abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ChatStateCopyWithImpl<$Res>
-    extends _$ChatStateCopyWithImpl<$Res, _$_ChatState>
-    implements _$$_ChatStateCopyWith<$Res> {
-  __$$_ChatStateCopyWithImpl(
-      _$_ChatState _value, $Res Function(_$_ChatState) _then)
+class __$$ChatStateImplCopyWithImpl<$Res>
+    extends _$ChatStateCopyWithImpl<$Res, _$ChatStateImpl>
+    implements _$$ChatStateImplCopyWith<$Res> {
+  __$$ChatStateImplCopyWithImpl(
+      _$ChatStateImpl _value, $Res Function(_$ChatStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,9 +116,8 @@ class __$$_ChatStateCopyWithImpl<$Res>
   $Res call({
     Object? messages = null,
     Object? remainingMessageSendCount = null,
-    Object? hideTextField = null,
   }) {
-    return _then(_$_ChatState(
+    return _then(_$ChatStateImpl(
       messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
@@ -134,66 +126,55 @@ class __$$_ChatStateCopyWithImpl<$Res>
           ? _value.remainingMessageSendCount
           : remainingMessageSendCount // ignore: cast_nullable_to_non_nullable
               as RemainingMessageSendCount,
-      hideTextField: null == hideTextField
-          ? _value.hideTextField
-          : hideTextField // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_ChatState extends _ChatState {
-  const _$_ChatState(
-      {required this.messages,
-      required this.remainingMessageSendCount,
-      this.hideTextField = false})
+class _$ChatStateImpl extends _ChatState {
+  const _$ChatStateImpl(
+      {required this.messages, required this.remainingMessageSendCount})
       : super._();
 
   @override
   final Pagination<TextMessageData> messages;
   @override
   final RemainingMessageSendCount remainingMessageSendCount;
-  @override
-  @JsonKey()
-  final bool hideTextField;
 
   @override
   String toString() {
-    return 'ChatState(messages: $messages, remainingMessageSendCount: $remainingMessageSendCount, hideTextField: $hideTextField)';
+    return 'ChatState(messages: $messages, remainingMessageSendCount: $remainingMessageSendCount)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ChatState &&
+            other is _$ChatStateImpl &&
             (identical(other.messages, messages) ||
                 other.messages == messages) &&
             (identical(other.remainingMessageSendCount,
                     remainingMessageSendCount) ||
-                other.remainingMessageSendCount == remainingMessageSendCount) &&
-            (identical(other.hideTextField, hideTextField) ||
-                other.hideTextField == hideTextField));
+                other.remainingMessageSendCount == remainingMessageSendCount));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, messages, remainingMessageSendCount, hideTextField);
+  int get hashCode =>
+      Object.hash(runtimeType, messages, remainingMessageSendCount);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ChatStateCopyWith<_$_ChatState> get copyWith =>
-      __$$_ChatStateCopyWithImpl<_$_ChatState>(this, _$identity);
+  _$$ChatStateImplCopyWith<_$ChatStateImpl> get copyWith =>
+      __$$ChatStateImplCopyWithImpl<_$ChatStateImpl>(this, _$identity);
 }
 
 abstract class _ChatState extends ChatState {
   const factory _ChatState(
-      {required final Pagination<TextMessageData> messages,
-      required final RemainingMessageSendCount remainingMessageSendCount,
-      final bool hideTextField}) = _$_ChatState;
+          {required final Pagination<TextMessageData> messages,
+          required final RemainingMessageSendCount remainingMessageSendCount}) =
+      _$ChatStateImpl;
   const _ChatState._() : super._();
 
   @override
@@ -201,9 +182,7 @@ abstract class _ChatState extends ChatState {
   @override
   RemainingMessageSendCount get remainingMessageSendCount;
   @override
-  bool get hideTextField;
-  @override
   @JsonKey(ignore: true)
-  _$$_ChatStateCopyWith<_$_ChatState> get copyWith =>
+  _$$ChatStateImplCopyWith<_$ChatStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

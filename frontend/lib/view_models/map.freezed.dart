@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MapState {
   List<AnalyzedLocation> get activeAnalyzedLocations =>
       throw _privateConstructorUsedError;
+  Location? get focusingLocation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MapStateCopyWith<MapState> get copyWith =>
@@ -29,7 +30,11 @@ abstract class $MapStateCopyWith<$Res> {
   factory $MapStateCopyWith(MapState value, $Res Function(MapState) then) =
       _$MapStateCopyWithImpl<$Res, MapState>;
   @useResult
-  $Res call({List<AnalyzedLocation> activeAnalyzedLocations});
+  $Res call(
+      {List<AnalyzedLocation> activeAnalyzedLocations,
+      Location? focusingLocation});
+
+  $LocationCopyWith<$Res>? get focusingLocation;
 }
 
 /// @nodoc
@@ -46,53 +51,82 @@ class _$MapStateCopyWithImpl<$Res, $Val extends MapState>
   @override
   $Res call({
     Object? activeAnalyzedLocations = null,
+    Object? focusingLocation = freezed,
   }) {
     return _then(_value.copyWith(
       activeAnalyzedLocations: null == activeAnalyzedLocations
           ? _value.activeAnalyzedLocations
           : activeAnalyzedLocations // ignore: cast_nullable_to_non_nullable
               as List<AnalyzedLocation>,
+      focusingLocation: freezed == focusingLocation
+          ? _value.focusingLocation
+          : focusingLocation // ignore: cast_nullable_to_non_nullable
+              as Location?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationCopyWith<$Res>? get focusingLocation {
+    if (_value.focusingLocation == null) {
+      return null;
+    }
+
+    return $LocationCopyWith<$Res>(_value.focusingLocation!, (value) {
+      return _then(_value.copyWith(focusingLocation: value) as $Val);
+    });
   }
 }
 
 /// @nodoc
-abstract class _$$_MapStateCopyWith<$Res> implements $MapStateCopyWith<$Res> {
-  factory _$$_MapStateCopyWith(
-          _$_MapState value, $Res Function(_$_MapState) then) =
-      __$$_MapStateCopyWithImpl<$Res>;
+abstract class _$$MapStateImplCopyWith<$Res>
+    implements $MapStateCopyWith<$Res> {
+  factory _$$MapStateImplCopyWith(
+          _$MapStateImpl value, $Res Function(_$MapStateImpl) then) =
+      __$$MapStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<AnalyzedLocation> activeAnalyzedLocations});
+  $Res call(
+      {List<AnalyzedLocation> activeAnalyzedLocations,
+      Location? focusingLocation});
+
+  @override
+  $LocationCopyWith<$Res>? get focusingLocation;
 }
 
 /// @nodoc
-class __$$_MapStateCopyWithImpl<$Res>
-    extends _$MapStateCopyWithImpl<$Res, _$_MapState>
-    implements _$$_MapStateCopyWith<$Res> {
-  __$$_MapStateCopyWithImpl(
-      _$_MapState _value, $Res Function(_$_MapState) _then)
+class __$$MapStateImplCopyWithImpl<$Res>
+    extends _$MapStateCopyWithImpl<$Res, _$MapStateImpl>
+    implements _$$MapStateImplCopyWith<$Res> {
+  __$$MapStateImplCopyWithImpl(
+      _$MapStateImpl _value, $Res Function(_$MapStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? activeAnalyzedLocations = null,
+    Object? focusingLocation = freezed,
   }) {
-    return _then(_$_MapState(
+    return _then(_$MapStateImpl(
       activeAnalyzedLocations: null == activeAnalyzedLocations
           ? _value._activeAnalyzedLocations
           : activeAnalyzedLocations // ignore: cast_nullable_to_non_nullable
               as List<AnalyzedLocation>,
+      focusingLocation: freezed == focusingLocation
+          ? _value.focusingLocation
+          : focusingLocation // ignore: cast_nullable_to_non_nullable
+              as Location?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_MapState extends _MapState {
-  const _$_MapState(
-      {required final List<AnalyzedLocation> activeAnalyzedLocations})
+class _$MapStateImpl extends _MapState {
+  const _$MapStateImpl(
+      {required final List<AnalyzedLocation> activeAnalyzedLocations,
+      this.focusingLocation})
       : _activeAnalyzedLocations = activeAnalyzedLocations,
         super._();
 
@@ -106,40 +140,49 @@ class _$_MapState extends _MapState {
   }
 
   @override
+  final Location? focusingLocation;
+
+  @override
   String toString() {
-    return 'MapState(activeAnalyzedLocations: $activeAnalyzedLocations)';
+    return 'MapState(activeAnalyzedLocations: $activeAnalyzedLocations, focusingLocation: $focusingLocation)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MapState &&
+            other is _$MapStateImpl &&
             const DeepCollectionEquality().equals(
-                other._activeAnalyzedLocations, _activeAnalyzedLocations));
+                other._activeAnalyzedLocations, _activeAnalyzedLocations) &&
+            (identical(other.focusingLocation, focusingLocation) ||
+                other.focusingLocation == focusingLocation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_activeAnalyzedLocations));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_activeAnalyzedLocations),
+      focusingLocation);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MapStateCopyWith<_$_MapState> get copyWith =>
-      __$$_MapStateCopyWithImpl<_$_MapState>(this, _$identity);
+  _$$MapStateImplCopyWith<_$MapStateImpl> get copyWith =>
+      __$$MapStateImplCopyWithImpl<_$MapStateImpl>(this, _$identity);
 }
 
 abstract class _MapState extends MapState {
   const factory _MapState(
-          {required final List<AnalyzedLocation> activeAnalyzedLocations}) =
-      _$_MapState;
+      {required final List<AnalyzedLocation> activeAnalyzedLocations,
+      final Location? focusingLocation}) = _$MapStateImpl;
   const _MapState._() : super._();
 
   @override
   List<AnalyzedLocation> get activeAnalyzedLocations;
   @override
+  Location? get focusingLocation;
+  @override
   @JsonKey(ignore: true)
-  _$$_MapStateCopyWith<_$_MapState> get copyWith =>
+  _$$MapStateImplCopyWith<_$MapStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

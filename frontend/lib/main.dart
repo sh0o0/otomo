@@ -6,27 +6,32 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/firebase_options/dev.dart' as dev_firebase_opt;
 import 'package:otomo/configs/firebase_options/local.dart'
     as local_firebase_opt;
 import 'package:otomo/configs/injection.dart';
-import 'package:otomo/tools/logger.dart';
+import 'package:otomo/development/views/development_app.dart';
 import 'package:otomo/tools/app_package_info.dart';
+import 'package:otomo/tools/logger.dart';
 import 'package:otomo/views/app.dart';
 import 'package:otomo/views/utils/error_handling.dart';
+import 'package:otomo/views/utils/flutter.dart';
 
 void main() async {
+  setNewLogger(Logger(level: appConfig.logLevel));
   logger.info(appConfig.toString());
+
   runZonedGuarded(() async {
     await setup();
 
     // Hide keyboard when app is hot reloaded
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    FlutterUtils.hideKeyboard();
 
-    runApp(const ProviderScope(child: App()));
+    runApp(ProviderScope(
+      child: appConfig.isPlayground ? const PlaygroundApp() : const App(),
+    ));
   }, onRunZoneGuardedError);
 }
 
@@ -44,6 +49,7 @@ Future<void> setup() async {
   }
 
   await AppPackageInfo.init();
+  logger.info(AppPackageInfo.expose());
 }
 
 Future<void> initializeFirebase() async {
@@ -66,7 +72,7 @@ void setupErrorHandling() {
     logger.error('Caught error at FlutterError.onError');
     FlutterError.dumpErrorToConsole(details);
     FirebaseCrashlytics.instance.recordFlutterFatalError(details);
-    if (details.exception is FlutterError) return;
+    if (details.exception is Error) return;
     showErrorSnackbar(details.exception);
   };
   PlatformDispatcher.instance.onError = (error, stack) {

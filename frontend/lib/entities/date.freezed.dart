@@ -72,18 +72,20 @@ class _$DateCopyWithImpl<$Res, $Val extends Date>
 }
 
 /// @nodoc
-abstract class _$$_DateCopyWith<$Res> implements $DateCopyWith<$Res> {
-  factory _$$_DateCopyWith(_$_Date value, $Res Function(_$_Date) then) =
-      __$$_DateCopyWithImpl<$Res>;
+abstract class _$$DateImplCopyWith<$Res> implements $DateCopyWith<$Res> {
+  factory _$$DateImplCopyWith(
+          _$DateImpl value, $Res Function(_$DateImpl) then) =
+      __$$DateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int year, int month, int day});
 }
 
 /// @nodoc
-class __$$_DateCopyWithImpl<$Res> extends _$DateCopyWithImpl<$Res, _$_Date>
-    implements _$$_DateCopyWith<$Res> {
-  __$$_DateCopyWithImpl(_$_Date _value, $Res Function(_$_Date) _then)
+class __$$DateImplCopyWithImpl<$Res>
+    extends _$DateCopyWithImpl<$Res, _$DateImpl>
+    implements _$$DateImplCopyWith<$Res> {
+  __$$DateImplCopyWithImpl(_$DateImpl _value, $Res Function(_$DateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -93,7 +95,7 @@ class __$$_DateCopyWithImpl<$Res> extends _$DateCopyWithImpl<$Res, _$_Date>
     Object? month = null,
     Object? day = null,
   }) {
-    return _then(_$_Date(
+    return _then(_$DateImpl(
       year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -112,11 +114,12 @@ class __$$_DateCopyWithImpl<$Res> extends _$DateCopyWithImpl<$Res, _$_Date>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Date extends _Date {
-  const _$_Date({required this.year, required this.month, required this.day})
+class _$DateImpl extends _Date {
+  const _$DateImpl({required this.year, required this.month, required this.day})
       : super._();
 
-  factory _$_Date.fromJson(Map<String, dynamic> json) => _$$_DateFromJson(json);
+  factory _$DateImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DateImplFromJson(json);
 
   @override
   final int year;
@@ -134,7 +137,7 @@ class _$_Date extends _Date {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Date &&
+            other is _$DateImpl &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.month, month) || other.month == month) &&
             (identical(other.day, day) || other.day == day));
@@ -147,12 +150,12 @@ class _$_Date extends _Date {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DateCopyWith<_$_Date> get copyWith =>
-      __$$_DateCopyWithImpl<_$_Date>(this, _$identity);
+  _$$DateImplCopyWith<_$DateImpl> get copyWith =>
+      __$$DateImplCopyWithImpl<_$DateImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DateToJson(
+    return _$$DateImplToJson(
       this,
     );
   }
@@ -162,10 +165,10 @@ abstract class _Date extends Date {
   const factory _Date(
       {required final int year,
       required final int month,
-      required final int day}) = _$_Date;
+      required final int day}) = _$DateImpl;
   const _Date._() : super._();
 
-  factory _Date.fromJson(Map<String, dynamic> json) = _$_Date.fromJson;
+  factory _Date.fromJson(Map<String, dynamic> json) = _$DateImpl.fromJson;
 
   @override
   int get year;
@@ -175,7 +178,8 @@ abstract class _Date extends Date {
   int get day;
   @override
   @JsonKey(ignore: true)
-  _$$_DateCopyWith<_$_Date> get copyWith => throw _privateConstructorUsedError;
+  _$$DateImplCopyWith<_$DateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 YearMonth _$YearMonthFromJson(Map<String, dynamic> json) {
@@ -231,21 +235,22 @@ class _$YearMonthCopyWithImpl<$Res, $Val extends YearMonth>
 }
 
 /// @nodoc
-abstract class _$$_YearMonthCopyWith<$Res> implements $YearMonthCopyWith<$Res> {
-  factory _$$_YearMonthCopyWith(
-          _$_YearMonth value, $Res Function(_$_YearMonth) then) =
-      __$$_YearMonthCopyWithImpl<$Res>;
+abstract class _$$YearMonthImplCopyWith<$Res>
+    implements $YearMonthCopyWith<$Res> {
+  factory _$$YearMonthImplCopyWith(
+          _$YearMonthImpl value, $Res Function(_$YearMonthImpl) then) =
+      __$$YearMonthImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int year, int month});
 }
 
 /// @nodoc
-class __$$_YearMonthCopyWithImpl<$Res>
-    extends _$YearMonthCopyWithImpl<$Res, _$_YearMonth>
-    implements _$$_YearMonthCopyWith<$Res> {
-  __$$_YearMonthCopyWithImpl(
-      _$_YearMonth _value, $Res Function(_$_YearMonth) _then)
+class __$$YearMonthImplCopyWithImpl<$Res>
+    extends _$YearMonthCopyWithImpl<$Res, _$YearMonthImpl>
+    implements _$$YearMonthImplCopyWith<$Res> {
+  __$$YearMonthImplCopyWithImpl(
+      _$YearMonthImpl _value, $Res Function(_$YearMonthImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -254,7 +259,7 @@ class __$$_YearMonthCopyWithImpl<$Res>
     Object? year = null,
     Object? month = null,
   }) {
-    return _then(_$_YearMonth(
+    return _then(_$YearMonthImpl(
       year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -269,11 +274,11 @@ class __$$_YearMonthCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_YearMonth extends _YearMonth {
-  const _$_YearMonth({required this.year, required this.month}) : super._();
+class _$YearMonthImpl extends _YearMonth {
+  const _$YearMonthImpl({required this.year, required this.month}) : super._();
 
-  factory _$_YearMonth.fromJson(Map<String, dynamic> json) =>
-      _$$_YearMonthFromJson(json);
+  factory _$YearMonthImpl.fromJson(Map<String, dynamic> json) =>
+      _$$YearMonthImplFromJson(json);
 
   @override
   final int year;
@@ -289,7 +294,7 @@ class _$_YearMonth extends _YearMonth {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_YearMonth &&
+            other is _$YearMonthImpl &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.month, month) || other.month == month));
   }
@@ -301,12 +306,12 @@ class _$_YearMonth extends _YearMonth {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_YearMonthCopyWith<_$_YearMonth> get copyWith =>
-      __$$_YearMonthCopyWithImpl<_$_YearMonth>(this, _$identity);
+  _$$YearMonthImplCopyWith<_$YearMonthImpl> get copyWith =>
+      __$$YearMonthImplCopyWithImpl<_$YearMonthImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_YearMonthToJson(
+    return _$$YearMonthImplToJson(
       this,
     );
   }
@@ -314,11 +319,11 @@ class _$_YearMonth extends _YearMonth {
 
 abstract class _YearMonth extends YearMonth {
   const factory _YearMonth(
-      {required final int year, required final int month}) = _$_YearMonth;
+      {required final int year, required final int month}) = _$YearMonthImpl;
   const _YearMonth._() : super._();
 
   factory _YearMonth.fromJson(Map<String, dynamic> json) =
-      _$_YearMonth.fromJson;
+      _$YearMonthImpl.fromJson;
 
   @override
   int get year;
@@ -326,6 +331,6 @@ abstract class _YearMonth extends YearMonth {
   int get month;
   @override
   @JsonKey(ignore: true)
-  _$$_YearMonthCopyWith<_$_YearMonth> get copyWith =>
+  _$$YearMonthImplCopyWith<_$YearMonthImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void afterBuildCallback(VoidCallback callback) {
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    callback();
-  });
-}
+final class FlutterUtils {
+  FlutterUtils._();
+  static void afterBuildCallback(VoidCallback callback) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      callback();
+    });
+  }
 
-bool validateAndSaveForm(GlobalKey<FormState> formKey) {
-  final currentState = formKey.currentState;
-  assert(currentState != null);
+  static void unfocus(BuildContext context) {
+    final currentScope = FocusScope.of(context);
+    if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+      FocusManager.instance.primaryFocus?.unfocus();
+    }
+  }
 
-  if (!(currentState!.validate())) return false;
-  currentState.save();
-  return true;
+  static Future<void> hideKeyboard() =>
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+  static Future<void> copyText(String text) =>
+      Clipboard.setData(ClipboardData(text: text));
+
+  static bool validateAndSaveForm(GlobalKey<FormState> formKey) {
+    assert(formKey.currentState != null);
+
+    if (!(formKey.currentState?.validate() ?? false)) return false;
+    formKey.currentState?.save();
+    return true;
+  }
 }

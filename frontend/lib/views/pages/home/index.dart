@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/view_models/chat.dart';
-import 'package:otomo/views/bases/text_fields/unfocus.dart';
-import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
-import 'package:otomo/views/cases/home/home_with_draggable_scrollable_bottom_sheet.dart';
-import 'package:otomo/views/pages/home/cases/home_chat.dart';
-import 'package:otomo/views/pages/map/index.dart';
+import 'package:otomo/view_models/home.dart';
 import 'package:otomo/view_models/router.dart';
-import 'package:otomo/views/utils/controller.dart';
+import 'package:otomo/views/bases/text_fields/unfocus.dart';
+import 'package:otomo/views/pages/home/cases/home_chat_sheet.dart';
+import 'package:otomo/views/pages/home/cases/home_place_details_sheet.dart';
+import 'package:otomo/views/pages/map.dart';
+import 'package:otomo/views/routes.dart';
+import 'package:otomo/views/utils/flutter.dart';
 
 class HomePage extends StatefulHookConsumerWidget {
   const HomePage({super.key});
@@ -19,45 +18,26 @@ class HomePage extends StatefulHookConsumerWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  static const _sheetAnimationCurve = Curves.easeOutQuint;
-  static const _sheetAnimationDuration = Duration(milliseconds: 800);
-  static const _maxSheetSize = 0.95;
-  static const _minSheetSize = 0.0;
-  static const _limitCanShowKeyboard = 0.45;
-  static const _sheetSnaps = [_limitCanShowKeyboard];
+  double get screenHeight => MediaQuery.of(context).size.height;
+  double get maxSheetSize =>
+      1 / screenHeight * (screenHeight - MediaQuery.paddingOf(context).top);
+  double get chatMinSheetSize => 1 / screenHeight * 100;
+  final placeDetailsMinSheetSize = 0.0;
+  double get chatSheetInitialSheetSize => chatMinSheetSize;
+  double get placeDetailsSheetInitialSheetSize => placeDetailsMinSheetSize;
+  final snapSizes = [0.45];
 
-  DraggableScrollableController? _sheetController;
+  final _placeDetailsSheetController = DraggableScrollableController();
+  late final HomeController _homeController;
 
-  void _assertCanUseSheetController() {
-    assert(_sheetController != null && _sheetController!.isAttached);
-  }
-
-  void _onSheetCreated(DraggableScrollableController controller) {
-    _sheetController = controller;
-    controller.addListener(() {
-      _assertCanUseSheetController();
-      if (_sheetController!.size < _limitCanShowKeyboard) {
-        ViewUtilsController.I.unfocus(context);
-      }
-    });
-  }
-
-  void _onPressedSheetLeading(BuildContext context) {
-    _assertCanUseSheetController();
-
-    _sheetController!.animateTo(
-      _minSheetSize,
-      duration: _sheetAnimationDuration,
-      curve: _sheetAnimationCurve,
-    );
-  }
-
-  void _onChatTextFieldTap(BuildContext context) {
-    _assertCanUseSheetController();
-    _sheetController?.animateTo(
-      _maxSheetSize,
-      duration: _sheetAnimationDuration,
-      curve: _sheetAnimationCurve,
+  void _onChatSheetCreated(DraggableScrollableController controller) {
+    _homeController = HomeController(
+      chatSheet: controller,
+      placeDetailsSheet: _placeDetailsSheetController,
+      maxSize: maxSheetSize,
+      chatMinSize: chatMinSheetSize,
+      placeDetailsMinSize: placeDetailsMinSheetSize,
+      snapSize: snapSizes.first,
     );
   }
 
@@ -65,21 +45,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     final padding = MediaQuery.paddingOf(context);
 
     return [
-      Positioned(
-        bottom: padding.bottom,
-        right: 20,
-        child: FloatingActionButton(
-          heroTag: 'chat',
-          child: const Icon(Icons.chat),
-          onPressed: () {
-            _sheetController?.animateTo(
-              _maxSheetSize,
-              duration: _sheetAnimationDuration,
-              curve: _sheetAnimationCurve,
-            );
-          },
-        ),
-      ),
       Positioned(
         top: padding.top,
         left: 20,
@@ -96,41 +61,127 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     useEffect(() {
-      final activatedTextMessageStreamSub = ref
-          .read(chatProvider.notifier)
-          .activatedTextMessageStream
-          .listen((textMsg) {
-        _assertCanUseSheetController();
-
-        _sheetController!.animateTo(_limitCanShowKeyboard,
-            duration: _sheetAnimationDuration, curve: _sheetAnimationCurve);
+      final notifier = ref.read(homeProvider.notifier);
+      final activatedTextMessageStreamSub =
+          notifier.activatedTextMessageStream.listen((textMsg) {
+        if (textMsg.locationAnalysis.locations.isEmpty) return;
+        FlutterUtils.afterBuildCallback(() {
+          _homeController.moveChatSheetToSnap();
+        });
       });
-      return () => activatedTextMessageStreamSub.cancel();
+      final focusedPlaceStreamSub =
+          notifier.focusedPlaceStream.listen((location) {
+        FlutterUtils.afterBuildCallback(() async {
+          _homeController.openPlaceDetailsSheet();
+        });
+      });
+
+      final focusedAnalyzedLocationStreamSub = ref
+          .read(homeProvider.notifier)
+          .focusedAnalyzedLocationStream
+          .listen((loc) {
+        FlutterUtils.afterBuildCallback(() {
+          _homeController.moveChatSheetToSnap();
+        });
+      });
+
+      return () {
+        activatedTextMessageStreamSub.cancel();
+        focusedPlaceStreamSub.cancel();
+        focusedAnalyzedLocationStreamSub.cancel();
+      };
     }, const []);
 
-    final chatState = ref.watch(chatProvider);
-
     return Unfocus(
-      child: HomeWithDraggableScrollableBottomSheet(
-        initialSheetSize: _minSheetSize,
-        maxSheetSize: _maxSheetSize,
-        minSheetSize: _minSheetSize,
-        snap: true,
-        snapSizes: _sheetSnaps,
-        resizeToAvoidBottomInset: false,
-        onSheetCreated: _onSheetCreated,
-        behindSheetFloatingActionButtons: _buildFloatingActionButtons(context),
-        bottomSheetBar: ChatBottomSheetBar(
-          onPressedLeading: () => _onPressedSheetLeading(context),
-          remainingMessageSendCount: chatState.value?.remainingMessageSendCount,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            const MapPage(),
+            ..._buildFloatingActionButtons(context),
+            HomeChatSheet(
+              maxSheetSize: maxSheetSize,
+              minSheetSize: chatMinSheetSize,
+              initialSheetSize: chatSheetInitialSheetSize,
+              snap: true,
+              snapSizes: snapSizes,
+              onHeaderTap: () => _homeController.openChatSheet(),
+              onTextFieldTap: () => _homeController.openChatSheet(),
+              onLeadingPressed: () => _homeController.closeChatSheet(),
+              onSheetCreated: _onChatSheetCreated,
+            ),
+            HomePlaceDetailsSheet(
+              sheetController: _placeDetailsSheetController,
+              maxSheetSize: maxSheetSize,
+              minSheetSize: placeDetailsMinSheetSize,
+              initialSheetSize: placeDetailsSheetInitialSheetSize,
+              snap: true,
+              snapSizes: snapSizes,
+            )
+          ],
         ),
-        bottomSheet: HomeChat(
-          inputOptions: InputOptions(
-            onTextFieldTap: () => _onChatTextFieldTap(context),
-          ),
-        ),
-        child: const MapPage(),
       ),
+    );
+  }
+}
+
+class HomeController {
+  const HomeController({
+    required this.chatSheet,
+    required this.placeDetailsSheet,
+    required this.maxSize,
+    required this.chatMinSize,
+    required this.placeDetailsMinSize,
+    required this.snapSize,
+    this.animationDuration = const Duration(milliseconds: 500),
+    this.animationCurve = Curves.easeOutExpo,
+  });
+
+  final DraggableScrollableController chatSheet;
+  final DraggableScrollableController placeDetailsSheet;
+  final double maxSize;
+  final double chatMinSize;
+  final double placeDetailsMinSize;
+  final double snapSize;
+  final Duration animationDuration;
+  final Curve animationCurve;
+
+  void openChatSheet() {
+    chatSheet.animateTo(
+      maxSize,
+      duration: animationDuration,
+      curve: animationCurve,
+    );
+  }
+
+  void closeChatSheet() {
+    chatSheet.animateTo(
+      chatMinSize,
+      duration: animationDuration,
+      curve: animationCurve,
+    );
+  }
+
+  void moveChatSheetToSnap() {
+    chatSheet.animateTo(
+      snapSize,
+      duration: animationDuration,
+      curve: animationCurve,
+    );
+  }
+
+  void openPlaceDetailsSheet() {
+    if (chatSheet.size > snapSize) {
+      chatSheet.animateTo(
+        snapSize,
+        duration: animationDuration,
+        curve: animationCurve,
+      );
+    }
+
+    placeDetailsSheet.animateTo(
+      maxSize,
+      duration: animationDuration,
+      curve: animationCurve,
     );
   }
 }

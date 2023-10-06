@@ -84,11 +84,12 @@ class _$TextMessageChangedEventCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_TextMessageChangedEventCopyWith<$Res>
+abstract class _$$TextMessageChangedEventImplCopyWith<$Res>
     implements $TextMessageChangedEventCopyWith<$Res> {
-  factory _$$_TextMessageChangedEventCopyWith(_$_TextMessageChangedEvent value,
-          $Res Function(_$_TextMessageChangedEvent) then) =
-      __$$_TextMessageChangedEventCopyWithImpl<$Res>;
+  factory _$$TextMessageChangedEventImplCopyWith(
+          _$TextMessageChangedEventImpl value,
+          $Res Function(_$TextMessageChangedEventImpl) then) =
+      __$$TextMessageChangedEventImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String messageId, ChangedEventType type, TextMessage? data});
@@ -98,12 +99,13 @@ abstract class _$$_TextMessageChangedEventCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TextMessageChangedEventCopyWithImpl<$Res>
+class __$$TextMessageChangedEventImplCopyWithImpl<$Res>
     extends _$TextMessageChangedEventCopyWithImpl<$Res,
-        _$_TextMessageChangedEvent>
-    implements _$$_TextMessageChangedEventCopyWith<$Res> {
-  __$$_TextMessageChangedEventCopyWithImpl(_$_TextMessageChangedEvent _value,
-      $Res Function(_$_TextMessageChangedEvent) _then)
+        _$TextMessageChangedEventImpl>
+    implements _$$TextMessageChangedEventImplCopyWith<$Res> {
+  __$$TextMessageChangedEventImplCopyWithImpl(
+      _$TextMessageChangedEventImpl _value,
+      $Res Function(_$TextMessageChangedEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -113,7 +115,7 @@ class __$$_TextMessageChangedEventCopyWithImpl<$Res>
     Object? type = null,
     Object? data = freezed,
   }) {
-    return _then(_$_TextMessageChangedEvent(
+    return _then(_$TextMessageChangedEventImpl(
       messageId: null == messageId
           ? _value.messageId
           : messageId // ignore: cast_nullable_to_non_nullable
@@ -132,8 +134,8 @@ class __$$_TextMessageChangedEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
-  const _$_TextMessageChangedEvent(
+class _$TextMessageChangedEventImpl implements _TextMessageChangedEvent {
+  const _$TextMessageChangedEventImpl(
       {required this.messageId, required this.type, this.data});
 
   @override
@@ -152,7 +154,7 @@ class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TextMessageChangedEvent &&
+            other is _$TextMessageChangedEventImpl &&
             (identical(other.messageId, messageId) ||
                 other.messageId == messageId) &&
             (identical(other.type, type) || other.type == type) &&
@@ -165,17 +167,16 @@ class _$_TextMessageChangedEvent implements _TextMessageChangedEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TextMessageChangedEventCopyWith<_$_TextMessageChangedEvent>
-      get copyWith =>
-          __$$_TextMessageChangedEventCopyWithImpl<_$_TextMessageChangedEvent>(
-              this, _$identity);
+  _$$TextMessageChangedEventImplCopyWith<_$TextMessageChangedEventImpl>
+      get copyWith => __$$TextMessageChangedEventImplCopyWithImpl<
+          _$TextMessageChangedEventImpl>(this, _$identity);
 }
 
 abstract class _TextMessageChangedEvent implements TextMessageChangedEvent {
   const factory _TextMessageChangedEvent(
       {required final String messageId,
       required final ChangedEventType type,
-      final TextMessage? data}) = _$_TextMessageChangedEvent;
+      final TextMessage? data}) = _$TextMessageChangedEventImpl;
 
   @override
   String get messageId;
@@ -185,6 +186,6 @@ abstract class _TextMessageChangedEvent implements TextMessageChangedEvent {
   TextMessage? get data;
   @override
   @JsonKey(ignore: true)
-  _$$_TextMessageChangedEventCopyWith<_$_TextMessageChangedEvent>
+  _$$TextMessageChangedEventImplCopyWith<_$TextMessageChangedEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

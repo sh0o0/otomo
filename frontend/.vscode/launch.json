@@ -6,6 +6,15 @@
     "inputs": [],
     "configurations": [
         {
+            "name": "Playground",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--debug",
+                "--dart-define-from-file=flavor/playground.json"
+            ]
+        },
+        {
             "name": "Local Debug",
             "request": "launch",
             "type": "dart",

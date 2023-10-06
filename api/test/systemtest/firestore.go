@@ -6,17 +6,19 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
-var (
-	FirestoreClient *firestore.Client
-)
+var firestoreClient *firestore.Client
 
-func initFirestoreClient() error {
+func FirestoreClient() *firestore.Client {
+	if firestoreClient != nil {
+		return firestoreClient
+	}
+
 	ctx := context.Background()
 	client, err := firestore.NewClient(ctx, "dummy-project-id")
 	if err != nil {
-		return err
+		panic(err)
 	}
 
-	FirestoreClient = client
-	return nil
+	firestoreClient = client
+	return firestoreClient
 }

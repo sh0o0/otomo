@@ -107,11 +107,11 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
 }
 
 /// @nodoc
-abstract class _$$_MessageDataCopyWith<$Res>
+abstract class _$$MessageDataImplCopyWith<$Res>
     implements $MessageDataCopyWith<$Res> {
-  factory _$$_MessageDataCopyWith(
-          _$_MessageData value, $Res Function(_$_MessageData) then) =
-      __$$_MessageDataCopyWithImpl<$Res>;
+  factory _$$MessageDataImplCopyWith(
+          _$MessageDataImpl value, $Res Function(_$MessageDataImpl) then) =
+      __$$MessageDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -128,11 +128,11 @@ abstract class _$$_MessageDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MessageDataCopyWithImpl<$Res>
-    extends _$MessageDataCopyWithImpl<$Res, _$_MessageData>
-    implements _$$_MessageDataCopyWith<$Res> {
-  __$$_MessageDataCopyWithImpl(
-      _$_MessageData _value, $Res Function(_$_MessageData) _then)
+class __$$MessageDataImplCopyWithImpl<$Res>
+    extends _$MessageDataCopyWithImpl<$Res, _$MessageDataImpl>
+    implements _$$MessageDataImplCopyWith<$Res> {
+  __$$MessageDataImplCopyWithImpl(
+      _$MessageDataImpl _value, $Res Function(_$MessageDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -146,7 +146,7 @@ class __$$_MessageDataCopyWithImpl<$Res>
     Object? status = null,
     Object? error = freezed,
   }) {
-    return _then(_$_MessageData(
+    return _then(_$MessageDataImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -178,8 +178,8 @@ class __$$_MessageDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_MessageData extends _MessageData {
-  const _$_MessageData(
+class _$MessageDataImpl extends _MessageData {
+  const _$MessageDataImpl(
       {required this.id,
       required this.author,
       required this.sentAt,
@@ -214,7 +214,7 @@ class _$_MessageData extends _MessageData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MessageData &&
+            other is _$MessageDataImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.author, author) || other.author == author) &&
             (identical(other.sentAt, sentAt) || other.sentAt == sentAt) &&
@@ -232,8 +232,8 @@ class _$_MessageData extends _MessageData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MessageDataCopyWith<_$_MessageData> get copyWith =>
-      __$$_MessageDataCopyWithImpl<_$_MessageData>(this, _$identity);
+  _$$MessageDataImplCopyWith<_$MessageDataImpl> get copyWith =>
+      __$$MessageDataImplCopyWithImpl<_$MessageDataImpl>(this, _$identity);
 }
 
 abstract class _MessageData extends MessageData {
@@ -244,7 +244,7 @@ abstract class _MessageData extends MessageData {
       final String? remoteId,
       final bool active,
       required final MessageStatus status,
-      final Object? error}) = _$_MessageData;
+      final Object? error}) = _$MessageDataImpl;
   const _MessageData._() : super._();
 
   @override
@@ -263,7 +263,7 @@ abstract class _MessageData extends MessageData {
   Object? get error;
   @override
   @JsonKey(ignore: true)
-  _$$_MessageDataCopyWith<_$_MessageData> get copyWith =>
+  _$$MessageDataImplCopyWith<_$MessageDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -342,11 +342,11 @@ class _$TextMessageDataCopyWithImpl<$Res, $Val extends TextMessageData>
 }
 
 /// @nodoc
-abstract class _$$_TextMessageDataCopyWith<$Res>
+abstract class _$$TextMessageDataImplCopyWith<$Res>
     implements $TextMessageDataCopyWith<$Res> {
-  factory _$$_TextMessageDataCopyWith(
-          _$_TextMessageData value, $Res Function(_$_TextMessageData) then) =
-      __$$_TextMessageDataCopyWithImpl<$Res>;
+  factory _$$TextMessageDataImplCopyWith(_$TextMessageDataImpl value,
+          $Res Function(_$TextMessageDataImpl) then) =
+      __$$TextMessageDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -359,11 +359,11 @@ abstract class _$$_TextMessageDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TextMessageDataCopyWithImpl<$Res>
-    extends _$TextMessageDataCopyWithImpl<$Res, _$_TextMessageData>
-    implements _$$_TextMessageDataCopyWith<$Res> {
-  __$$_TextMessageDataCopyWithImpl(
-      _$_TextMessageData _value, $Res Function(_$_TextMessageData) _then)
+class __$$TextMessageDataImplCopyWithImpl<$Res>
+    extends _$TextMessageDataCopyWithImpl<$Res, _$TextMessageDataImpl>
+    implements _$$TextMessageDataImplCopyWith<$Res> {
+  __$$TextMessageDataImplCopyWithImpl(
+      _$TextMessageDataImpl _value, $Res Function(_$TextMessageDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -373,7 +373,7 @@ class __$$_TextMessageDataCopyWithImpl<$Res>
     Object? text = null,
     Object? locationAnalysis = null,
   }) {
-    return _then(_$_TextMessageData(
+    return _then(_$TextMessageDataImpl(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -392,8 +392,8 @@ class __$$_TextMessageDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TextMessageData extends _TextMessageData {
-  const _$_TextMessageData(
+class _$TextMessageDataImpl extends _TextMessageData {
+  const _$TextMessageDataImpl(
       {required this.message,
       required this.text,
       this.locationAnalysis = const LocationAnalysis(locations: [])})
@@ -416,7 +416,7 @@ class _$_TextMessageData extends _TextMessageData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TextMessageData &&
+            other is _$TextMessageDataImpl &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.locationAnalysis, locationAnalysis) ||
@@ -429,15 +429,16 @@ class _$_TextMessageData extends _TextMessageData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TextMessageDataCopyWith<_$_TextMessageData> get copyWith =>
-      __$$_TextMessageDataCopyWithImpl<_$_TextMessageData>(this, _$identity);
+  _$$TextMessageDataImplCopyWith<_$TextMessageDataImpl> get copyWith =>
+      __$$TextMessageDataImplCopyWithImpl<_$TextMessageDataImpl>(
+          this, _$identity);
 }
 
 abstract class _TextMessageData extends TextMessageData {
   const factory _TextMessageData(
       {required final MessageData message,
       required final String text,
-      final LocationAnalysis locationAnalysis}) = _$_TextMessageData;
+      final LocationAnalysis locationAnalysis}) = _$TextMessageDataImpl;
   const _TextMessageData._() : super._();
 
   @override
@@ -448,7 +449,7 @@ abstract class _TextMessageData extends TextMessageData {
   LocationAnalysis get locationAnalysis;
   @override
   @JsonKey(ignore: true)
-  _$$_TextMessageDataCopyWith<_$_TextMessageData> get copyWith =>
+  _$$TextMessageDataImplCopyWith<_$TextMessageDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -493,19 +494,21 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
 }
 
 /// @nodoc
-abstract class _$$_AuthorCopyWith<$Res> implements $AuthorCopyWith<$Res> {
-  factory _$$_AuthorCopyWith(_$_Author value, $Res Function(_$_Author) then) =
-      __$$_AuthorCopyWithImpl<$Res>;
+abstract class _$$AuthorImplCopyWith<$Res> implements $AuthorCopyWith<$Res> {
+  factory _$$AuthorImplCopyWith(
+          _$AuthorImpl value, $Res Function(_$AuthorImpl) then) =
+      __$$AuthorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id});
 }
 
 /// @nodoc
-class __$$_AuthorCopyWithImpl<$Res>
-    extends _$AuthorCopyWithImpl<$Res, _$_Author>
-    implements _$$_AuthorCopyWith<$Res> {
-  __$$_AuthorCopyWithImpl(_$_Author _value, $Res Function(_$_Author) _then)
+class __$$AuthorImplCopyWithImpl<$Res>
+    extends _$AuthorCopyWithImpl<$Res, _$AuthorImpl>
+    implements _$$AuthorImplCopyWith<$Res> {
+  __$$AuthorImplCopyWithImpl(
+      _$AuthorImpl _value, $Res Function(_$AuthorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -513,7 +516,7 @@ class __$$_AuthorCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
   }) {
-    return _then(_$_Author(
+    return _then(_$AuthorImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -524,8 +527,8 @@ class __$$_AuthorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Author extends _Author {
-  const _$_Author({required this.id}) : super._();
+class _$AuthorImpl extends _Author {
+  const _$AuthorImpl({required this.id}) : super._();
 
   @override
   final String id;
@@ -539,7 +542,7 @@ class _$_Author extends _Author {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Author &&
+            other is _$AuthorImpl &&
             (identical(other.id, id) || other.id == id));
   }
 
@@ -549,18 +552,18 @@ class _$_Author extends _Author {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AuthorCopyWith<_$_Author> get copyWith =>
-      __$$_AuthorCopyWithImpl<_$_Author>(this, _$identity);
+  _$$AuthorImplCopyWith<_$AuthorImpl> get copyWith =>
+      __$$AuthorImplCopyWithImpl<_$AuthorImpl>(this, _$identity);
 }
 
 abstract class _Author extends Author {
-  const factory _Author({required final String id}) = _$_Author;
+  const factory _Author({required final String id}) = _$AuthorImpl;
   const _Author._() : super._();
 
   @override
   String get id;
   @override
   @JsonKey(ignore: true)
-  _$$_AuthorCopyWith<_$_Author> get copyWith =>
+  _$$AuthorImplCopyWith<_$AuthorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

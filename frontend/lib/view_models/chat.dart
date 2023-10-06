@@ -6,6 +6,7 @@ import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/controllers/pagination.dart';
 import 'package:otomo/controllers/utils.dart';
+import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
@@ -25,7 +26,6 @@ class ChatState with _$ChatState {
   const factory ChatState({
     required Pagination<TextMessageData> messages,
     required RemainingMessageSendCount remainingMessageSendCount,
-    @Default(false) bool hideTextField,
   }) = _ChatState;
 
   static final user = Author.fromRole(Role.user);
@@ -46,8 +46,6 @@ class ChatState with _$ChatState {
 
 @riverpod
 class Chat extends _$Chat {
-  Chat() : super();
-
   final _chatController = getIt<ChatControllerImpl>();
   final StreamController<AnalyzedLocation>
       _focusedAnalyzedLocationStreamController =
@@ -85,7 +83,14 @@ class Chat extends _$Chat {
 
     final messageChangedEventSub = _chatController
         .recentMessageChangedEventsStream(userId: account!.uid)
-        .listen(_onMessageChanged);
+        .listen(
+      _onMessageChanged,
+      onError: (error) {
+        if (error is AppException && error.causeIs(Cause.permissionDenied)) {
+          logger.warn(error);
+        }
+      },
+    );
     final messagingSub = _chatController
         .messagingStream(userId: account.uid)
         .listen(_onBeMassaged, onError: (e) => logger.warn(e.toString()));
@@ -160,8 +165,8 @@ class Chat extends _$Chat {
   }
 
   Future<RemainingMessageSendCount> _getRemainingMessageSendCount() async {
-    final output =
-        await _chatController.getRemainingMessageSendCount(readAccount(ref)!.uid);
+    final output = await _chatController
+        .getRemainingMessageSendCount(readAccount(ref)!.uid);
     return output.remainingMessageSendCount;
   }
 
@@ -254,20 +259,6 @@ class Chat extends _$Chat {
 
   void focusAnalyzedLocation(AnalyzedLocation loc) {
     _focusedAnalyzedLocationStreamController.add(loc);
-  }
-
-  void showTextField() {
-    final value = state.value;
-    if (value == null) return;
-
-    state = AsyncValue.data(value.copyWith(hideTextField: false));
-  }
-
-  void hideTextField() {
-    final value = state.value;
-    if (value == null) return;
-
-    state = AsyncValue.data(value.copyWith(hideTextField: true));
   }
 
   bool _isMessageExist(String id) {

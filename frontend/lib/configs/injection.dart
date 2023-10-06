@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/injection.config.dart';
 import 'package:otomo/controllers/auth.dart';
+import 'package:otomo/controllers/place.dart';
 import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
@@ -81,6 +82,9 @@ abstract class InjectableModule {
 
   @singleton
   SharedPreferences get sharedPreferences => _sharedPreferences;
+  PlaceControllerImpl get placeController => PlaceControllerImpl(
+        appConfig.googleMapApiKey,
+      );
 }
 
 @InjectableInit()

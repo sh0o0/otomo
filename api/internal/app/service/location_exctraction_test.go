@@ -63,7 +63,7 @@ func TestSystem_LocationExtractionService_FromText(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			les := &LocationExtractionService{systemtest.Gpt}
+			les := &LocationExtractionService{systemtest.Gpt()}
 			got, err := les.FromText(tt.args.ctx, tt.args.text)
 			if (err != nil) != tt.wantIsErr {
 				t.Errorf("LocationExtractionService.FromText() error = %v, wantIsErr %v", err, tt.wantIsErr)

@@ -2,8 +2,13 @@ package systemtest
 
 import "github.com/sashabaranov/go-openai"
 
-var Gpt *openai.Client
+var gpt *openai.Client
 
-func initGpt() {
-	Gpt = openai.NewClient(openaiApiKey)
+func Gpt() *openai.Client {
+	if gpt != nil {
+		return gpt
+	}
+
+	gpt = openai.NewClient(openaiApiKey)
+	return gpt
 }

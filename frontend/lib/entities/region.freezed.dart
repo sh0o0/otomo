@@ -80,9 +80,10 @@ class _$RegionCopyWithImpl<$Res, $Val extends Region>
 }
 
 /// @nodoc
-abstract class _$$_RegionCopyWith<$Res> implements $RegionCopyWith<$Res> {
-  factory _$$_RegionCopyWith(_$_Region value, $Res Function(_$_Region) then) =
-      __$$_RegionCopyWithImpl<$Res>;
+abstract class _$$RegionImplCopyWith<$Res> implements $RegionCopyWith<$Res> {
+  factory _$$RegionImplCopyWith(
+          _$RegionImpl value, $Res Function(_$RegionImpl) then) =
+      __$$RegionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({AppLatLng northeast, AppLatLng southwest});
@@ -94,10 +95,11 @@ abstract class _$$_RegionCopyWith<$Res> implements $RegionCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_RegionCopyWithImpl<$Res>
-    extends _$RegionCopyWithImpl<$Res, _$_Region>
-    implements _$$_RegionCopyWith<$Res> {
-  __$$_RegionCopyWithImpl(_$_Region _value, $Res Function(_$_Region) _then)
+class __$$RegionImplCopyWithImpl<$Res>
+    extends _$RegionCopyWithImpl<$Res, _$RegionImpl>
+    implements _$$RegionImplCopyWith<$Res> {
+  __$$RegionImplCopyWithImpl(
+      _$RegionImpl _value, $Res Function(_$RegionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +108,7 @@ class __$$_RegionCopyWithImpl<$Res>
     Object? northeast = null,
     Object? southwest = null,
   }) {
-    return _then(_$_Region(
+    return _then(_$RegionImpl(
       northeast: null == northeast
           ? _value.northeast
           : northeast // ignore: cast_nullable_to_non_nullable
@@ -121,8 +123,8 @@ class __$$_RegionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Region extends _Region {
-  const _$_Region({required this.northeast, required this.southwest})
+class _$RegionImpl extends _Region {
+  const _$RegionImpl({required this.northeast, required this.southwest})
       : super._();
 
   @override
@@ -139,7 +141,7 @@ class _$_Region extends _Region {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Region &&
+            other is _$RegionImpl &&
             (identical(other.northeast, northeast) ||
                 other.northeast == northeast) &&
             (identical(other.southwest, southwest) ||
@@ -152,14 +154,14 @@ class _$_Region extends _Region {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RegionCopyWith<_$_Region> get copyWith =>
-      __$$_RegionCopyWithImpl<_$_Region>(this, _$identity);
+  _$$RegionImplCopyWith<_$RegionImpl> get copyWith =>
+      __$$RegionImplCopyWithImpl<_$RegionImpl>(this, _$identity);
 }
 
 abstract class _Region extends Region {
   const factory _Region(
       {required final AppLatLng northeast,
-      required final AppLatLng southwest}) = _$_Region;
+      required final AppLatLng southwest}) = _$RegionImpl;
   const _Region._() : super._();
 
   @override
@@ -168,6 +170,6 @@ abstract class _Region extends Region {
   AppLatLng get southwest;
   @override
   @JsonKey(ignore: true)
-  _$$_RegionCopyWith<_$_Region> get copyWith =>
+  _$$RegionImplCopyWith<_$RegionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -52,7 +52,7 @@ class App extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
-      afterBuildCallback(() => _initDynamicLinks(ref));
+    FlutterUtils.afterBuildCallback(() => _initDynamicLinks(ref));
       return () {};
     }, const []);
 
