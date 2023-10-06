@@ -42,16 +42,17 @@ class _PlaceSliverAppBarState extends State<PlaceSliverAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    const actionsWidth = 100;
+    const actionsWidth = 96;
+    const titlePadding = 8.0;
     final size = MediaQuery.of(context).size;
-    final titleWidth = size.width - actionsWidth;
+    final titleWidth = size.width - actionsWidth - titlePadding;
 
     final textPainter = TextPainter(
       text: TextSpan(text: widget.name, style: HeadlineMedium.styleOf(context)),
       textAlign: TextAlign.start,
       textDirection: TextDirection.ltr,
-    )..layout(minWidth: 0, maxWidth: titleWidth - 24);
-    final titleHeight = textPainter.height + 12;
+    )..layout(minWidth: 0, maxWidth: titleWidth - 20);
+    final titleHeight = textPainter.height + 16;
 
     return MediaQuery.removePadding(
       context: context,
@@ -66,10 +67,7 @@ class _PlaceSliverAppBarState extends State<PlaceSliverAppBar> {
             alignment: Alignment.topLeft,
             child: LayoutBuilder(builder: (context, constraints) {
               return ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: size.width - actionsWidth,
-                  maxHeight: titleWidth,
-                ),
+                constraints: BoxConstraints(maxWidth: titleWidth),
                 child: HeadlineMedium(
                   widget.name,
                   overflow: constraints.maxHeight == 40
