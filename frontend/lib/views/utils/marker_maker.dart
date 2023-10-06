@@ -7,39 +7,39 @@ import 'package:otomo/views/utils/converter.dart';
 final class MarkerMaker {
   MarkerMaker._();
 
-  static List<Marker> fromAnalyzedLocationList(
-          List<AnalyzedLocation> locations) =>
-      locations.map(fromAnalyzedLocation).toList();
+  static List<Marker> fromExtractedPlaceList(
+          List<ExtractedPlace> places) =>
+      places.map(fromExtractedPlace).toList();
 
-  static Marker fromAnalyzedLocation(
-    AnalyzedLocation loc, {
+  static Marker fromExtractedPlace(
+    ExtractedPlace place, {
     VoidCallback? onTap,
   }) =>
       Marker(
-        markerId: MarkerId(loc.location.googlePlaceId),
+        markerId: MarkerId(place.geocodedPlace.googlePlaceId),
         position: ViewConverter.I.latLng
-            .entityToViewForGoogle(loc.location.geometry.latLng),
+            .entityToViewForGoogle(place.geocodedPlace.latLng),
         onTap: onTap,
         infoWindow: InfoWindow(
-          title: loc.text,
-          snippet: loc.location.geometry.latLng.toString(),
+          title: place.text,
+          snippet: place.geocodedPlace.latLng.toString(),
         ),
       );
 
-  static Future<Marker> fromAnalyzedLocationWithLabel({
+  static Future<Marker> fromExtractedPlaceWithLabel({
     required BuildContext context,
-    required AnalyzedLocation loc,
+    required ExtractedPlace place,
     VoidCallback? onTap,
   }) async {
     final theme = Theme.of(context);
     return Marker(
-      markerId: MarkerId(loc.location.googlePlaceId),
+      markerId: MarkerId(place.geocodedPlace.googlePlaceId),
       position: ViewConverter.I.latLng.entityToViewForGoogle(
-        loc.location.geometry.latLng,
+        place.geocodedPlace.latLng,
       ),
       onTap: onTap,
       icon: await createCustomMarkerBitmap(
-        loc.text,
+        place.text,
         backgroundColor: theme.colorScheme.secondary,
         textStyle: TextStyle(
           fontSize: 40,

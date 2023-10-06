@@ -2,17 +2,6 @@ syntax = "proto3";
 
 option go_package = ".;grpcgen";
 
-message Location {
-  string google_place_id = 1;
-  string address = 2;
-  repeated string types = 3;
-  Geometry geometry = 4;
-}
-
-message Geometry {
-  LatLng lat_lng = 1;
-}
-
 message LatLng {
   double latitude = 1;
   double longitude = 2;

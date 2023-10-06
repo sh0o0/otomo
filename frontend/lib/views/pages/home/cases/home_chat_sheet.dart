@@ -67,8 +67,8 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
       decoration: BoxDecoration(
           color: theme.colorScheme.background,
           borderRadius: BorderRadius.circular(16)),
-      child: Text(textMessage.locationAnalysis.hasError
-          ? ErrorLibrary.messageLocationAnalysis
+      child: Text(textMessage.placeExtraction.hasError
+          ? ErrorLibrary.failedExtractingPlace
           : ErrorLibrary.fromAny(textMessage.message.error!)),
     );
   }
@@ -132,7 +132,7 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
                   message,
                   messages: state.value?.messages.items ?? [],
                 ),
-                onLocationTextTap: (loc) => notifier.focusAnalyzedLocation(loc),
+                onPlaceTextTap: (place) => notifier.focusPlace(place),
                 customBottomWidget: Visibility(
                   visible: showTextField,
                   child: Animate(

@@ -1,20 +1,15 @@
 package svc
 
-import "context"
+import (
+	"context"
+	"otomo/internal/app/model"
+)
 
-type ExtractedLocation struct {
-	Name    string           `json:"name"`
-	Address ExtractedAddress `json:"address"`
+type PlaceExtractionResult struct {
+	Name    string               `json:"name"`
+	Address model.GuessedAddress `json:"address"`
 }
 
-type ExtractedAddress struct {
-	Street  string `json:"street"`
-	City    string `json:"city"`
-	State   string `json:"state"`
-	Country string `json:"country"`
-	Zip     string `json:"zip"`
-}
-
-type LocationExtractionService interface {
-	FromText(ctx context.Context, text string) ([]ExtractedLocation, error)
+type PlaceExtractionService interface {
+	FromText(ctx context.Context, text string) ([]*PlaceExtractionResult, error)
 }

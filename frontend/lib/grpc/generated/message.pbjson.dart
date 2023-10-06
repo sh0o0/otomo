@@ -36,7 +36,7 @@ const Message$json = {
     {'1': 'role', '3': 3, '4': 1, '5': 14, '6': '.Role', '10': 'role'},
     {'1': 'sent_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sentAt'},
     {'1': 'client_id', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
-    {'1': 'location_analysis', '3': 6, '4': 1, '5': 11, '6': '.LocationAnalysis', '10': 'locationAnalysis'},
+    {'1': 'place_extraction', '3': 6, '4': 1, '5': 11, '6': '.PlaceExtraction', '10': 'placeExtraction'},
   ],
 };
 
@@ -45,8 +45,53 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'CgdNZXNzYWdlEg4KAmlkGAEgASgJUgJpZBISCgR0ZXh0GAIgASgJUgR0ZXh0EhkKBHJvbGUYAy'
     'ABKA4yBS5Sb2xlUgRyb2xlEjMKB3NlbnRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGlt'
     'ZXN0YW1wUgZzZW50QXQSOQoJY2xpZW50X2lkGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cm'
-    'luZ1ZhbHVlUghjbGllbnRJZBI+ChFsb2NhdGlvbl9hbmFseXNpcxgGIAEoCzIRLkxvY2F0aW9u'
-    'QW5hbHlzaXNSEGxvY2F0aW9uQW5hbHlzaXM=');
+    'luZ1ZhbHVlUghjbGllbnRJZBI7ChBwbGFjZV9leHRyYWN0aW9uGAYgASgLMhAuUGxhY2VFeHRy'
+    'YWN0aW9uUg9wbGFjZUV4dHJhY3Rpb24=');
+
+@$core.Deprecated('Use placeExtractionDescriptor instead')
+const PlaceExtraction$json = {
+  '1': 'PlaceExtraction',
+  '2': [
+    {'1': 'places', '3': 1, '4': 3, '5': 11, '6': '.ExtractedPlace', '10': 'places'},
+    {'1': 'processed_at', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'processedAt'},
+    {'1': 'error', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'error'},
+  ],
+};
+
+/// Descriptor for `PlaceExtraction`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List placeExtractionDescriptor = $convert.base64Decode(
+    'Cg9QbGFjZUV4dHJhY3Rpb24SJwoGcGxhY2VzGAEgAygLMg8uRXh0cmFjdGVkUGxhY2VSBnBsYW'
+    'NlcxI9Cgxwcm9jZXNzZWRfYXQYAiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgtw'
+    'cm9jZXNzZWRBdBIyCgVlcnJvchgDIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZV'
+    'IFZXJyb3I=');
+
+@$core.Deprecated('Use extractedPlaceDescriptor instead')
+const ExtractedPlace$json = {
+  '1': 'ExtractedPlace',
+  '2': [
+    {'1': 'text', '3': 1, '4': 1, '5': 9, '10': 'text'},
+    {'1': 'geocoded_place', '3': 2, '4': 1, '5': 11, '6': '.GeocodedPlace', '10': 'geocodedPlace'},
+  ],
+};
+
+/// Descriptor for `ExtractedPlace`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List extractedPlaceDescriptor = $convert.base64Decode(
+    'Cg5FeHRyYWN0ZWRQbGFjZRISCgR0ZXh0GAEgASgJUgR0ZXh0EjUKDmdlb2NvZGVkX3BsYWNlGA'
+    'IgASgLMg4uR2VvY29kZWRQbGFjZVINZ2VvY29kZWRQbGFjZQ==');
+
+@$core.Deprecated('Use geocodedPlaceDescriptor instead')
+const GeocodedPlace$json = {
+  '1': 'GeocodedPlace',
+  '2': [
+    {'1': 'google_place_id', '3': 1, '4': 1, '5': 9, '10': 'googlePlaceId'},
+    {'1': 'lat_lng', '3': 2, '4': 1, '5': 11, '6': '.LatLng', '10': 'latLng'},
+  ],
+};
+
+/// Descriptor for `GeocodedPlace`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List geocodedPlaceDescriptor = $convert.base64Decode(
+    'Cg1HZW9jb2RlZFBsYWNlEiYKD2dvb2dsZV9wbGFjZV9pZBgBIAEoCVINZ29vZ2xlUGxhY2VJZB'
+    'IgCgdsYXRfbG5nGAIgASgLMgcuTGF0TG5nUgZsYXRMbmc=');
 
 @$core.Deprecated('Use messageChunkDescriptor instead')
 const MessageChunk$json = {
@@ -68,35 +113,4 @@ final $typed_data.Uint8List messageChunkDescriptor = $convert.base64Decode(
     'Lmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSBnNlbnRBdBI5CgljbGllbnRfaWQYBSABKAsyHC'
     '5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWVSCGNsaWVudElkEhcKB2lzX2xhc3QYBiABKAhS'
     'BmlzTGFzdA==');
-
-@$core.Deprecated('Use locationAnalysisDescriptor instead')
-const LocationAnalysis$json = {
-  '1': 'LocationAnalysis',
-  '2': [
-    {'1': 'locations', '3': 1, '4': 3, '5': 11, '6': '.AnalyzedLocation', '10': 'locations'},
-    {'1': 'analyzed_at', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'analyzedAt'},
-    {'1': 'error', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'error'},
-  ],
-};
-
-/// Descriptor for `LocationAnalysis`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List locationAnalysisDescriptor = $convert.base64Decode(
-    'ChBMb2NhdGlvbkFuYWx5c2lzEi8KCWxvY2F0aW9ucxgBIAMoCzIRLkFuYWx5emVkTG9jYXRpb2'
-    '5SCWxvY2F0aW9ucxI7CgthbmFseXplZF9hdBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1l'
-    'c3RhbXBSCmFuYWx5emVkQXQSMgoFZXJyb3IYAyABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW'
-    '5nVmFsdWVSBWVycm9y');
-
-@$core.Deprecated('Use analyzedLocationDescriptor instead')
-const AnalyzedLocation$json = {
-  '1': 'AnalyzedLocation',
-  '2': [
-    {'1': 'text', '3': 1, '4': 1, '5': 9, '10': 'text'},
-    {'1': 'location', '3': 2, '4': 1, '5': 11, '6': '.Location', '10': 'location'},
-  ],
-};
-
-/// Descriptor for `AnalyzedLocation`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List analyzedLocationDescriptor = $convert.base64Decode(
-    'ChBBbmFseXplZExvY2F0aW9uEhIKBHRleHQYASABKAlSBHRleHQSJQoIbG9jYXRpb24YAiABKA'
-    'syCS5Mb2NhdGlvblIIbG9jYXRpb24=');
 

@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/location.dart';
 import 'package:otomo/entities/lat_lng.dart';
-import 'package:otomo/entities/location.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/position.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
@@ -18,14 +17,14 @@ part 'map.g.dart';
 class MapState with _$MapState {
   const MapState._();
   const factory MapState({
-    required List<AnalyzedLocation> activeAnalyzedLocations,
-    Location? focusingLocation,
+    required List<ExtractedPlace> activePlaces,
+    ExtractedPlace? focusingPlace,
   }) = _MapState;
 
-  AppLatLngList get activeLocationLatLngList {
-    return AppLatLngList(activeAnalyzedLocations
-        .map((e) => e.location.geometry.latLng)
-        .toList());
+  AppLatLngList get activePlacesLatLngList {
+    return AppLatLngList(
+      activePlaces.map((e) => e.geocodedPlace.latLng).toList(),
+    );
   }
 }
 
@@ -35,42 +34,33 @@ class Map extends _$Map {
 
   @override
   MapState build() {
-    final focusedLocationStreamSub =
-        focusedLocationStream.listen((focusedLocation) {
-      state = state.copyWith(focusingLocation: focusedLocation.location);
-    });
-
-    ref.onDispose(() {
-      focusedLocationStreamSub.cancel();
-    });
-
-    final activeAnalyzedLocations = ref.watch(
-      chatProvider.select((v) => v.value?.activeAnalyzedLocations),
+    final activePlaces = ref.watch(
+      chatProvider.select((v) => v.value?.activePlaces),
     );
 
     return MapState(
-      activeAnalyzedLocations: activeAnalyzedLocations ?? [],
+      activePlaces: activePlaces ?? [],
     );
   }
 
   final LocationControllerImpl _locationController =
       getIt<LocationControllerImpl>();
-  final StreamController<Location> _focusedPlaceStreamController =
-      StreamController<Location>.broadcast();
+  final StreamController<ExtractedPlace> _focusedPlaceStreamController =
+      StreamController<ExtractedPlace>.broadcast();
 
-  Stream<AnalyzedLocation> get focusedLocationStream =>
-      ref.read(chatProvider.notifier).focusedAnalyzedLocationStream;
+  Stream<ExtractedPlace> get focusedTextOfPlaceStream =>
+      ref.read(chatProvider.notifier).focusedPlaceStream;
   Stream<TextMessageData> get activatedTextMessageStream =>
       ref.read(chatProvider.notifier).activatedTextMessageStream;
-  Stream<Location> get focusedPlaceStream =>
+  Stream<ExtractedPlace> get focusedPlaceStream =>
       _focusedPlaceStreamController.stream;
 
   Future<Position> getCurrentPosition() {
     return _locationController.determinePosition();
   }
 
-  void focusPlace(Location location) {
-    _focusedPlaceStreamController.add(location);
-    state = state.copyWith(focusingLocation: location);
+  void focusPlace(ExtractedPlace place) {
+    state = state.copyWith(focusingPlace: place);
+    _focusedPlaceStreamController.add(place);
   }
 }

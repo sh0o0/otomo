@@ -42,7 +42,7 @@ abstract class ErrorLibrary {
       case StatusCode.resourceExhausted:
         if (detail == null) return unknown;
         if (detail is ErrorInfo) {
-          if (detail.domain == Domain.message.name) return messageSendLimit;
+          if (detail.domain == Domain.message.name) return limitSendMessage;
         }
         return network;
       default:
@@ -73,6 +73,6 @@ abstract class ErrorLibrary {
 
   // app
   static const String requiresRecentLogin = '再ログインが必要です。';
-  static const String messageLocationAnalysis = '地名の解析に失敗しました。';
-  static const String messageSendLimit = 'メッセージの送信回数が上限に達しました。';
+  static const String failedExtractingPlace = '地名の解析に失敗しました。';
+  static const String limitSendMessage = 'メッセージの送信回数が上限に達しました。';
 }

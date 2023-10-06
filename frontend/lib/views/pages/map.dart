@@ -38,29 +38,29 @@ class _MapState extends ConsumerState<MapPage> {
     _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 14);
   }
 
-  Future<void> _addMarker(AnalyzedLocation loc, {bool notify = true}) async {
+  Future<void> _addMarker(ExtractedPlace place, {bool notify = true}) async {
     final notifier = ref.read(mapProvider.notifier);
-    _markers.add(await MarkerMaker.fromAnalyzedLocationWithLabel(
+    _markers.add(await MarkerMaker.fromExtractedPlaceWithLabel(
       context: context,
-      loc: loc,
-      onTap: () => notifier.focusPlace(loc.location),
+      place: place,
+      onTap: () => notifier.focusPlace(place),
     ));
     if (notify) setState(() {});
   }
 
-  void _setMarkers(List<AnalyzedLocation> locs) async {
+  void _setMarkers(List<ExtractedPlace> places) async {
     _markers = {};
-    for (final loc in locs) {
-      await _addMarker(loc, notify: false);
+    for (final place in places) {
+      await _addMarker(place, notify: false);
     }
     setState(() {});
   }
 
-  void _onLocationFocused(AnalyzedLocation loc) {
+  void _onPlaceFocused(ExtractedPlace place) {
     if (!_canUseMapController) return;
-    _addMarker(loc);
+    _addMarker(place);
     _mapController!.moveWithLatLng(
-      latLng: loc.location.geometry.latLng,
+      latLng: place.geocodedPlace.latLng,
       zoom: 15,
     );
   }
@@ -69,8 +69,8 @@ class _MapState extends ConsumerState<MapPage> {
     if (!_canUseMapController) return;
 
     final latLngList = AppLatLngList(
-      textMsg.locationAnalysis.locations
-          .map((e) => e.location.geometry.latLng)
+      textMsg.placeExtraction.places
+          .map((e) => e.geocodedPlace.latLng)
           .toList(),
     );
     final region = latLngList.edge();
@@ -82,20 +82,20 @@ class _MapState extends ConsumerState<MapPage> {
   @override
   Widget build(BuildContext context) {
     ref.listen(
-      mapProvider.select((value) => value.activeAnalyzedLocations),
+      mapProvider.select((value) => value.activePlaces),
       (prev, next) => _setMarkers(next),
     );
 
     final notifier = ref.read(mapProvider.notifier);
 
     useEffect(() {
-      final focusedAnalyzedLocationStreamSub =
-          notifier.focusedLocationStream.listen(_onLocationFocused);
+      final focusedTextOfPlaceStreamSub =
+          notifier.focusedTextOfPlaceStream.listen(_onPlaceFocused);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen(_onTextMsgActivated);
 
       return () {
-        focusedAnalyzedLocationStreamSub.cancel();
+        focusedTextOfPlaceStreamSub.cancel();
         activatedTextMessageStreamSub.cancel();
       };
     }, const []);

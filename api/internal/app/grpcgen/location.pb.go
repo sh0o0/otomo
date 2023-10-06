@@ -20,124 +20,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Location struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	GooglePlaceId string    `protobuf:"bytes,1,opt,name=google_place_id,json=googlePlaceId,proto3" json:"google_place_id,omitempty"`
-	Address       string    `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
-	Types         []string  `protobuf:"bytes,3,rep,name=types,proto3" json:"types,omitempty"`
-	Geometry      *Geometry `protobuf:"bytes,4,opt,name=geometry,proto3" json:"geometry,omitempty"`
-}
-
-func (x *Location) Reset() {
-	*x = Location{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_location_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Location) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Location) ProtoMessage() {}
-
-func (x *Location) ProtoReflect() protoreflect.Message {
-	mi := &file_location_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Location.ProtoReflect.Descriptor instead.
-func (*Location) Descriptor() ([]byte, []int) {
-	return file_location_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *Location) GetGooglePlaceId() string {
-	if x != nil {
-		return x.GooglePlaceId
-	}
-	return ""
-}
-
-func (x *Location) GetAddress() string {
-	if x != nil {
-		return x.Address
-	}
-	return ""
-}
-
-func (x *Location) GetTypes() []string {
-	if x != nil {
-		return x.Types
-	}
-	return nil
-}
-
-func (x *Location) GetGeometry() *Geometry {
-	if x != nil {
-		return x.Geometry
-	}
-	return nil
-}
-
-type Geometry struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	LatLng *LatLng `protobuf:"bytes,1,opt,name=lat_lng,json=latLng,proto3" json:"lat_lng,omitempty"`
-}
-
-func (x *Geometry) Reset() {
-	*x = Geometry{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_location_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Geometry) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Geometry) ProtoMessage() {}
-
-func (x *Geometry) ProtoReflect() protoreflect.Message {
-	mi := &file_location_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Geometry.ProtoReflect.Descriptor instead.
-func (*Geometry) Descriptor() ([]byte, []int) {
-	return file_location_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *Geometry) GetLatLng() *LatLng {
-	if x != nil {
-		return x.LatLng
-	}
-	return nil
-}
-
 type LatLng struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -150,7 +32,7 @@ type LatLng struct {
 func (x *LatLng) Reset() {
 	*x = LatLng{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_location_proto_msgTypes[2]
+		mi := &file_location_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -163,7 +45,7 @@ func (x *LatLng) String() string {
 func (*LatLng) ProtoMessage() {}
 
 func (x *LatLng) ProtoReflect() protoreflect.Message {
-	mi := &file_location_proto_msgTypes[2]
+	mi := &file_location_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -176,7 +58,7 @@ func (x *LatLng) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LatLng.ProtoReflect.Descriptor instead.
 func (*LatLng) Descriptor() ([]byte, []int) {
-	return file_location_proto_rawDescGZIP(), []int{2}
+	return file_location_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *LatLng) GetLatitude() float64 {
@@ -197,24 +79,12 @@ var File_location_proto protoreflect.FileDescriptor
 
 var file_location_proto_rawDesc = []byte{
 	0x0a, 0x0e, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x22, 0x89, 0x01, 0x0a, 0x08, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x26, 0x0a,
-	0x0f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x5f, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x5f, 0x69, 0x64,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x50, 0x6c,
-	0x61, 0x63, 0x65, 0x49, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12,
-	0x14, 0x0a, 0x05, 0x74, 0x79, 0x70, 0x65, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05,
-	0x74, 0x79, 0x70, 0x65, 0x73, 0x12, 0x25, 0x0a, 0x08, 0x67, 0x65, 0x6f, 0x6d, 0x65, 0x74, 0x72,
-	0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x47, 0x65, 0x6f, 0x6d, 0x65, 0x74,
-	0x72, 0x79, 0x52, 0x08, 0x67, 0x65, 0x6f, 0x6d, 0x65, 0x74, 0x72, 0x79, 0x22, 0x2c, 0x0a, 0x08,
-	0x47, 0x65, 0x6f, 0x6d, 0x65, 0x74, 0x72, 0x79, 0x12, 0x20, 0x0a, 0x07, 0x6c, 0x61, 0x74, 0x5f,
-	0x6c, 0x6e, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e, 0x4c, 0x61, 0x74, 0x4c,
-	0x6e, 0x67, 0x52, 0x06, 0x6c, 0x61, 0x74, 0x4c, 0x6e, 0x67, 0x22, 0x42, 0x0a, 0x06, 0x4c, 0x61,
-	0x74, 0x4c, 0x6e, 0x67, 0x12, 0x1a, 0x0a, 0x08, 0x6c, 0x61, 0x74, 0x69, 0x74, 0x75, 0x64, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x01, 0x52, 0x08, 0x6c, 0x61, 0x74, 0x69, 0x74, 0x75, 0x64, 0x65,
-	0x12, 0x1c, 0x0a, 0x09, 0x6c, 0x6f, 0x6e, 0x67, 0x69, 0x74, 0x75, 0x64, 0x65, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x01, 0x52, 0x09, 0x6c, 0x6f, 0x6e, 0x67, 0x69, 0x74, 0x75, 0x64, 0x65, 0x42, 0x0b,
-	0x5a, 0x09, 0x2e, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x67, 0x65, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x22, 0x42, 0x0a, 0x06, 0x4c, 0x61, 0x74, 0x4c, 0x6e, 0x67, 0x12, 0x1a, 0x0a, 0x08, 0x6c, 0x61,
+	0x74, 0x69, 0x74, 0x75, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x01, 0x52, 0x08, 0x6c, 0x61,
+	0x74, 0x69, 0x74, 0x75, 0x64, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x6c, 0x6f, 0x6e, 0x67, 0x69, 0x74,
+	0x75, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x01, 0x52, 0x09, 0x6c, 0x6f, 0x6e, 0x67, 0x69,
+	0x74, 0x75, 0x64, 0x65, 0x42, 0x0b, 0x5a, 0x09, 0x2e, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x67, 0x65,
+	0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -229,20 +99,16 @@ func file_location_proto_rawDescGZIP() []byte {
 	return file_location_proto_rawDescData
 }
 
-var file_location_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_location_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_location_proto_goTypes = []interface{}{
-	(*Location)(nil), // 0: Location
-	(*Geometry)(nil), // 1: Geometry
-	(*LatLng)(nil),   // 2: LatLng
+	(*LatLng)(nil), // 0: LatLng
 }
 var file_location_proto_depIdxs = []int32{
-	1, // 0: Location.geometry:type_name -> Geometry
-	2, // 1: Geometry.lat_lng:type_name -> LatLng
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	0, // [0:0] is the sub-list for method output_type
+	0, // [0:0] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_location_proto_init() }
@@ -252,30 +118,6 @@ func file_location_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_location_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Location); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_location_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Geometry); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_location_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LatLng); i {
 			case 0:
 				return &v.state
@@ -294,7 +136,7 @@ func file_location_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_location_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

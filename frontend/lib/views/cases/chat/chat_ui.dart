@@ -19,7 +19,7 @@ class ChatUI extends StatelessWidget {
     this.emptyState,
     this.onEndReached,
     this.onMessageTap,
-    this.onLocationTextTap,
+    this.onPlaceTextTap,
     this.inputOptions = const ui.InputOptions(),
     this.onBackgroundTap,
     this.customBottomWidget,
@@ -34,7 +34,7 @@ class ChatUI extends StatelessWidget {
   final Widget? emptyState;
   final Future<void> Function()? onEndReached;
   final void Function(BuildContext context, MessageData message)? onMessageTap;
-  final void Function(AnalyzedLocation)? onLocationTextTap;
+  final void Function(ExtractedPlace)? onPlaceTextTap;
   final ui.InputOptions inputOptions;
   final VoidCallback? onBackgroundTap;
   final Widget? customBottomWidget;
@@ -125,12 +125,12 @@ class ChatUI extends StatelessWidget {
   List<MatchText> _makeTextMatchers(BuildContext context, String messageId) {
     final theme = Theme.of(context);
     final message = messages.firstWhere((e) => e.message.id == messageId);
-    final locationAnalysis = message.locationAnalysis;
+    final placeEx = message.placeExtraction;
 
-    return locationAnalysis.locations
+    return placeEx.places
         .map((e) => MatchText(
               pattern: e.text,
-              onTap: (text) => onLocationTextTap?.call(e),
+              onTap: (text) => onPlaceTextTap?.call(e),
               renderWidget: ({required pattern, required text}) {
                 return RichText(
                   text: TextSpan(

@@ -64,31 +64,28 @@ class _HomePageState extends ConsumerState<HomePage> {
       final notifier = ref.read(homeProvider.notifier);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen((textMsg) {
-        if (textMsg.locationAnalysis.locations.isEmpty) return;
+        if (textMsg.placeExtraction.places.isEmpty) return;
         FlutterUtils.afterBuildCallback(() {
           _homeController.moveChatSheetToSnap();
         });
       });
-      final focusedPlaceStreamSub =
-          notifier.focusedPlaceStream.listen((location) {
-        FlutterUtils.afterBuildCallback(() async {
+      final focusedPlaceStream = notifier.focusedPlaceStream.listen((place) {
+        FlutterUtils.afterBuildCallback(() {
           _homeController.openPlaceDetailsSheet();
         });
       });
 
-      final focusedAnalyzedLocationStreamSub = ref
-          .read(homeProvider.notifier)
-          .focusedAnalyzedLocationStream
-          .listen((loc) {
-        FlutterUtils.afterBuildCallback(() {
+      final focusedTextOfPlaceStream =
+          notifier.focusedTextOfPlaceStream.listen((place) {
+        FlutterUtils.afterBuildCallback(() async {
           _homeController.moveChatSheetToSnap();
         });
       });
 
       return () {
         activatedTextMessageStreamSub.cancel();
-        focusedPlaceStreamSub.cancel();
-        focusedAnalyzedLocationStreamSub.cancel();
+        focusedPlaceStream.cancel();
+        focusedTextOfPlaceStream.cancel();
       };
     }, const []);
 

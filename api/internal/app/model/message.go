@@ -41,11 +41,11 @@ type ExtractedPlace struct {
 }
 
 type GuessedAddress struct {
-	Street  string `firestore:"street"`
-	City    string `firestore:"city"`
-	State   string `firestore:"state"`
-	Country string `firestore:"country"`
-	Zip     string `firestore:"zip"`
+	Street  string `firestore:"street" json:"street"`
+	City    string `firestore:"city" json:"city"`
+	State   string `firestore:"state" json:"state"`
+	Country string `firestore:"country" json:"country"`
+	Zip     string `firestore:"zip" json:"zip"`
 }
 
 type GeocodedPlace struct {

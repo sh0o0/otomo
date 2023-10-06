@@ -1,4 +1,3 @@
-import 'package:otomo/entities/location.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
@@ -11,10 +10,10 @@ part 'home.g.dart';
 class Home extends _$Home {
   Stream<TextMessageData> get activatedTextMessageStream =>
       ref.read(chatProvider.notifier).activatedTextMessageStream;
-  Stream<Location> get focusedPlaceStream =>
+  Stream<ExtractedPlace> get focusedPlaceStream =>
       ref.read(mapProvider.notifier).focusedPlaceStream;
-  Stream<AnalyzedLocation> get focusedAnalyzedLocationStream =>
-      ref.read(chatProvider.notifier).focusedAnalyzedLocationStream;
+  Stream<ExtractedPlace> get focusedTextOfPlaceStream =>
+      ref.read(chatProvider.notifier).focusedPlaceStream;
 
   @override
   void build() {}

@@ -11,7 +11,29 @@ message Message {
     Role role = 3;
     google.protobuf.Timestamp sent_at = 4;
     google.protobuf.StringValue client_id = 5;
-    LocationAnalysis location_analysis = 6;
+    PlaceExtraction place_extraction = 6;
+}
+
+enum Role {
+    UNKNOWN = 0;
+    USER = 1;
+    OTOMO = 2;
+}
+
+message PlaceExtraction {
+    repeated ExtractedPlace places = 1;
+    google.protobuf.Timestamp processed_at = 2;
+    google.protobuf.StringValue error = 3;
+}
+
+message ExtractedPlace {
+    string text = 1;
+    GeocodedPlace geocoded_place = 2;
+}
+
+message GeocodedPlace {
+    string google_place_id = 1;
+    LatLng lat_lng = 2;
 }
 
 message MessageChunk {
@@ -21,21 +43,4 @@ message MessageChunk {
     google.protobuf.Timestamp sent_at = 4;
     google.protobuf.StringValue client_id = 5;
     bool is_last = 6;
-}
-
-message LocationAnalysis {
-    repeated AnalyzedLocation locations = 1;
-    google.protobuf.Timestamp analyzed_at = 2;
-    google.protobuf.StringValue error = 3;
-}
-
-message AnalyzedLocation {
-    string text = 1;
-    Location location = 2;
-}
-
-enum Role {
-    UNKNOWN = 0;
-    USER = 1;
-    OTOMO = 2;
 }

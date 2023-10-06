@@ -2,11 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/date.dart';
 import 'package:otomo/entities/lat_lng.dart';
-import 'package:otomo/entities/location.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_send_count.dart';
-import 'package:otomo/grpc/generated/location.pb.dart' as grpc_loc;
 import 'package:otomo/grpc/generated/message.pb.dart' as grpc_msg;
+import 'package:otomo/grpc/generated/location.pb.dart' as grpc_loc;
 import 'package:otomo/grpc/generated/message_send_count.pb.dart' as grpc_count;
 import 'package:otomo/grpc/generated/date.pb.dart' as grpc_date;
 
@@ -24,7 +23,7 @@ class ControllerConverter {
 
 class _Message {
   final _role = _Role();
-  final _locationAnalysis = _LocationAnalysis();
+  final _placeExtraction = _PlaceExtraction();
 
   List<TextMessage> grpcToEntityList(List<grpc_msg.Message> messages) {
     return messages.map((e) => grpcToEntity(e)).toList();
@@ -37,8 +36,7 @@ class _Message {
       role: _role.grpcToEntity(message.role),
       sentAt: message.sentAt.toDateTime(),
       clientId: message.clientId.hasValue() ? message.clientId.value : null,
-      locationAnalysis:
-          _locationAnalysis.grpcToEntity(message.locationAnalysis),
+      placeExtraction: _placeExtraction.grpcToEntity(message.placeExtraction),
     );
   }
 
@@ -46,70 +44,57 @@ class _Message {
     final sentAt = (json['sent_at'] as Timestamp).toDate();
     json['sent_at'] = sentAt.toIso8601String();
 
-    if (json['location_analysis'] == null) {
-      json['location_analysis'] = {'locations': []};
+    if (json['place_extraction'] == null) {
+      json['place_extraction'] = {'places': []};
     }
-    final locationAnalysis = json['location_analysis'];
-    if (locationAnalysis['locations'] == null) {
-      locationAnalysis['locations'] = [];
+    final placeExtraction = json['place_extraction'];
+    if (placeExtraction['places'] == null) {
+      placeExtraction['places'] = [];
     }
-    if (locationAnalysis['analyzed_at'] != null) {
-      final analyzedAt =
-          (locationAnalysis['analyzed_at'] as Timestamp).toDate();
-      locationAnalysis['analyzed_at'] = analyzedAt.toIso8601String();
+    if (placeExtraction['processed_at'] != null) {
+      final processedAt =
+          (placeExtraction['processed_at'] as Timestamp).toDate();
+      placeExtraction['processed_at'] = processedAt.toIso8601String();
     }
 
     return TextMessage.fromJson(json);
   }
 }
 
-class _LocationAnalysis {
-  final _analyzedLocation = _AnalyzedLocation();
+class _PlaceExtraction {
+  final _extractedPlace = _ExtractedPlace();
 
-  LocationAnalysis grpcToEntity(grpc_msg.LocationAnalysis analysis) {
-    return LocationAnalysis(
-      locations: _analyzedLocation.grpcToEntityList(analysis.locations),
-      analyzedAt:
-          analysis.hasAnalyzedAt() ? analysis.analyzedAt.toDateTime() : null,
-      error: analysis.error.hasValue() ? analysis.error.value : null,
+  PlaceExtraction grpcToEntity(grpc_msg.PlaceExtraction placeEx) {
+    return PlaceExtraction(
+      places: _extractedPlace.grpcToEntityList(placeEx.places),
+      processedAt:
+          placeEx.hasProcessedAt() ? placeEx.processedAt.toDateTime() : null,
+      error: placeEx.error.hasValue() ? placeEx.error.value : null,
     );
   }
 }
 
-class _AnalyzedLocation {
-  final _location = _Location();
+class _ExtractedPlace {
+  final _geocodedPlace = _GeocodedPlace();
 
-  AnalyzedLocation grpcToEntity(grpc_msg.AnalyzedLocation loc) {
-    return AnalyzedLocation(
-      text: loc.text,
-      location: _location.grpcToEntity(loc.location),
+  ExtractedPlace grpcToEntity(grpc_msg.ExtractedPlace place) {
+    return ExtractedPlace(
+      text: place.text,
+      geocodedPlace: _geocodedPlace.grpcToEntity(place.geocodedPlace),
     );
   }
 
-  List<AnalyzedLocation> grpcToEntityList(
-          List<grpc_msg.AnalyzedLocation> locs) =>
+  List<ExtractedPlace> grpcToEntityList(List<grpc_msg.ExtractedPlace> locs) =>
       locs.map((e) => grpcToEntity(e)).toList();
 }
 
-class _Location {
-  final _geometry = _Geometry();
-
-  Location grpcToEntity(grpc_loc.Location location) {
-    return Location(
-      googlePlaceId: location.googlePlaceId,
-      address: location.address,
-      types: location.types,
-      geometry: _geometry.grpcToEntity(location.geometry),
-    );
-  }
-}
-
-class _Geometry {
+class _GeocodedPlace {
   final _latLng = _LatLng();
 
-  Geometry grpcToEntity(grpc_loc.Geometry geometry) {
-    return Geometry(
-      latLng: _latLng.grpcToEntity(geometry.latLng),
+  GeocodedPlace grpcToEntity(grpc_msg.GeocodedPlace place) {
+    return GeocodedPlace(
+      googlePlaceId: place.googlePlaceId,
+      latLng: _latLng.grpcToEntity(place.latLng),
     );
   }
 }

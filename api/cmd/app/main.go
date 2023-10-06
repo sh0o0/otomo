@@ -148,7 +148,7 @@ func newServer() (*grpc.Server, error) {
 		conversationSvc = service.NewConversationService(lcGpt)
 		msginSub        = service.NewMessagingSubscriber(messagingBus)
 		msginPub        = service.NewMessagingPublisher(messagingBus)
-		locExtSvc       = service.NewLocationExtractionService(gpt)
+		locExtSvc       = service.NewPlaceExtractionService(gpt)
 		geocodingSvc    = service.NewGeocodingService(gMap)
 		msgAnaSvc       = service.NewMessageAnalysisService(locExtSvc, geocodingSvc)
 	)
