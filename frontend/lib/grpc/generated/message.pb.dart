@@ -186,7 +186,7 @@ class ExtractedPlace extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ExtractedPlace', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'text')
-    ..aOM<$5.LatLng>(2, _omitFieldNames ? '' : 'latLng', subBuilder: $5.LatLng.create)
+    ..aOM<GeocodedPlace>(2, _omitFieldNames ? '' : 'geocodedPlace', subBuilder: GeocodedPlace.create)
     ..hasRequiredFields = false
   ;
 
@@ -219,6 +219,60 @@ class ExtractedPlace extends $pb.GeneratedMessage {
   $core.bool hasText() => $_has(0);
   @$pb.TagNumber(1)
   void clearText() => clearField(1);
+
+  @$pb.TagNumber(2)
+  GeocodedPlace get geocodedPlace => $_getN(1);
+  @$pb.TagNumber(2)
+  set geocodedPlace(GeocodedPlace v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasGeocodedPlace() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearGeocodedPlace() => clearField(2);
+  @$pb.TagNumber(2)
+  GeocodedPlace ensureGeocodedPlace() => $_ensure(1);
+}
+
+class GeocodedPlace extends $pb.GeneratedMessage {
+  factory GeocodedPlace() => create();
+  GeocodedPlace._() : super();
+  factory GeocodedPlace.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GeocodedPlace.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GeocodedPlace', createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'googlePlaceId')
+    ..aOM<$5.LatLng>(2, _omitFieldNames ? '' : 'latLng', subBuilder: $5.LatLng.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GeocodedPlace clone() => GeocodedPlace()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GeocodedPlace copyWith(void Function(GeocodedPlace) updates) => super.copyWith((message) => updates(message as GeocodedPlace)) as GeocodedPlace;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GeocodedPlace create() => GeocodedPlace._();
+  GeocodedPlace createEmptyInstance() => create();
+  static $pb.PbList<GeocodedPlace> createRepeated() => $pb.PbList<GeocodedPlace>();
+  @$core.pragma('dart2js:noInline')
+  static GeocodedPlace getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GeocodedPlace>(create);
+  static GeocodedPlace? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get googlePlaceId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set googlePlaceId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasGooglePlaceId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearGooglePlaceId() => clearField(1);
 
   @$pb.TagNumber(2)
   $5.LatLng get latLng => $_getN(1);

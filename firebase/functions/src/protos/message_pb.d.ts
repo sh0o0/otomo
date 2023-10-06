@@ -91,10 +91,10 @@ export class ExtractedPlace extends jspb.Message {
     getText(): string;
     setText(value: string): ExtractedPlace;
 
-    hasLatLng(): boolean;
-    clearLatLng(): void;
-    getLatLng(): location_pb.LatLng | undefined;
-    setLatLng(value?: location_pb.LatLng): ExtractedPlace;
+    hasGeocodedPlace(): boolean;
+    clearGeocodedPlace(): void;
+    getGeocodedPlace(): GeocodedPlace | undefined;
+    setGeocodedPlace(value?: GeocodedPlace): ExtractedPlace;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ExtractedPlace.AsObject;
@@ -109,6 +109,32 @@ export class ExtractedPlace extends jspb.Message {
 export namespace ExtractedPlace {
     export type AsObject = {
         text: string,
+        geocodedPlace?: GeocodedPlace.AsObject,
+    }
+}
+
+export class GeocodedPlace extends jspb.Message { 
+    getGooglePlaceId(): string;
+    setGooglePlaceId(value: string): GeocodedPlace;
+
+    hasLatLng(): boolean;
+    clearLatLng(): void;
+    getLatLng(): location_pb.LatLng | undefined;
+    setLatLng(value?: location_pb.LatLng): GeocodedPlace;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): GeocodedPlace.AsObject;
+    static toObject(includeInstance: boolean, msg: GeocodedPlace): GeocodedPlace.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: GeocodedPlace, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): GeocodedPlace;
+    static deserializeBinaryFromReader(message: GeocodedPlace, reader: jspb.BinaryReader): GeocodedPlace;
+}
+
+export namespace GeocodedPlace {
+    export type AsObject = {
+        googlePlaceId: string,
         latLng?: location_pb.LatLng.AsObject,
     }
 }

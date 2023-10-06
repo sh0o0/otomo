@@ -226,8 +226,8 @@ type ExtractedPlace struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Text   string  `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	LatLng *LatLng `protobuf:"bytes,2,opt,name=lat_lng,json=latLng,proto3" json:"lat_lng,omitempty"`
+	Text          string         `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	GeocodedPlace *GeocodedPlace `protobuf:"bytes,2,opt,name=geocoded_place,json=geocodedPlace,proto3" json:"geocoded_place,omitempty"`
 }
 
 func (x *ExtractedPlace) Reset() {
@@ -269,7 +269,62 @@ func (x *ExtractedPlace) GetText() string {
 	return ""
 }
 
-func (x *ExtractedPlace) GetLatLng() *LatLng {
+func (x *ExtractedPlace) GetGeocodedPlace() *GeocodedPlace {
+	if x != nil {
+		return x.GeocodedPlace
+	}
+	return nil
+}
+
+type GeocodedPlace struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GooglePlaceId string  `protobuf:"bytes,1,opt,name=google_place_id,json=googlePlaceId,proto3" json:"google_place_id,omitempty"`
+	LatLng        *LatLng `protobuf:"bytes,2,opt,name=lat_lng,json=latLng,proto3" json:"lat_lng,omitempty"`
+}
+
+func (x *GeocodedPlace) Reset() {
+	*x = GeocodedPlace{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GeocodedPlace) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GeocodedPlace) ProtoMessage() {}
+
+func (x *GeocodedPlace) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GeocodedPlace.ProtoReflect.Descriptor instead.
+func (*GeocodedPlace) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GeocodedPlace) GetGooglePlaceId() string {
+	if x != nil {
+		return x.GooglePlaceId
+	}
+	return ""
+}
+
+func (x *GeocodedPlace) GetLatLng() *LatLng {
 	if x != nil {
 		return x.LatLng
 	}
@@ -292,7 +347,7 @@ type MessageChunk struct {
 func (x *MessageChunk) Reset() {
 	*x = MessageChunk{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[3]
+		mi := &file_message_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -305,7 +360,7 @@ func (x *MessageChunk) String() string {
 func (*MessageChunk) ProtoMessage() {}
 
 func (x *MessageChunk) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[3]
+	mi := &file_message_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -318,7 +373,7 @@ func (x *MessageChunk) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MessageChunk.ProtoReflect.Descriptor instead.
 func (*MessageChunk) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{3}
+	return file_message_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *MessageChunk) GetMessageId() string {
@@ -398,9 +453,16 @@ var file_message_proto_rawDesc = []byte{
 	0x65, 0x64, 0x41, 0x74, 0x12, 0x32, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20,
 	0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x56, 0x61, 0x6c, 0x75,
-	0x65, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x46, 0x0a, 0x0e, 0x45, 0x78, 0x74, 0x72,
+	0x65, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x5b, 0x0a, 0x0e, 0x45, 0x78, 0x74, 0x72,
 	0x61, 0x63, 0x74, 0x65, 0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x65,
-	0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x65, 0x78, 0x74, 0x12, 0x20,
+	0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x65, 0x78, 0x74, 0x12, 0x35,
+	0x0a, 0x0e, 0x67, 0x65, 0x6f, 0x63, 0x6f, 0x64, 0x65, 0x64, 0x5f, 0x70, 0x6c, 0x61, 0x63, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x47, 0x65, 0x6f, 0x63, 0x6f, 0x64, 0x65,
+	0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x52, 0x0d, 0x67, 0x65, 0x6f, 0x63, 0x6f, 0x64, 0x65, 0x64,
+	0x50, 0x6c, 0x61, 0x63, 0x65, 0x22, 0x59, 0x0a, 0x0d, 0x47, 0x65, 0x6f, 0x63, 0x6f, 0x64, 0x65,
+	0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x12, 0x26, 0x0a, 0x0f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
+	0x5f, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0d, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x49, 0x64, 0x12, 0x20,
 	0x0a, 0x07, 0x6c, 0x61, 0x74, 0x5f, 0x6c, 0x6e, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
 	0x07, 0x2e, 0x4c, 0x61, 0x74, 0x4c, 0x6e, 0x67, 0x52, 0x06, 0x6c, 0x61, 0x74, 0x4c, 0x6e, 0x67,
 	0x22, 0xe5, 0x01, 0x0a, 0x0c, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x43, 0x68, 0x75, 0x6e,
@@ -437,34 +499,36 @@ func file_message_proto_rawDescGZIP() []byte {
 }
 
 var file_message_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_message_proto_goTypes = []interface{}{
 	(Role)(0),                      // 0: Role
 	(*Message)(nil),                // 1: Message
 	(*PlaceExtraction)(nil),        // 2: PlaceExtraction
 	(*ExtractedPlace)(nil),         // 3: ExtractedPlace
-	(*MessageChunk)(nil),           // 4: MessageChunk
-	(*timestamppb.Timestamp)(nil),  // 5: google.protobuf.Timestamp
-	(*wrapperspb.StringValue)(nil), // 6: google.protobuf.StringValue
-	(*LatLng)(nil),                 // 7: LatLng
+	(*GeocodedPlace)(nil),          // 4: GeocodedPlace
+	(*MessageChunk)(nil),           // 5: MessageChunk
+	(*timestamppb.Timestamp)(nil),  // 6: google.protobuf.Timestamp
+	(*wrapperspb.StringValue)(nil), // 7: google.protobuf.StringValue
+	(*LatLng)(nil),                 // 8: LatLng
 }
 var file_message_proto_depIdxs = []int32{
 	0,  // 0: Message.role:type_name -> Role
-	5,  // 1: Message.sent_at:type_name -> google.protobuf.Timestamp
-	6,  // 2: Message.client_id:type_name -> google.protobuf.StringValue
+	6,  // 1: Message.sent_at:type_name -> google.protobuf.Timestamp
+	7,  // 2: Message.client_id:type_name -> google.protobuf.StringValue
 	2,  // 3: Message.place_extraction:type_name -> PlaceExtraction
 	3,  // 4: PlaceExtraction.places:type_name -> ExtractedPlace
-	5,  // 5: PlaceExtraction.processed_at:type_name -> google.protobuf.Timestamp
-	6,  // 6: PlaceExtraction.error:type_name -> google.protobuf.StringValue
-	7,  // 7: ExtractedPlace.lat_lng:type_name -> LatLng
-	0,  // 8: MessageChunk.role:type_name -> Role
-	5,  // 9: MessageChunk.sent_at:type_name -> google.protobuf.Timestamp
-	6,  // 10: MessageChunk.client_id:type_name -> google.protobuf.StringValue
-	11, // [11:11] is the sub-list for method output_type
-	11, // [11:11] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	6,  // 5: PlaceExtraction.processed_at:type_name -> google.protobuf.Timestamp
+	7,  // 6: PlaceExtraction.error:type_name -> google.protobuf.StringValue
+	4,  // 7: ExtractedPlace.geocoded_place:type_name -> GeocodedPlace
+	8,  // 8: GeocodedPlace.lat_lng:type_name -> LatLng
+	0,  // 9: MessageChunk.role:type_name -> Role
+	6,  // 10: MessageChunk.sent_at:type_name -> google.protobuf.Timestamp
+	7,  // 11: MessageChunk.client_id:type_name -> google.protobuf.StringValue
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_message_proto_init() }
@@ -511,6 +575,18 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GeocodedPlace); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MessageChunk); i {
 			case 0:
 				return &v.state
@@ -529,7 +605,7 @@ func file_message_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

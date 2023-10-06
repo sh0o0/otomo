@@ -70,14 +70,28 @@ const ExtractedPlace$json = {
   '1': 'ExtractedPlace',
   '2': [
     {'1': 'text', '3': 1, '4': 1, '5': 9, '10': 'text'},
-    {'1': 'lat_lng', '3': 2, '4': 1, '5': 11, '6': '.LatLng', '10': 'latLng'},
+    {'1': 'geocoded_place', '3': 2, '4': 1, '5': 11, '6': '.GeocodedPlace', '10': 'geocodedPlace'},
   ],
 };
 
 /// Descriptor for `ExtractedPlace`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List extractedPlaceDescriptor = $convert.base64Decode(
-    'Cg5FeHRyYWN0ZWRQbGFjZRISCgR0ZXh0GAEgASgJUgR0ZXh0EiAKB2xhdF9sbmcYAiABKAsyBy'
-    '5MYXRMbmdSBmxhdExuZw==');
+    'Cg5FeHRyYWN0ZWRQbGFjZRISCgR0ZXh0GAEgASgJUgR0ZXh0EjUKDmdlb2NvZGVkX3BsYWNlGA'
+    'IgASgLMg4uR2VvY29kZWRQbGFjZVINZ2VvY29kZWRQbGFjZQ==');
+
+@$core.Deprecated('Use geocodedPlaceDescriptor instead')
+const GeocodedPlace$json = {
+  '1': 'GeocodedPlace',
+  '2': [
+    {'1': 'google_place_id', '3': 1, '4': 1, '5': 9, '10': 'googlePlaceId'},
+    {'1': 'lat_lng', '3': 2, '4': 1, '5': 11, '6': '.LatLng', '10': 'latLng'},
+  ],
+};
+
+/// Descriptor for `GeocodedPlace`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List geocodedPlaceDescriptor = $convert.base64Decode(
+    'Cg1HZW9jb2RlZFBsYWNlEiYKD2dvb2dsZV9wbGFjZV9pZBgBIAEoCVINZ29vZ2xlUGxhY2VJZB'
+    'IgCgdsYXRfbG5nGAIgASgLMgcuTGF0TG5nUgZsYXRMbmc=');
 
 @$core.Deprecated('Use messageChunkDescriptor instead')
 const MessageChunk$json = {

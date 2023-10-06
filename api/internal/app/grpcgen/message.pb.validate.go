@@ -439,11 +439,11 @@ func (m *ExtractedPlace) validate(all bool) error {
 	// no validation rules for Text
 
 	if all {
-		switch v := interface{}(m.GetLatLng()).(type) {
+		switch v := interface{}(m.GetGeocodedPlace()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, ExtractedPlaceValidationError{
-					field:  "LatLng",
+					field:  "GeocodedPlace",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -451,16 +451,16 @@ func (m *ExtractedPlace) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, ExtractedPlaceValidationError{
-					field:  "LatLng",
+					field:  "GeocodedPlace",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetLatLng()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetGeocodedPlace()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ExtractedPlaceValidationError{
-				field:  "LatLng",
+				field:  "GeocodedPlace",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -543,6 +543,136 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ExtractedPlaceValidationError{}
+
+// Validate checks the field values on GeocodedPlace with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *GeocodedPlace) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GeocodedPlace with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GeocodedPlaceMultiError, or
+// nil if none found.
+func (m *GeocodedPlace) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GeocodedPlace) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for GooglePlaceId
+
+	if all {
+		switch v := interface{}(m.GetLatLng()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GeocodedPlaceValidationError{
+					field:  "LatLng",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GeocodedPlaceValidationError{
+					field:  "LatLng",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetLatLng()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GeocodedPlaceValidationError{
+				field:  "LatLng",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GeocodedPlaceMultiError(errors)
+	}
+	return nil
+}
+
+// GeocodedPlaceMultiError is an error wrapping multiple validation errors
+// returned by GeocodedPlace.ValidateAll() if the designated constraints
+// aren't met.
+type GeocodedPlaceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GeocodedPlaceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GeocodedPlaceMultiError) AllErrors() []error { return m }
+
+// GeocodedPlaceValidationError is the validation error returned by
+// GeocodedPlace.Validate if the designated constraints aren't met.
+type GeocodedPlaceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GeocodedPlaceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GeocodedPlaceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GeocodedPlaceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GeocodedPlaceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GeocodedPlaceValidationError) ErrorName() string { return "GeocodedPlaceValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GeocodedPlaceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGeocodedPlace.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GeocodedPlaceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GeocodedPlaceValidationError{}
 
 // Validate checks the field values on MessageChunk with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

@@ -28,6 +28,11 @@ message PlaceExtraction {
 
 message ExtractedPlace {
     string text = 1;
+    GeocodedPlace geocoded_place = 2;
+}
+
+message GeocodedPlace {
+    string google_place_id = 1;
     LatLng lat_lng = 2;
 }
 
