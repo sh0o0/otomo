@@ -12,17 +12,17 @@ final class MarkerMaker {
       locations.map(fromAnalyzedLocation).toList();
 
   static Marker fromAnalyzedLocation(
-    ExtractedPlace loc, {
+    ExtractedPlace place, {
     VoidCallback? onTap,
   }) =>
       Marker(
-        markerId: MarkerId(loc.location.googlePlaceId),
+        markerId: MarkerId(place.geocodedPlace.googlePlaceId),
         position: ViewConverter.I.latLng
-            .entityToViewForGoogle(loc.location.geometry.latLng),
+            .entityToViewForGoogle(place.geocodedPlace.latLng),
         onTap: onTap,
         infoWindow: InfoWindow(
-          title: loc.text,
-          snippet: loc.location.geometry.latLng.toString(),
+          title: place.text,
+          snippet: place.geocodedPlace.latLng.toString(),
         ),
       );
 
@@ -33,9 +33,9 @@ final class MarkerMaker {
   }) async {
     final theme = Theme.of(context);
     return Marker(
-      markerId: MarkerId(loc.location.googlePlaceId),
+      markerId: MarkerId(loc.geocodedPlace.googlePlaceId),
       position: ViewConverter.I.latLng.entityToViewForGoogle(
-        loc.location.geometry.latLng,
+        loc.geocodedPlace.latLng,
       ),
       onTap: onTap,
       icon: await createCustomMarkerBitmap(

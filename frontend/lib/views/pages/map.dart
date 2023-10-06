@@ -38,29 +38,29 @@ class _MapState extends ConsumerState<MapPage> {
     _mapController!.moveWithLatLng(latLng: position.latLng, zoom: 14);
   }
 
-  Future<void> _addMarker(ExtractedPlace loc, {bool notify = true}) async {
+  Future<void> _addMarker(ExtractedPlace place, {bool notify = true}) async {
     final notifier = ref.read(mapProvider.notifier);
     _markers.add(await MarkerMaker.fromAnalyzedLocationWithLabel(
       context: context,
-      loc: loc,
-      onTap: () => notifier.focusPlace(loc.location),
+      loc: place,
+      onTap: () => notifier.focusPlace(place),
     ));
     if (notify) setState(() {});
   }
 
-  void _setMarkers(List<ExtractedPlace> locs) async {
+  void _setMarkers(List<ExtractedPlace> places) async {
     _markers = {};
-    for (final loc in locs) {
-      await _addMarker(loc, notify: false);
+    for (final place in places) {
+      await _addMarker(place, notify: false);
     }
     setState(() {});
   }
 
-  void _onLocationFocused(ExtractedPlace loc) {
+  void _onLocationFocused(ExtractedPlace place) {
     if (!_canUseMapController) return;
-    _addMarker(loc);
+    _addMarker(place);
     _mapController!.moveWithLatLng(
-      latLng: loc.location.geometry.latLng,
+      latLng: place.geocodedPlace.latLng,
       zoom: 15,
     );
   }
@@ -69,8 +69,8 @@ class _MapState extends ConsumerState<MapPage> {
     if (!_canUseMapController) return;
 
     final latLngList = AppLatLngList(
-      textMsg.locationAnalysis.locations
-          .map((e) => e.location.geometry.latLng)
+      textMsg.placeExtraction.places
+          .map((e) => e.geocodedPlace.latLng)
           .toList(),
     );
     final region = latLngList.edge();
@@ -82,7 +82,7 @@ class _MapState extends ConsumerState<MapPage> {
   @override
   Widget build(BuildContext context) {
     ref.listen(
-      mapProvider.select((value) => value.activeAnalyzedLocations),
+      mapProvider.select((value) => value.activePlaces),
       (prev, next) => _setMarkers(next),
     );
 

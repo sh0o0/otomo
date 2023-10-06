@@ -67,7 +67,7 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
       decoration: BoxDecoration(
           color: theme.colorScheme.background,
           borderRadius: BorderRadius.circular(16)),
-      child: Text(textMessage.locationAnalysis.hasError
+      child: Text(textMessage.placeExtraction.hasError
           ? ErrorLibrary.messageLocationAnalysis
           : ErrorLibrary.fromAny(textMessage.message.error!)),
     );

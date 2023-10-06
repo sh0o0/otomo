@@ -125,9 +125,9 @@ class ChatUI extends StatelessWidget {
   List<MatchText> _makeTextMatchers(BuildContext context, String messageId) {
     final theme = Theme.of(context);
     final message = messages.firstWhere((e) => e.message.id == messageId);
-    final locationAnalysis = message.locationAnalysis;
+    final locationAnalysis = message.placeExtraction;
 
-    return locationAnalysis.locations
+    return locationAnalysis.places
         .map((e) => MatchText(
               pattern: e.text,
               onTap: (text) => onLocationTextTap?.call(e),

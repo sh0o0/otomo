@@ -64,7 +64,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       final notifier = ref.read(homeProvider.notifier);
       final activatedTextMessageStreamSub =
           notifier.activatedTextMessageStream.listen((textMsg) {
-        if (textMsg.locationAnalysis.locations.isEmpty) return;
+        if (textMsg.placeExtraction.places.isEmpty) return;
         FlutterUtils.afterBuildCallback(() {
           _homeController.moveChatSheetToSnap();
         });
