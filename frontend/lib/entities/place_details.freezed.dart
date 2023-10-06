@@ -431,11 +431,11 @@ class _$PlaceDetailsCopyWithImpl<$Res, $Val extends PlaceDetails>
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsCopyWith<$Res>
+abstract class _$$PlaceDetailsImplCopyWith<$Res>
     implements $PlaceDetailsCopyWith<$Res> {
-  factory _$$_PlaceDetailsCopyWith(
-          _$_PlaceDetails value, $Res Function(_$_PlaceDetails) then) =
-      __$$_PlaceDetailsCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsImplCopyWith(
+          _$PlaceDetailsImpl value, $Res Function(_$PlaceDetailsImpl) then) =
+      __$$PlaceDetailsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -496,11 +496,11 @@ abstract class _$$_PlaceDetailsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlaceDetailsCopyWithImpl<$Res>
-    extends _$PlaceDetailsCopyWithImpl<$Res, _$_PlaceDetails>
-    implements _$$_PlaceDetailsCopyWith<$Res> {
-  __$$_PlaceDetailsCopyWithImpl(
-      _$_PlaceDetails _value, $Res Function(_$_PlaceDetails) _then)
+class __$$PlaceDetailsImplCopyWithImpl<$Res>
+    extends _$PlaceDetailsCopyWithImpl<$Res, _$PlaceDetailsImpl>
+    implements _$$PlaceDetailsImplCopyWith<$Res> {
+  __$$PlaceDetailsImplCopyWithImpl(
+      _$PlaceDetailsImpl _value, $Res Function(_$PlaceDetailsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -550,7 +550,7 @@ class __$$_PlaceDetailsCopyWithImpl<$Res>
     Object? website = freezed,
     Object? wheelchairAccessibleEntrance = freezed,
   }) {
-    return _then(_$_PlaceDetails(
+    return _then(_$PlaceDetailsImpl(
       addressComponents: freezed == addressComponents
           ? _value._addressComponents
           : addressComponents // ignore: cast_nullable_to_non_nullable
@@ -729,8 +729,8 @@ class __$$_PlaceDetailsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetails implements _PlaceDetails {
-  const _$_PlaceDetails(
+class _$PlaceDetailsImpl implements _PlaceDetails {
+  const _$PlaceDetailsImpl(
       {required final List<PlaceDetailsAddressComponent>? addressComponents,
       required this.adrAddress,
       required this.businessStatus,
@@ -780,8 +780,8 @@ class _$_PlaceDetails implements _PlaceDetails {
         _secondaryOpeningHours = secondaryOpeningHours,
         _types = types;
 
-  factory _$_PlaceDetails.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsFromJson(json);
+  factory _$PlaceDetailsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsImplFromJson(json);
 
   final List<PlaceDetailsAddressComponent>? _addressComponents;
   @override
@@ -921,7 +921,7 @@ class _$_PlaceDetails implements _PlaceDetails {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetails &&
+            other is _$PlaceDetailsImpl &&
             const DeepCollectionEquality()
                 .equals(other._addressComponents, _addressComponents) &&
             (identical(other.adrAddress, adrAddress) ||
@@ -1053,12 +1053,12 @@ class _$_PlaceDetails implements _PlaceDetails {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsCopyWith<_$_PlaceDetails> get copyWith =>
-      __$$_PlaceDetailsCopyWithImpl<_$_PlaceDetails>(this, _$identity);
+  _$$PlaceDetailsImplCopyWith<_$PlaceDetailsImpl> get copyWith =>
+      __$$PlaceDetailsImplCopyWithImpl<_$PlaceDetailsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsToJson(
+    return _$$PlaceDetailsImplToJson(
       this,
     );
   }
@@ -1108,10 +1108,10 @@ abstract class _PlaceDetails implements PlaceDetails {
       required final int? utcOffset,
       required final String? vicinity,
       required final String? website,
-      required final bool? wheelchairAccessibleEntrance}) = _$_PlaceDetails;
+      required final bool? wheelchairAccessibleEntrance}) = _$PlaceDetailsImpl;
 
   factory _PlaceDetails.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetails.fromJson;
+      _$PlaceDetailsImpl.fromJson;
 
   @override
   List<PlaceDetailsAddressComponent>? get addressComponents;
@@ -1201,7 +1201,7 @@ abstract class _PlaceDetails implements PlaceDetails {
   bool? get wheelchairAccessibleEntrance;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsCopyWith<_$_PlaceDetails> get copyWith =>
+  _$$PlaceDetailsImplCopyWith<_$PlaceDetailsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1269,25 +1269,25 @@ class _$PlaceDetailsAddressComponentCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsAddressComponentCopyWith<$Res>
+abstract class _$$PlaceDetailsAddressComponentImplCopyWith<$Res>
     implements $PlaceDetailsAddressComponentCopyWith<$Res> {
-  factory _$$_PlaceDetailsAddressComponentCopyWith(
-          _$_PlaceDetailsAddressComponent value,
-          $Res Function(_$_PlaceDetailsAddressComponent) then) =
-      __$$_PlaceDetailsAddressComponentCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsAddressComponentImplCopyWith(
+          _$PlaceDetailsAddressComponentImpl value,
+          $Res Function(_$PlaceDetailsAddressComponentImpl) then) =
+      __$$PlaceDetailsAddressComponentImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String longName, String shortName, List<String> types});
 }
 
 /// @nodoc
-class __$$_PlaceDetailsAddressComponentCopyWithImpl<$Res>
+class __$$PlaceDetailsAddressComponentImplCopyWithImpl<$Res>
     extends _$PlaceDetailsAddressComponentCopyWithImpl<$Res,
-        _$_PlaceDetailsAddressComponent>
-    implements _$$_PlaceDetailsAddressComponentCopyWith<$Res> {
-  __$$_PlaceDetailsAddressComponentCopyWithImpl(
-      _$_PlaceDetailsAddressComponent _value,
-      $Res Function(_$_PlaceDetailsAddressComponent) _then)
+        _$PlaceDetailsAddressComponentImpl>
+    implements _$$PlaceDetailsAddressComponentImplCopyWith<$Res> {
+  __$$PlaceDetailsAddressComponentImplCopyWithImpl(
+      _$PlaceDetailsAddressComponentImpl _value,
+      $Res Function(_$PlaceDetailsAddressComponentImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1297,7 +1297,7 @@ class __$$_PlaceDetailsAddressComponentCopyWithImpl<$Res>
     Object? shortName = null,
     Object? types = null,
   }) {
-    return _then(_$_PlaceDetailsAddressComponent(
+    return _then(_$PlaceDetailsAddressComponentImpl(
       longName: null == longName
           ? _value.longName
           : longName // ignore: cast_nullable_to_non_nullable
@@ -1316,15 +1316,17 @@ class __$$_PlaceDetailsAddressComponentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsAddressComponent implements _PlaceDetailsAddressComponent {
-  const _$_PlaceDetailsAddressComponent(
+class _$PlaceDetailsAddressComponentImpl
+    implements _PlaceDetailsAddressComponent {
+  const _$PlaceDetailsAddressComponentImpl(
       {required this.longName,
       required this.shortName,
       required final List<String> types})
       : _types = types;
 
-  factory _$_PlaceDetailsAddressComponent.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsAddressComponentFromJson(json);
+  factory _$PlaceDetailsAddressComponentImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$PlaceDetailsAddressComponentImplFromJson(json);
 
   @override
   final String longName;
@@ -1347,7 +1349,7 @@ class _$_PlaceDetailsAddressComponent implements _PlaceDetailsAddressComponent {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsAddressComponent &&
+            other is _$PlaceDetailsAddressComponentImpl &&
             (identical(other.longName, longName) ||
                 other.longName == longName) &&
             (identical(other.shortName, shortName) ||
@@ -1363,13 +1365,14 @@ class _$_PlaceDetailsAddressComponent implements _PlaceDetailsAddressComponent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsAddressComponentCopyWith<_$_PlaceDetailsAddressComponent>
-      get copyWith => __$$_PlaceDetailsAddressComponentCopyWithImpl<
-          _$_PlaceDetailsAddressComponent>(this, _$identity);
+  _$$PlaceDetailsAddressComponentImplCopyWith<
+          _$PlaceDetailsAddressComponentImpl>
+      get copyWith => __$$PlaceDetailsAddressComponentImplCopyWithImpl<
+          _$PlaceDetailsAddressComponentImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsAddressComponentToJson(
+    return _$$PlaceDetailsAddressComponentImplToJson(
       this,
     );
   }
@@ -1380,10 +1383,10 @@ abstract class _PlaceDetailsAddressComponent
   const factory _PlaceDetailsAddressComponent(
       {required final String longName,
       required final String shortName,
-      required final List<String> types}) = _$_PlaceDetailsAddressComponent;
+      required final List<String> types}) = _$PlaceDetailsAddressComponentImpl;
 
   factory _PlaceDetailsAddressComponent.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsAddressComponent.fromJson;
+      _$PlaceDetailsAddressComponentImpl.fromJson;
 
   @override
   String get longName;
@@ -1393,7 +1396,8 @@ abstract class _PlaceDetailsAddressComponent
   List<String> get types;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsAddressComponentCopyWith<_$_PlaceDetailsAddressComponent>
+  _$$PlaceDetailsAddressComponentImplCopyWith<
+          _$PlaceDetailsAddressComponentImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1455,25 +1459,25 @@ class _$PlaceDetailsEditorialSummaryCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsEditorialSummaryCopyWith<$Res>
+abstract class _$$PlaceDetailsEditorialSummaryImplCopyWith<$Res>
     implements $PlaceDetailsEditorialSummaryCopyWith<$Res> {
-  factory _$$_PlaceDetailsEditorialSummaryCopyWith(
-          _$_PlaceDetailsEditorialSummary value,
-          $Res Function(_$_PlaceDetailsEditorialSummary) then) =
-      __$$_PlaceDetailsEditorialSummaryCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsEditorialSummaryImplCopyWith(
+          _$PlaceDetailsEditorialSummaryImpl value,
+          $Res Function(_$PlaceDetailsEditorialSummaryImpl) then) =
+      __$$PlaceDetailsEditorialSummaryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? language, String? overview});
 }
 
 /// @nodoc
-class __$$_PlaceDetailsEditorialSummaryCopyWithImpl<$Res>
+class __$$PlaceDetailsEditorialSummaryImplCopyWithImpl<$Res>
     extends _$PlaceDetailsEditorialSummaryCopyWithImpl<$Res,
-        _$_PlaceDetailsEditorialSummary>
-    implements _$$_PlaceDetailsEditorialSummaryCopyWith<$Res> {
-  __$$_PlaceDetailsEditorialSummaryCopyWithImpl(
-      _$_PlaceDetailsEditorialSummary _value,
-      $Res Function(_$_PlaceDetailsEditorialSummary) _then)
+        _$PlaceDetailsEditorialSummaryImpl>
+    implements _$$PlaceDetailsEditorialSummaryImplCopyWith<$Res> {
+  __$$PlaceDetailsEditorialSummaryImplCopyWithImpl(
+      _$PlaceDetailsEditorialSummaryImpl _value,
+      $Res Function(_$PlaceDetailsEditorialSummaryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1482,7 +1486,7 @@ class __$$_PlaceDetailsEditorialSummaryCopyWithImpl<$Res>
     Object? language = freezed,
     Object? overview = freezed,
   }) {
-    return _then(_$_PlaceDetailsEditorialSummary(
+    return _then(_$PlaceDetailsEditorialSummaryImpl(
       language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -1497,12 +1501,14 @@ class __$$_PlaceDetailsEditorialSummaryCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsEditorialSummary implements _PlaceDetailsEditorialSummary {
-  const _$_PlaceDetailsEditorialSummary(
+class _$PlaceDetailsEditorialSummaryImpl
+    implements _PlaceDetailsEditorialSummary {
+  const _$PlaceDetailsEditorialSummaryImpl(
       {required this.language, required this.overview});
 
-  factory _$_PlaceDetailsEditorialSummary.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsEditorialSummaryFromJson(json);
+  factory _$PlaceDetailsEditorialSummaryImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$PlaceDetailsEditorialSummaryImplFromJson(json);
 
   @override
   final String? language;
@@ -1518,7 +1524,7 @@ class _$_PlaceDetailsEditorialSummary implements _PlaceDetailsEditorialSummary {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsEditorialSummary &&
+            other is _$PlaceDetailsEditorialSummaryImpl &&
             (identical(other.language, language) ||
                 other.language == language) &&
             (identical(other.overview, overview) ||
@@ -1532,13 +1538,14 @@ class _$_PlaceDetailsEditorialSummary implements _PlaceDetailsEditorialSummary {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsEditorialSummaryCopyWith<_$_PlaceDetailsEditorialSummary>
-      get copyWith => __$$_PlaceDetailsEditorialSummaryCopyWithImpl<
-          _$_PlaceDetailsEditorialSummary>(this, _$identity);
+  _$$PlaceDetailsEditorialSummaryImplCopyWith<
+          _$PlaceDetailsEditorialSummaryImpl>
+      get copyWith => __$$PlaceDetailsEditorialSummaryImplCopyWithImpl<
+          _$PlaceDetailsEditorialSummaryImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsEditorialSummaryToJson(
+    return _$$PlaceDetailsEditorialSummaryImplToJson(
       this,
     );
   }
@@ -1548,10 +1555,10 @@ abstract class _PlaceDetailsEditorialSummary
     implements PlaceDetailsEditorialSummary {
   const factory _PlaceDetailsEditorialSummary(
       {required final String? language,
-      required final String? overview}) = _$_PlaceDetailsEditorialSummary;
+      required final String? overview}) = _$PlaceDetailsEditorialSummaryImpl;
 
   factory _PlaceDetailsEditorialSummary.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsEditorialSummary.fromJson;
+      _$PlaceDetailsEditorialSummaryImpl.fromJson;
 
   @override
   String? get language;
@@ -1559,7 +1566,8 @@ abstract class _PlaceDetailsEditorialSummary
   String? get overview;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsEditorialSummaryCopyWith<_$_PlaceDetailsEditorialSummary>
+  _$$PlaceDetailsEditorialSummaryImplCopyWith<
+          _$PlaceDetailsEditorialSummaryImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1637,11 +1645,11 @@ class _$PlaceDetailsGeometryCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsGeometryCopyWith<$Res>
+abstract class _$$PlaceDetailsGeometryImplCopyWith<$Res>
     implements $PlaceDetailsGeometryCopyWith<$Res> {
-  factory _$$_PlaceDetailsGeometryCopyWith(_$_PlaceDetailsGeometry value,
-          $Res Function(_$_PlaceDetailsGeometry) then) =
-      __$$_PlaceDetailsGeometryCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsGeometryImplCopyWith(_$PlaceDetailsGeometryImpl value,
+          $Res Function(_$PlaceDetailsGeometryImpl) then) =
+      __$$PlaceDetailsGeometryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({PlaceDetailsLatLngLiteral location, PlaceDetailsBounds viewport});
@@ -1653,11 +1661,11 @@ abstract class _$$_PlaceDetailsGeometryCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlaceDetailsGeometryCopyWithImpl<$Res>
-    extends _$PlaceDetailsGeometryCopyWithImpl<$Res, _$_PlaceDetailsGeometry>
-    implements _$$_PlaceDetailsGeometryCopyWith<$Res> {
-  __$$_PlaceDetailsGeometryCopyWithImpl(_$_PlaceDetailsGeometry _value,
-      $Res Function(_$_PlaceDetailsGeometry) _then)
+class __$$PlaceDetailsGeometryImplCopyWithImpl<$Res>
+    extends _$PlaceDetailsGeometryCopyWithImpl<$Res, _$PlaceDetailsGeometryImpl>
+    implements _$$PlaceDetailsGeometryImplCopyWith<$Res> {
+  __$$PlaceDetailsGeometryImplCopyWithImpl(_$PlaceDetailsGeometryImpl _value,
+      $Res Function(_$PlaceDetailsGeometryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1666,7 +1674,7 @@ class __$$_PlaceDetailsGeometryCopyWithImpl<$Res>
     Object? location = null,
     Object? viewport = null,
   }) {
-    return _then(_$_PlaceDetailsGeometry(
+    return _then(_$PlaceDetailsGeometryImpl(
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -1681,12 +1689,12 @@ class __$$_PlaceDetailsGeometryCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsGeometry implements _PlaceDetailsGeometry {
-  const _$_PlaceDetailsGeometry(
+class _$PlaceDetailsGeometryImpl implements _PlaceDetailsGeometry {
+  const _$PlaceDetailsGeometryImpl(
       {required this.location, required this.viewport});
 
-  factory _$_PlaceDetailsGeometry.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsGeometryFromJson(json);
+  factory _$PlaceDetailsGeometryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsGeometryImplFromJson(json);
 
   @override
   final PlaceDetailsLatLngLiteral location;
@@ -1702,7 +1710,7 @@ class _$_PlaceDetailsGeometry implements _PlaceDetailsGeometry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsGeometry &&
+            other is _$PlaceDetailsGeometryImpl &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.viewport, viewport) ||
@@ -1716,13 +1724,14 @@ class _$_PlaceDetailsGeometry implements _PlaceDetailsGeometry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsGeometryCopyWith<_$_PlaceDetailsGeometry> get copyWith =>
-      __$$_PlaceDetailsGeometryCopyWithImpl<_$_PlaceDetailsGeometry>(
-          this, _$identity);
+  _$$PlaceDetailsGeometryImplCopyWith<_$PlaceDetailsGeometryImpl>
+      get copyWith =>
+          __$$PlaceDetailsGeometryImplCopyWithImpl<_$PlaceDetailsGeometryImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsGeometryToJson(
+    return _$$PlaceDetailsGeometryImplToJson(
       this,
     );
   }
@@ -1731,10 +1740,10 @@ class _$_PlaceDetailsGeometry implements _PlaceDetailsGeometry {
 abstract class _PlaceDetailsGeometry implements PlaceDetailsGeometry {
   const factory _PlaceDetailsGeometry(
       {required final PlaceDetailsLatLngLiteral location,
-      required final PlaceDetailsBounds viewport}) = _$_PlaceDetailsGeometry;
+      required final PlaceDetailsBounds viewport}) = _$PlaceDetailsGeometryImpl;
 
   factory _PlaceDetailsGeometry.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsGeometry.fromJson;
+      _$PlaceDetailsGeometryImpl.fromJson;
 
   @override
   PlaceDetailsLatLngLiteral get location;
@@ -1742,8 +1751,8 @@ abstract class _PlaceDetailsGeometry implements PlaceDetailsGeometry {
   PlaceDetailsBounds get viewport;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsGeometryCopyWith<_$_PlaceDetailsGeometry> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PlaceDetailsGeometryImplCopyWith<_$PlaceDetailsGeometryImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 PlaceDetailsBounds _$PlaceDetailsBoundsFromJson(Map<String, dynamic> json) {
@@ -1821,11 +1830,11 @@ class _$PlaceDetailsBoundsCopyWithImpl<$Res, $Val extends PlaceDetailsBounds>
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsBoundsCopyWith<$Res>
+abstract class _$$PlaceDetailsBoundsImplCopyWith<$Res>
     implements $PlaceDetailsBoundsCopyWith<$Res> {
-  factory _$$_PlaceDetailsBoundsCopyWith(_$_PlaceDetailsBounds value,
-          $Res Function(_$_PlaceDetailsBounds) then) =
-      __$$_PlaceDetailsBoundsCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsBoundsImplCopyWith(_$PlaceDetailsBoundsImpl value,
+          $Res Function(_$PlaceDetailsBoundsImpl) then) =
+      __$$PlaceDetailsBoundsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1839,11 +1848,11 @@ abstract class _$$_PlaceDetailsBoundsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlaceDetailsBoundsCopyWithImpl<$Res>
-    extends _$PlaceDetailsBoundsCopyWithImpl<$Res, _$_PlaceDetailsBounds>
-    implements _$$_PlaceDetailsBoundsCopyWith<$Res> {
-  __$$_PlaceDetailsBoundsCopyWithImpl(
-      _$_PlaceDetailsBounds _value, $Res Function(_$_PlaceDetailsBounds) _then)
+class __$$PlaceDetailsBoundsImplCopyWithImpl<$Res>
+    extends _$PlaceDetailsBoundsCopyWithImpl<$Res, _$PlaceDetailsBoundsImpl>
+    implements _$$PlaceDetailsBoundsImplCopyWith<$Res> {
+  __$$PlaceDetailsBoundsImplCopyWithImpl(_$PlaceDetailsBoundsImpl _value,
+      $Res Function(_$PlaceDetailsBoundsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1852,7 +1861,7 @@ class __$$_PlaceDetailsBoundsCopyWithImpl<$Res>
     Object? northeast = null,
     Object? southwest = null,
   }) {
-    return _then(_$_PlaceDetailsBounds(
+    return _then(_$PlaceDetailsBoundsImpl(
       northeast: null == northeast
           ? _value.northeast
           : northeast // ignore: cast_nullable_to_non_nullable
@@ -1867,12 +1876,12 @@ class __$$_PlaceDetailsBoundsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsBounds implements _PlaceDetailsBounds {
-  const _$_PlaceDetailsBounds(
+class _$PlaceDetailsBoundsImpl implements _PlaceDetailsBounds {
+  const _$PlaceDetailsBoundsImpl(
       {required this.northeast, required this.southwest});
 
-  factory _$_PlaceDetailsBounds.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsBoundsFromJson(json);
+  factory _$PlaceDetailsBoundsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsBoundsImplFromJson(json);
 
   @override
   final PlaceDetailsLatLngLiteral northeast;
@@ -1888,7 +1897,7 @@ class _$_PlaceDetailsBounds implements _PlaceDetailsBounds {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsBounds &&
+            other is _$PlaceDetailsBoundsImpl &&
             (identical(other.northeast, northeast) ||
                 other.northeast == northeast) &&
             (identical(other.southwest, southwest) ||
@@ -1902,13 +1911,13 @@ class _$_PlaceDetailsBounds implements _PlaceDetailsBounds {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsBoundsCopyWith<_$_PlaceDetailsBounds> get copyWith =>
-      __$$_PlaceDetailsBoundsCopyWithImpl<_$_PlaceDetailsBounds>(
+  _$$PlaceDetailsBoundsImplCopyWith<_$PlaceDetailsBoundsImpl> get copyWith =>
+      __$$PlaceDetailsBoundsImplCopyWithImpl<_$PlaceDetailsBoundsImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsBoundsToJson(
+    return _$$PlaceDetailsBoundsImplToJson(
       this,
     );
   }
@@ -1918,10 +1927,10 @@ abstract class _PlaceDetailsBounds implements PlaceDetailsBounds {
   const factory _PlaceDetailsBounds(
           {required final PlaceDetailsLatLngLiteral northeast,
           required final PlaceDetailsLatLngLiteral southwest}) =
-      _$_PlaceDetailsBounds;
+      _$PlaceDetailsBoundsImpl;
 
   factory _PlaceDetailsBounds.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsBounds.fromJson;
+      _$PlaceDetailsBoundsImpl.fromJson;
 
   @override
   PlaceDetailsLatLngLiteral get northeast;
@@ -1929,7 +1938,7 @@ abstract class _PlaceDetailsBounds implements PlaceDetailsBounds {
   PlaceDetailsLatLngLiteral get southwest;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsBoundsCopyWith<_$_PlaceDetailsBounds> get copyWith =>
+  _$$PlaceDetailsBoundsImplCopyWith<_$PlaceDetailsBoundsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1989,25 +1998,25 @@ class _$PlaceDetailsLatLngLiteralCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsLatLngLiteralCopyWith<$Res>
+abstract class _$$PlaceDetailsLatLngLiteralImplCopyWith<$Res>
     implements $PlaceDetailsLatLngLiteralCopyWith<$Res> {
-  factory _$$_PlaceDetailsLatLngLiteralCopyWith(
-          _$_PlaceDetailsLatLngLiteral value,
-          $Res Function(_$_PlaceDetailsLatLngLiteral) then) =
-      __$$_PlaceDetailsLatLngLiteralCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsLatLngLiteralImplCopyWith(
+          _$PlaceDetailsLatLngLiteralImpl value,
+          $Res Function(_$PlaceDetailsLatLngLiteralImpl) then) =
+      __$$PlaceDetailsLatLngLiteralImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double lat, double lng});
 }
 
 /// @nodoc
-class __$$_PlaceDetailsLatLngLiteralCopyWithImpl<$Res>
+class __$$PlaceDetailsLatLngLiteralImplCopyWithImpl<$Res>
     extends _$PlaceDetailsLatLngLiteralCopyWithImpl<$Res,
-        _$_PlaceDetailsLatLngLiteral>
-    implements _$$_PlaceDetailsLatLngLiteralCopyWith<$Res> {
-  __$$_PlaceDetailsLatLngLiteralCopyWithImpl(
-      _$_PlaceDetailsLatLngLiteral _value,
-      $Res Function(_$_PlaceDetailsLatLngLiteral) _then)
+        _$PlaceDetailsLatLngLiteralImpl>
+    implements _$$PlaceDetailsLatLngLiteralImplCopyWith<$Res> {
+  __$$PlaceDetailsLatLngLiteralImplCopyWithImpl(
+      _$PlaceDetailsLatLngLiteralImpl _value,
+      $Res Function(_$PlaceDetailsLatLngLiteralImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2016,7 +2025,7 @@ class __$$_PlaceDetailsLatLngLiteralCopyWithImpl<$Res>
     Object? lat = null,
     Object? lng = null,
   }) {
-    return _then(_$_PlaceDetailsLatLngLiteral(
+    return _then(_$PlaceDetailsLatLngLiteralImpl(
       lat: null == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
@@ -2031,11 +2040,11 @@ class __$$_PlaceDetailsLatLngLiteralCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsLatLngLiteral implements _PlaceDetailsLatLngLiteral {
-  const _$_PlaceDetailsLatLngLiteral({required this.lat, required this.lng});
+class _$PlaceDetailsLatLngLiteralImpl implements _PlaceDetailsLatLngLiteral {
+  const _$PlaceDetailsLatLngLiteralImpl({required this.lat, required this.lng});
 
-  factory _$_PlaceDetailsLatLngLiteral.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsLatLngLiteralFromJson(json);
+  factory _$PlaceDetailsLatLngLiteralImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsLatLngLiteralImplFromJson(json);
 
   @override
   final double lat;
@@ -2051,7 +2060,7 @@ class _$_PlaceDetailsLatLngLiteral implements _PlaceDetailsLatLngLiteral {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsLatLngLiteral &&
+            other is _$PlaceDetailsLatLngLiteralImpl &&
             (identical(other.lat, lat) || other.lat == lat) &&
             (identical(other.lng, lng) || other.lng == lng));
   }
@@ -2063,13 +2072,13 @@ class _$_PlaceDetailsLatLngLiteral implements _PlaceDetailsLatLngLiteral {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsLatLngLiteralCopyWith<_$_PlaceDetailsLatLngLiteral>
-      get copyWith => __$$_PlaceDetailsLatLngLiteralCopyWithImpl<
-          _$_PlaceDetailsLatLngLiteral>(this, _$identity);
+  _$$PlaceDetailsLatLngLiteralImplCopyWith<_$PlaceDetailsLatLngLiteralImpl>
+      get copyWith => __$$PlaceDetailsLatLngLiteralImplCopyWithImpl<
+          _$PlaceDetailsLatLngLiteralImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsLatLngLiteralToJson(
+    return _$$PlaceDetailsLatLngLiteralImplToJson(
       this,
     );
   }
@@ -2078,10 +2087,10 @@ class _$_PlaceDetailsLatLngLiteral implements _PlaceDetailsLatLngLiteral {
 abstract class _PlaceDetailsLatLngLiteral implements PlaceDetailsLatLngLiteral {
   const factory _PlaceDetailsLatLngLiteral(
       {required final double lat,
-      required final double lng}) = _$_PlaceDetailsLatLngLiteral;
+      required final double lng}) = _$PlaceDetailsLatLngLiteralImpl;
 
   factory _PlaceDetailsLatLngLiteral.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsLatLngLiteral.fromJson;
+      _$PlaceDetailsLatLngLiteralImpl.fromJson;
 
   @override
   double get lat;
@@ -2089,7 +2098,7 @@ abstract class _PlaceDetailsLatLngLiteral implements PlaceDetailsLatLngLiteral {
   double get lng;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsLatLngLiteralCopyWith<_$_PlaceDetailsLatLngLiteral>
+  _$$PlaceDetailsLatLngLiteralImplCopyWith<_$PlaceDetailsLatLngLiteralImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2174,12 +2183,12 @@ class _$PlaceDetailsOpeningHoursCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsOpeningHoursCopyWith<$Res>
+abstract class _$$PlaceDetailsOpeningHoursImplCopyWith<$Res>
     implements $PlaceDetailsOpeningHoursCopyWith<$Res> {
-  factory _$$_PlaceDetailsOpeningHoursCopyWith(
-          _$_PlaceDetailsOpeningHours value,
-          $Res Function(_$_PlaceDetailsOpeningHours) then) =
-      __$$_PlaceDetailsOpeningHoursCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsOpeningHoursImplCopyWith(
+          _$PlaceDetailsOpeningHoursImpl value,
+          $Res Function(_$PlaceDetailsOpeningHoursImpl) then) =
+      __$$PlaceDetailsOpeningHoursImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2191,12 +2200,13 @@ abstract class _$$_PlaceDetailsOpeningHoursCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlaceDetailsOpeningHoursCopyWithImpl<$Res>
+class __$$PlaceDetailsOpeningHoursImplCopyWithImpl<$Res>
     extends _$PlaceDetailsOpeningHoursCopyWithImpl<$Res,
-        _$_PlaceDetailsOpeningHours>
-    implements _$$_PlaceDetailsOpeningHoursCopyWith<$Res> {
-  __$$_PlaceDetailsOpeningHoursCopyWithImpl(_$_PlaceDetailsOpeningHours _value,
-      $Res Function(_$_PlaceDetailsOpeningHours) _then)
+        _$PlaceDetailsOpeningHoursImpl>
+    implements _$$PlaceDetailsOpeningHoursImplCopyWith<$Res> {
+  __$$PlaceDetailsOpeningHoursImplCopyWithImpl(
+      _$PlaceDetailsOpeningHoursImpl _value,
+      $Res Function(_$PlaceDetailsOpeningHoursImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2208,7 +2218,7 @@ class __$$_PlaceDetailsOpeningHoursCopyWithImpl<$Res>
     Object? type = freezed,
     Object? weekdayText = freezed,
   }) {
-    return _then(_$_PlaceDetailsOpeningHours(
+    return _then(_$PlaceDetailsOpeningHoursImpl(
       openNow: freezed == openNow
           ? _value.openNow
           : openNow // ignore: cast_nullable_to_non_nullable
@@ -2235,8 +2245,8 @@ class __$$_PlaceDetailsOpeningHoursCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsOpeningHours implements _PlaceDetailsOpeningHours {
-  const _$_PlaceDetailsOpeningHours(
+class _$PlaceDetailsOpeningHoursImpl implements _PlaceDetailsOpeningHours {
+  const _$PlaceDetailsOpeningHoursImpl(
       {required this.openNow,
       required final List<PlaceDetailsHoursPeriod>? periods,
       required final List<PlaceDetailsSpecialDay>? specialDays,
@@ -2246,8 +2256,8 @@ class _$_PlaceDetailsOpeningHours implements _PlaceDetailsOpeningHours {
         _specialDays = specialDays,
         _weekdayText = weekdayText;
 
-  factory _$_PlaceDetailsOpeningHours.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsOpeningHoursFromJson(json);
+  factory _$PlaceDetailsOpeningHoursImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsOpeningHoursImplFromJson(json);
 
   @override
   final bool? openNow;
@@ -2292,7 +2302,7 @@ class _$_PlaceDetailsOpeningHours implements _PlaceDetailsOpeningHours {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsOpeningHours &&
+            other is _$PlaceDetailsOpeningHoursImpl &&
             (identical(other.openNow, openNow) || other.openNow == openNow) &&
             const DeepCollectionEquality().equals(other._periods, _periods) &&
             const DeepCollectionEquality()
@@ -2315,13 +2325,13 @@ class _$_PlaceDetailsOpeningHours implements _PlaceDetailsOpeningHours {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsOpeningHoursCopyWith<_$_PlaceDetailsOpeningHours>
-      get copyWith => __$$_PlaceDetailsOpeningHoursCopyWithImpl<
-          _$_PlaceDetailsOpeningHours>(this, _$identity);
+  _$$PlaceDetailsOpeningHoursImplCopyWith<_$PlaceDetailsOpeningHoursImpl>
+      get copyWith => __$$PlaceDetailsOpeningHoursImplCopyWithImpl<
+          _$PlaceDetailsOpeningHoursImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsOpeningHoursToJson(
+    return _$$PlaceDetailsOpeningHoursImplToJson(
       this,
     );
   }
@@ -2329,14 +2339,15 @@ class _$_PlaceDetailsOpeningHours implements _PlaceDetailsOpeningHours {
 
 abstract class _PlaceDetailsOpeningHours implements PlaceDetailsOpeningHours {
   const factory _PlaceDetailsOpeningHours(
-      {required final bool? openNow,
-      required final List<PlaceDetailsHoursPeriod>? periods,
-      required final List<PlaceDetailsSpecialDay>? specialDays,
-      required final String? type,
-      required final List<String>? weekdayText}) = _$_PlaceDetailsOpeningHours;
+          {required final bool? openNow,
+          required final List<PlaceDetailsHoursPeriod>? periods,
+          required final List<PlaceDetailsSpecialDay>? specialDays,
+          required final String? type,
+          required final List<String>? weekdayText}) =
+      _$PlaceDetailsOpeningHoursImpl;
 
   factory _PlaceDetailsOpeningHours.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsOpeningHours.fromJson;
+      _$PlaceDetailsOpeningHoursImpl.fromJson;
 
   @override
   bool? get openNow;
@@ -2350,7 +2361,7 @@ abstract class _PlaceDetailsOpeningHours implements PlaceDetailsOpeningHours {
   List<String>? get weekdayText;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsOpeningHoursCopyWith<_$_PlaceDetailsOpeningHours>
+  _$$PlaceDetailsOpeningHoursImplCopyWith<_$PlaceDetailsOpeningHoursImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2436,11 +2447,12 @@ class _$PlaceDetailsHoursPeriodCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsHoursPeriodCopyWith<$Res>
+abstract class _$$PlaceDetailsHoursPeriodImplCopyWith<$Res>
     implements $PlaceDetailsHoursPeriodCopyWith<$Res> {
-  factory _$$_PlaceDetailsHoursPeriodCopyWith(_$_PlaceDetailsHoursPeriod value,
-          $Res Function(_$_PlaceDetailsHoursPeriod) then) =
-      __$$_PlaceDetailsHoursPeriodCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsHoursPeriodImplCopyWith(
+          _$PlaceDetailsHoursPeriodImpl value,
+          $Res Function(_$PlaceDetailsHoursPeriodImpl) then) =
+      __$$PlaceDetailsHoursPeriodImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2454,12 +2466,13 @@ abstract class _$$_PlaceDetailsHoursPeriodCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlaceDetailsHoursPeriodCopyWithImpl<$Res>
+class __$$PlaceDetailsHoursPeriodImplCopyWithImpl<$Res>
     extends _$PlaceDetailsHoursPeriodCopyWithImpl<$Res,
-        _$_PlaceDetailsHoursPeriod>
-    implements _$$_PlaceDetailsHoursPeriodCopyWith<$Res> {
-  __$$_PlaceDetailsHoursPeriodCopyWithImpl(_$_PlaceDetailsHoursPeriod _value,
-      $Res Function(_$_PlaceDetailsHoursPeriod) _then)
+        _$PlaceDetailsHoursPeriodImpl>
+    implements _$$PlaceDetailsHoursPeriodImplCopyWith<$Res> {
+  __$$PlaceDetailsHoursPeriodImplCopyWithImpl(
+      _$PlaceDetailsHoursPeriodImpl _value,
+      $Res Function(_$PlaceDetailsHoursPeriodImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2468,7 +2481,7 @@ class __$$_PlaceDetailsHoursPeriodCopyWithImpl<$Res>
     Object? close = freezed,
     Object? open = null,
   }) {
-    return _then(_$_PlaceDetailsHoursPeriod(
+    return _then(_$PlaceDetailsHoursPeriodImpl(
       close: freezed == close
           ? _value.close
           : close // ignore: cast_nullable_to_non_nullable
@@ -2483,11 +2496,12 @@ class __$$_PlaceDetailsHoursPeriodCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsHoursPeriod implements _PlaceDetailsHoursPeriod {
-  const _$_PlaceDetailsHoursPeriod({required this.close, required this.open});
+class _$PlaceDetailsHoursPeriodImpl implements _PlaceDetailsHoursPeriod {
+  const _$PlaceDetailsHoursPeriodImpl(
+      {required this.close, required this.open});
 
-  factory _$_PlaceDetailsHoursPeriod.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsHoursPeriodFromJson(json);
+  factory _$PlaceDetailsHoursPeriodImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsHoursPeriodImplFromJson(json);
 
   @override
   final PlaceDetailsHoursPeriodDetail? close;
@@ -2503,7 +2517,7 @@ class _$_PlaceDetailsHoursPeriod implements _PlaceDetailsHoursPeriod {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsHoursPeriod &&
+            other is _$PlaceDetailsHoursPeriodImpl &&
             (identical(other.close, close) || other.close == close) &&
             (identical(other.open, open) || other.open == open));
   }
@@ -2515,14 +2529,13 @@ class _$_PlaceDetailsHoursPeriod implements _PlaceDetailsHoursPeriod {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsHoursPeriodCopyWith<_$_PlaceDetailsHoursPeriod>
-      get copyWith =>
-          __$$_PlaceDetailsHoursPeriodCopyWithImpl<_$_PlaceDetailsHoursPeriod>(
-              this, _$identity);
+  _$$PlaceDetailsHoursPeriodImplCopyWith<_$PlaceDetailsHoursPeriodImpl>
+      get copyWith => __$$PlaceDetailsHoursPeriodImplCopyWithImpl<
+          _$PlaceDetailsHoursPeriodImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsHoursPeriodToJson(
+    return _$$PlaceDetailsHoursPeriodImplToJson(
       this,
     );
   }
@@ -2532,10 +2545,10 @@ abstract class _PlaceDetailsHoursPeriod implements PlaceDetailsHoursPeriod {
   const factory _PlaceDetailsHoursPeriod(
           {required final PlaceDetailsHoursPeriodDetail? close,
           required final PlaceDetailsHoursPeriodDetail open}) =
-      _$_PlaceDetailsHoursPeriod;
+      _$PlaceDetailsHoursPeriodImpl;
 
   factory _PlaceDetailsHoursPeriod.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsHoursPeriod.fromJson;
+      _$PlaceDetailsHoursPeriodImpl.fromJson;
 
   @override
   PlaceDetailsHoursPeriodDetail? get close;
@@ -2543,7 +2556,7 @@ abstract class _PlaceDetailsHoursPeriod implements PlaceDetailsHoursPeriod {
   PlaceDetailsHoursPeriodDetail get open;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsHoursPeriodCopyWith<_$_PlaceDetailsHoursPeriod>
+  _$$PlaceDetailsHoursPeriodImplCopyWith<_$PlaceDetailsHoursPeriodImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2617,25 +2630,25 @@ class _$PlaceDetailsHoursPeriodDetailCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsHoursPeriodDetailCopyWith<$Res>
+abstract class _$$PlaceDetailsHoursPeriodDetailImplCopyWith<$Res>
     implements $PlaceDetailsHoursPeriodDetailCopyWith<$Res> {
-  factory _$$_PlaceDetailsHoursPeriodDetailCopyWith(
-          _$_PlaceDetailsHoursPeriodDetail value,
-          $Res Function(_$_PlaceDetailsHoursPeriodDetail) then) =
-      __$$_PlaceDetailsHoursPeriodDetailCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsHoursPeriodDetailImplCopyWith(
+          _$PlaceDetailsHoursPeriodDetailImpl value,
+          $Res Function(_$PlaceDetailsHoursPeriodDetailImpl) then) =
+      __$$PlaceDetailsHoursPeriodDetailImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int day, String time, String? date, bool? truncated});
 }
 
 /// @nodoc
-class __$$_PlaceDetailsHoursPeriodDetailCopyWithImpl<$Res>
+class __$$PlaceDetailsHoursPeriodDetailImplCopyWithImpl<$Res>
     extends _$PlaceDetailsHoursPeriodDetailCopyWithImpl<$Res,
-        _$_PlaceDetailsHoursPeriodDetail>
-    implements _$$_PlaceDetailsHoursPeriodDetailCopyWith<$Res> {
-  __$$_PlaceDetailsHoursPeriodDetailCopyWithImpl(
-      _$_PlaceDetailsHoursPeriodDetail _value,
-      $Res Function(_$_PlaceDetailsHoursPeriodDetail) _then)
+        _$PlaceDetailsHoursPeriodDetailImpl>
+    implements _$$PlaceDetailsHoursPeriodDetailImplCopyWith<$Res> {
+  __$$PlaceDetailsHoursPeriodDetailImplCopyWithImpl(
+      _$PlaceDetailsHoursPeriodDetailImpl _value,
+      $Res Function(_$PlaceDetailsHoursPeriodDetailImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2646,7 +2659,7 @@ class __$$_PlaceDetailsHoursPeriodDetailCopyWithImpl<$Res>
     Object? date = freezed,
     Object? truncated = freezed,
   }) {
-    return _then(_$_PlaceDetailsHoursPeriodDetail(
+    return _then(_$PlaceDetailsHoursPeriodDetailImpl(
       day: null == day
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -2669,17 +2682,17 @@ class __$$_PlaceDetailsHoursPeriodDetailCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsHoursPeriodDetail
+class _$PlaceDetailsHoursPeriodDetailImpl
     implements _PlaceDetailsHoursPeriodDetail {
-  const _$_PlaceDetailsHoursPeriodDetail(
+  const _$PlaceDetailsHoursPeriodDetailImpl(
       {required this.day,
       required this.time,
       required this.date,
       required this.truncated});
 
-  factory _$_PlaceDetailsHoursPeriodDetail.fromJson(
+  factory _$PlaceDetailsHoursPeriodDetailImpl.fromJson(
           Map<String, dynamic> json) =>
-      _$$_PlaceDetailsHoursPeriodDetailFromJson(json);
+      _$$PlaceDetailsHoursPeriodDetailImplFromJson(json);
 
   @override
   final int day;
@@ -2699,7 +2712,7 @@ class _$_PlaceDetailsHoursPeriodDetail
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsHoursPeriodDetail &&
+            other is _$PlaceDetailsHoursPeriodDetailImpl &&
             (identical(other.day, day) || other.day == day) &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.date, date) || other.date == date) &&
@@ -2714,13 +2727,14 @@ class _$_PlaceDetailsHoursPeriodDetail
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsHoursPeriodDetailCopyWith<_$_PlaceDetailsHoursPeriodDetail>
-      get copyWith => __$$_PlaceDetailsHoursPeriodDetailCopyWithImpl<
-          _$_PlaceDetailsHoursPeriodDetail>(this, _$identity);
+  _$$PlaceDetailsHoursPeriodDetailImplCopyWith<
+          _$PlaceDetailsHoursPeriodDetailImpl>
+      get copyWith => __$$PlaceDetailsHoursPeriodDetailImplCopyWithImpl<
+          _$PlaceDetailsHoursPeriodDetailImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsHoursPeriodDetailToJson(
+    return _$$PlaceDetailsHoursPeriodDetailImplToJson(
       this,
     );
   }
@@ -2732,10 +2746,10 @@ abstract class _PlaceDetailsHoursPeriodDetail
       {required final int day,
       required final String time,
       required final String? date,
-      required final bool? truncated}) = _$_PlaceDetailsHoursPeriodDetail;
+      required final bool? truncated}) = _$PlaceDetailsHoursPeriodDetailImpl;
 
   factory _PlaceDetailsHoursPeriodDetail.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsHoursPeriodDetail.fromJson;
+      _$PlaceDetailsHoursPeriodDetailImpl.fromJson;
 
   @override
   int get day;
@@ -2747,7 +2761,8 @@ abstract class _PlaceDetailsHoursPeriodDetail
   bool? get truncated;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsHoursPeriodDetailCopyWith<_$_PlaceDetailsHoursPeriodDetail>
+  _$$PlaceDetailsHoursPeriodDetailImplCopyWith<
+          _$PlaceDetailsHoursPeriodDetailImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2807,23 +2822,25 @@ class _$PlaceDetailsSpecialDayCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsSpecialDayCopyWith<$Res>
+abstract class _$$PlaceDetailsSpecialDayImplCopyWith<$Res>
     implements $PlaceDetailsSpecialDayCopyWith<$Res> {
-  factory _$$_PlaceDetailsSpecialDayCopyWith(_$_PlaceDetailsSpecialDay value,
-          $Res Function(_$_PlaceDetailsSpecialDay) then) =
-      __$$_PlaceDetailsSpecialDayCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsSpecialDayImplCopyWith(
+          _$PlaceDetailsSpecialDayImpl value,
+          $Res Function(_$PlaceDetailsSpecialDayImpl) then) =
+      __$$PlaceDetailsSpecialDayImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? date, bool? exceptionalHours});
 }
 
 /// @nodoc
-class __$$_PlaceDetailsSpecialDayCopyWithImpl<$Res>
+class __$$PlaceDetailsSpecialDayImplCopyWithImpl<$Res>
     extends _$PlaceDetailsSpecialDayCopyWithImpl<$Res,
-        _$_PlaceDetailsSpecialDay>
-    implements _$$_PlaceDetailsSpecialDayCopyWith<$Res> {
-  __$$_PlaceDetailsSpecialDayCopyWithImpl(_$_PlaceDetailsSpecialDay _value,
-      $Res Function(_$_PlaceDetailsSpecialDay) _then)
+        _$PlaceDetailsSpecialDayImpl>
+    implements _$$PlaceDetailsSpecialDayImplCopyWith<$Res> {
+  __$$PlaceDetailsSpecialDayImplCopyWithImpl(
+      _$PlaceDetailsSpecialDayImpl _value,
+      $Res Function(_$PlaceDetailsSpecialDayImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2832,7 +2849,7 @@ class __$$_PlaceDetailsSpecialDayCopyWithImpl<$Res>
     Object? date = freezed,
     Object? exceptionalHours = freezed,
   }) {
-    return _then(_$_PlaceDetailsSpecialDay(
+    return _then(_$PlaceDetailsSpecialDayImpl(
       date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -2847,12 +2864,12 @@ class __$$_PlaceDetailsSpecialDayCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsSpecialDay implements _PlaceDetailsSpecialDay {
-  const _$_PlaceDetailsSpecialDay(
+class _$PlaceDetailsSpecialDayImpl implements _PlaceDetailsSpecialDay {
+  const _$PlaceDetailsSpecialDayImpl(
       {required this.date, required this.exceptionalHours});
 
-  factory _$_PlaceDetailsSpecialDay.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsSpecialDayFromJson(json);
+  factory _$PlaceDetailsSpecialDayImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsSpecialDayImplFromJson(json);
 
   @override
   final String? date;
@@ -2868,7 +2885,7 @@ class _$_PlaceDetailsSpecialDay implements _PlaceDetailsSpecialDay {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsSpecialDay &&
+            other is _$PlaceDetailsSpecialDayImpl &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.exceptionalHours, exceptionalHours) ||
                 other.exceptionalHours == exceptionalHours));
@@ -2881,13 +2898,13 @@ class _$_PlaceDetailsSpecialDay implements _PlaceDetailsSpecialDay {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsSpecialDayCopyWith<_$_PlaceDetailsSpecialDay> get copyWith =>
-      __$$_PlaceDetailsSpecialDayCopyWithImpl<_$_PlaceDetailsSpecialDay>(
-          this, _$identity);
+  _$$PlaceDetailsSpecialDayImplCopyWith<_$PlaceDetailsSpecialDayImpl>
+      get copyWith => __$$PlaceDetailsSpecialDayImplCopyWithImpl<
+          _$PlaceDetailsSpecialDayImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsSpecialDayToJson(
+    return _$$PlaceDetailsSpecialDayImplToJson(
       this,
     );
   }
@@ -2896,10 +2913,10 @@ class _$_PlaceDetailsSpecialDay implements _PlaceDetailsSpecialDay {
 abstract class _PlaceDetailsSpecialDay implements PlaceDetailsSpecialDay {
   const factory _PlaceDetailsSpecialDay(
       {required final String? date,
-      required final bool? exceptionalHours}) = _$_PlaceDetailsSpecialDay;
+      required final bool? exceptionalHours}) = _$PlaceDetailsSpecialDayImpl;
 
   factory _PlaceDetailsSpecialDay.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsSpecialDay.fromJson;
+      _$PlaceDetailsSpecialDayImpl.fromJson;
 
   @override
   String? get date;
@@ -2907,8 +2924,8 @@ abstract class _PlaceDetailsSpecialDay implements PlaceDetailsSpecialDay {
   bool? get exceptionalHours;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsSpecialDayCopyWith<_$_PlaceDetailsSpecialDay> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PlaceDetailsSpecialDayImplCopyWith<_$PlaceDetailsSpecialDayImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 PlaceDetailsPhoto _$PlaceDetailsPhotoFromJson(Map<String, dynamic> json) {
@@ -2981,11 +2998,11 @@ class _$PlaceDetailsPhotoCopyWithImpl<$Res, $Val extends PlaceDetailsPhoto>
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsPhotoCopyWith<$Res>
+abstract class _$$PlaceDetailsPhotoImplCopyWith<$Res>
     implements $PlaceDetailsPhotoCopyWith<$Res> {
-  factory _$$_PlaceDetailsPhotoCopyWith(_$_PlaceDetailsPhoto value,
-          $Res Function(_$_PlaceDetailsPhoto) then) =
-      __$$_PlaceDetailsPhotoCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsPhotoImplCopyWith(_$PlaceDetailsPhotoImpl value,
+          $Res Function(_$PlaceDetailsPhotoImpl) then) =
+      __$$PlaceDetailsPhotoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2996,11 +3013,11 @@ abstract class _$$_PlaceDetailsPhotoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlaceDetailsPhotoCopyWithImpl<$Res>
-    extends _$PlaceDetailsPhotoCopyWithImpl<$Res, _$_PlaceDetailsPhoto>
-    implements _$$_PlaceDetailsPhotoCopyWith<$Res> {
-  __$$_PlaceDetailsPhotoCopyWithImpl(
-      _$_PlaceDetailsPhoto _value, $Res Function(_$_PlaceDetailsPhoto) _then)
+class __$$PlaceDetailsPhotoImplCopyWithImpl<$Res>
+    extends _$PlaceDetailsPhotoCopyWithImpl<$Res, _$PlaceDetailsPhotoImpl>
+    implements _$$PlaceDetailsPhotoImplCopyWith<$Res> {
+  __$$PlaceDetailsPhotoImplCopyWithImpl(_$PlaceDetailsPhotoImpl _value,
+      $Res Function(_$PlaceDetailsPhotoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3011,7 +3028,7 @@ class __$$_PlaceDetailsPhotoCopyWithImpl<$Res>
     Object? photoReference = null,
     Object? width = null,
   }) {
-    return _then(_$_PlaceDetailsPhoto(
+    return _then(_$PlaceDetailsPhotoImpl(
       height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
@@ -3034,8 +3051,8 @@ class __$$_PlaceDetailsPhotoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsPhoto extends _PlaceDetailsPhoto {
-  const _$_PlaceDetailsPhoto(
+class _$PlaceDetailsPhotoImpl extends _PlaceDetailsPhoto {
+  const _$PlaceDetailsPhotoImpl(
       {required this.height,
       required final List<String> htmlAttributions,
       required this.photoReference,
@@ -3043,8 +3060,8 @@ class _$_PlaceDetailsPhoto extends _PlaceDetailsPhoto {
       : _htmlAttributions = htmlAttributions,
         super._();
 
-  factory _$_PlaceDetailsPhoto.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsPhotoFromJson(json);
+  factory _$PlaceDetailsPhotoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsPhotoImplFromJson(json);
 
   @override
   final int height;
@@ -3071,7 +3088,7 @@ class _$_PlaceDetailsPhoto extends _PlaceDetailsPhoto {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsPhoto &&
+            other is _$PlaceDetailsPhotoImpl &&
             (identical(other.height, height) || other.height == height) &&
             const DeepCollectionEquality()
                 .equals(other._htmlAttributions, _htmlAttributions) &&
@@ -3092,13 +3109,13 @@ class _$_PlaceDetailsPhoto extends _PlaceDetailsPhoto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsPhotoCopyWith<_$_PlaceDetailsPhoto> get copyWith =>
-      __$$_PlaceDetailsPhotoCopyWithImpl<_$_PlaceDetailsPhoto>(
+  _$$PlaceDetailsPhotoImplCopyWith<_$PlaceDetailsPhotoImpl> get copyWith =>
+      __$$PlaceDetailsPhotoImplCopyWithImpl<_$PlaceDetailsPhotoImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsPhotoToJson(
+    return _$$PlaceDetailsPhotoImplToJson(
       this,
     );
   }
@@ -3109,11 +3126,11 @@ abstract class _PlaceDetailsPhoto extends PlaceDetailsPhoto {
       {required final int height,
       required final List<String> htmlAttributions,
       required final String photoReference,
-      required final int width}) = _$_PlaceDetailsPhoto;
+      required final int width}) = _$PlaceDetailsPhotoImpl;
   const _PlaceDetailsPhoto._() : super._();
 
   factory _PlaceDetailsPhoto.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsPhoto.fromJson;
+      _$PlaceDetailsPhotoImpl.fromJson;
 
   @override
   int get height;
@@ -3125,7 +3142,7 @@ abstract class _PlaceDetailsPhoto extends PlaceDetailsPhoto {
   int get width;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsPhotoCopyWith<_$_PlaceDetailsPhoto> get copyWith =>
+  _$$PlaceDetailsPhotoImplCopyWith<_$PlaceDetailsPhotoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -3184,22 +3201,22 @@ class _$PlaceDetailsPlusCodeCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsPlusCodeCopyWith<$Res>
+abstract class _$$PlaceDetailsPlusCodeImplCopyWith<$Res>
     implements $PlaceDetailsPlusCodeCopyWith<$Res> {
-  factory _$$_PlaceDetailsPlusCodeCopyWith(_$_PlaceDetailsPlusCode value,
-          $Res Function(_$_PlaceDetailsPlusCode) then) =
-      __$$_PlaceDetailsPlusCodeCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsPlusCodeImplCopyWith(_$PlaceDetailsPlusCodeImpl value,
+          $Res Function(_$PlaceDetailsPlusCodeImpl) then) =
+      __$$PlaceDetailsPlusCodeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? compoundCode, String globalCode});
 }
 
 /// @nodoc
-class __$$_PlaceDetailsPlusCodeCopyWithImpl<$Res>
-    extends _$PlaceDetailsPlusCodeCopyWithImpl<$Res, _$_PlaceDetailsPlusCode>
-    implements _$$_PlaceDetailsPlusCodeCopyWith<$Res> {
-  __$$_PlaceDetailsPlusCodeCopyWithImpl(_$_PlaceDetailsPlusCode _value,
-      $Res Function(_$_PlaceDetailsPlusCode) _then)
+class __$$PlaceDetailsPlusCodeImplCopyWithImpl<$Res>
+    extends _$PlaceDetailsPlusCodeCopyWithImpl<$Res, _$PlaceDetailsPlusCodeImpl>
+    implements _$$PlaceDetailsPlusCodeImplCopyWith<$Res> {
+  __$$PlaceDetailsPlusCodeImplCopyWithImpl(_$PlaceDetailsPlusCodeImpl _value,
+      $Res Function(_$PlaceDetailsPlusCodeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3208,7 +3225,7 @@ class __$$_PlaceDetailsPlusCodeCopyWithImpl<$Res>
     Object? compoundCode = freezed,
     Object? globalCode = null,
   }) {
-    return _then(_$_PlaceDetailsPlusCode(
+    return _then(_$PlaceDetailsPlusCodeImpl(
       compoundCode: freezed == compoundCode
           ? _value.compoundCode
           : compoundCode // ignore: cast_nullable_to_non_nullable
@@ -3223,12 +3240,12 @@ class __$$_PlaceDetailsPlusCodeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsPlusCode implements _PlaceDetailsPlusCode {
-  const _$_PlaceDetailsPlusCode(
+class _$PlaceDetailsPlusCodeImpl implements _PlaceDetailsPlusCode {
+  const _$PlaceDetailsPlusCodeImpl(
       {required this.compoundCode, required this.globalCode});
 
-  factory _$_PlaceDetailsPlusCode.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsPlusCodeFromJson(json);
+  factory _$PlaceDetailsPlusCodeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsPlusCodeImplFromJson(json);
 
   @override
   final String? compoundCode;
@@ -3244,7 +3261,7 @@ class _$_PlaceDetailsPlusCode implements _PlaceDetailsPlusCode {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsPlusCode &&
+            other is _$PlaceDetailsPlusCodeImpl &&
             (identical(other.compoundCode, compoundCode) ||
                 other.compoundCode == compoundCode) &&
             (identical(other.globalCode, globalCode) ||
@@ -3258,13 +3275,14 @@ class _$_PlaceDetailsPlusCode implements _PlaceDetailsPlusCode {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsPlusCodeCopyWith<_$_PlaceDetailsPlusCode> get copyWith =>
-      __$$_PlaceDetailsPlusCodeCopyWithImpl<_$_PlaceDetailsPlusCode>(
-          this, _$identity);
+  _$$PlaceDetailsPlusCodeImplCopyWith<_$PlaceDetailsPlusCodeImpl>
+      get copyWith =>
+          __$$PlaceDetailsPlusCodeImplCopyWithImpl<_$PlaceDetailsPlusCodeImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsPlusCodeToJson(
+    return _$$PlaceDetailsPlusCodeImplToJson(
       this,
     );
   }
@@ -3273,10 +3291,10 @@ class _$_PlaceDetailsPlusCode implements _PlaceDetailsPlusCode {
 abstract class _PlaceDetailsPlusCode implements PlaceDetailsPlusCode {
   const factory _PlaceDetailsPlusCode(
       {required final String? compoundCode,
-      required final String globalCode}) = _$_PlaceDetailsPlusCode;
+      required final String globalCode}) = _$PlaceDetailsPlusCodeImpl;
 
   factory _PlaceDetailsPlusCode.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsPlusCode.fromJson;
+      _$PlaceDetailsPlusCodeImpl.fromJson;
 
   @override
   String? get compoundCode;
@@ -3284,8 +3302,8 @@ abstract class _PlaceDetailsPlusCode implements PlaceDetailsPlusCode {
   String get globalCode;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsPlusCodeCopyWith<_$_PlaceDetailsPlusCode> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PlaceDetailsPlusCodeImplCopyWith<_$PlaceDetailsPlusCodeImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 PlaceDetailsReview _$PlaceDetailsReviewFromJson(Map<String, dynamic> json) {
@@ -3400,11 +3418,11 @@ class _$PlaceDetailsReviewCopyWithImpl<$Res, $Val extends PlaceDetailsReview>
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsReviewCopyWith<$Res>
+abstract class _$$PlaceDetailsReviewImplCopyWith<$Res>
     implements $PlaceDetailsReviewCopyWith<$Res> {
-  factory _$$_PlaceDetailsReviewCopyWith(_$_PlaceDetailsReview value,
-          $Res Function(_$_PlaceDetailsReview) then) =
-      __$$_PlaceDetailsReviewCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsReviewImplCopyWith(_$PlaceDetailsReviewImpl value,
+          $Res Function(_$PlaceDetailsReviewImpl) then) =
+      __$$PlaceDetailsReviewImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3421,11 +3439,11 @@ abstract class _$$_PlaceDetailsReviewCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlaceDetailsReviewCopyWithImpl<$Res>
-    extends _$PlaceDetailsReviewCopyWithImpl<$Res, _$_PlaceDetailsReview>
-    implements _$$_PlaceDetailsReviewCopyWith<$Res> {
-  __$$_PlaceDetailsReviewCopyWithImpl(
-      _$_PlaceDetailsReview _value, $Res Function(_$_PlaceDetailsReview) _then)
+class __$$PlaceDetailsReviewImplCopyWithImpl<$Res>
+    extends _$PlaceDetailsReviewCopyWithImpl<$Res, _$PlaceDetailsReviewImpl>
+    implements _$$PlaceDetailsReviewImplCopyWith<$Res> {
+  __$$PlaceDetailsReviewImplCopyWithImpl(_$PlaceDetailsReviewImpl _value,
+      $Res Function(_$PlaceDetailsReviewImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3442,7 +3460,7 @@ class __$$_PlaceDetailsReviewCopyWithImpl<$Res>
     Object? text = freezed,
     Object? translated = freezed,
   }) {
-    return _then(_$_PlaceDetailsReview(
+    return _then(_$PlaceDetailsReviewImpl(
       authorName: null == authorName
           ? _value.authorName
           : authorName // ignore: cast_nullable_to_non_nullable
@@ -3489,8 +3507,8 @@ class __$$_PlaceDetailsReviewCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaceDetailsReview implements _PlaceDetailsReview {
-  const _$_PlaceDetailsReview(
+class _$PlaceDetailsReviewImpl implements _PlaceDetailsReview {
+  const _$PlaceDetailsReviewImpl(
       {required this.authorName,
       required this.rating,
       required this.relativeTimeDescription,
@@ -3502,8 +3520,8 @@ class _$_PlaceDetailsReview implements _PlaceDetailsReview {
       required this.text,
       required this.translated});
 
-  factory _$_PlaceDetailsReview.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaceDetailsReviewFromJson(json);
+  factory _$PlaceDetailsReviewImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceDetailsReviewImplFromJson(json);
 
   @override
   final String authorName;
@@ -3535,7 +3553,7 @@ class _$_PlaceDetailsReview implements _PlaceDetailsReview {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsReview &&
+            other is _$PlaceDetailsReviewImpl &&
             (identical(other.authorName, authorName) ||
                 other.authorName == authorName) &&
             (identical(other.rating, rating) || other.rating == rating) &&
@@ -3574,13 +3592,13 @@ class _$_PlaceDetailsReview implements _PlaceDetailsReview {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsReviewCopyWith<_$_PlaceDetailsReview> get copyWith =>
-      __$$_PlaceDetailsReviewCopyWithImpl<_$_PlaceDetailsReview>(
+  _$$PlaceDetailsReviewImplCopyWith<_$PlaceDetailsReviewImpl> get copyWith =>
+      __$$PlaceDetailsReviewImplCopyWithImpl<_$PlaceDetailsReviewImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaceDetailsReviewToJson(
+    return _$$PlaceDetailsReviewImplToJson(
       this,
     );
   }
@@ -3597,10 +3615,10 @@ abstract class _PlaceDetailsReview implements PlaceDetailsReview {
       required final String? originalLanguage,
       required final String? profilePhotoUrl,
       required final String? text,
-      required final bool? translated}) = _$_PlaceDetailsReview;
+      required final bool? translated}) = _$PlaceDetailsReviewImpl;
 
   factory _PlaceDetailsReview.fromJson(Map<String, dynamic> json) =
-      _$_PlaceDetailsReview.fromJson;
+      _$PlaceDetailsReviewImpl.fromJson;
 
   @override
   String get authorName;
@@ -3624,6 +3642,6 @@ abstract class _PlaceDetailsReview implements PlaceDetailsReview {
   bool? get translated;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsReviewCopyWith<_$_PlaceDetailsReview> get copyWith =>
+  _$$PlaceDetailsReviewImplCopyWith<_$PlaceDetailsReviewImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

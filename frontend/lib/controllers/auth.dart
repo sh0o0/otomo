@@ -4,18 +4,29 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:otomo/configs/links.dart';
 import 'package:otomo/controllers/firebase.dart';
-import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/account.dart';
+import 'package:otomo/entities/app_exception.dart';
+import 'package:otomo/tools/app_package_info.dart';
 import 'package:otomo/tools/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const _appleEmailScope = 'email';
 
 class AuthControllerImpl {
-  AuthControllerImpl(this._firebaseAuth, this._googleSignIn);
+  AuthControllerImpl(
+    this._firebaseAuth,
+    this._googleSignIn,
+    this._sharedPreferences,
+  );
 
   final auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final SharedPreferences _sharedPreferences;
+
+  static const _emailOfSignInWithEmailLinkKey =
+      'email_of_sign_in_with_email_link';
 
   Stream<Account?> authStateChanges() => _firebaseAuth
       .authStateChanges()
@@ -53,6 +64,44 @@ class AuthControllerImpl {
       credential = await _firebaseAuth.signInWithProvider(appleProvider);
     }
     return _userToAccount(credential.user);
+  }
+
+  Future<void> sendSignInEmailLink(String email) async {
+    final settings = auth.ActionCodeSettings(
+      url: Links.finishSignInWithEmailLink,
+      handleCodeInApp: true,
+      iOSBundleId: AppPackageInfo.packageName,
+      androidPackageName: AppPackageInfo.packageName,
+      androidInstallApp: true,
+      androidMinimumVersion: '12',
+    );
+    await _firebaseAuth.sendSignInLinkToEmail(
+      email: email,
+      actionCodeSettings: settings,
+    );
+    await _sharedPreferences.setString(_emailOfSignInWithEmailLinkKey, email);
+  }
+
+  bool isSignInWithEmailLink(String link) =>
+      _firebaseAuth.isSignInWithEmailLink(link);
+
+  Future<Account> signInWithEmailLink(String link) async {
+    if (!_firebaseAuth.isSignInWithEmailLink(link)) {
+      throw AppException.unknown('incorrect email link');
+    }
+
+    final savedEmail =
+        _sharedPreferences.getString(_emailOfSignInWithEmailLinkKey);
+    if (savedEmail == null) throw AppException.unknown('email was not saved');
+
+    final userCredential = await _firebaseAuth.signInWithEmailLink(
+      email: savedEmail,
+      emailLink: link,
+    );
+
+    await _sharedPreferences.remove(_emailOfSignInWithEmailLinkKey);
+
+    return _userToAccount(userCredential.user);
   }
 
   Future<Account> _signInWithCredential(auth.AuthCredential credential) async {

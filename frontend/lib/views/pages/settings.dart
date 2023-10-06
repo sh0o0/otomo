@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/tools/app_package_info.dart';
-import 'package:otomo/view_models/user.dart';
+import 'package:otomo/view_models/account.dart';
+import 'package:otomo/view_models/router.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/danger/danger_text.dart';
 import 'package:otomo/views/cases/settings/app_settings_list.dart';
 import 'package:otomo/views/cases/settings/app_settings_section.dart';
 import 'package:otomo/views/cases/settings/app_settings_tile.dart';
-import 'package:otomo/views/router.dart';
 import 'package:otomo/views/routes.dart';
-import 'package:otomo/views/utils/links.dart';
+import 'package:otomo/views/utils/launcher.dart';
 
 class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});

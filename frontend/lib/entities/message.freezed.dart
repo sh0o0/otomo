@@ -108,11 +108,11 @@ class _$TextMessageCopyWithImpl<$Res, $Val extends TextMessage>
 }
 
 /// @nodoc
-abstract class _$$_TextMessageCopyWith<$Res>
+abstract class _$$TextMessageImplCopyWith<$Res>
     implements $TextMessageCopyWith<$Res> {
-  factory _$$_TextMessageCopyWith(
-          _$_TextMessage value, $Res Function(_$_TextMessage) then) =
-      __$$_TextMessageCopyWithImpl<$Res>;
+  factory _$$TextMessageImplCopyWith(
+          _$TextMessageImpl value, $Res Function(_$TextMessageImpl) then) =
+      __$$TextMessageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -128,11 +128,11 @@ abstract class _$$_TextMessageCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TextMessageCopyWithImpl<$Res>
-    extends _$TextMessageCopyWithImpl<$Res, _$_TextMessage>
-    implements _$$_TextMessageCopyWith<$Res> {
-  __$$_TextMessageCopyWithImpl(
-      _$_TextMessage _value, $Res Function(_$_TextMessage) _then)
+class __$$TextMessageImplCopyWithImpl<$Res>
+    extends _$TextMessageCopyWithImpl<$Res, _$TextMessageImpl>
+    implements _$$TextMessageImplCopyWith<$Res> {
+  __$$TextMessageImplCopyWithImpl(
+      _$TextMessageImpl _value, $Res Function(_$TextMessageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -145,7 +145,7 @@ class __$$_TextMessageCopyWithImpl<$Res>
     Object? sentAt = null,
     Object? locationAnalysis = null,
   }) {
-    return _then(_$_TextMessage(
+    return _then(_$TextMessageImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -176,8 +176,8 @@ class __$$_TextMessageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TextMessage extends _TextMessage {
-  const _$_TextMessage(
+class _$TextMessageImpl extends _TextMessage {
+  const _$TextMessageImpl(
       {required this.id,
       this.clientId,
       required this.text,
@@ -186,8 +186,8 @@ class _$_TextMessage extends _TextMessage {
       required this.locationAnalysis})
       : super._();
 
-  factory _$_TextMessage.fromJson(Map<String, dynamic> json) =>
-      _$$_TextMessageFromJson(json);
+  factory _$TextMessageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextMessageImplFromJson(json);
 
   @override
   final String id;
@@ -211,7 +211,7 @@ class _$_TextMessage extends _TextMessage {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TextMessage &&
+            other is _$TextMessageImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.clientId, clientId) ||
                 other.clientId == clientId) &&
@@ -230,12 +230,12 @@ class _$_TextMessage extends _TextMessage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TextMessageCopyWith<_$_TextMessage> get copyWith =>
-      __$$_TextMessageCopyWithImpl<_$_TextMessage>(this, _$identity);
+  _$$TextMessageImplCopyWith<_$TextMessageImpl> get copyWith =>
+      __$$TextMessageImplCopyWithImpl<_$TextMessageImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TextMessageToJson(
+    return _$$TextMessageImplToJson(
       this,
     );
   }
@@ -248,11 +248,11 @@ abstract class _TextMessage extends TextMessage {
       required final String text,
       required final Role role,
       required final DateTime sentAt,
-      required final LocationAnalysis locationAnalysis}) = _$_TextMessage;
+      required final LocationAnalysis locationAnalysis}) = _$TextMessageImpl;
   const _TextMessage._() : super._();
 
   factory _TextMessage.fromJson(Map<String, dynamic> json) =
-      _$_TextMessage.fromJson;
+      _$TextMessageImpl.fromJson;
 
   @override
   String get id;
@@ -268,7 +268,7 @@ abstract class _TextMessage extends TextMessage {
   LocationAnalysis get locationAnalysis;
   @override
   @JsonKey(ignore: true)
-  _$$_TextMessageCopyWith<_$_TextMessage> get copyWith =>
+  _$$TextMessageImplCopyWith<_$TextMessageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -333,11 +333,11 @@ class _$LocationAnalysisCopyWithImpl<$Res, $Val extends LocationAnalysis>
 }
 
 /// @nodoc
-abstract class _$$_LocationAnalysisCopyWith<$Res>
+abstract class _$$LocationAnalysisImplCopyWith<$Res>
     implements $LocationAnalysisCopyWith<$Res> {
-  factory _$$_LocationAnalysisCopyWith(
-          _$_LocationAnalysis value, $Res Function(_$_LocationAnalysis) then) =
-      __$$_LocationAnalysisCopyWithImpl<$Res>;
+  factory _$$LocationAnalysisImplCopyWith(_$LocationAnalysisImpl value,
+          $Res Function(_$LocationAnalysisImpl) then) =
+      __$$LocationAnalysisImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -345,11 +345,11 @@ abstract class _$$_LocationAnalysisCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_LocationAnalysisCopyWithImpl<$Res>
-    extends _$LocationAnalysisCopyWithImpl<$Res, _$_LocationAnalysis>
-    implements _$$_LocationAnalysisCopyWith<$Res> {
-  __$$_LocationAnalysisCopyWithImpl(
-      _$_LocationAnalysis _value, $Res Function(_$_LocationAnalysis) _then)
+class __$$LocationAnalysisImplCopyWithImpl<$Res>
+    extends _$LocationAnalysisCopyWithImpl<$Res, _$LocationAnalysisImpl>
+    implements _$$LocationAnalysisImplCopyWith<$Res> {
+  __$$LocationAnalysisImplCopyWithImpl(_$LocationAnalysisImpl _value,
+      $Res Function(_$LocationAnalysisImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -359,7 +359,7 @@ class __$$_LocationAnalysisCopyWithImpl<$Res>
     Object? analyzedAt = freezed,
     Object? error = freezed,
   }) {
-    return _then(_$_LocationAnalysis(
+    return _then(_$LocationAnalysisImpl(
       locations: null == locations
           ? _value._locations
           : locations // ignore: cast_nullable_to_non_nullable
@@ -378,16 +378,16 @@ class __$$_LocationAnalysisCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_LocationAnalysis extends _LocationAnalysis {
-  const _$_LocationAnalysis(
+class _$LocationAnalysisImpl extends _LocationAnalysis {
+  const _$LocationAnalysisImpl(
       {required final List<AnalyzedLocation> locations,
       this.analyzedAt,
       this.error})
       : _locations = locations,
         super._();
 
-  factory _$_LocationAnalysis.fromJson(Map<String, dynamic> json) =>
-      _$$_LocationAnalysisFromJson(json);
+  factory _$LocationAnalysisImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocationAnalysisImplFromJson(json);
 
   final List<AnalyzedLocation> _locations;
   @override
@@ -411,7 +411,7 @@ class _$_LocationAnalysis extends _LocationAnalysis {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LocationAnalysis &&
+            other is _$LocationAnalysisImpl &&
             const DeepCollectionEquality()
                 .equals(other._locations, _locations) &&
             (identical(other.analyzedAt, analyzedAt) ||
@@ -427,12 +427,13 @@ class _$_LocationAnalysis extends _LocationAnalysis {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LocationAnalysisCopyWith<_$_LocationAnalysis> get copyWith =>
-      __$$_LocationAnalysisCopyWithImpl<_$_LocationAnalysis>(this, _$identity);
+  _$$LocationAnalysisImplCopyWith<_$LocationAnalysisImpl> get copyWith =>
+      __$$LocationAnalysisImplCopyWithImpl<_$LocationAnalysisImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LocationAnalysisToJson(
+    return _$$LocationAnalysisImplToJson(
       this,
     );
   }
@@ -442,11 +443,11 @@ abstract class _LocationAnalysis extends LocationAnalysis {
   const factory _LocationAnalysis(
       {required final List<AnalyzedLocation> locations,
       final DateTime? analyzedAt,
-      final String? error}) = _$_LocationAnalysis;
+      final String? error}) = _$LocationAnalysisImpl;
   const _LocationAnalysis._() : super._();
 
   factory _LocationAnalysis.fromJson(Map<String, dynamic> json) =
-      _$_LocationAnalysis.fromJson;
+      _$LocationAnalysisImpl.fromJson;
 
   @override
   List<AnalyzedLocation> get locations;
@@ -456,7 +457,7 @@ abstract class _LocationAnalysis extends LocationAnalysis {
   String? get error;
   @override
   @JsonKey(ignore: true)
-  _$$_LocationAnalysisCopyWith<_$_LocationAnalysis> get copyWith =>
+  _$$LocationAnalysisImplCopyWith<_$LocationAnalysisImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -524,11 +525,11 @@ class _$AnalyzedLocationCopyWithImpl<$Res, $Val extends AnalyzedLocation>
 }
 
 /// @nodoc
-abstract class _$$_AnalyzedLocationCopyWith<$Res>
+abstract class _$$AnalyzedLocationImplCopyWith<$Res>
     implements $AnalyzedLocationCopyWith<$Res> {
-  factory _$$_AnalyzedLocationCopyWith(
-          _$_AnalyzedLocation value, $Res Function(_$_AnalyzedLocation) then) =
-      __$$_AnalyzedLocationCopyWithImpl<$Res>;
+  factory _$$AnalyzedLocationImplCopyWith(_$AnalyzedLocationImpl value,
+          $Res Function(_$AnalyzedLocationImpl) then) =
+      __$$AnalyzedLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String text, Location location});
@@ -538,11 +539,11 @@ abstract class _$$_AnalyzedLocationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AnalyzedLocationCopyWithImpl<$Res>
-    extends _$AnalyzedLocationCopyWithImpl<$Res, _$_AnalyzedLocation>
-    implements _$$_AnalyzedLocationCopyWith<$Res> {
-  __$$_AnalyzedLocationCopyWithImpl(
-      _$_AnalyzedLocation _value, $Res Function(_$_AnalyzedLocation) _then)
+class __$$AnalyzedLocationImplCopyWithImpl<$Res>
+    extends _$AnalyzedLocationCopyWithImpl<$Res, _$AnalyzedLocationImpl>
+    implements _$$AnalyzedLocationImplCopyWith<$Res> {
+  __$$AnalyzedLocationImplCopyWithImpl(_$AnalyzedLocationImpl _value,
+      $Res Function(_$AnalyzedLocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -551,7 +552,7 @@ class __$$_AnalyzedLocationCopyWithImpl<$Res>
     Object? text = null,
     Object? location = null,
   }) {
-    return _then(_$_AnalyzedLocation(
+    return _then(_$AnalyzedLocationImpl(
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -566,11 +567,11 @@ class __$$_AnalyzedLocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AnalyzedLocation implements _AnalyzedLocation {
-  const _$_AnalyzedLocation({required this.text, required this.location});
+class _$AnalyzedLocationImpl implements _AnalyzedLocation {
+  const _$AnalyzedLocationImpl({required this.text, required this.location});
 
-  factory _$_AnalyzedLocation.fromJson(Map<String, dynamic> json) =>
-      _$$_AnalyzedLocationFromJson(json);
+  factory _$AnalyzedLocationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AnalyzedLocationImplFromJson(json);
 
   @override
   final String text;
@@ -586,7 +587,7 @@ class _$_AnalyzedLocation implements _AnalyzedLocation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AnalyzedLocation &&
+            other is _$AnalyzedLocationImpl &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.location, location) ||
                 other.location == location));
@@ -599,12 +600,13 @@ class _$_AnalyzedLocation implements _AnalyzedLocation {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AnalyzedLocationCopyWith<_$_AnalyzedLocation> get copyWith =>
-      __$$_AnalyzedLocationCopyWithImpl<_$_AnalyzedLocation>(this, _$identity);
+  _$$AnalyzedLocationImplCopyWith<_$AnalyzedLocationImpl> get copyWith =>
+      __$$AnalyzedLocationImplCopyWithImpl<_$AnalyzedLocationImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AnalyzedLocationToJson(
+    return _$$AnalyzedLocationImplToJson(
       this,
     );
   }
@@ -613,10 +615,10 @@ class _$_AnalyzedLocation implements _AnalyzedLocation {
 abstract class _AnalyzedLocation implements AnalyzedLocation {
   const factory _AnalyzedLocation(
       {required final String text,
-      required final Location location}) = _$_AnalyzedLocation;
+      required final Location location}) = _$AnalyzedLocationImpl;
 
   factory _AnalyzedLocation.fromJson(Map<String, dynamic> json) =
-      _$_AnalyzedLocation.fromJson;
+      _$AnalyzedLocationImpl.fromJson;
 
   @override
   String get text;
@@ -624,7 +626,7 @@ abstract class _AnalyzedLocation implements AnalyzedLocation {
   Location get location;
   @override
   @JsonKey(ignore: true)
-  _$$_AnalyzedLocationCopyWith<_$_AnalyzedLocation> get copyWith =>
+  _$$AnalyzedLocationImplCopyWith<_$AnalyzedLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -707,11 +709,11 @@ class _$TextMessageChunkCopyWithImpl<$Res, $Val extends TextMessageChunk>
 }
 
 /// @nodoc
-abstract class _$$_TextMessageChunkCopyWith<$Res>
+abstract class _$$TextMessageChunkImplCopyWith<$Res>
     implements $TextMessageChunkCopyWith<$Res> {
-  factory _$$_TextMessageChunkCopyWith(
-          _$_TextMessageChunk value, $Res Function(_$_TextMessageChunk) then) =
-      __$$_TextMessageChunkCopyWithImpl<$Res>;
+  factory _$$TextMessageChunkImplCopyWith(_$TextMessageChunkImpl value,
+          $Res Function(_$TextMessageChunkImpl) then) =
+      __$$TextMessageChunkImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -724,11 +726,11 @@ abstract class _$$_TextMessageChunkCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TextMessageChunkCopyWithImpl<$Res>
-    extends _$TextMessageChunkCopyWithImpl<$Res, _$_TextMessageChunk>
-    implements _$$_TextMessageChunkCopyWith<$Res> {
-  __$$_TextMessageChunkCopyWithImpl(
-      _$_TextMessageChunk _value, $Res Function(_$_TextMessageChunk) _then)
+class __$$TextMessageChunkImplCopyWithImpl<$Res>
+    extends _$TextMessageChunkCopyWithImpl<$Res, _$TextMessageChunkImpl>
+    implements _$$TextMessageChunkImplCopyWith<$Res> {
+  __$$TextMessageChunkImplCopyWithImpl(_$TextMessageChunkImpl _value,
+      $Res Function(_$TextMessageChunkImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -741,7 +743,7 @@ class __$$_TextMessageChunkCopyWithImpl<$Res>
     Object? clientId = freezed,
     Object? isLast = null,
   }) {
-    return _then(_$_TextMessageChunk(
+    return _then(_$TextMessageChunkImpl(
       messageId: null == messageId
           ? _value.messageId
           : messageId // ignore: cast_nullable_to_non_nullable
@@ -772,8 +774,8 @@ class __$$_TextMessageChunkCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TextMessageChunk implements _TextMessageChunk {
-  const _$_TextMessageChunk(
+class _$TextMessageChunkImpl implements _TextMessageChunk {
+  const _$TextMessageChunkImpl(
       {required this.messageId,
       required this.text,
       required this.role,
@@ -803,7 +805,7 @@ class _$_TextMessageChunk implements _TextMessageChunk {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TextMessageChunk &&
+            other is _$TextMessageChunkImpl &&
             (identical(other.messageId, messageId) ||
                 other.messageId == messageId) &&
             (identical(other.text, text) || other.text == text) &&
@@ -821,8 +823,9 @@ class _$_TextMessageChunk implements _TextMessageChunk {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TextMessageChunkCopyWith<_$_TextMessageChunk> get copyWith =>
-      __$$_TextMessageChunkCopyWithImpl<_$_TextMessageChunk>(this, _$identity);
+  _$$TextMessageChunkImplCopyWith<_$TextMessageChunkImpl> get copyWith =>
+      __$$TextMessageChunkImplCopyWithImpl<_$TextMessageChunkImpl>(
+          this, _$identity);
 }
 
 abstract class _TextMessageChunk implements TextMessageChunk {
@@ -832,7 +835,7 @@ abstract class _TextMessageChunk implements TextMessageChunk {
       required final Role role,
       required final DateTime sentAt,
       final String? clientId,
-      required final bool isLast}) = _$_TextMessageChunk;
+      required final bool isLast}) = _$TextMessageChunkImpl;
 
   @override
   String get messageId;
@@ -848,6 +851,6 @@ abstract class _TextMessageChunk implements TextMessageChunk {
   bool get isLast;
   @override
   @JsonKey(ignore: true)
-  _$$_TextMessageChunkCopyWith<_$_TextMessageChunk> get copyWith =>
+  _$$TextMessageChunkImplCopyWith<_$TextMessageChunkImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

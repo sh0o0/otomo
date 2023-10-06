@@ -6,10 +6,16 @@ class RoundedTextFormField extends StatelessWidget {
     super.key,
     this.hintText,
     this.keyboardType,
+    this.onSaved,
+    this.onChanged,
+    this.validator,
   });
 
   final String? hintText;
   final TextInputType? keyboardType;
+  final FormFieldSetter<String>? onSaved;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
 
   static final inputDecoration = InputDecoration(
     filled: true,
@@ -28,6 +34,9 @@ class RoundedTextFormField extends StatelessWidget {
     return BaseTextFormField(
       keyboardType: keyboardType,
       decoration: inputDecoration,
+      onSaved: onSaved,
+      onChanged: onChanged,
+      validator: validator,
     );
   }
 }

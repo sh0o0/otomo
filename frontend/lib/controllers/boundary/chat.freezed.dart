@@ -102,11 +102,11 @@ class _$SendMessageOutputCopyWithImpl<$Res, $Val extends SendMessageOutput>
 }
 
 /// @nodoc
-abstract class _$$_SendMessageOutputCopyWith<$Res>
+abstract class _$$SendMessageOutputImplCopyWith<$Res>
     implements $SendMessageOutputCopyWith<$Res> {
-  factory _$$_SendMessageOutputCopyWith(_$_SendMessageOutput value,
-          $Res Function(_$_SendMessageOutput) then) =
-      __$$_SendMessageOutputCopyWithImpl<$Res>;
+  factory _$$SendMessageOutputImplCopyWith(_$SendMessageOutputImpl value,
+          $Res Function(_$SendMessageOutputImpl) then) =
+      __$$SendMessageOutputImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -123,11 +123,11 @@ abstract class _$$_SendMessageOutputCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SendMessageOutputCopyWithImpl<$Res>
-    extends _$SendMessageOutputCopyWithImpl<$Res, _$_SendMessageOutput>
-    implements _$$_SendMessageOutputCopyWith<$Res> {
-  __$$_SendMessageOutputCopyWithImpl(
-      _$_SendMessageOutput _value, $Res Function(_$_SendMessageOutput) _then)
+class __$$SendMessageOutputImplCopyWithImpl<$Res>
+    extends _$SendMessageOutputCopyWithImpl<$Res, _$SendMessageOutputImpl>
+    implements _$$SendMessageOutputImplCopyWith<$Res> {
+  __$$SendMessageOutputImplCopyWithImpl(_$SendMessageOutputImpl _value,
+      $Res Function(_$SendMessageOutputImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -137,7 +137,7 @@ class __$$_SendMessageOutputCopyWithImpl<$Res>
     Object? remainingMessageSendCount = null,
     Object? messageSentCount = null,
   }) {
-    return _then(_$_SendMessageOutput(
+    return _then(_$SendMessageOutputImpl(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -156,8 +156,8 @@ class __$$_SendMessageOutputCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SendMessageOutput implements _SendMessageOutput {
-  const _$_SendMessageOutput(
+class _$SendMessageOutputImpl implements _SendMessageOutput {
+  const _$SendMessageOutputImpl(
       {required this.message,
       required this.remainingMessageSendCount,
       required this.messageSentCount});
@@ -178,7 +178,7 @@ class _$_SendMessageOutput implements _SendMessageOutput {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SendMessageOutput &&
+            other is _$SendMessageOutputImpl &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.remainingMessageSendCount,
                     remainingMessageSendCount) ||
@@ -194,16 +194,17 @@ class _$_SendMessageOutput implements _SendMessageOutput {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SendMessageOutputCopyWith<_$_SendMessageOutput> get copyWith =>
-      __$$_SendMessageOutputCopyWithImpl<_$_SendMessageOutput>(
+  _$$SendMessageOutputImplCopyWith<_$SendMessageOutputImpl> get copyWith =>
+      __$$SendMessageOutputImplCopyWithImpl<_$SendMessageOutputImpl>(
           this, _$identity);
 }
 
 abstract class _SendMessageOutput implements SendMessageOutput {
   const factory _SendMessageOutput(
-      {required final TextMessage message,
-      required final RemainingMessageSendCount remainingMessageSendCount,
-      required final MessageSentCount messageSentCount}) = _$_SendMessageOutput;
+          {required final TextMessage message,
+          required final RemainingMessageSendCount remainingMessageSendCount,
+          required final MessageSentCount messageSentCount}) =
+      _$SendMessageOutputImpl;
 
   @override
   TextMessage get message;
@@ -213,7 +214,7 @@ abstract class _SendMessageOutput implements SendMessageOutput {
   MessageSentCount get messageSentCount;
   @override
   @JsonKey(ignore: true)
-  _$$_SendMessageOutputCopyWith<_$_SendMessageOutput> get copyWith =>
+  _$$SendMessageOutputImplCopyWith<_$SendMessageOutputImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -293,12 +294,12 @@ class _$GetRemainingMessageSendCountOutputCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_GetRemainingMessageSendCountOutputCopyWith<$Res>
+abstract class _$$GetRemainingMessageSendCountOutputImplCopyWith<$Res>
     implements $GetRemainingMessageSendCountOutputCopyWith<$Res> {
-  factory _$$_GetRemainingMessageSendCountOutputCopyWith(
-          _$_GetRemainingMessageSendCountOutput value,
-          $Res Function(_$_GetRemainingMessageSendCountOutput) then) =
-      __$$_GetRemainingMessageSendCountOutputCopyWithImpl<$Res>;
+  factory _$$GetRemainingMessageSendCountOutputImplCopyWith(
+          _$GetRemainingMessageSendCountOutputImpl value,
+          $Res Function(_$GetRemainingMessageSendCountOutputImpl) then) =
+      __$$GetRemainingMessageSendCountOutputImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -312,13 +313,13 @@ abstract class _$$_GetRemainingMessageSendCountOutputCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_GetRemainingMessageSendCountOutputCopyWithImpl<$Res>
+class __$$GetRemainingMessageSendCountOutputImplCopyWithImpl<$Res>
     extends _$GetRemainingMessageSendCountOutputCopyWithImpl<$Res,
-        _$_GetRemainingMessageSendCountOutput>
-    implements _$$_GetRemainingMessageSendCountOutputCopyWith<$Res> {
-  __$$_GetRemainingMessageSendCountOutputCopyWithImpl(
-      _$_GetRemainingMessageSendCountOutput _value,
-      $Res Function(_$_GetRemainingMessageSendCountOutput) _then)
+        _$GetRemainingMessageSendCountOutputImpl>
+    implements _$$GetRemainingMessageSendCountOutputImplCopyWith<$Res> {
+  __$$GetRemainingMessageSendCountOutputImplCopyWithImpl(
+      _$GetRemainingMessageSendCountOutputImpl _value,
+      $Res Function(_$GetRemainingMessageSendCountOutputImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -327,7 +328,7 @@ class __$$_GetRemainingMessageSendCountOutputCopyWithImpl<$Res>
     Object? remainingMessageSendCount = null,
     Object? messageSentCount = null,
   }) {
-    return _then(_$_GetRemainingMessageSendCountOutput(
+    return _then(_$GetRemainingMessageSendCountOutputImpl(
       remainingMessageSendCount: null == remainingMessageSendCount
           ? _value.remainingMessageSendCount
           : remainingMessageSendCount // ignore: cast_nullable_to_non_nullable
@@ -342,9 +343,9 @@ class __$$_GetRemainingMessageSendCountOutputCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GetRemainingMessageSendCountOutput
+class _$GetRemainingMessageSendCountOutputImpl
     implements _GetRemainingMessageSendCountOutput {
-  const _$_GetRemainingMessageSendCountOutput(
+  const _$GetRemainingMessageSendCountOutputImpl(
       {required this.remainingMessageSendCount,
       required this.messageSentCount});
 
@@ -362,7 +363,7 @@ class _$_GetRemainingMessageSendCountOutput
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GetRemainingMessageSendCountOutput &&
+            other is _$GetRemainingMessageSendCountOutputImpl &&
             (identical(other.remainingMessageSendCount,
                     remainingMessageSendCount) ||
                 other.remainingMessageSendCount == remainingMessageSendCount) &&
@@ -377,10 +378,10 @@ class _$_GetRemainingMessageSendCountOutput
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GetRemainingMessageSendCountOutputCopyWith<
-          _$_GetRemainingMessageSendCountOutput>
-      get copyWith => __$$_GetRemainingMessageSendCountOutputCopyWithImpl<
-          _$_GetRemainingMessageSendCountOutput>(this, _$identity);
+  _$$GetRemainingMessageSendCountOutputImplCopyWith<
+          _$GetRemainingMessageSendCountOutputImpl>
+      get copyWith => __$$GetRemainingMessageSendCountOutputImplCopyWithImpl<
+          _$GetRemainingMessageSendCountOutputImpl>(this, _$identity);
 }
 
 abstract class _GetRemainingMessageSendCountOutput
@@ -388,7 +389,7 @@ abstract class _GetRemainingMessageSendCountOutput
   const factory _GetRemainingMessageSendCountOutput(
           {required final RemainingMessageSendCount remainingMessageSendCount,
           required final MessageSentCount messageSentCount}) =
-      _$_GetRemainingMessageSendCountOutput;
+      _$GetRemainingMessageSendCountOutputImpl;
 
   @override
   RemainingMessageSendCount get remainingMessageSendCount;
@@ -396,7 +397,7 @@ abstract class _GetRemainingMessageSendCountOutput
   MessageSentCount get messageSentCount;
   @override
   @JsonKey(ignore: true)
-  _$$_GetRemainingMessageSendCountOutputCopyWith<
-          _$_GetRemainingMessageSendCountOutput>
+  _$$GetRemainingMessageSendCountOutputImplCopyWith<
+          _$GetRemainingMessageSendCountOutputImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

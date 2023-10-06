@@ -35,6 +35,21 @@ abstract class BaseText extends StatelessWidget {
   }
 }
 
+class DisplayLarge extends BaseText {
+  const DisplayLarge(
+    super.text, {
+    super.key,
+    super.style,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.displayLarge;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
+
+
 class HeadlineMedium extends BaseText {
   const HeadlineMedium(
     super.text, {
@@ -152,3 +167,4 @@ class BodySmall extends BaseText {
   @override
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
+

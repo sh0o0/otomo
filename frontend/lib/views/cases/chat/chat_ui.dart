@@ -8,7 +8,7 @@ import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/views/utils/converter.dart';
-import 'package:otomo/views/utils/links.dart';
+import 'package:otomo/views/utils/launcher.dart';
 
 class ChatUI extends StatelessWidget {
   const ChatUI({

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/view_models/user.dart';
+import 'package:otomo/view_models/account.dart';
 import 'package:otomo/views/pages/account_deletion.dart';
-import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/home/index.dart';
+import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link.dart';
 import 'package:otomo/views/routes.dart';
@@ -41,8 +41,8 @@ final List<RouteBase> _signedInPages = [
 ];
 
 final routerProvider = Provider((ref) {
-  final user = ref.watch(accountProvider);
-  if (user == null) {
+  final account = ref.watch(accountProvider);
+  if (account == null) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.signIn,

@@ -21,4 +21,12 @@ final class FlutterUtils {
 
   static Future<void> copyText(String text) =>
       Clipboard.setData(ClipboardData(text: text));
+
+  static bool validateAndSaveForm(GlobalKey<FormState> formKey) {
+    assert(formKey.currentState != null);
+
+    if (!(formKey.currentState?.validate() ?? false)) return false;
+    formKey.currentState?.save();
+    return true;
+  }
 }

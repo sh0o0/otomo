@@ -77,11 +77,11 @@ class _$PlaceDetailsStateCopyWithImpl<$Res, $Val extends PlaceDetailsState>
 }
 
 /// @nodoc
-abstract class _$$_PlaceDetailsStateCopyWith<$Res>
+abstract class _$$PlaceDetailsStateImplCopyWith<$Res>
     implements $PlaceDetailsStateCopyWith<$Res> {
-  factory _$$_PlaceDetailsStateCopyWith(_$_PlaceDetailsState value,
-          $Res Function(_$_PlaceDetailsState) then) =
-      __$$_PlaceDetailsStateCopyWithImpl<$Res>;
+  factory _$$PlaceDetailsStateImplCopyWith(_$PlaceDetailsStateImpl value,
+          $Res Function(_$PlaceDetailsStateImpl) then) =
+      __$$PlaceDetailsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({PlaceDetails? place, bool isNotSpecified});
@@ -91,11 +91,11 @@ abstract class _$$_PlaceDetailsStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlaceDetailsStateCopyWithImpl<$Res>
-    extends _$PlaceDetailsStateCopyWithImpl<$Res, _$_PlaceDetailsState>
-    implements _$$_PlaceDetailsStateCopyWith<$Res> {
-  __$$_PlaceDetailsStateCopyWithImpl(
-      _$_PlaceDetailsState _value, $Res Function(_$_PlaceDetailsState) _then)
+class __$$PlaceDetailsStateImplCopyWithImpl<$Res>
+    extends _$PlaceDetailsStateCopyWithImpl<$Res, _$PlaceDetailsStateImpl>
+    implements _$$PlaceDetailsStateImplCopyWith<$Res> {
+  __$$PlaceDetailsStateImplCopyWithImpl(_$PlaceDetailsStateImpl _value,
+      $Res Function(_$PlaceDetailsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -104,7 +104,7 @@ class __$$_PlaceDetailsStateCopyWithImpl<$Res>
     Object? place = freezed,
     Object? isNotSpecified = null,
   }) {
-    return _then(_$_PlaceDetailsState(
+    return _then(_$PlaceDetailsStateImpl(
       place: freezed == place
           ? _value.place
           : place // ignore: cast_nullable_to_non_nullable
@@ -119,8 +119,8 @@ class __$$_PlaceDetailsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PlaceDetailsState implements _PlaceDetailsState {
-  const _$_PlaceDetailsState({this.place, this.isNotSpecified = false});
+class _$PlaceDetailsStateImpl implements _PlaceDetailsState {
+  const _$PlaceDetailsStateImpl({this.place, this.isNotSpecified = false});
 
   @override
   final PlaceDetails? place;
@@ -137,7 +137,7 @@ class _$_PlaceDetailsState implements _PlaceDetailsState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaceDetailsState &&
+            other is _$PlaceDetailsStateImpl &&
             (identical(other.place, place) || other.place == place) &&
             (identical(other.isNotSpecified, isNotSpecified) ||
                 other.isNotSpecified == isNotSpecified));
@@ -149,15 +149,15 @@ class _$_PlaceDetailsState implements _PlaceDetailsState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaceDetailsStateCopyWith<_$_PlaceDetailsState> get copyWith =>
-      __$$_PlaceDetailsStateCopyWithImpl<_$_PlaceDetailsState>(
+  _$$PlaceDetailsStateImplCopyWith<_$PlaceDetailsStateImpl> get copyWith =>
+      __$$PlaceDetailsStateImplCopyWithImpl<_$PlaceDetailsStateImpl>(
           this, _$identity);
 }
 
 abstract class _PlaceDetailsState implements PlaceDetailsState {
   const factory _PlaceDetailsState(
       {final PlaceDetails? place,
-      final bool isNotSpecified}) = _$_PlaceDetailsState;
+      final bool isNotSpecified}) = _$PlaceDetailsStateImpl;
 
   @override
   PlaceDetails? get place;
@@ -165,6 +165,6 @@ abstract class _PlaceDetailsState implements PlaceDetailsState {
   bool get isNotSpecified;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaceDetailsStateCopyWith<_$_PlaceDetailsState> get copyWith =>
+  _$$PlaceDetailsStateImplCopyWith<_$PlaceDetailsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

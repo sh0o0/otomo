@@ -39,7 +39,7 @@ Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupErrorHandling();
   await initializeFirebase();
-  configureInjection();
+  await configureInjection();
 
   if (appConfig.isLocal) {
     getIt<FirebaseFirestore>()

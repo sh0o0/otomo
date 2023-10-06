@@ -6,8 +6,8 @@ part of 'place_details.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PlaceDetails _$$_PlaceDetailsFromJson(Map<String, dynamic> json) =>
-    _$_PlaceDetails(
+_$PlaceDetailsImpl _$$PlaceDetailsImplFromJson(Map<String, dynamic> json) =>
+    _$PlaceDetailsImpl(
       addressComponents: (json['address_components'] as List<dynamic>?)
           ?.map((e) =>
               PlaceDetailsAddressComponent.fromJson(e as Map<String, dynamic>))
@@ -80,7 +80,7 @@ _$_PlaceDetails _$$_PlaceDetailsFromJson(Map<String, dynamic> json) =>
           json['wheelchair_accessible_entrance'] as bool?,
     );
 
-Map<String, dynamic> _$$_PlaceDetailsToJson(_$_PlaceDetails instance) =>
+Map<String, dynamic> _$$PlaceDetailsImplToJson(_$PlaceDetailsImpl instance) =>
     <String, dynamic>{
       'address_components': instance.addressComponents,
       'adr_address': instance.adrAddress,
@@ -127,85 +127,85 @@ Map<String, dynamic> _$$_PlaceDetailsToJson(_$_PlaceDetails instance) =>
       'wheelchair_accessible_entrance': instance.wheelchairAccessibleEntrance,
     };
 
-_$_PlaceDetailsAddressComponent _$$_PlaceDetailsAddressComponentFromJson(
+_$PlaceDetailsAddressComponentImpl _$$PlaceDetailsAddressComponentImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsAddressComponent(
+    _$PlaceDetailsAddressComponentImpl(
       longName: json['long_name'] as String,
       shortName: json['short_name'] as String,
       types: (json['types'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$$_PlaceDetailsAddressComponentToJson(
-        _$_PlaceDetailsAddressComponent instance) =>
+Map<String, dynamic> _$$PlaceDetailsAddressComponentImplToJson(
+        _$PlaceDetailsAddressComponentImpl instance) =>
     <String, dynamic>{
       'long_name': instance.longName,
       'short_name': instance.shortName,
       'types': instance.types,
     };
 
-_$_PlaceDetailsEditorialSummary _$$_PlaceDetailsEditorialSummaryFromJson(
+_$PlaceDetailsEditorialSummaryImpl _$$PlaceDetailsEditorialSummaryImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsEditorialSummary(
+    _$PlaceDetailsEditorialSummaryImpl(
       language: json['language'] as String?,
       overview: json['overview'] as String?,
     );
 
-Map<String, dynamic> _$$_PlaceDetailsEditorialSummaryToJson(
-        _$_PlaceDetailsEditorialSummary instance) =>
+Map<String, dynamic> _$$PlaceDetailsEditorialSummaryImplToJson(
+        _$PlaceDetailsEditorialSummaryImpl instance) =>
     <String, dynamic>{
       'language': instance.language,
       'overview': instance.overview,
     };
 
-_$_PlaceDetailsGeometry _$$_PlaceDetailsGeometryFromJson(
+_$PlaceDetailsGeometryImpl _$$PlaceDetailsGeometryImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsGeometry(
+    _$PlaceDetailsGeometryImpl(
       location: PlaceDetailsLatLngLiteral.fromJson(
           json['location'] as Map<String, dynamic>),
       viewport:
           PlaceDetailsBounds.fromJson(json['viewport'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_PlaceDetailsGeometryToJson(
-        _$_PlaceDetailsGeometry instance) =>
+Map<String, dynamic> _$$PlaceDetailsGeometryImplToJson(
+        _$PlaceDetailsGeometryImpl instance) =>
     <String, dynamic>{
       'location': instance.location,
       'viewport': instance.viewport,
     };
 
-_$_PlaceDetailsBounds _$$_PlaceDetailsBoundsFromJson(
+_$PlaceDetailsBoundsImpl _$$PlaceDetailsBoundsImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsBounds(
+    _$PlaceDetailsBoundsImpl(
       northeast: PlaceDetailsLatLngLiteral.fromJson(
           json['northeast'] as Map<String, dynamic>),
       southwest: PlaceDetailsLatLngLiteral.fromJson(
           json['southwest'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_PlaceDetailsBoundsToJson(
-        _$_PlaceDetailsBounds instance) =>
+Map<String, dynamic> _$$PlaceDetailsBoundsImplToJson(
+        _$PlaceDetailsBoundsImpl instance) =>
     <String, dynamic>{
       'northeast': instance.northeast,
       'southwest': instance.southwest,
     };
 
-_$_PlaceDetailsLatLngLiteral _$$_PlaceDetailsLatLngLiteralFromJson(
+_$PlaceDetailsLatLngLiteralImpl _$$PlaceDetailsLatLngLiteralImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsLatLngLiteral(
+    _$PlaceDetailsLatLngLiteralImpl(
       lat: (json['lat'] as num).toDouble(),
       lng: (json['lng'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$_PlaceDetailsLatLngLiteralToJson(
-        _$_PlaceDetailsLatLngLiteral instance) =>
+Map<String, dynamic> _$$PlaceDetailsLatLngLiteralImplToJson(
+        _$PlaceDetailsLatLngLiteralImpl instance) =>
     <String, dynamic>{
       'lat': instance.lat,
       'lng': instance.lng,
     };
 
-_$_PlaceDetailsOpeningHours _$$_PlaceDetailsOpeningHoursFromJson(
+_$PlaceDetailsOpeningHoursImpl _$$PlaceDetailsOpeningHoursImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsOpeningHours(
+    _$PlaceDetailsOpeningHoursImpl(
       openNow: json['open_now'] as bool?,
       periods: (json['periods'] as List<dynamic>?)
           ?.map((e) =>
@@ -221,8 +221,8 @@ _$_PlaceDetailsOpeningHours _$$_PlaceDetailsOpeningHoursFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$_PlaceDetailsOpeningHoursToJson(
-        _$_PlaceDetailsOpeningHours instance) =>
+Map<String, dynamic> _$$PlaceDetailsOpeningHoursImplToJson(
+        _$PlaceDetailsOpeningHoursImpl instance) =>
     <String, dynamic>{
       'open_now': instance.openNow,
       'periods': instance.periods,
@@ -231,9 +231,9 @@ Map<String, dynamic> _$$_PlaceDetailsOpeningHoursToJson(
       'weekday_text': instance.weekdayText,
     };
 
-_$_PlaceDetailsHoursPeriod _$$_PlaceDetailsHoursPeriodFromJson(
+_$PlaceDetailsHoursPeriodImpl _$$PlaceDetailsHoursPeriodImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsHoursPeriod(
+    _$PlaceDetailsHoursPeriodImpl(
       close: json['close'] == null
           ? null
           : PlaceDetailsHoursPeriodDetail.fromJson(
@@ -242,24 +242,24 @@ _$_PlaceDetailsHoursPeriod _$$_PlaceDetailsHoursPeriodFromJson(
           json['open'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_PlaceDetailsHoursPeriodToJson(
-        _$_PlaceDetailsHoursPeriod instance) =>
+Map<String, dynamic> _$$PlaceDetailsHoursPeriodImplToJson(
+        _$PlaceDetailsHoursPeriodImpl instance) =>
     <String, dynamic>{
       'close': instance.close,
       'open': instance.open,
     };
 
-_$_PlaceDetailsHoursPeriodDetail _$$_PlaceDetailsHoursPeriodDetailFromJson(
-        Map<String, dynamic> json) =>
-    _$_PlaceDetailsHoursPeriodDetail(
-      day: json['day'] as int,
-      time: json['time'] as String,
-      date: json['date'] as String?,
-      truncated: json['truncated'] as bool?,
-    );
+_$PlaceDetailsHoursPeriodDetailImpl
+    _$$PlaceDetailsHoursPeriodDetailImplFromJson(Map<String, dynamic> json) =>
+        _$PlaceDetailsHoursPeriodDetailImpl(
+          day: json['day'] as int,
+          time: json['time'] as String,
+          date: json['date'] as String?,
+          truncated: json['truncated'] as bool?,
+        );
 
-Map<String, dynamic> _$$_PlaceDetailsHoursPeriodDetailToJson(
-        _$_PlaceDetailsHoursPeriodDetail instance) =>
+Map<String, dynamic> _$$PlaceDetailsHoursPeriodDetailImplToJson(
+        _$PlaceDetailsHoursPeriodDetailImpl instance) =>
     <String, dynamic>{
       'day': instance.day,
       'time': instance.time,
@@ -267,22 +267,23 @@ Map<String, dynamic> _$$_PlaceDetailsHoursPeriodDetailToJson(
       'truncated': instance.truncated,
     };
 
-_$_PlaceDetailsSpecialDay _$$_PlaceDetailsSpecialDayFromJson(
+_$PlaceDetailsSpecialDayImpl _$$PlaceDetailsSpecialDayImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsSpecialDay(
+    _$PlaceDetailsSpecialDayImpl(
       date: json['date'] as String?,
       exceptionalHours: json['exceptional_hours'] as bool?,
     );
 
-Map<String, dynamic> _$$_PlaceDetailsSpecialDayToJson(
-        _$_PlaceDetailsSpecialDay instance) =>
+Map<String, dynamic> _$$PlaceDetailsSpecialDayImplToJson(
+        _$PlaceDetailsSpecialDayImpl instance) =>
     <String, dynamic>{
       'date': instance.date,
       'exceptional_hours': instance.exceptionalHours,
     };
 
-_$_PlaceDetailsPhoto _$$_PlaceDetailsPhotoFromJson(Map<String, dynamic> json) =>
-    _$_PlaceDetailsPhoto(
+_$PlaceDetailsPhotoImpl _$$PlaceDetailsPhotoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PlaceDetailsPhotoImpl(
       height: json['height'] as int,
       htmlAttributions: (json['html_attributions'] as List<dynamic>)
           .map((e) => e as String)
@@ -291,8 +292,8 @@ _$_PlaceDetailsPhoto _$$_PlaceDetailsPhotoFromJson(Map<String, dynamic> json) =>
       width: json['width'] as int,
     );
 
-Map<String, dynamic> _$$_PlaceDetailsPhotoToJson(
-        _$_PlaceDetailsPhoto instance) =>
+Map<String, dynamic> _$$PlaceDetailsPhotoImplToJson(
+        _$PlaceDetailsPhotoImpl instance) =>
     <String, dynamic>{
       'height': instance.height,
       'html_attributions': instance.htmlAttributions,
@@ -300,23 +301,23 @@ Map<String, dynamic> _$$_PlaceDetailsPhotoToJson(
       'width': instance.width,
     };
 
-_$_PlaceDetailsPlusCode _$$_PlaceDetailsPlusCodeFromJson(
+_$PlaceDetailsPlusCodeImpl _$$PlaceDetailsPlusCodeImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsPlusCode(
+    _$PlaceDetailsPlusCodeImpl(
       compoundCode: json['compound_code'] as String?,
       globalCode: json['global_code'] as String,
     );
 
-Map<String, dynamic> _$$_PlaceDetailsPlusCodeToJson(
-        _$_PlaceDetailsPlusCode instance) =>
+Map<String, dynamic> _$$PlaceDetailsPlusCodeImplToJson(
+        _$PlaceDetailsPlusCodeImpl instance) =>
     <String, dynamic>{
       'compound_code': instance.compoundCode,
       'global_code': instance.globalCode,
     };
 
-_$_PlaceDetailsReview _$$_PlaceDetailsReviewFromJson(
+_$PlaceDetailsReviewImpl _$$PlaceDetailsReviewImplFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaceDetailsReview(
+    _$PlaceDetailsReviewImpl(
       authorName: json['author_name'] as String,
       rating: json['rating'] as int,
       relativeTimeDescription: json['relative_time_description'] as String,
@@ -329,8 +330,8 @@ _$_PlaceDetailsReview _$$_PlaceDetailsReviewFromJson(
       translated: json['translated'] as bool?,
     );
 
-Map<String, dynamic> _$$_PlaceDetailsReviewToJson(
-        _$_PlaceDetailsReview instance) =>
+Map<String, dynamic> _$$PlaceDetailsReviewImplToJson(
+        _$PlaceDetailsReviewImpl instance) =>
     <String, dynamic>{
       'author_name': instance.authorName,
       'rating': instance.rating,

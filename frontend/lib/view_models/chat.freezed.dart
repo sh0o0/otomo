@@ -86,10 +86,11 @@ class _$ChatStateCopyWithImpl<$Res, $Val extends ChatState>
 }
 
 /// @nodoc
-abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
-  factory _$$_ChatStateCopyWith(
-          _$_ChatState value, $Res Function(_$_ChatState) then) =
-      __$$_ChatStateCopyWithImpl<$Res>;
+abstract class _$$ChatStateImplCopyWith<$Res>
+    implements $ChatStateCopyWith<$Res> {
+  factory _$$ChatStateImplCopyWith(
+          _$ChatStateImpl value, $Res Function(_$ChatStateImpl) then) =
+      __$$ChatStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -103,11 +104,11 @@ abstract class _$$_ChatStateCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ChatStateCopyWithImpl<$Res>
-    extends _$ChatStateCopyWithImpl<$Res, _$_ChatState>
-    implements _$$_ChatStateCopyWith<$Res> {
-  __$$_ChatStateCopyWithImpl(
-      _$_ChatState _value, $Res Function(_$_ChatState) _then)
+class __$$ChatStateImplCopyWithImpl<$Res>
+    extends _$ChatStateCopyWithImpl<$Res, _$ChatStateImpl>
+    implements _$$ChatStateImplCopyWith<$Res> {
+  __$$ChatStateImplCopyWithImpl(
+      _$ChatStateImpl _value, $Res Function(_$ChatStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -116,7 +117,7 @@ class __$$_ChatStateCopyWithImpl<$Res>
     Object? messages = null,
     Object? remainingMessageSendCount = null,
   }) {
-    return _then(_$_ChatState(
+    return _then(_$ChatStateImpl(
       messages: null == messages
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
@@ -131,8 +132,8 @@ class __$$_ChatStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ChatState extends _ChatState {
-  const _$_ChatState(
+class _$ChatStateImpl extends _ChatState {
+  const _$ChatStateImpl(
       {required this.messages, required this.remainingMessageSendCount})
       : super._();
 
@@ -150,7 +151,7 @@ class _$_ChatState extends _ChatState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ChatState &&
+            other is _$ChatStateImpl &&
             (identical(other.messages, messages) ||
                 other.messages == messages) &&
             (identical(other.remainingMessageSendCount,
@@ -165,15 +166,15 @@ class _$_ChatState extends _ChatState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ChatStateCopyWith<_$_ChatState> get copyWith =>
-      __$$_ChatStateCopyWithImpl<_$_ChatState>(this, _$identity);
+  _$$ChatStateImplCopyWith<_$ChatStateImpl> get copyWith =>
+      __$$ChatStateImplCopyWithImpl<_$ChatStateImpl>(this, _$identity);
 }
 
 abstract class _ChatState extends ChatState {
   const factory _ChatState(
           {required final Pagination<TextMessageData> messages,
           required final RemainingMessageSendCount remainingMessageSendCount}) =
-      _$_ChatState;
+      _$ChatStateImpl;
   const _ChatState._() : super._();
 
   @override
@@ -182,6 +183,6 @@ abstract class _ChatState extends ChatState {
   RemainingMessageSendCount get remainingMessageSendCount;
   @override
   @JsonKey(ignore: true)
-  _$$_ChatStateCopyWith<_$_ChatState> get copyWith =>
+  _$$ChatStateImplCopyWith<_$ChatStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

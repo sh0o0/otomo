@@ -58,22 +58,22 @@ class _$AccountDeletionStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_AccountDeletionStateCopyWith<$Res>
+abstract class _$$AccountDeletionStateImplCopyWith<$Res>
     implements $AccountDeletionStateCopyWith<$Res> {
-  factory _$$_AccountDeletionStateCopyWith(_$_AccountDeletionState value,
-          $Res Function(_$_AccountDeletionState) then) =
-      __$$_AccountDeletionStateCopyWithImpl<$Res>;
+  factory _$$AccountDeletionStateImplCopyWith(_$AccountDeletionStateImpl value,
+          $Res Function(_$AccountDeletionStateImpl) then) =
+      __$$AccountDeletionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool requiresRecentLogin});
 }
 
 /// @nodoc
-class __$$_AccountDeletionStateCopyWithImpl<$Res>
-    extends _$AccountDeletionStateCopyWithImpl<$Res, _$_AccountDeletionState>
-    implements _$$_AccountDeletionStateCopyWith<$Res> {
-  __$$_AccountDeletionStateCopyWithImpl(_$_AccountDeletionState _value,
-      $Res Function(_$_AccountDeletionState) _then)
+class __$$AccountDeletionStateImplCopyWithImpl<$Res>
+    extends _$AccountDeletionStateCopyWithImpl<$Res, _$AccountDeletionStateImpl>
+    implements _$$AccountDeletionStateImplCopyWith<$Res> {
+  __$$AccountDeletionStateImplCopyWithImpl(_$AccountDeletionStateImpl _value,
+      $Res Function(_$AccountDeletionStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -81,7 +81,7 @@ class __$$_AccountDeletionStateCopyWithImpl<$Res>
   $Res call({
     Object? requiresRecentLogin = null,
   }) {
-    return _then(_$_AccountDeletionState(
+    return _then(_$AccountDeletionStateImpl(
       requiresRecentLogin: null == requiresRecentLogin
           ? _value.requiresRecentLogin
           : requiresRecentLogin // ignore: cast_nullable_to_non_nullable
@@ -92,8 +92,8 @@ class __$$_AccountDeletionStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AccountDeletionState implements _AccountDeletionState {
-  const _$_AccountDeletionState({this.requiresRecentLogin = false});
+class _$AccountDeletionStateImpl implements _AccountDeletionState {
+  const _$AccountDeletionStateImpl({this.requiresRecentLogin = false});
 
   @override
   @JsonKey()
@@ -108,7 +108,7 @@ class _$_AccountDeletionState implements _AccountDeletionState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AccountDeletionState &&
+            other is _$AccountDeletionStateImpl &&
             (identical(other.requiresRecentLogin, requiresRecentLogin) ||
                 other.requiresRecentLogin == requiresRecentLogin));
   }
@@ -119,19 +119,20 @@ class _$_AccountDeletionState implements _AccountDeletionState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AccountDeletionStateCopyWith<_$_AccountDeletionState> get copyWith =>
-      __$$_AccountDeletionStateCopyWithImpl<_$_AccountDeletionState>(
-          this, _$identity);
+  _$$AccountDeletionStateImplCopyWith<_$AccountDeletionStateImpl>
+      get copyWith =>
+          __$$AccountDeletionStateImplCopyWithImpl<_$AccountDeletionStateImpl>(
+              this, _$identity);
 }
 
 abstract class _AccountDeletionState implements AccountDeletionState {
   const factory _AccountDeletionState({final bool requiresRecentLogin}) =
-      _$_AccountDeletionState;
+      _$AccountDeletionStateImpl;
 
   @override
   bool get requiresRecentLogin;
   @override
   @JsonKey(ignore: true)
-  _$$_AccountDeletionStateCopyWith<_$_AccountDeletionState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AccountDeletionStateImplCopyWith<_$AccountDeletionStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

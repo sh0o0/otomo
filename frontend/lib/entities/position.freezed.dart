@@ -66,10 +66,11 @@ class _$PositionCopyWithImpl<$Res, $Val extends Position>
 }
 
 /// @nodoc
-abstract class _$$_PositionCopyWith<$Res> implements $PositionCopyWith<$Res> {
-  factory _$$_PositionCopyWith(
-          _$_Position value, $Res Function(_$_Position) then) =
-      __$$_PositionCopyWithImpl<$Res>;
+abstract class _$$PositionImplCopyWith<$Res>
+    implements $PositionCopyWith<$Res> {
+  factory _$$PositionImplCopyWith(
+          _$PositionImpl value, $Res Function(_$PositionImpl) then) =
+      __$$PositionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({AppLatLng latLng});
@@ -79,11 +80,11 @@ abstract class _$$_PositionCopyWith<$Res> implements $PositionCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_PositionCopyWithImpl<$Res>
-    extends _$PositionCopyWithImpl<$Res, _$_Position>
-    implements _$$_PositionCopyWith<$Res> {
-  __$$_PositionCopyWithImpl(
-      _$_Position _value, $Res Function(_$_Position) _then)
+class __$$PositionImplCopyWithImpl<$Res>
+    extends _$PositionCopyWithImpl<$Res, _$PositionImpl>
+    implements _$$PositionImplCopyWith<$Res> {
+  __$$PositionImplCopyWithImpl(
+      _$PositionImpl _value, $Res Function(_$PositionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -91,7 +92,7 @@ class __$$_PositionCopyWithImpl<$Res>
   $Res call({
     Object? latLng = null,
   }) {
-    return _then(_$_Position(
+    return _then(_$PositionImpl(
       latLng: null == latLng
           ? _value.latLng
           : latLng // ignore: cast_nullable_to_non_nullable
@@ -102,8 +103,8 @@ class __$$_PositionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Position implements _Position {
-  const _$_Position({required this.latLng});
+class _$PositionImpl implements _Position {
+  const _$PositionImpl({required this.latLng});
 
   @override
   final AppLatLng latLng;
@@ -117,7 +118,7 @@ class _$_Position implements _Position {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Position &&
+            other is _$PositionImpl &&
             (identical(other.latLng, latLng) || other.latLng == latLng));
   }
 
@@ -127,17 +128,17 @@ class _$_Position implements _Position {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PositionCopyWith<_$_Position> get copyWith =>
-      __$$_PositionCopyWithImpl<_$_Position>(this, _$identity);
+  _$$PositionImplCopyWith<_$PositionImpl> get copyWith =>
+      __$$PositionImplCopyWithImpl<_$PositionImpl>(this, _$identity);
 }
 
 abstract class _Position implements Position {
-  const factory _Position({required final AppLatLng latLng}) = _$_Position;
+  const factory _Position({required final AppLatLng latLng}) = _$PositionImpl;
 
   @override
   AppLatLng get latLng;
   @override
   @JsonKey(ignore: true)
-  _$$_PositionCopyWith<_$_Position> get copyWith =>
+  _$$PositionImplCopyWith<_$PositionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

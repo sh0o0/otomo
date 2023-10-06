@@ -47,6 +47,8 @@ dependencies:
   flutter_animate: ^4.2.0+1
   custom_pop_up_menu: ^1.2.4
   settings_ui: ^2.0.2
+  form_field_validator: ^1.1.0
+  awesome_dialog: ^3.1.0
   cached_network_image: ^3.3.0
   sliding_up_panel: ^2.0.0+1
   scroll_to_index: ^3.0.1
@@ -88,6 +90,8 @@ dependencies:
   async: ^2.11.0
   faker: ^2.1.0
   package_info_plus: ^4.1.0
+  shared_preferences: ^2.2.1
+  firebase_dynamic_links: ^5.3.6
   phone_numbers_parser: ^8.0.0
 
 dev_dependencies:

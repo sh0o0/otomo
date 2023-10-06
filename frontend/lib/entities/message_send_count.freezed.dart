@@ -91,11 +91,11 @@ class _$MessageSentCountCopyWithImpl<$Res, $Val extends MessageSentCount>
 }
 
 /// @nodoc
-abstract class _$$_MessageSentCountCopyWith<$Res>
+abstract class _$$MessageSentCountImplCopyWith<$Res>
     implements $MessageSentCountCopyWith<$Res> {
-  factory _$$_MessageSentCountCopyWith(
-          _$_MessageSentCount value, $Res Function(_$_MessageSentCount) then) =
-      __$$_MessageSentCountCopyWithImpl<$Res>;
+  factory _$$MessageSentCountImplCopyWith(_$MessageSentCountImpl value,
+          $Res Function(_$MessageSentCountImpl) then) =
+      __$$MessageSentCountImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -109,11 +109,11 @@ abstract class _$$_MessageSentCountCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MessageSentCountCopyWithImpl<$Res>
-    extends _$MessageSentCountCopyWithImpl<$Res, _$_MessageSentCount>
-    implements _$$_MessageSentCountCopyWith<$Res> {
-  __$$_MessageSentCountCopyWithImpl(
-      _$_MessageSentCount _value, $Res Function(_$_MessageSentCount) _then)
+class __$$MessageSentCountImplCopyWithImpl<$Res>
+    extends _$MessageSentCountCopyWithImpl<$Res, _$MessageSentCountImpl>
+    implements _$$MessageSentCountImplCopyWith<$Res> {
+  __$$MessageSentCountImplCopyWithImpl(_$MessageSentCountImpl _value,
+      $Res Function(_$MessageSentCountImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -122,7 +122,7 @@ class __$$_MessageSentCountCopyWithImpl<$Res>
     Object? monthlySurplus = null,
     Object? daily = null,
   }) {
-    return _then(_$_MessageSentCount(
+    return _then(_$MessageSentCountImpl(
       monthlySurplus: null == monthlySurplus
           ? _value.monthlySurplus
           : monthlySurplus // ignore: cast_nullable_to_non_nullable
@@ -137,12 +137,12 @@ class __$$_MessageSentCountCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MessageSentCount implements _MessageSentCount {
-  const _$_MessageSentCount(
+class _$MessageSentCountImpl implements _MessageSentCount {
+  const _$MessageSentCountImpl(
       {required this.monthlySurplus, required this.daily});
 
-  factory _$_MessageSentCount.fromJson(Map<String, dynamic> json) =>
-      _$$_MessageSentCountFromJson(json);
+  factory _$MessageSentCountImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MessageSentCountImplFromJson(json);
 
   @override
   final MonthlySurplusMessageSentCount monthlySurplus;
@@ -158,7 +158,7 @@ class _$_MessageSentCount implements _MessageSentCount {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MessageSentCount &&
+            other is _$MessageSentCountImpl &&
             (identical(other.monthlySurplus, monthlySurplus) ||
                 other.monthlySurplus == monthlySurplus) &&
             (identical(other.daily, daily) || other.daily == daily));
@@ -171,12 +171,13 @@ class _$_MessageSentCount implements _MessageSentCount {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MessageSentCountCopyWith<_$_MessageSentCount> get copyWith =>
-      __$$_MessageSentCountCopyWithImpl<_$_MessageSentCount>(this, _$identity);
+  _$$MessageSentCountImplCopyWith<_$MessageSentCountImpl> get copyWith =>
+      __$$MessageSentCountImplCopyWithImpl<_$MessageSentCountImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MessageSentCountToJson(
+    return _$$MessageSentCountImplToJson(
       this,
     );
   }
@@ -185,10 +186,10 @@ class _$_MessageSentCount implements _MessageSentCount {
 abstract class _MessageSentCount implements MessageSentCount {
   const factory _MessageSentCount(
       {required final MonthlySurplusMessageSentCount monthlySurplus,
-      required final DailyMessageSentCount daily}) = _$_MessageSentCount;
+      required final DailyMessageSentCount daily}) = _$MessageSentCountImpl;
 
   factory _MessageSentCount.fromJson(Map<String, dynamic> json) =
-      _$_MessageSentCount.fromJson;
+      _$MessageSentCountImpl.fromJson;
 
   @override
   MonthlySurplusMessageSentCount get monthlySurplus;
@@ -196,7 +197,7 @@ abstract class _MessageSentCount implements MessageSentCount {
   DailyMessageSentCount get daily;
   @override
   @JsonKey(ignore: true)
-  _$$_MessageSentCountCopyWith<_$_MessageSentCount> get copyWith =>
+  _$$MessageSentCountImplCopyWith<_$MessageSentCountImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -268,12 +269,12 @@ class _$MonthlySurplusMessageSentCountCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_MonthlySurplusMessageSentCountCopyWith<$Res>
+abstract class _$$MonthlySurplusMessageSentCountImplCopyWith<$Res>
     implements $MonthlySurplusMessageSentCountCopyWith<$Res> {
-  factory _$$_MonthlySurplusMessageSentCountCopyWith(
-          _$_MonthlySurplusMessageSentCount value,
-          $Res Function(_$_MonthlySurplusMessageSentCount) then) =
-      __$$_MonthlySurplusMessageSentCountCopyWithImpl<$Res>;
+  factory _$$MonthlySurplusMessageSentCountImplCopyWith(
+          _$MonthlySurplusMessageSentCountImpl value,
+          $Res Function(_$MonthlySurplusMessageSentCountImpl) then) =
+      __$$MonthlySurplusMessageSentCountImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({YearMonth yearMonth, int count});
@@ -283,13 +284,13 @@ abstract class _$$_MonthlySurplusMessageSentCountCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MonthlySurplusMessageSentCountCopyWithImpl<$Res>
+class __$$MonthlySurplusMessageSentCountImplCopyWithImpl<$Res>
     extends _$MonthlySurplusMessageSentCountCopyWithImpl<$Res,
-        _$_MonthlySurplusMessageSentCount>
-    implements _$$_MonthlySurplusMessageSentCountCopyWith<$Res> {
-  __$$_MonthlySurplusMessageSentCountCopyWithImpl(
-      _$_MonthlySurplusMessageSentCount _value,
-      $Res Function(_$_MonthlySurplusMessageSentCount) _then)
+        _$MonthlySurplusMessageSentCountImpl>
+    implements _$$MonthlySurplusMessageSentCountImplCopyWith<$Res> {
+  __$$MonthlySurplusMessageSentCountImplCopyWithImpl(
+      _$MonthlySurplusMessageSentCountImpl _value,
+      $Res Function(_$MonthlySurplusMessageSentCountImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -298,7 +299,7 @@ class __$$_MonthlySurplusMessageSentCountCopyWithImpl<$Res>
     Object? yearMonth = null,
     Object? count = null,
   }) {
-    return _then(_$_MonthlySurplusMessageSentCount(
+    return _then(_$MonthlySurplusMessageSentCountImpl(
       yearMonth: null == yearMonth
           ? _value.yearMonth
           : yearMonth // ignore: cast_nullable_to_non_nullable
@@ -313,14 +314,14 @@ class __$$_MonthlySurplusMessageSentCountCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MonthlySurplusMessageSentCount
+class _$MonthlySurplusMessageSentCountImpl
     implements _MonthlySurplusMessageSentCount {
-  const _$_MonthlySurplusMessageSentCount(
+  const _$MonthlySurplusMessageSentCountImpl(
       {required this.yearMonth, required this.count});
 
-  factory _$_MonthlySurplusMessageSentCount.fromJson(
+  factory _$MonthlySurplusMessageSentCountImpl.fromJson(
           Map<String, dynamic> json) =>
-      _$$_MonthlySurplusMessageSentCountFromJson(json);
+      _$$MonthlySurplusMessageSentCountImplFromJson(json);
 
   @override
   final YearMonth yearMonth;
@@ -336,7 +337,7 @@ class _$_MonthlySurplusMessageSentCount
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MonthlySurplusMessageSentCount &&
+            other is _$MonthlySurplusMessageSentCountImpl &&
             (identical(other.yearMonth, yearMonth) ||
                 other.yearMonth == yearMonth) &&
             (identical(other.count, count) || other.count == count));
@@ -349,13 +350,14 @@ class _$_MonthlySurplusMessageSentCount
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MonthlySurplusMessageSentCountCopyWith<_$_MonthlySurplusMessageSentCount>
-      get copyWith => __$$_MonthlySurplusMessageSentCountCopyWithImpl<
-          _$_MonthlySurplusMessageSentCount>(this, _$identity);
+  _$$MonthlySurplusMessageSentCountImplCopyWith<
+          _$MonthlySurplusMessageSentCountImpl>
+      get copyWith => __$$MonthlySurplusMessageSentCountImplCopyWithImpl<
+          _$MonthlySurplusMessageSentCountImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MonthlySurplusMessageSentCountToJson(
+    return _$$MonthlySurplusMessageSentCountImplToJson(
       this,
     );
   }
@@ -365,10 +367,10 @@ abstract class _MonthlySurplusMessageSentCount
     implements MonthlySurplusMessageSentCount {
   const factory _MonthlySurplusMessageSentCount(
       {required final YearMonth yearMonth,
-      required final int count}) = _$_MonthlySurplusMessageSentCount;
+      required final int count}) = _$MonthlySurplusMessageSentCountImpl;
 
   factory _MonthlySurplusMessageSentCount.fromJson(Map<String, dynamic> json) =
-      _$_MonthlySurplusMessageSentCount.fromJson;
+      _$MonthlySurplusMessageSentCountImpl.fromJson;
 
   @override
   YearMonth get yearMonth;
@@ -376,7 +378,8 @@ abstract class _MonthlySurplusMessageSentCount
   int get count;
   @override
   @JsonKey(ignore: true)
-  _$$_MonthlySurplusMessageSentCountCopyWith<_$_MonthlySurplusMessageSentCount>
+  _$$MonthlySurplusMessageSentCountImplCopyWith<
+          _$MonthlySurplusMessageSentCountImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -446,11 +449,12 @@ class _$DailyMessageSentCountCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_DailyMessageSentCountCopyWith<$Res>
+abstract class _$$DailyMessageSentCountImplCopyWith<$Res>
     implements $DailyMessageSentCountCopyWith<$Res> {
-  factory _$$_DailyMessageSentCountCopyWith(_$_DailyMessageSentCount value,
-          $Res Function(_$_DailyMessageSentCount) then) =
-      __$$_DailyMessageSentCountCopyWithImpl<$Res>;
+  factory _$$DailyMessageSentCountImplCopyWith(
+          _$DailyMessageSentCountImpl value,
+          $Res Function(_$DailyMessageSentCountImpl) then) =
+      __$$DailyMessageSentCountImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Date date, int count});
@@ -460,11 +464,12 @@ abstract class _$$_DailyMessageSentCountCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DailyMessageSentCountCopyWithImpl<$Res>
-    extends _$DailyMessageSentCountCopyWithImpl<$Res, _$_DailyMessageSentCount>
-    implements _$$_DailyMessageSentCountCopyWith<$Res> {
-  __$$_DailyMessageSentCountCopyWithImpl(_$_DailyMessageSentCount _value,
-      $Res Function(_$_DailyMessageSentCount) _then)
+class __$$DailyMessageSentCountImplCopyWithImpl<$Res>
+    extends _$DailyMessageSentCountCopyWithImpl<$Res,
+        _$DailyMessageSentCountImpl>
+    implements _$$DailyMessageSentCountImplCopyWith<$Res> {
+  __$$DailyMessageSentCountImplCopyWithImpl(_$DailyMessageSentCountImpl _value,
+      $Res Function(_$DailyMessageSentCountImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -473,7 +478,7 @@ class __$$_DailyMessageSentCountCopyWithImpl<$Res>
     Object? date = null,
     Object? count = null,
   }) {
-    return _then(_$_DailyMessageSentCount(
+    return _then(_$DailyMessageSentCountImpl(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -488,11 +493,11 @@ class __$$_DailyMessageSentCountCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DailyMessageSentCount implements _DailyMessageSentCount {
-  const _$_DailyMessageSentCount({required this.date, required this.count});
+class _$DailyMessageSentCountImpl implements _DailyMessageSentCount {
+  const _$DailyMessageSentCountImpl({required this.date, required this.count});
 
-  factory _$_DailyMessageSentCount.fromJson(Map<String, dynamic> json) =>
-      _$$_DailyMessageSentCountFromJson(json);
+  factory _$DailyMessageSentCountImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DailyMessageSentCountImplFromJson(json);
 
   @override
   final Date date;
@@ -508,7 +513,7 @@ class _$_DailyMessageSentCount implements _DailyMessageSentCount {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DailyMessageSentCount &&
+            other is _$DailyMessageSentCountImpl &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.count, count) || other.count == count));
   }
@@ -520,13 +525,13 @@ class _$_DailyMessageSentCount implements _DailyMessageSentCount {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DailyMessageSentCountCopyWith<_$_DailyMessageSentCount> get copyWith =>
-      __$$_DailyMessageSentCountCopyWithImpl<_$_DailyMessageSentCount>(
-          this, _$identity);
+  _$$DailyMessageSentCountImplCopyWith<_$DailyMessageSentCountImpl>
+      get copyWith => __$$DailyMessageSentCountImplCopyWithImpl<
+          _$DailyMessageSentCountImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DailyMessageSentCountToJson(
+    return _$$DailyMessageSentCountImplToJson(
       this,
     );
   }
@@ -535,10 +540,10 @@ class _$_DailyMessageSentCount implements _DailyMessageSentCount {
 abstract class _DailyMessageSentCount implements DailyMessageSentCount {
   const factory _DailyMessageSentCount(
       {required final Date date,
-      required final int count}) = _$_DailyMessageSentCount;
+      required final int count}) = _$DailyMessageSentCountImpl;
 
   factory _DailyMessageSentCount.fromJson(Map<String, dynamic> json) =
-      _$_DailyMessageSentCount.fromJson;
+      _$DailyMessageSentCountImpl.fromJson;
 
   @override
   Date get date;
@@ -546,8 +551,8 @@ abstract class _DailyMessageSentCount implements DailyMessageSentCount {
   int get count;
   @override
   @JsonKey(ignore: true)
-  _$$_DailyMessageSentCountCopyWith<_$_DailyMessageSentCount> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DailyMessageSentCountImplCopyWith<_$DailyMessageSentCountImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 RemainingMessageSendCount _$RemainingMessageSendCountFromJson(
@@ -630,12 +635,12 @@ class _$RemainingMessageSendCountCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_RemainingMessageSendCountCopyWith<$Res>
+abstract class _$$RemainingMessageSendCountImplCopyWith<$Res>
     implements $RemainingMessageSendCountCopyWith<$Res> {
-  factory _$$_RemainingMessageSendCountCopyWith(
-          _$_RemainingMessageSendCount value,
-          $Res Function(_$_RemainingMessageSendCount) then) =
-      __$$_RemainingMessageSendCountCopyWithImpl<$Res>;
+  factory _$$RemainingMessageSendCountImplCopyWith(
+          _$RemainingMessageSendCountImpl value,
+          $Res Function(_$RemainingMessageSendCountImpl) then) =
+      __$$RemainingMessageSendCountImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -649,13 +654,13 @@ abstract class _$$_RemainingMessageSendCountCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RemainingMessageSendCountCopyWithImpl<$Res>
+class __$$RemainingMessageSendCountImplCopyWithImpl<$Res>
     extends _$RemainingMessageSendCountCopyWithImpl<$Res,
-        _$_RemainingMessageSendCount>
-    implements _$$_RemainingMessageSendCountCopyWith<$Res> {
-  __$$_RemainingMessageSendCountCopyWithImpl(
-      _$_RemainingMessageSendCount _value,
-      $Res Function(_$_RemainingMessageSendCount) _then)
+        _$RemainingMessageSendCountImpl>
+    implements _$$RemainingMessageSendCountImplCopyWith<$Res> {
+  __$$RemainingMessageSendCountImplCopyWithImpl(
+      _$RemainingMessageSendCountImpl _value,
+      $Res Function(_$RemainingMessageSendCountImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -664,7 +669,7 @@ class __$$_RemainingMessageSendCountCopyWithImpl<$Res>
     Object? monthlySurplus = null,
     Object? daily = null,
   }) {
-    return _then(_$_RemainingMessageSendCount(
+    return _then(_$RemainingMessageSendCountImpl(
       monthlySurplus: null == monthlySurplus
           ? _value.monthlySurplus
           : monthlySurplus // ignore: cast_nullable_to_non_nullable
@@ -679,12 +684,12 @@ class __$$_RemainingMessageSendCountCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RemainingMessageSendCount implements _RemainingMessageSendCount {
-  const _$_RemainingMessageSendCount(
+class _$RemainingMessageSendCountImpl implements _RemainingMessageSendCount {
+  const _$RemainingMessageSendCountImpl(
       {required this.monthlySurplus, required this.daily});
 
-  factory _$_RemainingMessageSendCount.fromJson(Map<String, dynamic> json) =>
-      _$$_RemainingMessageSendCountFromJson(json);
+  factory _$RemainingMessageSendCountImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RemainingMessageSendCountImplFromJson(json);
 
   @override
   final RemainingMonthlySurplusMessageSendCount monthlySurplus;
@@ -700,7 +705,7 @@ class _$_RemainingMessageSendCount implements _RemainingMessageSendCount {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RemainingMessageSendCount &&
+            other is _$RemainingMessageSendCountImpl &&
             (identical(other.monthlySurplus, monthlySurplus) ||
                 other.monthlySurplus == monthlySurplus) &&
             (identical(other.daily, daily) || other.daily == daily));
@@ -713,13 +718,13 @@ class _$_RemainingMessageSendCount implements _RemainingMessageSendCount {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RemainingMessageSendCountCopyWith<_$_RemainingMessageSendCount>
-      get copyWith => __$$_RemainingMessageSendCountCopyWithImpl<
-          _$_RemainingMessageSendCount>(this, _$identity);
+  _$$RemainingMessageSendCountImplCopyWith<_$RemainingMessageSendCountImpl>
+      get copyWith => __$$RemainingMessageSendCountImplCopyWithImpl<
+          _$RemainingMessageSendCountImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RemainingMessageSendCountToJson(
+    return _$$RemainingMessageSendCountImplToJson(
       this,
     );
   }
@@ -729,10 +734,10 @@ abstract class _RemainingMessageSendCount implements RemainingMessageSendCount {
   const factory _RemainingMessageSendCount(
       {required final RemainingMonthlySurplusMessageSendCount monthlySurplus,
       required final RemainingDailyMessageSendCount
-          daily}) = _$_RemainingMessageSendCount;
+          daily}) = _$RemainingMessageSendCountImpl;
 
   factory _RemainingMessageSendCount.fromJson(Map<String, dynamic> json) =
-      _$_RemainingMessageSendCount.fromJson;
+      _$RemainingMessageSendCountImpl.fromJson;
 
   @override
   RemainingMonthlySurplusMessageSendCount get monthlySurplus;
@@ -740,7 +745,7 @@ abstract class _RemainingMessageSendCount implements RemainingMessageSendCount {
   RemainingDailyMessageSendCount get daily;
   @override
   @JsonKey(ignore: true)
-  _$$_RemainingMessageSendCountCopyWith<_$_RemainingMessageSendCount>
+  _$$RemainingMessageSendCountImplCopyWith<_$RemainingMessageSendCountImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -815,12 +820,12 @@ class _$RemainingMonthlySurplusMessageSendCountCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_RemainingMonthlySurplusMessageSendCountCopyWith<$Res>
+abstract class _$$RemainingMonthlySurplusMessageSendCountImplCopyWith<$Res>
     implements $RemainingMonthlySurplusMessageSendCountCopyWith<$Res> {
-  factory _$$_RemainingMonthlySurplusMessageSendCountCopyWith(
-          _$_RemainingMonthlySurplusMessageSendCount value,
-          $Res Function(_$_RemainingMonthlySurplusMessageSendCount) then) =
-      __$$_RemainingMonthlySurplusMessageSendCountCopyWithImpl<$Res>;
+  factory _$$RemainingMonthlySurplusMessageSendCountImplCopyWith(
+          _$RemainingMonthlySurplusMessageSendCountImpl value,
+          $Res Function(_$RemainingMonthlySurplusMessageSendCountImpl) then) =
+      __$$RemainingMonthlySurplusMessageSendCountImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({YearMonth yearMonth, int count});
@@ -830,13 +835,13 @@ abstract class _$$_RemainingMonthlySurplusMessageSendCountCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RemainingMonthlySurplusMessageSendCountCopyWithImpl<$Res>
+class __$$RemainingMonthlySurplusMessageSendCountImplCopyWithImpl<$Res>
     extends _$RemainingMonthlySurplusMessageSendCountCopyWithImpl<$Res,
-        _$_RemainingMonthlySurplusMessageSendCount>
-    implements _$$_RemainingMonthlySurplusMessageSendCountCopyWith<$Res> {
-  __$$_RemainingMonthlySurplusMessageSendCountCopyWithImpl(
-      _$_RemainingMonthlySurplusMessageSendCount _value,
-      $Res Function(_$_RemainingMonthlySurplusMessageSendCount) _then)
+        _$RemainingMonthlySurplusMessageSendCountImpl>
+    implements _$$RemainingMonthlySurplusMessageSendCountImplCopyWith<$Res> {
+  __$$RemainingMonthlySurplusMessageSendCountImplCopyWithImpl(
+      _$RemainingMonthlySurplusMessageSendCountImpl _value,
+      $Res Function(_$RemainingMonthlySurplusMessageSendCountImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -845,7 +850,7 @@ class __$$_RemainingMonthlySurplusMessageSendCountCopyWithImpl<$Res>
     Object? yearMonth = null,
     Object? count = null,
   }) {
-    return _then(_$_RemainingMonthlySurplusMessageSendCount(
+    return _then(_$RemainingMonthlySurplusMessageSendCountImpl(
       yearMonth: null == yearMonth
           ? _value.yearMonth
           : yearMonth // ignore: cast_nullable_to_non_nullable
@@ -860,14 +865,14 @@ class __$$_RemainingMonthlySurplusMessageSendCountCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RemainingMonthlySurplusMessageSendCount
+class _$RemainingMonthlySurplusMessageSendCountImpl
     implements _RemainingMonthlySurplusMessageSendCount {
-  const _$_RemainingMonthlySurplusMessageSendCount(
+  const _$RemainingMonthlySurplusMessageSendCountImpl(
       {required this.yearMonth, required this.count});
 
-  factory _$_RemainingMonthlySurplusMessageSendCount.fromJson(
+  factory _$RemainingMonthlySurplusMessageSendCountImpl.fromJson(
           Map<String, dynamic> json) =>
-      _$$_RemainingMonthlySurplusMessageSendCountFromJson(json);
+      _$$RemainingMonthlySurplusMessageSendCountImplFromJson(json);
 
   @override
   final YearMonth yearMonth;
@@ -883,7 +888,7 @@ class _$_RemainingMonthlySurplusMessageSendCount
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RemainingMonthlySurplusMessageSendCount &&
+            other is _$RemainingMonthlySurplusMessageSendCountImpl &&
             (identical(other.yearMonth, yearMonth) ||
                 other.yearMonth == yearMonth) &&
             (identical(other.count, count) || other.count == count));
@@ -896,14 +901,15 @@ class _$_RemainingMonthlySurplusMessageSendCount
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RemainingMonthlySurplusMessageSendCountCopyWith<
-          _$_RemainingMonthlySurplusMessageSendCount>
-      get copyWith => __$$_RemainingMonthlySurplusMessageSendCountCopyWithImpl<
-          _$_RemainingMonthlySurplusMessageSendCount>(this, _$identity);
+  _$$RemainingMonthlySurplusMessageSendCountImplCopyWith<
+          _$RemainingMonthlySurplusMessageSendCountImpl>
+      get copyWith =>
+          __$$RemainingMonthlySurplusMessageSendCountImplCopyWithImpl<
+              _$RemainingMonthlySurplusMessageSendCountImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RemainingMonthlySurplusMessageSendCountToJson(
+    return _$$RemainingMonthlySurplusMessageSendCountImplToJson(
       this,
     );
   }
@@ -912,12 +918,12 @@ class _$_RemainingMonthlySurplusMessageSendCount
 abstract class _RemainingMonthlySurplusMessageSendCount
     implements RemainingMonthlySurplusMessageSendCount {
   const factory _RemainingMonthlySurplusMessageSendCount(
-      {required final YearMonth yearMonth,
-      required final int count}) = _$_RemainingMonthlySurplusMessageSendCount;
+          {required final YearMonth yearMonth, required final int count}) =
+      _$RemainingMonthlySurplusMessageSendCountImpl;
 
   factory _RemainingMonthlySurplusMessageSendCount.fromJson(
           Map<String, dynamic> json) =
-      _$_RemainingMonthlySurplusMessageSendCount.fromJson;
+      _$RemainingMonthlySurplusMessageSendCountImpl.fromJson;
 
   @override
   YearMonth get yearMonth;
@@ -925,8 +931,8 @@ abstract class _RemainingMonthlySurplusMessageSendCount
   int get count;
   @override
   @JsonKey(ignore: true)
-  _$$_RemainingMonthlySurplusMessageSendCountCopyWith<
-          _$_RemainingMonthlySurplusMessageSendCount>
+  _$$RemainingMonthlySurplusMessageSendCountImplCopyWith<
+          _$RemainingMonthlySurplusMessageSendCountImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -998,12 +1004,12 @@ class _$RemainingDailyMessageSendCountCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_RemainingDailyMessageSendCountCopyWith<$Res>
+abstract class _$$RemainingDailyMessageSendCountImplCopyWith<$Res>
     implements $RemainingDailyMessageSendCountCopyWith<$Res> {
-  factory _$$_RemainingDailyMessageSendCountCopyWith(
-          _$_RemainingDailyMessageSendCount value,
-          $Res Function(_$_RemainingDailyMessageSendCount) then) =
-      __$$_RemainingDailyMessageSendCountCopyWithImpl<$Res>;
+  factory _$$RemainingDailyMessageSendCountImplCopyWith(
+          _$RemainingDailyMessageSendCountImpl value,
+          $Res Function(_$RemainingDailyMessageSendCountImpl) then) =
+      __$$RemainingDailyMessageSendCountImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Date date, int count});
@@ -1013,13 +1019,13 @@ abstract class _$$_RemainingDailyMessageSendCountCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RemainingDailyMessageSendCountCopyWithImpl<$Res>
+class __$$RemainingDailyMessageSendCountImplCopyWithImpl<$Res>
     extends _$RemainingDailyMessageSendCountCopyWithImpl<$Res,
-        _$_RemainingDailyMessageSendCount>
-    implements _$$_RemainingDailyMessageSendCountCopyWith<$Res> {
-  __$$_RemainingDailyMessageSendCountCopyWithImpl(
-      _$_RemainingDailyMessageSendCount _value,
-      $Res Function(_$_RemainingDailyMessageSendCount) _then)
+        _$RemainingDailyMessageSendCountImpl>
+    implements _$$RemainingDailyMessageSendCountImplCopyWith<$Res> {
+  __$$RemainingDailyMessageSendCountImplCopyWithImpl(
+      _$RemainingDailyMessageSendCountImpl _value,
+      $Res Function(_$RemainingDailyMessageSendCountImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1028,7 +1034,7 @@ class __$$_RemainingDailyMessageSendCountCopyWithImpl<$Res>
     Object? date = null,
     Object? count = null,
   }) {
-    return _then(_$_RemainingDailyMessageSendCount(
+    return _then(_$RemainingDailyMessageSendCountImpl(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -1043,14 +1049,14 @@ class __$$_RemainingDailyMessageSendCountCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RemainingDailyMessageSendCount
+class _$RemainingDailyMessageSendCountImpl
     implements _RemainingDailyMessageSendCount {
-  const _$_RemainingDailyMessageSendCount(
+  const _$RemainingDailyMessageSendCountImpl(
       {required this.date, required this.count});
 
-  factory _$_RemainingDailyMessageSendCount.fromJson(
+  factory _$RemainingDailyMessageSendCountImpl.fromJson(
           Map<String, dynamic> json) =>
-      _$$_RemainingDailyMessageSendCountFromJson(json);
+      _$$RemainingDailyMessageSendCountImplFromJson(json);
 
   @override
   final Date date;
@@ -1066,7 +1072,7 @@ class _$_RemainingDailyMessageSendCount
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RemainingDailyMessageSendCount &&
+            other is _$RemainingDailyMessageSendCountImpl &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.count, count) || other.count == count));
   }
@@ -1078,13 +1084,14 @@ class _$_RemainingDailyMessageSendCount
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RemainingDailyMessageSendCountCopyWith<_$_RemainingDailyMessageSendCount>
-      get copyWith => __$$_RemainingDailyMessageSendCountCopyWithImpl<
-          _$_RemainingDailyMessageSendCount>(this, _$identity);
+  _$$RemainingDailyMessageSendCountImplCopyWith<
+          _$RemainingDailyMessageSendCountImpl>
+      get copyWith => __$$RemainingDailyMessageSendCountImplCopyWithImpl<
+          _$RemainingDailyMessageSendCountImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RemainingDailyMessageSendCountToJson(
+    return _$$RemainingDailyMessageSendCountImplToJson(
       this,
     );
   }
@@ -1094,10 +1101,10 @@ abstract class _RemainingDailyMessageSendCount
     implements RemainingDailyMessageSendCount {
   const factory _RemainingDailyMessageSendCount(
       {required final Date date,
-      required final int count}) = _$_RemainingDailyMessageSendCount;
+      required final int count}) = _$RemainingDailyMessageSendCountImpl;
 
   factory _RemainingDailyMessageSendCount.fromJson(Map<String, dynamic> json) =
-      _$_RemainingDailyMessageSendCount.fromJson;
+      _$RemainingDailyMessageSendCountImpl.fromJson;
 
   @override
   Date get date;
@@ -1105,6 +1112,7 @@ abstract class _RemainingDailyMessageSendCount
   int get count;
   @override
   @JsonKey(ignore: true)
-  _$$_RemainingDailyMessageSendCountCopyWith<_$_RemainingDailyMessageSendCount>
+  _$$RemainingDailyMessageSendCountImplCopyWith<
+          _$RemainingDailyMessageSendCountImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

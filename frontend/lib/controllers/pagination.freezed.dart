@@ -63,22 +63,22 @@ class _$PaginationCopyWithImpl<T, $Res, $Val extends Pagination<T>>
 }
 
 /// @nodoc
-abstract class _$$_PaginationCopyWith<T, $Res>
+abstract class _$$PaginationImplCopyWith<T, $Res>
     implements $PaginationCopyWith<T, $Res> {
-  factory _$$_PaginationCopyWith(
-          _$_Pagination<T> value, $Res Function(_$_Pagination<T>) then) =
-      __$$_PaginationCopyWithImpl<T, $Res>;
+  factory _$$PaginationImplCopyWith(
+          _$PaginationImpl<T> value, $Res Function(_$PaginationImpl<T>) then) =
+      __$$PaginationImplCopyWithImpl<T, $Res>;
   @override
   @useResult
   $Res call({List<T> items, bool hasMore});
 }
 
 /// @nodoc
-class __$$_PaginationCopyWithImpl<T, $Res>
-    extends _$PaginationCopyWithImpl<T, $Res, _$_Pagination<T>>
-    implements _$$_PaginationCopyWith<T, $Res> {
-  __$$_PaginationCopyWithImpl(
-      _$_Pagination<T> _value, $Res Function(_$_Pagination<T>) _then)
+class __$$PaginationImplCopyWithImpl<T, $Res>
+    extends _$PaginationCopyWithImpl<T, $Res, _$PaginationImpl<T>>
+    implements _$$PaginationImplCopyWith<T, $Res> {
+  __$$PaginationImplCopyWithImpl(
+      _$PaginationImpl<T> _value, $Res Function(_$PaginationImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_PaginationCopyWithImpl<T, $Res>
     Object? items = null,
     Object? hasMore = null,
   }) {
-    return _then(_$_Pagination<T>(
+    return _then(_$PaginationImpl<T>(
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,9 @@ class __$$_PaginationCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$_Pagination<T> extends _Pagination<T> {
-  const _$_Pagination({required this.items, required this.hasMore}) : super._();
+class _$PaginationImpl<T> extends _Pagination<T> {
+  const _$PaginationImpl({required this.items, required this.hasMore})
+      : super._();
 
   @override
   final List<T> items;
@@ -119,7 +120,7 @@ class _$_Pagination<T> extends _Pagination<T> {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Pagination<T> &&
+            other is _$PaginationImpl<T> &&
             const DeepCollectionEquality().equals(other.items, items) &&
             (identical(other.hasMore, hasMore) || other.hasMore == hasMore));
   }
@@ -131,14 +132,14 @@ class _$_Pagination<T> extends _Pagination<T> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PaginationCopyWith<T, _$_Pagination<T>> get copyWith =>
-      __$$_PaginationCopyWithImpl<T, _$_Pagination<T>>(this, _$identity);
+  _$$PaginationImplCopyWith<T, _$PaginationImpl<T>> get copyWith =>
+      __$$PaginationImplCopyWithImpl<T, _$PaginationImpl<T>>(this, _$identity);
 }
 
 abstract class _Pagination<T> extends Pagination<T> {
   const factory _Pagination(
       {required final List<T> items,
-      required final bool hasMore}) = _$_Pagination<T>;
+      required final bool hasMore}) = _$PaginationImpl<T>;
   const _Pagination._() : super._();
 
   @override
@@ -147,6 +148,6 @@ abstract class _Pagination<T> extends Pagination<T> {
   bool get hasMore;
   @override
   @JsonKey(ignore: true)
-  _$$_PaginationCopyWith<T, _$_Pagination<T>> get copyWith =>
+  _$$PaginationImplCopyWith<T, _$PaginationImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

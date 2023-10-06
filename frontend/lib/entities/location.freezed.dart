@@ -93,10 +93,11 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
 }
 
 /// @nodoc
-abstract class _$$_LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
-  factory _$$_LocationCopyWith(
-          _$_Location value, $Res Function(_$_Location) then) =
-      __$$_LocationCopyWithImpl<$Res>;
+abstract class _$$LocationImplCopyWith<$Res>
+    implements $LocationCopyWith<$Res> {
+  factory _$$LocationImplCopyWith(
+          _$LocationImpl value, $Res Function(_$LocationImpl) then) =
+      __$$LocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +111,11 @@ abstract class _$$_LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LocationCopyWithImpl<$Res>
-    extends _$LocationCopyWithImpl<$Res, _$_Location>
-    implements _$$_LocationCopyWith<$Res> {
-  __$$_LocationCopyWithImpl(
-      _$_Location _value, $Res Function(_$_Location) _then)
+class __$$LocationImplCopyWithImpl<$Res>
+    extends _$LocationCopyWithImpl<$Res, _$LocationImpl>
+    implements _$$LocationImplCopyWith<$Res> {
+  __$$LocationImplCopyWithImpl(
+      _$LocationImpl _value, $Res Function(_$LocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -125,7 +126,7 @@ class __$$_LocationCopyWithImpl<$Res>
     Object? types = null,
     Object? geometry = null,
   }) {
-    return _then(_$_Location(
+    return _then(_$LocationImpl(
       googlePlaceId: null == googlePlaceId
           ? _value.googlePlaceId
           : googlePlaceId // ignore: cast_nullable_to_non_nullable
@@ -148,16 +149,16 @@ class __$$_LocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Location implements _Location {
-  const _$_Location(
+class _$LocationImpl implements _Location {
+  const _$LocationImpl(
       {required this.googlePlaceId,
       required this.address,
       required final List<String> types,
       required this.geometry})
       : _types = types;
 
-  factory _$_Location.fromJson(Map<String, dynamic> json) =>
-      _$$_LocationFromJson(json);
+  factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocationImplFromJson(json);
 
   @override
   final String googlePlaceId;
@@ -183,7 +184,7 @@ class _$_Location implements _Location {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Location &&
+            other is _$LocationImpl &&
             (identical(other.googlePlaceId, googlePlaceId) ||
                 other.googlePlaceId == googlePlaceId) &&
             (identical(other.address, address) || other.address == address) &&
@@ -200,12 +201,12 @@ class _$_Location implements _Location {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LocationCopyWith<_$_Location> get copyWith =>
-      __$$_LocationCopyWithImpl<_$_Location>(this, _$identity);
+  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
+      __$$LocationImplCopyWithImpl<_$LocationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LocationToJson(
+    return _$$LocationImplToJson(
       this,
     );
   }
@@ -216,9 +217,10 @@ abstract class _Location implements Location {
       {required final String googlePlaceId,
       required final String address,
       required final List<String> types,
-      required final Geometry geometry}) = _$_Location;
+      required final Geometry geometry}) = _$LocationImpl;
 
-  factory _Location.fromJson(Map<String, dynamic> json) = _$_Location.fromJson;
+  factory _Location.fromJson(Map<String, dynamic> json) =
+      _$LocationImpl.fromJson;
 
   @override
   String get googlePlaceId;
@@ -230,7 +232,7 @@ abstract class _Location implements Location {
   Geometry get geometry;
   @override
   @JsonKey(ignore: true)
-  _$$_LocationCopyWith<_$_Location> get copyWith =>
+  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -291,10 +293,11 @@ class _$GeometryCopyWithImpl<$Res, $Val extends Geometry>
 }
 
 /// @nodoc
-abstract class _$$_GeometryCopyWith<$Res> implements $GeometryCopyWith<$Res> {
-  factory _$$_GeometryCopyWith(
-          _$_Geometry value, $Res Function(_$_Geometry) then) =
-      __$$_GeometryCopyWithImpl<$Res>;
+abstract class _$$GeometryImplCopyWith<$Res>
+    implements $GeometryCopyWith<$Res> {
+  factory _$$GeometryImplCopyWith(
+          _$GeometryImpl value, $Res Function(_$GeometryImpl) then) =
+      __$$GeometryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({AppLatLng latLng});
@@ -304,11 +307,11 @@ abstract class _$$_GeometryCopyWith<$Res> implements $GeometryCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_GeometryCopyWithImpl<$Res>
-    extends _$GeometryCopyWithImpl<$Res, _$_Geometry>
-    implements _$$_GeometryCopyWith<$Res> {
-  __$$_GeometryCopyWithImpl(
-      _$_Geometry _value, $Res Function(_$_Geometry) _then)
+class __$$GeometryImplCopyWithImpl<$Res>
+    extends _$GeometryCopyWithImpl<$Res, _$GeometryImpl>
+    implements _$$GeometryImplCopyWith<$Res> {
+  __$$GeometryImplCopyWithImpl(
+      _$GeometryImpl _value, $Res Function(_$GeometryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -316,7 +319,7 @@ class __$$_GeometryCopyWithImpl<$Res>
   $Res call({
     Object? latLng = null,
   }) {
-    return _then(_$_Geometry(
+    return _then(_$GeometryImpl(
       latLng: null == latLng
           ? _value.latLng
           : latLng // ignore: cast_nullable_to_non_nullable
@@ -327,11 +330,11 @@ class __$$_GeometryCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Geometry implements _Geometry {
-  const _$_Geometry({required this.latLng});
+class _$GeometryImpl implements _Geometry {
+  const _$GeometryImpl({required this.latLng});
 
-  factory _$_Geometry.fromJson(Map<String, dynamic> json) =>
-      _$$_GeometryFromJson(json);
+  factory _$GeometryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GeometryImplFromJson(json);
 
   @override
   final AppLatLng latLng;
@@ -345,7 +348,7 @@ class _$_Geometry implements _Geometry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Geometry &&
+            other is _$GeometryImpl &&
             (identical(other.latLng, latLng) || other.latLng == latLng));
   }
 
@@ -356,26 +359,27 @@ class _$_Geometry implements _Geometry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GeometryCopyWith<_$_Geometry> get copyWith =>
-      __$$_GeometryCopyWithImpl<_$_Geometry>(this, _$identity);
+  _$$GeometryImplCopyWith<_$GeometryImpl> get copyWith =>
+      __$$GeometryImplCopyWithImpl<_$GeometryImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GeometryToJson(
+    return _$$GeometryImplToJson(
       this,
     );
   }
 }
 
 abstract class _Geometry implements Geometry {
-  const factory _Geometry({required final AppLatLng latLng}) = _$_Geometry;
+  const factory _Geometry({required final AppLatLng latLng}) = _$GeometryImpl;
 
-  factory _Geometry.fromJson(Map<String, dynamic> json) = _$_Geometry.fromJson;
+  factory _Geometry.fromJson(Map<String, dynamic> json) =
+      _$GeometryImpl.fromJson;
 
   @override
   AppLatLng get latLng;
   @override
   @JsonKey(ignore: true)
-  _$$_GeometryCopyWith<_$_Geometry> get copyWith =>
+  _$$GeometryImplCopyWith<_$GeometryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
