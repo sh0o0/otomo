@@ -71,7 +71,7 @@ class DefaultFirebaseOptions {
     projectId: 'otomo-dev-396006',
     storageBucket: 'otomo-dev-396006.appspot.com',
     androidClientId: '764287781247-04jfo3485hq46egsobj35orn463v2lsq.apps.googleusercontent.com',
-    iosClientId: '764287781247-i2hns9ni5n8dpe52stfg3koh3iijab64.apps.googleusercontent.com',
+    iosClientId: '764287781247-gjv61d3k0rl9jhktqkuu44aa6qk9b30j.apps.googleusercontent.com',
     iosBundleId: 'com.nakar0.otomo.develop',
   );
 }
