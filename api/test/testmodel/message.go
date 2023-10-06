@@ -88,10 +88,11 @@ func (f *LocationAnalysisFactory) New() *model.PlaceExtraction {
 	}
 	return &model.PlaceExtraction{
 		ProcessedAt: analyzedAt,
-		Locations: []*model.ExtractedPlace{
+		Places: []*model.ExtractedPlace{
 			{
-				Text:     testutil.Faker.Address().City(),
-				Location: DefaultLocationFactory.New(),
+				Text:           testutil.Faker.Address().City(),
+				GuessedAddress: *GuessedAddressFactory.New(),
+				GeocodedPlace:  GeocodedPlaceFactory.New(),
 			},
 		},
 	}

@@ -9,29 +9,29 @@ import (
 var conv = &converter{}
 
 type converter struct {
-	location convLocation
+	geocodedPlace convGeocodedPlace
 }
 
-type convLocation struct{}
+type convGeocodedPlace struct{}
 
-func (convLocation) GoogleToModel(gGeo *maps.GeocodingResult) model.Location {
-	return model.Location{
+func (convGeocodedPlace) GoogleToModel(
+	gGeo *maps.GeocodingResult,
+) *model.GeocodedPlace {
+	return &model.GeocodedPlace{
 		GooglePlaceID: gGeo.PlaceID,
-		Address:       gGeo.FormattedAddress,
-		Types:         gGeo.Types,
-		Geometry: model.Geometry{
-			LatLng: model.LatLng{
-				Lat: gGeo.Geometry.Location.Lat,
-				Lng: gGeo.Geometry.Location.Lng,
-			},
+		LatLng: model.LatLng{
+			Lat: gGeo.Geometry.Location.Lat,
+			Lng: gGeo.Geometry.Location.Lng,
 		},
 	}
 }
 
-func (convLocation) GoogleToModelList(gGeos []*maps.GeocodingResult) []model.Location {
-	locs := make([]model.Location, len(gGeos))
+func (c convGeocodedPlace) GoogleToModelList(
+	gGeos []*maps.GeocodingResult,
+) []*model.GeocodedPlace {
+	places := make([]*model.GeocodedPlace, len(gGeos))
 	for i, g := range gGeos {
-		locs[i] = convLocation{}.GoogleToModel(g)
+		places[i] = c.GoogleToModel(g)
 	}
-	return locs
+	return places
 }

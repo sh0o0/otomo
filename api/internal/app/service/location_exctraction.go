@@ -10,34 +10,34 @@ import (
 )
 
 const (
-	inputLocationsSchema     = `{ "type": "object", "properties": { "locations": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "address": { "type": "object", "properties": { "street": { "type": "string" }, "city": { "type": "string" }, "state": { "type": "string" }, "country": { "type": "string" }, "zip": { "type": "string" } }, "required": ["city", "state"] } }, "required": ["name", "address"] } } } }`
-	locationExtractionPrompt = `Extract the place names only from the sentence below and, if possible, include additional information to facilitate searching on Google Maps. Then, provide the information for the input_locations function call. If there is no location in the sentence, locations should be an empty list.
+	inputPlacesSchema     = `{ "type": "object", "properties": { "places": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "address": { "type": "object", "properties": { "street": { "type": "string" }, "city": { "type": "string" }, "state": { "type": "string" }, "country": { "type": "string" }, "zip": { "type": "string" } }, "required": ["city", "state"] } }, "required": ["name", "address"] } } } }`
+	placeExtractionPrompt = `Extract the place names only from the sentence below and, if possible, include additional information to facilitate searching on Google Maps. Then, provide the information for the input_places function call. If there is no place in the sentence, places should be an empty list.
 
 Sentence:
 %s`
 )
 
-type LocationExtractionResult struct {
-	Locations []svc.ExtractedLocation `json:"locations"`
+type PlaceExtractionJson struct {
+	Places []*svc.PlaceExtractionResult `json:"Places"`
 }
 
-var _ svc.LocationExtractionService = (*LocationExtractionService)(nil)
+var _ svc.PlaceExtractionService = (*PlaceExtractionService)(nil)
 
-type LocationExtractionService struct {
+type PlaceExtractionService struct {
 	gpt *openai.Client
 }
 
-func NewLocationExtractionService(gpt *openai.Client) *LocationExtractionService {
-	return &LocationExtractionService{
+func NewPlaceExtractionService(gpt *openai.Client) *PlaceExtractionService {
+	return &PlaceExtractionService{
 		gpt: gpt,
 	}
 }
 
-func (les *LocationExtractionService) FromText(
+func (les *PlaceExtractionService) FromText(
 	ctx context.Context,
 	text string,
-) ([]svc.ExtractedLocation, error) {
-	prompt := fmt.Sprintf(locationExtractionPrompt, text)
+) ([]*svc.PlaceExtractionResult, error) {
+	prompt := fmt.Sprintf(placeExtractionPrompt, text)
 	completion, err := les.gpt.CreateChatCompletion(
 		ctx,
 		openai.ChatCompletionRequest{
@@ -50,12 +50,12 @@ func (les *LocationExtractionService) FromText(
 			},
 			Functions: []openai.FunctionDefinition{
 				{
-					Name:        "input_locations",
-					Description: "Input locations from texts",
-					Parameters:  json.RawMessage(inputLocationsSchema),
+					Name:        "input_places",
+					Description: "Input places from texts",
+					Parameters:  json.RawMessage(inputPlacesSchema),
 				},
 			},
-			FunctionCall: json.RawMessage(`{"name": "input_locations"}`),
+			FunctionCall: json.RawMessage(`{"name": "input_places"}`),
 			Temperature:  0.0,
 		},
 	)
@@ -65,7 +65,7 @@ func (les *LocationExtractionService) FromText(
 
 	msg := completion.Choices[0].Message
 
-	var result = &LocationExtractionResult{}
+	var result = &PlaceExtractionJson{}
 	if err := json.Unmarshal(
 		[]byte(msg.FunctionCall.Arguments),
 		result,
@@ -73,5 +73,5 @@ func (les *LocationExtractionService) FromText(
 		return nil, err
 	}
 
-	return result.Locations, nil
+	return result.Places, nil
 }

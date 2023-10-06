@@ -57,38 +57,38 @@ func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, erro
 }
 
 type convertLocationAnalysis struct {
-	analyzedLocation convertAnalyzedLocation
+	analyzedLocation convertPlaceExtraction
 	wrapper          convertWrapper
 }
 
 func (cla convertLocationAnalysis) ModelToGrpc(
-	la *model.PlaceExtraction,
+	pe *model.PlaceExtraction,
 ) *grpcgen.LocationAnalysis {
 	var analyzedAt *timestamppb.Timestamp
-	if la.ProcessedAt != nil {
-		analyzedAt = timestamppb.New(*la.ProcessedAt)
+	if pe.ProcessedAt != nil {
+		analyzedAt = timestamppb.New(*pe.ProcessedAt)
 	}
 	return &grpcgen.LocationAnalysis{
-		Locations:  cla.analyzedLocation.ModelToGrpcList(la.Locations),
+		Locations:  cla.analyzedLocation.ModelToGrpcList(pe.Locations),
 		AnalyzedAt: analyzedAt,
-		Error:      cla.wrapper.StringPtrToStringValue(la.Error),
+		Error:      cla.wrapper.StringPtrToStringValue(pe.Error),
 	}
 }
 
-type convertAnalyzedLocation struct {
-	location convertLocation
+type convertPlaceExtraction struct {
+	location convertGeocodedPlace
 }
 
-func (ca convertAnalyzedLocation) ModelToGrpc(
-	al *model.ExtractedPlace,
+func (ca convertPlaceExtraction) ModelToGrpc(
+	ep *model.ExtractedPlace,
 ) *grpcgen.AnalyzedLocation {
 	return &grpcgen.AnalyzedLocation{
-		Text:     al.Text,
-		Location: ca.location.ModelToGrpc(al.Location),
+		Text:     ep.Text,
+		Location: ca.location.ModelToGrpc(ep.Location),
 	}
 }
 
-func (ca convertAnalyzedLocation) ModelToGrpcList(
+func (ca convertPlaceExtraction) ModelToGrpcList(
 	als []*model.ExtractedPlace,
 ) []*grpcgen.AnalyzedLocation {
 	grpcAls := make([]*grpcgen.AnalyzedLocation, len(als))
@@ -98,30 +98,15 @@ func (ca convertAnalyzedLocation) ModelToGrpcList(
 	return grpcAls
 }
 
-type convertLocation struct {
-	geometry convertGeometry
-}
-
-func (cl convertLocation) ModelToGrpc(
-	location model.Location,
-) *grpcgen.Location {
-	return &grpcgen.Location{
-		GooglePlaceId: location.GooglePlaceID,
-		Address:       location.Address,
-		Types:         location.Types,
-		Geometry:      cl.geometry.ModelToGrpc(location.Geometry),
-	}
-}
-
-type convertGeometry struct {
+type convertGeocodedPlace struct {
 	latLng convertLatLng
 }
 
-func (cg convertGeometry) ModelToGrpc(
-	geometry model.Geometry,
-) *grpcgen.Geometry {
-	return &grpcgen.Geometry{
-		LatLng: cg.latLng.ModelToGrpc(geometry.LatLng),
+func (cl convertGeocodedPlace) ModelToGrpc(
+	gp *model.GeocodedPlace,
+) *grpcgen.Location {
+	return &grpcgen.Location{
+		GooglePlaceId: gp.GooglePlaceID,
 	}
 }
 
