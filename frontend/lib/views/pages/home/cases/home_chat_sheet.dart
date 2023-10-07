@@ -12,6 +12,7 @@ import 'package:otomo/views/cases/chat/chat_ui.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/utils/error_library.dart';
 import 'package:otomo/views/utils/flutter.dart';
+import 'package:otomo/views/utils/haptic.dart';
 
 class HomeChatSheet extends StatefulHookConsumerWidget {
   const HomeChatSheet({
@@ -123,8 +124,10 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
                 user: ChatState.user,
                 emptyState: _emptyState(context, state),
                 onEndReached: () => notifier.listMessagesMore(),
-                onMessageTap: (_, m) =>
-                    notifier.toggleMessageActiveWithId(m.id),
+                onMessageTap: (_, m) {
+                  Haptic.lightImpact();
+                  notifier.toggleMessageActiveWithId(m.id);
+                },
                 showStatusPopup: (message) =>
                     message.status == MessageStatus.error,
                 statusPopupBuilder: (context, message) => _statusPopupBuilder(
@@ -132,7 +135,10 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
                   message,
                   messages: state.value?.messages.items ?? [],
                 ),
-                onPlaceTextTap: (place) => notifier.focusPlace(place),
+                onPlaceTextTap: (place) {
+                  Haptic.lightImpact();
+                  notifier.focusPlace(place);
+                },
                 customBottomWidget: Visibility(
                   visible: showTextField,
                   child: Animate(
