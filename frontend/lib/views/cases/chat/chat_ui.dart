@@ -7,6 +7,7 @@ import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
+import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/utils/converter.dart';
 import 'package:otomo/views/utils/launcher.dart';
 
@@ -127,21 +128,25 @@ class ChatUI extends StatelessWidget {
     final message = messages.firstWhere((e) => e.message.id == messageId);
     final placeEx = message.placeExtraction;
 
-    return placeEx.places
-        .map((e) => MatchText(
-              pattern: e.text,
-              onTap: (text) => onPlaceTextTap?.call(e),
-              renderWidget: ({required pattern, required text}) {
-                return RichText(
-                  text: TextSpan(
-                    text: text,
-                    style: theme.textTheme.bodyLarge
-                        ?.copyWith(color: theme.colorScheme.primary),
-                  ),
-                );
-              },
-            ))
-        .toList();
+    return placeEx.places.map((e) {
+      final hasPlace = e.geocodedPlace != null;
+      return MatchText(
+        pattern: e.text,
+        onTap: hasPlace ? (_) => onPlaceTextTap?.call(e) : (_) {},
+        renderWidget: ({required pattern, required text}) {
+          return RichText(
+            text: TextSpan(
+              text: text,
+              style: theme.textTheme.bodyLarge?.copyWith(
+                color: hasPlace
+                    ? theme.colorScheme.primary
+                    : TextStyles.disabled(context)?.color,
+              ),
+            ),
+          );
+        },
+      );
+    }).toList();
   }
 
   @override
