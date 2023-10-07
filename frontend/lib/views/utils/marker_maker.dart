@@ -7,35 +7,45 @@ import 'package:otomo/views/utils/converter.dart';
 final class MarkerMaker {
   MarkerMaker._();
 
-  static List<Marker> fromExtractedPlaceList(
-          List<ExtractedPlace> places) =>
+  static List<Marker> fromExtractedPlaceList(List<ExtractedPlace> places) =>
       places.map(fromExtractedPlace).toList();
 
   static Marker fromExtractedPlace(
     ExtractedPlace place, {
     VoidCallback? onTap,
-  }) =>
-      Marker(
-        markerId: MarkerId(place.geocodedPlace.googlePlaceId),
-        position: ViewConverter.I.latLng
-            .entityToViewForGoogle(place.geocodedPlace.latLng),
-        onTap: onTap,
-        infoWindow: InfoWindow(
-          title: place.text,
-          snippet: place.geocodedPlace.latLng.toString(),
-        ),
-      );
+  }) {
+    final geocodedPlace = place.geocodedPlace;
+    if (geocodedPlace == null) {
+      throw ArgumentError.notNull('place.geocodedPlace');
+    }
+
+    return Marker(
+      markerId: MarkerId(geocodedPlace.googlePlaceId),
+      position:
+          ViewConverter.I.latLng.entityToViewForGoogle(geocodedPlace.latLng),
+      onTap: onTap,
+      infoWindow: InfoWindow(
+        title: place.text,
+        snippet: geocodedPlace.latLng.toString(),
+      ),
+    );
+  }
 
   static Future<Marker> fromExtractedPlaceWithLabel({
     required BuildContext context,
     required ExtractedPlace place,
     VoidCallback? onTap,
   }) async {
+    final geocodedPlace = place.geocodedPlace;
+    if (geocodedPlace == null) {
+      throw ArgumentError.notNull('place.geocodedPlace');
+    }
+
     final theme = Theme.of(context);
     return Marker(
-      markerId: MarkerId(place.geocodedPlace.googlePlaceId),
+      markerId: MarkerId(geocodedPlace.googlePlaceId),
       position: ViewConverter.I.latLng.entityToViewForGoogle(
-        place.geocodedPlace.latLng,
+        geocodedPlace.latLng,
       ),
       onTap: onTap,
       icon: await createCustomMarkerBitmap(
