@@ -2,12 +2,12 @@ name: API CI/CD
 
 on:
   push:
-    branches:
-      - main
-      - develop
-      - release**
-    paths:
-      - 'api/**'
+    # branches:
+    #   - main
+    #   - develop
+    #   - release**
+    # paths:
+    #   - 'api/**'
 
 env:
   CARGO_TERM_COLOR: always
@@ -42,3 +42,32 @@ jobs:
           title: 'Backend CI/CD failed'
           slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}
           slackChannel: ${{ secrets.DEV_SLACK_CHANNEL }}
+  production:
+    runs-on: ubuntu-latest
+    # if: github.ref_name == 'main'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Develop API CI/CD
+        uses: ./.github/actions/api-cicd/
+        with:
+          branch: main
+          gcpProjectId: ${{ secrets.PROD_GCP_PROJECT_ID }}
+          gcpServiceAccountEmail: ${{ secrets.PROD_GCP_SERVICE_ACCOUNT_EMAIL }}
+          gcpServiceAccountKey: ${{ secrets.PROD_GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Notify to slack
+        uses: ./.github/actions/notify-to-slack/
+        if: success()
+        with:
+          isSuccess: true
+          title: 'Backend CI/CD succeed'
+          slackWebhookUrl: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.PROD_SLACK_CHANNEL }}
+      - name: Notify to slack
+        uses: ./.github/actions/notify-to-slack/
+        if: failure()
+        with:
+          isSuccess: false
+          title: 'Backend CI/CD failed'
+          slackWebhookUrl: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.PROD_SLACK_CHANNEL }}

@@ -42,3 +42,32 @@ jobs:
           title: 'Firebase CI/CD failed'
           slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}
           slackChannel: ${{ secrets.DEV_SLACK_CHANNEL }}
+  production:
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Develop Firebase CI/CD
+        uses: ./.github/actions/firebase-cicd/
+        with:
+          firebaseToken: ${{ secrets.PROD_FIREBASE_TOKEN }}
+          firebaseProjectId: ${{ secrets.PROD_GCP_PROJECT_ID }}
+          slackWebhookUrl: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.PROD_SLACK_CHANNEL }}
+
+      - name: Notify to slack
+        uses: ./.github/actions/notify-to-slack/
+        if: success()
+        with:
+          isSuccess: true
+          title: 'Firebase CI/CD succeed'
+          slackWebhookUrl: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.PROD_SLACK_CHANNEL }}
+      - name: Notify to slack
+        uses: ./.github/actions/notify-to-slack/
+        if: failure()
+        with:
+          isSuccess: false
+          title: 'Firebase CI/CD failed'
+          slackWebhookUrl: ${{ secrets.PROD_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.PROD_SLACK_CHANNEL }}
