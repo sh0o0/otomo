@@ -1,138 +1,34 @@
 {
   "project_info": {
-    "project_number": "764287781247",
-    "project_id": "otomo-dev-396006",
-    "storage_bucket": "otomo-dev-396006.appspot.com"
+    "project_number": "381618471317",
+    "project_id": "otomo-dev-401306",
+    "storage_bucket": "otomo-dev-401306.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:764287781247:android:3d61926b1609d8d538324a",
+        "mobilesdk_app_id": "1:381618471317:android:72c28f314a4f63d6c4f69c",
         "android_client_info": {
-          "package_name": "com.nakar0.otomo.develop"
+          "package_name": "com.sh0o0.otomo.develop"
         }
       },
       "oauth_client": [
         {
-          "client_id": "764287781247-04jfo3485hq46egsobj35orn463v2lsq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nakar0.otomo.develop",
-            "certificate_hash": "bc843b984cf08dc2096c520328e026f1a083f37a"
-          }
-        },
-        {
-          "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
+          "client_id": "381618471317-i4b85sjf1415i8t39ivd9fhruuu6tt05.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM"
-        },
-        {
-          "current_key": "AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM"
+          "current_key": "AIzaSyAgEfcMNO1SRDbe3WQ1ssLfYZ9V29ilWM4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
+              "client_id": "381618471317-i4b85sjf1415i8t39ivd9fhruuu6tt05.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "764287781247-an3o1b7n6sk3ps7f67f82657hb53g65g.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.nakar0.otomo.local"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:764287781247:android:c198681cf10692e138324a",
-        "android_client_info": {
-          "package_name": "com.nakar0.otomo.local"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "764287781247-38lsn1b4igo4b2ajpk10v7hg74ve2jfo.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nakar0.otomo.local",
-            "certificate_hash": "bc843b984cf08dc2096c520328e026f1a083f37a"
-          }
-        },
-        {
-          "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM"
-        },
-        {
-          "current_key": "AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "764287781247-an3o1b7n6sk3ps7f67f82657hb53g65g.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.nakar0.otomo.local"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:764287781247:android:c4b76009639c21fc38324a",
-        "android_client_info": {
-          "package_name": "com.nakar0.otomo.test"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM"
-        },
-        {
-          "current_key": "AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "764287781247-4tipst1nusllv90k805d9c6m8cgf8r9i.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "764287781247-an3o1b7n6sk3ps7f67f82657hb53g65g.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.nakar0.otomo.local"
-              }
             }
           ]
         }

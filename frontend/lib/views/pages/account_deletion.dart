@@ -37,8 +37,7 @@ class AccountDeletionPage extends HookConsumerWidget {
               ),
             ),
             Spaces.h16,
-            const BodyMedium(
-                '''アカウントを削除すると、データの復元はできませんのでご注意ください。
+            const BodyMedium('''アカウントを削除すると、データの復元はできませんのでご注意ください。
 また、削除されたアカウントについては、Otomo運営事務局のサポート外となります'''),
             Spaces.h40,
             Center(

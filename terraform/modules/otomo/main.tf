@@ -1,29 +1,23 @@
 module "google" {
-  source                 = "../google"
-  gcp_project_id         = var.gcp_project_id
-  gcp_project_name       = var.gcp_project_name
-  gcp_billing_account_id = var.gcp_billing_account_id
+  source         = "../google"
+  gcp_project_id = var.gcp_project_id
 }
 
-module "firebase" {
-  source                         = "../firebase"
-  gcp_project_id                 = var.gcp_project_id
-  default_google_project_service = module.google.default_google_project_service
-  android_package_name           = var.android_package_name
-  ios_bundle_name                = var.ios_bundle_name
+module "api_keys" {
+  source         = "../api_keys"
+  gcp_project_id = var.gcp_project_id
 }
 
 module "cloud_run" {
   source                              = "../cloud_run"
   gcp_project_id                      = var.gcp_project_id
-  default_google_project_service      = module.google.default_google_project_service
   region                              = var.region
   cloud_run_service_name              = var.cloud_run_service_name
   cloud_run_image_name                = var.cloud_run_image_name
-  google_application_credentials_json = var.google_application_credentials_json
+  firebase_admin_sdk_credentials_json = var.firebase_admin_sdk_credentials_json
   basic_auth_pairs                    = var.basic_auth_pairs
   openai_api_key                      = var.openai_api_key
-  google_maps_api_key                 = var.google_maps_api_key
+  google_maps_api_key                 = module.api_keys.otomo_api_key
 }
 
 module "load_balancer" {
@@ -37,6 +31,5 @@ module "load_balancer" {
 module "registry" {
   source                         = "../gcr"
   gcp_project_id                 = var.gcp_project_id
-  default_google_project_service = module.google.default_google_project_service
 }
 

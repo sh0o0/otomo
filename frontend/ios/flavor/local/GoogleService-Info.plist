@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>764287781247-an3o1b7n6sk3ps7f67f82657hb53g65g.apps.googleusercontent.com</string>
+	<string>381618471317-smvh960t6cmspvmatcvt2reesjo4afnv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.764287781247-an3o1b7n6sk3ps7f67f82657hb53g65g</string>
+	<string>com.googleusercontent.apps.381618471317-smvh960t6cmspvmatcvt2reesjo4afnv</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>764287781247-04jfo3485hq46egsobj35orn463v2lsq.apps.googleusercontent.com</string>
+	<string>381618471317-1p6oq0826fpbgsa5s2bgd7g2n14put79.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB4iZmAs6mj_th1qer5c8tkK1l9cD5QeEc</string>
+	<string>AIzaSyBUGezAzjwKRNgo8hk1JHIvoNgqXLApAzk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>764287781247</string>
+	<string>381618471317</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.nakar0.otomo.local</string>
+	<string>com.sh0o0.otomo.local</string>
 	<key>PROJECT_ID</key>
-	<string>otomo-dev-396006</string>
+	<string>otomo-dev-401306</string>
 	<key>STORAGE_BUCKET</key>
-	<string>otomo-dev-396006.appspot.com</string>
+	<string>otomo-dev-401306.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:764287781247:ios:ed3fe9e78264585738324a</string>
+	<string>1:381618471317:ios:389c949728572d7ac4f69c</string>
 </dict>
 </plist>

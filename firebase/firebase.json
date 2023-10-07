@@ -37,5 +37,9 @@
   },
   "extensions": {
     "delete-user-data": "firebase/delete-user-data@0.1.19"
+  },
+  "firestore": {
+    "rules": "firestore/firestore.rules",
+    "indexes": "firestore/firestore.indexes.json"
   }
 }

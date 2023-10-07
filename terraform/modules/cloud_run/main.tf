@@ -6,10 +6,6 @@ resource "google_cloud_run_service" "default" {
   provider = google-beta
   project  = var.gcp_project_id
 
-  depends_on = [
-    var.default_google_project_service
-  ]
-
   autogenerate_revision_name = true
 
   template {
@@ -31,7 +27,7 @@ resource "google_cloud_run_service" "default" {
         }
         env {
           name  = "GOOGLE_APPLICATION_CREDENTIALS_JSON"
-          value = var.google_application_credentials_json
+          value = var.firebase_admin_sdk_credentials_json
         }
         env {
           name  = "BASIC_AUTH_PAIRS"

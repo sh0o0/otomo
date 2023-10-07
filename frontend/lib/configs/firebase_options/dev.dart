@@ -47,31 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDyrNJlhuViDKaouiwUgaz4scTwIJUvW3M',
-    appId: '1:764287781247:web:46860c0f3d16f01f38324a',
-    messagingSenderId: '764287781247',
-    projectId: 'otomo-dev-396006',
-    authDomain: 'otomo-dev-396006.firebaseapp.com',
-    storageBucket: 'otomo-dev-396006.appspot.com',
-    measurementId: 'G-4VHV76ZFK7',
+    apiKey: 'AIzaSyBiM4VVx19lwfEFecb_U6p3J-fIIW8QWNc',
+    appId: '1:381618471317:web:185a6221686e3de9c4f69c',
+    messagingSenderId: '381618471317',
+    projectId: 'otomo-dev-401306',
+    authDomain: 'otomo-dev-401306.firebaseapp.com',
+    storageBucket: 'otomo-dev-401306.appspot.com',
+    measurementId: 'G-0Y9DWY1X3R',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBMqwuCI5ii0NmQZSsz5X3mD2ep9BMe5OM',
-    appId: '1:764287781247:android:3d61926b1609d8d538324a',
-    messagingSenderId: '764287781247',
-    projectId: 'otomo-dev-396006',
-    storageBucket: 'otomo-dev-396006.appspot.com',
+    apiKey: 'AIzaSyAgEfcMNO1SRDbe3WQ1ssLfYZ9V29ilWM4',
+    appId: '1:381618471317:android:72c28f314a4f63d6c4f69c',
+    messagingSenderId: '381618471317',
+    projectId: 'otomo-dev-401306',
+    storageBucket: 'otomo-dev-401306.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB4iZmAs6mj_th1qer5c8tkK1l9cD5QeEc',
-    appId: '1:764287781247:ios:30e5173bf78622a838324a',
-    messagingSenderId: '764287781247',
-    projectId: 'otomo-dev-396006',
-    storageBucket: 'otomo-dev-396006.appspot.com',
-    androidClientId: '764287781247-04jfo3485hq46egsobj35orn463v2lsq.apps.googleusercontent.com',
-    iosClientId: '764287781247-gjv61d3k0rl9jhktqkuu44aa6qk9b30j.apps.googleusercontent.com',
-    iosBundleId: 'com.nakar0.otomo.develop',
+    apiKey: 'AIzaSyBUGezAzjwKRNgo8hk1JHIvoNgqXLApAzk',
+    appId: '1:381618471317:ios:1066c355978b84f2c4f69c',
+    messagingSenderId: '381618471317',
+    projectId: 'otomo-dev-401306',
+    storageBucket: 'otomo-dev-401306.appspot.com',
+    iosClientId: '381618471317-86f05o6jha6l9c0sm82ie22rumg940uj.apps.googleusercontent.com',
+    iosBundleId: 'com.sh0o0.otomo.develop',
   );
 }

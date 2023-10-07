@@ -12,35 +12,19 @@ provider "google" {
 }
 
 provider "google-beta" {
-  project               = var.gcp_project_id
-  user_project_override = true
+  project = var.gcp_project_id
 }
-
-
-# resource "google_project" "default" {
-#   project_id      = var.gcp_project_id
-#   name            = var.gcp_project_name
-
-#   labels = {
-#     "firebase" = "enabled"
-#   }
-
-#   depends_on = [
-#     google_project_service.default
-#   ]
-# }
 
 resource "google_project_service" "default" {
   project = var.gcp_project_id
   for_each = toset([
-    "cloudresourcemanager.googleapis.com",
     "run.googleapis.com",
-    "cloudbilling.googleapis.com",
     "compute.googleapis.com",
-    "firebase.googleapis.com",
-    "serviceusage.googleapis.com",
     "firestore.googleapis.com",
-    "identitytoolkit.googleapis.com",
+    "maps-android-backend.googleapis.com",
+    "maps-ios-backend.googleapis.com",
+    "places-backend.googleapis.com",
+    "geocoding-backend.googleapis.com",
   ])
   service = each.key
 

@@ -1,10 +1,6 @@
 variable "gcp_project_id" {
   description = "the project to deploy the resources"
-  type = string
-}
-
-variable "default_google_project_service" {
-  description = "the project service with GCP"
+  type        = string
 }
 
 variable "region" {
@@ -23,8 +19,8 @@ variable "cloud_run_image_name" {
 }
 
 
-variable "google_application_credentials_json" {
-  description = "GOOGLE_APPLICATION_CREDENTIALS json file"
+variable "firebase_admin_sdk_credentials_json" {
+  description = "base64 encoded firebase admin sdk credentials file"
   type        = string
 }
 

@@ -1,4 +1,4 @@
-package com.nakar0.otomo
+package com.sh0o0.otomo
 
 import io.flutter.embedding.android.FlutterActivity
 
