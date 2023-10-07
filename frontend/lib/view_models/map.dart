@@ -21,10 +21,8 @@ class MapState with _$MapState {
     ExtractedPlace? focusingPlace,
   }) = _MapState;
 
-  AppLatLngList get activePlacesLatLngList {
-    return AppLatLngList(
-      activePlaces.map((e) => e.geocodedPlace.latLng).toList(),
-    );
+  List<AppLatLng> get activePlacesLatLngList {
+    return activePlaces.map((e) => e.geocodedPlace?.latLng).nonNulls.toList();
   }
 }
 
