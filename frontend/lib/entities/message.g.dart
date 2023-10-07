@@ -55,8 +55,10 @@ Map<String, dynamic> _$$PlaceExtractionImplToJson(
 _$ExtractedPlaceImpl _$$ExtractedPlaceImplFromJson(Map<String, dynamic> json) =>
     _$ExtractedPlaceImpl(
       text: json['text'] as String,
-      geocodedPlace: GeocodedPlace.fromJson(
-          json['geocoded_place'] as Map<String, dynamic>),
+      geocodedPlace: json['geocoded_place'] == null
+          ? null
+          : GeocodedPlace.fromJson(
+              json['geocoded_place'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ExtractedPlaceImplToJson(

@@ -4,10 +4,10 @@ import 'package:otomo/entities/date.dart';
 import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_send_count.dart';
-import 'package:otomo/grpc/generated/message.pb.dart' as grpc_msg;
-import 'package:otomo/grpc/generated/location.pb.dart' as grpc_loc;
-import 'package:otomo/grpc/generated/message_send_count.pb.dart' as grpc_count;
 import 'package:otomo/grpc/generated/date.pb.dart' as grpc_date;
+import 'package:otomo/grpc/generated/location.pb.dart' as grpc_loc;
+import 'package:otomo/grpc/generated/message.pb.dart' as grpc_msg;
+import 'package:otomo/grpc/generated/message_send_count.pb.dart' as grpc_count;
 
 class ControllerConverter {
   ControllerConverter._();
@@ -80,7 +80,9 @@ class _ExtractedPlace {
   ExtractedPlace grpcToEntity(grpc_msg.ExtractedPlace place) {
     return ExtractedPlace(
       text: place.text,
-      geocodedPlace: _geocodedPlace.grpcToEntity(place.geocodedPlace),
+      geocodedPlace: place.hasGeocodedPlace()
+          ? _geocodedPlace.grpcToEntity(place.geocodedPlace)
+          : null,
     );
   }
 

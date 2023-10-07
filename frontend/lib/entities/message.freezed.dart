@@ -467,7 +467,7 @@ ExtractedPlace _$ExtractedPlaceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ExtractedPlace {
   String get text => throw _privateConstructorUsedError;
-  GeocodedPlace get geocodedPlace => throw _privateConstructorUsedError;
+  GeocodedPlace? get geocodedPlace => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -481,9 +481,9 @@ abstract class $ExtractedPlaceCopyWith<$Res> {
           ExtractedPlace value, $Res Function(ExtractedPlace) then) =
       _$ExtractedPlaceCopyWithImpl<$Res, ExtractedPlace>;
   @useResult
-  $Res call({String text, GeocodedPlace geocodedPlace});
+  $Res call({String text, GeocodedPlace? geocodedPlace});
 
-  $GeocodedPlaceCopyWith<$Res> get geocodedPlace;
+  $GeocodedPlaceCopyWith<$Res>? get geocodedPlace;
 }
 
 /// @nodoc
@@ -500,24 +500,28 @@ class _$ExtractedPlaceCopyWithImpl<$Res, $Val extends ExtractedPlace>
   @override
   $Res call({
     Object? text = null,
-    Object? geocodedPlace = null,
+    Object? geocodedPlace = freezed,
   }) {
     return _then(_value.copyWith(
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      geocodedPlace: null == geocodedPlace
+      geocodedPlace: freezed == geocodedPlace
           ? _value.geocodedPlace
           : geocodedPlace // ignore: cast_nullable_to_non_nullable
-              as GeocodedPlace,
+              as GeocodedPlace?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $GeocodedPlaceCopyWith<$Res> get geocodedPlace {
-    return $GeocodedPlaceCopyWith<$Res>(_value.geocodedPlace, (value) {
+  $GeocodedPlaceCopyWith<$Res>? get geocodedPlace {
+    if (_value.geocodedPlace == null) {
+      return null;
+    }
+
+    return $GeocodedPlaceCopyWith<$Res>(_value.geocodedPlace!, (value) {
       return _then(_value.copyWith(geocodedPlace: value) as $Val);
     });
   }
@@ -531,10 +535,10 @@ abstract class _$$ExtractedPlaceImplCopyWith<$Res>
       __$$ExtractedPlaceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String text, GeocodedPlace geocodedPlace});
+  $Res call({String text, GeocodedPlace? geocodedPlace});
 
   @override
-  $GeocodedPlaceCopyWith<$Res> get geocodedPlace;
+  $GeocodedPlaceCopyWith<$Res>? get geocodedPlace;
 }
 
 /// @nodoc
@@ -549,17 +553,17 @@ class __$$ExtractedPlaceImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? text = null,
-    Object? geocodedPlace = null,
+    Object? geocodedPlace = freezed,
   }) {
     return _then(_$ExtractedPlaceImpl(
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      geocodedPlace: null == geocodedPlace
+      geocodedPlace: freezed == geocodedPlace
           ? _value.geocodedPlace
           : geocodedPlace // ignore: cast_nullable_to_non_nullable
-              as GeocodedPlace,
+              as GeocodedPlace?,
     ));
   }
 }
@@ -575,7 +579,7 @@ class _$ExtractedPlaceImpl implements _ExtractedPlace {
   @override
   final String text;
   @override
-  final GeocodedPlace geocodedPlace;
+  final GeocodedPlace? geocodedPlace;
 
   @override
   String toString() {
@@ -614,7 +618,7 @@ class _$ExtractedPlaceImpl implements _ExtractedPlace {
 abstract class _ExtractedPlace implements ExtractedPlace {
   const factory _ExtractedPlace(
       {required final String text,
-      required final GeocodedPlace geocodedPlace}) = _$ExtractedPlaceImpl;
+      required final GeocodedPlace? geocodedPlace}) = _$ExtractedPlaceImpl;
 
   factory _ExtractedPlace.fromJson(Map<String, dynamic> json) =
       _$ExtractedPlaceImpl.fromJson;
@@ -622,7 +626,7 @@ abstract class _ExtractedPlace implements ExtractedPlace {
   @override
   String get text;
   @override
-  GeocodedPlace get geocodedPlace;
+  GeocodedPlace? get geocodedPlace;
   @override
   @JsonKey(ignore: true)
   _$$ExtractedPlaceImplCopyWith<_$ExtractedPlaceImpl> get copyWith =>
