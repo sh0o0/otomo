@@ -120,9 +120,9 @@ class AuthControllerImpl {
 
   Future<void> signOut() => _firebaseAuth.signOut();
 
-  FutureOr<void> deleteAccount() {
+  FutureOr<void> deleteAccount() async {
     try {
-      return _firebaseAuth.currentUser?.delete();
+      await _firebaseAuth.currentUser?.delete();
     } on auth.FirebaseAuthException catch (e) {
       if (e.code == FirebaseExceptionCode.requiresRecentLogin) {
         throw const AppException(
