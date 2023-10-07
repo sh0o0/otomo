@@ -36,14 +36,14 @@ class _SignInWithEmailLinkPageState
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const TitleLarge('Continue with email'),
+                const TitleLarge('メールアドレスでサインイン'),
                 Spaces.h40,
-                const TextFieldLabel(label: 'Email'),
+                const TextFieldLabel(label: 'メールアドレス'),
                 Form(
                   key: _formKey,
                   child: RoundedTextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      hintText: 'メールアドレス',
+                      hintText: 'abc@example.com',
                       onChanged: (value) => setState(() => _email = value),
                       onSaved: (value) => setState(() => _email = value!),
                       validator: MultiValidator(

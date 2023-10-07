@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:otomo/configs/links.dart';
+import 'package:otomo/constants/links.dart';
 import 'package:otomo/controllers/firebase.dart';
 import 'package:otomo/entities/account.dart';
 import 'package:otomo/entities/app_exception.dart';

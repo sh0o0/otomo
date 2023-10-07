@@ -40,7 +40,7 @@ class PlaceImpressions extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border(
                         right: BorderSide(
-                          color: Theme.of(context).colorScheme.outlineVariant,
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                       ),
                     ),
@@ -68,12 +68,11 @@ class PlaceOpenNow extends StatelessWidget {
     final appTheme = theme.extension<AppTheme>()!;
     return Column(
       children: [
-        const TitleSmall('Hours'),
-        BodyLarge(
-          openNow ? 'Open' : 'Closed',
+        const TitleSmall('営業時間', style: TextStyles.bold),
+        TitleMedium(
+          openNow ? '営業中' : '営業時間外',
           style: TextStyle(
             color: openNow ? appTheme.activeColor : appTheme.dangerColor,
-            fontWeight: FontWeight.bold,
           ),
         )
       ],
@@ -90,12 +89,11 @@ class PlaceRating extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const TitleSmall('Rating'),
-        BodyLarge(
+        const TitleSmall('評価', style: TextStyles.bold),
+        TitleMedium(
           rating.toStringAsFixed(1),
           style: const TextStyle(
             color: Colors.orange,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ],

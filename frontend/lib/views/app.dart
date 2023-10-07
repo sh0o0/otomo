@@ -1,9 +1,11 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/constants/locales.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/view_models/router.dart';
@@ -52,7 +54,7 @@ class App extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
-    FlutterUtils.afterBuildCallback(() => _initDynamicLinks(ref));
+      FlutterUtils.afterBuildCallback(() => _initDynamicLinks(ref));
       return () {};
     }, const []);
 
@@ -67,6 +69,14 @@ class App extends HookConsumerWidget {
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locales.ja
+      ],
     );
   }
 }

@@ -31,19 +31,19 @@ class SignInPage extends HookConsumerWidget {
                 const DisplayLarge('Otomo'),
                 Spaces.h40,
                 GoogleSignInButton(
-                  text: 'Continue with Google',
+                  text: 'Googleでサインイン',
                   onPressed: () => notifier.signInWithGoogle(),
                 ),
                 if (!Platform.isAndroid)
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: AppleSignInButton(
-                      text: 'Continue with Apple',
+                      text: 'Appleでサインイン',
                       onPressed: () => notifier.signInWithApple(),
                     ),
                   ),
                 Spaces.h32,
-                // TappableText('Continue with email',
+                // TappableText('メールアドレスでサインイン',
                 //     onTap: () => router.push(Routes.signInWithEmailLink)),
                 Visibility(
                   visible: state.hasError,

@@ -25,7 +25,7 @@ class PlaceDetailsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const HeadlineSmall('Details', style: TextStyles.bold),
+          const HeadlineSmall('詳細', style: TextStyles.bold),
           Spaces.h8,
           ...ListTile.divideTiles(
             context: context,
@@ -71,7 +71,7 @@ class PlaceOpeningHoursPeriodsExpansionTile extends StatelessWidget {
         Icons.access_time_rounded,
         color: theme.colorScheme.primary,
       ),
-      title: const BodyMedium('Opening Hours'),
+      title: const BodyMedium('営業時間'),
       children: [
         for (var period in openingHours.periods ?? [])
           PlacePeriodListTile(period: period),

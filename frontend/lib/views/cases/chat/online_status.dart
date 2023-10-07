@@ -30,7 +30,7 @@ class OnlineStatus extends StatelessWidget {
         ),
         Spaces.w8,
         Text(
-          online ? 'Online' : 'Offline',
+          online ? 'オンライン' : 'オフライン',
           style: theme.textTheme.bodyMedium,
         )
       ],

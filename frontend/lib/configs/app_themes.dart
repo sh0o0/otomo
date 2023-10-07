@@ -23,7 +23,7 @@ abstract class AppThemes {
       onErrorContainer: Colors.white,
       shadow: AppColors.shadow,
       scrim: AppColors.scrim,
-      outlineVariant: AppLightColors.outline,
+      outline: AppLightColors.outline,
     ),
     textTheme: const TextTheme(
       headlineMedium: TextStyles.bold,

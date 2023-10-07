@@ -32,7 +32,7 @@ class PlaceRatingsAndReviews extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: sidePadding),
           child: const HeadlineSmall(
-            'Rating & Reviews',
+            'レビュー',
             style: TextStyles.bold,
           ),
         ),

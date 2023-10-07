@@ -5,11 +5,13 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as ui;
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
+import 'package:otomo/constants/locales.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/utils/converter.dart';
 import 'package:otomo/views/utils/launcher.dart';
+
 
 class ChatUI extends StatelessWidget {
   const ChatUI({
@@ -152,8 +154,9 @@ class ChatUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chatTheme = Theme.of(context).extension<AppTheme>()!.chatTheme;
-
     return ui.Chat(
+      l10n: const ChatL10nJa(),
+      dateLocale: Locales.ja.languageCode,
       messages: ViewConverter.I.message.textDataToViewList(messages),
       onSendPressed: (message) => onSendPressed(message.text),
       isLastPage: isLastPage,
@@ -188,4 +191,16 @@ class ChatUI extends StatelessWidget {
       },
     );
   }
+}
+
+@immutable
+class ChatL10nJa extends ui.ChatL10n {
+  const ChatL10nJa({
+    super.attachmentButtonAccessibilityLabel = 'メディアを送信',
+    super.emptyChatPlaceholder = 'メッセージはありません',
+    super.fileButtonAccessibilityLabel = 'ファイル',
+    super.inputPlaceholder = 'メッセージ',
+    super.sendButtonAccessibilityLabel = '送信',
+    super.unreadMessagesLabel = '未読メッセージ',
+  });
 }
