@@ -23,8 +23,8 @@ rm android/app/google-services.json
 flutterfire configure \
     --out=lib/configs/firebase_options/$FLAVOR.dart \
     --platforms=android,ios,web \
-    --ios-bundle-id=com.nakar0.otomo$PACKAGE_SUFFIX \
-    --android-package-name=com.nakar0.otomo$PACKAGE_SUFFIX
+    --ios-bundle-id=com.sh0o0.otomo$PACKAGE_SUFFIX \
+    --android-package-name=com.sh0o0.otomo$PACKAGE_SUFFIX
 
 cp android/app/google-services.json android/app/src/${FLAVOR}/google-services.json
 cp ios/firebase_app_id_file.json ios/flavor/${FLAVOR}/firebase_app_id_file.json
