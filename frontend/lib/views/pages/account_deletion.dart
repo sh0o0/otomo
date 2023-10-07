@@ -38,7 +38,7 @@ class AccountDeletionPage extends HookConsumerWidget {
             ),
             Spaces.h16,
             const BodyMedium(
-                '''アカウントを削除すると、あなたのすべてデータが削除されます。その後、同じメールアドレスやソーシャルログインで再度会員登録していただきましてもアカウトのデータは復元できませんのでご注意ください。
+                '''アカウントを削除すると、データの復元はできませんのでご注意ください。
 また、削除されたアカウントについては、Otomo運営事務局のサポート外となります'''),
             Spaces.h40,
             Center(
