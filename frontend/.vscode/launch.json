@@ -49,6 +49,24 @@
                 "--release",
                 "--dart-define-from-file=flavor/dev.json"
             ]
+        },
+        {
+            "name": "Production Debug",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--debug",
+                "--dart-define-from-file=flavor/prod.json"
+            ]
+        },
+        {
+            "name": "Production Release",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--release",
+                "--dart-define-from-file=flavor/prod.json"
+            ]
         }
     ]
 }

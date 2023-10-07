@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>124184920709-sqs9i8qdjdc1mrl3cftp4541a0cp3f7n.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.124184920709-sqs9i8qdjdc1mrl3cftp4541a0cp3f7n</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCZoaDG7u1JNM4ApIzB2rckZRR-AKMCwj8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>124184920709</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sh0o0.otomo</string>
+	<key>PROJECT_ID</key>
+	<string>otomo-401310</string>
+	<key>STORAGE_BUCKET</key>
+	<string>otomo-401310.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:124184920709:ios:a8a08b4d7982f91706dfec</string>
+</dict>
+</plist>

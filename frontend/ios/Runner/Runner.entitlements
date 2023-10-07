@@ -9,6 +9,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:otomodevelop.page.link</string>
+		<string>applinks:otomotravel.page.link</string>
 	</array>
 </dict>
 </plist>

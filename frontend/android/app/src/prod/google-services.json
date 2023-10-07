@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "124184920709",
+    "project_id": "otomo-401310",
+    "storage_bucket": "otomo-401310.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124184920709:android:83c8b816b04412c906dfec",
+        "android_client_info": {
+          "package_name": "com.sh0o0.otomo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124184920709-8a166oacssod522d4m0i2i4teekhmd14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4DZfLN_VdGNac0R_rDB49VpLQ7BDU2yE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124184920709-8a166oacssod522d4m0i2i4teekhmd14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_config.dart';
+import 'package:otomo/configs/firebase_options/prod.dart' as prod_firebase_opt;
 import 'package:otomo/configs/firebase_options/dev.dart' as dev_firebase_opt;
 import 'package:otomo/configs/firebase_options/local.dart'
     as local_firebase_opt;
@@ -60,6 +61,8 @@ Future<void> initializeFirebase() async {
       options = local_firebase_opt.DefaultFirebaseOptions.currentPlatform;
     case Flavor.dev:
       options = dev_firebase_opt.DefaultFirebaseOptions.currentPlatform;
+    case Flavor.prod:
+      options = prod_firebase_opt.DefaultFirebaseOptions.currentPlatform;
     default:
       throw Exception('Invalid flavor: ${appConfig.flavor}');
   }
