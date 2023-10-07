@@ -1,14 +1,8 @@
 {
   "projects": {
-    "develop": "otomo-dev-401306",
-    "default": "otomo-dev-401306"
+    "dev": "otomo-dev-401306",
+    "prod": "otomo-401310"
   },
   "targets": {},
-  "etags": {
-    "otomo-dev-396006": {
-      "extensionInstances": {
-        "delete-user-data": "966218fb8c93af8aff3fbf931da8b17bdfb6adf7d57a6504949cbca9cf754266"
-      }
-    }
-  }
+  "etags": {}
 }
