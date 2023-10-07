@@ -3,11 +3,6 @@ variable "gcp_project_id" {
   type        = string
 }
 
-variable "gcp_project_name" {
-  description = "the gcp project name"
-  type        = string
-}
-
 variable "load_balancer_name" {
   description = "the name prefix for load balancer resources"
   type        = string
@@ -40,21 +35,6 @@ variable "google_application_credentials_json" {
 
 variable "basic_auth_pairs" {
   description = "username and password pairs of basic auth"
-  type        = string
-}
-
-variable "gcp_billing_account_id" {
-  description = "the project id for billing"
-  type        = string
-}
-
-variable "android_package_name" {
-  description = "the android package name for firebase"
-  type        = string
-}
-
-variable "ios_bundle_name" {
-  description = "the ios package name"
   type        = string
 }
 
