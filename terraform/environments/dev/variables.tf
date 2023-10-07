@@ -28,8 +28,8 @@ variable "cloud_run_image_name" {
   type        = string
 }
 
-variable "google_application_credentials_json" {
-  description = "GOOGLE_APPLICATION_CREDENTIALS json file"
+variable "firebase_admin_sdk_credentials_json" {
+  description = "base64 encoded firebase admin sdk credentials file"
   type        = string
 }
 
@@ -43,8 +43,4 @@ variable "openai_api_key" {
   type        = string
 }
 
-variable "google_maps_api_key" {
-  description = "Google Maps API key"
-  type        = string
-}
 

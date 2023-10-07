@@ -19,8 +19,8 @@ variable "cloud_run_image_name" {
 }
 
 
-variable "google_application_credentials_json" {
-  description = "GOOGLE_APPLICATION_CREDENTIALS json file"
+variable "firebase_admin_sdk_credentials_json" {
+  description = "base64 encoded firebase admin sdk credentials file"
   type        = string
 }
 
