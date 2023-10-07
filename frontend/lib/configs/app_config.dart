@@ -64,4 +64,5 @@ logLevel: $logLevel
 enum Flavor {
   local,
   dev,
+  prod,
 }

@@ -32,6 +32,9 @@
                 <data
                     android:host="otomodevelop.page.com"
                     android:scheme="https" />
+                <data
+                    android:host="otomotravel.page.com"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

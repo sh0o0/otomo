@@ -8,6 +8,9 @@ case $FLAVOR in
 "dev")
     PACKAGE_SUFFIX='.develop'
     ;;
+"prod")
+    PACKAGE_SUFFIX=''
+    ;;
 *)
     printf '\033[31m%s\033[m: please give env arg\n' 'ERROR'
     exit 1

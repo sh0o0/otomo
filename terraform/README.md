@@ -5,11 +5,12 @@
 1. cd either environments/dev/, stg/ or prod/
 1. `touch .envrc`
    - `export GOOGLE_CREDENTIALS=''`
-1. `Make tfvars.json`
-1. `terraform login`
-1. `terraform init`
-1. `terraform plan -var-file=tfvars.json`
-1. `terraform apply -var-file=tfvars.json`
+1. Make tfvars.json
+3. `terraform login`
+4. Make a workspace on Terraform Cloud
+6. `terraform init`
+7. `terraform plan -var-file=tfvars.json`
+8. `terraform apply -var-file=tfvars.json`
 
 [Architecture and CI/CD](https://www.figma.com/file/z0wL2E7mvqkDGmF9NprSyU/Otomo-Dev?type=design&node-id=0-1&mode=design&t=Usf3ebcbkUVzcvLG-11)
 

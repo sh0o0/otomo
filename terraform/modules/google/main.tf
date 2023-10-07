@@ -25,6 +25,7 @@ resource "google_project_service" "default" {
     "maps-ios-backend.googleapis.com",
     "places-backend.googleapis.com",
     "geocoding-backend.googleapis.com",
+    "apikeys.googleapis.com",
   ])
   service = each.key
 
