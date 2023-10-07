@@ -200,4 +200,3 @@ class AuthControllerImpl {
   auth.AppleAuthProvider _getAppleOAuthProvider() =>
       auth.AppleAuthProvider().addScope(_appleEmailScope);
 }
-
