@@ -75,7 +75,7 @@ class _MapState extends ConsumerState<MapPage> {
     );
     final region = latLngList.edge();
     if (region == null) return;
-    _mapController!.moveWithRegion(region: region, padding: 40);
+    _mapController!.moveWithRegion(region: region, padding: 80);
   }
 
   @override
