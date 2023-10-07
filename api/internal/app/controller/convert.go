@@ -82,9 +82,14 @@ type convertExtractedPlace struct {
 func (ca convertExtractedPlace) ModelToGrpc(
 	ep *model.ExtractedPlace,
 ) *grpcgen.ExtractedPlace {
+	var gp *grpcgen.GeocodedPlace
+	if ep.GeocodedPlace != nil {
+		gp = ca.geocodedPlace.ModelToGrpc(ep.GeocodedPlace)
+	}
+
 	return &grpcgen.ExtractedPlace{
 		Text:          ep.Text,
-		GeocodedPlace: ca.geocodedPlace.ModelToGrpc(ep.GeocodedPlace),
+		GeocodedPlace: gp,
 	}
 }
 

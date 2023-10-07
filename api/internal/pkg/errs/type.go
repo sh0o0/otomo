@@ -1,5 +1,7 @@
 package errs
 
+import "fmt"
+
 type (
 	Cause  string
 	Domain string
@@ -61,5 +63,8 @@ type Error struct {
 }
 
 func (e *Error) Error() string {
-	return e.Message
+	return fmt.Sprintf(
+		"message: %s, cause: %s, domain: %s, field: %s",
+		e.Message, e.Cause, e.Domain, e.Field,
+	)
 }

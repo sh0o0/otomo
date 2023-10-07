@@ -260,22 +260,24 @@ func (cc *ChatController) analyzeAndUpdateMsg(
 	userID model.UserID,
 	msg *model.Message,
 ) {
-	locs, geocodeErrs, err := cc.msgAnaSvc.ExtractLocationsFromMsg(ctx, msg)
+	places, err := cc.msgAnaSvc.ExtractPlacesFromMsg(ctx, msg)
 	var errStr *string
 	if err != nil {
 		str := err.Error()
 		errStr = &str
 	}
-	for _, geocodeErr := range geocodeErrs {
-		logs.Logger.Warn(
-			"Failed to geocode",
-			logs.Error(geocodeErr),
-		)
+	for _, place := range places {
+		if place.GeocodedError != nil {
+			logs.Logger.Warn(
+				"Failed to geocode",
+				logs.String("error", *place.GeocodedError),
+			)
+		}
 	}
 
 	now := times.C.Now()
-	la := model.NewLocationAnalysis(locs, &now, errStr)
-	newMsg := msg.SetLocationAnalysis(la)
+	pe := model.NewPlaceExtraction(places, &now, errStr)
+	newMsg := msg.SetPlaceExtraction(*pe)
 	if err := cc.msgRepo.Update(ctx, userID, newMsg); err != nil {
 		logs.Logger.Error(
 			"Failed to update message",

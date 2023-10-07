@@ -16,40 +16,31 @@ class AppLatLng with _$AppLatLng {
       _$AppLatLngFromJson(json);
 }
 
-class AppLatLngList extends Iterable<AppLatLng> {
-  const AppLatLngList(this.list);
-
-  final List<AppLatLng> list;
-
-  @override
-  Iterator<AppLatLng> get iterator => list.iterator;
-
+extension AppLatLngListExtension on Iterable<AppLatLng> {
   AppLatLng? center() {
-    if (list.isEmpty) return null;
+    if (isEmpty) return null;
 
     double lat = 0;
     double lng = 0;
 
-    for (final ll in list) {
+    for (final ll in this) {
       lat += ll.latitude;
       lng += ll.longitude;
     }
 
-    final len = list.length;
+    final len = length;
     return AppLatLng(latitude: lat / len, longitude: lng / len);
   }
 
   Region? edge() {
-    if (list.isEmpty) return null;
-
-    final first = list.first;
+    if (isEmpty) return null;
 
     double northeastLat = first.latitude;
     double northeastLng = first.longitude;
     double southwestLat = first.latitude;
     double southwestLng = first.longitude;
 
-    for (final ll in list) {
+    for (final ll in this) {
       if (northeastLat < ll.latitude) {
         northeastLat = ll.latitude;
       }

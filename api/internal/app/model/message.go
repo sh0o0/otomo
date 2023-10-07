@@ -22,7 +22,7 @@ func (m *Message) RoleIs(role Role) bool {
 	return m.Role == role
 }
 
-func (m *Message) SetLocationAnalysis(la PlaceExtraction) *Message {
+func (m *Message) SetPlaceExtraction(la PlaceExtraction) *Message {
 	newM := *m
 	newM.PlaceExtraction = la
 	return &newM
@@ -38,6 +38,7 @@ type ExtractedPlace struct {
 	Text           string         `firestore:"text"`
 	GuessedAddress GuessedAddress `firestore:"guessed_address"`
 	GeocodedPlace  *GeocodedPlace `firestore:"geocoded_place"`
+	GeocodedError  *string        `firestore:"geocoded_error"`
 }
 
 type GuessedAddress struct {
@@ -53,12 +54,12 @@ type GeocodedPlace struct {
 	LatLng        LatLng `firestore:"lat_lng"`
 }
 
-func NewLocationAnalysis(
+func NewPlaceExtraction(
 	places []*ExtractedPlace,
 	analyzedAt *time.Time,
 	errStr *string,
-) PlaceExtraction {
-	return PlaceExtraction{
+) *PlaceExtraction {
+	return &PlaceExtraction{
 		Places:      places,
 		ProcessedAt: analyzedAt,
 		Error:       errStr,

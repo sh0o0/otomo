@@ -28,18 +28,17 @@ func NewMessageAnalysisService(
 	}
 }
 
-func (ams *MessageAnalysisService) ExtractLocationsFromMsg(
+func (ams *MessageAnalysisService) ExtractPlacesFromMsg(
 	ctx context.Context,
 	msg *model.Message,
-) ([]*model.ExtractedPlace, []error, error) {
+) ([]*model.ExtractedPlace, error) {
 	exPlaces, err := ams.placeExSvc.FromText(ctx, msg.Text)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	var (
-		results     = []*model.ExtractedPlace{}
-		geocodeErrs = []error{}
+		results = []*model.ExtractedPlace{}
 	)
 	for _, exPlace := range exPlaces {
 		req := &maps.GeocodingRequest{
@@ -52,14 +51,21 @@ func (ams *MessageAnalysisService) ExtractLocationsFromMsg(
 		}
 		place, err := ams.geoSvc.One(ctx, req)
 		if err != nil {
-			geocodeErrs = append(geocodeErrs, err)
+			errStr := err.Error()
+			results = append(results, &model.ExtractedPlace{
+				Text:           exPlace.Name,
+				GuessedAddress: exPlace.Address,
+				GeocodedError:  &errStr,
+			})
+
+		} else {
+			results = append(results, &model.ExtractedPlace{
+				Text:           exPlace.Name,
+				GuessedAddress: exPlace.Address,
+				GeocodedPlace:  conv.geocodedPlace.GoogleToModel(place),
+			})
 		}
-		results = append(results, &model.ExtractedPlace{
-			Text:           exPlace.Name,
-			GuessedAddress: exPlace.Address,
-			GeocodedPlace:  conv.geocodedPlace.GoogleToModel(place),
-		})
 	}
 
-	return results, geocodeErrs, nil
+	return results, nil
 }

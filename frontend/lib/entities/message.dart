@@ -48,7 +48,7 @@ class PlaceExtraction with _$PlaceExtraction {
 class ExtractedPlace with _$ExtractedPlace {
   const factory ExtractedPlace({
     required String text,
-    required GeocodedPlace geocodedPlace,
+    required GeocodedPlace? geocodedPlace,
   }) = _ExtractedPlace;
 
   factory ExtractedPlace.fromJson(Map<String, dynamic> json) =>

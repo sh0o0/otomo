@@ -6,8 +6,8 @@ import (
 )
 
 type MessageAnalysisService interface {
-	ExtractLocationsFromMsg(
+	ExtractPlacesFromMsg(
 		ctx context.Context,
 		msg *model.Message,
-	) (analyzedLoc []*model.ExtractedPlace, geocodeErr []error, err error)
+	) (analyzedLoc []*model.ExtractedPlace, err error)
 }

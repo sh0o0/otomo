@@ -30,6 +30,7 @@ func (gs *GeocodingService) One(
 	if err != nil {
 		return nil, err
 	}
+
 	if len(resp) > 0 {
 		return &resp[0], nil
 	}

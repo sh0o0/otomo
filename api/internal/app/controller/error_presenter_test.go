@@ -14,6 +14,14 @@ import (
 )
 
 func TestErrorPresenter_ErrorOutput(t *testing.T) {
+	var (
+		err = &errs.Error{
+			Message: "error",
+			Cause:   errs.CauseInternal,
+			Domain:  errs.DomainMessage,
+			Field:   errs.FieldID,
+		}
+	)
 	type args struct {
 		err error
 	}
@@ -28,17 +36,12 @@ func TestErrorPresenter_ErrorOutput(t *testing.T) {
 				"when give error machine it",
 			),
 			args: args{
-				err: &errs.Error{
-					Message: "error",
-					Cause:   errs.CauseInternal,
-					Domain:  errs.DomainMessage,
-					Field:   errs.FieldID,
-				},
+				err: err,
 			},
 			want: func() *status.Status {
 				st, err := status.New(
 					codes.Internal,
-					"error",
+					err.Error(),
 				).WithDetails(
 					&errdetails.ErrorInfo{
 						Reason:   string(errs.CauseInternal),

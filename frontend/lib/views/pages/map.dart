@@ -39,6 +39,8 @@ class _MapState extends ConsumerState<MapPage> {
   }
 
   Future<void> _addMarker(ExtractedPlace place, {bool notify = true}) async {
+    if (place.geocodedPlace == null) return;
+
     final notifier = ref.read(mapProvider.notifier);
     _markers.add(await MarkerMaker.fromExtractedPlaceWithLabel(
       context: context,
@@ -57,10 +59,12 @@ class _MapState extends ConsumerState<MapPage> {
   }
 
   void _onPlaceFocused(ExtractedPlace place) {
+    if (place.geocodedPlace == null) return;
+
     if (!_canUseMapController) return;
     _addMarker(place);
     _mapController!.moveWithLatLng(
-      latLng: place.geocodedPlace.latLng,
+      latLng: place.geocodedPlace!.latLng,
       zoom: 15,
     );
   }
@@ -68,14 +72,13 @@ class _MapState extends ConsumerState<MapPage> {
   void _onTextMsgActivated(TextMessageData textMsg) {
     if (!_canUseMapController) return;
 
-    final latLngList = AppLatLngList(
-      textMsg.placeExtraction.places
-          .map((e) => e.geocodedPlace.latLng)
-          .toList(),
-    );
-    final region = latLngList.edge();
+    final latLngs = textMsg.placeExtraction.places
+        .map((e) => e.geocodedPlace?.latLng)
+        .nonNulls
+        .toList();
+    final region = latLngs.edge();
     if (region == null) return;
-    _mapController!.moveWithRegion(region: region, padding: 40);
+    _mapController!.moveWithRegion(region: region, padding: 80);
   }
 
   @override
