@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:label_marker/label_marker.dart';
 import 'package:otomo/entities/lat_lng.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
