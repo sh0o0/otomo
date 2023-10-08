@@ -73,7 +73,6 @@ class AuthControllerImpl {
       iOSBundleId: AppPackageInfo.packageName,
       androidPackageName: AppPackageInfo.packageName,
       androidInstallApp: true,
-      androidMinimumVersion: '12',
     );
     await _firebaseAuth.sendSignInLinkToEmail(
       email: email,
