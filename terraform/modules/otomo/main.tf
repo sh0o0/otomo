@@ -33,3 +33,9 @@ module "registry" {
   gcp_project_id                 = var.gcp_project_id
 }
 
+module "alert" {
+  source              = "../alert"
+  gcp_project_id      = var.gcp_project_id
+  slack_channel_name  = var.slack_channel_name
+  slack_auth_token    = var.slack_auth_token
+}

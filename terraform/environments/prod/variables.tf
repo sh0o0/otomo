@@ -43,4 +43,12 @@ variable "openai_api_key" {
   type        = string
 }
 
+variable "slack_channel_name" {
+  description = "Slack channel name"
+  type        = string
+}
 
+variable "slack_auth_token" {
+  description = "Slack auth token"
+  type        = string
+}

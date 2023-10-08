@@ -19,5 +19,7 @@ module "otomo" {
   firebase_admin_sdk_credentials_json = var.firebase_admin_sdk_credentials_json
   basic_auth_pairs                    = var.basic_auth_pairs
   openai_api_key                      = var.openai_api_key
+  slack_channel_name                  = var.slack_channel_name
+  slack_auth_token                    = var.slack_auth_token
 }
 
