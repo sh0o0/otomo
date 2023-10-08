@@ -15,7 +15,7 @@ import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
 import 'package:otomo/grpc/generated/interceptors/logging.dart';
 import 'package:otomo/grpc/generated/interceptors/retry.dart';
-import 'package:otomo/tools/app_package_info.dart';
+import 'package:otomo/tools/google_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
@@ -85,9 +85,7 @@ abstract class InjectableModule {
   SharedPreferences get sharedPreferences => _sharedPreferences;
   PlaceControllerImpl get placeController => PlaceControllerImpl(
         apiKey: appConfig.googleMapApiKey,
-        androidPackageName: AppPackageInfo.packageName,
-        androidCertFingerprintSha1: appConfig.androidCertFingerprintSha1,
-        iosBundleId: AppPackageInfo.packageName,
+        headers: GoogleAPIHeaders.fromEnvironment().toMap(),
       );
 }
 
