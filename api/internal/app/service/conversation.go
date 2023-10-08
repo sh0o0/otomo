@@ -45,7 +45,7 @@ func (cs *ConversationService) Respond(
 	messagingFunc model.MessagingFunc,
 ) (*model.Message, error) {
 	prompt := strings.Join([]string{
-		model.JapaneseMaidPrompt,
+		model.DefaultJapaneseFriendlyPrompt,
 		otomoCommonPrompt,
 		historyPrompt,
 	}, "\n")
