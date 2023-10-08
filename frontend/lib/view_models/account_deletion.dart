@@ -5,6 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/entities/app_exception.dart';
+import 'package:otomo/tools/logger.dart';
+import 'package:otomo/view_models/utils.dart';
 
 part 'account_deletion.freezed.dart';
 
@@ -30,13 +32,14 @@ class AccountDeletionNotifier extends AsyncNotifier<AccountDeletionState> {
 
   Future<void> deleteAccount() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
+    state = await guard(() async {
       try {
         await _authController.deleteAccount();
         return state.value?.copyWith(requiresRecentLogin: false) ??
             const AccountDeletionState();
       } on AppException catch (e) {
         if (e.cause == Cause.requiresRecentLogin) {
+          logger.info('Requires recent login.');
           return state.value?.copyWith(requiresRecentLogin: true) ??
               const AccountDeletionState(requiresRecentLogin: true);
         }
@@ -47,7 +50,7 @@ class AccountDeletionNotifier extends AsyncNotifier<AccountDeletionState> {
 
   Future<void> reauthenticate() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
+    state = await guard(() async {
       await _authController.reauthenticate();
       return state.value?.copyWith(requiresRecentLogin: false) ??
           const AccountDeletionState();

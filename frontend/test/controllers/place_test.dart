@@ -13,7 +13,7 @@ void main() {
   late PlaceControllerImpl controller;
 
   setUp(() {
-    controller = PlaceControllerImpl(apiKey);
+    controller = PlaceControllerImpl(apiKey: apiKey);
   });
 
   group('System test.', () {

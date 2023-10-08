@@ -21,9 +21,6 @@ import 'package:otomo/views/utils/error_handling.dart';
 import 'package:otomo/views/utils/flutter.dart';
 
 void main() async {
-  setNewLogger(Logger(level: appConfig.logLevel));
-  logger.info(appConfig.toString());
-
   runZonedGuarded(() async {
     await setup();
 
@@ -38,6 +35,13 @@ void main() async {
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  setNewLogger(Logger(level: appConfig.logLevel));
+
+  logger.info(appConfig.toString());
+  await AppPackageInfo.init();
+  logger.info(AppPackageInfo.expose());
+
   setupErrorHandling();
   await initializeFirebase();
   await configureInjection();
@@ -48,9 +52,6 @@ Future<void> setup() async {
     await getIt<FirebaseAuth>()
         .useAuthEmulator(appConfig.otomoServerHost, 9099);
   }
-
-  await AppPackageInfo.init();
-  logger.info(AppPackageInfo.expose());
 }
 
 Future<void> initializeFirebase() async {

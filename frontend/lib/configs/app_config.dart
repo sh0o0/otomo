@@ -23,6 +23,8 @@ class Env {
       String.fromEnvironment('IOS_GOOGLE_MAP_API_KEY');
   static const String androidGoogleMapApiKey =
       String.fromEnvironment('ANDROID_GOOGLE_MAP_API_KEY');
+  static const String androidCertFingerprintSha1 =
+      String.fromEnvironment('ANDROID_CERT_FINGERPRINT_SHA1');
 }
 
 class AppConfig {
@@ -33,10 +35,11 @@ class AppConfig {
         flavor = Flavor.values.byName(Env.flavorStr),
         otomoServerHost = Env.otomoServerHost,
         otomoServerPort = Env.otomoServerPort,
+        isSecureConnectionToOtomoServer = Env.isSecureConnectionToOtomoServer,
         googleMapApiKey = Platform.isIOS
             ? Env.iosGoogleMapApiKey
             : Env.androidGoogleMapApiKey,
-        isSecureConnectionToOtomoServer = Env.isSecureConnectionToOtomoServer,
+        androidCertFingerprintSha1 = Env.androidCertFingerprintSha1,
         logLevel = Env.isRelease ? Level.info : Level.all;
 
   final bool isRelease;
@@ -45,8 +48,9 @@ class AppConfig {
   final Flavor flavor;
   final String otomoServerHost;
   final int otomoServerPort;
-  final String googleMapApiKey;
   final bool isSecureConnectionToOtomoServer;
+  final String googleMapApiKey;
+  final String androidCertFingerprintSha1;
   final Level logLevel;
 
   @override
