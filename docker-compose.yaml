@@ -42,4 +42,4 @@ services:
       # - 8085:8085 # Cloud Pub/Sub
       # - 9199:9199 # Cloud Storage
     working_dir: /opt/firebase
-    command: firebase emulators:start --import emulator_data/ --export-on-exit
+    command: firebase emulators:start --import emulator_data/ --export-on-exit -P dev
