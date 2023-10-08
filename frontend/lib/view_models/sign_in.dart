@@ -1,12 +1,12 @@
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
+import 'package:otomo/view_models/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_in.g.dart';
 
 @riverpod
 class SignIn extends _$SignIn {
-
   final _controller = getIt<AuthControllerImpl>();
 
   @override
@@ -14,11 +14,11 @@ class SignIn extends _$SignIn {
 
   Future<void> signInWithGoogle() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(_controller.signInWithGoogle);
+    state = await guard(_controller.signInWithGoogle);
   }
 
   Future<void> signInWithApple() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(_controller.signInWithApple);
+    state = await guard(_controller.signInWithApple);
   }
 }
