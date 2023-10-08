@@ -1,9 +1,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:otomo/entities/place_details.dart';
-import 'package:otomo/views/bases/images/app_cached_network_image.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
-import 'package:otomo/views/cases/warn/warn_text.dart';
+import 'package:otomo/views/cases/photo/google_place_photo.dart';
 
 typedef PhotoTapCallback = void Function(BuildContext context, int index);
 
@@ -49,7 +48,7 @@ class _PlacePhotosPageViewState extends State<PlacePhotosPageView> {
                 child: GestureDetector(
                   onTap: () => widget.onTap?.call(context, index),
                   child: PlaceImage(
-                    imageUrl: widget.photos[index].photoUrl(maxHeight: 980),
+                    googlePhotoReference: widget.photos[index].photoReference,
                     width: widget.photoWidth,
                   ),
                 ),
@@ -70,14 +69,14 @@ class _PlacePhotosPageViewState extends State<PlacePhotosPageView> {
 class PlaceImage extends StatelessWidget {
   const PlaceImage({
     super.key,
-    required this.imageUrl,
+    required this.googlePhotoReference,
     this.borderRadius = const BorderRadius.all(Radius.circular(16)),
     this.fit = BoxFit.cover,
     this.height,
     this.width,
   });
 
-  final String imageUrl;
+  final String googlePhotoReference;
   final BorderRadius borderRadius;
   final BoxFit fit;
   final double? height;
@@ -92,11 +91,9 @@ class PlaceImage extends StatelessWidget {
         height: height,
         width: width,
         color: theme.colorScheme.surface,
-        child: AppCachedNetworkImage(
-          imageUrl: imageUrl,
+        child: GooglePlacePhoto(
+          photoReference: googlePhotoReference,
           fit: fit,
-          errorWidget: (context, url, error) =>
-              const Center(child: WarnText('画像の取得に失敗しました。')),
         ),
       ),
     );

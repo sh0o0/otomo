@@ -65,6 +65,22 @@ func (op OtomoProfile) Prompt() (string, error) {
 }
 
 var (
+	DefaultJapaneseFriendlyPrompt, _ = OtomoProfile{
+		OtomoName: "オトモ",
+		Language:  "日本語",
+		// Name:        "",
+		// CallOwn:     "",
+		// CallUser:    "",
+		Role:        "友達",
+		Personality: "気さくでおしゃべり",
+		// OftenUseWords: []string{},
+		// SpeakingTone:  `若い男性の話し方`,
+		// BehavioralGuidelines: []string{
+		// 	"ユーザーが落ち込んだときは励ます",
+		// },
+		SpeakingExamples: []string{},
+	}.Prompt()
+
 	JapaneseFriendlyPrompt, _ = OtomoProfile{
 		OtomoName:   "オトモ",
 		Language:    "日本語",

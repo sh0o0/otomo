@@ -10,6 +10,7 @@ class AppCachedNetworkImage extends StatelessWidget {
     this.errorWidget,
     this.errorListener,
     this.fit,
+    this.httpHeaders,
   });
 
   final String imageUrl;
@@ -18,6 +19,7 @@ class AppCachedNetworkImage extends StatelessWidget {
   final LoadingErrorWidgetBuilder? errorWidget;
   final ValueChanged<Object>? errorListener;
   final BoxFit? fit;
+  final Map<String, String>? httpHeaders;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class AppCachedNetworkImage extends StatelessWidget {
       errorWidget: errorWidget,
       errorListener: errorListener,
       fit: fit,
+      httpHeaders: httpHeaders,
     );
   }
 }

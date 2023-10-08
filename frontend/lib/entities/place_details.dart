@@ -175,6 +175,7 @@ class PlaceDetailsPhoto with _$PlaceDetailsPhoto {
   factory PlaceDetailsPhoto.fromJson(Map<String, dynamic> json) =>
       _$PlaceDetailsPhotoFromJson(json);
 
+  @Deprecated('Use GooglePlacePhoto instead')
   String photoUrl({
     int? maxHeight,
   }) {
