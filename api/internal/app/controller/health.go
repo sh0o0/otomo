@@ -20,7 +20,6 @@ func NewHealthController() *HealthController {
 }
 
 func (*HealthController) Check(ctx context.Context, _ *emptypb.Empty) (*grpcgen.HealthCheckResponse, error) {
-	logs.Logger.Error("Alert check")
 	return &grpcgen.HealthCheckResponse{
 		Health: true,
 	}, nil
