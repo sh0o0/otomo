@@ -14,6 +14,7 @@ import 'package:otomo/entities/message_send_count.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
+import 'package:otomo/view_models/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat.freezed.dart';
@@ -70,7 +71,7 @@ class Chat extends _$Chat {
 
   Future<void> initState() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
+    state = await guard(() async {
       final messages = await _listTextMessageData(null, null);
       final remainingMessageSendCount = await _getRemainingMessageSendCount();
       return state.value!.copyWith(
