@@ -4,7 +4,6 @@ import (
 	"context"
 	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
-	"strings"
 
 	"googlemaps.github.io/maps"
 )
@@ -42,12 +41,7 @@ func (ams *MessageAnalysisService) ExtractPlacesFromMsg(
 	)
 	for _, exPlace := range exPlaces {
 		req := &maps.GeocodingRequest{
-			Address: strings.Join([]string{
-				exPlace.Name,
-				exPlace.Address.City,
-				exPlace.Address.State,
-				exPlace.Address.Country,
-			}, " "),
+			Address: exPlace.Name,
 		}
 		place, err := ams.geoSvc.One(ctx, req)
 		if err != nil {

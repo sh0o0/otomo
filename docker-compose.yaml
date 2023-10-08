@@ -6,7 +6,7 @@ services:
     tty: true
     environment:
       - API_DEBUG=true
-      - GCP_PROJECT_ID=otomo-dev-396006
+      - GCP_PROJECT_ID=otomo-dev-401306
       - GOOGLE_APPLICATION_CREDENTIALS=
       - LOG_ENCODING=console
       - OPENAI_MODEL=gpt-3.5-turbo
