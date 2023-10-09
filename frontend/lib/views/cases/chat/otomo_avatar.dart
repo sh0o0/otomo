@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/constants/asset_paths.dart';
 
 class OtomoAvatar extends StatelessWidget {
   const OtomoAvatar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 40,
-      decoration: const BoxDecoration(
-        color: Colors.black12,
-        shape: BoxShape.circle,
-      ),
+    return CircleAvatar(
+      foregroundImage: AssetImage(AssetPaths.logos.logo),
     );
   }
 }
