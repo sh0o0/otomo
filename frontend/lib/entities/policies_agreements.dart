@@ -10,8 +10,12 @@ class PoliciesAgreements with _$PoliciesAgreements {
     @JsonKey(name: 'agreed_2023-10-11_at') required DateTime? agreed20231011At,
   }) = _PoliciesAgreements;
 
+  factory PoliciesAgreements.disagree(String userId) => PoliciesAgreements(
+        userId: userId,
+        agreed20231011At: null,
+      );
   factory PoliciesAgreements.fromJson(Map<String, dynamic> json) =>
       _$PoliciesAgreementsFromJson(json);
 
-  bool get isAllAgreed => agreed20231011At != null;
+  bool get isAgreed => agreed20231011At != null;
 }
