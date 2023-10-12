@@ -1,5 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/entities/account.dart';
 import 'package:otomo/tools/logger.dart';
+import 'package:otomo/view_models/account.dart';
 
 Future<AsyncValue<T>> guard<T>(Future<T> Function() future) async {
   final result = await AsyncValue.guard(future);
@@ -9,3 +11,5 @@ Future<AsyncValue<T>> guard<T>(Future<T> Function() future) async {
   }
   return result;
 }
+
+Account? readAccount(Ref ref) => ref.read(accountProvider);
