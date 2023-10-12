@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/views/bases/text_fields/base_text_form_field.dart';
 
 class RoundedTextFormField extends StatelessWidget {
   const RoundedTextFormField({
     super.key,
+    this.controller,
     this.hintText,
     this.keyboardType,
     this.onSaved,
     this.onChanged,
     this.validator,
+    this.enabled,
+    this.decoration,
   });
 
+  final TextEditingController? controller;
   final String? hintText;
   final TextInputType? keyboardType;
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
+  final bool? enabled;
+  final InputDecoration? decoration;
 
-  static final inputDecoration = InputDecoration(
+  static final defaultDecoration = InputDecoration(
     filled: true,
     contentPadding: const EdgeInsets.symmetric(
       vertical: 8,
@@ -31,12 +36,14 @@ class RoundedTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseTextFormField(
+    return TextFormField(
+      controller: controller,
       keyboardType: keyboardType,
-      decoration: inputDecoration,
+      decoration: decoration ?? defaultDecoration,
       onSaved: onSaved,
       onChanged: onChanged,
       validator: validator,
+      enabled: enabled,
     );
   }
 }

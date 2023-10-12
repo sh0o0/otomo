@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:otomo/configs/app_colors.dart';
-import 'package:otomo/views/bases/text_fields/rounded_text_form_field.dart';
+import 'package:otomo/views/bases/forms/rounded_text_form_field.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -91,7 +91,7 @@ abstract class AppThemes {
               top: BorderSide(color: _light.dividerColor),
             ),
           ),
-          inputTextDecoration: RoundedTextFormField.inputDecoration,
+          inputTextDecoration: RoundedTextFormField.defaultDecoration,
           messageBorderRadius: 16,
         ),
         settingsTheme: SettingsThemeData(
