@@ -7,6 +7,7 @@ part 'user.g.dart';
 class User with _$User {
   const User._();
   const factory User({
+    required String id,
     required Date birthday,
   }) = _User;
 

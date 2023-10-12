@@ -31,11 +31,13 @@ enum Cause {
   networkError,
   requiresRecentLogin,
   permissionDenied,
+  notFound,
 }
 
 enum Domain {
   none,
   auth,
+  user,
   message,
   messageChangedEvent,
 }
@@ -47,6 +49,8 @@ extension DomainExtension on Domain {
         return '';
       case Domain.auth:
         return 'Auth';
+      case Domain.user:
+        return 'User';
       case Domain.message:
         return 'Message';
       case Domain.messageChangedEvent:
@@ -57,4 +61,5 @@ extension DomainExtension on Domain {
 
 enum Field {
   none,
+  id,
 }

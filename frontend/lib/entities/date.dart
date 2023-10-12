@@ -13,6 +13,8 @@ class Date with _$Date {
 
   factory Date.fromJson(Map<String, dynamic> json) => _$DateFromJson(json);
   factory Date.empty() => const Date(year: 0, month: 0, day: 0);
+  factory Date.fromDateTime(DateTime time) =>
+      Date(year: time.year, month: time.month, day: time.day);
 
   bool get isZero => year == 0 && month == 0 && day == 0;
 }

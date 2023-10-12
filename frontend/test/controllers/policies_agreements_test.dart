@@ -22,7 +22,7 @@ void main() async {
         expect(snapshot.exists, true);
         expect(snapshot.data(), agreements.toJson());
       });
-    }, skip: 'System test');
+    });
     group('get method.', () {
       test('Should get when found.', () async {
         final agreements = PoliciesAgreements(
@@ -37,6 +37,6 @@ void main() async {
         final result = await policiesAgreementsController.get(want.userId);
         expect(result, want);
       });
-    }, skip: 'System test');
+    });
   });
 }

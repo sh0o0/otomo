@@ -20,6 +20,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
+  String get id => throw _privateConstructorUsedError;
   Date get birthday => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -32,7 +33,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({Date birthday});
+  $Res call({String id, Date birthday});
 
   $DateCopyWith<$Res> get birthday;
 }
@@ -50,9 +51,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? birthday = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       birthday: null == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
@@ -76,7 +82,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Date birthday});
+  $Res call({String id, Date birthday});
 
   @override
   $DateCopyWith<$Res> get birthday;
@@ -92,9 +98,14 @@ class __$$UserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? birthday = null,
   }) {
     return _then(_$UserImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       birthday: null == birthday
           ? _value.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
@@ -106,17 +117,19 @@ class __$$UserImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UserImpl extends _User {
-  const _$UserImpl({required this.birthday}) : super._();
+  const _$UserImpl({required this.id, required this.birthday}) : super._();
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
 
   @override
+  final String id;
+  @override
   final Date birthday;
 
   @override
   String toString() {
-    return 'User(birthday: $birthday)';
+    return 'User(id: $id, birthday: $birthday)';
   }
 
   @override
@@ -124,13 +137,14 @@ class _$UserImpl extends _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.birthday, birthday) ||
                 other.birthday == birthday));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, birthday);
+  int get hashCode => Object.hash(runtimeType, id, birthday);
 
   @JsonKey(ignore: true)
   @override
@@ -147,11 +161,14 @@ class _$UserImpl extends _User {
 }
 
 abstract class _User extends User {
-  const factory _User({required final Date birthday}) = _$UserImpl;
+  const factory _User(
+      {required final String id, required final Date birthday}) = _$UserImpl;
   const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
+  @override
+  String get id;
   @override
   Date get birthday;
   @override
