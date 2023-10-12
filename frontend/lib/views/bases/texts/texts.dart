@@ -49,6 +49,33 @@ class DisplayLarge extends BaseText {
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
 
+class DisplayMedium extends BaseText {
+  const DisplayMedium(
+    super.text, {
+    super.key,
+    super.style,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.displayMedium;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
+
+class DisplaySmall extends BaseText {
+  const DisplaySmall(
+    super.text, {
+    super.key,
+    super.style,
+  });
+
+  static TextStyle? styleOf(BuildContext context) =>
+      Theme.of(context).textTheme.displaySmall;
+
+  @override
+  TextStyle? defaultStyle(BuildContext context) => styleOf(context);
+}
 
 class HeadlineMedium extends BaseText {
   const HeadlineMedium(
@@ -167,4 +194,3 @@ class BodySmall extends BaseText {
   @override
   TextStyle? defaultStyle(BuildContext context) => styleOf(context);
 }
-

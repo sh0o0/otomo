@@ -10,7 +10,9 @@ class RoundedTextFormField extends StatelessWidget {
     this.onChanged,
     this.validator,
     this.enabled,
+    this.readOnly = false,
     this.decoration,
+    this.onTap,
   });
 
   final TextEditingController? controller;
@@ -20,7 +22,9 @@ class RoundedTextFormField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
   final bool? enabled;
+  final bool readOnly;
   final InputDecoration? decoration;
+  final GestureTapCallback? onTap;
 
   static final defaultDecoration = InputDecoration(
     filled: true,
@@ -44,6 +48,8 @@ class RoundedTextFormField extends StatelessWidget {
       onChanged: onChanged,
       validator: validator,
       enabled: enabled,
+      readOnly: readOnly,
+      onTap: onTap,
     );
   }
 }
