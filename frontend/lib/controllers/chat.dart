@@ -4,7 +4,7 @@ import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/converter.dart';
 import 'package:otomo/controllers/firebase.dart';
-import 'package:otomo/controllers/pagination.dart';
+import 'package:otomo/entities/pagination.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
