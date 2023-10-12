@@ -96,6 +96,7 @@ dependencies:
   phone_numbers_parser: ^8.0.0
   flutter_localizations:
     sdk: flutter
+  fake_cloud_firestore: ^2.4.1+1
 
 dev_dependencies:
   flutter_test:

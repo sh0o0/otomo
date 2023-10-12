@@ -2,8 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:otomo/controllers/place.dart';
 import 'package:otomo/tools/logger.dart';
 
+import '../test_config.dart';
+
 void main() {
-  const apiKey = String.fromEnvironment('GOOGLE_MAP_API_KEY');
   const googlePlaceIds = [
     'ChIJN1t_tDeuEmsRUsoyG83frY4',
     'ChIJ39-uHhSuEmsRM7AE1NF_fK0',
@@ -13,7 +14,7 @@ void main() {
   late PlaceControllerImpl controller;
 
   setUp(() {
-    controller = PlaceControllerImpl(apiKey: apiKey);
+    controller = PlaceControllerImpl(apiKey: TestConfig.googleMapApiKey);
   });
 
   group('System test.', () {
