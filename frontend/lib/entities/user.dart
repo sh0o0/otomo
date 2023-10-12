@@ -6,6 +6,7 @@ part 'user.g.dart';
 @freezed
 class User with _$User {
   const User._();
+  @JsonSerializable(explicitToJson: true)
   const factory User({
     required String id,
     required Date birthday,

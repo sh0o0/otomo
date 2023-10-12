@@ -115,7 +115,8 @@ class __$$UserImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$UserImpl extends _User {
   const _$UserImpl({required this.id, required this.birthday}) : super._();
 

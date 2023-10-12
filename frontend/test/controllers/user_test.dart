@@ -36,18 +36,18 @@ void main() async {
         expect(result, user);
       });
       test('Should throw exception when not found.', () async {
-        expect(
-          () async {
-            await userController.get(uuid());
-          },
-          throwsA(predicate(
-            (e) =>
-                e is AppException &&
+        try {
+          await userController.get(uuid());
+          fail('should throw exception');
+        } catch (e) {
+          expect(
+            true,
+            e is AppException &&
                 e.cause == Cause.notFound &&
                 e.domain == Domain.user &&
                 e.field == Field.id,
-          )),
-        );
+          );
+        }
       });
     });
   });
