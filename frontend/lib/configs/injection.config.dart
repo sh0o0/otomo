@@ -52,8 +52,10 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i12.PlaceControllerImpl>(
         () => injectableModule.placeController);
     gh.singleton<_i13.SharedPreferences>(injectableModule.sharedPreferences);
-    gh.factory<_i14.ChatControllerImpl>(
-        () => _i14.ChatControllerImpl(gh<_i4.ChatServiceClient>()));
+    gh.factory<_i14.ChatControllerImpl>(() => _i14.ChatControllerImpl(
+          gh<_i4.ChatServiceClient>(),
+          gh<_i9.FirebaseFirestore>(),
+        ));
     return this;
   }
 }

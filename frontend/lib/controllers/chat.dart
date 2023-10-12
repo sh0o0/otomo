@@ -1,21 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:otomo/configs/injection.dart';
+import 'package:otomo/constants/firebase_exception_code.dart';
 import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/converter.dart';
-import 'package:otomo/constants/firebase_exception_code.dart';
-import 'package:otomo/entities/pagination.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_changed_event.dart';
+import 'package:otomo/entities/pagination.dart';
 import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/google/protobuf/wrappers.pb.dart';
 
 @injectable
 class ChatControllerImpl {
-  ChatControllerImpl(this._chatService);
+  const ChatControllerImpl(
+    this._chatService,
+    this._firestore,
+  );
 
   final ChatServiceClient _chatService;
+  final FirebaseFirestore _firestore;
 
   Future<Pagination<TextMessage>> listMessages(
     String userId,
@@ -65,7 +68,7 @@ class ChatControllerImpl {
   Stream<List<TextMessageChangedEvent>> recentMessageChangedEventsStream({
     required String userId,
   }) =>
-      getIt<FirebaseFirestore>()
+      _firestore
           .collection('versions/1/chats/$userId/messages')
           .where('sent_at', isGreaterThan: Timestamp.now())
           .snapshots()
