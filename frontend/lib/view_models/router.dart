@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/views/pages/account_deletion.dart';
 import 'package:otomo/views/pages/home/index.dart';
+import 'package:otomo/views/pages/policies_agreement.dart';
 import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link.dart';
@@ -19,6 +20,13 @@ final List<RouteBase> _notSignedInPages = [
   GoRoute(
     path: Routes.signInWithEmailLink,
     builder: (context, state) => const SignInWithEmailLinkPage(),
+  ),
+];
+
+final List<RouteBase> _notAgreedPages = [
+  GoRoute(
+    path: Routes.policiesAgreement,
+    builder: (context, state) => const PoliciesAgreementPage(),
   ),
 ];
 
@@ -49,6 +57,13 @@ final routerProvider = Provider((ref) {
       routes: _notSignedInPages,
     );
   }
+
+  // FIXME: This is a temporary solution to avoid the error:
+  return GoRouter(
+    navigatorKey: _key,
+    initialLocation: Routes.policiesAgreement,
+    routes: _notAgreedPages,
+  );
 
   return GoRouter(
     navigatorKey: _key,
