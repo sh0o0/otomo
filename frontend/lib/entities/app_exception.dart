@@ -31,6 +31,7 @@ enum Cause {
   networkError,
   requiresRecentLogin,
   permissionDenied,
+  notSignedIn,
   notFound,
   invalidArgument,
 }

@@ -17,7 +17,7 @@ class StartToUseState with _$StartToUseState {
   const factory StartToUseState({
     Date? birthday,
     @Default(false) bool isAgreed,
-    @Default(false) bool savedAgreement,
+    PoliciesAgreements? savedAgreements,
   }) = _StartToUseState;
 }
 
@@ -56,7 +56,7 @@ class StartToUse extends _$StartToUse {
       final agreements =
           PoliciesAgreements(userId: user.id, agreed20231011At: DateTime.now());
       await _agreementsController.save(agreements);
-      return _value.copyWith(savedAgreement: true);
+      return _value.copyWith(savedAgreements: agreements);
     });
   }
 
