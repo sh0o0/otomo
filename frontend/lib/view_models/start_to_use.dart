@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/controllers/policies_agreements.dart';
 import 'package:otomo/controllers/user.dart';
 import 'package:otomo/entities/app_exception.dart';
@@ -25,6 +26,7 @@ class StartToUseState with _$StartToUseState {
 class StartToUse extends _$StartToUse {
   final _userController = getIt<UserControllerImpl>();
   final _agreementsController = getIt<PoliciesAgreementsControllerImpl>();
+  final _authController = getIt<AuthControllerImpl>();
 
   @override
   Future<StartToUseState> build() async {
@@ -43,9 +45,11 @@ class StartToUse extends _$StartToUse {
     );
   }
 
-  void agree() {
-    state = AsyncValue.data(_value.copyWith(isAgreed: true));
+  void setIsAgreed(bool value) {
+    state = AsyncValue.data(_value.copyWith(isAgreed: value));
   }
+
+  Future<void> signOut() => _authController.signOut();
 
   Future<void> saveAgreement() async {
     state = await guard(() async {

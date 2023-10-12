@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/user.dart';
 
+@injectable
 class UserControllerImpl {
   const UserControllerImpl(this._firestore);
 

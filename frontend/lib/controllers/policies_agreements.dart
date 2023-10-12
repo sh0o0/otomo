@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:otomo/entities/policies_agreements.dart';
 
+@injectable
 class PoliciesAgreementsControllerImpl {
   const PoliciesAgreementsControllerImpl(this._firestore);
 

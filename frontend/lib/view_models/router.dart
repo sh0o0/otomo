@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/views/pages/account_deletion.dart';
 import 'package:otomo/views/pages/home/index.dart';
-import 'package:otomo/views/pages/policies_agreement.dart';
+import 'package:otomo/views/pages/start_to_use.dart';
 import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link.dart';
@@ -26,7 +26,7 @@ final List<RouteBase> _notSignedInPages = [
 final List<RouteBase> _notAgreedPages = [
   GoRoute(
     path: Routes.policiesAgreement,
-    builder: (context, state) => const PoliciesAgreementPage(),
+    builder: (context, state) => const StartToUsePage(),
   ),
 ];
 

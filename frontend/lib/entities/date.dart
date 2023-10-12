@@ -17,6 +17,7 @@ class Date with _$Date {
       Date(year: time.year, month: time.month, day: time.day);
 
   bool get isZero => year == 0 && month == 0 && day == 0;
+  DateTime toDateTime() => DateTime(year, month, day);
 }
 
 @freezed
