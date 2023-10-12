@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/converter.dart';
-import 'package:otomo/controllers/firebase.dart';
+import 'package:otomo/constants/firebase_exception_code.dart';
 import 'package:otomo/entities/pagination.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/message.dart';
