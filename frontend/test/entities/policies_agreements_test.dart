@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:otomo/entities/date.dart';
 import 'package:otomo/entities/policies_agreements.dart';
-import 'package:otomo/entities/user.dart';
 
 void main() {
   final now = DateTime.now();
@@ -23,15 +22,13 @@ void main() {
       test('should return true when user age is 13 or more', () {
         final birthday =
             Date(year: now.year - 13, month: now.month, day: now.day);
-        final user = User(id: 'id', birthday: birthday);
-        expect(true, PoliciesAgreements.canAgree(user));
+        expect(true, PoliciesAgreements.canAgree(birthday));
       });
     });
     test('should return false when user age is 12 or less', () {
       final birthday =
           Date(year: now.year - 12, month: now.month, day: now.day);
-      final user = User(id: 'id', birthday: birthday);
-      expect(false, PoliciesAgreements.canAgree(user));
+      expect(false, PoliciesAgreements.canAgree(birthday));
     });
   });
 }

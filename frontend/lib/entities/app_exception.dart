@@ -1,9 +1,9 @@
 class AppException implements Exception {
   const AppException({
-    required this.message,
-    required this.cause,
-    required this.domain,
-    required this.field,
+    this.message = '',
+    this.cause = Cause.unknown,
+    this.domain = Domain.none,
+    this.field = Field.none,
   });
 
   factory AppException.unknown(String message) => AppException(
@@ -32,6 +32,7 @@ enum Cause {
   requiresRecentLogin,
   permissionDenied,
   notFound,
+  invalidArgument,
 }
 
 enum Domain {
@@ -40,6 +41,7 @@ enum Domain {
   user,
   message,
   messageChangedEvent,
+  policiesAgreements,
 }
 
 extension DomainExtension on Domain {
@@ -55,6 +57,8 @@ extension DomainExtension on Domain {
         return 'Message';
       case Domain.messageChangedEvent:
         return 'MessageChangedEvent';
+      case Domain.policiesAgreements:
+        return 'PoliciesAgreements';
     }
   }
 }
@@ -62,4 +66,5 @@ extension DomainExtension on Domain {
 enum Field {
   none,
   id,
+  birthday,
 }

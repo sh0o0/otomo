@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:otomo/entities/date.dart';
 import 'package:otomo/entities/user.dart';
+
 part 'policies_agreements.freezed.dart';
 part 'policies_agreements.g.dart';
 
@@ -20,5 +22,5 @@ class PoliciesAgreements with _$PoliciesAgreements {
 
   bool get isAgreed => agreed20231011At != null;
 
-  static bool canAgree(User user) => user.age >= 13;
+  static bool canAgree(Date birthday) => birthday.age >= 13;
 }

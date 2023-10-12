@@ -13,12 +13,13 @@ class User with _$User {
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
 
+extension BirthdayEx on Date {
   int get age {
-    int result = DateTime.now().year - birthday.year;
-    if (DateTime.now().month < birthday.month ||
-        (DateTime.now().month == birthday.month &&
-            DateTime.now().day < birthday.day)) {
+    int result = DateTime.now().year - year;
+    if (DateTime.now().month < month ||
+        (DateTime.now().month == month && DateTime.now().day < day)) {
       result--;
     }
     return result;
