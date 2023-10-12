@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/region.dart';
 
-part 'lat_lng.freezed.dart';
-part 'lat_lng.g.dart';
+part 'location.freezed.dart';
+part 'location.g.dart';
 
 @freezed
 class AppLatLng with _$AppLatLng {
@@ -59,5 +58,35 @@ extension AppLatLngListExtension on Iterable<AppLatLng> {
       northeast: AppLatLng(latitude: northeastLat, longitude: northeastLng),
       southwest: AppLatLng(latitude: southwestLat, longitude: southwestLng),
     );
+  }
+}
+
+@freezed
+class Position with _$Position {
+  const factory Position({
+    required AppLatLng latLng,
+  }) = _Position;
+}
+
+@freezed
+class Region with _$Region {
+  const Region._();
+  const factory Region({
+    required AppLatLng northeast,
+    required AppLatLng southwest,
+  }) = _Region;
+
+  bool isIn(AppLatLng latlng) {
+    // 赤道で180 -> -180に変わるので、範囲内にあるのに範囲外扱いになってしまう。
+    // 赤道を跨いでいる時、northeast.longitude = 180 + (180 - northeast.longitude)
+    final northeastlng = southwest.longitude > northeast.longitude
+        ? 360 + northeast.longitude
+        : northeast.longitude;
+
+    final result = latlng.latitude < northeast.latitude &&
+        latlng.latitude > southwest.latitude &&
+        latlng.longitude < northeastlng &&
+        latlng.longitude > southwest.longitude;
+    return result;
   }
 }

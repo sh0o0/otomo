@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otomo/entities/changed_event.dart';
 import 'package:otomo/entities/date.dart';
-import 'package:otomo/entities/lat_lng.dart';
+import 'package:otomo/entities/location.dart';
 import 'package:otomo/entities/message.dart';
 import 'package:otomo/entities/message_send_count.dart';
 import 'package:otomo/grpc/generated/date.pb.dart' as grpc_date;

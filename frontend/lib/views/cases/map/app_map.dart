@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:otomo/entities/lat_lng.dart';
-import 'package:otomo/entities/region.dart';
+import 'package:otomo/entities/location.dart';
 import 'package:otomo/views/utils/converter.dart';
 
 class AppMap extends StatelessWidget {

@@ -1,7 +1,6 @@
 import 'package:flutter_chat_types/flutter_chat_types.dart' as chat;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:otomo/entities/lat_lng.dart';
-import 'package:otomo/entities/region.dart';
+import 'package:otomo/entities/location.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 
 class ViewConverter {
