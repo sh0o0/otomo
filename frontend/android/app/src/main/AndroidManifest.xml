@@ -30,10 +30,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host="otomodevelop.page.com"
-                    android:scheme="https" />
-                <data
-                    android:host="otomotravel.page.com"
+                    android:host="@string/dynamic_link_domain"
                     android:scheme="https" />
             </intent-filter>
         </activity>

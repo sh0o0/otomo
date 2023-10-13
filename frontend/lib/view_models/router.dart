@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/account.dart';
+import 'package:otomo/view_models/agreed_policies.dart';
 import 'package:otomo/views/pages/account_deletion.dart';
 import 'package:otomo/views/pages/home/index.dart';
+import 'package:otomo/views/pages/loading.dart';
+import 'package:otomo/views/pages/start_to_use.dart';
 import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link.dart';
@@ -19,6 +22,13 @@ final List<RouteBase> _notSignedInPages = [
   GoRoute(
     path: Routes.signInWithEmailLink,
     builder: (context, state) => const SignInWithEmailLinkPage(),
+  ),
+];
+
+final List<RouteBase> _notAgreedPages = [
+  GoRoute(
+    path: Routes.policiesAgreement,
+    builder: (context, state) => const StartToUsePage(),
   ),
 ];
 
@@ -40,8 +50,17 @@ final List<RouteBase> _signedInPages = [
   ),
 ];
 
+final List<RouteBase> _loadingPages = [
+  GoRoute(
+    path: Routes.loading,
+    builder: (context, state) => const LoadingPage(),
+  ),
+];
+
 final routerProvider = Provider((ref) {
   final account = ref.watch(accountProvider);
+  final agreementsState = ref.watch(policiesAgreementProvider);
+
   if (account == null) {
     return GoRouter(
       navigatorKey: _key,
@@ -49,13 +68,28 @@ final routerProvider = Provider((ref) {
       routes: _notSignedInPages,
     );
   }
+  if (agreementsState.isLoading) {
+    return GoRouter(
+      navigatorKey: _key,
+      initialLocation: Routes.loading,
+      routes: _loadingPages,
+    );
+  }
+
+  if (agreementsState.value?.isAgreed == true) {
+    return GoRouter(
+      navigatorKey: _key,
+      initialLocation: Routes.home,
+      routes: [
+        ..._notSignedInPages,
+        ..._signedInPages,
+      ],
+    );
+  }
 
   return GoRouter(
     navigatorKey: _key,
-    initialLocation: Routes.home,
-    routes: [
-      ..._notSignedInPages,
-      ..._signedInPages,
-    ],
+    initialLocation: Routes.policiesAgreement,
+    routes: _notAgreedPages,
   );
 });

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/domains/entities/place_details.dart';
 import 'package:otomo/tools/logger.dart';
 
 class PlaceControllerImpl {

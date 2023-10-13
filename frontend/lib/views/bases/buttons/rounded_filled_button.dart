@@ -16,7 +16,7 @@ class RoundedFilledButton extends StatelessWidget {
     this.verticalExpanded = false,
   }) : style = FilledButton.styleFrom(
           textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         );
 
   final VoidCallback? onPressed;

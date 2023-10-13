@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:label_marker/label_marker.dart';
-import 'package:otomo/entities/message.dart';
+import 'package:otomo/domains/entities/message.dart';
 import 'package:otomo/views/utils/converter.dart';
 
 final class MarkerMaker {

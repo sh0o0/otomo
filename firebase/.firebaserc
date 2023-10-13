@@ -1,7 +1,8 @@
 {
   "projects": {
     "dev": "otomo-dev-401306",
-    "prod": "otomo-401310"
+    "prod": "otomo-401310",
+    "default": "otomo-dev-401306"
   },
   "targets": {},
   "etags": {}

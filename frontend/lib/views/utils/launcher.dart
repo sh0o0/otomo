@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:otomo/entities/app_exception.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 final class Launcher {

@@ -6,7 +6,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart' as ui;
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/constants/locales.dart';
-import 'package:otomo/entities/message.dart';
+import 'package:otomo/domains/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/utils/converter.dart';

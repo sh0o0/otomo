@@ -24,42 +24,44 @@ class SignInPage extends HookConsumerWidget {
     final router = ref.watch(routerProvider);
     final size = MediaQuery.of(context).size;
 
-    return ScaffoldWithBarrierIndicator(
+    return IndicatorOverlay(
       isProcessing: state.isLoading,
-      body: SafeArea(
-        child: EdgeLayout(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  AssetPaths.logos.textLogoBlack,
-                  width: size.width * 0.8,
-                ),
-                Spaces.h40,
-                GoogleSignInButton(
-                  text: 'Googleでサインイン',
-                  onPressed: () => notifier.signInWithGoogle(),
-                ),
-                if (!Platform.isAndroid)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: AppleSignInButton(
-                      text: 'Appleでサインイン',
-                      onPressed: () => notifier.signInWithApple(),
+      child: Scaffold(
+        body: SafeArea(
+          child: EdgeLayout(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    AssetPaths.logos.textLogoBlack,
+                    width: size.width * 0.8,
+                  ),
+                  Spaces.h40,
+                  GoogleSignInButton(
+                    text: 'Googleでサインイン',
+                    onPressed: () => notifier.signInWithGoogle(),
+                  ),
+                  if (!Platform.isAndroid)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: AppleSignInButton(
+                        text: 'Appleでサインイン',
+                        onPressed: () => notifier.signInWithApple(),
+                      ),
                     ),
-                  ),
-                Spaces.h32,
-                TappableText('メールアドレスでサインイン',
-                    onTap: () => router.push(Routes.signInWithEmailLink)),
-                Visibility(
-                  visible: state.hasError,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 24),
-                    child: ErrorText(ErrorLibrary.fromAny(state.error ?? '')),
-                  ),
-                )
-              ],
+                  Spaces.h32,
+                  TappableText('メールアドレスでサインイン',
+                      onTap: () => router.push(Routes.signInWithEmailLink)),
+                  Visibility(
+                    visible: state.hasError,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 24),
+                      child: ErrorText(ErrorLibrary.fromAny(state.error ?? '')),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

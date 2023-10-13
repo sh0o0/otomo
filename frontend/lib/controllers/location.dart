@@ -1,7 +1,6 @@
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:injectable/injectable.dart';
-import 'package:otomo/entities/lat_lng.dart';
-import 'package:otomo/entities/position.dart';
+import 'package:otomo/domains/entities/location.dart';
 
 @injectable
 class LocationControllerImpl {

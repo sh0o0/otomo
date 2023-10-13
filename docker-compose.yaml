@@ -39,7 +39,7 @@ services:
       - 9099:9099 # Firebase Authentication
       # - 9000:9000 # Realtime Database
       # - 5000:5000 # Firebase Hosting
-      # - 8085:8085 # Cloud Pub/Sub
+      - 8085:8085 # Cloud Pub/Sub
       # - 9199:9199 # Cloud Storage
     working_dir: /opt/firebase
     command: firebase emulators:start --import emulator_data/ --export-on-exit -P dev

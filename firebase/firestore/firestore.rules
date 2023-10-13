@@ -2,17 +2,24 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /versions/1 {
+      function isAuthenticated() {
+        return request.auth != null;
+      }
 
-    function isAuthenticated() {
-      return request.auth != null;
-    }
+      function isUserAuthenticated(userId) {
+        return isAuthenticated() && userId == request.auth.uid;
+      }
 
-    function isUserAuthenticated(userId) {
-      return isAuthenticated() && userId == request.auth.uid;
-    }
-		
-    match /versions/1/chats/{userId}/{path=**} {
-	    allow read: if isUserAuthenticated(userId);
+      match /chats/{userId}/{path=**} {
+        allow read: if isUserAuthenticated(userId);
+      }
+      match /users/{userId}/{path=**} {
+        allow read, write: if isUserAuthenticated(userId);
+      }
+      match /policies_agreements/{userId}/{path=**} {
+        allow read, write: if isUserAuthenticated(userId);
+      }
     }
   }
 }

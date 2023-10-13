@@ -2,7 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
-import 'package:otomo/entities/account.dart';
+import 'package:otomo/domains/entities/account.dart';
 import 'package:otomo/tools/logger.dart';
 
 final accountProvider = StateNotifierProvider<AccountNotifier, Account?>(

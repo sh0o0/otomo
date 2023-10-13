@@ -11,11 +11,11 @@ class ScreenBarrier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaSize = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Container(
-      height: mediaSize.height,
-      width: mediaSize.width,
+      height: size.height,
+      width: size.width,
       color: AppColors.barrierColor,
       child: child,
     );

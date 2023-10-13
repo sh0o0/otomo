@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/entities/message_send_count.dart';
+import 'package:otomo/domains/entities/message_send_count.dart';
 import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_bar_handle.dart';
 import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_leading.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
