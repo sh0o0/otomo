@@ -1,20 +1,22 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:otomo/controllers/policies_agreements.dart';
+import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/policies_agreements.dart';
+import 'package:otomo/repositories/policies_agreements.dart';
 import 'package:otomo/tools/uuid.dart';
+
+import '../utils.dart';
 
 void main() async {
   final firestore = FakeFirebaseFirestore();
-  final policiesAgreementsController =
-      PoliciesAgreementsControllerImpl(firestore);
+  final repo = PoliciesAgreementsRepositoryImpl(firestore);
 
-  group('PoliciesAgreementsControllerImpl class.', () {
-    group('save method.', () {
+  group(repo.groupName, () {
+    group('${repo.save.groupName} method.', () {
       test('Should save when give PoliciesAgreements.', () async {
         final agreements = PoliciesAgreements(
             userId: uuid(), agreed20231011At: DateTime.now());
-        await policiesAgreementsController.save(agreements);
+        await repo.save(agreements);
         final snapshot = await firestore
             .collection('versions/1/policies_agreements')
             .doc(agreements.userId)
@@ -23,19 +25,27 @@ void main() async {
         expect(snapshot.data(), agreements.toJson());
       });
     });
-    group('get method.', () {
+    group('${repo.get.groupName} method.', () {
       test('Should get when found.', () async {
         final agreements = PoliciesAgreements(
             userId: uuid(), agreed20231011At: DateTime.now());
-        await policiesAgreementsController.save(agreements);
-        final result =
-            await policiesAgreementsController.get(agreements.userId);
+        await repo.save(agreements);
+        final result = await repo.get(agreements.userId);
         expect(result, agreements);
       });
-      test('Should get disagree PoliciesAgreements when not found.', () async {
-        final want = PoliciesAgreements.disagree(uuid());
-        final result = await policiesAgreementsController.get(want.userId);
-        expect(result, want);
+      test('Should throw PoliciesAgreements when not found.', () async {
+        try {
+          await repo.get(uuid());
+          fail('should throw exception');
+        } catch (e) {
+          expect(
+            true,
+            e is AppException &&
+                e.cause == Cause.notFound &&
+                e.domain == Domain.policiesAgreements &&
+                e.field == Field.id,
+          );
+        }
       });
     });
   });

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/policies_agreements.dart';
 
 @injectable
@@ -21,6 +22,11 @@ class PoliciesAgreementsRepositoryImpl {
     if (snapshot.exists) {
       return PoliciesAgreements.fromJson(snapshot.data()!);
     }
-    return PoliciesAgreements.disagree(userId);
+    throw const AppException(
+      message: 'PoliciesAgreements not found',
+      cause: Cause.notFound,
+      domain: Domain.policiesAgreements,
+      field: Field.id,
+    );
   }
 }
