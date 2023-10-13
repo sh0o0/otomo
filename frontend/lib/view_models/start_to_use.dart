@@ -20,6 +20,8 @@ class StartToUseState with _$StartToUseState {
     @Default(false) bool isAgreed,
     PoliciesAgreements? savedAgreements,
   }) = _StartToUseState;
+
+  bool get canSaveAgreements => isAgreed && birthday != null;
 }
 
 @riverpod
@@ -52,6 +54,7 @@ class StartToUse extends _$StartToUse {
   Future<void> signOut() => _authController.signOut();
 
   Future<void> saveAgreement() async {
+    state = const AsyncValue.loading();
     state = await guard(() async {
       _validate();
 

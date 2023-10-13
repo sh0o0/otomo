@@ -12,7 +12,7 @@ class DateFormField extends StatefulWidget {
   }) : super(key: key);
 
   final ValueChanged<DateTime> onConfirmed;
-  final FormFieldValidator<String>? validator;
+  final FormFieldValidator<DateTime>? validator;
   final DateTime? initialValue;
 
   @override
@@ -20,7 +20,8 @@ class DateFormField extends StatefulWidget {
 }
 
 class DateFormFieldState extends State<DateFormField> {
-  final TextEditingController _controller = TextEditingController();
+  final _controller = TextEditingController();
+  final _formatter = DateFormatter.jaDate;
 
   @override
   void initState() {
@@ -35,9 +36,8 @@ class DateFormFieldState extends State<DateFormField> {
     super.dispose();
   }
 
-  String _formatDateTime(DateTime dateTime) {
-    return DateFormatter.jaDate.format(dateTime);
-  }
+  DateTime _parseDateTime(String value) => _formatter.parse(value);
+  String _formatDateTime(DateTime dateTime) => _formatter.format(dateTime);
 
   Future<void> _onTap(BuildContext context) async {
     final pickedDate = await _showDatePicker(context);
@@ -69,7 +69,9 @@ class DateFormFieldState extends State<DateFormField> {
         suffixIcon: const Icon(Icons.arrow_right_rounded),
       ),
       onTap: () => _onTap(context),
-      validator: widget.validator,
+      validator: (value) => widget.validator?.call(
+        value.apply((v) => _parseDateTime(v)),
+      ),
     );
   }
 }
