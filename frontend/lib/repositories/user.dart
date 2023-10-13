@@ -4,8 +4,8 @@ import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/user.dart';
 
 @injectable
-class UserControllerImpl {
-  const UserControllerImpl(this._firestore);
+class UserRepositoryImpl {
+  const UserRepositoryImpl(this._firestore);
 
   final FirebaseFirestore _firestore;
 
