@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/configs/app_themes.dart';
-import 'package:otomo/entities/place_details.dart' as place_details;
+import 'package:otomo/domains/entities/place_details.dart' as place_details;
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 

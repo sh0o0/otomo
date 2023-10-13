@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/controllers/converter.dart';
-import 'package:otomo/entities/message.dart';
-import 'package:otomo/entities/message_send_count.dart';
+import 'package:otomo/domains/entities/message.dart';
+import 'package:otomo/domains/entities/message_send_count.dart';
 import 'package:otomo/grpc/generated/chat_service.pb.dart';
 part 'chat.freezed.dart';
 

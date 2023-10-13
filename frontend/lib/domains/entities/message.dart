@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/location.dart';
+import 'package:otomo/domains/entities/location.dart';
 
 part 'message.freezed.dart';
 part 'message.g.dart';

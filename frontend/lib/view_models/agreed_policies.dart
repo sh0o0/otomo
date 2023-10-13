@@ -1,7 +1,7 @@
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/policies_agreement.dart';
-import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/policies_agreements.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/domains/entities/policies_agreements.dart';
 import 'package:otomo/view_models/start_to_use.dart';
 import 'package:otomo/view_models/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

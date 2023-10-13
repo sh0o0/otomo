@@ -1,8 +1,8 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/date.dart';
-import 'package:otomo/entities/user.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/domains/entities/date.dart';
+import 'package:otomo/domains/entities/user.dart';
 import 'package:otomo/repositories/user.dart';
 import 'package:otomo/tools/uuid.dart';
 

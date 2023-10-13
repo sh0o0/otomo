@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/place.dart';
-import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/domains/entities/place_details.dart';
 import 'package:otomo/view_models/map.dart';
 
 part 'place_details.freezed.dart';

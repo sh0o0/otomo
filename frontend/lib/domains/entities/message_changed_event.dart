@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/changed_event.dart';
-import 'package:otomo/entities/message.dart';
+import 'package:otomo/domains/entities/changed_event.dart';
+import 'package:otomo/domains/entities/message.dart';
 
 part 'message_changed_event.freezed.dart';
 

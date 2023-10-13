@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grpc/grpc.dart';
 import 'package:otomo/constants/firebase_exception_code.dart';
-import 'package:otomo/entities/app_exception.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
 
 abstract class ErrorLibrary {
   static String fromAny(Object error) {

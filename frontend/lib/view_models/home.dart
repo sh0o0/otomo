@@ -1,4 +1,4 @@
-import 'package:otomo/entities/message.dart';
+import 'package:otomo/domains/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/view_models/map.dart';

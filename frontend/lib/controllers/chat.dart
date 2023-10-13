@@ -3,10 +3,10 @@ import 'package:injectable/injectable.dart';
 import 'package:otomo/constants/firebase_exception_code.dart';
 import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/converter.dart';
-import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/message.dart';
-import 'package:otomo/entities/message_changed_event.dart';
-import 'package:otomo/entities/pagination.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/domains/entities/message.dart';
+import 'package:otomo/domains/entities/message_changed_event.dart';
+import 'package:otomo/domains/entities/pagination.dart';
 import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/google/protobuf/wrappers.pb.dart';
 

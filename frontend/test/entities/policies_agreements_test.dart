@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:otomo/entities/date.dart';
-import 'package:otomo/entities/policies_agreements.dart';
+import 'package:otomo/domains/entities/date.dart';
+import 'package:otomo/domains/entities/policies_agreements.dart';
 
 void main() {
   final now = DateTime.now();

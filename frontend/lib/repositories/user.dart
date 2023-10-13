@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/user.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/domains/entities/user.dart';
 
 @injectable
 class UserRepositoryImpl {

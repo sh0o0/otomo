@@ -2,9 +2,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/controllers/policies_agreement.dart';
-import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/date.dart';
-import 'package:otomo/entities/policies_agreements.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/domains/entities/date.dart';
+import 'package:otomo/domains/entities/policies_agreements.dart';
 import 'package:otomo/view_models/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/domains/entities/place_details.dart';
 import 'package:otomo/views/app.dart';
 import 'package:otomo/views/bases/snackbars/app_snackbar.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';

@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/entities/account.dart';
+import 'package:otomo/domains/entities/account.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/account.dart';
 

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/date.dart';
-import 'package:otomo/entities/user.dart';
+import 'package:otomo/domains/entities/date.dart';
+import 'package:otomo/domains/entities/user.dart';
 
 part 'policies_agreements.freezed.dart';
 part 'policies_agreements.g.dart';

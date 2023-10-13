@@ -1,6 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/domains/entities/place_details.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/cases/photo/google_place_photo.dart';
 

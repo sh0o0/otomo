@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:otomo/entities/date.dart';
+import 'package:otomo/domains/entities/date.dart';
 part 'message_send_count.freezed.dart';
 part 'message_send_count.g.dart';
 

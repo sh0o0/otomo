@@ -1,7 +1,7 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/policies_agreements.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/domains/entities/policies_agreements.dart';
 import 'package:otomo/repositories/policies_agreements.dart';
 import 'package:otomo/tools/uuid.dart';
 

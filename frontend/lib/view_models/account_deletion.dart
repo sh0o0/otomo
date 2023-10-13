@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
-import 'package:otomo/entities/app_exception.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/utils.dart';
 

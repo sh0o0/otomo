@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/domains/entities/place_details.dart';
 import 'package:otomo/views/bases/layouts/edge_layout.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';

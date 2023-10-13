@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otomo/entities/place_details.dart';
+import 'package:otomo/domains/entities/place_details.dart';
 import 'package:otomo/views/bases/sheets/sheet_form.dart';
 import 'package:otomo/views/cases/place/place_review_list_view.dart';
 

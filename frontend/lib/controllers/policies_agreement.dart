@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:otomo/entities/app_exception.dart';
-import 'package:otomo/entities/date.dart';
-import 'package:otomo/entities/policies_agreements.dart';
-import 'package:otomo/entities/user.dart';
+import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/domains/entities/date.dart';
+import 'package:otomo/domains/entities/policies_agreements.dart';
+import 'package:otomo/domains/entities/user.dart';
 import 'package:otomo/repositories/policies_agreements.dart';
 import 'package:otomo/repositories/user.dart';
 
