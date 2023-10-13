@@ -6,15 +6,13 @@ import 'package:otomo/domains/entities/user.dart';
 import 'package:otomo/repositories/user.dart';
 import 'package:otomo/tools/uuid.dart';
 
-import '../utils.dart';
-
 void main() async {
   final firestore = FakeFirebaseFirestore();
   final repo = UserRepositoryImpl(firestore);
   final now = DateTime.now();
 
-  group('${repo.runtimeType} class.', () {
-    group('${repo.save.groupName} method.', () {
+  group('UserRepositoryImpl class.', () {
+    group('save method.', () {
       test('Should save when give User.', () async {
         final user = User(
           id: uuid(),
@@ -27,7 +25,7 @@ void main() async {
         expect(snapshot.data(), user.toJson());
       });
     });
-    group('${repo.get.groupName} method.', () {
+    group('get method.', () {
       test('Should get when found.', () async {
         final user = User(
           id: uuid(),

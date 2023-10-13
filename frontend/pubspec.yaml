@@ -83,20 +83,24 @@ dependencies:
   get_it: ^7.6.0
   injectable: ^2.3.0
 
+  ### Test
+  mockito: ^5.4.2
+  fake_cloud_firestore: ^2.4.1+1
+  faker: ^2.1.0
+
   ### Others
   logger: ^2.0.1
   uuid: ^3.0.7
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   async: ^2.11.0
-  faker: ^2.1.0
   package_info_plus: ^4.1.0
   shared_preferences: ^2.2.1
   firebase_dynamic_links: ^5.3.6
   phone_numbers_parser: ^8.0.0
   flutter_localizations:
     sdk: flutter
-  fake_cloud_firestore: ^2.4.1+1
+
 
 dev_dependencies:
   flutter_test:

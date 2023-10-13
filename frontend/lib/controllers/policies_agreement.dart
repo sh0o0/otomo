@@ -3,8 +3,9 @@ import 'package:otomo/domains/entities/app_exception.dart';
 import 'package:otomo/domains/entities/date.dart';
 import 'package:otomo/domains/entities/policies_agreements.dart';
 import 'package:otomo/domains/entities/user.dart';
-import 'package:otomo/repositories/policies_agreements.dart';
-import 'package:otomo/repositories/user.dart';
+import 'package:otomo/domains/repo/policies_agreements.dart';
+import 'package:otomo/domains/repo/user.dart';
+import 'package:otomo/tools/clock.dart';
 
 @injectable
 class PoliciesAgreementControllerImpl {
@@ -13,8 +14,8 @@ class PoliciesAgreementControllerImpl {
     this._userRepository,
   );
 
-  final PoliciesAgreementsRepositoryImpl _agreementsRepository;
-  final UserRepositoryImpl _userRepository;
+  final PoliciesAgreementsRepository _agreementsRepository;
+  final UserRepository _userRepository;
 
   Future<PoliciesAgreements> agree(String userId, Date birthday) async {
     if (!PoliciesAgreements.canAgree(birthday)) {
@@ -31,7 +32,7 @@ class PoliciesAgreementControllerImpl {
 
     final agreements = PoliciesAgreements(
       userId: userId,
-      agreed20231011At: DateTime.now(),
+      agreed20231011At: clock.now(),
     );
     await _agreementsRepository.save(agreements);
     return agreements;

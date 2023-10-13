@@ -5,14 +5,12 @@ import 'package:otomo/domains/entities/policies_agreements.dart';
 import 'package:otomo/repositories/policies_agreements.dart';
 import 'package:otomo/tools/uuid.dart';
 
-import '../utils.dart';
-
 void main() async {
   final firestore = FakeFirebaseFirestore();
   final repo = PoliciesAgreementsRepositoryImpl(firestore);
 
-  group(repo.groupName, () {
-    group('${repo.save.groupName} method.', () {
+  group('PoliciesAgreementsRepositoryImpl class', () {
+    group('save method.', () {
       test('Should save when give PoliciesAgreements.', () async {
         final agreements = PoliciesAgreements(
             userId: uuid(), agreed20231011At: DateTime.now());
@@ -25,7 +23,7 @@ void main() async {
         expect(snapshot.data(), agreements.toJson());
       });
     });
-    group('${repo.get.groupName} method.', () {
+    group('get method.', () {
       test('Should get when found.', () async {
         final agreements = PoliciesAgreements(
             userId: uuid(), agreed20231011At: DateTime.now());
