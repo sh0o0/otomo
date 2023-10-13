@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/policies_agreement.dart';
 import 'package:otomo/domains/entities/policies_agreements.dart';
-import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/view_models/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -26,8 +25,6 @@ class PoliciesAgreement extends _$PoliciesAgreement {
 
   @override
   Future<PoliciesAgreementState> build() async {
-    logger.debug('build policies agreement');
-
     final accountSub = ref.listen(accountProvider, (previous, next) async {
       if (next == null) {
         state = const AsyncValue.data(PoliciesAgreementState());

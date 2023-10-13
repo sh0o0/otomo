@@ -54,7 +54,7 @@ class StartToUse extends _$StartToUse {
   Future<void> agree() async {
     state = const AsyncValue.loading();
     state = await guard(() async {
-      if (_value.isAgreed) {
+      if (!_value.isAgreed) {
         throw const AppException(
           message: 'Must agree',
           cause: Cause.invalidArgument,
