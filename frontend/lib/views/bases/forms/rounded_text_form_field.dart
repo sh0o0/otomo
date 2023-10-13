@@ -14,6 +14,7 @@ class RoundedTextFormField extends StatelessWidget {
     this.decoration,
     this.onTap,
     this.initialValue,
+    this.autofocus = false,
   });
 
   final TextEditingController? controller;
@@ -27,6 +28,7 @@ class RoundedTextFormField extends StatelessWidget {
   final InputDecoration? decoration;
   final GestureTapCallback? onTap;
   final String? initialValue;
+  final bool autofocus;
 
   static final defaultDecoration = InputDecoration(
     filled: true,
@@ -45,7 +47,9 @@ class RoundedTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      decoration: decoration ?? defaultDecoration,
+      decoration: (decoration ?? defaultDecoration).copyWith(
+        hintText: hintText,
+      ),
       onSaved: onSaved,
       onChanged: onChanged,
       validator: validator,
@@ -53,6 +57,7 @@ class RoundedTextFormField extends StatelessWidget {
       readOnly: readOnly,
       onTap: onTap,
       initialValue: initialValue,
+      autofocus: autofocus,
     );
   }
 }
