@@ -1,5 +1,5 @@
 import 'package:otomo/configs/injection.dart';
-import 'package:otomo/controllers/policies_agreements.dart';
+import 'package:otomo/controllers/policies_agreement.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/policies_agreements.dart';
 import 'package:otomo/view_models/start_to_use.dart';
@@ -9,7 +9,7 @@ part 'agreed_policies.g.dart';
 
 @riverpod
 class AgreedPolicies extends _$AgreedPolicies {
-  final _agreementsController = getIt<PoliciesAgreementsControllerImpl>();
+  final _agreementsController = getIt<PoliciesAgreementControllerImpl>();
 
   @override
   Future<PoliciesAgreements> build() async {
@@ -22,6 +22,6 @@ class AgreedPolicies extends _$AgreedPolicies {
 
     final userId = readAccount(ref)?.uid;
     if (userId == null) throw const AppException(cause: Cause.notSignedIn);
-    return _agreementsController.get(userId);
+    return _agreementsController.getAgreements(userId);
   }
 }

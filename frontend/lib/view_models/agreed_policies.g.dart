@@ -6,7 +6,7 @@ part of 'agreed_policies.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$agreedPoliciesHash() => r'509f73d2c467fa6a8b895029b3593b2a0b3ea02f';
+String _$agreedPoliciesHash() => r'ce9ac3eb9e67e8680038a8ac0ade8270dff67d05';
 
 /// See also [AgreedPolicies].
 @ProviderFor(AgreedPolicies)

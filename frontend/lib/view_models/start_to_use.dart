@@ -1,14 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
-import 'package:otomo/controllers/policies_agreements.dart';
-import 'package:otomo/controllers/user.dart';
+import 'package:otomo/controllers/policies_agreement.dart';
 import 'package:otomo/entities/app_exception.dart';
 import 'package:otomo/entities/date.dart';
 import 'package:otomo/entities/policies_agreements.dart';
-import 'package:otomo/entities/user.dart';
 import 'package:otomo/view_models/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 part 'start_to_use.freezed.dart';
 part 'start_to_use.g.dart';
 
@@ -26,8 +25,7 @@ class StartToUseState with _$StartToUseState {
 
 @riverpod
 class StartToUse extends _$StartToUse {
-  final _userController = getIt<UserControllerImpl>();
-  final _agreementsController = getIt<PoliciesAgreementsControllerImpl>();
+  final _agreementController = getIt<PoliciesAgreementControllerImpl>();
   final _authController = getIt<AuthControllerImpl>();
 
   @override
@@ -56,42 +54,26 @@ class StartToUse extends _$StartToUse {
   Future<void> saveAgreement() async {
     state = const AsyncValue.loading();
     state = await guard(() async {
-      _validate();
+      if (_value.isAgreed) {
+        throw const AppException(
+          message: 'Must agree',
+          cause: Cause.invalidArgument,
+          domain: Domain.policiesAgreements,
+        );
+      }
 
-      final user = User(id: readAccount(ref)!.uid, birthday: _value.birthday!);
-      await _userController.save(user);
-      final agreements =
-          PoliciesAgreements(userId: user.id, agreed20231011At: DateTime.now());
-      await _agreementsController.save(agreements);
+      final birthday = _value.birthday;
+      if (birthday == null) {
+        throw const AppException(
+          message: 'Must input birthday',
+          cause: Cause.invalidArgument,
+          domain: Domain.user,
+          field: Field.birthday,
+        );
+      }
+      final userId = readAccount(ref)!.uid;
+      final agreements = await _agreementController.agree(userId, birthday);
       return _value.copyWith(savedAgreements: agreements);
     });
-  }
-
-  void _validate() {
-    if (_value.isAgreed) {
-      throw const AppException(
-        message: 'Must agree',
-        cause: Cause.invalidArgument,
-        domain: Domain.policiesAgreements,
-      );
-    }
-
-    final birthday = _value.birthday;
-    if (birthday == null) {
-      throw const AppException(
-        message: 'Must input birthday',
-        cause: Cause.invalidArgument,
-        domain: Domain.user,
-        field: Field.birthday,
-      );
-    }
-    if (!PoliciesAgreements.canAgree(birthday)) {
-      throw const AppException(
-        message: 'Must be 13 years old or older',
-        cause: Cause.invalidArgument,
-        domain: Domain.user,
-        field: Field.birthday,
-      );
-    }
   }
 }

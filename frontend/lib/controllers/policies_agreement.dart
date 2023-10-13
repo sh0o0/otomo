@@ -16,7 +16,7 @@ class PoliciesAgreementControllerImpl {
   final PoliciesAgreementsRepositoryImpl _agreementsRepository;
   final UserRepositoryImpl _userRepository;
 
-  Future<void> agree(String userId, Date birthday) async {
+  Future<PoliciesAgreements> agree(String userId, Date birthday) async {
     if (!PoliciesAgreements.canAgree(birthday)) {
       throw const AppException(
         message: 'Must be 13 years old or older',
@@ -34,5 +34,17 @@ class PoliciesAgreementControllerImpl {
       agreed20231011At: DateTime.now(),
     );
     await _agreementsRepository.save(agreements);
+    return agreements;
+  }
+
+  Future<PoliciesAgreements> getAgreements(String userId) async {
+    try {
+      return await _agreementsRepository.get(userId);
+    } on AppException catch (e) {
+      if (e.cause == Cause.notFound) {
+        return PoliciesAgreements.disagree(userId);
+      }
+      rethrow;
+    }
   }
 }
