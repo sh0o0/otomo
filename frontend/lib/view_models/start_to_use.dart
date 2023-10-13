@@ -51,7 +51,7 @@ class StartToUse extends _$StartToUse {
 
   Future<void> signOut() => _authController.signOut();
 
-  Future<void> saveAgreement() async {
+  Future<void> agree() async {
     state = const AsyncValue.loading();
     state = await guard(() async {
       if (_value.isAgreed) {

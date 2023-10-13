@@ -106,7 +106,7 @@ class _StartToUsePageState extends ConsumerState<StartToUsePage> {
                   onPressed: state.value?.canSaveAgreements == true
                       ? () async {
                           if (!FlutterUtils.validateAndSaveForm(_formKey)) return;
-                          await notifier.saveAgreement();
+                          await notifier.agree();
                         }
                       : null,
                   child: const Text('次へ'),
