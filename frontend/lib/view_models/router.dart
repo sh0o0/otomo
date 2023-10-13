@@ -60,11 +60,19 @@ final List<RouteBase> _loadingPages = [
 final routerProvider = Provider((ref) {
   final account = ref.watch(accountProvider);
   final agreementsState = ref.watch(policiesAgreementProvider);
-  if (account == null || agreementsState.isLoading) {
+
+  if (account == null) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.signIn,
       routes: _notSignedInPages,
+    );
+  }
+  if (agreementsState.isLoading) {
+    return GoRouter(
+      navigatorKey: _key,
+      initialLocation: Routes.loading,
+      routes: _loadingPages,
     );
   }
 
