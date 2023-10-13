@@ -6,7 +6,7 @@ part of 'start_to_use.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$startToUseHash() => r'4e32f5c25c47ebc1550cba0fd851b87b160d3aac';
+String _$startToUseHash() => r'd8d8772f1da9fcc6d00a3b4fd84356de261e5e6b';
 
 /// See also [StartToUse].
 @ProviderFor(StartToUse)

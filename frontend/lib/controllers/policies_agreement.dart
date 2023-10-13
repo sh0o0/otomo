@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
 import 'package:otomo/domains/entities/app_exception.dart';
 import 'package:otomo/domains/entities/date.dart';
@@ -9,13 +11,18 @@ import 'package:otomo/tools/clock.dart';
 
 @injectable
 class PoliciesAgreementControllerImpl {
-  const PoliciesAgreementControllerImpl(
+  PoliciesAgreementControllerImpl(
     this._agreementsRepository,
     this._userRepository,
+    this._savedAgreementsStreamCtrl,
   );
 
   final PoliciesAgreementsRepository _agreementsRepository;
   final UserRepository _userRepository;
+  final StreamController<PoliciesAgreements> _savedAgreementsStreamCtrl;
+
+  Stream<PoliciesAgreements> get savedAgreementsStream =>
+      _savedAgreementsStreamCtrl.stream;
 
   Future<PoliciesAgreements> agree(String userId, Date birthday) async {
     if (!PoliciesAgreements.canAgree(birthday)) {
@@ -35,6 +42,7 @@ class PoliciesAgreementControllerImpl {
       agreed20231011At: clock.now(),
     );
     await _agreementsRepository.save(agreements);
+    _savedAgreementsStreamCtrl.add(agreements);
     return agreements;
   }
 

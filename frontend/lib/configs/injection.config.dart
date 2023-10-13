@@ -9,6 +9,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i16;
+
 import 'package:cloud_firestore/cloud_firestore.dart' as _i9;
 import 'package:firebase_auth/firebase_auth.dart' as _i6;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart' as _i7;
@@ -16,18 +18,19 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart' as _i8;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:grpc/grpc.dart' as _i5;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:otomo/configs/injection.dart' as _i20;
+import 'package:otomo/configs/injection.dart' as _i22;
 import 'package:otomo/controllers/auth.dart' as _i3;
-import 'package:otomo/controllers/chat.dart' as _i18;
+import 'package:otomo/controllers/chat.dart' as _i20;
 import 'package:otomo/controllers/location.dart' as _i11;
 import 'package:otomo/controllers/place.dart' as _i12;
-import 'package:otomo/controllers/policies_agreement.dart' as _i19;
+import 'package:otomo/controllers/policies_agreement.dart' as _i21;
+import 'package:otomo/domains/entities/policies_agreements.dart' as _i17;
 import 'package:otomo/domains/repo/policies_agreements.dart' as _i13;
-import 'package:otomo/domains/repo/user.dart' as _i16;
+import 'package:otomo/domains/repo/user.dart' as _i18;
 import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart' as _i4;
 import 'package:otomo/grpc/generated/health.pbgrpc.dart' as _i10;
 import 'package:otomo/repositories/policies_agreements.dart' as _i14;
-import 'package:otomo/repositories/user.dart' as _i17;
+import 'package:otomo/repositories/user.dart' as _i19;
 import 'package:shared_preferences/shared_preferences.dart' as _i15;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -54,24 +57,26 @@ extension GetItInjectableX on _i1.GetIt {
         injectableModule.healthServiceClient);
     gh.factory<_i11.LocationControllerImpl>(
         () => _i11.LocationControllerImpl());
-    gh.factory<_i12.PlaceControllerImpl>(
-        () => injectableModule.placeController);
+    gh.singleton<_i12.PlaceControllerImpl>(injectableModule.placeController);
     gh.factory<_i13.PoliciesAgreementsRepository>(() =>
         _i14.PoliciesAgreementsRepositoryImpl(gh<_i9.FirebaseFirestore>()));
     gh.singleton<_i15.SharedPreferences>(injectableModule.sharedPreferences);
-    gh.factory<_i16.UserRepository>(
-        () => _i17.UserRepositoryImpl(gh<_i9.FirebaseFirestore>()));
-    gh.factory<_i18.ChatControllerImpl>(() => _i18.ChatControllerImpl(
+    gh.singleton<_i16.StreamController<_i17.PoliciesAgreements>>(
+        injectableModule.agreementsStreamCtrl);
+    gh.factory<_i18.UserRepository>(
+        () => _i19.UserRepositoryImpl(gh<_i9.FirebaseFirestore>()));
+    gh.factory<_i20.ChatControllerImpl>(() => _i20.ChatControllerImpl(
           gh<_i4.ChatServiceClient>(),
           gh<_i9.FirebaseFirestore>(),
         ));
-    gh.factory<_i19.PoliciesAgreementControllerImpl>(
-        () => _i19.PoliciesAgreementControllerImpl(
+    gh.factory<_i21.PoliciesAgreementControllerImpl>(
+        () => _i21.PoliciesAgreementControllerImpl(
               gh<_i13.PoliciesAgreementsRepository>(),
-              gh<_i16.UserRepository>(),
+              gh<_i18.UserRepository>(),
+              gh<_i16.StreamController<_i17.PoliciesAgreements>>(),
             ));
     return this;
   }
 }
 
-class _$InjectableModule extends _i20.InjectableModule {}
+class _$InjectableModule extends _i22.InjectableModule {}

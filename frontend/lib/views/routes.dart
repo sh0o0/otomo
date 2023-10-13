@@ -7,4 +7,6 @@ final class Routes {
   static const home = '/';
   static const settings = '/settings';
   static const accountDeletion = '$settings/account-deletion';
+
+  static const loading = '/loading';
 }

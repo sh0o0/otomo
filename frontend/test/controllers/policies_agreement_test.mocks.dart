@@ -3,12 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:otomo/domains/entities/policies_agreements.dart' as _i2;
 import 'package:otomo/domains/entities/user.dart' as _i3;
-import 'package:otomo/domains/repo/policies_agreements.dart' as _i4;
+import 'package:otomo/domains/repo/policies_agreements.dart' as _i5;
 import 'package:otomo/domains/repo/user.dart' as _i6;
 
 // ignore_for_file: type=lint
@@ -43,41 +43,51 @@ class _FakeUser_1 extends _i1.SmartFake implements _i3.User {
         );
 }
 
+class _FakeStreamSink_2<S> extends _i1.SmartFake implements _i4.StreamSink<S> {
+  _FakeStreamSink_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [PoliciesAgreementsRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPoliciesAgreementsRepository extends _i1.Mock
-    implements _i4.PoliciesAgreementsRepository {
+    implements _i5.PoliciesAgreementsRepository {
   MockPoliciesAgreementsRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.PoliciesAgreements> get(String? userId) => (super.noSuchMethod(
+  _i4.Future<_i2.PoliciesAgreements> get(String? userId) => (super.noSuchMethod(
         Invocation.method(
           #get,
           [userId],
         ),
         returnValue:
-            _i5.Future<_i2.PoliciesAgreements>.value(_FakePoliciesAgreements_0(
+            _i4.Future<_i2.PoliciesAgreements>.value(_FakePoliciesAgreements_0(
           this,
           Invocation.method(
             #get,
             [userId],
           ),
         )),
-      ) as _i5.Future<_i2.PoliciesAgreements>);
+      ) as _i4.Future<_i2.PoliciesAgreements>);
 
   @override
-  _i5.Future<void> save(_i2.PoliciesAgreements? agreements) =>
+  _i4.Future<void> save(_i2.PoliciesAgreements? agreements) =>
       (super.noSuchMethod(
         Invocation.method(
           #save,
           [agreements],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [UserRepository].
@@ -89,27 +99,160 @@ class MockUserRepository extends _i1.Mock implements _i6.UserRepository {
   }
 
   @override
-  _i5.Future<void> save(_i3.User? user) => (super.noSuchMethod(
+  _i4.Future<void> save(_i3.User? user) => (super.noSuchMethod(
         Invocation.method(
           #save,
           [user],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i5.Future<_i3.User> get(String? userId) => (super.noSuchMethod(
+  _i4.Future<_i3.User> get(String? userId) => (super.noSuchMethod(
         Invocation.method(
           #get,
           [userId],
         ),
-        returnValue: _i5.Future<_i3.User>.value(_FakeUser_1(
+        returnValue: _i4.Future<_i3.User>.value(_FakeUser_1(
           this,
           Invocation.method(
             #get,
             [userId],
           ),
         )),
-      ) as _i5.Future<_i3.User>);
+      ) as _i4.Future<_i3.User>);
+}
+
+/// A class which mocks [StreamController].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockStreamController<T> extends _i1.Mock
+    implements _i4.StreamController<T> {
+  MockStreamController() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  set onListen(void Function()? _onListen) => super.noSuchMethod(
+        Invocation.setter(
+          #onListen,
+          _onListen,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set onPause(void Function()? _onPause) => super.noSuchMethod(
+        Invocation.setter(
+          #onPause,
+          _onPause,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set onResume(void Function()? _onResume) => super.noSuchMethod(
+        Invocation.setter(
+          #onResume,
+          _onResume,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set onCancel(_i4.FutureOr<void> Function()? _onCancel) => super.noSuchMethod(
+        Invocation.setter(
+          #onCancel,
+          _onCancel,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Stream<T> get stream => (super.noSuchMethod(
+        Invocation.getter(#stream),
+        returnValue: _i4.Stream<T>.empty(),
+      ) as _i4.Stream<T>);
+
+  @override
+  _i4.StreamSink<T> get sink => (super.noSuchMethod(
+        Invocation.getter(#sink),
+        returnValue: _FakeStreamSink_2<T>(
+          this,
+          Invocation.getter(#sink),
+        ),
+      ) as _i4.StreamSink<T>);
+
+  @override
+  bool get isClosed => (super.noSuchMethod(
+        Invocation.getter(#isClosed),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  bool get isPaused => (super.noSuchMethod(
+        Invocation.getter(#isPaused),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  bool get hasListener => (super.noSuchMethod(
+        Invocation.getter(#hasListener),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i4.Future<dynamic> get done => (super.noSuchMethod(
+        Invocation.getter(#done),
+        returnValue: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+
+  @override
+  void add(T? event) => super.noSuchMethod(
+        Invocation.method(
+          #add,
+          [event],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addError(
+    Object? error, [
+    StackTrace? stackTrace,
+  ]) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addError,
+          [
+            error,
+            stackTrace,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<dynamic> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+
+  @override
+  _i4.Future<dynamic> addStream(
+    _i4.Stream<T>? source, {
+    bool? cancelOnError,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addStream,
+          [source],
+          {#cancelOnError: cancelOnError},
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
 }

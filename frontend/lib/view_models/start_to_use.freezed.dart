@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$StartToUseState {
   Date? get birthday => throw _privateConstructorUsedError;
   bool get isAgreed => throw _privateConstructorUsedError;
-  PoliciesAgreements? get savedAgreements => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $StartToUseStateCopyWith<StartToUseState> get copyWith =>
@@ -31,11 +30,9 @@ abstract class $StartToUseStateCopyWith<$Res> {
           StartToUseState value, $Res Function(StartToUseState) then) =
       _$StartToUseStateCopyWithImpl<$Res, StartToUseState>;
   @useResult
-  $Res call(
-      {Date? birthday, bool isAgreed, PoliciesAgreements? savedAgreements});
+  $Res call({Date? birthday, bool isAgreed});
 
   $DateCopyWith<$Res>? get birthday;
-  $PoliciesAgreementsCopyWith<$Res>? get savedAgreements;
 }
 
 /// @nodoc
@@ -53,7 +50,6 @@ class _$StartToUseStateCopyWithImpl<$Res, $Val extends StartToUseState>
   $Res call({
     Object? birthday = freezed,
     Object? isAgreed = null,
-    Object? savedAgreements = freezed,
   }) {
     return _then(_value.copyWith(
       birthday: freezed == birthday
@@ -64,10 +60,6 @@ class _$StartToUseStateCopyWithImpl<$Res, $Val extends StartToUseState>
           ? _value.isAgreed
           : isAgreed // ignore: cast_nullable_to_non_nullable
               as bool,
-      savedAgreements: freezed == savedAgreements
-          ? _value.savedAgreements
-          : savedAgreements // ignore: cast_nullable_to_non_nullable
-              as PoliciesAgreements?,
     ) as $Val);
   }
 
@@ -82,18 +74,6 @@ class _$StartToUseStateCopyWithImpl<$Res, $Val extends StartToUseState>
       return _then(_value.copyWith(birthday: value) as $Val);
     });
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PoliciesAgreementsCopyWith<$Res>? get savedAgreements {
-    if (_value.savedAgreements == null) {
-      return null;
-    }
-
-    return $PoliciesAgreementsCopyWith<$Res>(_value.savedAgreements!, (value) {
-      return _then(_value.copyWith(savedAgreements: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -104,13 +84,10 @@ abstract class _$$StartToUseStateImplCopyWith<$Res>
       __$$StartToUseStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Date? birthday, bool isAgreed, PoliciesAgreements? savedAgreements});
+  $Res call({Date? birthday, bool isAgreed});
 
   @override
   $DateCopyWith<$Res>? get birthday;
-  @override
-  $PoliciesAgreementsCopyWith<$Res>? get savedAgreements;
 }
 
 /// @nodoc
@@ -126,7 +103,6 @@ class __$$StartToUseStateImplCopyWithImpl<$Res>
   $Res call({
     Object? birthday = freezed,
     Object? isAgreed = null,
-    Object? savedAgreements = freezed,
   }) {
     return _then(_$StartToUseStateImpl(
       birthday: freezed == birthday
@@ -137,10 +113,6 @@ class __$$StartToUseStateImplCopyWithImpl<$Res>
           ? _value.isAgreed
           : isAgreed // ignore: cast_nullable_to_non_nullable
               as bool,
-      savedAgreements: freezed == savedAgreements
-          ? _value.savedAgreements
-          : savedAgreements // ignore: cast_nullable_to_non_nullable
-              as PoliciesAgreements?,
     ));
   }
 }
@@ -148,8 +120,7 @@ class __$$StartToUseStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$StartToUseStateImpl extends _StartToUseState {
-  const _$StartToUseStateImpl(
-      {this.birthday, this.isAgreed = false, this.savedAgreements})
+  const _$StartToUseStateImpl({this.birthday, this.isAgreed = false})
       : super._();
 
   @override
@@ -157,12 +128,10 @@ class _$StartToUseStateImpl extends _StartToUseState {
   @override
   @JsonKey()
   final bool isAgreed;
-  @override
-  final PoliciesAgreements? savedAgreements;
 
   @override
   String toString() {
-    return 'StartToUseState(birthday: $birthday, isAgreed: $isAgreed, savedAgreements: $savedAgreements)';
+    return 'StartToUseState(birthday: $birthday, isAgreed: $isAgreed)';
   }
 
   @override
@@ -173,14 +142,11 @@ class _$StartToUseStateImpl extends _StartToUseState {
             (identical(other.birthday, birthday) ||
                 other.birthday == birthday) &&
             (identical(other.isAgreed, isAgreed) ||
-                other.isAgreed == isAgreed) &&
-            (identical(other.savedAgreements, savedAgreements) ||
-                other.savedAgreements == savedAgreements));
+                other.isAgreed == isAgreed));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, birthday, isAgreed, savedAgreements);
+  int get hashCode => Object.hash(runtimeType, birthday, isAgreed);
 
   @JsonKey(ignore: true)
   @override
@@ -191,18 +157,14 @@ class _$StartToUseStateImpl extends _StartToUseState {
 }
 
 abstract class _StartToUseState extends StartToUseState {
-  const factory _StartToUseState(
-      {final Date? birthday,
-      final bool isAgreed,
-      final PoliciesAgreements? savedAgreements}) = _$StartToUseStateImpl;
+  const factory _StartToUseState({final Date? birthday, final bool isAgreed}) =
+      _$StartToUseStateImpl;
   const _StartToUseState._() : super._();
 
   @override
   Date? get birthday;
   @override
   bool get isAgreed;
-  @override
-  PoliciesAgreements? get savedAgreements;
   @override
   @JsonKey(ignore: true)
   _$$StartToUseStateImplCopyWith<_$StartToUseStateImpl> get copyWith =>

@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/controllers/policies_agreement.dart';
 import 'package:otomo/domains/entities/app_exception.dart';
 import 'package:otomo/domains/entities/date.dart';
-import 'package:otomo/domains/entities/policies_agreements.dart';
 import 'package:otomo/view_models/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,7 +18,6 @@ class StartToUseState with _$StartToUseState {
   const factory StartToUseState({
     Date? birthday,
     @Default(false) bool isAgreed,
-    PoliciesAgreements? savedAgreements,
   }) = _StartToUseState;
 
   bool get canSaveAgreements => isAgreed && birthday != null;
@@ -72,8 +72,8 @@ class StartToUse extends _$StartToUse {
         );
       }
       final userId = readAccount(ref)!.uid;
-      final agreements = await _agreementController.agree(userId, birthday);
-      return _value.copyWith(savedAgreements: agreements);
+      await _agreementController.agree(userId, birthday);
+      return _value;
     });
   }
 }

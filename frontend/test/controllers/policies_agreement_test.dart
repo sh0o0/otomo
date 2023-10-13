@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -15,21 +17,30 @@ import '../tools/clock.dart';
 import '../tools/utils.dart';
 import 'policies_agreement_test.mocks.dart';
 
-@GenerateMocks([PoliciesAgreementsRepository, UserRepository])
+@GenerateMocks(
+  [
+    PoliciesAgreementsRepository,
+    UserRepository,
+    StreamController,
+  ],
+)
 void main() {
   setTestClock();
 
   late MockPoliciesAgreementsRepository agreementsRepository;
   late MockUserRepository userRepository;
+  late MockStreamController<PoliciesAgreements> savedAgreementsStreamCtrl;
   late PoliciesAgreementControllerImpl controller;
   final now = clock.now();
 
   setUp(() {
     agreementsRepository = MockPoliciesAgreementsRepository();
     userRepository = MockUserRepository();
+    savedAgreementsStreamCtrl = MockStreamController<PoliciesAgreements>();
     controller = PoliciesAgreementControllerImpl(
       agreementsRepository,
       userRepository,
+      savedAgreementsStreamCtrl,
     );
   });
 
@@ -62,6 +73,7 @@ void main() {
         expect(result, agreements);
         verify(userRepository.save(user)).called(1);
         verify(agreementsRepository.save(agreements)).called(1);
+        verify(savedAgreementsStreamCtrl.add(agreements)).called(1);
       });
     });
     group('getAgreements', () {

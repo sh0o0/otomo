@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -10,6 +12,7 @@ import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/configs/injection.config.dart';
 import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/controllers/place.dart';
+import 'package:otomo/domains/entities/policies_agreements.dart';
 import 'package:otomo/grpc/generated/chat_service.pbgrpc.dart';
 import 'package:otomo/grpc/generated/health.pbgrpc.dart';
 import 'package:otomo/grpc/generated/interceptors/auth.dart';
@@ -83,10 +86,16 @@ abstract class InjectableModule {
 
   @singleton
   SharedPreferences get sharedPreferences => _sharedPreferences;
+
+  @singleton
   PlaceControllerImpl get placeController => PlaceControllerImpl(
         apiKey: appConfig.googleMapApiKey,
         headers: GoogleAPIHeaders.fromEnvironment().toMap(),
       );
+
+  @singleton
+  StreamController<PoliciesAgreements> get agreementsStreamCtrl =>
+      StreamController.broadcast();
 }
 
 @InjectableInit()

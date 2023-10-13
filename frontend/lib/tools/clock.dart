@@ -1,4 +1,4 @@
-Clock clock = const ClockImpl();
+Clock clock = const _ClockImpl();
 
 void setClock(Clock newClock) {
   clock = newClock;
@@ -8,8 +8,8 @@ abstract class Clock {
   DateTime now();
 }
 
-class ClockImpl implements Clock {
-  const ClockImpl();
+class _ClockImpl implements Clock {
+  const _ClockImpl();
 
   @override
   DateTime now() => DateTime.now();

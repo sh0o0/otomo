@@ -6,21 +6,21 @@ part of 'agreed_policies.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$agreedPoliciesHash() => r'ce9ac3eb9e67e8680038a8ac0ade8270dff67d05';
+String _$policiesAgreementHash() => r'976c94f971352682cc758d5b93abb9c55d5c7d5c';
 
-/// See also [AgreedPolicies].
-@ProviderFor(AgreedPolicies)
-final agreedPoliciesProvider = AutoDisposeAsyncNotifierProvider<AgreedPolicies,
-    PoliciesAgreements>.internal(
-  AgreedPolicies.new,
-  name: r'agreedPoliciesProvider',
+/// See also [PoliciesAgreement].
+@ProviderFor(PoliciesAgreement)
+final policiesAgreementProvider =
+    AsyncNotifierProvider<PoliciesAgreement, PoliciesAgreementState>.internal(
+  PoliciesAgreement.new,
+  name: r'policiesAgreementProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$agreedPoliciesHash,
+      : _$policiesAgreementHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AgreedPolicies = AutoDisposeAsyncNotifier<PoliciesAgreements>;
+typedef _$PoliciesAgreement = AsyncNotifier<PoliciesAgreementState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
