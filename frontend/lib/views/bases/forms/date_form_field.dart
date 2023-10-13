@@ -51,7 +51,7 @@ class DateFormFieldState extends State<DateFormField> {
     final now = DateTime.now();
     return showDatePicker(
       context: context,
-      initialDate: now,
+      initialDate: widget.initialValue ?? now,
       firstDate: DateTime(1900),
       lastDate: now,
       cancelText: 'キャンセル',
