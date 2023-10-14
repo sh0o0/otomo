@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/constants/analytics_event.dart';
+import 'package:otomo/constants/screen_names.dart';
 
 final class Analytics {
   Analytics._();
@@ -11,12 +12,12 @@ final class Analytics {
   static final observer = FirebaseAnalyticsObserver(analytics: _analytics);
 
   static Future<void> logScreenView({
-    String? screenName,
+    required ScreenNames screenName,
     String? screenClass,
   }) {
     return _analytics.logScreenView(
       screenClass: screenClass,
-      screenName: screenName,
+      screenName: screenName.name,
     );
   }
 
@@ -31,7 +32,7 @@ final class Analytics {
   }
 
   static FutureOr<void> logDraggableScrollableSheet({
-    required String screenName,
+    required ScreenNames screenName,
     required double currentSize,
     required double maxSize,
     required double minSize,
@@ -44,14 +45,15 @@ final class Analytics {
         snapSizes.map((e) => e.toStringAsFixed(8)).toList();
 
     if (roundedCurrentSize == roundedMaxSize) {
-      return logScreenView(screenName: '${screenName}_max');
+      return _analytics.logScreenView(screenName: '${screenName}_max');
     }
     if (roundedCurrentSize == roundedMinSize) {
-      return logScreenView(screenName: '${screenName}_min');
+      return _analytics.logScreenView(screenName: '${screenName}_min');
     }
     for (final snapSize in roundedSnapSizes) {
       if (roundedCurrentSize == snapSize) {
-        return logScreenView(screenName: '${screenName}_snap_$snapSize');
+        return _analytics.logScreenView(
+            screenName: '${screenName}_snap_$snapSize');
       }
     }
   }

@@ -53,7 +53,7 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
 
     _sheetController.addListener(() {
       Analytics.logDraggableScrollableSheet(
-        screenName: ScreenNames.chatSheet.name,
+        screenName: ScreenNames.chatSheet,
         currentSize: _sheetController.size,
         maxSize: widget.maxSheetSize,
         minSize: widget.minSheetSize,

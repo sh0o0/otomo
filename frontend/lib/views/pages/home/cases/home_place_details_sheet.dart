@@ -68,7 +68,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
             initialIndex: index,
           );
           Analytics.logScreenView(
-              screenName: ScreenNames.placeReviewsSheet.name);
+              screenName: ScreenNames.placeReviewsSheet);
         },
         onPhotoTap: (context, index) {
           PhotoGalleryScreen.showFullscreenDialog(
@@ -82,7 +82,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
                 [],
           );
           Analytics.logScreenView(
-              screenName: ScreenNames.placePhotoGallery.name);
+              screenName: ScreenNames.placePhotoGallery);
         },
       ),
       loading: () => [
@@ -103,7 +103,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
     useEffect(() {
       void listener() {
         Analytics.logDraggableScrollableSheet(
-          screenName: ScreenNames.placeDetailsSheet.name,
+          screenName: ScreenNames.placeDetailsSheet,
           currentSize: sheetController.size,
           maxSize: maxSheetSize,
           minSize: minSheetSize,
