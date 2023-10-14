@@ -98,10 +98,7 @@ final routerProvider = Provider((ref) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.home,
-      routes: [
-        ..._notSignedInPages,
-        ..._signedInPages,
-      ],
+      routes: _signedInPages,
     );
   }
 
