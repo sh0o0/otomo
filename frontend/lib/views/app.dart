@@ -7,6 +7,7 @@ import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/constants/locales.dart';
 import 'package:otomo/tools/logger.dart';
+import 'package:otomo/view_models/app.dart';
 import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/view_models/router.dart';
 import 'package:otomo/view_models/sign_in_with_email_link.dart';
@@ -53,6 +54,8 @@ class App extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(appVMProvider.notifier);
+
     useEffect(() {
       FlutterUtils.afterBuildCallback(() => _initDynamicLinks(ref));
       return () {};
@@ -74,9 +77,7 @@ class App extends HookConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locales.ja
-      ],
+      supportedLocales: const [Locales.ja],
     );
   }
 }
