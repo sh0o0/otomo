@@ -15,10 +15,7 @@ class SplashPage extends ConsumerWidget {
       body: IndicatorOverlay(
         isProcessing: state.loading,
         child: Center(
-          child: Image.asset(
-            AssetPaths.splash,
-            height: 200,
-          ),
+          child: Image.asset(AssetPaths.splash, height: 100),
         ),
       ),
     );
