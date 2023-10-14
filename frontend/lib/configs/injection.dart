@@ -33,10 +33,6 @@ abstract class InjectableModule {
   // Must set before calling `getIt.init()`
   static late final SharedPreferences _sharedPreferences;
 
-  static Future<void> preload() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
-  }
-
   final _clientChannel = ClientChannel(
     appConfig.otomoServerHost,
     port: appConfig.otomoServerPort,
@@ -108,6 +104,10 @@ abstract class InjectableModule {
 
 @InjectableInit()
 Future<void> configureInjection() async {
-  await InjectableModule.preload();
+  await _preload();
   getIt.init();
+}
+
+Future<void> _preload() async {
+  InjectableModule._sharedPreferences = await SharedPreferences.getInstance();
 }
