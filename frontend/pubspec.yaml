@@ -55,6 +55,7 @@ dependencies:
   dots_indicator: ^3.0.0
   photo_view: ^0.14.0
   intl: ^0.18.1
+  flutter_native_splash: ^2.3.3
 
   ### Map
   google_maps_flutter: ^2.5.0
@@ -135,6 +136,7 @@ flutter:
 
   assets:
     - assets/logos/
+    - assets/splash.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -173,3 +175,6 @@ flutter_launcher_icons:
     generate: true
     background_color: "#ffffff"
     theme_color: "#01A0E9"
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/splash.png
