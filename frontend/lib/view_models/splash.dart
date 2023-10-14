@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/view_models/account.dart';
-import 'package:otomo/view_models/agreed_policies.dart';
+import 'package:otomo/view_models/policies_agreement.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'splash.freezed.dart';
@@ -34,7 +34,7 @@ class Splash extends _$Splash {
     final List<Future> waitList = [];
 
     waitList.add(Future.delayed(splashDuration));
-    if (ref.read(policiesAgreementProvider).value?.initialized != true) {
+    if (!ref.read(policiesAgreementProvider).initialized) {
       waitList.add(_waitPoliciesAgreementsPreparing());
     }
     if (!ref.read(accountVMProvider).initialized) {
@@ -46,27 +46,34 @@ class Splash extends _$Splash {
     }).timeout(timeout);
   }
 
-  Future _waitPoliciesAgreementsPreparing() {
-    final completer = Completer();
-    ref.listen(
-        policiesAgreementProvider.select((value) => value.value?.initialized),
-        (previous, next) {
-      if (next == true) completer.complete();
-    });
-    return completer.future;
-  }
-
   void setLoadingTimer() {
     Future.delayed(loadingTimer).then((_) {
       if (!state.ready) state = state.copyWith(loading: true);
     });
   }
 
+  Future _waitPoliciesAgreementsPreparing() {
+    final completer = Completer();
+    final sub = ref
+        .listen(policiesAgreementProvider.select((value) => value.initialized),
+            (previous, next) {
+      if (next == true) completer.complete();
+    });
+    ref.onDispose(() {
+      sub.close();
+    });
+    return completer.future;
+  }
+
   Future _waitAccountPreparing() {
     final completer = Completer();
-    ref.listen(accountVMProvider.select((value) => value.initialized),
-        (previous, next) {
+    final sub = ref
+        .listen(accountVMProvider.select((value) => value.initialized),
+            (previous, next) {
       if (next) completer.complete();
+    });
+    ref.onDispose(() {
+      sub.close();
     });
     return completer.future;
   }

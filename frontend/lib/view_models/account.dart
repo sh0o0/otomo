@@ -16,6 +16,8 @@ class AccountState with _$AccountState {
     @Default(null) Account? account,
     @Default(true) bool initialized,
   }) = _AccountState;
+
+  bool get isSignedIn => account != null;
 }
 
 @Riverpod(keepAlive: true)

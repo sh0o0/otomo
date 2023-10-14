@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/account.dart';
-import 'package:otomo/view_models/agreed_policies.dart';
+import 'package:otomo/view_models/policies_agreement.dart';
 import 'package:otomo/view_models/splash.dart';
 import 'package:otomo/views/pages/account_deletion.dart';
 import 'package:otomo/views/pages/home/index.dart';
@@ -79,14 +79,14 @@ final routerProvider = Provider((ref) {
     );
   }
 
-  if (accountState.account == null) {
+  if (accountState.isSignedIn) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.signIn,
       routes: _notSignedInPages,
     );
   }
-  if (agreementsState.isLoading) {
+  if (agreementsState.loading) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.loading,
@@ -94,7 +94,7 @@ final routerProvider = Provider((ref) {
     );
   }
 
-  if (agreementsState.value?.isAgreed == true) {
+  if (agreementsState.isAgreed) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.home,

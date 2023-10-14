@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'agreed_policies.dart';
+part of 'policies_agreement.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PoliciesAgreementState {
   PoliciesAgreements? get agreements => throw _privateConstructorUsedError;
   bool get initialized => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PoliciesAgreementStateCopyWith<PoliciesAgreementState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $PoliciesAgreementStateCopyWith<$Res> {
           $Res Function(PoliciesAgreementState) then) =
       _$PoliciesAgreementStateCopyWithImpl<$Res, PoliciesAgreementState>;
   @useResult
-  $Res call({PoliciesAgreements? agreements, bool initialized});
+  $Res call({PoliciesAgreements? agreements, bool initialized, bool loading});
 
   $PoliciesAgreementsCopyWith<$Res>? get agreements;
 }
@@ -51,6 +52,7 @@ class _$PoliciesAgreementStateCopyWithImpl<$Res,
   $Res call({
     Object? agreements = freezed,
     Object? initialized = null,
+    Object? loading = null,
   }) {
     return _then(_value.copyWith(
       agreements: freezed == agreements
@@ -60,6 +62,10 @@ class _$PoliciesAgreementStateCopyWithImpl<$Res,
       initialized: null == initialized
           ? _value.initialized
           : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -86,7 +92,7 @@ abstract class _$$PoliciesAgreementStateImplCopyWith<$Res>
       __$$PoliciesAgreementStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PoliciesAgreements? agreements, bool initialized});
+  $Res call({PoliciesAgreements? agreements, bool initialized, bool loading});
 
   @override
   $PoliciesAgreementsCopyWith<$Res>? get agreements;
@@ -107,6 +113,7 @@ class __$$PoliciesAgreementStateImplCopyWithImpl<$Res>
   $Res call({
     Object? agreements = freezed,
     Object? initialized = null,
+    Object? loading = null,
   }) {
     return _then(_$PoliciesAgreementStateImpl(
       agreements: freezed == agreements
@@ -117,6 +124,10 @@ class __$$PoliciesAgreementStateImplCopyWithImpl<$Res>
           ? _value.initialized
           : initialized // ignore: cast_nullable_to_non_nullable
               as bool,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -125,7 +136,7 @@ class __$$PoliciesAgreementStateImplCopyWithImpl<$Res>
 
 class _$PoliciesAgreementStateImpl extends _PoliciesAgreementState {
   const _$PoliciesAgreementStateImpl(
-      {this.agreements = null, this.initialized = true})
+      {this.agreements = null, this.initialized = true, this.loading = false})
       : super._();
 
   @override
@@ -134,10 +145,13 @@ class _$PoliciesAgreementStateImpl extends _PoliciesAgreementState {
   @override
   @JsonKey()
   final bool initialized;
+  @override
+  @JsonKey()
+  final bool loading;
 
   @override
   String toString() {
-    return 'PoliciesAgreementState(agreements: $agreements, initialized: $initialized)';
+    return 'PoliciesAgreementState(agreements: $agreements, initialized: $initialized, loading: $loading)';
   }
 
   @override
@@ -148,11 +162,13 @@ class _$PoliciesAgreementStateImpl extends _PoliciesAgreementState {
             (identical(other.agreements, agreements) ||
                 other.agreements == agreements) &&
             (identical(other.initialized, initialized) ||
-                other.initialized == initialized));
+                other.initialized == initialized) &&
+            (identical(other.loading, loading) || other.loading == loading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, agreements, initialized);
+  int get hashCode =>
+      Object.hash(runtimeType, agreements, initialized, loading);
 
   @JsonKey(ignore: true)
   @override
@@ -165,13 +181,16 @@ class _$PoliciesAgreementStateImpl extends _PoliciesAgreementState {
 abstract class _PoliciesAgreementState extends PoliciesAgreementState {
   const factory _PoliciesAgreementState(
       {final PoliciesAgreements? agreements,
-      final bool initialized}) = _$PoliciesAgreementStateImpl;
+      final bool initialized,
+      final bool loading}) = _$PoliciesAgreementStateImpl;
   const _PoliciesAgreementState._() : super._();
 
   @override
   PoliciesAgreements? get agreements;
   @override
   bool get initialized;
+  @override
+  bool get loading;
   @override
   @JsonKey(ignore: true)
   _$$PoliciesAgreementStateImplCopyWith<_$PoliciesAgreementStateImpl>
