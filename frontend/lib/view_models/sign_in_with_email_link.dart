@@ -6,8 +6,6 @@ part 'sign_in_with_email_link.g.dart';
 
 @riverpod
 class SignInWithEmailLink extends _$SignInWithEmailLink {
-  SignInWithEmailLink() : super();
-
   final _controller = getIt<AuthControllerImpl>();
 
   @override

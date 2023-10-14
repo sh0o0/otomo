@@ -3,6 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as types;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/constants/screen_names.dart';
+import 'package:otomo/tools/analytics.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/view_models/chat.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
@@ -48,7 +50,15 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
   void _onSheetCreated(DraggableScrollableController controller) {
     widget.onSheetCreated?.call(controller);
     _sheetController = controller;
+
     _sheetController.addListener(() {
+      Analytics.logDraggableScrollableSheet(
+        screenName: ScreenNames.chatSheet,
+        currentSize: _sheetController.size,
+        maxSize: widget.maxSheetSize,
+        minSize: widget.minSheetSize,
+        snapSizes: widget.snapSizes ?? [],
+      );
       if (_sheetController.size < 0.5) {
         FlutterUtils.unfocus(context);
       }
