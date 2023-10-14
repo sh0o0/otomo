@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/constants/screen_names.dart';
+import 'package:otomo/tools/analytics.dart';
 import 'package:otomo/view_models/place_details.dart';
 import 'package:otomo/views/bases/sheets/sheet_form.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
@@ -9,7 +12,7 @@ import 'package:otomo/views/cases/place/place_details_scroll_view.dart';
 import 'package:otomo/views/cases/place/place_reviews_sheet.dart';
 import 'package:otomo/views/utils/error_library.dart';
 
-class HomePlaceDetailsSheet extends ConsumerWidget {
+class HomePlaceDetailsSheet extends HookConsumerWidget {
   const HomePlaceDetailsSheet({
     super.key,
     required this.maxSheetSize,
@@ -88,6 +91,21 @@ class HomePlaceDetailsSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      void listener() {
+        Analytics.logDraggableScrollableSheet(
+          screenName: ScreenNames.placeDetailsSheet.name,
+          currentSize: sheetController.size,
+          maxSize: maxSheetSize,
+          minSize: minSheetSize,
+          snapSizes: snapSizes ?? [],
+        );
+      }
+
+      sheetController.addListener(listener);
+      return () => sheetController.removeListener(listener);
+    }, const []);
+
     return DraggableScrollableSheet(
       initialChildSize: initialSheetSize,
       maxChildSize: maxSheetSize,

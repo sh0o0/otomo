@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/constants/screen_names.dart';
 import 'package:otomo/tools/analytics.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/view_models/policies_agreement.dart';
@@ -8,11 +9,11 @@ import 'package:otomo/view_models/splash.dart';
 import 'package:otomo/views/pages/account_deletion.dart';
 import 'package:otomo/views/pages/home/index.dart';
 import 'package:otomo/views/pages/loading.dart';
-import 'package:otomo/views/pages/splash.dart';
-import 'package:otomo/views/pages/start_to_use.dart';
 import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link.dart';
+import 'package:otomo/views/pages/splash.dart';
+import 'package:otomo/views/pages/start_to_use.dart';
 import 'package:otomo/views/routes.dart';
 
 final _key = GlobalKey<NavigatorState>();
@@ -20,7 +21,7 @@ final _key = GlobalKey<NavigatorState>();
 final List<RouteBase> _splashPages = [
   GoRoute(
     path: Routes.splash,
-    name: 'splash',
+    name: ScreenNames.splash.name,
     builder: (context, state) => const SplashPage(),
   ),
 ];
@@ -28,12 +29,12 @@ final List<RouteBase> _splashPages = [
 final List<RouteBase> _notSignedInPages = [
   GoRoute(
     path: Routes.signIn,
-    name: 'signIn',
+    name: ScreenNames.signIn.name,
     builder: (context, state) => const SignInPage(),
   ),
   GoRoute(
     path: Routes.signInWithEmailLink,
-    name: 'signInWithEmailLink',
+    name: ScreenNames.signInWithEmailLink.name,
     builder: (context, state) => const SignInWithEmailLinkPage(),
   ),
 ];
@@ -41,7 +42,7 @@ final List<RouteBase> _notSignedInPages = [
 final List<RouteBase> _notAgreedPages = [
   GoRoute(
     path: Routes.startToUse,
-    name: 'startToUse',
+    name: ScreenNames.startToUse.name,
     builder: (context, state) => const StartToUsePage(),
   ),
 ];
@@ -49,12 +50,12 @@ final List<RouteBase> _notAgreedPages = [
 final List<RouteBase> _signedInPages = [
   GoRoute(
     path: Routes.home,
-    name: 'home',
+    name: ScreenNames.home.name,
     builder: (context, state) => const HomePage(),
   ),
   GoRoute(
     path: Routes.settings,
-    name: 'settings',
+    name: ScreenNames.settings.name,
     pageBuilder: (context, state) => const MaterialPage(
       fullscreenDialog: true,
       child: SettingsPage(),
@@ -62,7 +63,7 @@ final List<RouteBase> _signedInPages = [
   ),
   GoRoute(
     path: Routes.accountDeletion,
-    name: 'accountDeletion',
+    name: ScreenNames.accountDeletion.name,
     builder: (context, state) => const AccountDeletionPage(),
   ),
 ];
@@ -70,7 +71,7 @@ final List<RouteBase> _signedInPages = [
 final List<RouteBase> _loadingPages = [
   GoRoute(
     path: Routes.loading,
-    name: 'loading',
+    name: ScreenNames.loading.name,
     builder: (context, state) => const LoadingPage(),
   ),
 ];
