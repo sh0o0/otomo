@@ -12,4 +12,4 @@ Future<AsyncValue<T>> guard<T>(Future<T> Function() future) async {
   return result;
 }
 
-Account? readAccount(Ref ref) => ref.read(accountProvider);
+Account? readAccount(Ref ref) => ref.read(accountVMProvider).account;

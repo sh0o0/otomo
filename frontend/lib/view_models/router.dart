@@ -58,10 +58,10 @@ final List<RouteBase> _loadingPages = [
 ];
 
 final routerProvider = Provider((ref) {
-  final account = ref.watch(accountProvider);
+  final accountState = ref.watch(accountVMProvider);
   final agreementsState = ref.watch(policiesAgreementProvider);
 
-  if (account == null) {
+  if (accountState.account == null) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.signIn,

@@ -25,14 +25,15 @@ class PoliciesAgreement extends _$PoliciesAgreement {
 
   @override
   Future<PoliciesAgreementState> build() async {
-    final accountSub = ref.listen(accountProvider, (previous, next) async {
-      if (next == null) {
+    final accountSub = ref.listen(accountVMProvider, (previous, next) async {
+      final account = next.account;
+      if (account == null) {
         state = const AsyncValue.data(PoliciesAgreementState());
       } else {
         state = const AsyncValue.loading();
         state = await guard(() async {
           final agreements =
-              await _agreementsController.getAgreements(next.uid);
+              await _agreementsController.getAgreements(account.uid);
           return PoliciesAgreementState(agreements: agreements);
         });
       }
