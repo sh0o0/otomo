@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/constants/analytics_event.dart';
+import 'package:otomo/tools/analytics.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/menu/menu.dart';
 import 'package:otomo/views/utils/launcher.dart';
@@ -27,10 +29,18 @@ class _PlaceSliverAppBarState extends State<PlaceSliverAppBar> {
       itemBuilder: (context) => [
         PopupMenuItem(
           height: 40,
-          onTap: () => Launcher.searchOnGoogleMap(
-            query: widget.name,
-            placeId: widget.placeId,
-          ),
+          onTap: () {
+            Analytics.logEvent(
+                event: AnalyticsEvents.google_map_opened,
+                parameters: {
+                  'place_id': widget.placeId,
+                  'place_name': widget.name
+                });
+            Launcher.searchOnGoogleMap(
+              query: widget.name,
+              placeId: widget.placeId,
+            );
+          },
           child: const MenuItem(
             icon: Icon(Icons.map_rounded),
             title: Text('Google Mapで開く'),

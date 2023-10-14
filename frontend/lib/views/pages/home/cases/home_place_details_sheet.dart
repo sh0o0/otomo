@@ -62,16 +62,15 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
           curve: Curves.easeOutExpo,
         ),
         onReviewCardTap: (context, index) {
-          Analytics.logScreenView(screenName: ScreenNames.placeReviewsSheet.name);
           PlaceReviewsSheet.show(
             context: context,
             reviews: value.place?.reviews ?? [],
             initialIndex: index,
           );
+          Analytics.logScreenView(
+              screenName: ScreenNames.placeReviewsSheet.name);
         },
         onPhotoTap: (context, index) {
-          Analytics.logScreenView(
-              screenName: ScreenNames.placePhotoGallery.name);
           PhotoGalleryScreen.showFullscreenDialog(
             context: context,
             initialIndex: index,
@@ -82,6 +81,8 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
                     .toList() ??
                 [],
           );
+          Analytics.logScreenView(
+              screenName: ScreenNames.placePhotoGallery.name);
         },
       ),
       loading: () => [

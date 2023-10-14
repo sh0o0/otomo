@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/constants/analytics_event.dart';
 import 'package:otomo/controllers/boundary/chat.dart';
 import 'package:otomo/controllers/chat.dart';
 import 'package:otomo/domains/entities/pagination.dart';
@@ -10,6 +11,7 @@ import 'package:otomo/domains/entities/changed_event.dart';
 import 'package:otomo/domains/entities/message.dart';
 import 'package:otomo/domains/entities/message_changed_event.dart';
 import 'package:otomo/domains/entities/message_send_count.dart';
+import 'package:otomo/tools/analytics.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/tools/uuid.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
@@ -47,8 +49,7 @@ class ChatState with _$ChatState {
 @riverpod
 class Chat extends _$Chat {
   final _chatController = getIt<ChatControllerImpl>();
-  final StreamController<ExtractedPlace>
-      _focusedPlaceStreamController =
+  final StreamController<ExtractedPlace> _focusedPlaceStreamController =
       StreamController<ExtractedPlace>.broadcast();
   final StreamController<TextMessageData>
       _activatedTextMessageStreamController =
@@ -239,9 +240,19 @@ class Chat extends _$Chat {
     final msg = state.value!.messages.items[index];
     if (msg.message.active) {
       _deactivateMessageWithIndex(index);
+      Analytics.logEvent(
+          event: AnalyticsEvents.message_deactivated,
+          parameters: {
+            'message_id': msg.message.remoteId,
+            'role': msg.message.author.id,
+          });
     } else {
       _activateMessageWithIndex(index);
       _activatedTextMessageStreamController.add(msg);
+      Analytics.logEvent(event: AnalyticsEvents.message_activated, parameters: {
+        'message_id': msg.message.remoteId,
+        'role': msg.message.author.id,
+      });
     }
   }
 
