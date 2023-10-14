@@ -6,7 +6,7 @@ part of 'app.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appVMHash() => r'3cd2285668c2fd58c12c03a49f4328ac5fe96ac6';
+String _$appVMHash() => r'c4df38dc15a31954b8b79405f8d53209e2dea8e6';
 
 /// See also [AppVM].
 @ProviderFor(AppVM)

@@ -7,7 +7,7 @@ part of 'sign_in_with_email_link.dart';
 // **************************************************************************
 
 String _$signInWithEmailLinkHash() =>
-    r'b310111751c8bb3c37fb0fb9657b06ef18b266d1';
+    r'3065cd746bfc0a2ff7c747269d154165076b0d38';
 
 /// See also [SignInWithEmailLink].
 @ProviderFor(SignInWithEmailLink)

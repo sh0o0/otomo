@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/view_models/policies_agreement.dart';
@@ -23,10 +24,15 @@ class Splash extends _$Splash {
   static const timeout = Duration(seconds: 10);
   static const loadingTimer = Duration(seconds: 3);
 
+  bool removedNative = false;
+
   @override
   SplashState build() {
+    setupRemoveNativeSplash();
+
     prepare();
     setLoadingTimer();
+
     return const SplashState();
   }
 
@@ -44,6 +50,16 @@ class Splash extends _$Splash {
     Future.wait(waitList).then((value) {
       state = const SplashState(ready: true);
     }).timeout(timeout);
+  }
+
+  void setupRemoveNativeSplash() {
+    ref.listenSelf((previous, next) {
+      if (removedNative) return;
+      if (next.loading || next.ready) {
+        removedNative = true;
+        FlutterNativeSplash.remove();
+      }
+    });
   }
 
   void setLoadingTimer() {
