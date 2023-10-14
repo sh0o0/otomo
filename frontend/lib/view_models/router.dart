@@ -79,7 +79,7 @@ final routerProvider = Provider((ref) {
     );
   }
 
-  if (accountState.isSignedIn) {
+  if (!accountState.isSignedIn) {
     return GoRouter(
       navigatorKey: _key,
       initialLocation: Routes.signIn,
