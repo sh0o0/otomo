@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -31,6 +32,10 @@ abstract class InjectableModule {
   );
   // Must set before calling `getIt.init()`
   static late final SharedPreferences _sharedPreferences;
+
+  static Future<void> preload() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+  }
 
   final _clientChannel = ClientChannel(
     appConfig.otomoServerHost,
@@ -81,6 +86,9 @@ abstract class InjectableModule {
       FirebaseDynamicLinks.instance;
 
   @singleton
+  FirebaseAnalytics get firebaseAnalytics => FirebaseAnalytics.instance;
+
+  @singleton
   AuthControllerImpl get authController =>
       AuthControllerImpl(_firebaseAuth, _googleSignIn, _sharedPreferences);
 
@@ -100,6 +108,6 @@ abstract class InjectableModule {
 
 @InjectableInit()
 Future<void> configureInjection() async {
-  InjectableModule._sharedPreferences = await SharedPreferences.getInstance();
+  await InjectableModule.preload();
   getIt.init();
 }

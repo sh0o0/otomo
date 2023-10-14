@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
@@ -31,6 +32,7 @@ class AccountVM extends _$AccountVM {
       logger.info('auth state changed. user is ${account?.uid}');
       if (account == null) return;
       getIt<FirebaseCrashlytics>().setUserIdentifier(account.uid);
+      getIt<FirebaseAnalytics>().setUserId(id: account.uid);
     });
 
     return const AccountState(initialized: false);
