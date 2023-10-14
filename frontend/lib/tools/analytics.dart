@@ -6,7 +6,8 @@ final class Analytics {
 
   static final _analytics = getIt<FirebaseAnalytics>();
   static final observer = FirebaseAnalyticsObserver(analytics: _analytics);
-  static Future<void> screenView({
+
+  static Future<void> logScreenView({
     String? screenClass,
     String? screenName,
   }) =>

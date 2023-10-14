@@ -20,6 +20,7 @@ final _key = GlobalKey<NavigatorState>();
 final List<RouteBase> _splashPages = [
   GoRoute(
     path: Routes.splash,
+    name: 'splash',
     builder: (context, state) => const SplashPage(),
   ),
 ];
@@ -27,17 +28,20 @@ final List<RouteBase> _splashPages = [
 final List<RouteBase> _notSignedInPages = [
   GoRoute(
     path: Routes.signIn,
+    name: 'signIn',
     builder: (context, state) => const SignInPage(),
   ),
   GoRoute(
     path: Routes.signInWithEmailLink,
+    name: 'signInWithEmailLink',
     builder: (context, state) => const SignInWithEmailLinkPage(),
   ),
 ];
 
 final List<RouteBase> _notAgreedPages = [
   GoRoute(
-    path: Routes.policiesAgreement,
+    path: Routes.startToUse,
+    name: 'startToUse',
     builder: (context, state) => const StartToUsePage(),
   ),
 ];
@@ -45,10 +49,12 @@ final List<RouteBase> _notAgreedPages = [
 final List<RouteBase> _signedInPages = [
   GoRoute(
     path: Routes.home,
+    name: 'home',
     builder: (context, state) => const HomePage(),
   ),
   GoRoute(
     path: Routes.settings,
+    name: 'settings',
     pageBuilder: (context, state) => const MaterialPage(
       fullscreenDialog: true,
       child: SettingsPage(),
@@ -56,6 +62,7 @@ final List<RouteBase> _signedInPages = [
   ),
   GoRoute(
     path: Routes.accountDeletion,
+    name: 'accountDeletion',
     builder: (context, state) => const AccountDeletionPage(),
   ),
 ];
@@ -63,6 +70,7 @@ final List<RouteBase> _signedInPages = [
 final List<RouteBase> _loadingPages = [
   GoRoute(
     path: Routes.loading,
+    name: 'loading',
     builder: (context, state) => const LoadingPage(),
   ),
 ];
@@ -111,7 +119,7 @@ final routerProvider = Provider((ref) {
   }
 
   return _goRouter(
-    initialLocation: Routes.policiesAgreement,
+    initialLocation: Routes.startToUse,
     routes: _notAgreedPages,
   );
 });
