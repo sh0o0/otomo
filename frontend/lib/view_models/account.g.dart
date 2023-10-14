@@ -6,7 +6,7 @@ part of 'account.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$accountVMHash() => r'3b1637709f8cea72e968971f435a154a0cf646f8';
+String _$accountVMHash() => r'1e3784566198a2939a3fcfb5b9858532f01802c3';
 
 /// See also [AccountVM].
 @ProviderFor(AccountVM)

@@ -120,7 +120,7 @@ class __$$AccountStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AccountStateImpl extends _AccountState {
-  const _$AccountStateImpl({this.account = null, this.initialized = false})
+  const _$AccountStateImpl({this.account = null, this.initialized = true})
       : super._();
 
   @override

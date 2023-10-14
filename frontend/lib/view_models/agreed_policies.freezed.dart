@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PoliciesAgreementState {
   PoliciesAgreements? get agreements => throw _privateConstructorUsedError;
+  bool get initialized => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PoliciesAgreementStateCopyWith<PoliciesAgreementState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $PoliciesAgreementStateCopyWith<$Res> {
           $Res Function(PoliciesAgreementState) then) =
       _$PoliciesAgreementStateCopyWithImpl<$Res, PoliciesAgreementState>;
   @useResult
-  $Res call({PoliciesAgreements? agreements});
+  $Res call({PoliciesAgreements? agreements, bool initialized});
 
   $PoliciesAgreementsCopyWith<$Res>? get agreements;
 }
@@ -49,12 +50,17 @@ class _$PoliciesAgreementStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? agreements = freezed,
+    Object? initialized = null,
   }) {
     return _then(_value.copyWith(
       agreements: freezed == agreements
           ? _value.agreements
           : agreements // ignore: cast_nullable_to_non_nullable
               as PoliciesAgreements?,
+      initialized: null == initialized
+          ? _value.initialized
+          : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -80,7 +86,7 @@ abstract class _$$PoliciesAgreementStateImplCopyWith<$Res>
       __$$PoliciesAgreementStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PoliciesAgreements? agreements});
+  $Res call({PoliciesAgreements? agreements, bool initialized});
 
   @override
   $PoliciesAgreementsCopyWith<$Res>? get agreements;
@@ -100,12 +106,17 @@ class __$$PoliciesAgreementStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? agreements = freezed,
+    Object? initialized = null,
   }) {
     return _then(_$PoliciesAgreementStateImpl(
       agreements: freezed == agreements
           ? _value.agreements
           : agreements // ignore: cast_nullable_to_non_nullable
               as PoliciesAgreements?,
+      initialized: null == initialized
+          ? _value.initialized
+          : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -113,15 +124,20 @@ class __$$PoliciesAgreementStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$PoliciesAgreementStateImpl extends _PoliciesAgreementState {
-  const _$PoliciesAgreementStateImpl({this.agreements = null}) : super._();
+  const _$PoliciesAgreementStateImpl(
+      {this.agreements = null, this.initialized = true})
+      : super._();
 
   @override
   @JsonKey()
   final PoliciesAgreements? agreements;
+  @override
+  @JsonKey()
+  final bool initialized;
 
   @override
   String toString() {
-    return 'PoliciesAgreementState(agreements: $agreements)';
+    return 'PoliciesAgreementState(agreements: $agreements, initialized: $initialized)';
   }
 
   @override
@@ -130,11 +146,13 @@ class _$PoliciesAgreementStateImpl extends _PoliciesAgreementState {
         (other.runtimeType == runtimeType &&
             other is _$PoliciesAgreementStateImpl &&
             (identical(other.agreements, agreements) ||
-                other.agreements == agreements));
+                other.agreements == agreements) &&
+            (identical(other.initialized, initialized) ||
+                other.initialized == initialized));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, agreements);
+  int get hashCode => Object.hash(runtimeType, agreements, initialized);
 
   @JsonKey(ignore: true)
   @override
@@ -146,11 +164,14 @@ class _$PoliciesAgreementStateImpl extends _PoliciesAgreementState {
 
 abstract class _PoliciesAgreementState extends PoliciesAgreementState {
   const factory _PoliciesAgreementState(
-      {final PoliciesAgreements? agreements}) = _$PoliciesAgreementStateImpl;
+      {final PoliciesAgreements? agreements,
+      final bool initialized}) = _$PoliciesAgreementStateImpl;
   const _PoliciesAgreementState._() : super._();
 
   @override
   PoliciesAgreements? get agreements;
+  @override
+  bool get initialized;
   @override
   @JsonKey(ignore: true)
   _$$PoliciesAgreementStateImplCopyWith<_$PoliciesAgreementStateImpl>

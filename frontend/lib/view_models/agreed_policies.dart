@@ -14,6 +14,7 @@ class PoliciesAgreementState with _$PoliciesAgreementState {
   const PoliciesAgreementState._();
   const factory PoliciesAgreementState({
     @Default(null) PoliciesAgreements? agreements,
+    @Default(true) bool initialized,
   }) = _PoliciesAgreementState;
 
   bool get isAgreed => agreements?.isAgreed == true;
@@ -48,6 +49,6 @@ class PoliciesAgreement extends _$PoliciesAgreement {
       savedAgreementsSub.cancel();
     });
 
-    return const PoliciesAgreementState();
+    return const PoliciesAgreementState(initialized: false);
   }
 }

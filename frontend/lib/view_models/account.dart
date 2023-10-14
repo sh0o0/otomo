@@ -14,7 +14,7 @@ class AccountState with _$AccountState {
   const AccountState._();
   const factory AccountState({
     @Default(null) Account? account,
-    @Default(false) bool initialized,
+    @Default(true) bool initialized,
   }) = _AccountState;
 }
 
@@ -25,13 +25,13 @@ class AccountVM extends _$AccountVM {
   @override
   AccountState build() {
     _authController.authStateChanges().listen((account) {
-      state = AccountState(account: account, initialized: true);
+      state = AccountState(account: account);
       logger.info('auth state changed. user is ${account?.uid}');
       if (account == null) return;
       getIt<FirebaseCrashlytics>().setUserIdentifier(account.uid);
     });
 
-    return const AccountState();
+    return const AccountState(initialized: false);
   }
 
   Future<void> signOut() => _authController.signOut();
