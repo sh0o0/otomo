@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/tools/analytics.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/view_models/policies_agreement.dart';
 import 'package:otomo/view_models/splash.dart';
@@ -66,44 +67,50 @@ final List<RouteBase> _loadingPages = [
   ),
 ];
 
+GoRouter _goRouter({
+  required List<RouteBase> routes,
+  required String initialLocation,
+}) =>
+    GoRouter(
+      navigatorKey: _key,
+      observers: [Analytics.observer],
+      initialLocation: initialLocation,
+      routes: routes,
+    );
+
 final routerProvider = Provider((ref) {
   final splashState = ref.watch(splashProvider);
   final accountState = ref.watch(accountVMProvider);
   final agreementsState = ref.watch(policiesAgreementProvider);
 
   if (!splashState.ready) {
-    return GoRouter(
-      navigatorKey: _key,
+    return _goRouter(
       initialLocation: Routes.splash,
       routes: _splashPages,
     );
   }
 
   if (!accountState.isSignedIn) {
-    return GoRouter(
-      navigatorKey: _key,
+    return _goRouter(
       initialLocation: Routes.signIn,
       routes: _notSignedInPages,
     );
   }
   if (agreementsState.loading) {
-    return GoRouter(
-      navigatorKey: _key,
+    return _goRouter(
       initialLocation: Routes.loading,
       routes: _loadingPages,
     );
   }
 
   if (agreementsState.isAgreed) {
-    return GoRouter(
-      navigatorKey: _key,
+    return _goRouter(
       initialLocation: Routes.home,
       routes: _signedInPages,
     );
   }
 
-  return GoRouter(
-    navigatorKey: _key,
+  return _goRouter(
     initialLocation: Routes.policiesAgreement,
     routes: _notAgreedPages,
   );
