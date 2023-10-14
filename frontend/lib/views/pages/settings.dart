@@ -15,8 +15,8 @@ class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});
 
   Widget _buildSettingsList(BuildContext context, WidgetRef ref) {
-    final account = ref.watch(accountProvider);
-    final accountNotifier = ref.read(accountProvider.notifier);
+    final account = ref.watch(accountVMProvider).account;
+    final accountNotifier = ref.read(accountVMProvider.notifier);
     return AppSettingsList(
       shrinkWrap: true,
       sections: [

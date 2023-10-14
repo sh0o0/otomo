@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/constants/asset_paths.dart';
 import 'package:otomo/view_models/router.dart';
 import 'package:otomo/view_models/sign_in.dart';
 import 'package:otomo/views/bases/layouts/edge_layout.dart';
@@ -10,6 +9,7 @@ import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/tappable_text.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
+import 'package:otomo/views/cases/logo/text_logo.dart';
 import 'package:otomo/views/cases/sign_in/sign_in_button.dart';
 import 'package:otomo/views/routes.dart';
 import 'package:otomo/views/utils/error_library.dart';
@@ -22,7 +22,6 @@ class SignInPage extends HookConsumerWidget {
     final state = ref.watch(signInProvider);
     final notifier = ref.watch(signInProvider.notifier);
     final router = ref.watch(routerProvider);
-    final size = MediaQuery.of(context).size;
 
     return IndicatorOverlay(
       isProcessing: state.isLoading,
@@ -33,10 +32,7 @@ class SignInPage extends HookConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    AssetPaths.logos.textLogoBlack,
-                    width: size.width * 0.8,
-                  ),
+                  const TextLogo.large(),
                   Spaces.h40,
                   GoogleSignInButton(
                     text: 'Googleでサインイン',
