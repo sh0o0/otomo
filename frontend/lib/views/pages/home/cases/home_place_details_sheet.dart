@@ -61,12 +61,18 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
           duration: const Duration(milliseconds: 1000),
           curve: Curves.easeOutExpo,
         ),
-        onReviewCardTap: (context, index) => PlaceReviewsSheet.show(
-          context: context,
-          reviews: value.place?.reviews ?? [],
-          initialIndex: index,
-        ),
-        onPhotoTap: (context, index) => PhotoGalleryScreen.showFullscreenDialog(
+        onReviewCardTap: (context, index) {
+          Analytics.logScreenView(screenName: ScreenNames.placeReviewsSheet.name);
+          PlaceReviewsSheet.show(
+            context: context,
+            reviews: value.place?.reviews ?? [],
+            initialIndex: index,
+          );
+        },
+        onPhotoTap: (context, index) {
+          Analytics.logScreenView(
+              screenName: ScreenNames.placePhotoGallery.name);
+          PhotoGalleryScreen.showFullscreenDialog(
             context: context,
             initialIndex: index,
             images: value.place?.photos
@@ -74,7 +80,9 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
                       (e) => GooglePlacePhoto.provider(e.photoReference),
                     )
                     .toList() ??
-                []),
+                [],
+          );
+        },
       ),
       loading: () => [
         const _SingleContent(

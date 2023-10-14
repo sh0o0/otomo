@@ -9,6 +9,8 @@ enum ScreenNames {
   startToUse,
   chatSheet,
   placeDetailsSheet,
+  placePhotoGallery,
+  placeReviewsSheet,
 }
 
 extension ScreenNamesEx on ScreenNames {
