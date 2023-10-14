@@ -6,12 +6,11 @@ part of 'splash.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$splashHash() => r'63494dcbdf65ec075fb8865a6d65bc0823f9f201';
+String _$splashHash() => r'a7a2adf956e843b3f50ef13ef38037bf31ad5c51';
 
 /// See also [Splash].
 @ProviderFor(Splash)
-final splashProvider =
-    AutoDisposeNotifierProvider<Splash, SplashState>.internal(
+final splashProvider = NotifierProvider<Splash, SplashState>.internal(
   Splash.new,
   name: r'splashProvider',
   debugGetCreateSourceHash:
@@ -20,6 +19,6 @@ final splashProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Splash = AutoDisposeNotifier<SplashState>;
+typedef _$Splash = Notifier<SplashState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

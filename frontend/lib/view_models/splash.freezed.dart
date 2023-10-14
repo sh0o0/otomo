@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SplashState {
   bool get ready => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SplashStateCopyWith<SplashState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $SplashStateCopyWith<$Res> {
           SplashState value, $Res Function(SplashState) then) =
       _$SplashStateCopyWithImpl<$Res, SplashState>;
   @useResult
-  $Res call({bool ready});
+  $Res call({bool ready, bool loading});
 }
 
 /// @nodoc
@@ -46,11 +47,16 @@ class _$SplashStateCopyWithImpl<$Res, $Val extends SplashState>
   @override
   $Res call({
     Object? ready = null,
+    Object? loading = null,
   }) {
     return _then(_value.copyWith(
       ready: null == ready
           ? _value.ready
           : ready // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -64,7 +70,7 @@ abstract class _$$SplashStateImplCopyWith<$Res>
       __$$SplashStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool ready});
+  $Res call({bool ready, bool loading});
 }
 
 /// @nodoc
@@ -79,11 +85,16 @@ class __$$SplashStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ready = null,
+    Object? loading = null,
   }) {
     return _then(_$SplashStateImpl(
       ready: null == ready
           ? _value.ready
           : ready // ignore: cast_nullable_to_non_nullable
+              as bool,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -92,15 +103,19 @@ class __$$SplashStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SplashStateImpl extends _SplashState {
-  const _$SplashStateImpl({this.ready = false}) : super._();
+  const _$SplashStateImpl({this.ready = false, this.loading = false})
+      : super._();
 
   @override
   @JsonKey()
   final bool ready;
+  @override
+  @JsonKey()
+  final bool loading;
 
   @override
   String toString() {
-    return 'SplashState(ready: $ready)';
+    return 'SplashState(ready: $ready, loading: $loading)';
   }
 
   @override
@@ -108,11 +123,12 @@ class _$SplashStateImpl extends _SplashState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SplashStateImpl &&
-            (identical(other.ready, ready) || other.ready == ready));
+            (identical(other.ready, ready) || other.ready == ready) &&
+            (identical(other.loading, loading) || other.loading == loading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, ready);
+  int get hashCode => Object.hash(runtimeType, ready, loading);
 
   @JsonKey(ignore: true)
   @override
@@ -122,11 +138,14 @@ class _$SplashStateImpl extends _SplashState {
 }
 
 abstract class _SplashState extends SplashState {
-  const factory _SplashState({final bool ready}) = _$SplashStateImpl;
+  const factory _SplashState({final bool ready, final bool loading}) =
+      _$SplashStateImpl;
   const _SplashState._() : super._();
 
   @override
   bool get ready;
+  @override
+  bool get loading;
   @override
   @JsonKey(ignore: true)
   _$$SplashStateImplCopyWith<_$SplashStateImpl> get copyWith =>

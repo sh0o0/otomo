@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/view_models/agreed_policies.dart';
+import 'package:otomo/view_models/splash.dart';
 import 'package:otomo/views/pages/account_deletion.dart';
 import 'package:otomo/views/pages/home/index.dart';
 import 'package:otomo/views/pages/loading.dart';
+import 'package:otomo/views/pages/splash.dart';
 import 'package:otomo/views/pages/start_to_use.dart';
 import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/sign_in.dart';
@@ -13,6 +15,13 @@ import 'package:otomo/views/pages/sign_in_with_email_link.dart';
 import 'package:otomo/views/routes.dart';
 
 final _key = GlobalKey<NavigatorState>();
+
+final List<RouteBase> _splashPages = [
+  GoRoute(
+    path: Routes.splash,
+    builder: (context, state) => const SplashPage(),
+  ),
+];
 
 final List<RouteBase> _notSignedInPages = [
   GoRoute(
@@ -58,8 +67,17 @@ final List<RouteBase> _loadingPages = [
 ];
 
 final routerProvider = Provider((ref) {
+  final splashState = ref.watch(splashProvider);
   final accountState = ref.watch(accountVMProvider);
   final agreementsState = ref.watch(policiesAgreementProvider);
+
+  if (!splashState.ready) {
+    return GoRouter(
+      navigatorKey: _key,
+      initialLocation: Routes.splash,
+      routes: _splashPages,
+    );
+  }
 
   if (accountState.account == null) {
     return GoRouter(
