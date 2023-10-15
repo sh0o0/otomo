@@ -1,6 +1,7 @@
 final class AssetPaths {
   AssetPaths._();
 
+  static const splash = 'assets/splash.png';
   static const logos = _Logos();
 }
 

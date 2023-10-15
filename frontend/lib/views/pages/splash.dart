@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/constants/asset_paths.dart';
 import 'package:otomo/view_models/splash.dart';
 import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
-import 'package:otomo/views/cases/logo/text_logo.dart';
 
 class SplashPage extends ConsumerWidget {
   const SplashPage({super.key});
@@ -14,8 +14,8 @@ class SplashPage extends ConsumerWidget {
     return Scaffold(
       body: IndicatorOverlay(
         isProcessing: state.loading,
-        child: const Center(
-          child: TextLogo.large(),
+        child: Center(
+          child: Image.asset(AssetPaths.splash, height: 100),
         ),
       ),
     );

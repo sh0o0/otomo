@@ -12,7 +12,6 @@ import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/utils/converter.dart';
 import 'package:otomo/views/utils/launcher.dart';
 
-
 class ChatUI extends StatelessWidget {
   const ChatUI({
     super.key,
@@ -54,7 +53,6 @@ class ChatUI extends StatelessWidget {
     final messageData = ViewConverter.I.message.viewToData(message);
     final theme = Theme.of(context);
     final chatTheme = theme.extension<AppTheme>()!.chatTheme;
-    final size = MediaQuery.of(context).size;
     final showStatus = messageData.author.isUser ||
         messageData.status == MessageStatus.error ||
         messageData.status == MessageStatus.sending;
@@ -83,46 +81,50 @@ class ChatUI extends StatelessWidget {
       );
     }
 
-    return Row(
-      mainAxisAlignment:
-          isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        if (showStatus && !isUser) statusWidget,
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(chatTheme.messageBorderRadius),
-            color: color,
-          ),
-          constraints: BoxConstraints(
-            maxWidth: size.width * 0.7,
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: Stack(
-            alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-            children: [
-              child,
-              if (messageData.active)
-                Animate(
-                  effects: const [
-                    FadeEffect(duration: Duration(milliseconds: 50))
-                  ],
-                  child: Positioned(
-                    bottom: 0,
-                    top: 0,
-                    left: 0,
-                    child: Container(
-                      width: 5,
-                      color: theme.colorScheme.secondary,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Row(
+        mainAxisAlignment:
+            isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          if (showStatus && !isUser) statusWidget,
+          Container(
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(chatTheme.messageBorderRadius),
+              color: color,
+            ),
+            constraints: BoxConstraints(
+              maxWidth:
+                  showStatus ? constraints.maxWidth - 20 : constraints.maxWidth,
+            ),
+            clipBehavior: Clip.hardEdge,
+            child: Stack(
+              alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+              children: [
+                child,
+                if (messageData.active)
+                  Animate(
+                    effects: const [
+                      FadeEffect(duration: Duration(milliseconds: 50))
+                    ],
+                    child: Positioned(
+                      bottom: 0,
+                      top: 0,
+                      left: 0,
+                      child: Container(
+                        width: 5,
+                        color: theme.colorScheme.secondary,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
-        ),
-        if (showStatus && isUser) statusWidget,
-      ],
-    );
+          if (showStatus && isUser) statusWidget,
+        ],
+      );
+    });
   }
 
   List<MatchText> _makeTextMatchers(BuildContext context, String messageId) {
