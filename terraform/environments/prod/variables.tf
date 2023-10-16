@@ -52,3 +52,9 @@ variable "slack_auth_token" {
   description = "Slack auth token"
   type        = string
 }
+
+variable "gcp_billing_account_id" {
+  description = "the billing account to associate with the project"
+  type        = string
+}
+

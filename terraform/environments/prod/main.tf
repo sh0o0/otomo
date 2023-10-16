@@ -21,5 +21,6 @@ module "otomo" {
   openai_api_key                      = var.openai_api_key
   slack_channel_name                  = var.slack_channel_name
   slack_auth_token                    = var.slack_auth_token
+  gcp_billing_account_id              = var.gcp_billing_account_id
 }
 
