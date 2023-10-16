@@ -31,3 +31,29 @@ resource "google_project_service" "default" {
 
   disable_on_destroy = false
 }
+data "google_project" "project" {
+  project_id = var.gcp_project_id
+}
+
+data "google_billing_account" "account" {
+  billing_account = var.gcp_billing_account_id
+}
+
+resource "google_billing_budget" "budget" {
+  billing_account = data.google_billing_account.account.id
+  display_name    = "Test"
+
+  budget_filter {
+    projects = ["projects/${data.google_project.project.number}"]
+  }
+
+  amount {
+    specified_amount {
+      currency_code = "JPY"
+      units         = "10000"
+    }
+  }
+  threshold_rules {
+    threshold_percent = 0.5
+  }
+}
