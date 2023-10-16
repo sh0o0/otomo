@@ -22,4 +22,3 @@ module "otomo" {
   slack_channel_name                  = var.slack_channel_name
   slack_auth_token                    = var.slack_auth_token
 }
-
