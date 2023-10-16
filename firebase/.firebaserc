@@ -5,5 +5,12 @@
     "default": "otomo-dev-401306"
   },
   "targets": {},
-  "etags": {}
+  "etags": {
+    "otomo-dev-401306": {
+      "extensionInstances": {
+        "firestore-bigquery-export": "d56e9583d35335059f859a300ae3e3a911e2949238f8412a714cb50da88be19f",
+        "delete-user-data": "bb272b662d4aee8b3382e507bad4f1603d218c1234bd42988f8ef7e9a54359a4"
+      }
+    }
+  }
 }

@@ -1,0 +1,16 @@
+{
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "text",
+      "type": "string"
+    },
+    {
+      "name": "sent_at",
+      "type": "timestamp"
+    }
+  ]
+}
