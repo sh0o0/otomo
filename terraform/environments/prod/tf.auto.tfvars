@@ -1,0 +1,7 @@
+gcp_project_id         = "otomo-401310"
+load_balancer_name     = "api"
+region                 = "us-west1"
+api_domain             = "otomo"
+cloud_run_service_name = "api"
+cloud_run_image_name   = "api"
+slack_channel_name     = "otomo"
