@@ -8,7 +8,9 @@ terraform {
 }
 
 provider "google" {
-  project = var.gcp_project_id
+  project               = var.gcp_project_id
+  billing_project       = var.gcp_project_id
+  user_project_override = true
 }
 
 provider "google-beta" {
@@ -26,6 +28,11 @@ resource "google_project_service" "default" {
     "places-backend.googleapis.com",
     "geocoding-backend.googleapis.com",
     "apikeys.googleapis.com",
+    "cloudbilling.googleapis.com",
+    "billingbudgets.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "iam.googleapis.com",
+    "serviceusage.googleapis.com",
   ])
   service = each.key
 
