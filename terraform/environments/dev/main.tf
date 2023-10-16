@@ -23,3 +23,21 @@ module "otomo" {
   slack_auth_token                    = var.slack_auth_token
 }
 
+resource "tfe_organization" "default" {
+  name  = "nakar0o0"
+  email = "shoutaro425@gmail.com"
+}
+
+resource "tfe_workspace" "default" {
+  name         = "otomo-dev"
+  organization = tfe_organization.default.id
+}
+
+resource "tfe_notification_configuration" "default" {
+  name             = "Slack"
+  enabled          = true
+  destination_type = "slack"
+  triggers         = ["run:created", "run:planning", "run:needs_attention", "run:applying", "run:completed", "run:errored", "assessment:check_failure", "assessment:drifted", "assessment:failed"]
+  url              = "https://hooks.slack.com/services/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"
+  workspace_id     = tfe_workspace.default.id
+}
