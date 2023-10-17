@@ -49,10 +49,12 @@
 		<string>$(IOS_GOOGLE_MAP_API_KEY)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
-		<key>NSLocationAlwaysUsageDescription</key>
-		<string>This app needs access to location when in the background.</string>
+		<!-- <key>NSLocationAlwaysUsageDescription</key>
+		<string>This app needs access to location when in the background.</string> -->
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>This app needs access to location when open.</string>
+		<string>現在地を表示させるために必要です。</string>
+		<key>NSUserTrackingUsageDescription</key>
+		<string>最適化された広告が表示するために必要です。</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UILaunchStoryboardName</key>
