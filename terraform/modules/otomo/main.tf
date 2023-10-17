@@ -1,6 +1,7 @@
 module "google" {
   source         = "../google"
   gcp_project_id = var.gcp_project_id
+  gcp_billing_account_id = var.gcp_billing_account_id
 }
 
 module "api_keys" {
