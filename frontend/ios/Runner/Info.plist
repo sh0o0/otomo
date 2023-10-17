@@ -3,7 +3,7 @@
 <plist version="1.0">
 	<dict>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
-		<true/>
+		<true />
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
@@ -48,13 +48,15 @@
 		<key>GOOGLE_MAP_API_KEY</key>
 		<string>$(IOS_GOOGLE_MAP_API_KEY)</string>
 		<key>LSRequiresIPhoneOS</key>
-		<true/>
-		<key>NSLocationAlwaysUsageDescription</key>
-		<string>This app needs access to location when in the background.</string>
+		<true />
+		<!-- <key>NSLocationAlwaysUsageDescription</key>
+		<string>This app needs access to location when in the background.</string> -->
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>This app needs access to location when open.</string>
+		<string>現在地を表示させるために必要です。</string>
+		<key>NSUserTrackingUsageDescription</key>
+		<string>最適化された広告が表示するために必要です。</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
+		<true />
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
@@ -73,8 +75,10 @@
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
+		<false />
 		<key>UIStatusBarHidden</key>
-		<false/>
+		<false />
+		<key>ITSAppUsesNonExemptEncryption</key>
+		<false />
 	</dict>
 </plist>
