@@ -1,4 +1,4 @@
-name: Frontend CI
+name: Frontend CI/CD
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
     # if: github.ref_name == 'develop'
     steps:
       - uses: actions/checkout@v3
-      - name: Develop Frontend CI
+      - name: Develop Frontend CI/CD
         uses: ./.github/actions/frontend-cicd/
         with:
           slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}

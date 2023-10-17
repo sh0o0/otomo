@@ -14,10 +14,13 @@ runs:
         channel: stable
     - name: Install packages
       shell: bash
+      working-directory: ./frontend
       run: flutter pub get
     - name: Analyze
       shell: bash
+      working-directory: ./frontend
       run: flutter analyze
     - name: Test
       shell: bash
+      working-directory: ./frontend
       run: flutter test
