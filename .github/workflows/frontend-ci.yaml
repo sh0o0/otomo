@@ -2,10 +2,10 @@ name: Frontend CI/CD
 
 on:
   push:
-    # branches:
-    #   - develop
-    # paths:
-    #   - 'frontend/**'
+    branches:
+      - develop
+    paths:
+      - 'frontend/**'
 
 env:
   CARGO_TERM_COLOR: always
@@ -13,7 +13,7 @@ env:
 jobs:
   develop:
     runs-on: ubuntu-latest
-    # if: github.ref_name == 'develop'
+    if: github.ref_name == 'develop'
     steps:
       - uses: actions/checkout@v3
       - name: Develop Frontend CI/CD
