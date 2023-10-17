@@ -1,0 +1,40 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'frontend/**'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  develop:
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'develop'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Develop Frontend CI/CD
+        uses: ./.github/actions/frontend-cicd/
+        with:
+          slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.DEV_SLACK_CHANNEL }}
+
+      - name: Notify to slack
+        uses: ./.github/actions/notify-to-slack/
+        if: success()
+        with:
+          isSuccess: true
+          title: 'Frontend CI/CD succeed'
+          slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.DEV_SLACK_CHANNEL }}
+      - name: Notify to slack
+        uses: ./.github/actions/notify-to-slack/
+        if: failure()
+        with:
+          isSuccess: false
+          title: 'Frontend CI/CD failed'
+          slackWebhookUrl: ${{ secrets.DEV_SLACK_WEBHOOK_URL }}
+          slackChannel: ${{ secrets.DEV_SLACK_CHANNEL }}
