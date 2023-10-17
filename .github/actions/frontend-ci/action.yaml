@@ -1,0 +1,23 @@
+inputs:
+  slackWebhookUrl:
+    description: "slack webhook url"
+    required: true
+  slackChannel:
+    description: "slack notify channel"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+    - name: Install packages
+      shell: bash
+      run: flutter pub get
+    - name: Analyze
+      shell: bash
+      run: flutter analyze
+    - name: Test
+      shell: bash
+      run: flutter test
