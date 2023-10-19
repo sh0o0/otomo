@@ -8,8 +8,8 @@
   "etags": {
     "otomo-dev-401306": {
       "extensionInstances": {
-        "firestore-bigquery-export": "d56e9583d35335059f859a300ae3e3a911e2949238f8412a714cb50da88be19f",
-        "delete-user-data": "bb272b662d4aee8b3382e507bad4f1603d218c1234bd42988f8ef7e9a54359a4"
+        "firestore-bigquery-export-v1-messages": "4aaf9a5865cb1a6805fe82cf02c2d4043e6059212ec4db22018485bd1db59999",
+        "delete-user-data": "8fdd9f7d328b57f633742f5ba03a890b3fbc1409fab6c4ebf469a73ccd30b55d"
       }
     }
   }
