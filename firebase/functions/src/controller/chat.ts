@@ -21,7 +21,7 @@ export class ChatController {
       this._metadata,
       (err) => {
         if (err) {
-          console.warn(`Error occurred. userId: ${userId}. ${err}`);
+          console.error(`Error occurred. userId: ${userId}. ${err}`);
         } else {
           console.log(`AskToMessage succeeded. userId: ${userId}`);
         }
