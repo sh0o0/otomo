@@ -20,9 +20,10 @@ class App extends HookConsumerWidget {
     assert(snackBar == null || snackBarBuilder == null);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final context = _scaffoldKey.currentContext;
-      _scaffoldKey.currentState
-          ?.showSnackBar(snackBar ?? snackBarBuilder!(context));
+      final currentState = _scaffoldKey.currentState;
+      if (currentState == null) return;
+      currentState
+          .showSnackBar(snackBar ?? snackBarBuilder!(currentState.context));
     });
   }
 
@@ -46,4 +47,4 @@ class App extends HookConsumerWidget {
   }
 }
 
-typedef SnackBarBuilder = SnackBar Function(BuildContext? context);
+typedef SnackBarBuilder = SnackBar Function(BuildContext context);

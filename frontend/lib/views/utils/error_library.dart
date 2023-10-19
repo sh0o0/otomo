@@ -11,8 +11,6 @@ import 'package:otomo/views/utils/localizations.dart';
 abstract class ErrorLibrary {
   static String fromAnyOf(BuildContext context, Object error) =>
       _fromAny(error, l10n: context.l10n);
-  static String fromAnyOfLocale(Object error) =>
-      _fromAny(error, l10n: AppLocalizationsEx.ofLocale);
 
   static String _fromAny(
     Object error, {

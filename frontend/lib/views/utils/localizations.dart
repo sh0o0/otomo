@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:otomo/configs/l10n/app_localizations.dart';
 
-AppLocalizations _preferredLocalizations() =>
-    lookupAppLocalizations(AppLocalizations.supportedLocales.first);
+Locale getCurrentLocale() {
+  final parts = Intl.getCurrentLocale().split('_');
+  final isSupported = AppLocalizations.supportedLocales
+      .any((e) => parts.first == e.languageCode);
+  if (isSupported) return Locale(parts.first);
+  return preferredLocale;
+}
 
-extension AppLocalizationsEx on BuildContext {
+final Locale preferredLocale = AppLocalizations.supportedLocales.first;
+
+extension BuildContextForLocalizationsEx on BuildContext {
   AppLocalizations get l10n =>
-      AppLocalizations.of(this) ?? _preferredLocalizations();
+      AppLocalizations.of(this) ?? preferredLocale.l10n;
+}
 
-  static AppLocalizations get ofLocale {
-    final parts = Intl.getCurrentLocale().split('_');
-    final isSupported = AppLocalizations.supportedLocales
-        .any((e) => parts.first == e.languageCode);
-    if (isSupported) return lookupAppLocalizations(Locale(parts.first));
-    return _preferredLocalizations();
-  }
+extension LocaleForLocalizationsEx on Locale {
+  AppLocalizations get l10n => lookupAppLocalizations(this);
 }

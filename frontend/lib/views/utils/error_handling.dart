@@ -4,9 +4,7 @@ import 'package:otomo/views/utils/error_library.dart';
 
 void showErrorSnackbar(Object error) {
   App.showSnackBar(snackBarBuilder: (context) {
-    final text = context == null
-        ? ErrorLibrary.fromAnyOfLocale(error)
-        : ErrorLibrary.fromAnyOf(context, error);
+    final text = ErrorLibrary.fromAnyOf(context, error);
     return ErrorSnackbar.text(text);
   });
 }
