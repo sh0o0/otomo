@@ -53,7 +53,8 @@ class SignInPage extends HookConsumerWidget {
                     visible: state.hasError,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 24),
-                      child: ErrorText(ErrorLibrary.fromAny(state.error ?? '')),
+                      child: ErrorText(
+                          ErrorLibrary.fromAnyOf(context, state.error ?? '')),
                     ),
                   )
                 ],

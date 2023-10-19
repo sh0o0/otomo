@@ -1,3 +1,14 @@
 {
-    "helloWorld": "こんにちは、世界！"
+  "@@locale": "ja",
+  "title": "オトモ",
+  "errorsUnknown": "エラーが発生しました。",
+  "errorsNetwork": "ネットワークエラーが発生しました。",
+  "errorsInvalidArgument": "入力が正しくありません。",
+  "errorsNotFound": "該当するデータがありません。",
+  "errorsAlreadyExist": "すでにデータが存在します。",
+  "errorsPermissionDenied": "アクセス権限がありません。",
+  "errorsUnauthenticated": "認証に失敗しました。",
+  "errorsRequiresRecentLogin": "再ログインが必要です。",
+  "errorsFailedExtractingPlace": "地名の解析に失敗しました。",
+  "errorsLimitSendMessage": "メッセージの送信回数が上限に達しました。"
 }

@@ -128,7 +128,7 @@ class PlaceAddressListTile extends StatelessWidget {
       ),
       onLongPress: () async {
         await FlutterUtils.copyText(address);
-        App.showSnackBar(AppSnackbar.text('コピーしました。'));
+        App.showSnackBar(snackBar: AppSnackbar.text('コピーしました。'));
       },
     );
   }
@@ -150,7 +150,7 @@ class PlaceWebsiteListTile extends StatelessWidget {
       onTap: () => Launcher.urlString(website),
       onLongPress: () async {
         await FlutterUtils.copyText(website);
-        App.showSnackBar(AppSnackbar.text('コピーしました。'));
+        App.showSnackBar(snackBar: AppSnackbar.text('コピーしました。'));
       },
     );
   }
@@ -172,7 +172,7 @@ class PlacePhoneNumberListTile extends StatelessWidget {
       onTap: () => Launcher.anyFormatTel(phoneNumber),
       onLongPress: () async {
         await FlutterUtils.copyText(phoneNumber);
-        App.showSnackBar(AppSnackbar.text('コピーしました。'));
+        App.showSnackBar(snackBar: AppSnackbar.text('コピーしました。'));
       },
     );
   }

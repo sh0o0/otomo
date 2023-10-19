@@ -5,15 +5,24 @@ import 'package:otomo/configs/l10n/app_localizations.dart';
 import 'package:otomo/view_models/app.dart';
 import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/view_models/router.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class App extends HookConsumerWidget {
   const App({super.key});
 
   static final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
-  static showSnackBar(SnackBar snackBar) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _scaffoldKey.currentState?.showSnackBar(snackBar);
+  static showSnackBar({
+    SnackBar? snackBar,
+    SnackBarBuilder? snackBarBuilder,
+  }) {
+    assert(snackBar != null || snackBarBuilder != null);
+    assert(snackBar == null || snackBarBuilder == null);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final context = _scaffoldKey.currentContext;
+      _scaffoldKey.currentState
+          ?.showSnackBar(snackBar ?? snackBarBuilder!(context));
     });
   }
 
@@ -24,7 +33,7 @@ class App extends HookConsumerWidget {
 
     return MaterialApp.router(
       scaffoldMessengerKey: _scaffoldKey,
-      title: 'Otomo',
+      onGenerateTitle: (context) => context.l10n.title,
       theme: AppThemes.light,
       darkTheme: AppThemes.dark,
       themeMode: ref.watch(colorThemeProvider),
@@ -36,3 +45,5 @@ class App extends HookConsumerWidget {
     );
   }
 }
+
+typedef SnackBarBuilder = SnackBar Function(BuildContext? context);

@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'app_localizations_en.dart';
 import 'app_localizations_ja.dart';
 
 /// Callers can lookup localized strings with an instance of AppLocalizations
@@ -89,15 +88,74 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
     Locale('ja')
   ];
 
-  /// The conventional newborn programmer greeting
+  /// No description provided for @title.
   ///
-  /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get helloWorld;
+  /// In ja, this message translates to:
+  /// **'オトモ'**
+  String get title;
+
+  /// No description provided for @errorsUnknown.
+  ///
+  /// In ja, this message translates to:
+  /// **'エラーが発生しました。'**
+  String get errorsUnknown;
+
+  /// No description provided for @errorsNetwork.
+  ///
+  /// In ja, this message translates to:
+  /// **'ネットワークエラーが発生しました。'**
+  String get errorsNetwork;
+
+  /// No description provided for @errorsInvalidArgument.
+  ///
+  /// In ja, this message translates to:
+  /// **'入力が正しくありません。'**
+  String get errorsInvalidArgument;
+
+  /// No description provided for @errorsNotFound.
+  ///
+  /// In ja, this message translates to:
+  /// **'該当するデータがありません。'**
+  String get errorsNotFound;
+
+  /// No description provided for @errorsAlreadyExist.
+  ///
+  /// In ja, this message translates to:
+  /// **'すでにデータが存在します。'**
+  String get errorsAlreadyExist;
+
+  /// No description provided for @errorsPermissionDenied.
+  ///
+  /// In ja, this message translates to:
+  /// **'アクセス権限がありません。'**
+  String get errorsPermissionDenied;
+
+  /// No description provided for @errorsUnauthenticated.
+  ///
+  /// In ja, this message translates to:
+  /// **'認証に失敗しました。'**
+  String get errorsUnauthenticated;
+
+  /// No description provided for @errorsRequiresRecentLogin.
+  ///
+  /// In ja, this message translates to:
+  /// **'再ログインが必要です。'**
+  String get errorsRequiresRecentLogin;
+
+  /// No description provided for @errorsFailedExtractingPlace.
+  ///
+  /// In ja, this message translates to:
+  /// **'地名の解析に失敗しました。'**
+  String get errorsFailedExtractingPlace;
+
+  /// No description provided for @errorsLimitSendMessage.
+  ///
+  /// In ja, this message translates to:
+  /// **'メッセージの送信回数が上限に達しました。'**
+  String get errorsLimitSendMessage;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -109,7 +167,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'ja'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ja'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -120,7 +178,6 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
     case 'ja': return AppLocalizationsJa();
   }
 

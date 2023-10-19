@@ -67,8 +67,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
             reviews: value.place?.reviews ?? [],
             initialIndex: index,
           );
-          Analytics.logScreenView(
-              screenName: ScreenNames.placeReviewsSheet);
+          Analytics.logScreenView(screenName: ScreenNames.placeReviewsSheet);
         },
         onPhotoTap: (context, index) {
           PhotoGalleryScreen.showFullscreenDialog(
@@ -81,8 +80,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
                     .toList() ??
                 [],
           );
-          Analytics.logScreenView(
-              screenName: ScreenNames.placePhotoGallery);
+          Analytics.logScreenView(screenName: ScreenNames.placePhotoGallery);
         },
       ),
       loading: () => [
@@ -92,7 +90,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
       ],
       error: (error, _) => [
         _SingleContent(
-          child: ErrorText(ErrorLibrary.fromAny(error)),
+          child: ErrorText(ErrorLibrary.fromAnyOf(context, error)),
         )
       ],
     );
