@@ -23,10 +23,6 @@
     {
       "name": "sent_at",
       "type": "timestamp"
-    },
-    {
-      "name": "place_extraction",
-      "type": "map"
     }
   ]
 }
