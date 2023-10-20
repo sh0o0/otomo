@@ -97,6 +97,60 @@ abstract class AppLocalizations {
   /// **'オトモ'**
   String get title;
 
+  /// No description provided for @signOut.
+  ///
+  /// In ja, this message translates to:
+  /// **'サインアウト'**
+  String get signOut;
+
+  /// No description provided for @terms.
+  ///
+  /// In ja, this message translates to:
+  /// **'利用規約'**
+  String get terms;
+
+  /// No description provided for @birthday.
+  ///
+  /// In ja, this message translates to:
+  /// **'生年月日'**
+  String get birthday;
+
+  /// No description provided for @next.
+  ///
+  /// In ja, this message translates to:
+  /// **'次へ'**
+  String get next;
+
+  /// No description provided for @startToUsePageTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'利用を開始'**
+  String get startToUsePageTitle;
+
+  /// No description provided for @startToUsePageAgreeWithTerms.
+  ///
+  /// In ja, this message translates to:
+  /// **'{terms}に同意する'**
+  String startToUsePageAgreeWithTerms(String terms);
+
+  /// No description provided for @startToUsePageNoticeAgeLimit.
+  ///
+  /// In ja, this message translates to:
+  /// **'年齢制限のため生年月日を取得させていただきます。{age}歳未満の方はご利用することができません。'**
+  String startToUsePageNoticeAgeLimit(num age);
+
+  /// No description provided for @inputInvalidRequired.
+  ///
+  /// In ja, this message translates to:
+  /// **'{field}を入力してください。'**
+  String inputInvalidRequired(String field);
+
+  /// No description provided for @inputInvalidLimitAge.
+  ///
+  /// In ja, this message translates to:
+  /// **'{age}歳未満の方はご利用いただけません。'**
+  String inputInvalidLimitAge(num age);
+
   /// No description provided for @errorsUnknown.
   ///
   /// In ja, this message translates to:

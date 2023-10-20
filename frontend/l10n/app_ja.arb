@@ -1,6 +1,47 @@
 {
   "@@locale": "ja",
   "title": "オトモ",
+  "signOut": "サインアウト",
+  "terms": "利用規約",
+  "birthday": "生年月日",
+  "next": "次へ",
+  "startToUsePageTitle": "利用を開始",
+  "startToUsePageAgreeWithTerms": "{terms}に同意する",
+  "@startToUsePageAgreeWithTerms": {
+    "placeholders": {
+      "terms": {
+        "type": "String",
+        "example": "利用規約"
+      }
+    }
+  },
+  "startToUsePageNoticeAgeLimit": "年齢制限のため生年月日を取得させていただきます。{age}歳未満の方はご利用することができません。",
+  "@startToUsePageNoticeAgeLimit": {
+    "placeholders": {
+      "age": {
+        "type": "num",
+        "example": "13"
+      }
+    }
+  },
+  "inputInvalidRequired": "{field}を入力してください。",
+  "@inputInvalidRequired": {
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "生年月日"
+      }
+    }
+  },
+  "inputInvalidLimitAge": "{age}歳未満の方はご利用いただけません。",
+  "@inputInvalidLimitAge": {
+    "placeholders": {
+      "age": {
+        "type": "num",
+        "example": "13"
+      }
+    }
+  },
   "errorsUnknown": "エラーが発生しました。",
   "errorsNetwork": "ネットワークエラーが発生しました。",
   "errorsInvalidArgument": "入力が正しくありません。",

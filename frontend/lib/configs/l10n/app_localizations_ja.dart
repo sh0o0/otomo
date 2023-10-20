@@ -8,6 +8,41 @@ class AppLocalizationsJa extends AppLocalizations {
   String get title => 'オトモ';
 
   @override
+  String get signOut => 'サインアウト';
+
+  @override
+  String get terms => '利用規約';
+
+  @override
+  String get birthday => '生年月日';
+
+  @override
+  String get next => '次へ';
+
+  @override
+  String get startToUsePageTitle => '利用を開始';
+
+  @override
+  String startToUsePageAgreeWithTerms(String terms) {
+    return '$termsに同意する';
+  }
+
+  @override
+  String startToUsePageNoticeAgeLimit(num age) {
+    return '年齢制限のため生年月日を取得させていただきます。$age歳未満の方はご利用することができません。';
+  }
+
+  @override
+  String inputInvalidRequired(String field) {
+    return '$fieldを入力してください。';
+  }
+
+  @override
+  String inputInvalidLimitAge(num age) {
+    return '$age歳未満の方はご利用いただけません。';
+  }
+
+  @override
   String get errorsUnknown => 'エラーが発生しました。';
 
   @override
