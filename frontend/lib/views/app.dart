@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/configs/l10n/app_localizations.dart';
+import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/app.dart';
 import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/view_models/router.dart';
@@ -31,6 +32,8 @@ class App extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.read(appVMProvider.notifier);
     final router = ref.watch(routerProvider);
+
+    logger.debug(WidgetsBinding.instance.platformDispatcher.locales);
 
     return MaterialApp.router(
       scaffoldMessengerKey: _scaffoldKey,
