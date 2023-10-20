@@ -29,7 +29,7 @@ class App extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(appVMProvider.notifier);
+    final notifier = ref.read(appVMProvider.notifier);
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
@@ -43,6 +43,10 @@ class App extends HookConsumerWidget {
       routerDelegate: router.routerDelegate,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      builder: (context, child) {
+        notifier.applyLanguageToControllers(localeOf(context).languageCode);
+        return child!;
+      },
     );
   }
 }

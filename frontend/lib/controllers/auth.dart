@@ -28,6 +28,9 @@ class AuthControllerImpl {
   static const _emailOfSignInWithEmailLinkKey =
       'email_of_sign_in_with_email_link';
 
+  void setLanguageCode(String languageCode) =>
+      _firebaseAuth.setLanguageCode(languageCode);
+
   Stream<Account?> authStateChanges() => _firebaseAuth
       .authStateChanges()
       .map((user) => user == null ? null : _userToAccount(user));
