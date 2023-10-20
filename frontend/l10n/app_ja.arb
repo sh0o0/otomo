@@ -5,6 +5,9 @@
   "terms": "利用規約",
   "birthday": "生年月日",
   "next": "次へ",
+  "signInWithGoogle": "Googleでサインイン",
+  "signInWithApple": "Appleでサインイン",
+  "signInWithEmail": "メールアドレスでサインイン",
   "startToUsePageTitle": "利用を開始",
   "startToUsePageAgreeWithTerms": "{terms}に同意する",
   "@startToUsePageAgreeWithTerms": {

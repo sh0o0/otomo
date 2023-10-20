@@ -20,6 +20,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get next => '次へ';
 
   @override
+  String get signInWithGoogle => 'Googleでサインイン';
+
+  @override
+  String get signInWithApple => 'Appleでサインイン';
+
+  @override
+  String get signInWithEmail => 'メールアドレスでサインイン';
+
+  @override
   String get startToUsePageTitle => '利用を開始';
 
   @override

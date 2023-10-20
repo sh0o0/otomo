@@ -121,6 +121,24 @@ abstract class AppLocalizations {
   /// **'次へ'**
   String get next;
 
+  /// No description provided for @signInWithGoogle.
+  ///
+  /// In ja, this message translates to:
+  /// **'Googleでサインイン'**
+  String get signInWithGoogle;
+
+  /// No description provided for @signInWithApple.
+  ///
+  /// In ja, this message translates to:
+  /// **'Appleでサインイン'**
+  String get signInWithApple;
+
+  /// No description provided for @signInWithEmail.
+  ///
+  /// In ja, this message translates to:
+  /// **'メールアドレスでサインイン'**
+  String get signInWithEmail;
+
   /// No description provided for @startToUsePageTitle.
   ///
   /// In ja, this message translates to:
