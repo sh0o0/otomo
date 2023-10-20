@@ -29,21 +29,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get signOut => 'サインアウト';
 
   @override
-  String get settingsPageTitle => '設定';
-
-  @override
-  String get settingsPageAccountSection => 'アカウント';
-
-  @override
-  String get settingsPageHelpSection => 'ヘルプ';
-
-  @override
-  String get settingsPageAccountDeletion => 'アカウント削除';
-
-  @override
-  String settingsPageVersion(String version, String buildNumber) {
-    return 'バージョン $version ($buildNumber)';
-  }
+  String get accountDeletion => 'アカウント削除';
 
   @override
   String get signInWithGoogle => 'Googleでサインイン';
@@ -53,28 +39,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get signInWithEmail => 'メールアドレスでサインイン';
-
-  @override
-  String get signInWithEmailLinkPageTitle => 'メールアドレスでサインイン';
-
-  @override
-  String get signInWithEmailLinkPageNoticeSentEmail => 'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。';
-
-  @override
-  String get signInWithEmailLinkPageNoticeSendAuthEmail => '認証メールを送信';
-
-  @override
-  String get startToUsePageTitle => '利用を開始';
-
-  @override
-  String startToUsePageAgreeWithTerms(String terms) {
-    return '$termsに同意する';
-  }
-
-  @override
-  String startToUsePageNoticeAgeLimit(num age) {
-    return '年齢制限のため生年月日を取得させていただきます。$age歳未満の方はご利用することができません。';
-  }
 
   @override
   String inputInvalidRequired(String field) {
@@ -120,4 +84,49 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get errorsLimitSendMessage => 'メッセージの送信回数が上限に達しました。';
+
+  @override
+  String get signInWithEmailLinkPageTitle => 'メールアドレスでサインイン';
+
+  @override
+  String get signInWithEmailLinkPageNoticeSentEmail => 'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。';
+
+  @override
+  String get signInWithEmailLinkPageNoticeSendAuthEmail => '認証メールを送信';
+
+  @override
+  String get startToUsePageTitle => '利用を開始';
+
+  @override
+  String startToUsePageAgreeWithTerms(String terms) {
+    return '$termsに同意する';
+  }
+
+  @override
+  String startToUsePageNoticeAgeLimit(num age) {
+    return '年齢制限のため生年月日を取得させていただきます。$age歳未満の方はご利用することができません。';
+  }
+
+  @override
+  String get settingsPageTitle => '設定';
+
+  @override
+  String get settingsPageAccountSection => 'アカウント';
+
+  @override
+  String get settingsPageHelpSection => 'ヘルプ';
+
+  @override
+  String settingsPageVersion(String version, String buildNumber) {
+    return 'バージョン $version ($buildNumber)';
+  }
+
+  @override
+  String get accountDeletionPageTitle => 'アカウント削除';
+
+  @override
+  String get accountDeletionPageWarn => 'アカウントが削除されます。';
+
+  @override
+  String get accountDeletionPageExplanation => 'アカウントを削除すると、データの復元はできませんのでご注意ください。\nまた、削除されたアカウントについては、Otomo運営事務局のサポート外となります';
 }

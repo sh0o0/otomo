@@ -139,35 +139,11 @@ abstract class AppLocalizations {
   /// **'サインアウト'**
   String get signOut;
 
-  /// No description provided for @settingsPageTitle.
-  ///
-  /// In ja, this message translates to:
-  /// **'設定'**
-  String get settingsPageTitle;
-
-  /// No description provided for @settingsPageAccountSection.
-  ///
-  /// In ja, this message translates to:
-  /// **'アカウント'**
-  String get settingsPageAccountSection;
-
-  /// No description provided for @settingsPageHelpSection.
-  ///
-  /// In ja, this message translates to:
-  /// **'ヘルプ'**
-  String get settingsPageHelpSection;
-
-  /// No description provided for @settingsPageAccountDeletion.
+  /// No description provided for @accountDeletion.
   ///
   /// In ja, this message translates to:
   /// **'アカウント削除'**
-  String get settingsPageAccountDeletion;
-
-  /// No description provided for @settingsPageVersion.
-  ///
-  /// In ja, this message translates to:
-  /// **'バージョン {version} ({buildNumber})'**
-  String settingsPageVersion(String version, String buildNumber);
+  String get accountDeletion;
 
   /// No description provided for @signInWithGoogle.
   ///
@@ -186,42 +162,6 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'メールアドレスでサインイン'**
   String get signInWithEmail;
-
-  /// No description provided for @signInWithEmailLinkPageTitle.
-  ///
-  /// In ja, this message translates to:
-  /// **'メールアドレスでサインイン'**
-  String get signInWithEmailLinkPageTitle;
-
-  /// No description provided for @signInWithEmailLinkPageNoticeSentEmail.
-  ///
-  /// In ja, this message translates to:
-  /// **'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。'**
-  String get signInWithEmailLinkPageNoticeSentEmail;
-
-  /// No description provided for @signInWithEmailLinkPageNoticeSendAuthEmail.
-  ///
-  /// In ja, this message translates to:
-  /// **'認証メールを送信'**
-  String get signInWithEmailLinkPageNoticeSendAuthEmail;
-
-  /// No description provided for @startToUsePageTitle.
-  ///
-  /// In ja, this message translates to:
-  /// **'利用を開始'**
-  String get startToUsePageTitle;
-
-  /// No description provided for @startToUsePageAgreeWithTerms.
-  ///
-  /// In ja, this message translates to:
-  /// **'{terms}に同意する'**
-  String startToUsePageAgreeWithTerms(String terms);
-
-  /// No description provided for @startToUsePageNoticeAgeLimit.
-  ///
-  /// In ja, this message translates to:
-  /// **'年齢制限のため生年月日を取得させていただきます。{age}歳未満の方はご利用することができません。'**
-  String startToUsePageNoticeAgeLimit(num age);
 
   /// No description provided for @inputInvalidRequired.
   ///
@@ -300,6 +240,84 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'メッセージの送信回数が上限に達しました。'**
   String get errorsLimitSendMessage;
+
+  /// No description provided for @signInWithEmailLinkPageTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'メールアドレスでサインイン'**
+  String get signInWithEmailLinkPageTitle;
+
+  /// No description provided for @signInWithEmailLinkPageNoticeSentEmail.
+  ///
+  /// In ja, this message translates to:
+  /// **'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。'**
+  String get signInWithEmailLinkPageNoticeSentEmail;
+
+  /// No description provided for @signInWithEmailLinkPageNoticeSendAuthEmail.
+  ///
+  /// In ja, this message translates to:
+  /// **'認証メールを送信'**
+  String get signInWithEmailLinkPageNoticeSendAuthEmail;
+
+  /// No description provided for @startToUsePageTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'利用を開始'**
+  String get startToUsePageTitle;
+
+  /// No description provided for @startToUsePageAgreeWithTerms.
+  ///
+  /// In ja, this message translates to:
+  /// **'{terms}に同意する'**
+  String startToUsePageAgreeWithTerms(String terms);
+
+  /// No description provided for @startToUsePageNoticeAgeLimit.
+  ///
+  /// In ja, this message translates to:
+  /// **'年齢制限のため生年月日を取得させていただきます。{age}歳未満の方はご利用することができません。'**
+  String startToUsePageNoticeAgeLimit(num age);
+
+  /// No description provided for @settingsPageTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'設定'**
+  String get settingsPageTitle;
+
+  /// No description provided for @settingsPageAccountSection.
+  ///
+  /// In ja, this message translates to:
+  /// **'アカウント'**
+  String get settingsPageAccountSection;
+
+  /// No description provided for @settingsPageHelpSection.
+  ///
+  /// In ja, this message translates to:
+  /// **'ヘルプ'**
+  String get settingsPageHelpSection;
+
+  /// No description provided for @settingsPageVersion.
+  ///
+  /// In ja, this message translates to:
+  /// **'バージョン {version} ({buildNumber})'**
+  String settingsPageVersion(String version, String buildNumber);
+
+  /// No description provided for @accountDeletionPageTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'アカウント削除'**
+  String get accountDeletionPageTitle;
+
+  /// No description provided for @accountDeletionPageWarn.
+  ///
+  /// In ja, this message translates to:
+  /// **'アカウントが削除されます。'**
+  String get accountDeletionPageWarn;
+
+  /// No description provided for @accountDeletionPageExplanation.
+  ///
+  /// In ja, this message translates to:
+  /// **'アカウントを削除すると、データの復元はできませんのでご注意ください。\nまた、削除されたアカウントについては、Otomo運営事務局のサポート外となります'**
+  String get accountDeletionPageExplanation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

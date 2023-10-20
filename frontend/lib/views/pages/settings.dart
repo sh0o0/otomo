@@ -71,7 +71,7 @@ class SettingsPage extends HookConsumerWidget {
         AppSettingsSection(
           tiles: [
             AppSettingsTile(
-                title: DangerText(context.l10n.settingsPageAccountDeletion),
+                title: DangerText(context.l10n.accountDeletion),
                 trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                 onPressed: (_) =>
                     ref.read(routerProvider).push(Routes.accountDeletion)),
