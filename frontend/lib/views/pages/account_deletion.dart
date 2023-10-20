@@ -64,7 +64,7 @@ class AccountDeletionPage extends HookConsumerWidget {
               onTap: () => notifier.reauthenticate(),
               child: WarnText(
                 requiresRecentLogin
-                    ? context.l10n.errorsRequiresRecentLogin
+                    ? context.l10n.errorRequiresRecentLogin
                     : null,
                 style: TextStyle(
                     decoration: TextDecoration.underline,

@@ -24,26 +24,26 @@ abstract class ErrorLibrary {
     if (error is FirebaseAuthException) {
       return _fromFirebaseAuthException(error, l10n: l10n);
     }
-    return l10n.errorsUnauthenticated;
+    return l10n.errorUnauthenticated;
   }
 
   static String _fromAppException(
     AppException e, {
     required AppLocalizations l10n,
   }) {
-    if (e.causeIs(Cause.unknown)) return l10n.errorsUnknown;
-    if (e.causeIs(Cause.networkError)) return l10n.errorsNetwork;
+    if (e.causeIs(Cause.unknown)) return l10n.errorUnknown;
+    if (e.causeIs(Cause.networkError)) return l10n.errorNetwork;
     if (e.causeIs(Cause.requiresRecentLogin)) {
-      return l10n.errorsRequiresRecentLogin;
+      return l10n.errorRequiresRecentLogin;
     }
-    return l10n.errorsUnknown;
+    return l10n.errorUnknown;
   }
 
   static String _fromSocketException(
     SocketException e, {
     required AppLocalizations l10n,
   }) {
-    return l10n.errorsNetwork;
+    return l10n.errorNetwork;
   }
 
   static String _fromGrpcError(
@@ -54,25 +54,25 @@ abstract class ErrorLibrary {
 
     switch (e.code) {
       case StatusCode.invalidArgument:
-        return l10n.errorsInvalidArgument;
+        return l10n.errorInvalidArgument;
       case StatusCode.notFound:
-        return l10n.errorsNotFound;
+        return l10n.errorNotFound;
       case StatusCode.alreadyExists:
-        return l10n.errorsAlreadyExist;
+        return l10n.errorAlreadyExist;
       case StatusCode.permissionDenied:
-        return l10n.errorsPermissionDenied;
+        return l10n.errorPermissionDenied;
       case StatusCode.unauthenticated:
-        return l10n.errorsUnauthenticated;
+        return l10n.errorUnauthenticated;
       case StatusCode.resourceExhausted:
-        if (detail == null) return l10n.errorsUnknown;
+        if (detail == null) return l10n.errorUnknown;
         if (detail is ErrorInfo) {
           if (detail.domain == Domain.message.name) {
-            return l10n.errorsLimitSendMessage;
+            return l10n.errorLimitSendMessage;
           }
         }
-        return l10n.errorsNetwork;
+        return l10n.errorNetwork;
       default:
-        return l10n.errorsNetwork;
+        return l10n.errorNetwork;
     }
   }
 
@@ -82,12 +82,12 @@ abstract class ErrorLibrary {
   }) {
     switch (e.code) {
       case FirebaseExceptionCode.requiresRecentLogin:
-        return l10n.errorsRequiresRecentLogin;
+        return l10n.errorRequiresRecentLogin;
       case FirebaseExceptionCode.internalError:
       case FirebaseExceptionCode.networkRequestFailed:
-        return l10n.errorsNetwork;
+        return l10n.errorNetwork;
       default:
-        return l10n.errorsUnknown;
+        return l10n.errorUnknown;
     }
   }
 }

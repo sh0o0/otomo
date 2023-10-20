@@ -65,34 +65,37 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get errorsUnknown => 'エラーが発生しました。';
+  String get errorUnknown => 'エラーが発生しました。';
 
   @override
-  String get errorsNetwork => 'ネットワークエラーが発生しました。';
+  String get errorNetwork => 'ネットワークエラーが発生しました。';
 
   @override
-  String get errorsInvalidArgument => '入力が正しくありません。';
+  String get errorInvalidArgument => '入力が正しくありません。';
 
   @override
-  String get errorsNotFound => '該当するデータがありません。';
+  String get errorNotFound => '該当するデータがありません。';
 
   @override
-  String get errorsAlreadyExist => 'すでにデータが存在します。';
+  String get errorAlreadyExist => 'すでにデータが存在します。';
 
   @override
-  String get errorsPermissionDenied => 'アクセス権限がありません。';
+  String get errorPermissionDenied => 'アクセス権限がありません。';
 
   @override
-  String get errorsUnauthenticated => '認証に失敗しました。';
+  String get errorUnauthenticated => '認証に失敗しました。';
 
   @override
-  String get errorsRequiresRecentLogin => '再ログインが必要です。';
+  String get errorRequiresRecentLogin => '再ログインが必要です。';
 
   @override
-  String get errorsFailedExtractingPlace => '地名の解析に失敗しました。';
+  String get errorFailedExtractingPlace => '地名の解析に失敗しました。';
 
   @override
-  String get errorsLimitSendMessage => 'メッセージの送信回数が上限に達しました。';
+  String get errorLimitSendMessage => 'メッセージの送信回数が上限に達しました。';
+
+  @override
+  String get errorFetchImage => '画像の取得に失敗しました。';
 
   @override
   String chatDailyLimitCount(num count) {

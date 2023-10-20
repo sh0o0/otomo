@@ -199,65 +199,71 @@ abstract class AppLocalizations {
   /// **'{age}歳未満の方はご利用いただけません。'**
   String inputInvalidLimitAge(num age);
 
-  /// No description provided for @errorsUnknown.
+  /// No description provided for @errorUnknown.
   ///
   /// In ja, this message translates to:
   /// **'エラーが発生しました。'**
-  String get errorsUnknown;
+  String get errorUnknown;
 
-  /// No description provided for @errorsNetwork.
+  /// No description provided for @errorNetwork.
   ///
   /// In ja, this message translates to:
   /// **'ネットワークエラーが発生しました。'**
-  String get errorsNetwork;
+  String get errorNetwork;
 
-  /// No description provided for @errorsInvalidArgument.
+  /// No description provided for @errorInvalidArgument.
   ///
   /// In ja, this message translates to:
   /// **'入力が正しくありません。'**
-  String get errorsInvalidArgument;
+  String get errorInvalidArgument;
 
-  /// No description provided for @errorsNotFound.
+  /// No description provided for @errorNotFound.
   ///
   /// In ja, this message translates to:
   /// **'該当するデータがありません。'**
-  String get errorsNotFound;
+  String get errorNotFound;
 
-  /// No description provided for @errorsAlreadyExist.
+  /// No description provided for @errorAlreadyExist.
   ///
   /// In ja, this message translates to:
   /// **'すでにデータが存在します。'**
-  String get errorsAlreadyExist;
+  String get errorAlreadyExist;
 
-  /// No description provided for @errorsPermissionDenied.
+  /// No description provided for @errorPermissionDenied.
   ///
   /// In ja, this message translates to:
   /// **'アクセス権限がありません。'**
-  String get errorsPermissionDenied;
+  String get errorPermissionDenied;
 
-  /// No description provided for @errorsUnauthenticated.
+  /// No description provided for @errorUnauthenticated.
   ///
   /// In ja, this message translates to:
   /// **'認証に失敗しました。'**
-  String get errorsUnauthenticated;
+  String get errorUnauthenticated;
 
-  /// No description provided for @errorsRequiresRecentLogin.
+  /// No description provided for @errorRequiresRecentLogin.
   ///
   /// In ja, this message translates to:
   /// **'再ログインが必要です。'**
-  String get errorsRequiresRecentLogin;
+  String get errorRequiresRecentLogin;
 
-  /// No description provided for @errorsFailedExtractingPlace.
+  /// No description provided for @errorFailedExtractingPlace.
   ///
   /// In ja, this message translates to:
   /// **'地名の解析に失敗しました。'**
-  String get errorsFailedExtractingPlace;
+  String get errorFailedExtractingPlace;
 
-  /// No description provided for @errorsLimitSendMessage.
+  /// No description provided for @errorLimitSendMessage.
   ///
   /// In ja, this message translates to:
   /// **'メッセージの送信回数が上限に達しました。'**
-  String get errorsLimitSendMessage;
+  String get errorLimitSendMessage;
+
+  /// No description provided for @errorFetchImage.
+  ///
+  /// In ja, this message translates to:
+  /// **'画像の取得に失敗しました。'**
+  String get errorFetchImage;
 
   /// No description provided for @chatDailyLimitCount.
   ///

@@ -80,7 +80,7 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
           color: theme.colorScheme.background,
           borderRadius: BorderRadius.circular(16)),
       child: Text(textMessage.placeExtraction.hasError
-          ? context.l10n.errorsFailedExtractingPlace
+          ? context.l10n.errorFailedExtractingPlace
           : ErrorLibrary.fromAnyOf(context, textMessage.message.error!)),
     );
   }

@@ -42,16 +42,17 @@
       }
     }
   },
-  "errorsUnknown": "エラーが発生しました。",
-  "errorsNetwork": "ネットワークエラーが発生しました。",
-  "errorsInvalidArgument": "入力が正しくありません。",
-  "errorsNotFound": "該当するデータがありません。",
-  "errorsAlreadyExist": "すでにデータが存在します。",
-  "errorsPermissionDenied": "アクセス権限がありません。",
-  "errorsUnauthenticated": "認証に失敗しました。",
-  "errorsRequiresRecentLogin": "再ログインが必要です。",
-  "errorsFailedExtractingPlace": "地名の解析に失敗しました。",
-  "errorsLimitSendMessage": "メッセージの送信回数が上限に達しました。",
+  "errorUnknown": "エラーが発生しました。",
+  "errorNetwork": "ネットワークエラーが発生しました。",
+  "errorInvalidArgument": "入力が正しくありません。",
+  "errorNotFound": "該当するデータがありません。",
+  "errorAlreadyExist": "すでにデータが存在します。",
+  "errorPermissionDenied": "アクセス権限がありません。",
+  "errorUnauthenticated": "認証に失敗しました。",
+  "errorRequiresRecentLogin": "再ログインが必要です。",
+  "errorFailedExtractingPlace": "地名の解析に失敗しました。",
+  "errorLimitSendMessage": "メッセージの送信回数が上限に達しました。",
+  "errorFetchImage": "画像の取得に失敗しました。",
   "chatDailyLimitCount": "'今日の残り: {count} 回",
   "@chatDailyLimitCount": {
     "placeholders": {
