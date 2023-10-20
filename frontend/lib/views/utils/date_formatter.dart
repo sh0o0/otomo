@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:otomo/constants/locales.dart';
 
 final class DateFormatter {
   DateFormatter._();
 
-  static final jaDate = DateFormat.yMMMd(Locales.ja.languageCode);
+  static DateFormat date(BuildContext context) =>
+      DateFormat.yMMMd(Localizations.localeOf(context).languageCode);
 }

@@ -15,17 +15,22 @@ class PlaceControllerImpl {
           ),
         );
 
+  PlaceControllerImpl.client(this._client);
+
   final Dio _client;
 
   static const _detailsUrl = '/maps/api/place/details/json';
 
-  Future<PlaceDetails> getPlaceDetails(String googlePlaceId) async {
+  Future<PlaceDetails> getPlaceDetails(
+    String googlePlaceId, {
+    String language = 'en',
+  }) async {
     logger.debug('getPlaceDetails. googlePlaceId: $googlePlaceId');
     final response = await _client.get(
       _detailsUrl,
       queryParameters: {
         'place_id': googlePlaceId,
-        'language': 'ja',
+        'language': language,
       },
     );
 

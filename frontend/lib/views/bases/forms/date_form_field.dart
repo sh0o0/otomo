@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:otomo/tools/optional.dart';
 import 'package:otomo/views/bases/forms/rounded_text_form_field.dart';
 import 'package:otomo/views/utils/date_formatter.dart';
@@ -22,7 +23,6 @@ class DateFormField extends StatefulWidget {
 
 class DateFormFieldState extends State<DateFormField> {
   final _controller = TextEditingController();
-  final _formatter = DateFormatter.jaDate;
 
   @override
   void initState() {
@@ -37,8 +37,11 @@ class DateFormFieldState extends State<DateFormField> {
     super.dispose();
   }
 
-  DateTime _parseDateTime(String value) => _formatter.parse(value);
-  String _formatDateTime(DateTime dateTime) => _formatter.format(dateTime);
+  DateFormat _getFormat(BuildContext context) => DateFormatter.date(context);
+
+  DateTime _parseDateTime(String value) => _getFormat(context).parse(value);
+  String _formatDateTime(DateTime dateTime) =>
+      _getFormat(context).format(dateTime);
 
   Future<void> _onTap(BuildContext context) async {
     final pickedDate = await _showDatePicker(context);

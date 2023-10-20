@@ -5,7 +5,6 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as ui;
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/configs/app_themes.dart';
-import 'package:otomo/constants/locales.dart';
 import 'package:otomo/domains/entities/message.dart';
 import 'package:otomo/view_models/boundary/chat.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
@@ -166,7 +165,7 @@ class ChatUI extends StatelessWidget {
         sendButtonAccessibilityLabel: context.l10n.chatSendButtonAccessibilityLabel,
         unreadMessagesLabel: context.l10n.chatUnreadMessagesLabel,
       ),
-      dateLocale: Locales.ja.languageCode,
+      dateLocale: Localizations.localeOf(context).languageCode,
       messages: ViewConverter.I.message.textDataToViewList(messages),
       onSendPressed: (message) => onSendPressed(message.text),
       isLastPage: isLastPage,
