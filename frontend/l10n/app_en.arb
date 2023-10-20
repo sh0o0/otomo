@@ -127,7 +127,7 @@
   "placeTypeSublocality": "Sublocality",
   "placeTypeTownSquare": "Town square",
   "signInWithEmailLinkPageTitle": "Sign in with Email",
-  "signInWithEmailLinkPageNoticeSentEmail": "We have sent an authentication link to your email address. Please tap the link to complete the authentication.\n\n※ If you have not received the email, it may be in your spam folder or your email address may be incorrect.",
+  "signInWithEmailLinkPageNoticeSentEmail": "We have sent an authentication link to your email address. Please tap the link to complete the authentication.\n\nNote: If you have not received the email, it may be in your spam folder or your email address may be incorrect.",
   "signInWithEmailLinkPageNoticeSendAuthEmail": "Send authentication email",
   "startToUsePageTitle": "Start to use",
   "startToUsePageAgreeWithTerms": "I agree to the {terms}",

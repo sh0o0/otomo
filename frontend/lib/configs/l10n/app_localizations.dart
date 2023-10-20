@@ -546,7 +546,7 @@ abstract class AppLocalizations {
   /// No description provided for @signInWithEmailLinkPageNoticeSentEmail.
   ///
   /// In en, this message translates to:
-  /// **'We have sent an authentication link to your email address. Please tap the link to complete the authentication.\n\n※ If you have not received the email, it may be in your spam folder or your email address may be incorrect.'**
+  /// **'We have sent an authentication link to your email address. Please tap the link to complete the authentication.\n\nNote: If you have not received the email, it may be in your spam folder or your email address may be incorrect.'**
   String get signInWithEmailLinkPageNoticeSentEmail;
 
   /// No description provided for @signInWithEmailLinkPageNoticeSendAuthEmail.

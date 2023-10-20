@@ -242,7 +242,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signInWithEmailLinkPageTitle => 'Sign in with Email';
 
   @override
-  String get signInWithEmailLinkPageNoticeSentEmail => 'We have sent an authentication link to your email address. Please tap the link to complete the authentication.\n\n※ If you have not received the email, it may be in your spam folder or your email address may be incorrect.';
+  String get signInWithEmailLinkPageNoticeSentEmail => 'We have sent an authentication link to your email address. Please tap the link to complete the authentication.\n\nNote: If you have not received the email, it may be in your spam folder or your email address may be incorrect.';
 
   @override
   String get signInWithEmailLinkPageNoticeSendAuthEmail => 'Send authentication email';
