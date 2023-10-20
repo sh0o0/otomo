@@ -48,7 +48,7 @@ class SettingsPage extends HookConsumerWidget {
               leading: const Icon(Icons.question_mark_rounded),
               trailing: const Icon(Icons.keyboard_arrow_right_rounded),
               onPressed: (_) => Launcher.inquiry(
-                locale: Localizations.localeOf(context),
+                locale: localeOf(context),
                 userId: account?.uid ?? '',
                 email: account?.email ?? '',
               ),

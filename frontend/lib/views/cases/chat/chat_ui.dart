@@ -165,7 +165,7 @@ class ChatUI extends StatelessWidget {
         sendButtonAccessibilityLabel: context.l10n.chatSendButtonAccessibilityLabel,
         unreadMessagesLabel: context.l10n.chatUnreadMessagesLabel,
       ),
-      dateLocale: Localizations.localeOf(context).languageCode,
+      dateLocale: localeOf(context).languageCode,
       messages: ViewConverter.I.message.textDataToViewList(messages),
       onSendPressed: (message) => onSendPressed(message.text),
       isLastPage: isLastPage,

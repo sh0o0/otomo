@@ -10,6 +10,8 @@ Locale getCurrentLocale() {
   return preferredLocale;
 }
 
+Locale localeOf(BuildContext context) => Localizations.localeOf(context);
+
 final Locale preferredLocale = AppLocalizations.supportedLocales.first;
 
 extension BuildContextForLocalizationsEx on BuildContext {
