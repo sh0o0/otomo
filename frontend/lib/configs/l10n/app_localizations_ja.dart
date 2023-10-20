@@ -89,14 +89,32 @@ class AppLocalizationsJa extends AppLocalizations {
   String get errorsLimitSendMessage => 'メッセージの送信回数が上限に達しました。';
 
   @override
-  String chatPageDailyLimitCount(num count) {
+  String chatDailyLimitCount(num count) {
     return '\'今日の残り: $count 回';
   }
 
   @override
-  String chatPageMonthlySurplusLimitCount(num count) {
+  String chatMonthlySurplusLimitCount(num count) {
     return '今月の追加分残り: $count 回';
   }
+
+  @override
+  String get chatAttachmentButtonAccessibilityLabel => 'メディアを送付';
+
+  @override
+  String get chatEmptyChatPlaceholder => 'メッセージはありません';
+
+  @override
+  String get chatFileButtonAccessibilityLabel => 'ファイル';
+
+  @override
+  String get chatInputPlaceholder => 'メッセージ';
+
+  @override
+  String get chatSendButtonAccessibilityLabel => '送信';
+
+  @override
+  String get chatUnreadMessagesLabel => '未読メッセージ';
 
   @override
   String get signInWithEmailLinkPageTitle => 'メールアドレスでサインイン';

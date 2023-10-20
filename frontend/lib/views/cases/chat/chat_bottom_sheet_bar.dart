@@ -48,9 +48,9 @@ class ChatBottomSheetBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             BodySmall(context.l10n
-                .chatPageDailyLimitCount(remainingCount.daily.count)),
+                .chatDailyLimitCount(remainingCount.daily.count)),
             BodySmall(
-              context.l10n.chatPageMonthlySurplusLimitCount(
+              context.l10n.chatMonthlySurplusLimitCount(
                   remainingCount.monthlySurplus.count),
             ),
           ],

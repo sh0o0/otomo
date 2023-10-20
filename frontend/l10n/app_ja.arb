@@ -50,8 +50,8 @@
   "errorsRequiresRecentLogin": "再ログインが必要です。",
   "errorsFailedExtractingPlace": "地名の解析に失敗しました。",
   "errorsLimitSendMessage": "メッセージの送信回数が上限に達しました。",
-  "chatPageDailyLimitCount": "'今日の残り: {count} 回",
-  "@chatPageDailyLimitCount": {
+  "chatDailyLimitCount": "'今日の残り: {count} 回",
+  "@chatDailyLimitCount": {
     "placeholders": {
       "count": {
         "type": "num",
@@ -59,8 +59,8 @@
       }
     }
   },
-  "chatPageMonthlySurplusLimitCount": "今月の追加分残り: {count} 回",
-  "@chatPageMonthlySurplusLimitCount": {
+  "chatMonthlySurplusLimitCount": "今月の追加分残り: {count} 回",
+  "@chatMonthlySurplusLimitCount": {
     "placeholders": {
       "count": {
         "type": "num",
@@ -68,6 +68,12 @@
       }
     }
   },
+  "chatAttachmentButtonAccessibilityLabel": "メディアを送付",
+  "chatEmptyChatPlaceholder": "メッセージはありません",
+  "chatFileButtonAccessibilityLabel": "ファイル",
+  "chatInputPlaceholder": "メッセージ",
+  "chatSendButtonAccessibilityLabel": "送信",
+  "chatUnreadMessagesLabel": "未読メッセージ",
   "signInWithEmailLinkPageTitle": "メールアドレスでサインイン",
   "signInWithEmailLinkPageNoticeSentEmail": "メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。",
   "signInWithEmailLinkPageNoticeSendAuthEmail": "認証メールを送信",

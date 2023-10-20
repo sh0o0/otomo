@@ -247,17 +247,53 @@ abstract class AppLocalizations {
   /// **'メッセージの送信回数が上限に達しました。'**
   String get errorsLimitSendMessage;
 
-  /// No description provided for @chatPageDailyLimitCount.
+  /// No description provided for @chatDailyLimitCount.
   ///
   /// In ja, this message translates to:
   /// **'\'今日の残り: {count} 回'**
-  String chatPageDailyLimitCount(num count);
+  String chatDailyLimitCount(num count);
 
-  /// No description provided for @chatPageMonthlySurplusLimitCount.
+  /// No description provided for @chatMonthlySurplusLimitCount.
   ///
   /// In ja, this message translates to:
   /// **'今月の追加分残り: {count} 回'**
-  String chatPageMonthlySurplusLimitCount(num count);
+  String chatMonthlySurplusLimitCount(num count);
+
+  /// No description provided for @chatAttachmentButtonAccessibilityLabel.
+  ///
+  /// In ja, this message translates to:
+  /// **'メディアを送付'**
+  String get chatAttachmentButtonAccessibilityLabel;
+
+  /// No description provided for @chatEmptyChatPlaceholder.
+  ///
+  /// In ja, this message translates to:
+  /// **'メッセージはありません'**
+  String get chatEmptyChatPlaceholder;
+
+  /// No description provided for @chatFileButtonAccessibilityLabel.
+  ///
+  /// In ja, this message translates to:
+  /// **'ファイル'**
+  String get chatFileButtonAccessibilityLabel;
+
+  /// No description provided for @chatInputPlaceholder.
+  ///
+  /// In ja, this message translates to:
+  /// **'メッセージ'**
+  String get chatInputPlaceholder;
+
+  /// No description provided for @chatSendButtonAccessibilityLabel.
+  ///
+  /// In ja, this message translates to:
+  /// **'送信'**
+  String get chatSendButtonAccessibilityLabel;
+
+  /// No description provided for @chatUnreadMessagesLabel.
+  ///
+  /// In ja, this message translates to:
+  /// **'未読メッセージ'**
+  String get chatUnreadMessagesLabel;
 
   /// No description provided for @signInWithEmailLinkPageTitle.
   ///
