@@ -6,6 +6,7 @@ import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/chat/online_status.dart';
 import 'package:otomo/views/cases/chat/otomo_avatar.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class ChatBottomSheetBar extends StatelessWidget {
   const ChatBottomSheetBar({
@@ -18,17 +19,17 @@ class ChatBottomSheetBar extends StatelessWidget {
   final RemainingMessageSendCount? remainingMessageSendCount;
 
   Widget _buildLeft(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
         Spaces.w16,
-        OtomoAvatar(),
+        const OtomoAvatar(),
         Spaces.w8,
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Otomo'),
-            OnlineStatus(online: true),
+            Text(context.l10n.otomo),
+            const OnlineStatus(online: true),
           ],
         )
       ],
@@ -46,9 +47,11 @@ class ChatBottomSheetBar extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            BodySmall('今日の残り: ${remainingCount.daily.count} 回'),
+            BodySmall(context.l10n
+                .chatPageDailyLimitCount(remainingCount.daily.count)),
             BodySmall(
-              '今月の追加分残り: ${remainingCount.monthlySurplus.count} 回',
+              context.l10n.chatPageMonthlySurplusLimitCount(
+                  remainingCount.monthlySurplus.count),
             ),
           ],
         ),

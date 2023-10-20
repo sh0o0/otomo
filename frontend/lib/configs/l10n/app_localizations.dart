@@ -94,8 +94,14 @@ abstract class AppLocalizations {
   /// No description provided for @title.
   ///
   /// In ja, this message translates to:
-  /// **'オトモ'**
+  /// **'Otomo'**
   String get title;
+
+  /// No description provided for @otomo.
+  ///
+  /// In ja, this message translates to:
+  /// **'Otomo'**
+  String get otomo;
 
   /// No description provided for @terms.
   ///
@@ -240,6 +246,18 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'メッセージの送信回数が上限に達しました。'**
   String get errorsLimitSendMessage;
+
+  /// No description provided for @chatPageDailyLimitCount.
+  ///
+  /// In ja, this message translates to:
+  /// **'\'今日の残り: {count} 回'**
+  String chatPageDailyLimitCount(num count);
+
+  /// No description provided for @chatPageMonthlySurplusLimitCount.
+  ///
+  /// In ja, this message translates to:
+  /// **'今月の追加分残り: {count} 回'**
+  String chatPageMonthlySurplusLimitCount(num count);
 
   /// No description provided for @signInWithEmailLinkPageTitle.
   ///

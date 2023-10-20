@@ -5,7 +5,10 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get title => 'オトモ';
+  String get title => 'Otomo';
+
+  @override
+  String get otomo => 'Otomo';
 
   @override
   String get terms => '利用規約';
@@ -84,6 +87,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get errorsLimitSendMessage => 'メッセージの送信回数が上限に達しました。';
+
+  @override
+  String chatPageDailyLimitCount(num count) {
+    return '\'今日の残り: $count 回';
+  }
+
+  @override
+  String chatPageMonthlySurplusLimitCount(num count) {
+    return '今月の追加分残り: $count 回';
+  }
 
   @override
   String get signInWithEmailLinkPageTitle => 'メールアドレスでサインイン';
