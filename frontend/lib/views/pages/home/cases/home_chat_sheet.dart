@@ -15,6 +15,7 @@ import 'package:otomo/views/cases/error/error_text.dart';
 import 'package:otomo/views/utils/error_library.dart';
 import 'package:otomo/views/utils/flutter.dart';
 import 'package:otomo/views/utils/haptic.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class HomeChatSheet extends StatefulHookConsumerWidget {
   const HomeChatSheet({
@@ -79,15 +80,16 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
           color: theme.colorScheme.background,
           borderRadius: BorderRadius.circular(16)),
       child: Text(textMessage.placeExtraction.hasError
-          ? ErrorLibrary.failedExtractingPlace
-          : ErrorLibrary.fromAny(textMessage.message.error!)),
+          ? context.l10n.errorFailedExtractingPlace
+          : ErrorLibrary.fromAnyOf(context, textMessage.message.error!)),
     );
   }
 
   Widget? _emptyState(BuildContext context, AsyncValue<ChatState> state) {
     if (state.isLoading) const Center(child: AppCircularProgressIndicator());
     if (state.hasError) {
-      return Center(child: ErrorText(ErrorLibrary.fromAny(state.error!)));
+      return Center(
+          child: ErrorText(ErrorLibrary.fromAnyOf(context, state.error!)));
     }
     return null;
   }

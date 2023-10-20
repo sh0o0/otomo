@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/domains/entities/message_send_count.dart';
 import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_bar_handle.dart';
 import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_leading.dart';
@@ -6,6 +7,7 @@ import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/chat/online_status.dart';
 import 'package:otomo/views/cases/chat/otomo_avatar.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class ChatBottomSheetBar extends StatelessWidget {
   const ChatBottomSheetBar({
@@ -18,17 +20,17 @@ class ChatBottomSheetBar extends StatelessWidget {
   final RemainingMessageSendCount? remainingMessageSendCount;
 
   Widget _buildLeft(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
         Spaces.w16,
-        OtomoAvatar(),
+        const OtomoAvatar(),
         Spaces.w8,
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Otomo'),
-            OnlineStatus(online: true),
+            Text(context.l10n.otomo),
+            const OnlineStatus(online: true),
           ],
         )
       ],
@@ -41,18 +43,52 @@ class ChatBottomSheetBar extends StatelessWidget {
       return Spaces.zero;
     }
 
-    return Row(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            BodySmall('今日の残り: ${remainingCount.daily.count} 回'),
-            BodySmall(
-              '今月の追加分残り: ${remainingCount.monthlySurplus.count} 回',
+    final size = MediaQuery.of(context).size;
+    return SizedBox(
+      width: size.width * 0.6,
+      child: Row(
+        children: [
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                _buildLimitCount(
+                  context: context,
+                  text: context.l10n
+                      .chatDailyLimitCount(remainingCount.daily.count),
+                  countPattern: remainingCount.daily.count.toString(),
+                ),
+                _buildLimitCount(
+                  context: context,
+                  text: context.l10n.chatMonthlySurplusLimitCount(
+                      remainingCount.monthlySurplus.count),
+                  countPattern: remainingCount.monthlySurplus.count.toString(),
+                ),
+              ],
             ),
-          ],
-        ),
-        BottomSheetLeading(onPressedLeading: onLeadingPressed),
+          ),
+          BottomSheetLeading(onPressedLeading: onLeadingPressed),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLimitCount({
+    required BuildContext context,
+    required String text,
+    required String countPattern,
+  }) {
+    return ParsedText(
+      text: text,
+      style: BodySmall.styleOf(context),
+      alignment: TextAlign.end,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      parse: [
+        MatchText(
+          pattern: countPattern.toString(),
+          style: TextStyles.bold,
+        )
       ],
     );
   }

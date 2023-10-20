@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:otomo/constants/locales.dart';
 import 'package:otomo/domains/entities/app_exception.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -24,7 +26,11 @@ final class Launcher {
     return urlString(telString);
   }
 
-  static Future<bool> inquiry(String userId, String email) {
+  static Future<bool> inquiry({
+    required Locale locale,
+    required String userId,
+    required String email,
+  }) {
     late final String device;
     if (Platform.isAndroid) {
       device = 'Android';
@@ -33,10 +39,30 @@ final class Launcher {
     } else {
       device = 'Unknown';
     }
-    final url =
-        'https://docs.google.com/forms/d/e/1FAIpQLSdqVWf8jm3FGSts_dPj3vEhQJyUw8G_KxaylbLrgTy7gsjteQ/viewform?usp=pp_url&entry.908889089=$userId&entry.1155027200=$email&entry.633383865=$device';
+
+    late final String url;
+    if (locale.languageCode == Locales.ja.languageCode) {
+        url = _jaInquiry(userId: userId, email: email, device: device);
+    } else {
+        url = _enInquiry(userId: userId, email: email, device: device);
+    }
+
     return urlString(url);
   }
+
+  static String _jaInquiry({
+    required String userId,
+    required String email,
+    required String device,
+  }) =>
+      'https://docs.google.com/forms/d/e/1FAIpQLSdqVWf8jm3FGSts_dPj3vEhQJyUw8G_KxaylbLrgTy7gsjteQ/viewform?usp=pp_url&entry.908889089=$userId&entry.1155027200=$email&entry.633383865=$device';
+
+  static String _enInquiry({
+    required String userId,
+    required String email,
+    required String device,
+  }) =>
+      'https://docs.google.com/forms/d/e/1FAIpQLSefpOiUphLbIbHDnED_M00SjLdvZBf49ky2GrdT3XiVH3dktQ/viewform?usp=pp_url&entry.908889089=$userId&entry.1155027200=$email&entry.633383865=$device';
 
   static Future<bool> searchOnGoogleMap({
     String query = '',

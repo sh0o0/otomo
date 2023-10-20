@@ -1,43 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_themes.dart';
-import 'package:otomo/constants/locales.dart';
+import 'package:otomo/configs/l10n/app_localizations.dart';
 import 'package:otomo/view_models/app.dart';
 import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/view_models/router.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class App extends HookConsumerWidget {
   const App({super.key});
 
   static final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
-  static showSnackBar(SnackBar snackBar) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _scaffoldKey.currentState?.showSnackBar(snackBar);
+  static showSnackBar({
+    SnackBar? snackBar,
+    SnackBarBuilder? snackBarBuilder,
+  }) {
+    assert(snackBar != null || snackBarBuilder != null);
+    assert(snackBar == null || snackBarBuilder == null);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final currentState = _scaffoldKey.currentState;
+      if (currentState == null) return;
+      currentState
+          .showSnackBar(snackBar ?? snackBarBuilder!(currentState.context));
     });
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(appVMProvider.notifier);
+    final notifier = ref.read(appVMProvider.notifier);
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
       scaffoldMessengerKey: _scaffoldKey,
-      title: 'Otomo',
+      onGenerateTitle: (context) => context.l10n.title,
       theme: AppThemes.light,
       darkTheme: AppThemes.dark,
       themeMode: ref.watch(colorThemeProvider),
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locales.ja],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      builder: (context, child) {
+        notifier.applyLanguageToControllers(localeOf(context).languageCode);
+        return child!;
+      },
     );
   }
 }
+
+typedef SnackBarBuilder = SnackBar Function(BuildContext context);

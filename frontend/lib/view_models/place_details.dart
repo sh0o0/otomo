@@ -15,8 +15,8 @@ class PlaceDetailsState with _$PlaceDetailsState {
   }) = _PlaceDetailsState;
 }
 
-final placeDetailsProvider =
-    FutureProvider.autoDispose<PlaceDetailsState>((ref) async {
+final placeDetailsProvider = FutureProvider.family
+    .autoDispose<PlaceDetailsState, String>((ref, language) async {
   final placeId =
       ref.watch(mapProvider).focusingPlace?.geocodedPlace?.googlePlaceId;
   if (placeId == null) {
@@ -24,6 +24,6 @@ final placeDetailsProvider =
   }
 
   final controller = getIt<PlaceControllerImpl>();
-  final details = await controller.getPlaceDetails(placeId);
+  final details = await controller.getPlaceDetails(placeId, language: language);
   return PlaceDetailsState(place: details);
 });

@@ -3,6 +3,7 @@ import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/domains/entities/place_details.dart' as place_details;
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class PlaceImpressions extends StatelessWidget {
   const PlaceImpressions({super.key, this.openingHours, this.rating});
@@ -68,9 +69,9 @@ class PlaceOpenNow extends StatelessWidget {
     final appTheme = theme.extension<AppTheme>()!;
     return Column(
       children: [
-        const TitleSmall('営業時間', style: TextStyles.bold),
+        TitleSmall(context.l10n.placeBusinessHours, style: TextStyles.bold),
         TitleMedium(
-          openNow ? '営業中' : '営業時間外',
+          openNow ? context.l10n.placeOpen : context.l10n.placeClosed,
           style: TextStyle(
             color: openNow ? appTheme.activeColor : appTheme.dangerColor,
           ),
@@ -89,7 +90,7 @@ class PlaceRating extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const TitleSmall('評価', style: TextStyles.bold),
+        TitleSmall(context.l10n.placeRating, style: TextStyles.bold),
         TitleMedium(
           rating.toStringAsFixed(1),
           style: const TextStyle(

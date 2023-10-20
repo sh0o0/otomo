@@ -7,6 +7,7 @@ import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/tappable_text.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/warn/warn_text.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class AccountDeletionPage extends HookConsumerWidget {
   const AccountDeletionPage({super.key});
@@ -23,26 +24,28 @@ class AccountDeletionPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: const TitleMedium('アカウント削除', style: TextStyles.bold),
+        title: TitleMedium(
+          context.l10n.accountDeletionPageTitle,
+          style: TextStyles.bold,
+        ),
       ),
       body: EdgeLayout(
         child: Column(
           children: [
             Spaces.h16,
-            const Align(
+            Align(
               alignment: Alignment.centerLeft,
               child: TitleSmall(
-                'アカウントが削除されます。',
+                context.l10n.accountDeletionPageWarn,
                 style: TextStyles.bold,
               ),
             ),
             Spaces.h16,
-            const BodyMedium('''アカウントを削除すると、データの復元はできませんのでご注意ください。
-また、削除されたアカウントについては、Otomo運営事務局のサポート外となります'''),
+            BodyMedium(context.l10n.accountDeletionPageExplanation),
             Spaces.h40,
             Center(
               child: TappableText(
-                'アカウント削除',
+                context.l10n.accountDeletion,
                 onTap: requiresRecentLogin
                     ? () {}
                     : () => notifier.deleteAccount(),
@@ -60,7 +63,9 @@ class AccountDeletionPage extends HookConsumerWidget {
             GestureDetector(
               onTap: () => notifier.reauthenticate(),
               child: WarnText(
-                requiresRecentLogin ? '再ログインが必要です。' : null,
+                requiresRecentLogin
+                    ? context.l10n.errorRequiresRecentLogin
+                    : null,
                 style: TextStyle(
                     decoration: TextDecoration.underline,
                     decorationColor: WarnText.colorOf(context)),

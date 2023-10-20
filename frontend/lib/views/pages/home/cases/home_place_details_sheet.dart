@@ -11,6 +11,7 @@ import 'package:otomo/views/cases/photo/photo_gallery_screen.dart';
 import 'package:otomo/views/cases/place/place_details_scroll_view.dart';
 import 'package:otomo/views/cases/place/place_reviews_sheet.dart';
 import 'package:otomo/views/utils/error_library.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class HomePlaceDetailsSheet extends HookConsumerWidget {
   const HomePlaceDetailsSheet({
@@ -35,7 +36,8 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
     required WidgetRef ref,
     required ScrollController scrollController,
   }) {
-    final state = ref.watch(placeDetailsProvider);
+    final state =
+        ref.watch(placeDetailsProvider(localeOf(context).languageCode));
     final theme = Theme.of(context);
 
     if (state.value?.isNotSpecified == true) {
@@ -67,8 +69,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
             reviews: value.place?.reviews ?? [],
             initialIndex: index,
           );
-          Analytics.logScreenView(
-              screenName: ScreenNames.placeReviewsSheet);
+          Analytics.logScreenView(screenName: ScreenNames.placeReviewsSheet);
         },
         onPhotoTap: (context, index) {
           PhotoGalleryScreen.showFullscreenDialog(
@@ -81,8 +82,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
                     .toList() ??
                 [],
           );
-          Analytics.logScreenView(
-              screenName: ScreenNames.placePhotoGallery);
+          Analytics.logScreenView(screenName: ScreenNames.placePhotoGallery);
         },
       ),
       loading: () => [
@@ -92,7 +92,7 @@ class HomePlaceDetailsSheet extends HookConsumerWidget {
       ],
       error: (error, _) => [
         _SingleContent(
-          child: ErrorText(ErrorLibrary.fromAny(error)),
+          child: ErrorText(ErrorLibrary.fromAnyOf(context, error)),
         )
       ],
     );

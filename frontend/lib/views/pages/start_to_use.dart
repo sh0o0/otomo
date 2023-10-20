@@ -1,5 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/constants/links.dart';
 import 'package:otomo/domains/entities/date.dart';
@@ -16,6 +16,7 @@ import 'package:otomo/views/bases/texts/tappable_text.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/utils/flutter.dart';
 import 'package:otomo/views/utils/launcher.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class StartToUsePage extends StatefulHookConsumerWidget {
   const StartToUsePage({super.key});
@@ -26,6 +27,8 @@ class StartToUsePage extends StatefulHookConsumerWidget {
 
 class _StartToUsePageState extends ConsumerState<StartToUsePage> {
   final _formKey = GlobalKey<FormState>();
+
+  static const num _ageLimit = 13;
 
   Widget _termsCheckboxBuilder({
     required BuildContext context,
@@ -38,16 +41,17 @@ class _StartToUsePageState extends ConsumerState<StartToUsePage> {
           value: state.value?.isAgreed ?? false,
           onChanged: (value) => notifier.setIsAgreed(value ?? false),
         ),
-        Text.rich(
-          TextSpan(children: [
-            TextSpan(
-              text: '利用規約',
+        ParsedText(
+          text: context.l10n.startToUsePageAgreeWithTerms(context.l10n.terms),
+          style: BodyMedium.styleOf(context),
+          parse: [
+            MatchText(
+              type: ParsedType.CUSTOM,
+              pattern: context.l10n.terms,
               style: TappableText.styleOf(context),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => Launcher.urlString(Links.terms),
+              onTap: (_) => Launcher.urlString(Links.terms),
             ),
-            const TextSpan(text: 'に同意する'),
-          ]),
+          ],
         ),
       ],
     );
@@ -65,7 +69,7 @@ class _StartToUsePageState extends ConsumerState<StartToUsePage> {
           shape: const Border(),
           leadingWidth: 150,
           leading: LeadingText(
-            text: 'サインアウト',
+            text: context.l10n.signOut,
             onTap: () => notifier.signOut(),
           ),
         ),
@@ -76,24 +80,29 @@ class _StartToUsePageState extends ConsumerState<StartToUsePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TitleLarge('利用を開始'),
+                TitleLarge(context.l10n.startToUsePageTitle),
                 Spaces.h40,
-                const TextFieldLabel(label: '生年月日'),
+                TextFieldLabel(label: context.l10n.birthday),
                 Form(
                   key: _formKey,
                   child: DateFormField(
                     onConfirmed: (time) => notifier.setBirthday(time),
                     validator: (value) {
-                      if (value == null) return '生年月日を入力してください';
+                      if (value == null) {
+                        return context.l10n
+                            .inputInvalidRequired(context.l10n.birthday);
+                      }
                       final birthday = Date.fromDateTime(value);
-                      if (birthday.age < 13) return '13歳未満の方はご利用することができません';
+                      if (birthday.age < _ageLimit) {
+                        return context.l10n.inputInvalidLimitAge(_ageLimit);
+                      }
                       return null;
                     },
                     initialValue: state.value?.birthday?.toDateTime(),
                   ),
                 ),
                 Spaces.h4,
-                const BodySmall('年齢制限のため生年月日を取得させていただきます。13歳未満の方はご利用することができません。'),
+                BodySmall(context.l10n.startToUsePageNoticeAgeLimit(_ageLimit)),
                 const Spacer(),
                 _termsCheckboxBuilder(
                   context: context,
@@ -105,11 +114,13 @@ class _StartToUsePageState extends ConsumerState<StartToUsePage> {
                   verticalExpanded: true,
                   onPressed: state.value?.canSaveAgreements == true
                       ? () async {
-                          if (!FlutterUtils.validateAndSaveForm(_formKey)) return;
+                          if (!FlutterUtils.validateAndSaveForm(_formKey)) {
+                            return;
+                          }
                           await notifier.agree();
                         }
                       : null,
-                  child: const Text('次へ'),
+                  child: Text(context.l10n.next),
                 ),
               ],
             ),
