@@ -1,12 +1,30 @@
 {
   "@@locale": "ja",
   "title": "オトモ",
-  "signOut": "サインアウト",
   "terms": "利用規約",
   "birthday": "生年月日",
   "email": "メールアドレス",
   "next": "次へ",
   "ok": "OK",
+  "inquiry": "お問い合わせ",
+  "signOut": "サインアウト",
+  "settingsPageTitle": "設定",
+  "settingsPageAccountSection": "アカウント",
+  "settingsPageHelpSection": "ヘルプ",
+  "settingsPageAccountDeletion": "アカウント削除",
+  "settingsPageVersion": "バージョン {version} ({buildNumber})",
+  "@settingsPageVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      },
+      "buildNumber": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
   "signInWithGoogle": "Googleでサインイン",
   "signInWithApple": "Appleでサインイン",
   "signInWithEmail": "メールアドレスでサインイン",

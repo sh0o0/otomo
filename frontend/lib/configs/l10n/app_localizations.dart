@@ -97,12 +97,6 @@ abstract class AppLocalizations {
   /// **'オトモ'**
   String get title;
 
-  /// No description provided for @signOut.
-  ///
-  /// In ja, this message translates to:
-  /// **'サインアウト'**
-  String get signOut;
-
   /// No description provided for @terms.
   ///
   /// In ja, this message translates to:
@@ -132,6 +126,48 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @inquiry.
+  ///
+  /// In ja, this message translates to:
+  /// **'お問い合わせ'**
+  String get inquiry;
+
+  /// No description provided for @signOut.
+  ///
+  /// In ja, this message translates to:
+  /// **'サインアウト'**
+  String get signOut;
+
+  /// No description provided for @settingsPageTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'設定'**
+  String get settingsPageTitle;
+
+  /// No description provided for @settingsPageAccountSection.
+  ///
+  /// In ja, this message translates to:
+  /// **'アカウント'**
+  String get settingsPageAccountSection;
+
+  /// No description provided for @settingsPageHelpSection.
+  ///
+  /// In ja, this message translates to:
+  /// **'ヘルプ'**
+  String get settingsPageHelpSection;
+
+  /// No description provided for @settingsPageAccountDeletion.
+  ///
+  /// In ja, this message translates to:
+  /// **'アカウント削除'**
+  String get settingsPageAccountDeletion;
+
+  /// No description provided for @settingsPageVersion.
+  ///
+  /// In ja, this message translates to:
+  /// **'バージョン {version} ({buildNumber})'**
+  String settingsPageVersion(String version, String buildNumber);
 
   /// No description provided for @signInWithGoogle.
   ///

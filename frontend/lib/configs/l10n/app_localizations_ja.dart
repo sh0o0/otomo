@@ -8,9 +8,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get title => 'オトモ';
 
   @override
-  String get signOut => 'サインアウト';
-
-  @override
   String get terms => '利用規約';
 
   @override
@@ -24,6 +21,29 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get inquiry => 'お問い合わせ';
+
+  @override
+  String get signOut => 'サインアウト';
+
+  @override
+  String get settingsPageTitle => '設定';
+
+  @override
+  String get settingsPageAccountSection => 'アカウント';
+
+  @override
+  String get settingsPageHelpSection => 'ヘルプ';
+
+  @override
+  String get settingsPageAccountDeletion => 'アカウント削除';
+
+  @override
+  String settingsPageVersion(String version, String buildNumber) {
+    return 'バージョン $version ($buildNumber)';
+  }
 
   @override
   String get signInWithGoogle => 'Googleでサインイン';
