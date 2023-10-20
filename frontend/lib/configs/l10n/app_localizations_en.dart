@@ -114,7 +114,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String chatDailyLimitCount(num count) {
-    return '\'Remaining today: $count times';
+    return 'Remaining today: $count times';
   }
 
   @override

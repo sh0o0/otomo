@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:otomo/domains/entities/message_send_count.dart';
 import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_bar_handle.dart';
 import 'package:otomo/views/bases/bottom_sheets/bottom_sheet_leading.dart';
@@ -42,20 +43,52 @@ class ChatBottomSheetBar extends StatelessWidget {
       return Spaces.zero;
     }
 
-    return Row(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            BodySmall(context.l10n
-                .chatDailyLimitCount(remainingCount.daily.count)),
-            BodySmall(
-              context.l10n.chatMonthlySurplusLimitCount(
-                  remainingCount.monthlySurplus.count),
+    final size = MediaQuery.of(context).size;
+    return SizedBox(
+      width: size.width * 0.6,
+      child: Row(
+        children: [
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                _buildLimitCount(
+                  context: context,
+                  text: context.l10n
+                      .chatDailyLimitCount(remainingCount.daily.count),
+                  countPattern: remainingCount.daily.count.toString(),
+                ),
+                _buildLimitCount(
+                  context: context,
+                  text: context.l10n.chatMonthlySurplusLimitCount(
+                      remainingCount.monthlySurplus.count),
+                  countPattern: remainingCount.monthlySurplus.count.toString(),
+                ),
+              ],
             ),
-          ],
-        ),
-        BottomSheetLeading(onPressedLeading: onLeadingPressed),
+          ),
+          BottomSheetLeading(onPressedLeading: onLeadingPressed),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLimitCount({
+    required BuildContext context,
+    required String text,
+    required String countPattern,
+  }) {
+    return ParsedText(
+      text: text,
+      style: BodySmall.styleOf(context),
+      alignment: TextAlign.end,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      parse: [
+        MatchText(
+          pattern: countPattern.toString(),
+          style: TextStyles.bold,
+        )
       ],
     );
   }

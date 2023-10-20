@@ -15,12 +15,14 @@ abstract class BaseText extends StatelessWidget {
     this.style,
     this.overflow,
     this.maxLines,
+    this.textAlign,
   });
 
   final String text;
   final TextStyle? style;
   final TextOverflow? overflow;
   final int? maxLines;
+  final TextAlign? textAlign;
 
   TextStyle? defaultStyle(BuildContext context);
 
@@ -31,6 +33,7 @@ abstract class BaseText extends StatelessWidget {
       style: defaultStyle(context)?.merge(style),
       overflow: overflow,
       maxLines: maxLines,
+      textAlign: textAlign,
     );
   }
 }
@@ -186,6 +189,7 @@ class BodySmall extends BaseText {
     super.style,
     super.overflow,
     super.maxLines,
+    super.textAlign,
   });
 
   static TextStyle? styleOf(BuildContext context) =>

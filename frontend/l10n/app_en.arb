@@ -58,7 +58,7 @@
   "errorFailedExtractingPlace": "Failed to extract place name.",
   "errorLimitSendMessage": "The number of messages sent has reached the limit.",
   "errorFetchImage": "Failed to fetch image.",
-  "chatDailyLimitCount": "'Remaining today: {count} times",
+  "chatDailyLimitCount": "Remaining today: {count} times",
   "@chatDailyLimitCount": {
     "placeholders": {
       "count": {

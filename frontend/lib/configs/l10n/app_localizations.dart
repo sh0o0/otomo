@@ -300,7 +300,7 @@ abstract class AppLocalizations {
   /// No description provided for @chatDailyLimitCount.
   ///
   /// In en, this message translates to:
-  /// **'\'Remaining today: {count} times'**
+  /// **'Remaining today: {count} times'**
   String chatDailyLimitCount(num count);
 
   /// No description provided for @chatMonthlySurplusLimitCount.
