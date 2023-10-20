@@ -29,6 +29,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get inquiry => 'お問い合わせ';
 
   @override
+  String get online => 'オンライン';
+
+  @override
+  String get offline => 'オフライン';
+
+  @override
   String get signOut => 'サインアウト';
 
   @override

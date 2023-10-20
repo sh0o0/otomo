@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class OnlineStatus extends StatelessWidget {
   const OnlineStatus({
@@ -30,7 +31,7 @@ class OnlineStatus extends StatelessWidget {
         ),
         Spaces.w8,
         Text(
-          online ? 'オンライン' : 'オフライン',
+          online ? context.l10n.online : context.l10n.offline,
           style: theme.textTheme.bodyMedium,
         )
       ],

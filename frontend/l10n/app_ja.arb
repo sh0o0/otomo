@@ -8,6 +8,8 @@
   "next": "次へ",
   "ok": "OK",
   "inquiry": "お問い合わせ",
+  "online": "オンライン",
+  "offline": "オフライン",
   "signOut": "サインアウト",
   "accountDeletion": "アカウント削除",
   "signInWithGoogle": "Googleでサインイン",

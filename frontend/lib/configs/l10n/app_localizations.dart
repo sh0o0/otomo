@@ -139,6 +139,18 @@ abstract class AppLocalizations {
   /// **'お問い合わせ'**
   String get inquiry;
 
+  /// No description provided for @online.
+  ///
+  /// In ja, this message translates to:
+  /// **'オンライン'**
+  String get online;
+
+  /// No description provided for @offline.
+  ///
+  /// In ja, this message translates to:
+  /// **'オフライン'**
+  String get offline;
+
   /// No description provided for @signOut.
   ///
   /// In ja, this message translates to:
