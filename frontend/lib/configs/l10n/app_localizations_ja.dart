@@ -17,7 +17,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get birthday => '生年月日';
 
   @override
+  String get email => 'メールアドレス';
+
+  @override
   String get next => '次へ';
+
+  @override
+  String get ok => 'OK';
 
   @override
   String get signInWithGoogle => 'Googleでサインイン';
@@ -27,6 +33,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get signInWithEmail => 'メールアドレスでサインイン';
+
+  @override
+  String get signInWithEmailLinkPageTitle => 'メールアドレスでサインイン';
+
+  @override
+  String get signInWithEmailLinkPageNoticeSentEmail => 'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。';
+
+  @override
+  String get signInWithEmailLinkPageNoticeSendAuthEmail => '認証メールを送信';
 
   @override
   String get startToUsePageTitle => '利用を開始';
@@ -44,6 +59,11 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String inputInvalidRequired(String field) {
     return '$fieldを入力してください。';
+  }
+
+  @override
+  String inputInvalid(String field) {
+    return '$fieldが正しくありません。';
   }
 
   @override

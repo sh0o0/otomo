@@ -115,11 +115,23 @@ abstract class AppLocalizations {
   /// **'生年月日'**
   String get birthday;
 
+  /// No description provided for @email.
+  ///
+  /// In ja, this message translates to:
+  /// **'メールアドレス'**
+  String get email;
+
   /// No description provided for @next.
   ///
   /// In ja, this message translates to:
   /// **'次へ'**
   String get next;
+
+  /// No description provided for @ok.
+  ///
+  /// In ja, this message translates to:
+  /// **'OK'**
+  String get ok;
 
   /// No description provided for @signInWithGoogle.
   ///
@@ -138,6 +150,24 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'メールアドレスでサインイン'**
   String get signInWithEmail;
+
+  /// No description provided for @signInWithEmailLinkPageTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'メールアドレスでサインイン'**
+  String get signInWithEmailLinkPageTitle;
+
+  /// No description provided for @signInWithEmailLinkPageNoticeSentEmail.
+  ///
+  /// In ja, this message translates to:
+  /// **'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。'**
+  String get signInWithEmailLinkPageNoticeSentEmail;
+
+  /// No description provided for @signInWithEmailLinkPageNoticeSendAuthEmail.
+  ///
+  /// In ja, this message translates to:
+  /// **'認証メールを送信'**
+  String get signInWithEmailLinkPageNoticeSendAuthEmail;
 
   /// No description provided for @startToUsePageTitle.
   ///
@@ -162,6 +192,12 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'{field}を入力してください。'**
   String inputInvalidRequired(String field);
+
+  /// No description provided for @inputInvalid.
+  ///
+  /// In ja, this message translates to:
+  /// **'{field}が正しくありません。'**
+  String inputInvalid(String field);
 
   /// No description provided for @inputInvalidLimitAge.
   ///
