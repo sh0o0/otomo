@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:otomo/configs/app_themes.dart';
 import 'package:otomo/views/bases/indicators/app_circular_progress_indicator.dart';
 import 'package:otomo/views/cases/warn/warn_text.dart';
+import 'package:otomo/views/utils/localizations.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -66,10 +67,10 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
         itemCount: widget.images.length,
         builder: (context, index) => PhotoViewGalleryPageOptions(
           imageProvider: widget.images[index],
-          errorBuilder: (context, error, stackTrace) => const Center(
+          errorBuilder: (context, error, stackTrace) => Center(
             child: WarnText(
-              '画像の取得に失敗しました。',
-              style: TextStyle(color: Colors.white),
+              context.l10n.errorFetchImage,
+              style: const TextStyle(color: Colors.white),
             ),
           ),
           minScale: PhotoViewComputedScale.contained,
