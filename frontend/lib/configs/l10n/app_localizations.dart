@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
 import 'app_localizations_ja.dart';
 
 /// Callers can lookup localized strings with an instance of AppLocalizations
@@ -88,529 +89,530 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
     Locale('ja')
   ];
 
   /// No description provided for @title.
   ///
-  /// In ja, this message translates to:
+  /// In en, this message translates to:
   /// **'Otomo'**
   String get title;
 
   /// No description provided for @otomo.
   ///
-  /// In ja, this message translates to:
-  /// **'オトモ'**
+  /// In en, this message translates to:
+  /// **'Otomo'**
   String get otomo;
 
   /// No description provided for @terms.
   ///
-  /// In ja, this message translates to:
-  /// **'利用規約'**
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
   String get terms;
 
   /// No description provided for @birthday.
   ///
-  /// In ja, this message translates to:
-  /// **'生年月日'**
+  /// In en, this message translates to:
+  /// **'Birthday'**
   String get birthday;
 
   /// No description provided for @email.
   ///
-  /// In ja, this message translates to:
-  /// **'メールアドレス'**
+  /// In en, this message translates to:
+  /// **'Email'**
   String get email;
 
   /// No description provided for @date.
   ///
-  /// In ja, this message translates to:
-  /// **'日付'**
+  /// In en, this message translates to:
+  /// **'Date'**
   String get date;
 
   /// No description provided for @next.
   ///
-  /// In ja, this message translates to:
-  /// **'次へ'**
+  /// In en, this message translates to:
+  /// **'Next'**
   String get next;
 
   /// No description provided for @ok.
   ///
-  /// In ja, this message translates to:
+  /// In en, this message translates to:
   /// **'OK'**
   String get ok;
 
   /// No description provided for @cancel.
   ///
-  /// In ja, this message translates to:
-  /// **'キャンセル'**
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get cancel;
 
   /// No description provided for @confirm.
   ///
-  /// In ja, this message translates to:
-  /// **'確定'**
+  /// In en, this message translates to:
+  /// **'Confirm'**
   String get confirm;
 
   /// No description provided for @copied.
   ///
-  /// In ja, this message translates to:
-  /// **'コピーしました。'**
+  /// In en, this message translates to:
+  /// **'Copied!'**
   String get copied;
 
   /// No description provided for @openOnGoogleMap.
   ///
-  /// In ja, this message translates to:
-  /// **'Googleマップで開く'**
+  /// In en, this message translates to:
+  /// **'Open on Google Map'**
   String get openOnGoogleMap;
 
   /// No description provided for @inquiry.
   ///
-  /// In ja, this message translates to:
-  /// **'お問い合わせ'**
+  /// In en, this message translates to:
+  /// **'Inquiry'**
   String get inquiry;
 
   /// No description provided for @online.
   ///
-  /// In ja, this message translates to:
-  /// **'オンライン'**
+  /// In en, this message translates to:
+  /// **'Online'**
   String get online;
 
   /// No description provided for @offline.
   ///
-  /// In ja, this message translates to:
-  /// **'オフライン'**
+  /// In en, this message translates to:
+  /// **'Offline'**
   String get offline;
 
   /// No description provided for @signOut.
   ///
-  /// In ja, this message translates to:
-  /// **'サインアウト'**
+  /// In en, this message translates to:
+  /// **'Sign Out'**
   String get signOut;
 
   /// No description provided for @accountDeletion.
   ///
-  /// In ja, this message translates to:
-  /// **'アカウント削除'**
+  /// In en, this message translates to:
+  /// **'Account Deletion'**
   String get accountDeletion;
 
   /// No description provided for @signInWithGoogle.
   ///
-  /// In ja, this message translates to:
-  /// **'Googleでサインイン'**
+  /// In en, this message translates to:
+  /// **'Sign in with Google'**
   String get signInWithGoogle;
 
   /// No description provided for @signInWithApple.
   ///
-  /// In ja, this message translates to:
-  /// **'Appleでサインイン'**
+  /// In en, this message translates to:
+  /// **'Sign in with Apple'**
   String get signInWithApple;
 
   /// No description provided for @signInWithEmail.
   ///
-  /// In ja, this message translates to:
-  /// **'メールアドレスでサインイン'**
+  /// In en, this message translates to:
+  /// **'Sign in with Email'**
   String get signInWithEmail;
 
   /// No description provided for @inputInvalidRequired.
   ///
-  /// In ja, this message translates to:
-  /// **'{field}を入力してください。'**
+  /// In en, this message translates to:
+  /// **'Please enter {field}.'**
   String inputInvalidRequired(String field);
 
   /// No description provided for @inputInvalid.
   ///
-  /// In ja, this message translates to:
-  /// **'{field}が正しくありません。'**
+  /// In en, this message translates to:
+  /// **'{field} is invalid.'**
   String inputInvalid(String field);
 
   /// No description provided for @inputInvalidLimitAge.
   ///
-  /// In ja, this message translates to:
-  /// **'{age}歳未満の方はご利用いただけません。'**
+  /// In en, this message translates to:
+  /// **'You must be over {age} years old to use this service.'**
   String inputInvalidLimitAge(num age);
 
   /// No description provided for @errorUnknown.
   ///
-  /// In ja, this message translates to:
-  /// **'エラーが発生しました。'**
+  /// In en, this message translates to:
+  /// **'An error occurred.'**
   String get errorUnknown;
 
   /// No description provided for @errorNetwork.
   ///
-  /// In ja, this message translates to:
-  /// **'ネットワークエラーが発生しました。'**
+  /// In en, this message translates to:
+  /// **'A network error occurred.'**
   String get errorNetwork;
 
   /// No description provided for @errorInvalidArgument.
   ///
-  /// In ja, this message translates to:
-  /// **'入力が正しくありません。'**
+  /// In en, this message translates to:
+  /// **'The input is invalid.'**
   String get errorInvalidArgument;
 
   /// No description provided for @errorNotFound.
   ///
-  /// In ja, this message translates to:
-  /// **'該当するデータがありません。'**
+  /// In en, this message translates to:
+  /// **'No data found.'**
   String get errorNotFound;
 
   /// No description provided for @errorAlreadyExist.
   ///
-  /// In ja, this message translates to:
-  /// **'すでにデータが存在します。'**
+  /// In en, this message translates to:
+  /// **'Data already exists.'**
   String get errorAlreadyExist;
 
   /// No description provided for @errorPermissionDenied.
   ///
-  /// In ja, this message translates to:
-  /// **'アクセス権限がありません。'**
+  /// In en, this message translates to:
+  /// **'Access denied.'**
   String get errorPermissionDenied;
 
   /// No description provided for @errorUnauthenticated.
   ///
-  /// In ja, this message translates to:
-  /// **'認証に失敗しました。'**
+  /// In en, this message translates to:
+  /// **'Authentication failed.'**
   String get errorUnauthenticated;
 
   /// No description provided for @errorRequiresRecentLogin.
   ///
-  /// In ja, this message translates to:
-  /// **'再ログインが必要です。'**
+  /// In en, this message translates to:
+  /// **'You need to log in again.'**
   String get errorRequiresRecentLogin;
 
   /// No description provided for @errorFailedExtractingPlace.
   ///
-  /// In ja, this message translates to:
-  /// **'地名の解析に失敗しました。'**
+  /// In en, this message translates to:
+  /// **'Failed to extract place name.'**
   String get errorFailedExtractingPlace;
 
   /// No description provided for @errorLimitSendMessage.
   ///
-  /// In ja, this message translates to:
-  /// **'メッセージの送信回数が上限に達しました。'**
+  /// In en, this message translates to:
+  /// **'The number of messages sent has reached the limit.'**
   String get errorLimitSendMessage;
 
   /// No description provided for @errorFetchImage.
   ///
-  /// In ja, this message translates to:
-  /// **'画像の取得に失敗しました。'**
+  /// In en, this message translates to:
+  /// **'Failed to fetch image.'**
   String get errorFetchImage;
 
   /// No description provided for @chatDailyLimitCount.
   ///
-  /// In ja, this message translates to:
-  /// **'\'今日の残り: {count} 回'**
+  /// In en, this message translates to:
+  /// **'\'Remaining today: {count} times'**
   String chatDailyLimitCount(num count);
 
   /// No description provided for @chatMonthlySurplusLimitCount.
   ///
-  /// In ja, this message translates to:
-  /// **'今月の追加分残り: {count} 回'**
+  /// In en, this message translates to:
+  /// **'Additional remaining this month: {count} times'**
   String chatMonthlySurplusLimitCount(num count);
 
   /// No description provided for @chatAttachmentButtonAccessibilityLabel.
   ///
-  /// In ja, this message translates to:
-  /// **'メディアを送付'**
+  /// In en, this message translates to:
+  /// **'Attach media'**
   String get chatAttachmentButtonAccessibilityLabel;
 
   /// No description provided for @chatEmptyChatPlaceholder.
   ///
-  /// In ja, this message translates to:
-  /// **'メッセージはありません'**
+  /// In en, this message translates to:
+  /// **'No messages'**
   String get chatEmptyChatPlaceholder;
 
   /// No description provided for @chatFileButtonAccessibilityLabel.
   ///
-  /// In ja, this message translates to:
-  /// **'ファイル'**
+  /// In en, this message translates to:
+  /// **'File'**
   String get chatFileButtonAccessibilityLabel;
 
   /// No description provided for @chatInputPlaceholder.
   ///
-  /// In ja, this message translates to:
-  /// **'メッセージ'**
+  /// In en, this message translates to:
+  /// **'Message'**
   String get chatInputPlaceholder;
 
   /// No description provided for @chatSendButtonAccessibilityLabel.
   ///
-  /// In ja, this message translates to:
-  /// **'送信'**
+  /// In en, this message translates to:
+  /// **'Send'**
   String get chatSendButtonAccessibilityLabel;
 
   /// No description provided for @chatUnreadMessagesLabel.
   ///
-  /// In ja, this message translates to:
-  /// **'未読メッセージ'**
+  /// In en, this message translates to:
+  /// **'Unread messages'**
   String get chatUnreadMessagesLabel;
 
   /// No description provided for @placeDetails.
   ///
-  /// In ja, this message translates to:
-  /// **'詳細'**
+  /// In en, this message translates to:
+  /// **'Details'**
   String get placeDetails;
 
   /// No description provided for @placeBusinessHours.
   ///
-  /// In ja, this message translates to:
-  /// **'営業時間'**
+  /// In en, this message translates to:
+  /// **'Business hours'**
   String get placeBusinessHours;
 
   /// No description provided for @placeOpen.
   ///
-  /// In ja, this message translates to:
-  /// **'営業中'**
+  /// In en, this message translates to:
+  /// **'Open'**
   String get placeOpen;
 
   /// No description provided for @placeClosed.
   ///
-  /// In ja, this message translates to:
-  /// **'営業時間外'**
+  /// In en, this message translates to:
+  /// **'Closed'**
   String get placeClosed;
 
   /// No description provided for @placeBusinessHoursPeriod.
   ///
-  /// In ja, this message translates to:
-  /// **'{day}日: {timePeriod}'**
+  /// In en, this message translates to:
+  /// **'{day}: {timePeriod}'**
   String placeBusinessHoursPeriod(num day, String timePeriod);
 
   /// No description provided for @placeRating.
   ///
-  /// In ja, this message translates to:
-  /// **'評価'**
+  /// In en, this message translates to:
+  /// **'Rating'**
   String get placeRating;
 
   /// No description provided for @placeReviews.
   ///
-  /// In ja, this message translates to:
-  /// **'レビュー'**
+  /// In en, this message translates to:
+  /// **'Reviews'**
   String get placeReviews;
 
   /// No description provided for @placeTypeArchipelago.
   ///
-  /// In ja, this message translates to:
-  /// **'群島'**
+  /// In en, this message translates to:
+  /// **'Archipelago'**
   String get placeTypeArchipelago;
 
   /// No description provided for @placeTypeContinent.
   ///
-  /// In ja, this message translates to:
-  /// **'大陸'**
+  /// In en, this message translates to:
+  /// **'Continent'**
   String get placeTypeContinent;
 
   /// No description provided for @placeTypeCountry.
   ///
-  /// In ja, this message translates to:
-  /// **'国'**
+  /// In en, this message translates to:
+  /// **'Country'**
   String get placeTypeCountry;
 
   /// No description provided for @placeTypeEstablishment.
   ///
-  /// In ja, this message translates to:
-  /// **'施設'**
+  /// In en, this message translates to:
+  /// **'Establishment'**
   String get placeTypeEstablishment;
 
   /// No description provided for @placeTypeFinance.
   ///
-  /// In ja, this message translates to:
-  /// **'金融'**
+  /// In en, this message translates to:
+  /// **'Finance'**
   String get placeTypeFinance;
 
   /// No description provided for @placeTypeFloor.
   ///
-  /// In ja, this message translates to:
-  /// **'フロア'**
+  /// In en, this message translates to:
+  /// **'Floor'**
   String get placeTypeFloor;
 
   /// No description provided for @placeTypeFood.
   ///
-  /// In ja, this message translates to:
-  /// **'食べ物'**
+  /// In en, this message translates to:
+  /// **'Food'**
   String get placeTypeFood;
 
   /// No description provided for @placeTypeGeneralContractor.
   ///
-  /// In ja, this message translates to:
-  /// **'総合請負業者'**
+  /// In en, this message translates to:
+  /// **'General contractor'**
   String get placeTypeGeneralContractor;
 
   /// No description provided for @placeTypeHealth.
   ///
-  /// In ja, this message translates to:
-  /// **'健康'**
+  /// In en, this message translates to:
+  /// **'Health'**
   String get placeTypeHealth;
 
   /// No description provided for @placeTypeIntersection.
   ///
-  /// In ja, this message translates to:
-  /// **'交差点'**
+  /// In en, this message translates to:
+  /// **'Intersection'**
   String get placeTypeIntersection;
 
   /// No description provided for @placeTypeLandmark.
   ///
-  /// In ja, this message translates to:
-  /// **'ランドマーク'**
+  /// In en, this message translates to:
+  /// **'Landmark'**
   String get placeTypeLandmark;
 
   /// No description provided for @placeTypeLocality.
   ///
-  /// In ja, this message translates to:
-  /// **'地域'**
+  /// In en, this message translates to:
+  /// **'Locality'**
   String get placeTypeLocality;
 
   /// No description provided for @placeTypeNaturalFeature.
   ///
-  /// In ja, this message translates to:
-  /// **'自然地形'**
+  /// In en, this message translates to:
+  /// **'Natural feature'**
   String get placeTypeNaturalFeature;
 
   /// No description provided for @placeTypeNeighborhood.
   ///
-  /// In ja, this message translates to:
-  /// **'近隣地域'**
+  /// In en, this message translates to:
+  /// **'Neighborhood'**
   String get placeTypeNeighborhood;
 
   /// No description provided for @placeTypePlaceOfWorship.
   ///
-  /// In ja, this message translates to:
-  /// **'礼拝所'**
+  /// In en, this message translates to:
+  /// **'Place of worship'**
   String get placeTypePlaceOfWorship;
 
   /// No description provided for @placeTypePointOfInterest.
   ///
-  /// In ja, this message translates to:
-  /// **'興味'**
+  /// In en, this message translates to:
+  /// **'Point of interest'**
   String get placeTypePointOfInterest;
 
   /// No description provided for @placeTypePolitical.
   ///
-  /// In ja, this message translates to:
-  /// **'政治'**
+  /// In en, this message translates to:
+  /// **'Political'**
   String get placeTypePolitical;
 
   /// No description provided for @placeTypePostBox.
   ///
-  /// In ja, this message translates to:
-  /// **'郵便ポスト'**
+  /// In en, this message translates to:
+  /// **'Post box'**
   String get placeTypePostBox;
 
   /// No description provided for @placeTypePremise.
   ///
-  /// In ja, this message translates to:
-  /// **'敷地'**
+  /// In en, this message translates to:
+  /// **'Premise'**
   String get placeTypePremise;
 
   /// No description provided for @placeTypeRoom.
   ///
-  /// In ja, this message translates to:
-  /// **'部屋'**
+  /// In en, this message translates to:
+  /// **'Room'**
   String get placeTypeRoom;
 
   /// No description provided for @placeTypeRoute.
   ///
-  /// In ja, this message translates to:
-  /// **'ルート'**
+  /// In en, this message translates to:
+  /// **'Route'**
   String get placeTypeRoute;
 
   /// No description provided for @placeTypeStreetAddress.
   ///
-  /// In ja, this message translates to:
-  /// **'住所'**
+  /// In en, this message translates to:
+  /// **'Street address'**
   String get placeTypeStreetAddress;
 
   /// No description provided for @placeTypeStreetNumber.
   ///
-  /// In ja, this message translates to:
-  /// **'番地'**
+  /// In en, this message translates to:
+  /// **'Street number'**
   String get placeTypeStreetNumber;
 
   /// No description provided for @placeTypeSublocality.
   ///
-  /// In ja, this message translates to:
-  /// **'地下地域'**
+  /// In en, this message translates to:
+  /// **'Sublocality'**
   String get placeTypeSublocality;
 
   /// No description provided for @placeTypeTownSquare.
   ///
-  /// In ja, this message translates to:
-  /// **'広場'**
+  /// In en, this message translates to:
+  /// **'Town square'**
   String get placeTypeTownSquare;
 
   /// No description provided for @signInWithEmailLinkPageTitle.
   ///
-  /// In ja, this message translates to:
-  /// **'メールアドレスでサインイン'**
+  /// In en, this message translates to:
+  /// **'Sign in with Email'**
   String get signInWithEmailLinkPageTitle;
 
   /// No description provided for @signInWithEmailLinkPageNoticeSentEmail.
   ///
-  /// In ja, this message translates to:
-  /// **'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。'**
+  /// In en, this message translates to:
+  /// **'We have sent an authentication link to your email address. Please tap the link to complete the authentication.\n\n※ If you have not received the email, it may be in your spam folder or your email address may be incorrect.'**
   String get signInWithEmailLinkPageNoticeSentEmail;
 
   /// No description provided for @signInWithEmailLinkPageNoticeSendAuthEmail.
   ///
-  /// In ja, this message translates to:
-  /// **'認証メールを送信'**
+  /// In en, this message translates to:
+  /// **'Send authentication email'**
   String get signInWithEmailLinkPageNoticeSendAuthEmail;
 
   /// No description provided for @startToUsePageTitle.
   ///
-  /// In ja, this message translates to:
-  /// **'利用を開始'**
+  /// In en, this message translates to:
+  /// **'Start to use'**
   String get startToUsePageTitle;
 
   /// No description provided for @startToUsePageAgreeWithTerms.
   ///
-  /// In ja, this message translates to:
-  /// **'{terms}に同意する'**
+  /// In en, this message translates to:
+  /// **'I agree to the {terms}'**
   String startToUsePageAgreeWithTerms(String terms);
 
   /// No description provided for @startToUsePageNoticeAgeLimit.
   ///
-  /// In ja, this message translates to:
-  /// **'年齢制限のため生年月日を取得させていただきます。{age}歳未満の方はご利用することができません。'**
+  /// In en, this message translates to:
+  /// **'We need to obtain your date of birth due to age restrictions. You must be over {age} years old to use this service.'**
   String startToUsePageNoticeAgeLimit(num age);
 
   /// No description provided for @settingsPageTitle.
   ///
-  /// In ja, this message translates to:
-  /// **'設定'**
+  /// In en, this message translates to:
+  /// **'Settings'**
   String get settingsPageTitle;
 
   /// No description provided for @settingsPageAccountSection.
   ///
-  /// In ja, this message translates to:
-  /// **'アカウント'**
+  /// In en, this message translates to:
+  /// **'Account'**
   String get settingsPageAccountSection;
 
   /// No description provided for @settingsPageHelpSection.
   ///
-  /// In ja, this message translates to:
-  /// **'ヘルプ'**
+  /// In en, this message translates to:
+  /// **'Help'**
   String get settingsPageHelpSection;
 
   /// No description provided for @settingsPageVersion.
   ///
-  /// In ja, this message translates to:
-  /// **'バージョン {version} ({buildNumber})'**
+  /// In en, this message translates to:
+  /// **'Version {version} ({buildNumber})'**
   String settingsPageVersion(String version, String buildNumber);
 
   /// No description provided for @accountDeletionPageTitle.
   ///
-  /// In ja, this message translates to:
-  /// **'アカウント削除'**
+  /// In en, this message translates to:
+  /// **'Account Deletion'**
   String get accountDeletionPageTitle;
 
   /// No description provided for @accountDeletionPageWarn.
   ///
-  /// In ja, this message translates to:
-  /// **'アカウントが削除されます。'**
+  /// In en, this message translates to:
+  /// **'Your account will be deleted.'**
   String get accountDeletionPageWarn;
 
   /// No description provided for @accountDeletionPageExplanation.
   ///
-  /// In ja, this message translates to:
-  /// **'アカウントを削除すると、データの復元はできませんのでご注意ください。\nまた、削除されたアカウントについては、Otomo運営事務局のサポート外となります'**
+  /// In en, this message translates to:
+  /// **'Please note that once your account is deleted, your data cannot be restored. In addition, support for deleted accounts will be outside the scope of Otomo\'s support team.'**
   String get accountDeletionPageExplanation;
 }
 
@@ -623,7 +625,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ja'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ja'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -634,6 +636,7 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en': return AppLocalizationsEn();
     case 'ja': return AppLocalizationsJa();
   }
 
