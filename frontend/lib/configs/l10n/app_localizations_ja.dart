@@ -26,6 +26,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get ok => 'OK';
 
   @override
+  String get copied => 'コピーしました。';
+
+  @override
+  String get openOnGoogleMap => 'Googleマップで開く';
+
+  @override
   String get inquiry => 'お問い合わせ';
 
   @override
@@ -124,6 +130,104 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get chatUnreadMessagesLabel => '未読メッセージ';
+
+  @override
+  String get placeDetails => '詳細';
+
+  @override
+  String get placeBusinessHours => '営業時間';
+
+  @override
+  String get placeOpen => '営業中';
+
+  @override
+  String get placeClosed => '営業時間外';
+
+  @override
+  String placeBusinessHoursPeriod(num day, String timePeriod) {
+    return '$day日: $timePeriod';
+  }
+
+  @override
+  String get placeRating => '評価';
+
+  @override
+  String get placeReviews => 'レビュー';
+
+  @override
+  String get placeTypeArchipelago => '群島';
+
+  @override
+  String get placeTypeContinent => '大陸';
+
+  @override
+  String get placeTypeCountry => '国';
+
+  @override
+  String get placeTypeEstablishment => '施設';
+
+  @override
+  String get placeTypeFinance => '金融';
+
+  @override
+  String get placeTypeFloor => 'フロア';
+
+  @override
+  String get placeTypeFood => '食べ物';
+
+  @override
+  String get placeTypeGeneralContractor => '総合請負業者';
+
+  @override
+  String get placeTypeHealth => '健康';
+
+  @override
+  String get placeTypeIntersection => '交差点';
+
+  @override
+  String get placeTypeLandmark => 'ランドマーク';
+
+  @override
+  String get placeTypeLocality => '地域';
+
+  @override
+  String get placeTypeNaturalFeature => '自然地形';
+
+  @override
+  String get placeTypeNeighborhood => '近隣地域';
+
+  @override
+  String get placeTypePlaceOfWorship => '礼拝所';
+
+  @override
+  String get placeTypePointOfInterest => '興味';
+
+  @override
+  String get placeTypePolitical => '政治';
+
+  @override
+  String get placeTypePostBox => '郵便ポスト';
+
+  @override
+  String get placeTypePremise => '敷地';
+
+  @override
+  String get placeTypeRoom => '部屋';
+
+  @override
+  String get placeTypeRoute => 'ルート';
+
+  @override
+  String get placeTypeStreetAddress => '住所';
+
+  @override
+  String get placeTypeStreetNumber => '番地';
+
+  @override
+  String get placeTypeSublocality => '地下地域';
+
+  @override
+  String get placeTypeTownSquare => '広場';
 
   @override
   String get signInWithEmailLinkPageTitle => 'メールアドレスでサインイン';

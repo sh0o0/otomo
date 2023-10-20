@@ -6,6 +6,7 @@ import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/utils/flutter.dart';
 import 'package:otomo/views/utils/launcher.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class PlaceDetailsView extends StatelessWidget {
   const PlaceDetailsView({
@@ -25,7 +26,8 @@ class PlaceDetailsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const HeadlineSmall('詳細', style: TextStyles.bold),
+          HeadlineSmall(context.l10n.placeDetails,
+              style: TextStyles.bold),
           Spaces.h8,
           ...ListTile.divideTiles(
             context: context,
@@ -71,7 +73,7 @@ class PlaceOpeningHoursPeriodsExpansionTile extends StatelessWidget {
         Icons.access_time_rounded,
         color: theme.colorScheme.primary,
       ),
-      title: const BodyMedium('営業時間'),
+      title: BodyMedium(context.l10n.placeBusinessHours),
       children: [
         for (var period in openingHours.periods ?? [])
           PlacePeriodListTile(period: period),
@@ -92,13 +94,15 @@ class PlacePeriodListTile extends StatelessWidget {
     return '${time.substring(0, 2)}:${time.substring(2)}';
   }
 
-  String periodDetailsToTime(PlaceDetailsHoursPeriodDetail detail) {
-    return '${detail.day}日: ${stringToTime(detail.time)}';
+  String periodDetailsToTime(
+      BuildContext context, PlaceDetailsHoursPeriodDetail detail) {
+    return context.l10n
+        .placeBusinessHoursPeriod(detail.day, stringToTime(detail.time));
   }
 
   @override
   Widget build(BuildContext context) {
-    String times = '${periodDetailsToTime(period.open)} - ';
+    String times = '${periodDetailsToTime(context, period.open)} - ';
     if (period.close == null) {
       times += stringToTime(period.close!.time);
     }
@@ -128,7 +132,9 @@ class PlaceAddressListTile extends StatelessWidget {
       ),
       onLongPress: () async {
         await FlutterUtils.copyText(address);
-        App.showSnackBar(snackBar: AppSnackbar.text('コピーしました。'));
+        App.showSnackBar(
+            snackBarBuilder: (context) =>
+                AppSnackbar.text(context.l10n.copied));
       },
     );
   }
@@ -150,7 +156,9 @@ class PlaceWebsiteListTile extends StatelessWidget {
       onTap: () => Launcher.urlString(website),
       onLongPress: () async {
         await FlutterUtils.copyText(website);
-        App.showSnackBar(snackBar: AppSnackbar.text('コピーしました。'));
+        App.showSnackBar(
+            snackBarBuilder: (context) =>
+                AppSnackbar.text(context.l10n.copied));
       },
     );
   }
@@ -172,7 +180,9 @@ class PlacePhoneNumberListTile extends StatelessWidget {
       onTap: () => Launcher.anyFormatTel(phoneNumber),
       onLongPress: () async {
         await FlutterUtils.copyText(phoneNumber);
-        App.showSnackBar(snackBar: AppSnackbar.text('コピーしました。'));
+        App.showSnackBar(
+            snackBarBuilder: (context) =>
+                AppSnackbar.text(context.l10n.copied));
       },
     );
   }

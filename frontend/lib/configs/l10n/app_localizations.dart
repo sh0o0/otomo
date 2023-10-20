@@ -133,6 +133,18 @@ abstract class AppLocalizations {
   /// **'OK'**
   String get ok;
 
+  /// No description provided for @copied.
+  ///
+  /// In ja, this message translates to:
+  /// **'コピーしました。'**
+  String get copied;
+
+  /// No description provided for @openOnGoogleMap.
+  ///
+  /// In ja, this message translates to:
+  /// **'Googleマップで開く'**
+  String get openOnGoogleMap;
+
   /// No description provided for @inquiry.
   ///
   /// In ja, this message translates to:
@@ -312,6 +324,198 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'未読メッセージ'**
   String get chatUnreadMessagesLabel;
+
+  /// No description provided for @placeDetails.
+  ///
+  /// In ja, this message translates to:
+  /// **'詳細'**
+  String get placeDetails;
+
+  /// No description provided for @placeBusinessHours.
+  ///
+  /// In ja, this message translates to:
+  /// **'営業時間'**
+  String get placeBusinessHours;
+
+  /// No description provided for @placeOpen.
+  ///
+  /// In ja, this message translates to:
+  /// **'営業中'**
+  String get placeOpen;
+
+  /// No description provided for @placeClosed.
+  ///
+  /// In ja, this message translates to:
+  /// **'営業時間外'**
+  String get placeClosed;
+
+  /// No description provided for @placeBusinessHoursPeriod.
+  ///
+  /// In ja, this message translates to:
+  /// **'{day}日: {timePeriod}'**
+  String placeBusinessHoursPeriod(num day, String timePeriod);
+
+  /// No description provided for @placeRating.
+  ///
+  /// In ja, this message translates to:
+  /// **'評価'**
+  String get placeRating;
+
+  /// No description provided for @placeReviews.
+  ///
+  /// In ja, this message translates to:
+  /// **'レビュー'**
+  String get placeReviews;
+
+  /// No description provided for @placeTypeArchipelago.
+  ///
+  /// In ja, this message translates to:
+  /// **'群島'**
+  String get placeTypeArchipelago;
+
+  /// No description provided for @placeTypeContinent.
+  ///
+  /// In ja, this message translates to:
+  /// **'大陸'**
+  String get placeTypeContinent;
+
+  /// No description provided for @placeTypeCountry.
+  ///
+  /// In ja, this message translates to:
+  /// **'国'**
+  String get placeTypeCountry;
+
+  /// No description provided for @placeTypeEstablishment.
+  ///
+  /// In ja, this message translates to:
+  /// **'施設'**
+  String get placeTypeEstablishment;
+
+  /// No description provided for @placeTypeFinance.
+  ///
+  /// In ja, this message translates to:
+  /// **'金融'**
+  String get placeTypeFinance;
+
+  /// No description provided for @placeTypeFloor.
+  ///
+  /// In ja, this message translates to:
+  /// **'フロア'**
+  String get placeTypeFloor;
+
+  /// No description provided for @placeTypeFood.
+  ///
+  /// In ja, this message translates to:
+  /// **'食べ物'**
+  String get placeTypeFood;
+
+  /// No description provided for @placeTypeGeneralContractor.
+  ///
+  /// In ja, this message translates to:
+  /// **'総合請負業者'**
+  String get placeTypeGeneralContractor;
+
+  /// No description provided for @placeTypeHealth.
+  ///
+  /// In ja, this message translates to:
+  /// **'健康'**
+  String get placeTypeHealth;
+
+  /// No description provided for @placeTypeIntersection.
+  ///
+  /// In ja, this message translates to:
+  /// **'交差点'**
+  String get placeTypeIntersection;
+
+  /// No description provided for @placeTypeLandmark.
+  ///
+  /// In ja, this message translates to:
+  /// **'ランドマーク'**
+  String get placeTypeLandmark;
+
+  /// No description provided for @placeTypeLocality.
+  ///
+  /// In ja, this message translates to:
+  /// **'地域'**
+  String get placeTypeLocality;
+
+  /// No description provided for @placeTypeNaturalFeature.
+  ///
+  /// In ja, this message translates to:
+  /// **'自然地形'**
+  String get placeTypeNaturalFeature;
+
+  /// No description provided for @placeTypeNeighborhood.
+  ///
+  /// In ja, this message translates to:
+  /// **'近隣地域'**
+  String get placeTypeNeighborhood;
+
+  /// No description provided for @placeTypePlaceOfWorship.
+  ///
+  /// In ja, this message translates to:
+  /// **'礼拝所'**
+  String get placeTypePlaceOfWorship;
+
+  /// No description provided for @placeTypePointOfInterest.
+  ///
+  /// In ja, this message translates to:
+  /// **'興味'**
+  String get placeTypePointOfInterest;
+
+  /// No description provided for @placeTypePolitical.
+  ///
+  /// In ja, this message translates to:
+  /// **'政治'**
+  String get placeTypePolitical;
+
+  /// No description provided for @placeTypePostBox.
+  ///
+  /// In ja, this message translates to:
+  /// **'郵便ポスト'**
+  String get placeTypePostBox;
+
+  /// No description provided for @placeTypePremise.
+  ///
+  /// In ja, this message translates to:
+  /// **'敷地'**
+  String get placeTypePremise;
+
+  /// No description provided for @placeTypeRoom.
+  ///
+  /// In ja, this message translates to:
+  /// **'部屋'**
+  String get placeTypeRoom;
+
+  /// No description provided for @placeTypeRoute.
+  ///
+  /// In ja, this message translates to:
+  /// **'ルート'**
+  String get placeTypeRoute;
+
+  /// No description provided for @placeTypeStreetAddress.
+  ///
+  /// In ja, this message translates to:
+  /// **'住所'**
+  String get placeTypeStreetAddress;
+
+  /// No description provided for @placeTypeStreetNumber.
+  ///
+  /// In ja, this message translates to:
+  /// **'番地'**
+  String get placeTypeStreetNumber;
+
+  /// No description provided for @placeTypeSublocality.
+  ///
+  /// In ja, this message translates to:
+  /// **'地下地域'**
+  String get placeTypeSublocality;
+
+  /// No description provided for @placeTypeTownSquare.
+  ///
+  /// In ja, this message translates to:
+  /// **'広場'**
+  String get placeTypeTownSquare;
 
   /// No description provided for @signInWithEmailLinkPageTitle.
   ///
