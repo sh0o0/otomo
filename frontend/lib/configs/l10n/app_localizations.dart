@@ -121,6 +121,12 @@ abstract class AppLocalizations {
   /// **'メールアドレス'**
   String get email;
 
+  /// No description provided for @date.
+  ///
+  /// In ja, this message translates to:
+  /// **'日付'**
+  String get date;
+
   /// No description provided for @next.
   ///
   /// In ja, this message translates to:
@@ -132,6 +138,18 @@ abstract class AppLocalizations {
   /// In ja, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @cancel.
+  ///
+  /// In ja, this message translates to:
+  /// **'キャンセル'**
+  String get cancel;
+
+  /// No description provided for @confirm.
+  ///
+  /// In ja, this message translates to:
+  /// **'確定'**
+  String get confirm;
 
   /// No description provided for @copied.
   ///

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:otomo/tools/optional.dart';
 import 'package:otomo/views/bases/forms/rounded_text_form_field.dart';
 import 'package:otomo/views/utils/date_formatter.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class DateFormField extends StatefulWidget {
   const DateFormField({
@@ -54,9 +55,9 @@ class DateFormFieldState extends State<DateFormField> {
       initialDate: widget.initialValue ?? now,
       firstDate: DateTime(1900),
       lastDate: now,
-      cancelText: 'キャンセル',
-      confirmText: '確定',
-      errorInvalidText: '選択した日付が正しくありません',
+      cancelText: context.l10n.cancel,
+      confirmText: context.l10n.confirm,
+      errorInvalidText: context.l10n.inputInvalid(context.l10n.date),
     );
   }
 

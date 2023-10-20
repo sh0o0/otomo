@@ -20,10 +20,19 @@ class AppLocalizationsJa extends AppLocalizations {
   String get email => 'メールアドレス';
 
   @override
+  String get date => '日付';
+
+  @override
   String get next => '次へ';
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get cancel => 'キャンセル';
+
+  @override
+  String get confirm => '確定';
 
   @override
   String get copied => 'コピーしました。';
