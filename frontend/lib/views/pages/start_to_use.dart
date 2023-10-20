@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/constants/links.dart';
 import 'package:otomo/domains/entities/date.dart';
 import 'package:otomo/domains/entities/user.dart';
 import 'package:otomo/view_models/start_to_use.dart';
@@ -42,12 +43,13 @@ class _StartToUsePageState extends ConsumerState<StartToUsePage> {
         ),
         ParsedText(
           text: context.l10n.startToUsePageAgreeWithTerms(context.l10n.terms),
+          style: BodyMedium.styleOf(context),
           parse: [
             MatchText(
               type: ParsedType.CUSTOM,
               pattern: context.l10n.terms,
               style: TappableText.styleOf(context),
-              onTap: (url) => Launcher.urlString(url),
+              onTap: (_) => Launcher.urlString(Links.terms),
             ),
           ],
         ),

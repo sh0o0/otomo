@@ -58,7 +58,7 @@
   "errorFailedExtractingPlace": "地名の解析に失敗しました。",
   "errorLimitSendMessage": "メッセージの送信回数が上限に達しました。",
   "errorFetchImage": "画像の取得に失敗しました。",
-  "chatDailyLimitCount": "'今日の残り: {count} 回",
+  "chatDailyLimitCount": "今日の残り: {count} 回",
   "@chatDailyLimitCount": {
     "placeholders": {
       "count": {

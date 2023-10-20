@@ -24,7 +24,7 @@ abstract class ErrorLibrary {
     if (error is FirebaseAuthException) {
       return _fromFirebaseAuthException(error, l10n: l10n);
     }
-    return l10n.errorUnauthenticated;
+    return l10n.errorUnknown;
   }
 
   static String _fromAppException(

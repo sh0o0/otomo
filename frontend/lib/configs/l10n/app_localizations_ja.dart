@@ -114,7 +114,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String chatDailyLimitCount(num count) {
-    return '\'今日の残り: $count 回';
+    return '今日の残り: $count 回';
   }
 
   @override
