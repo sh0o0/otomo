@@ -100,7 +100,7 @@ abstract class AppLocalizations {
   /// No description provided for @otomo.
   ///
   /// In ja, this message translates to:
-  /// **'Otomo'**
+  /// **'オトモ'**
   String get otomo;
 
   /// No description provided for @terms.

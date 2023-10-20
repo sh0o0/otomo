@@ -8,7 +8,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get title => 'Otomo';
 
   @override
-  String get otomo => 'Otomo';
+  String get otomo => 'オトモ';
 
   @override
   String get terms => '利用規約';
