@@ -6,7 +6,7 @@ part of 'otomo_profile.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$otomoProfileVMHash() => r'6ef176f2bbee7eb1d585e4c863401ee5d08b59c2';
+String _$otomoProfileVMHash() => r'6ca8a64328f5217ac14d54e8e60c4eac31f8b74e';
 
 /// See also [OtomoProfileVM].
 @ProviderFor(OtomoProfileVM)

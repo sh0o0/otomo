@@ -57,7 +57,10 @@ final List<RouteBase> _signedInPages = [
   GoRoute(
     path: Routes.otomo,
     name: ScreenNames.otomoProfile.name,
-    builder: (context, state) => const OtomoProfilePage(),
+    pageBuilder: (context, state) => const MaterialPage(
+      fullscreenDialog: true,
+      child: OtomoProfilePage(),
+    ),
   ),
   GoRoute(
     path: Routes.settings,

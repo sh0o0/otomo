@@ -18,7 +18,7 @@ class Otomo with _$Otomo {
 class OtomoProfile with _$OtomoProfile {
   const OtomoProfile._();
   const factory OtomoProfile({
-    required String language,
+    required String? language,
   }) = _OtomoProfile;
 
   factory OtomoProfile.fromJson(Map<String, dynamic> json) =>

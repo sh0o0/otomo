@@ -185,7 +185,7 @@ OtomoProfile _$OtomoProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OtomoProfile {
-  String get language => throw _privateConstructorUsedError;
+  String? get language => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -199,7 +199,7 @@ abstract class $OtomoProfileCopyWith<$Res> {
           OtomoProfile value, $Res Function(OtomoProfile) then) =
       _$OtomoProfileCopyWithImpl<$Res, OtomoProfile>;
   @useResult
-  $Res call({String language});
+  $Res call({String? language});
 }
 
 /// @nodoc
@@ -215,13 +215,13 @@ class _$OtomoProfileCopyWithImpl<$Res, $Val extends OtomoProfile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? language = null,
+    Object? language = freezed,
   }) {
     return _then(_value.copyWith(
-      language: null == language
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -234,7 +234,7 @@ abstract class _$$OtomoProfileImplCopyWith<$Res>
       __$$OtomoProfileImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String language});
+  $Res call({String? language});
 }
 
 /// @nodoc
@@ -248,13 +248,13 @@ class __$$OtomoProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? language = null,
+    Object? language = freezed,
   }) {
     return _then(_$OtomoProfileImpl(
-      language: null == language
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -268,7 +268,7 @@ class _$OtomoProfileImpl extends _OtomoProfile {
       _$$OtomoProfileImplFromJson(json);
 
   @override
-  final String language;
+  final String? language;
 
   @override
   String toString() {
@@ -303,7 +303,7 @@ class _$OtomoProfileImpl extends _OtomoProfile {
 }
 
 abstract class _OtomoProfile extends OtomoProfile {
-  const factory _OtomoProfile({required final String language}) =
+  const factory _OtomoProfile({required final String? language}) =
       _$OtomoProfileImpl;
   const _OtomoProfile._() : super._();
 
@@ -311,7 +311,7 @@ abstract class _OtomoProfile extends OtomoProfile {
       _$OtomoProfileImpl.fromJson;
 
   @override
-  String get language;
+  String? get language;
   @override
   @JsonKey(ignore: true)
   _$$OtomoProfileImplCopyWith<_$OtomoProfileImpl> get copyWith =>

@@ -19,7 +19,7 @@ Map<String, dynamic> _$$OtomoImplToJson(_$OtomoImpl instance) =>
 
 _$OtomoProfileImpl _$$OtomoProfileImplFromJson(Map<String, dynamic> json) =>
     _$OtomoProfileImpl(
-      language: json['language'] as String,
+      language: json['language'] as String?,
     );
 
 Map<String, dynamic> _$$OtomoProfileImplToJson(_$OtomoProfileImpl instance) =>
