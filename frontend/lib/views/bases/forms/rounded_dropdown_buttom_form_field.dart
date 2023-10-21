@@ -18,6 +18,7 @@ class RoundedDropdownButtonFormField<T> extends StatelessWidget {
       borderRadius: BorderRadius.circular(10000),
       borderSide: BorderSide.none,
     ),
+    contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
   );
 
   @override
