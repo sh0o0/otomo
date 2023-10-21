@@ -14,6 +14,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get terms => '利用規約';
 
   @override
+  String get privacyPolicy => 'プライバシーポリシー';
+
+  @override
   String get birthday => '生年月日';
 
   @override
@@ -41,7 +44,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get openOnGoogleMap => 'Googleマップで開く';
 
   @override
-  String get inquiry => 'お問い合わせ';
+  String get contactUs => 'お問い合わせ';
 
   @override
   String get online => 'オンライン';
@@ -265,6 +268,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get settingsPageAccountSection => 'アカウント';
+
+  @override
+  String get settingsPageAboutSection => 'アプリ';
 
   @override
   String get settingsPageHelpSection => 'ヘルプ';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/constants/links.dart';
 import 'package:otomo/tools/app_package_info.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/view_models/router.dart';
@@ -25,7 +26,6 @@ class SettingsPage extends HookConsumerWidget {
           title: Text(context.l10n.settingsPageAccountSection),
           tiles: [
             AppSettingsTile(
-              leading: const Icon(Icons.email),
               title: BodySmall(context.l10n.email),
               value: Text(account?.email ?? ''),
             ),
@@ -36,16 +36,28 @@ class SettingsPage extends HookConsumerWidget {
         // language
 
         // # About
-        // Privacy policy
-        // Terms of service
-        // Acknowledgements
+        AppSettingsSection(
+          title: Text(context.l10n.settingsPageAboutSection),
+          tiles: [
+            AppSettingsTile(
+              title: Text(context.l10n.privacyPolicy),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onPressed: (_) => Launcher.urlString(Links.privacyPolicy),
+            ),
+            AppSettingsTile(
+              title: Text(context.l10n.terms),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onPressed: (_) => Launcher.urlString(Links.terms),
+            ),
+            // Acknowledgements
+          ],
+        ),
 
         AppSettingsSection(
           title: Text(context.l10n.settingsPageHelpSection),
           tiles: [
             AppSettingsTile(
-              title: Text(context.l10n.inquiry),
-              leading: const Icon(Icons.question_mark_rounded),
+              title: Text(context.l10n.contactUs),
               trailing: const Icon(Icons.keyboard_arrow_right_rounded),
               onPressed: (_) => Launcher.inquiry(
                 locale: localeOf(context),
@@ -65,9 +77,6 @@ class SettingsPage extends HookConsumerWidget {
           ],
         ),
 
-        // version
-
-        // # Danger area
         AppSettingsSection(
           tiles: [
             AppSettingsTile(
