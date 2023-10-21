@@ -45,8 +45,9 @@ class ChatBottomSheetBar extends StatelessWidget {
 
     final size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width * 0.6,
+      width: size.width * 0.55,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Flexible(
             child: Column(
