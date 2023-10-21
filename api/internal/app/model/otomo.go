@@ -30,8 +30,9 @@ type Summarizer interface {
 }
 
 type Otomo struct {
-	UserID UserID `firestore:"user_id"`
-	Memory Memory `firestore:"memory"`
+	UserID  UserID       `firestore:"user_id"`
+	Memory  Memory       `firestore:"memory"`
+	Profile OtomoProfile `firestore:"profile"`
 
 	converser     Converser
 	summarizer    Summarizer
@@ -41,10 +42,12 @@ type Otomo struct {
 func RestoreOtomo(
 	userID UserID,
 	memory Memory,
+	profile OtomoProfile,
 ) (*Otomo, error) {
 	return &Otomo{
-		UserID: userID,
-		Memory: memory,
+		UserID:  userID,
+		Memory:  memory,
+		Profile: profile,
 	}, nil
 }
 

@@ -10,7 +10,6 @@ const (
 )
 
 type OtomoProfile struct {
-	UserID               UserID `firestore:"user_id"`
 	OtomoName            string
 	Language             string `firestore:"language"`
 	Name                 string
