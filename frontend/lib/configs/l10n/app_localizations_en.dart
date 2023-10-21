@@ -14,6 +14,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get terms => 'Terms of Use';
 
   @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
   String get birthday => 'Birthday';
 
   @override
@@ -41,7 +44,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get openOnGoogleMap => 'Open on Google Map';
 
   @override
-  String get inquiry => 'Inquiry';
+  String get contactUs => 'Contact Us';
 
   @override
   String get online => 'Online';
@@ -265,6 +268,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsPageAccountSection => 'Account';
+
+  @override
+  String get settingsPageAboutSection => 'About';
 
   @override
   String get settingsPageHelpSection => 'Help';

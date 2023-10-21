@@ -111,6 +111,12 @@ abstract class AppLocalizations {
   /// **'Terms of Use'**
   String get terms;
 
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
   /// No description provided for @birthday.
   ///
   /// In en, this message translates to:
@@ -165,11 +171,11 @@ abstract class AppLocalizations {
   /// **'Open on Google Map'**
   String get openOnGoogleMap;
 
-  /// No description provided for @inquiry.
+  /// No description provided for @contactUs.
   ///
   /// In en, this message translates to:
-  /// **'Inquiry'**
-  String get inquiry;
+  /// **'Contact Us'**
+  String get contactUs;
 
   /// No description provided for @online.
   ///
@@ -584,6 +590,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Account'**
   String get settingsPageAccountSection;
+
+  /// No description provided for @settingsPageAboutSection.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsPageAboutSection;
 
   /// No description provided for @settingsPageHelpSection.
   ///
