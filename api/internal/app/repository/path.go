@@ -8,14 +8,20 @@ import (
 const (
 	v1DocPath string = "versions/1"
 
-	otomoColPath   string = "otomos"
-	chatsColPath   string = "chats"
-	messageColName string = "messages"
+	otomoColPath        string = "otomos"
+	otomoProfileColPath string = "otomo_profiles"
+	chatsColPath        string = "chats"
+	messageColName      string = "messages"
 )
 
 // versions/1/otomos/{userID}
 func GetOtomoDocPath(userID model.UserID) string {
 	return strings.Join([]string{v1DocPath, otomoColPath, string(userID)}, "/")
+}
+
+// versions/1/otomo_profiles/{userID}
+func GetOtomoProfileDocPath(userID model.UserID) string {
+	return strings.Join([]string{v1DocPath, otomoProfileColPath, string(userID)}, "/")
 }
 
 // versions/1/chats/{userID}/messages

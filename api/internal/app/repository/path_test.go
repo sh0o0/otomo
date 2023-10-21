@@ -92,3 +92,31 @@ func Test_getChatMessageDocPath(t *testing.T) {
 		})
 	}
 }
+
+func TestGetOtomoProfileDocPath(t *testing.T) {
+	type args struct {
+		userID model.UserID
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: testutil.JoinStrings(
+				"should return `versions/1/otomo_profiles/test`",
+				"when give `test`",
+			),
+			args: args{userID: "test"},
+			want: "versions/1/otomo_profiles/test",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got := GetOtomoProfileDocPath(tt.args.userID)
+			assert.Exactly(t, tt.want, got)
+		})
+	}
+}
