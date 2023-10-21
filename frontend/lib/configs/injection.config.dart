@@ -19,12 +19,13 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart' as _i9;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:grpc/grpc.dart' as _i5;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:otomo/configs/injection.dart' as _i25;
+import 'package:otomo/configs/injection.dart' as _i26;
 import 'package:otomo/controllers/auth.dart' as _i3;
 import 'package:otomo/controllers/chat.dart' as _i23;
 import 'package:otomo/controllers/location.dart' as _i12;
+import 'package:otomo/controllers/otomo.dart' as _i24;
 import 'package:otomo/controllers/place.dart' as _i15;
-import 'package:otomo/controllers/policies_agreement.dart' as _i24;
+import 'package:otomo/controllers/policies_agreement.dart' as _i25;
 import 'package:otomo/domains/entities/policies_agreements.dart' as _i20;
 import 'package:otomo/domains/repo/otomo.dart' as _i13;
 import 'package:otomo/domains/repo/policies_agreements.dart' as _i16;
@@ -75,8 +76,10 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i4.ChatServiceClient>(),
           gh<_i10.FirebaseFirestore>(),
         ));
-    gh.factory<_i24.PoliciesAgreementControllerImpl>(
-        () => _i24.PoliciesAgreementControllerImpl(
+    gh.factory<_i24.OtomoControllerImpl>(
+        () => _i24.OtomoControllerImpl(gh<_i13.OtomoRepository>()));
+    gh.factory<_i25.PoliciesAgreementControllerImpl>(
+        () => _i25.PoliciesAgreementControllerImpl(
               gh<_i16.PoliciesAgreementsRepository>(),
               gh<_i21.UserRepository>(),
               gh<_i19.StreamController<_i20.PoliciesAgreements>>(),
@@ -85,4 +88,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$InjectableModule extends _i25.InjectableModule {}
+class _$InjectableModule extends _i26.InjectableModule {}

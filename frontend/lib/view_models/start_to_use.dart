@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
+import 'package:otomo/controllers/otomo.dart';
 import 'package:otomo/controllers/policies_agreement.dart';
 import 'package:otomo/domains/entities/app_exception.dart';
 import 'package:otomo/domains/entities/date.dart';
@@ -26,6 +27,7 @@ class StartToUseState with _$StartToUseState {
 @riverpod
 class StartToUse extends _$StartToUse {
   final _agreementController = getIt<PoliciesAgreementControllerImpl>();
+  final _otomoController = getIt<OtomoControllerImpl>();
   final _authController = getIt<AuthControllerImpl>();
 
   @override
