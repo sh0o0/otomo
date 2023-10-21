@@ -14,10 +14,16 @@ service cloud.firestore {
       match /chats/{userId}/{path=**} {
         allow read: if isUserAuthenticated(userId);
       }
-      match /users/{userId}/{path=**} {
+      match /otomos/{userId} {
+        allow read: if isUserAuthenticated(userId);
+        allow write: if isUserAuthenticated(userId) &&
+                    (request.resource.data.keys().hasOnly(
+                      ['user_id', 'profile']));
+      }
+      match /users/{userId} {
         allow read, write: if isUserAuthenticated(userId);
       }
-      match /policies_agreements/{userId}/{path=**} {
+      match /policies_agreements/{userId} {
         allow read, write: if isUserAuthenticated(userId);
       }
     }
