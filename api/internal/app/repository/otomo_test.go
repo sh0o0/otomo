@@ -80,7 +80,7 @@ func TestOtomoRepository_GetByID_ShouldReturnOtomo_WhenFound(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	gotOtomo, err := testOtomoRepo.GetByID(giveCtx, userID)
+	gotOtomo, err := testOtomoRepo.GetByUserID(giveCtx, userID)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -94,7 +94,7 @@ func TestOtomoRepository_Get_ShouldReturnNotFoundErr_WhenNotFound(t *testing.T) 
 		userID  = model.UserID(uuid.NewString())
 	)
 
-	gotChat, err := testOtomoRepo.GetByID(giveCtx, userID)
+	gotChat, err := testOtomoRepo.GetByUserID(giveCtx, userID)
 	assert.Nil(t, gotChat)
 	assert.True(t, errs.IsNotFoundErr(err))
 }
