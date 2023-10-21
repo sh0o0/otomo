@@ -4,7 +4,7 @@ import 'package:otomo/constants/asset_paths.dart';
 class OtomoAvatar extends StatelessWidget {
   const OtomoAvatar({
     super.key,
-    this.radius = 48,
+    this.radius = 20,
   });
 
   final double radius;

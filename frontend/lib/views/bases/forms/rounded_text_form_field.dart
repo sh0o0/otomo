@@ -33,7 +33,7 @@ class RoundedTextFormField extends StatelessWidget {
   static final defaultDecoration = InputDecoration(
     filled: true,
     contentPadding: const EdgeInsets.symmetric(
-      vertical: 8,
+      vertical: 14,
       horizontal: 24,
     ),
     border: OutlineInputBorder(

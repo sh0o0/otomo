@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/view_models/home.dart';
-import 'package:otomo/view_models/router.dart';
 import 'package:otomo/views/bases/forms/unfocus.dart';
 import 'package:otomo/views/pages/home/cases/home_chat_sheet.dart';
 import 'package:otomo/views/pages/home/cases/home_place_details_sheet.dart';
@@ -52,7 +52,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           heroTag: 'account',
           mini: true,
           child: const Icon(Icons.account_circle_rounded),
-          onPressed: () => ref.read(routerProvider).push(Routes.settings),
+          onPressed: () => context.push(Routes.settings),
         ),
       )
     ];

@@ -13,27 +13,35 @@ class ChatBottomSheetBar extends StatelessWidget {
   const ChatBottomSheetBar({
     super.key,
     this.onLeadingPressed,
+    this.onOtomoTapped,
     this.remainingMessageSendCount,
   });
 
   final VoidCallback? onLeadingPressed;
+  final VoidCallback? onOtomoTapped;
   final RemainingMessageSendCount? remainingMessageSendCount;
 
   Widget _buildLeft(BuildContext context) {
-    return Row(
-      children: [
-        Spaces.w16,
-        const OtomoAvatar(),
-        Spaces.w8,
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(context.l10n.otomo),
-            const OnlineStatus(online: true),
-          ],
-        )
-      ],
+    return GestureDetector(
+      onTap: onOtomoTapped,
+      child: Row(
+        children: [
+          Spaces.w16,
+          GestureDetector(
+            onTap: onOtomoTapped,
+            child: const OtomoAvatar(),
+          ),
+          Spaces.w8,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(context.l10n.otomo),
+              const OnlineStatus(online: true),
+            ],
+          )
+        ],
+      ),
     );
   }
 

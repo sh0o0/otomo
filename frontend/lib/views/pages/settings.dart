@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/constants/links.dart';
 import 'package:otomo/tools/app_package_info.dart';
 import 'package:otomo/view_models/account.dart';
-import 'package:otomo/view_models/router.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/danger/danger_text.dart';
 import 'package:otomo/views/cases/settings/app_settings_list.dart';
@@ -80,10 +80,10 @@ class SettingsPage extends HookConsumerWidget {
         AppSettingsSection(
           tiles: [
             AppSettingsTile(
-                title: DangerText(context.l10n.accountDeletion),
-                trailing: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: (_) =>
-                    ref.read(routerProvider).push(Routes.accountDeletion)),
+              title: DangerText(context.l10n.accountDeletion),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onPressed: (_) => context.push(Routes.accountDeletion),
+            ),
           ],
         ),
       ],
