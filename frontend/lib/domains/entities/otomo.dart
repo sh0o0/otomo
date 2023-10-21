@@ -5,6 +5,7 @@ part 'otomo.g.dart';
 @freezed
 class Otomo with _$Otomo {
   const Otomo._();
+  @JsonSerializable(explicitToJson: true)
   const factory Otomo({
     required String userId,
     required OtomoProfile profile,

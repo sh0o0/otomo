@@ -116,7 +116,8 @@ class __$$OtomoImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$OtomoImpl extends _Otomo {
   const _$OtomoImpl({required this.userId, required this.profile}) : super._();
 

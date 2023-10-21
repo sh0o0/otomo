@@ -14,7 +14,7 @@ _$OtomoImpl _$$OtomoImplFromJson(Map<String, dynamic> json) => _$OtomoImpl(
 Map<String, dynamic> _$$OtomoImplToJson(_$OtomoImpl instance) =>
     <String, dynamic>{
       'user_id': instance.userId,
-      'profile': instance.profile,
+      'profile': instance.profile.toJson(),
     };
 
 _$OtomoProfileImpl _$$OtomoProfileImplFromJson(Map<String, dynamic> json) =>
