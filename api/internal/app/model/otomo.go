@@ -81,7 +81,7 @@ func (o *Otomo) Respond(
 		return nil, nil, err
 	}
 
-	personality, err := o.Profile.Prompt()
+	personality, err := o.Profile.TransJustFriendly().Prompt()
 	if err != nil {
 		return nil, nil, err
 	}
@@ -112,7 +112,7 @@ func (o *Otomo) Message(
 		return nil, nil, err
 	}
 
-	personality, err := o.Profile.Prompt()
+	personality, err := o.Profile.TransJustFriendly().Prompt()
 	if err != nil {
 		return nil, nil, err
 	}

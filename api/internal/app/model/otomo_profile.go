@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	PreferredLanguage = "en"
+	PreferredLanguage = "ja"
 )
 
 type OtomoProfile struct {
