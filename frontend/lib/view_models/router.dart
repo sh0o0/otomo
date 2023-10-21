@@ -9,6 +9,7 @@ import 'package:otomo/view_models/splash.dart';
 import 'package:otomo/views/pages/account_deletion.dart';
 import 'package:otomo/views/pages/home/index.dart';
 import 'package:otomo/views/pages/loading.dart';
+import 'package:otomo/views/pages/otomo_profile.dart';
 import 'package:otomo/views/pages/settings.dart';
 import 'package:otomo/views/pages/sign_in.dart';
 import 'package:otomo/views/pages/sign_in_with_email_link.dart';
@@ -52,6 +53,11 @@ final List<RouteBase> _signedInPages = [
     path: Routes.home,
     name: ScreenNames.home.name,
     builder: (context, state) => const HomePage(),
+  ),
+  GoRoute(
+    path: Routes.otomo,
+    name: ScreenNames.otomoProfile.name,
+    builder: (context, state) => const OtomoProfilePage(),
   ),
   GoRoute(
     path: Routes.settings,
