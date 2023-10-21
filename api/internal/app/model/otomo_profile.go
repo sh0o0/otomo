@@ -5,9 +5,14 @@ import (
 	"strings"
 )
 
+const (
+	PreferredLanguage = "English"
+)
+
 type OtomoProfile struct {
+	UserID               UserID `firestore:"user_id"`
 	OtomoName            string
-	Language             string
+	Language             string `firestore:"language"`
 	Name                 string
 	CallOwn              string
 	CallUser             string
@@ -17,6 +22,15 @@ type OtomoProfile struct {
 	SpeakingExamples     []string
 	SpeakingTone         string
 	BehavioralGuidelines []string
+}
+
+func (op OtomoProfile) TransJustFriendly() *OtomoProfile {
+	return &OtomoProfile{
+		OtomoName:   "Otomo",
+		Language:    op.Language,
+		Role:        "friend",
+		Personality: "casual and talkative",
+	}
 }
 
 func (op OtomoProfile) Prompt() (string, error) {
@@ -29,7 +43,7 @@ func (op OtomoProfile) Prompt() (string, error) {
 	}
 
 	if op.Language == "" {
-		op.Language = "English"
+		op.Language = PreferredLanguage
 	}
 	prompt += "You must say in " + op.Language + ". You only speak " + op.Language + ". "
 
