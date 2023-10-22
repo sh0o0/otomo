@@ -90,9 +90,9 @@ func (f *LocationAnalysisFactory) New() *model.PlaceExtraction {
 		ProcessedAt: analyzedAt,
 		Places: []*model.ExtractedPlace{
 			{
-				Text:           testutil.Faker.Address().City(),
-				GuessedAddress: *GuessedAddressFactory.New(),
-				GeocodedPlace:  GeocodedPlaceFactory.New(),
+				Text:            testutil.Faker.Address().City(),
+				GuessComponents: *PlaceComponentsFactory.New(),
+				GeocodedPlace:   GeocodedPlaceFactory.New(),
 			},
 		},
 	}

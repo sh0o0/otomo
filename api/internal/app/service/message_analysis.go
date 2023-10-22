@@ -42,21 +42,26 @@ func (ams *MessageAnalysisService) ExtractPlacesFromMsg(
 	for _, exPlace := range exPlaces {
 		req := &maps.GeocodingRequest{
 			Address: exPlace.Name,
+			Components: map[maps.Component]string{
+				maps.ComponentLocality:           exPlace.Components.Locality,
+				maps.ComponentAdministrativeArea: exPlace.Components.AdministrativeArea,
+				maps.ComponentCountry:            exPlace.Components.Country,
+			},
 		}
 		place, err := ams.geoSvc.One(ctx, req)
 		if err != nil {
 			errStr := err.Error()
 			results = append(results, &model.ExtractedPlace{
-				Text:           exPlace.Name,
-				GuessedAddress: exPlace.Address,
-				GeocodedError:  &errStr,
+				Text:            exPlace.Name,
+				GuessComponents: exPlace.Components,
+				GeocodedError:   &errStr,
 			})
 
 		} else {
 			results = append(results, &model.ExtractedPlace{
-				Text:           exPlace.Name,
-				GuessedAddress: exPlace.Address,
-				GeocodedPlace:  conv.geocodedPlace.GoogleToModel(place),
+				Text:            exPlace.Name,
+				GuessComponents: exPlace.Components,
+				GeocodedPlace:   conv.geocodedPlace.GoogleToModel(place),
 			})
 		}
 	}

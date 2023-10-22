@@ -33,20 +33,16 @@ type PlaceExtraction struct {
 	ProcessedAt *time.Time        `firestore:"processed_at"`
 	Error       *string           `firestore:"error"`
 }
-
-type ExtractedPlace struct {
-	Text           string         `firestore:"text"`
-	GuessedAddress GuessedAddress `firestore:"guessed_address"`
-	GeocodedPlace  *GeocodedPlace `firestore:"geocoded_place"`
-	GeocodedError  *string        `firestore:"geocoded_error"`
+type PlaceComponents struct {
+	Locality           string `json:"locality"`
+	AdministrativeArea string `json:"administrative_area"`
+	Country            string `json:"country"`
 }
-
-type GuessedAddress struct {
-	Street  string `firestore:"street" json:"street"`
-	City    string `firestore:"city" json:"city"`
-	State   string `firestore:"state" json:"state"`
-	Country string `firestore:"country" json:"country"`
-	Zip     string `firestore:"zip" json:"zip"`
+type ExtractedPlace struct {
+	Text            string          `firestore:"text"`
+	GuessComponents PlaceComponents `firestore:"guess_components"`
+	GeocodedPlace   *GeocodedPlace  `firestore:"geocoded_place"`
+	GeocodedError   *string         `firestore:"geocoded_error"`
 }
 
 type GeocodedPlace struct {
