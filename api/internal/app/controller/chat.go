@@ -198,10 +198,11 @@ func (cc *ChatController) askToMessage(
 		}
 	}
 
-	otomo, err := cc.otomoRepo.GetByID(ctx, userID)
+	otomo, err := cc.otomoRepo.GetByUserID(ctx, userID)
 	if err != nil {
 		if errs.IsNotFoundErr(err) {
-			otomo, err = model.RestoreOtomo(userID, model.Memory{})
+			otomo, err = model.RestoreOtomo(
+				userID, model.Memory{}, model.OtomoProfile{})
 			if err != nil {
 				return nil, err
 			}

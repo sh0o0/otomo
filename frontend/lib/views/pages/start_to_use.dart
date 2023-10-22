@@ -117,7 +117,8 @@ class _StartToUsePageState extends ConsumerState<StartToUsePage> {
                           if (!FlutterUtils.validateAndSaveForm(_formKey)) {
                             return;
                           }
-                          await notifier.agree();
+                          await notifier
+                              .startToUse(localeOf(context).languageCode);
                         }
                       : null,
                   child: Text(context.l10n.next),

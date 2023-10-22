@@ -41,11 +41,15 @@ func NewConversationService(gpt *openai.Chat) *ConversationService {
 func (cs *ConversationService) Respond(
 	ctx context.Context,
 	msg *model.Message,
-	memory *model.Memory,
-	messagingFunc model.MessagingFunc,
+	opts model.ConversationOptions,
 ) (*model.Message, error) {
+	var history string
+	if opts.Memory != nil {
+		history = opts.Memory.Summary
+	}
+
 	prompt := strings.Join([]string{
-		model.DefaultJapaneseFriendlyPrompt,
+		opts.Personality,
 		otomoCommonPrompt,
 		historyPrompt,
 	}, "\n")
@@ -53,7 +57,7 @@ func (cs *ConversationService) Respond(
 		prompt,
 		[]string{"history"},
 	).FormatMessages(
-		map[string]any{"history": memory.Summary},
+		map[string]any{"history": history},
 	)
 	if err != nil {
 		return nil, err
@@ -61,16 +65,20 @@ func (cs *ConversationService) Respond(
 	userMsg := schema.HumanChatMessage{Content: msg.Text}
 	gptMsgs := []schema.ChatMessage{systemMsgs[0], userMsg}
 
-	return cs.call(ctx, gptMsgs, messagingFunc)
+	return cs.call(ctx, gptMsgs, opts.MessagingFunc)
 }
 
 func (cs *ConversationService) Message(
 	ctx context.Context,
-	memory *model.Memory,
-	messagingFunc model.MessagingFunc,
+	opts model.ConversationOptions,
 ) (*model.Message, error) {
+	var history string
+	if opts.Memory != nil {
+		history = opts.Memory.Summary
+	}
+
 	prompt := strings.Join([]string{
-		model.JapaneseMaidPrompt,
+		opts.Personality,
 		otomoCommonPrompt,
 		messagePrompt,
 		historyPrompt,
@@ -78,12 +86,12 @@ func (cs *ConversationService) Message(
 	gptMsgs, err := prompts.NewSystemMessagePromptTemplate(
 		prompt,
 		[]string{"history"},
-	).FormatMessages(map[string]any{"history": memory.Summary})
+	).FormatMessages(map[string]any{"history": history})
 	if err != nil {
 		return nil, err
 	}
 
-	return cs.call(ctx, gptMsgs, messagingFunc)
+	return cs.call(ctx, gptMsgs, opts.MessagingFunc)
 }
 
 func (cs *ConversationService) call(

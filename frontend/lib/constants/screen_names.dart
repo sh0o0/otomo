@@ -1,5 +1,6 @@
 enum ScreenNames {
   home,
+  otomoProfile,
   settings,
   accountDeletion,
   loading,

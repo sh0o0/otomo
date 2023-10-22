@@ -7,6 +7,7 @@
   "birthday": "Birthday",
   "email": "Email",
   "date": "Date",
+  "speakLanguage": "Speak Language",
   "next": "Next",
   "ok": "OK",
   "cancel": "Cancel",
@@ -168,5 +169,6 @@
   },
   "accountDeletionPageTitle": "Account Deletion",
   "accountDeletionPageWarn": "Your account will be deleted.",
-  "accountDeletionPageExplanation": "Please note that once your account is deleted, your data cannot be restored. In addition, support for deleted accounts will be outside the scope of Otomo's support team."
+  "accountDeletionPageExplanation": "Please note that once your account is deleted, your data cannot be restored. In addition, support for deleted accounts will be outside the scope of Otomo's support team.",
+  "otomoProfilePageTitle": "Otomo Profile"
 }

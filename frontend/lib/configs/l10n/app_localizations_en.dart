@@ -26,6 +26,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get date => 'Date';
 
   @override
+  String get speakLanguage => 'Speak Language';
+
+  @override
   String get next => 'Next';
 
   @override
@@ -288,4 +291,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountDeletionPageExplanation => 'Please note that once your account is deleted, your data cannot be restored. In addition, support for deleted accounts will be outside the scope of Otomo\'s support team.';
+
+  @override
+  String get otomoProfilePageTitle => 'Otomo Profile';
 }

@@ -30,7 +30,7 @@ func (or *OtomoRepository) Save(
 	return err
 }
 
-func (or *OtomoRepository) GetByID(
+func (or *OtomoRepository) GetByUserID(
 	ctx context.Context,
 	id model.UserID,
 ) (*model.Otomo, error) {

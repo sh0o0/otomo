@@ -7,6 +7,7 @@
   "privacyPolicy": "プライバシーポリシー",
   "email": "メールアドレス",
   "date": "日付",
+  "speakLanguage": "話す言語",
   "next": "次へ",
   "ok": "OK",
   "cancel": "キャンセル",
@@ -168,5 +169,6 @@
   },
   "accountDeletionPageTitle": "アカウント削除",
   "accountDeletionPageWarn": "アカウントが削除されます。",
-  "accountDeletionPageExplanation": "アカウントを削除すると、データの復元はできませんのでご注意ください。\nまた、削除されたアカウントについては、Otomo運営事務局のサポート外となります"
+  "accountDeletionPageExplanation": "アカウントを削除すると、データの復元はできませんのでご注意ください。\nまた、削除されたアカウントについては、Otomo運営事務局のサポート外となります",
+  "otomoProfilePageTitle": "オトモプロフィール"
 }

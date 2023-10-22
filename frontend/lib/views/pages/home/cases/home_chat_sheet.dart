@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as types;
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/constants/screen_names.dart';
 import 'package:otomo/tools/analytics.dart';
@@ -12,6 +13,7 @@ import 'package:otomo/views/cases/chat/chat_auto_sized_draggable_scrollable_shee
 import 'package:otomo/views/cases/chat/chat_bottom_sheet_bar.dart';
 import 'package:otomo/views/cases/chat/chat_ui.dart';
 import 'package:otomo/views/cases/error/error_text.dart';
+import 'package:otomo/views/routes.dart';
 import 'package:otomo/views/utils/error_library.dart';
 import 'package:otomo/views/utils/flutter.dart';
 import 'package:otomo/views/utils/haptic.dart';
@@ -119,6 +121,7 @@ class _HomeChatState extends ConsumerState<HomeChatSheet> {
               height: 72,
               child: ChatBottomSheetBar(
                 onLeadingPressed: widget.onLeadingPressed,
+                onOtomoTapped: () => context.push(Routes.otomo),
                 remainingMessageSendCount:
                     state.value?.remainingMessageSendCount,
               ),
