@@ -17,8 +17,8 @@ service cloud.firestore {
       match /otomos/{userId} {
         allow read: if isUserAuthenticated(userId);
         allow write: if isUserAuthenticated(userId) &&
-                    (request.resource.data.keys().hasOnly(
-                      ['user_id', 'profile']));
+                    request.resource.data.diff(resource.data).affectedKeys()
+                    .hasOnly(['user_id', 'profile']);
       }
       match /users/{userId} {
         allow read, write: if isUserAuthenticated(userId);

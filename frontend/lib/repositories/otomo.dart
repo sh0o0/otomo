@@ -15,7 +15,7 @@ class OtomoRepositoryImpl implements OtomoRepository {
   @override
   Future<void> save(Otomo otomo) {
     final doc = _firestore.collection(_collectionPath).doc(otomo.userId);
-    return doc.set(otomo.toJson());
+    return doc.set(otomo.toJson(), SetOptions(merge: true));
   }
 
   @override
