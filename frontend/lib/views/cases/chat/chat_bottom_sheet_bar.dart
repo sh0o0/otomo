@@ -24,23 +24,25 @@ class ChatBottomSheetBar extends StatelessWidget {
   Widget _buildLeft(BuildContext context) {
     return GestureDetector(
       onTap: onOtomoTapped,
-      child: Row(
-        children: [
-          Spaces.w16,
-          GestureDetector(
-            onTap: onOtomoTapped,
-            child: const OtomoAvatar(),
-          ),
-          Spaces.w8,
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(context.l10n.otomo),
-              const OnlineStatus(online: true),
-            ],
-          )
-        ],
+      child: SizedBox(
+        child: Row(
+          children: [
+            Spaces.w16,
+            GestureDetector(
+              onTap: onOtomoTapped,
+              child: const OtomoAvatar(),
+            ),
+            Spaces.w8,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(context.l10n.otomo),
+                const OnlineStatus(online: true),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
