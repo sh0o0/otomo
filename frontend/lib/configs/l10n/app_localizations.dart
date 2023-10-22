@@ -135,6 +135,12 @@ abstract class AppLocalizations {
   /// **'Date'**
   String get date;
 
+  /// No description provided for @speakLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak Language'**
+  String get speakLanguage;
+
   /// No description provided for @next.
   ///
   /// In en, this message translates to:
@@ -626,6 +632,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please note that once your account is deleted, your data cannot be restored. In addition, support for deleted accounts will be outside the scope of Otomo\'s support team.'**
   String get accountDeletionPageExplanation;
+
+  /// No description provided for @otomoProfilePageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Otomo Profile'**
+  String get otomoProfilePageTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

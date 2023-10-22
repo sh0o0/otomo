@@ -31,7 +31,7 @@ void main() async {
         final result = await repo.get(agreements.userId);
         expect(result, agreements);
       });
-      test('Should throw PoliciesAgreements when not found.', () async {
+      test('Should throw when not found.', () async {
         try {
           await repo.get(uuid());
           fail('should throw exception');

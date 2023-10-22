@@ -26,6 +26,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get date => '日付';
 
   @override
+  String get speakLanguage => '話す言語';
+
+  @override
   String get next => '次へ';
 
   @override
@@ -288,4 +291,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get accountDeletionPageExplanation => 'アカウントを削除すると、データの復元はできませんのでご注意ください。\nまた、削除されたアカウントについては、Otomo運営事務局のサポート外となります';
+
+  @override
+  String get otomoProfilePageTitle => 'オトモプロフィール';
 }

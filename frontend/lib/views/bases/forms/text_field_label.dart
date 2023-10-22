@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otomo/views/bases/texts/texts.dart';
 
 class TextFieldLabel extends StatelessWidget {
   const TextFieldLabel({
@@ -18,7 +19,7 @@ class TextFieldLabel extends StatelessWidget {
       padding: EdgeInsets.only(bottom: bottomPadding),
       child: Align(
         alignment: alignment,
-        child: Text(label, style: Theme.of(context).textTheme.bodyLarge),
+        child: BodyMedium(label),
       ),
     );
   }

@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
+import 'package:otomo/controllers/otomo.dart';
 import 'package:otomo/controllers/policies_agreement.dart';
 import 'package:otomo/domains/entities/app_exception.dart';
 import 'package:otomo/domains/entities/date.dart';
+import 'package:otomo/domains/entities/otomo.dart';
 import 'package:otomo/view_models/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -26,6 +28,7 @@ class StartToUseState with _$StartToUseState {
 @riverpod
 class StartToUse extends _$StartToUse {
   final _agreementController = getIt<PoliciesAgreementControllerImpl>();
+  final _otomoController = getIt<OtomoControllerImpl>();
   final _authController = getIt<AuthControllerImpl>();
 
   @override
@@ -51,29 +54,46 @@ class StartToUse extends _$StartToUse {
 
   Future<void> signOut() => _authController.signOut();
 
-  Future<void> agree() async {
+  Future<void> startToUse(String otomoLanguage) async {
     state = const AsyncValue.loading();
     state = await guard(() async {
-      if (!_value.isAgreed) {
-        throw const AppException(
-          message: 'Must agree',
-          cause: Cause.invalidArgument,
-          domain: Domain.policiesAgreements,
-        );
-      }
-
-      final birthday = _value.birthday;
-      if (birthday == null) {
-        throw const AppException(
-          message: 'Must input birthday',
-          cause: Cause.invalidArgument,
-          domain: Domain.user,
-          field: Field.birthday,
-        );
-      }
-      final userId = readAccount(ref)!.uid;
-      await _agreementController.agree(userId, birthday);
+      await _agree();
+      // Not future intentionally
+      _saveOtomoLanguage(otomoLanguage);
       return _value;
     });
+  }
+
+  Future<void> _agree() async {
+    if (!_value.isAgreed) {
+      throw const AppException(
+        message: 'Must agree',
+        cause: Cause.invalidArgument,
+        domain: Domain.policiesAgreements,
+      );
+    }
+
+    final birthday = _value.birthday;
+    if (birthday == null) {
+      throw const AppException(
+        message: 'Must input birthday',
+        cause: Cause.invalidArgument,
+        domain: Domain.user,
+        field: Field.birthday,
+      );
+    }
+    final userId = readAccount(ref)!.uid;
+    await _agreementController.agree(userId, birthday);
+  }
+
+  Future<void> _saveOtomoLanguage(String otomoLanguage) async {
+    final userId = readAccount(ref)!.uid;
+    final otomo = Otomo(
+      userId: userId,
+      profile: OtomoProfile(
+        language: otomoLanguage,
+      ),
+    );
+    await _otomoController.save(otomo);
   }
 }

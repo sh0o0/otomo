@@ -24,6 +24,7 @@ func (f *OtomoFactory) New() *model.Otomo {
 		Memory: model.Memory{
 			Summary: testutil.Faker.Lorem().Sentence(10),
 		},
+		Profile: *DefaultOtomoProfileFactory.Language("ja").New(),
 	}
 }
 

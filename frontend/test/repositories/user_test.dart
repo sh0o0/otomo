@@ -35,7 +35,7 @@ void main() async {
         final result = await repo.get(user.id);
         expect(result, user);
       });
-      test('Should throw exception when not found.', () async {
+      test('Should throw when not found.', () async {
         try {
           await repo.get(uuid());
           fail('should throw exception');
