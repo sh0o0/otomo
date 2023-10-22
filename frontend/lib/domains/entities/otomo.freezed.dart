@@ -21,6 +21,7 @@ Otomo _$OtomoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Otomo {
   String get userId => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: Otomo.profileFromJson)
   OtomoProfile get profile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -33,7 +34,9 @@ abstract class $OtomoCopyWith<$Res> {
   factory $OtomoCopyWith(Otomo value, $Res Function(Otomo) then) =
       _$OtomoCopyWithImpl<$Res, Otomo>;
   @useResult
-  $Res call({String userId, OtomoProfile profile});
+  $Res call(
+      {String userId,
+      @JsonKey(fromJson: Otomo.profileFromJson) OtomoProfile profile});
 
   $OtomoProfileCopyWith<$Res> get profile;
 }
@@ -82,7 +85,9 @@ abstract class _$$OtomoImplCopyWith<$Res> implements $OtomoCopyWith<$Res> {
       __$$OtomoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, OtomoProfile profile});
+  $Res call(
+      {String userId,
+      @JsonKey(fromJson: Otomo.profileFromJson) OtomoProfile profile});
 
   @override
   $OtomoProfileCopyWith<$Res> get profile;
@@ -119,7 +124,10 @@ class __$$OtomoImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$OtomoImpl extends _Otomo {
-  const _$OtomoImpl({required this.userId, required this.profile}) : super._();
+  const _$OtomoImpl(
+      {required this.userId,
+      @JsonKey(fromJson: Otomo.profileFromJson) required this.profile})
+      : super._();
 
   factory _$OtomoImpl.fromJson(Map<String, dynamic> json) =>
       _$$OtomoImplFromJson(json);
@@ -127,6 +135,7 @@ class _$OtomoImpl extends _Otomo {
   @override
   final String userId;
   @override
+  @JsonKey(fromJson: Otomo.profileFromJson)
   final OtomoProfile profile;
 
   @override
@@ -164,6 +173,7 @@ class _$OtomoImpl extends _Otomo {
 abstract class _Otomo extends Otomo {
   const factory _Otomo(
       {required final String userId,
+      @JsonKey(fromJson: Otomo.profileFromJson)
       required final OtomoProfile profile}) = _$OtomoImpl;
   const _Otomo._() : super._();
 
@@ -172,6 +182,7 @@ abstract class _Otomo extends Otomo {
   @override
   String get userId;
   @override
+  @JsonKey(fromJson: Otomo.profileFromJson)
   OtomoProfile get profile;
   @override
   @JsonKey(ignore: true)
@@ -185,7 +196,8 @@ OtomoProfile _$OtomoProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OtomoProfile {
-  String? get language => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
+  String get language => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -199,7 +211,7 @@ abstract class $OtomoProfileCopyWith<$Res> {
           OtomoProfile value, $Res Function(OtomoProfile) then) =
       _$OtomoProfileCopyWithImpl<$Res, OtomoProfile>;
   @useResult
-  $Res call({String? language});
+  $Res call({@JsonKey(defaultValue: '') String language});
 }
 
 /// @nodoc
@@ -215,13 +227,13 @@ class _$OtomoProfileCopyWithImpl<$Res, $Val extends OtomoProfile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? language = freezed,
+    Object? language = null,
   }) {
     return _then(_value.copyWith(
-      language: freezed == language
+      language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -234,7 +246,7 @@ abstract class _$$OtomoProfileImplCopyWith<$Res>
       __$$OtomoProfileImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? language});
+  $Res call({@JsonKey(defaultValue: '') String language});
 }
 
 /// @nodoc
@@ -248,13 +260,13 @@ class __$$OtomoProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? language = freezed,
+    Object? language = null,
   }) {
     return _then(_$OtomoProfileImpl(
-      language: freezed == language
+      language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -262,13 +274,15 @@ class __$$OtomoProfileImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$OtomoProfileImpl extends _OtomoProfile {
-  const _$OtomoProfileImpl({required this.language}) : super._();
+  const _$OtomoProfileImpl({@JsonKey(defaultValue: '') required this.language})
+      : super._();
 
   factory _$OtomoProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$OtomoProfileImplFromJson(json);
 
   @override
-  final String? language;
+  @JsonKey(defaultValue: '')
+  final String language;
 
   @override
   String toString() {
@@ -303,7 +317,8 @@ class _$OtomoProfileImpl extends _OtomoProfile {
 }
 
 abstract class _OtomoProfile extends OtomoProfile {
-  const factory _OtomoProfile({required final String? language}) =
+  const factory _OtomoProfile(
+          {@JsonKey(defaultValue: '') required final String language}) =
       _$OtomoProfileImpl;
   const _OtomoProfile._() : super._();
 
@@ -311,7 +326,8 @@ abstract class _OtomoProfile extends OtomoProfile {
       _$OtomoProfileImpl.fromJson;
 
   @override
-  String? get language;
+  @JsonKey(defaultValue: '')
+  String get language;
   @override
   @JsonKey(ignore: true)
   _$$OtomoProfileImplCopyWith<_$OtomoProfileImpl> get copyWith =>
