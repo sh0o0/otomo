@@ -33,6 +33,14 @@ func TestSystem_LocationExtractionService_FromText(t *testing.T) {
 			wantIsErr: false,
 		},
 		{
+			name: "Should return places when there are locations in the text in Japanese",
+			args: args{
+				ctx:  ctx,
+				text: `こんにちは！三大温泉について話しましょうね。まずは箱根温泉（はこねおんせん）です。箱根は東京から電車で約1時間の距離にあり、芦ノ湖（あしのこ）や大涌谷（おおわくだに）といった自然景観も楽しめます。箱根温泉は温泉街を散策することができ、数多くの露天風呂や旅館があります。次は白浜温泉（しらはまおんせん）です。白浜は和歌山県に位置し、美しい白い砂浜が特徴です。また、周辺には南紀白浜海水浴場や白浜アドベンチャーワールドといった観光スポットもあります。温泉は美肌効果があると言われ、たくさんの観光客が訪れます。最後に道後温泉（どうごおんせん）です。道後は愛媛県の温泉地で、日本一古い温泉として有名です。道後温泉本館は国宝に指定されており、特徴的な紅色の建物です。温泉を楽しむだけでなく、周辺には道後公園や松山城など見どころもたくさんあります。それぞれの温泉には独自の特徴があり、多くの観光客を魅了しています。温泉が好きですか？もしご希望の話題があれば是非教えてください！`,
+			},
+			wantIsErr: false,
+		},
+		{
 			name: "Should be empty when there is no location in the text in Japanese",
 			args: args{
 				ctx:  ctx,
@@ -70,7 +78,9 @@ func TestSystem_LocationExtractionService_FromText(t *testing.T) {
 				return
 			}
 
-			t.Log(got)
+			for _, place := range got {
+				t.Logf("%+v", place)
+			}
 			t.Fatal("Fatal for showing log")
 		})
 	}

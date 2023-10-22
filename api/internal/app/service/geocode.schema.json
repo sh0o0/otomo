@@ -7,19 +7,16 @@
         "type": "object",
         "properties": {
           "name": { "type": "string" },
-          "address": {
+          "components": {
             "type": "object",
             "properties": {
-              "street": { "type": "string" },
-              "city": { "type": "string" },
-              "state": { "type": "string" },
-              "country": { "type": "string" },
-              "zip": { "type": "string" }
-            },
-            "required": ["city", "state"]
+              "locality": { "type": "string" },
+              "administrative_area": { "type": "string" },
+              "country": { "type": "string" }
+            }
           }
         },
-        "required": ["name", "address"]
+        "required": ["name", "components"]
       }
     }
   }
