@@ -10,17 +10,17 @@ const (
 )
 
 type OtomoProfile struct {
-	OtomoName            string
-	Language             string `firestore:"language"`
-	Name                 string
-	CallOwn              string
-	CallUser             string
-	Role                 string
-	Personality          string
-	OftenUseWords        []string
-	SpeakingExamples     []string
-	SpeakingTone         string
-	BehavioralGuidelines []string
+	OtomoName            string   `firestore:"-"`
+	Language             string   `firestore:"language"`
+	Name                 string   `firestore:"-"`
+	CallOwn              string   `firestore:"-"`
+	CallUser             string   `firestore:"-"`
+	Role                 string   `firestore:"-"`
+	Personality          string   `firestore:"-"`
+	OftenUseWords        []string `firestore:"-"`
+	SpeakingExamples     []string `firestore:"-"`
+	SpeakingTone         string   `firestore:"-"`
+	BehavioralGuidelines []string `firestore:"-"`
 }
 
 func (op *OtomoProfile) TransJustFriendly() *OtomoProfile {

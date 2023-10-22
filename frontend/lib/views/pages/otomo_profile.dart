@@ -36,7 +36,7 @@ class OtomoProfilePage extends ConsumerWidget {
             Spaces.h24,
             TextFieldLabel(label: context.l10n.speakLanguage),
             RoundedDropdownButtonFormField(
-              value: language == null ? null : Locale(language),
+              value: language?.isNotEmpty == true ? Locale(language!) : null,
               items: AppLocalizations.supportedLocales
                   .where((e) => _languageMapping[e.languageCode] != null)
                   .map(
