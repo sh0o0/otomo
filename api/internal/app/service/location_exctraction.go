@@ -10,7 +10,6 @@ import (
 )
 
 const (
-	inputPlacesSchema     = `{ "type": "object", "properties": { "places": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "address": { "type": "object", "properties": { "street": { "type": "string" }, "city": { "type": "string" }, "state": { "type": "string" }, "country": { "type": "string" }, "zip": { "type": "string" } }, "required": ["city", "state"] } }, "required": ["name", "address"] } } } }`
 	placeExtractionPrompt = `Extract the place names only from the sentence below and, if possible, include additional information to facilitate searching on Google Maps. Then, provide the information for the input_places function call. If there is no place in the sentence, places should be an empty list.
 
 Sentence:
@@ -52,7 +51,7 @@ func (les *PlaceExtractionService) FromText(
 				{
 					Name:        "input_places",
 					Description: "Input places from texts",
-					Parameters:  json.RawMessage(inputPlacesSchema),
+					Parameters:  json.RawMessage(CompactedGeocodeSchema),
 				},
 			},
 			FunctionCall: json.RawMessage(`{"name": "input_places"}`),

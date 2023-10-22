@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "places": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "address": {
+            "type": "object",
+            "properties": {
+              "street": { "type": "string" },
+              "city": { "type": "string" },
+              "state": { "type": "string" },
+              "country": { "type": "string" },
+              "zip": { "type": "string" }
+            },
+            "required": ["city", "state"]
+          }
+        },
+        "required": ["name", "address"]
+      }
+    }
+  }
+}
