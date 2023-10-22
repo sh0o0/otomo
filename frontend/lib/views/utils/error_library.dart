@@ -50,7 +50,7 @@ abstract class ErrorLibrary {
     GrpcError e, {
     required AppLocalizations l10n,
   }) {
-    final detail = e.details?.isEmpty == true ? null : e.details![0];
+    final detail = e.details?.isNotEmpty == true ? e.details![0] : null;
 
     switch (e.code) {
       case StatusCode.invalidArgument:
