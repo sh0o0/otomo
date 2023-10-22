@@ -8,7 +8,7 @@ part of 'otomo.dart';
 
 _$OtomoImpl _$$OtomoImplFromJson(Map<String, dynamic> json) => _$OtomoImpl(
       userId: json['user_id'] as String,
-      profile: OtomoProfile.fromJson(json['profile'] as Map<String, dynamic>),
+      profile: Otomo.profileFromJson(json['profile'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$$OtomoImplToJson(_$OtomoImpl instance) =>

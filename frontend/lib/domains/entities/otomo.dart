@@ -8,8 +8,11 @@ class Otomo with _$Otomo {
   @JsonSerializable(explicitToJson: true)
   const factory Otomo({
     required String userId,
-    required OtomoProfile profile,
+    @JsonKey(fromJson: Otomo.profileFromJson) required OtomoProfile profile,
   }) = _Otomo;
+
+  static OtomoProfile profileFromJson(Map<String, dynamic>? json) =>
+      json == null ? OtomoProfile.empty() : OtomoProfile.fromJson(json);
 
   factory Otomo.fromJson(Map<String, dynamic> json) => _$OtomoFromJson(json);
 }
@@ -23,4 +26,5 @@ class OtomoProfile with _$OtomoProfile {
 
   factory OtomoProfile.fromJson(Map<String, dynamic> json) =>
       _$OtomoProfileFromJson(json);
+  factory OtomoProfile.empty() => const OtomoProfile(language: '');
 }

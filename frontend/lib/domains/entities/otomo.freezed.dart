@@ -21,6 +21,7 @@ Otomo _$OtomoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Otomo {
   String get userId => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: Otomo.profileFromJson)
   OtomoProfile get profile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -33,7 +34,9 @@ abstract class $OtomoCopyWith<$Res> {
   factory $OtomoCopyWith(Otomo value, $Res Function(Otomo) then) =
       _$OtomoCopyWithImpl<$Res, Otomo>;
   @useResult
-  $Res call({String userId, OtomoProfile profile});
+  $Res call(
+      {String userId,
+      @JsonKey(fromJson: Otomo.profileFromJson) OtomoProfile profile});
 
   $OtomoProfileCopyWith<$Res> get profile;
 }
@@ -82,7 +85,9 @@ abstract class _$$OtomoImplCopyWith<$Res> implements $OtomoCopyWith<$Res> {
       __$$OtomoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, OtomoProfile profile});
+  $Res call(
+      {String userId,
+      @JsonKey(fromJson: Otomo.profileFromJson) OtomoProfile profile});
 
   @override
   $OtomoProfileCopyWith<$Res> get profile;
@@ -119,7 +124,10 @@ class __$$OtomoImplCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$OtomoImpl extends _Otomo {
-  const _$OtomoImpl({required this.userId, required this.profile}) : super._();
+  const _$OtomoImpl(
+      {required this.userId,
+      @JsonKey(fromJson: Otomo.profileFromJson) required this.profile})
+      : super._();
 
   factory _$OtomoImpl.fromJson(Map<String, dynamic> json) =>
       _$$OtomoImplFromJson(json);
@@ -127,6 +135,7 @@ class _$OtomoImpl extends _Otomo {
   @override
   final String userId;
   @override
+  @JsonKey(fromJson: Otomo.profileFromJson)
   final OtomoProfile profile;
 
   @override
@@ -164,6 +173,7 @@ class _$OtomoImpl extends _Otomo {
 abstract class _Otomo extends Otomo {
   const factory _Otomo(
       {required final String userId,
+      @JsonKey(fromJson: Otomo.profileFromJson)
       required final OtomoProfile profile}) = _$OtomoImpl;
   const _Otomo._() : super._();
 
@@ -172,6 +182,7 @@ abstract class _Otomo extends Otomo {
   @override
   String get userId;
   @override
+  @JsonKey(fromJson: Otomo.profileFromJson)
   OtomoProfile get profile;
   @override
   @JsonKey(ignore: true)
