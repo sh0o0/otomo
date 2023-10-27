@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "required": ["prologue", "epilogue", "places"],
+  "properties": {
+    "prologue": {
+      "type": "string"
+    },
+    "epilogue": {
+      "type": "string"
+    },
+    "places": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["name", "description"]
+      }
+    }
+  }
+}

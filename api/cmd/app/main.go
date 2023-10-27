@@ -145,7 +145,7 @@ func newServer() (*grpc.Server, error) {
 	// services
 	var (
 		summarySvc      = service.NewSummaryService(lcGpt)
-		conversationSvc = service.NewConversationService(lcGpt)
+		conversationSvc = service.NewConversationServiceV1(lcGpt)
 		msginSub        = service.NewMessagingSubscriber(messagingBus)
 		msginPub        = service.NewMessagingPublisher(messagingBus)
 		locExtSvc       = service.NewPlaceExtractionService(gpt)
