@@ -44,7 +44,6 @@ class App extends HookConsumerWidget {
         ? UpgradeDialogStyle.cupertino
         : UpgradeDialogStyle.material,
     debugLogging: !appConfig.isRelease,
-    debugDisplayOnce: true,
   );
 
   @override
