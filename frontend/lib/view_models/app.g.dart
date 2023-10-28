@@ -3,28 +3,14 @@
 part of 'app.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-_$AppStateImpl _$$AppStateImplFromJson(Map<String, dynamic> json) =>
-    _$AppStateImpl(
-      displayUpgrade: json['display_upgrade'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$$AppStateImplToJson(_$AppStateImpl instance) =>
-    <String, dynamic>{
-      'display_upgrade': instance.displayUpgrade,
-    };
-
-// **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appVMHash() => r'8e38e7da5f3c15b26a34187a18135069c44176da';
+String _$appVMHash() => r'6de75bfeac2fac51951a06661021e2a6d8b62b1d';
 
 /// See also [AppVM].
 @ProviderFor(AppVM)
-final appVMProvider = NotifierProvider<AppVM, AppState>.internal(
+final appVMProvider = NotifierProvider<AppVM, void>.internal(
   AppVM.new,
   name: r'appVMProvider',
   debugGetCreateSourceHash:
@@ -33,6 +19,6 @@ final appVMProvider = NotifierProvider<AppVM, AppState>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$AppVM = Notifier<AppState>;
+typedef _$AppVM = Notifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
