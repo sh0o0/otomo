@@ -8,6 +8,9 @@ import 'package:otomo/configs/l10n/app_localizations.dart';
 import 'package:otomo/view_models/app.dart';
 import 'package:otomo/view_models/color_theme.dart';
 import 'package:otomo/view_models/router.dart';
+import 'package:otomo/views/bases/screens/screen_barrier.dart';
+import 'package:otomo/views/bases/spaces/spaces.dart';
+import 'package:otomo/views/utils/flutter.dart';
 import 'package:otomo/views/utils/localizations.dart';
 import 'package:upgrader/upgrader.dart';
 
@@ -41,11 +44,11 @@ class App extends HookConsumerWidget {
         ? UpgradeDialogStyle.cupertino
         : UpgradeDialogStyle.material,
     debugLogging: !appConfig.isRelease,
-    debugDisplayOnce: true,
   );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(appVMProvider);
     final notifier = ref.read(appVMProvider.notifier);
     final router = ref.watch(routerProvider);
 
@@ -65,13 +68,20 @@ class App extends HookConsumerWidget {
         return Stack(
           children: [
             child!,
-            Container(
-              color: Colors.black.withOpacity(0.5),
-              child: Center(
-                child: UpgradeCard(
-                  upgrader: _upgrader,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                ),
+            if (state.displayUpgrade) const ScreenBarrier(child: Spaces.zero),
+            Center(
+              child: UpgradeCard(
+                upgrader: _upgrader
+                  ..willDisplayUpgrade = (
+                      {appStoreVersion,
+                      required display,
+                      installedVersion,
+                      minAppVersion}) {
+                    FlutterUtils.afterBuildCallback(() {
+                      notifier.setDisplayUpgrade(display);
+                    });
+                  },
+                margin: const EdgeInsets.symmetric(horizontal: 20),
               ),
             ),
           ],

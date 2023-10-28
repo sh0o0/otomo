@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/tools/logger.dart';
@@ -8,7 +9,19 @@ import 'package:otomo/view_models/account.dart';
 import 'package:otomo/view_models/sign_in_with_email_link.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+part 'app.freezed.dart';
 part 'app.g.dart';
+
+@freezed
+class AppState with _$AppState {
+  const AppState._();
+  const factory AppState({
+    @Default(false) bool displayUpgrade,
+  }) = _AppState;
+
+  factory AppState.fromJson(Map<String, dynamic> json) =>
+      _$AppStateFromJson(json);
+}
 
 @Riverpod(keepAlive: true)
 class AppVM extends _$AppVM {
@@ -16,10 +29,16 @@ class AppVM extends _$AppVM {
   final _authController = getIt<AuthControllerImpl>();
 
   @override
-  void build() {
+  AppState build() {
     _setUserIdOnAccountChanged();
     _initDynamicLinks();
-    return;
+    return const AppState();
+  }
+
+  void setDisplayUpgrade(bool display) {
+    if (state.displayUpgrade == display) return;
+    logger.info('set display upgrade: $display');
+    state = state.copyWith(displayUpgrade: display);
   }
 
   void applyLanguageToControllers(String languageCode) {
