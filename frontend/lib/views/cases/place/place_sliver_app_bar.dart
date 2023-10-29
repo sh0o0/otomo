@@ -4,6 +4,7 @@ import 'package:otomo/tools/analytics.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/menu/menu.dart';
 import 'package:otomo/views/utils/launcher.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class PlaceSliverAppBar extends StatefulWidget {
   const PlaceSliverAppBar({
@@ -41,9 +42,9 @@ class _PlaceSliverAppBarState extends State<PlaceSliverAppBar> {
               placeId: widget.placeId,
             );
           },
-          child: const MenuItem(
-            icon: Icon(Icons.map_rounded),
-            title: Text('Google Mapで開く'),
+          child: MenuItem(
+            icon: const Icon(Icons.map_rounded),
+            title: Text(context.l10n.openOnGoogleMap),
           ),
         ),
       ],

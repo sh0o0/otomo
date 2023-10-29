@@ -40,6 +40,7 @@ enum Domain {
   none,
   auth,
   user,
+  otomo,
   message,
   messageChangedEvent,
   policiesAgreements,
@@ -54,6 +55,8 @@ extension DomainExtension on Domain {
         return 'Auth';
       case Domain.user:
         return 'User';
+      case Domain.otomo:
+        return 'Otomo';
       case Domain.message:
         return 'Message';
       case Domain.messageChangedEvent:

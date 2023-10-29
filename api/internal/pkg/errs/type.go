@@ -37,11 +37,12 @@ const (
 
 // Domains
 const (
-	DomainAuth    Domain = "Auth"
-	DomainUser    Domain = "User"
-	DomainMessage Domain = "Message"
-	DomainOtomo   Domain = "Otomo"
-	DomainGeo     Domain = "Geo"
+	DomainAuth         Domain = "Auth"
+	DomainUser         Domain = "User"
+	DomainMessage      Domain = "Message"
+	DomainOtomo        Domain = "Otomo"
+	DomainOtomoProfile Domain = "OtomoProfile"
+	DomainGeo          Domain = "Geo"
 )
 
 // Fields

@@ -1,78 +1,93 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
+import 'package:otomo/configs/l10n/app_localizations.dart';
 import 'package:otomo/constants/firebase_exception_code.dart';
 import 'package:otomo/domains/entities/app_exception.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 abstract class ErrorLibrary {
-  static String fromAny(Object error) {
-    if (error is AppException) return fromAppException(error);
-    if (error is SocketException) return fromSocketException(error);
-    if (error is GrpcError) return fromGrpcError(error);
-    if (error is FirebaseAuthException) return fromFirebaseAuthException(error);
-    return unknown;
+  static String fromAnyOf(BuildContext context, Object error) =>
+      _fromAny(error, l10n: context.l10n);
+
+  static String _fromAny(
+    Object error, {
+    required AppLocalizations l10n,
+  }) {
+    if (error is AppException) return _fromAppException(error, l10n: l10n);
+    if (error is SocketException) {
+      return _fromSocketException(error, l10n: l10n);
+    }
+    if (error is GrpcError) return _fromGrpcError(error, l10n: l10n);
+    if (error is FirebaseAuthException) {
+      return _fromFirebaseAuthException(error, l10n: l10n);
+    }
+    return l10n.errorUnknown;
   }
 
-  static String fromAppException(AppException e) {
-    if (e.causeIs(Cause.unknown)) return unknown;
-    if (e.causeIs(Cause.networkError)) return network;
-    if (e.causeIs(Cause.requiresRecentLogin)) return requiresRecentLogin;
-    return unknown;
+  static String _fromAppException(
+    AppException e, {
+    required AppLocalizations l10n,
+  }) {
+    if (e.causeIs(Cause.unknown)) return l10n.errorUnknown;
+    if (e.causeIs(Cause.networkError)) return l10n.errorNetwork;
+    if (e.causeIs(Cause.requiresRecentLogin)) {
+      return l10n.errorRequiresRecentLogin;
+    }
+    return l10n.errorUnknown;
   }
 
-  static String fromSocketException(SocketException e) {
-    return network;
+  static String _fromSocketException(
+    SocketException e, {
+    required AppLocalizations l10n,
+  }) {
+    return l10n.errorNetwork;
   }
 
-  static String fromGrpcError(GrpcError e) {
-    final detail = e.details?.isEmpty == true ? null : e.details![0];
+  static String _fromGrpcError(
+    GrpcError e, {
+    required AppLocalizations l10n,
+  }) {
+    final detail = e.details?.isNotEmpty == true ? e.details![0] : null;
 
     switch (e.code) {
       case StatusCode.invalidArgument:
-        return invalidArgument;
+        return l10n.errorInvalidArgument;
       case StatusCode.notFound:
-        return notFound;
+        return l10n.errorNotFound;
       case StatusCode.alreadyExists:
-        return alreadyExist;
+        return l10n.errorAlreadyExist;
       case StatusCode.permissionDenied:
-        return permissionDenied;
+        return l10n.errorPermissionDenied;
       case StatusCode.unauthenticated:
-        return unauthenticated;
+        return l10n.errorUnauthenticated;
       case StatusCode.resourceExhausted:
-        if (detail == null) return unknown;
+        if (detail == null) return l10n.errorUnknown;
         if (detail is ErrorInfo) {
-          if (detail.domain == Domain.message.name) return limitSendMessage;
+          if (detail.domain == Domain.message.name) {
+            return l10n.errorLimitSendMessage;
+          }
         }
-        return network;
+        return l10n.errorNetwork;
       default:
-        return network;
+        return l10n.errorNetwork;
     }
   }
 
-  static String fromFirebaseAuthException(FirebaseAuthException e) {
+  static String _fromFirebaseAuthException(
+    FirebaseAuthException e, {
+    required AppLocalizations l10n,
+  }) {
     switch (e.code) {
       case FirebaseExceptionCode.requiresRecentLogin:
-        return requiresRecentLogin;
+        return l10n.errorRequiresRecentLogin;
       case FirebaseExceptionCode.internalError:
       case FirebaseExceptionCode.networkRequestFailed:
-        return network;
+        return l10n.errorNetwork;
       default:
-        return unknown;
+        return l10n.errorUnknown;
     }
   }
-
-  // common
-  static const String unknown = 'エラーが発生しました。';
-  static const String network = 'ネットワークエラーが発生しました。';
-  static const String invalidArgument = '入力が正しくありません。';
-  static const String notFound = '該当するデータがありません。';
-  static const String alreadyExist = 'すでにデータが存在します。';
-  static const String permissionDenied = 'アクセス権限がありません。';
-  static const String unauthenticated = '認証に失敗しました。';
-
-  // app
-  static const String requiresRecentLogin = '再ログインが必要です。';
-  static const String failedExtractingPlace = '地名の解析に失敗しました。';
-  static const String limitSendMessage = 'メッセージの送信回数が上限に達しました。';
 }

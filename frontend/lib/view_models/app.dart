@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:otomo/configs/injection.dart';
+import 'package:otomo/controllers/auth.dart';
 import 'package:otomo/tools/logger.dart';
 import 'package:otomo/view_models/account.dart';
 import 'package:otomo/view_models/sign_in_with_email_link.dart';
@@ -12,12 +13,17 @@ part 'app.g.dart';
 @Riverpod(keepAlive: true)
 class AppVM extends _$AppVM {
   final _dynamicLinks = getIt<FirebaseDynamicLinks>();
+  final _authController = getIt<AuthControllerImpl>();
 
   @override
   void build() {
     _setUserIdOnAccountChanged();
     _initDynamicLinks();
     return;
+  }
+
+  void applyLanguageToControllers(String languageCode) {
+    _authController.setLanguageCode(languageCode);
   }
 
   void _setUserIdOnAccountChanged() {

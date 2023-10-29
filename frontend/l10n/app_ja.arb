@@ -1,0 +1,174 @@
+{
+  "@@locale": "ja",
+  "title": "Otomo",
+  "otomo": "オトモ",
+  "terms": "利用規約",
+  "birthday": "生年月日",
+  "privacyPolicy": "プライバシーポリシー",
+  "email": "メールアドレス",
+  "date": "日付",
+  "speakLanguage": "話す言語",
+  "next": "次へ",
+  "ok": "OK",
+  "cancel": "キャンセル",
+  "confirm": "確定",
+  "copied": "コピーしました。",
+  "openOnGoogleMap": "Googleマップで開く",
+  "contactUs": "お問い合わせ",
+  "online": "オンライン",
+  "offline": "オフライン",
+  "signOut": "サインアウト",
+  "accountDeletion": "アカウント削除",
+  "signInWithGoogle": "Googleでサインイン",
+  "signInWithApple": "Appleでサインイン",
+  "signInWithEmail": "メールアドレスでサインイン",
+  "inputInvalidRequired": "{field}を入力してください。",
+  "@inputInvalidRequired": {
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "生年月日"
+      }
+    }
+  },
+  "inputInvalid": "{field}が正しくありません。",
+  "@inputInvalid": {
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "生年月日"
+      }
+    }
+  },
+  "inputInvalidLimitAge": "{age}歳未満の方はご利用いただけません。",
+  "@inputInvalidLimitAge": {
+    "placeholders": {
+      "age": {
+        "type": "num",
+        "example": "13"
+      }
+    }
+  },
+  "errorUnknown": "エラーが発生しました。",
+  "errorNetwork": "ネットワークエラーが発生しました。",
+  "errorInvalidArgument": "入力が正しくありません。",
+  "errorNotFound": "該当するデータがありません。",
+  "errorAlreadyExist": "すでにデータが存在します。",
+  "errorPermissionDenied": "アクセス権限がありません。",
+  "errorUnauthenticated": "認証に失敗しました。",
+  "errorRequiresRecentLogin": "再ログインが必要です。",
+  "errorFailedExtractingPlace": "地名の解析に失敗しました。",
+  "errorLimitSendMessage": "メッセージの送信回数が上限に達しました。",
+  "errorFetchImage": "画像の取得に失敗しました。",
+  "chatDailyLimitCount": "今日の残り: {count} 回",
+  "@chatDailyLimitCount": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "3"
+      }
+    }
+  },
+  "chatMonthlySurplusLimitCount": "今月の追加分残り: {count} 回",
+  "@chatMonthlySurplusLimitCount": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "3"
+      }
+    }
+  },
+  "chatAttachmentButtonAccessibilityLabel": "メディアを送付",
+  "chatEmptyChatPlaceholder": "メッセージはありません",
+  "chatFileButtonAccessibilityLabel": "ファイル",
+  "chatInputPlaceholder": "メッセージ",
+  "chatSendButtonAccessibilityLabel": "送信",
+  "chatUnreadMessagesLabel": "未読メッセージ",
+  "placeDetails": "詳細",
+  "placeBusinessHours": "営業時間",
+  "placeOpen": "営業中",
+  "placeClosed": "営業時間外",
+  "placeBusinessHoursPeriod": "{day}日: {timePeriod}",
+  "@placeBusinessHoursPeriod": {
+    "placeholders": {
+      "day": {
+        "type": "num",
+        "example": "3"
+      },
+      "timePeriod": {
+        "type": "String",
+        "example": "10:00 - 18:00"
+      }
+    }
+  },
+  "placeRating": "評価",
+  "placeReviews": "レビュー",
+  "placeTypeArchipelago": "群島",
+  "placeTypeContinent": "大陸",
+  "placeTypeCountry": "国",
+  "placeTypeEstablishment": "施設",
+  "placeTypeFinance": "金融",
+  "placeTypeFloor": "フロア",
+  "placeTypeFood": "食べ物",
+  "placeTypeGeneralContractor": "総合請負業者",
+  "placeTypeHealth": "健康",
+  "placeTypeIntersection": "交差点",
+  "placeTypeLandmark": "ランドマーク",
+  "placeTypeLocality": "地域",
+  "placeTypeNaturalFeature": "自然地形",
+  "placeTypeNeighborhood": "近隣地域",
+  "placeTypePlaceOfWorship": "礼拝所",
+  "placeTypePointOfInterest": "興味",
+  "placeTypePolitical": "政治",
+  "placeTypePostBox": "郵便ポスト",
+  "placeTypePremise": "敷地",
+  "placeTypeRoom": "部屋",
+  "placeTypeRoute": "ルート",
+  "placeTypeStreetAddress": "住所",
+  "placeTypeStreetNumber": "番地",
+  "placeTypeSublocality": "地下地域",
+  "placeTypeTownSquare": "広場",
+  "signInWithEmailLinkPageTitle": "メールアドレスでサインイン",
+  "signInWithEmailLinkPageNoticeSentEmail": "メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。",
+  "signInWithEmailLinkPageNoticeSendAuthEmail": "認証メールを送信",
+  "startToUsePageTitle": "利用を開始",
+  "startToUsePageAgreeWithTerms": "{terms}に同意する",
+  "@startToUsePageAgreeWithTerms": {
+    "placeholders": {
+      "terms": {
+        "type": "String",
+        "example": "利用規約"
+      }
+    }
+  },
+  "startToUsePageNoticeAgeLimit": "年齢制限のため生年月日を取得させていただきます。{age}歳未満の方はご利用することができません。",
+  "@startToUsePageNoticeAgeLimit": {
+    "placeholders": {
+      "age": {
+        "type": "num",
+        "example": "13"
+      }
+    }
+  },
+  "settingsPageTitle": "設定",
+  "settingsPageAccountSection": "アカウント",
+  "settingsPageAboutSection": "アプリ",
+  "settingsPageHelpSection": "ヘルプ",
+  "settingsPageVersion": "バージョン {version} ({buildNumber})",
+  "@settingsPageVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      },
+      "buildNumber": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "accountDeletionPageTitle": "アカウント削除",
+  "accountDeletionPageWarn": "アカウントが削除されます。",
+  "accountDeletionPageExplanation": "アカウントを削除すると、データの復元はできませんのでご注意ください。\nまた、削除されたアカウントについては、Otomo運営事務局のサポート外となります",
+  "otomoProfilePageTitle": "オトモプロフィール"
+}

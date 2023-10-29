@@ -3,6 +3,7 @@ import 'package:otomo/domains/entities/place_details.dart';
 import 'package:otomo/views/bases/avatars/app_circle_avatar.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 typedef ReviewCardTapCallback = void Function(BuildContext context, int index);
 
@@ -31,8 +32,8 @@ class PlaceRatingsAndReviews extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: sidePadding),
-          child: const HeadlineSmall(
-            'レビュー',
+          child: HeadlineSmall(
+            context.l10n.placeReviews,
             style: TextStyles.bold,
           ),
         ),

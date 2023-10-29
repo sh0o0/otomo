@@ -39,6 +39,7 @@
     }
   },
   "extensions": {
+    "firestore-bigquery-export-v1-messages": "firebase/firestore-bigquery-export@0.1.36",
     "delete-user-data": "firebase/delete-user-data@0.1.19"
   },
   "firestore": {

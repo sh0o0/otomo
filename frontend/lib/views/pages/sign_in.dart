@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otomo/view_models/router.dart';
 import 'package:otomo/view_models/sign_in.dart';
 import 'package:otomo/views/bases/layouts/edge_layout.dart';
 import 'package:otomo/views/bases/screens/scaffold_with_barrier_indicator.dart';
@@ -13,6 +13,7 @@ import 'package:otomo/views/cases/logo/text_logo.dart';
 import 'package:otomo/views/cases/sign_in/sign_in_button.dart';
 import 'package:otomo/views/routes.dart';
 import 'package:otomo/views/utils/error_library.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class SignInPage extends HookConsumerWidget {
   const SignInPage({super.key});
@@ -21,7 +22,6 @@ class SignInPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(signInProvider);
     final notifier = ref.watch(signInProvider.notifier);
-    final router = ref.watch(routerProvider);
 
     return IndicatorOverlay(
       isProcessing: state.isLoading,
@@ -35,25 +35,26 @@ class SignInPage extends HookConsumerWidget {
                   const TextLogo.large(),
                   Spaces.h40,
                   GoogleSignInButton(
-                    text: 'Googleでサインイン',
+                    text: context.l10n.signInWithGoogle,
                     onPressed: () => notifier.signInWithGoogle(),
                   ),
                   if (!Platform.isAndroid)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: AppleSignInButton(
-                        text: 'Appleでサインイン',
+                        text: context.l10n.signInWithApple,
                         onPressed: () => notifier.signInWithApple(),
                       ),
                     ),
                   Spaces.h32,
-                  TappableText('メールアドレスでサインイン',
-                      onTap: () => router.push(Routes.signInWithEmailLink)),
+                  TappableText(context.l10n.signInWithEmail,
+                      onTap: () => context.push(Routes.signInWithEmailLink)),
                   Visibility(
                     visible: state.hasError,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 24),
-                      child: ErrorText(ErrorLibrary.fromAny(state.error ?? '')),
+                      child: ErrorText(
+                          ErrorLibrary.fromAnyOf(context, state.error ?? '')),
                     ),
                   )
                 ],

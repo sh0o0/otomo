@@ -5,6 +5,7 @@ import 'package:otomo/views/bases/layouts/edge_layout.dart';
 import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/place/place_review_card.dart';
+import 'package:otomo/views/utils/localizations.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class PlaceReviewListView extends StatefulWidget {
@@ -66,11 +67,11 @@ class _PlaceReviewListViewState extends State<PlaceReviewListView> {
       ],
     ).toList();
     return [
-      const SliverAppBar(
+      SliverAppBar(
         automaticallyImplyLeading: false,
         pinned: true,
-        title: AppBarTitle(title: 'Reviews'),
-        actions: [CloseButton()],
+        title: AppBarTitle(title: context.l10n.placeReviews),
+        actions: const [CloseButton()],
       ),
       EdgeLayout(
         top: 0.0,

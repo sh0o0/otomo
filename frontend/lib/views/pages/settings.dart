@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otomo/constants/links.dart';
 import 'package:otomo/tools/app_package_info.dart';
 import 'package:otomo/view_models/account.dart';
-import 'package:otomo/view_models/router.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/danger/danger_text.dart';
 import 'package:otomo/views/cases/settings/app_settings_list.dart';
@@ -10,6 +11,7 @@ import 'package:otomo/views/cases/settings/app_settings_section.dart';
 import 'package:otomo/views/cases/settings/app_settings_tile.dart';
 import 'package:otomo/views/routes.dart';
 import 'package:otomo/views/utils/launcher.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class SettingsPage extends HookConsumerWidget {
   const SettingsPage({super.key});
@@ -21,11 +23,10 @@ class SettingsPage extends HookConsumerWidget {
       shrinkWrap: true,
       sections: [
         AppSettingsSection(
-          title: const Text('アカウント'),
+          title: Text(context.l10n.settingsPageAccountSection),
           tiles: [
             AppSettingsTile(
-              leading: const Icon(Icons.email),
-              title: const BodySmall('メールアドレス'),
+              title: BodySmall(context.l10n.email),
               value: Text(account?.email ?? ''),
             ),
           ],
@@ -35,19 +36,34 @@ class SettingsPage extends HookConsumerWidget {
         // language
 
         // # About
-        // Privacy policy
-        // Terms of service
-        // Acknowledgements
-
         AppSettingsSection(
-          title: const Text('ヘルプ'),
+          title: Text(context.l10n.settingsPageAboutSection),
           tiles: [
             AppSettingsTile(
-              title: const Text('お問い合わせ'),
-              leading: const Icon(Icons.question_mark_rounded),
+              title: Text(context.l10n.privacyPolicy),
               trailing: const Icon(Icons.keyboard_arrow_right_rounded),
-              onPressed: (_) =>
-                  Launcher.inquiry(account?.uid ?? '', account?.email ?? ''),
+              onPressed: (_) => Launcher.urlString(Links.privacyPolicy),
+            ),
+            AppSettingsTile(
+              title: Text(context.l10n.terms),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onPressed: (_) => Launcher.urlString(Links.terms),
+            ),
+            // Acknowledgements
+          ],
+        ),
+
+        AppSettingsSection(
+          title: Text(context.l10n.settingsPageHelpSection),
+          tiles: [
+            AppSettingsTile(
+              title: Text(context.l10n.contactUs),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onPressed: (_) => Launcher.inquiry(
+                locale: localeOf(context),
+                userId: account?.uid ?? '',
+                email: account?.email ?? '',
+              ),
             ),
           ],
         ),
@@ -55,22 +71,19 @@ class SettingsPage extends HookConsumerWidget {
         AppSettingsSection(
           tiles: [
             AppSettingsTile(
-              title: const DangerText('ログアウト'),
+              title: DangerText(context.l10n.signOut),
               onPressed: (_) => accountNotifier.signOut(),
             ),
           ],
         ),
 
-        // version
-
-        // # Danger area
         AppSettingsSection(
           tiles: [
             AppSettingsTile(
-                title: const DangerText('アカウント削除'),
-                trailing: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: (_) =>
-                    ref.read(routerProvider).push(Routes.accountDeletion)),
+              title: DangerText(context.l10n.accountDeletion),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onPressed: (_) => context.push(Routes.accountDeletion),
+            ),
           ],
         ),
       ],
@@ -79,7 +92,8 @@ class SettingsPage extends HookConsumerWidget {
 
   Widget _buildVersion(BuildContext context) {
     return BodySmall(
-      'バージョン ${AppPackageInfo.version} (${AppPackageInfo.buildNumber})',
+      context.l10n.settingsPageVersion(
+          AppPackageInfo.version, AppPackageInfo.buildNumber),
     );
   }
 
@@ -87,7 +101,8 @@ class SettingsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const TitleMedium('設定', style: TextStyles.bold),
+        title:
+            TitleMedium(context.l10n.settingsPageTitle, style: TextStyles.bold),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,

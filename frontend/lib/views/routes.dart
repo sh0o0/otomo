@@ -6,6 +6,7 @@ final class Routes {
   static const signInWithEmailLink = '$signIn/email';
   static const startToUse = '/start-to-use';
   static const home = '/';
+  static const otomo = '/otomo';
   static const settings = '/settings';
   static const accountDeletion = '$settings/account-deletion';
 

@@ -11,6 +11,7 @@ import 'package:otomo/views/bases/spaces/spaces.dart';
 import 'package:otomo/views/bases/texts/texts.dart';
 import 'package:otomo/views/cases/inform/inform_dialog.dart';
 import 'package:otomo/views/utils/flutter.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class SignInWithEmailLinkPage extends StatefulHookConsumerWidget {
   const SignInWithEmailLinkPage({super.key});
@@ -40,9 +41,9 @@ class _SignInWithEmailLinkPageState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const TitleLarge('メールアドレスでサインイン'),
+                TitleLarge(context.l10n.signInWithEmailLinkPageTitle),
                 Spaces.h40,
-                const TextFieldLabel(label: 'メールアドレス'),
+                TextFieldLabel(label: context.l10n.email),
                 Form(
                   key: _formKey,
                   child: RoundedTextFormField(
@@ -52,8 +53,12 @@ class _SignInWithEmailLinkPageState
                     onSaved: (value) => setState(() => _email = value!),
                     validator: MultiValidator(
                       [
-                        RequiredValidator(errorText: 'メールアドレスを入力してください。'),
-                        EmailValidator(errorText: 'メールアドレスが正しくありません。'),
+                        RequiredValidator(
+                            errorText: context.l10n
+                                .inputInvalidRequired(context.l10n.email)),
+                        EmailValidator(
+                            errorText:
+                                context.l10n.inputInvalid(context.l10n.email)),
                       ],
                     ),
                     autofocus: true,
@@ -74,14 +79,15 @@ class _SignInWithEmailLinkPageState
                           FlutterUtils.afterBuildCallback(() {
                             InformDialog(
                               context: context,
-                              btnOkText: 'OK',
+                              btnOkText: context.l10n.ok,
                               btnOkOnPress: () {},
-                              body: const BodyMedium(
-                                  'メールアドレスに認証リンクをお送りしましたので、リンクをタップして認証を完了してください。\n\n※ メールが届いてない場合、迷惑メールボックスに入っている、もしくは、メールアドレスが間違っている可能性があります。'),
+                              body: BodyMedium(context
+                                  .l10n.signInWithEmailLinkPageNoticeSentEmail),
                             ).show();
                           });
                         },
-                  child: const Text('認証メールを送信'),
+                  child: Text(
+                      context.l10n.signInWithEmailLinkPageNoticeSendAuthEmail),
                 )
               ],
             ),

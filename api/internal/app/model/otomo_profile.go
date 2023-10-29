@@ -5,21 +5,34 @@ import (
 	"strings"
 )
 
+const (
+	PreferredLanguage = "ja"
+)
+
 type OtomoProfile struct {
-	OtomoName            string
-	Language             string
-	Name                 string
-	CallOwn              string
-	CallUser             string
-	Role                 string
-	Personality          string
-	OftenUseWords        []string
-	SpeakingExamples     []string
-	SpeakingTone         string
-	BehavioralGuidelines []string
+	OtomoName            string   `firestore:"-"`
+	Language             string   `firestore:"language"`
+	Name                 string   `firestore:"-"`
+	CallOwn              string   `firestore:"-"`
+	CallUser             string   `firestore:"-"`
+	Role                 string   `firestore:"-"`
+	Personality          string   `firestore:"-"`
+	OftenUseWords        []string `firestore:"-"`
+	SpeakingExamples     []string `firestore:"-"`
+	SpeakingTone         string   `firestore:"-"`
+	BehavioralGuidelines []string `firestore:"-"`
 }
 
-func (op OtomoProfile) Prompt() (string, error) {
+func (op *OtomoProfile) TransJustFriendly() *OtomoProfile {
+	return &OtomoProfile{
+		OtomoName:   "Otomo",
+		Language:    op.Language,
+		Role:        "friend",
+		Personality: "casual and talkative",
+	}
+}
+
+func (op *OtomoProfile) Prompt() (string, error) {
 	var prompt string
 
 	if op.OtomoName == "" {
@@ -29,7 +42,7 @@ func (op OtomoProfile) Prompt() (string, error) {
 	}
 
 	if op.Language == "" {
-		op.Language = "English"
+		op.Language = PreferredLanguage
 	}
 	prompt += "You must say in " + op.Language + ". You only speak " + op.Language + ". "
 
@@ -65,7 +78,7 @@ func (op OtomoProfile) Prompt() (string, error) {
 }
 
 var (
-	DefaultJapaneseFriendlyPrompt, _ = OtomoProfile{
+	DefaultJapaneseFriendlyPrompt, _ = (&OtomoProfile{
 		OtomoName: "オトモ",
 		Language:  "日本語",
 		// Name:        "",
@@ -79,9 +92,9 @@ var (
 		// 	"ユーザーが落ち込んだときは励ます",
 		// },
 		SpeakingExamples: []string{},
-	}.Prompt()
+	}).Prompt()
 
-	JapaneseFriendlyPrompt, _ = OtomoProfile{
+	JapaneseFriendlyPrompt, _ = (&OtomoProfile{
 		OtomoName:   "オトモ",
 		Language:    "日本語",
 		Name:        "太郎",
@@ -98,8 +111,8 @@ var (
 			"ユーザーが落ち込んだときは励ます",
 		},
 		SpeakingExamples: []string{},
-	}.Prompt()
-	JapaneseMaidPrompt, _ = OtomoProfile{
+	}).Prompt()
+	JapaneseMaidPrompt, _ = (&OtomoProfile{
 		OtomoName:   "オトモ",
 		Language:    "日本語",
 		Name:        "みぞれ",
@@ -121,8 +134,8 @@ var (
 			"お帰りなさいませ〜♡ ご主人様！お待ちしておりましたにゃん♡",
 			"うれしいですにゃん！こうして楽しんでいただけるのは、わたしたちにとっても幸せなことなのですにゃ",
 		},
-	}.Prompt()
-	EnglishFriendlyPrompt, _ = OtomoProfile{
+	}).Prompt()
+	EnglishFriendlyPrompt, _ = (&OtomoProfile{
 		OtomoName:    "Otomo",
 		Language:     "English",
 		Name:         "Taro",
@@ -132,5 +145,5 @@ var (
 		BehavioralGuidelines: []string{
 			"You encourage the user when they are depressed",
 		},
-	}.Prompt()
+	}).Prompt()
 )

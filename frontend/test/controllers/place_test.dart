@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:otomo/controllers/place.dart';
 import 'package:otomo/tools/logger.dart';
 
 import '../test_config.dart';
 
+@GenerateMocks([Dio])
 void main() {
   const googlePlaceIds = [
     'ChIJN1t_tDeuEmsRUsoyG83frY4',
@@ -17,8 +20,8 @@ void main() {
     controller = PlaceControllerImpl(apiKey: TestConfig.googleMapApiKey);
   });
 
-  group('System test.', () {
-    group('PlaceControllerImpl class.', () {
+  group('PlaceControllerImpl class.', () {
+    group('System test.', () {
       group('getPlaceDetails method.', () {
         test(
           'should show log'
@@ -31,6 +34,6 @@ void main() {
           },
         );
       });
-    });
-  }, skip: 'Skip PlaceControllerImpl class.');
+    }, skip: 'Skip PlaceControllerImpl class.');
+  });
 }

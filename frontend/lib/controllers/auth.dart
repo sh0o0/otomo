@@ -28,6 +28,9 @@ class AuthControllerImpl {
   static const _emailOfSignInWithEmailLinkKey =
       'email_of_sign_in_with_email_link';
 
+  void setLanguageCode(String languageCode) =>
+      _firebaseAuth.setLanguageCode(languageCode);
+
   Stream<Account?> authStateChanges() => _firebaseAuth
       .authStateChanges()
       .map((user) => user == null ? null : _userToAccount(user));
@@ -123,7 +126,8 @@ class AuthControllerImpl {
     try {
       await _firebaseAuth.currentUser?.delete();
     } on auth.FirebaseAuthException catch (e) {
-      if (e.code == FirebaseExceptionCode.requiresRecentLogin) {
+      if (e.code == FirebaseExceptionCode.requiresRecentLogin ||
+          e.code == FirebaseExceptionCode.userTokenExpired) {
         throw const AppException(
           message: 'Please re-authenticate',
           cause: Cause.requiresRecentLogin,

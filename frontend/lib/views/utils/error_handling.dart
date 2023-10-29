@@ -3,6 +3,8 @@ import 'package:otomo/views/cases/error/error_snackbar.dart';
 import 'package:otomo/views/utils/error_library.dart';
 
 void showErrorSnackbar(Object error) {
-  final text = ErrorLibrary.fromAny(error);
-  App.showSnackBar(ErrorSnackbar.text(text));
+  App.showSnackBar(snackBarBuilder: (context) {
+    final text = ErrorLibrary.fromAnyOf(context, error);
+    return ErrorSnackbar.text(text);
+  });
 }

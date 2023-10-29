@@ -5,6 +5,7 @@ import 'package:otomo/tools/google_api.dart';
 import 'package:otomo/tools/reg_exps.dart';
 import 'package:otomo/views/bases/images/app_cached_network_image.dart';
 import 'package:otomo/views/cases/warn/warn_text.dart';
+import 'package:otomo/views/utils/localizations.dart';
 
 class GooglePlacePhoto extends StatelessWidget {
   const GooglePlacePhoto({
@@ -41,7 +42,7 @@ class GooglePlacePhoto extends StatelessWidget {
       imageUrl: getUrl(photoReference, maxHeight: maxHeight),
       fit: fit,
       errorWidget: (context, url, error) =>
-          const Center(child: WarnText('画像の取得に失敗しました。')),
+          Center(child: WarnText(context.l10n.errorFetchImage)),
       httpHeaders: GoogleAPIHeaders.fromEnvironment().toMap(),
     );
   }

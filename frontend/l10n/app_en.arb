@@ -1,0 +1,174 @@
+{
+  "@@locale": "en",
+  "title": "Otomo",
+  "otomo": "Otomo",
+  "terms": "Terms of Use",
+  "privacyPolicy": "Privacy Policy",
+  "birthday": "Birthday",
+  "email": "Email",
+  "date": "Date",
+  "speakLanguage": "Speak Language",
+  "next": "Next",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "copied": "Copied!",
+  "openOnGoogleMap": "Open on Google Map",
+  "contactUs": "Contact Us",
+  "online": "Online",
+  "offline": "Offline",
+  "signOut": "Sign Out",
+  "accountDeletion": "Account Deletion",
+  "signInWithGoogle": "Sign in with Google",
+  "signInWithApple": "Sign in with Apple",
+  "signInWithEmail": "Sign in with Email",
+  "inputInvalidRequired": "Please enter {field}.",
+  "@inputInvalidRequired": {
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "Birthday"
+      }
+    }
+  },
+  "inputInvalid": "{field} is invalid.",
+  "@inputInvalid": {
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "Birthday"
+      }
+    }
+  },
+  "inputInvalidLimitAge": "You must be over {age} years old to use this service.",
+  "@inputInvalidLimitAge": {
+    "placeholders": {
+      "age": {
+        "type": "num",
+        "example": "13"
+      }
+    }
+  },
+  "errorUnknown": "An error occurred.",
+  "errorNetwork": "A network error occurred.",
+  "errorInvalidArgument": "The input is invalid.",
+  "errorNotFound": "No data found.",
+  "errorAlreadyExist": "Data already exists.",
+  "errorPermissionDenied": "Access denied.",
+  "errorUnauthenticated": "Authentication failed.",
+  "errorRequiresRecentLogin": "You need to log in again.",
+  "errorFailedExtractingPlace": "Failed to extract place name.",
+  "errorLimitSendMessage": "The number of messages sent has reached the limit.",
+  "errorFetchImage": "Failed to fetch image.",
+  "chatDailyLimitCount": "Remaining today: {count} times",
+  "@chatDailyLimitCount": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "3"
+      }
+    }
+  },
+  "chatMonthlySurplusLimitCount": "Additional remaining this month: {count} times",
+  "@chatMonthlySurplusLimitCount": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "example": "3"
+      }
+    }
+  },
+  "chatAttachmentButtonAccessibilityLabel": "Attach media",
+  "chatEmptyChatPlaceholder": "No messages",
+  "chatFileButtonAccessibilityLabel": "File",
+  "chatInputPlaceholder": "Message",
+  "chatSendButtonAccessibilityLabel": "Send",
+  "chatUnreadMessagesLabel": "Unread messages",
+  "placeDetails": "Details",
+  "placeBusinessHours": "Business hours",
+  "placeOpen": "Open",
+  "placeClosed": "Closed",
+  "placeBusinessHoursPeriod": "{day}: {timePeriod}",
+  "@placeBusinessHoursPeriod": {
+    "placeholders": {
+      "day": {
+        "type": "num",
+        "example": "3"
+      },
+      "timePeriod": {
+        "type": "String",
+        "example": "10:00 - 18:00"
+      }
+    }
+  },
+  "placeRating": "Rating",
+  "placeReviews": "Reviews",
+  "placeTypeArchipelago": "Archipelago",
+  "placeTypeContinent": "Continent",
+  "placeTypeCountry": "Country",
+  "placeTypeEstablishment": "Establishment",
+  "placeTypeFinance": "Finance",
+  "placeTypeFloor": "Floor",
+  "placeTypeFood": "Food",
+  "placeTypeGeneralContractor": "General contractor",
+  "placeTypeHealth": "Health",
+  "placeTypeIntersection": "Intersection",
+  "placeTypeLandmark": "Landmark",
+  "placeTypeLocality": "Locality",
+  "placeTypeNaturalFeature": "Natural feature",
+  "placeTypeNeighborhood": "Neighborhood",
+  "placeTypePlaceOfWorship": "Place of worship",
+  "placeTypePointOfInterest": "Point of interest",
+  "placeTypePolitical": "Political",
+  "placeTypePostBox": "Post box",
+  "placeTypePremise": "Premise",
+  "placeTypeRoom": "Room",
+  "placeTypeRoute": "Route",
+  "placeTypeStreetAddress": "Street address",
+  "placeTypeStreetNumber": "Street number",
+  "placeTypeSublocality": "Sublocality",
+  "placeTypeTownSquare": "Town square",
+  "signInWithEmailLinkPageTitle": "Sign in with Email",
+  "signInWithEmailLinkPageNoticeSentEmail": "We have sent an authentication link to your email address. Please tap the link to complete the authentication.\n\nNote: If you have not received the email, it may be in your spam folder or your email address may be incorrect.",
+  "signInWithEmailLinkPageNoticeSendAuthEmail": "Send authentication email",
+  "startToUsePageTitle": "Start to use",
+  "startToUsePageAgreeWithTerms": "I agree to the {terms}",
+  "@startToUsePageAgreeWithTerms": {
+    "placeholders": {
+      "terms": {
+        "type": "String",
+        "example": "Terms of Use"
+      }
+    }
+  },
+  "startToUsePageNoticeAgeLimit": "We need to obtain your date of birth due to age restrictions. You must be over {age} years old to use this service.",
+  "@startToUsePageNoticeAgeLimit": {
+    "placeholders": {
+      "age": {
+        "type": "num",
+        "example": "13"
+      }
+    }
+  },
+  "settingsPageTitle": "Settings",
+  "settingsPageAccountSection": "Account",
+  "settingsPageAboutSection": "About",
+  "settingsPageHelpSection": "Help",
+  "settingsPageVersion": "Version {version} ({buildNumber})",
+  "@settingsPageVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      },
+      "buildNumber": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "accountDeletionPageTitle": "Account Deletion",
+  "accountDeletionPageWarn": "Your account will be deleted.",
+  "accountDeletionPageExplanation": "Please note that once your account is deleted, your data cannot be restored. In addition, support for deleted accounts will be outside the scope of Otomo's support team.",
+  "otomoProfilePageTitle": "Otomo Profile"
+}

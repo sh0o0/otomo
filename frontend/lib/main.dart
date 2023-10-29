@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otomo/configs/app_config.dart';
-import 'package:otomo/configs/firebase_options/prod.dart' as prod_firebase_opt;
 import 'package:otomo/configs/firebase_options/dev.dart' as dev_firebase_opt;
 import 'package:otomo/configs/firebase_options/local.dart'
     as local_firebase_opt;
+import 'package:otomo/configs/firebase_options/prod.dart' as prod_firebase_opt;
 import 'package:otomo/configs/injection.dart';
 import 'package:otomo/development/views/development_app.dart';
 import 'package:otomo/tools/app_package_info.dart';

@@ -7,18 +7,22 @@ import (
 
 type MessagingFunc func(context.Context, *MessageChunk) error
 
+type ConversationOptions struct {
+	Memory        *Memory
+	Personality   string
+	MessagingFunc MessagingFunc
+}
+
 // TODO: Add tests
 type Converser interface {
 	Respond(
 		ctx context.Context,
 		msg *Message,
-		memory *Memory,
-		messagingFunc MessagingFunc,
+		opts ConversationOptions,
 	) (*Message, error)
 	Message(
 		ctx context.Context,
-		memory *Memory,
-		messagingFunc MessagingFunc,
+		opts ConversationOptions,
 	) (*Message, error)
 }
 type Summarizer interface {
@@ -30,8 +34,9 @@ type Summarizer interface {
 }
 
 type Otomo struct {
-	UserID UserID `firestore:"user_id"`
-	Memory Memory `firestore:"memory"`
+	UserID  UserID       `firestore:"user_id"`
+	Memory  Memory       `firestore:"memory"`
+	Profile OtomoProfile `firestore:"profile"`
 
 	converser     Converser
 	summarizer    Summarizer
@@ -41,10 +46,12 @@ type Otomo struct {
 func RestoreOtomo(
 	userID UserID,
 	memory Memory,
+	profile OtomoProfile,
 ) (*Otomo, error) {
 	return &Otomo{
-		UserID: userID,
-		Memory: memory,
+		UserID:  userID,
+		Memory:  memory,
+		Profile: profile,
 	}, nil
 }
 
@@ -74,7 +81,15 @@ func (o *Otomo) Respond(
 		return nil, nil, err
 	}
 
-	respond, err := o.converser.Respond(ctx, msg, &o.Memory, o.messagingFunc)
+	personality, err := o.Profile.TransJustFriendly().Prompt()
+	if err != nil {
+		return nil, nil, err
+	}
+	respond, err := o.converser.Respond(ctx, msg, ConversationOptions{
+		Memory:        &o.Memory,
+		Personality:   personality,
+		MessagingFunc: o.messagingFunc,
+	})
 	if err != nil {
 		return nil, nil, err
 	}
@@ -97,7 +112,16 @@ func (o *Otomo) Message(
 		return nil, nil, err
 	}
 
-	newMsg, err := o.converser.Message(ctx, &o.Memory, o.messagingFunc)
+	personality, err := o.Profile.TransJustFriendly().Prompt()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	newMsg, err := o.converser.Message(ctx, ConversationOptions{
+		Memory:        &o.Memory,
+		Personality:   personality,
+		MessagingFunc: o.messagingFunc,
+	})
 	if err != nil {
 		return nil, nil, err
 	}
