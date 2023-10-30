@@ -20,22 +20,38 @@ import 'message.pbenum.dart';
 
 export 'message.pbenum.dart';
 
+enum Message_Struct {
+  placesStruct, 
+  routeStruct, 
+  placeDetailsStruct, 
+  notSet
+}
+
 class Message extends $pb.GeneratedMessage {
   factory Message() => create();
   Message._() : super();
   factory Message.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Message.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
+  static const $core.Map<$core.int, Message_Struct> _Message_StructByTag = {
+    9 : Message_Struct.placesStruct,
+    10 : Message_Struct.routeStruct,
+    11 : Message_Struct.placeDetailsStruct,
+    0 : Message_Struct.notSet
+  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Message', createEmptyInstance: create)
+    ..oo(0, [9, 10, 11])
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'text')
     ..e<Role>(3, _omitFieldNames ? '' : 'role', $pb.PbFieldType.OE, defaultOrMaker: Role.UNKNOWN, valueOf: Role.valueOf, enumValues: Role.values)
     ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', subBuilder: $3.Timestamp.create)
     ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
     ..aOM<PlaceExtraction>(6, _omitFieldNames ? '' : 'placeExtraction', subBuilder: PlaceExtraction.create)
-    ..aOS(7, _omitFieldNames ? '' : 'context')
+    ..aOS(7, _omitFieldNames ? '' : 'content')
     ..aOS(8, _omitFieldNames ? '' : 'structName')
-    ..aOS(9, _omitFieldNames ? '' : 'struct')
+    ..aOM<PlacesStruct>(9, _omitFieldNames ? '' : 'placesStruct', subBuilder: PlacesStruct.create)
+    ..aOM<RouteStruct>(10, _omitFieldNames ? '' : 'routeStruct', subBuilder: RouteStruct.create)
+    ..aOM<PlaceDetailsStruct>(11, _omitFieldNames ? '' : 'placeDetailsStruct', subBuilder: PlaceDetailsStruct.create)
     ..hasRequiredFields = false
   ;
 
@@ -59,6 +75,9 @@ class Message extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static Message getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Message>(create);
   static Message? _defaultInstance;
+
+  Message_Struct whichStruct() => _Message_StructByTag[$_whichOneof(0)]!;
+  void clearStruct() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
   $core.String get id => $_getSZ(0);
@@ -121,13 +140,13 @@ class Message extends $pb.GeneratedMessage {
   PlaceExtraction ensurePlaceExtraction() => $_ensure(5);
 
   @$pb.TagNumber(7)
-  $core.String get context => $_getSZ(6);
+  $core.String get content => $_getSZ(6);
   @$pb.TagNumber(7)
-  set context($core.String v) { $_setString(6, v); }
+  set content($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasContext() => $_has(6);
+  $core.bool hasContent() => $_has(6);
   @$pb.TagNumber(7)
-  void clearContext() => clearField(7);
+  void clearContent() => clearField(7);
 
   @$pb.TagNumber(8)
   $core.String get structName => $_getSZ(7);
@@ -139,13 +158,37 @@ class Message extends $pb.GeneratedMessage {
   void clearStructName() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.String get struct => $_getSZ(8);
+  PlacesStruct get placesStruct => $_getN(8);
   @$pb.TagNumber(9)
-  set struct($core.String v) { $_setString(8, v); }
+  set placesStruct(PlacesStruct v) { setField(9, v); }
   @$pb.TagNumber(9)
-  $core.bool hasStruct() => $_has(8);
+  $core.bool hasPlacesStruct() => $_has(8);
   @$pb.TagNumber(9)
-  void clearStruct() => clearField(9);
+  void clearPlacesStruct() => clearField(9);
+  @$pb.TagNumber(9)
+  PlacesStruct ensurePlacesStruct() => $_ensure(8);
+
+  @$pb.TagNumber(10)
+  RouteStruct get routeStruct => $_getN(9);
+  @$pb.TagNumber(10)
+  set routeStruct(RouteStruct v) { setField(10, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasRouteStruct() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearRouteStruct() => clearField(10);
+  @$pb.TagNumber(10)
+  RouteStruct ensureRouteStruct() => $_ensure(9);
+
+  @$pb.TagNumber(11)
+  PlaceDetailsStruct get placeDetailsStruct => $_getN(10);
+  @$pb.TagNumber(11)
+  set placeDetailsStruct(PlaceDetailsStruct v) { setField(11, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasPlaceDetailsStruct() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearPlaceDetailsStruct() => clearField(11);
+  @$pb.TagNumber(11)
+  PlaceDetailsStruct ensurePlaceDetailsStruct() => $_ensure(10);
 }
 
 class PlaceExtraction extends $pb.GeneratedMessage {
@@ -329,7 +372,7 @@ class MessageChunk extends $pb.GeneratedMessage {
     ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', subBuilder: $3.Timestamp.create)
     ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
     ..aOB(6, _omitFieldNames ? '' : 'isLast')
-    ..aOS(7, _omitFieldNames ? '' : 'context')
+    ..aOS(7, _omitFieldNames ? '' : 'content')
     ..aOS(8, _omitFieldNames ? '' : 'structName')
     ..aOS(9, _omitFieldNames ? '' : 'struct')
     ..hasRequiredFields = false
@@ -419,13 +462,13 @@ class MessageChunk extends $pb.GeneratedMessage {
   void clearIsLast() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get context => $_getSZ(6);
+  $core.String get content => $_getSZ(6);
   @$pb.TagNumber(7)
-  set context($core.String v) { $_setString(6, v); }
+  set content($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasContext() => $_has(6);
+  $core.bool hasContent() => $_has(6);
   @$pb.TagNumber(7)
-  void clearContext() => clearField(7);
+  void clearContent() => clearField(7);
 
   @$pb.TagNumber(8)
   $core.String get structName => $_getSZ(7);
@@ -444,6 +487,162 @@ class MessageChunk extends $pb.GeneratedMessage {
   $core.bool hasStruct() => $_has(8);
   @$pb.TagNumber(9)
   void clearStruct() => clearField(9);
+}
+
+class PlacesStruct extends $pb.GeneratedMessage {
+  factory PlacesStruct() => create();
+  PlacesStruct._() : super();
+  factory PlacesStruct.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory PlacesStruct.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PlacesStruct', createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'prologue')
+    ..aOS(2, _omitFieldNames ? '' : 'epilogue')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  PlacesStruct clone() => PlacesStruct()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  PlacesStruct copyWith(void Function(PlacesStruct) updates) => super.copyWith((message) => updates(message as PlacesStruct)) as PlacesStruct;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static PlacesStruct create() => PlacesStruct._();
+  PlacesStruct createEmptyInstance() => create();
+  static $pb.PbList<PlacesStruct> createRepeated() => $pb.PbList<PlacesStruct>();
+  @$core.pragma('dart2js:noInline')
+  static PlacesStruct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PlacesStruct>(create);
+  static PlacesStruct? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get prologue => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set prologue($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPrologue() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPrologue() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get epilogue => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set epilogue($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasEpilogue() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEpilogue() => clearField(2);
+}
+
+class RouteStruct extends $pb.GeneratedMessage {
+  factory RouteStruct() => create();
+  RouteStruct._() : super();
+  factory RouteStruct.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory RouteStruct.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RouteStruct', createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'prologue')
+    ..aOS(2, _omitFieldNames ? '' : 'epilogue')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  RouteStruct clone() => RouteStruct()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  RouteStruct copyWith(void Function(RouteStruct) updates) => super.copyWith((message) => updates(message as RouteStruct)) as RouteStruct;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static RouteStruct create() => RouteStruct._();
+  RouteStruct createEmptyInstance() => create();
+  static $pb.PbList<RouteStruct> createRepeated() => $pb.PbList<RouteStruct>();
+  @$core.pragma('dart2js:noInline')
+  static RouteStruct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RouteStruct>(create);
+  static RouteStruct? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get prologue => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set prologue($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPrologue() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPrologue() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get epilogue => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set epilogue($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasEpilogue() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEpilogue() => clearField(2);
+}
+
+class PlaceDetailsStruct extends $pb.GeneratedMessage {
+  factory PlaceDetailsStruct() => create();
+  PlaceDetailsStruct._() : super();
+  factory PlaceDetailsStruct.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory PlaceDetailsStruct.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PlaceDetailsStruct', createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'prologue')
+    ..aOS(2, _omitFieldNames ? '' : 'epilogue')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  PlaceDetailsStruct clone() => PlaceDetailsStruct()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  PlaceDetailsStruct copyWith(void Function(PlaceDetailsStruct) updates) => super.copyWith((message) => updates(message as PlaceDetailsStruct)) as PlaceDetailsStruct;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static PlaceDetailsStruct create() => PlaceDetailsStruct._();
+  PlaceDetailsStruct createEmptyInstance() => create();
+  static $pb.PbList<PlaceDetailsStruct> createRepeated() => $pb.PbList<PlaceDetailsStruct>();
+  @$core.pragma('dart2js:noInline')
+  static PlaceDetailsStruct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PlaceDetailsStruct>(create);
+  static PlaceDetailsStruct? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get prologue => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set prologue($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPrologue() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPrologue() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get epilogue => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set epilogue($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasEpilogue() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEpilogue() => clearField(2);
 }
 
 

@@ -31,12 +31,27 @@ export class Message extends jspb.Message {
     clearPlaceExtraction(): void;
     getPlaceExtraction(): PlaceExtraction | undefined;
     setPlaceExtraction(value?: PlaceExtraction): Message;
-    getContext(): string;
-    setContext(value: string): Message;
+    getContent(): string;
+    setContent(value: string): Message;
     getStructName(): string;
     setStructName(value: string): Message;
-    getStruct(): string;
-    setStruct(value: string): Message;
+
+    hasPlacesStruct(): boolean;
+    clearPlacesStruct(): void;
+    getPlacesStruct(): PlacesStruct | undefined;
+    setPlacesStruct(value?: PlacesStruct): Message;
+
+    hasRouteStruct(): boolean;
+    clearRouteStruct(): void;
+    getRouteStruct(): RouteStruct | undefined;
+    setRouteStruct(value?: RouteStruct): Message;
+
+    hasPlaceDetailsStruct(): boolean;
+    clearPlaceDetailsStruct(): void;
+    getPlaceDetailsStruct(): PlaceDetailsStruct | undefined;
+    setPlaceDetailsStruct(value?: PlaceDetailsStruct): Message;
+
+    getStructCase(): Message.StructCase;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Message.AsObject;
@@ -56,10 +71,20 @@ export namespace Message {
         sentAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         clientId?: google_protobuf_wrappers_pb.StringValue.AsObject,
         placeExtraction?: PlaceExtraction.AsObject,
-        context: string,
+        content: string,
         structName: string,
-        struct: string,
+        placesStruct?: PlacesStruct.AsObject,
+        routeStruct?: RouteStruct.AsObject,
+        placeDetailsStruct?: PlaceDetailsStruct.AsObject,
     }
+
+    export enum StructCase {
+        STRUCT_NOT_SET = 0,
+        PLACES_STRUCT = 9,
+        ROUTE_STRUCT = 10,
+        PLACE_DETAILS_STRUCT = 11,
+    }
+
 }
 
 export class PlaceExtraction extends jspb.Message { 
@@ -167,8 +192,8 @@ export class MessageChunk extends jspb.Message {
     setClientId(value?: google_protobuf_wrappers_pb.StringValue): MessageChunk;
     getIsLast(): boolean;
     setIsLast(value: boolean): MessageChunk;
-    getContext(): string;
-    setContext(value: string): MessageChunk;
+    getContent(): string;
+    setContent(value: string): MessageChunk;
     getStructName(): string;
     setStructName(value: string): MessageChunk;
     getStruct(): string;
@@ -192,9 +217,78 @@ export namespace MessageChunk {
         sentAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         clientId?: google_protobuf_wrappers_pb.StringValue.AsObject,
         isLast: boolean,
-        context: string,
+        content: string,
         structName: string,
         struct: string,
+    }
+}
+
+export class PlacesStruct extends jspb.Message { 
+    getPrologue(): string;
+    setPrologue(value: string): PlacesStruct;
+    getEpilogue(): string;
+    setEpilogue(value: string): PlacesStruct;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): PlacesStruct.AsObject;
+    static toObject(includeInstance: boolean, msg: PlacesStruct): PlacesStruct.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: PlacesStruct, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): PlacesStruct;
+    static deserializeBinaryFromReader(message: PlacesStruct, reader: jspb.BinaryReader): PlacesStruct;
+}
+
+export namespace PlacesStruct {
+    export type AsObject = {
+        prologue: string,
+        epilogue: string,
+    }
+}
+
+export class RouteStruct extends jspb.Message { 
+    getPrologue(): string;
+    setPrologue(value: string): RouteStruct;
+    getEpilogue(): string;
+    setEpilogue(value: string): RouteStruct;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): RouteStruct.AsObject;
+    static toObject(includeInstance: boolean, msg: RouteStruct): RouteStruct.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: RouteStruct, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RouteStruct;
+    static deserializeBinaryFromReader(message: RouteStruct, reader: jspb.BinaryReader): RouteStruct;
+}
+
+export namespace RouteStruct {
+    export type AsObject = {
+        prologue: string,
+        epilogue: string,
+    }
+}
+
+export class PlaceDetailsStruct extends jspb.Message { 
+    getPrologue(): string;
+    setPrologue(value: string): PlaceDetailsStruct;
+    getEpilogue(): string;
+    setEpilogue(value: string): PlaceDetailsStruct;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): PlaceDetailsStruct.AsObject;
+    static toObject(includeInstance: boolean, msg: PlaceDetailsStruct): PlaceDetailsStruct.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: PlaceDetailsStruct, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): PlaceDetailsStruct;
+    static deserializeBinaryFromReader(message: PlaceDetailsStruct, reader: jspb.BinaryReader): PlaceDetailsStruct;
+}
+
+export namespace PlaceDetailsStruct {
+    export type AsObject = {
+        prologue: string,
+        epilogue: string,
     }
 }
 

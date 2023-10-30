@@ -37,9 +37,14 @@ const Message$json = {
     {'1': 'sent_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sentAt'},
     {'1': 'client_id', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
     {'1': 'place_extraction', '3': 6, '4': 1, '5': 11, '6': '.PlaceExtraction', '10': 'placeExtraction'},
-    {'1': 'context', '3': 7, '4': 1, '5': 9, '10': 'context'},
+    {'1': 'content', '3': 7, '4': 1, '5': 9, '10': 'content'},
     {'1': 'struct_name', '3': 8, '4': 1, '5': 9, '10': 'structName'},
-    {'1': 'struct', '3': 9, '4': 1, '5': 9, '10': 'struct'},
+    {'1': 'places_struct', '3': 9, '4': 1, '5': 11, '6': '.PlacesStruct', '9': 0, '10': 'placesStruct'},
+    {'1': 'route_struct', '3': 10, '4': 1, '5': 11, '6': '.RouteStruct', '9': 0, '10': 'routeStruct'},
+    {'1': 'place_details_struct', '3': 11, '4': 1, '5': 11, '6': '.PlaceDetailsStruct', '9': 0, '10': 'placeDetailsStruct'},
+  ],
+  '8': [
+    {'1': 'struct'},
   ],
 };
 
@@ -49,8 +54,11 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'ABKA4yBS5Sb2xlUgRyb2xlEjMKB3NlbnRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGlt'
     'ZXN0YW1wUgZzZW50QXQSOQoJY2xpZW50X2lkGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cm'
     'luZ1ZhbHVlUghjbGllbnRJZBI7ChBwbGFjZV9leHRyYWN0aW9uGAYgASgLMhAuUGxhY2VFeHRy'
-    'YWN0aW9uUg9wbGFjZUV4dHJhY3Rpb24SGAoHY29udGV4dBgHIAEoCVIHY29udGV4dBIfCgtzdH'
-    'J1Y3RfbmFtZRgIIAEoCVIKc3RydWN0TmFtZRIWCgZzdHJ1Y3QYCSABKAlSBnN0cnVjdA==');
+    'YWN0aW9uUg9wbGFjZUV4dHJhY3Rpb24SGAoHY29udGVudBgHIAEoCVIHY29udGVudBIfCgtzdH'
+    'J1Y3RfbmFtZRgIIAEoCVIKc3RydWN0TmFtZRI0Cg1wbGFjZXNfc3RydWN0GAkgASgLMg0uUGxh'
+    'Y2VzU3RydWN0SABSDHBsYWNlc1N0cnVjdBIxCgxyb3V0ZV9zdHJ1Y3QYCiABKAsyDC5Sb3V0ZV'
+    'N0cnVjdEgAUgtyb3V0ZVN0cnVjdBJHChRwbGFjZV9kZXRhaWxzX3N0cnVjdBgLIAEoCzITLlBs'
+    'YWNlRGV0YWlsc1N0cnVjdEgAUhJwbGFjZURldGFpbHNTdHJ1Y3RCCAoGc3RydWN0');
 
 @$core.Deprecated('Use placeExtractionDescriptor instead')
 const PlaceExtraction$json = {
@@ -114,7 +122,7 @@ const MessageChunk$json = {
     {'1': 'sent_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sentAt'},
     {'1': 'client_id', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
     {'1': 'is_last', '3': 6, '4': 1, '5': 8, '10': 'isLast'},
-    {'1': 'context', '3': 7, '4': 1, '5': 9, '10': 'context'},
+    {'1': 'content', '3': 7, '4': 1, '5': 9, '10': 'content'},
     {'1': 'struct_name', '3': 8, '4': 1, '5': 9, '10': 'structName'},
     {'1': 'struct', '3': 9, '4': 1, '5': 9, '10': 'struct'},
   ],
@@ -126,6 +134,48 @@ final $typed_data.Uint8List messageChunkDescriptor = $convert.base64Decode(
     'ABKAlCAhgBUgR0ZXh0EhkKBHJvbGUYAyABKA4yBS5Sb2xlUgRyb2xlEjMKB3NlbnRfYXQYBCAB'
     'KAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgZzZW50QXQSOQoJY2xpZW50X2lkGAUgAS'
     'gLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlUghjbGllbnRJZBIXCgdpc19sYXN0GAYg'
-    'ASgIUgZpc0xhc3QSGAoHY29udGV4dBgHIAEoCVIHY29udGV4dBIfCgtzdHJ1Y3RfbmFtZRgIIA'
+    'ASgIUgZpc0xhc3QSGAoHY29udGVudBgHIAEoCVIHY29udGVudBIfCgtzdHJ1Y3RfbmFtZRgIIA'
     'EoCVIKc3RydWN0TmFtZRIWCgZzdHJ1Y3QYCSABKAlSBnN0cnVjdA==');
+
+@$core.Deprecated('Use placesStructDescriptor instead')
+const PlacesStruct$json = {
+  '1': 'PlacesStruct',
+  '2': [
+    {'1': 'prologue', '3': 1, '4': 1, '5': 9, '10': 'prologue'},
+    {'1': 'epilogue', '3': 2, '4': 1, '5': 9, '10': 'epilogue'},
+  ],
+};
+
+/// Descriptor for `PlacesStruct`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List placesStructDescriptor = $convert.base64Decode(
+    'CgxQbGFjZXNTdHJ1Y3QSGgoIcHJvbG9ndWUYASABKAlSCHByb2xvZ3VlEhoKCGVwaWxvZ3VlGA'
+    'IgASgJUghlcGlsb2d1ZQ==');
+
+@$core.Deprecated('Use routeStructDescriptor instead')
+const RouteStruct$json = {
+  '1': 'RouteStruct',
+  '2': [
+    {'1': 'prologue', '3': 1, '4': 1, '5': 9, '10': 'prologue'},
+    {'1': 'epilogue', '3': 2, '4': 1, '5': 9, '10': 'epilogue'},
+  ],
+};
+
+/// Descriptor for `RouteStruct`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List routeStructDescriptor = $convert.base64Decode(
+    'CgtSb3V0ZVN0cnVjdBIaCghwcm9sb2d1ZRgBIAEoCVIIcHJvbG9ndWUSGgoIZXBpbG9ndWUYAi'
+    'ABKAlSCGVwaWxvZ3Vl');
+
+@$core.Deprecated('Use placeDetailsStructDescriptor instead')
+const PlaceDetailsStruct$json = {
+  '1': 'PlaceDetailsStruct',
+  '2': [
+    {'1': 'prologue', '3': 1, '4': 1, '5': 9, '10': 'prologue'},
+    {'1': 'epilogue', '3': 2, '4': 1, '5': 9, '10': 'epilogue'},
+  ],
+};
+
+/// Descriptor for `PlaceDetailsStruct`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List placeDetailsStructDescriptor = $convert.base64Decode(
+    'ChJQbGFjZURldGFpbHNTdHJ1Y3QSGgoIcHJvbG9ndWUYASABKAlSCHByb2xvZ3VlEhoKCGVwaW'
+    'xvZ3VlGAIgASgJUghlcGlsb2d1ZQ==');
 

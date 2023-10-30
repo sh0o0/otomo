@@ -303,7 +303,19 @@
                 </li>
               
                 <li>
+                  <a href="#.PlaceDetailsStruct"><span class="badge">M</span>PlaceDetailsStruct</a>
+                </li>
+              
+                <li>
                   <a href="#.PlaceExtraction"><span class="badge">M</span>PlaceExtraction</a>
+                </li>
+              
+                <li>
+                  <a href="#.PlacesStruct"><span class="badge">M</span>PlacesStruct</a>
+                </li>
+              
+                <li>
+                  <a href="#.RouteStruct"><span class="badge">M</span>RouteStruct</a>
                 </li>
               
               
@@ -1200,7 +1212,7 @@ significant. </p></td>
                 </tr>
               
                 <tr>
-                  <td>context</td>
+                  <td>content</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p> </p></td>
@@ -1214,8 +1226,22 @@ significant. </p></td>
                 </tr>
               
                 <tr>
-                  <td>struct</td>
-                  <td><a href="#string">string</a></td>
+                  <td>places_struct</td>
+                  <td><a href="#PlacesStruct">PlacesStruct</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>route_struct</td>
+                  <td><a href="#RouteStruct">RouteStruct</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>place_details_struct</td>
+                  <td><a href="#PlaceDetailsStruct">PlaceDetailsStruct</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1280,7 +1306,7 @@ significant. </p></td>
                 </tr>
               
                 <tr>
-                  <td>context</td>
+                  <td>content</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p> </p></td>
@@ -1328,6 +1354,37 @@ significant. </p></td>
 
         
       
+        <h3 id=".PlaceDetailsStruct">PlaceDetailsStruct</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>prologue</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>epilogue</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id=".PlaceExtraction">PlaceExtraction</h3>
         <p></p>
 
@@ -1355,6 +1412,68 @@ significant. </p></td>
                 <tr>
                   <td>error</td>
                   <td><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PlacesStruct">PlacesStruct</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>prologue</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>epilogue</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".RouteStruct">RouteStruct</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>prologue</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>epilogue</td>
+                  <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>

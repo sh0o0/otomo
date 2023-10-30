@@ -13,9 +13,13 @@ message Message {
     google.protobuf.StringValue client_id = 5;
     PlaceExtraction place_extraction = 6;
 
-    string context = 7;
+    string content = 7;
     string struct_name = 8;
-    string struct = 9;
+    oneof struct {
+        PlacesStruct places_struct = 9;
+        RouteStruct route_struct = 10;
+        PlaceDetailsStruct place_details_struct = 11;
+    }
 }
 
 enum Role {
@@ -48,7 +52,22 @@ message MessageChunk {
     google.protobuf.StringValue client_id = 5;
     bool is_last = 6;
 
-    string context = 7;
+    string content = 7;
     string struct_name = 8;
     string struct = 9;
+}
+
+message PlacesStruct {
+    string prologue = 1;
+    string epilogue = 2;
+}
+
+message RouteStruct {
+    string prologue = 1;
+    string epilogue = 2;
+}
+
+message PlaceDetailsStruct {
+    string prologue = 1;
+    string epilogue = 2;
 }
