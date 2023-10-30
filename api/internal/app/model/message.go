@@ -9,11 +9,13 @@ import (
 type MessageID string
 
 type Message struct {
-	ID              MessageID       `firestore:"id"`
-	ClientID        *string         `firestore:"client_id"`
-	Text            string          `firestore:"text"`
-	Role            Role            `firestore:"role"`
-	SentAt          time.Time       `firestore:"sent_at"`
+	ID       MessageID `firestore:"id"`
+	ClientID *string   `firestore:"client_id"`
+	Text     string    `firestore:"text"`
+	Role     Role      `firestore:"role"`
+	SentAt   time.Time `firestore:"sent_at"`
+
+	// Deprecated: Includes the place information in Struct
 	PlaceExtraction PlaceExtraction `firestore:"place_extraction"`
 
 	Content    string `firestore:"content"`
