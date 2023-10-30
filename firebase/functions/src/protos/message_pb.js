@@ -175,7 +175,10 @@ proto.Message.toObject = function(includeInstance, msg) {
     role: jspb.Message.getFieldWithDefault(msg, 3, 0),
     sentAt: (f = msg.getSentAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     clientId: (f = msg.getClientId()) && google_protobuf_wrappers_pb.StringValue.toObject(includeInstance, f),
-    placeExtraction: (f = msg.getPlaceExtraction()) && proto.PlaceExtraction.toObject(includeInstance, f)
+    placeExtraction: (f = msg.getPlaceExtraction()) && proto.PlaceExtraction.toObject(includeInstance, f),
+    context: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    structName: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    struct: jspb.Message.getFieldWithDefault(msg, 9, "")
   };
 
   if (includeInstance) {
@@ -238,6 +241,18 @@ proto.Message.deserializeBinaryFromReader = function(msg, reader) {
       var value = new proto.PlaceExtraction;
       reader.readMessage(value,proto.PlaceExtraction.deserializeBinaryFromReader);
       msg.setPlaceExtraction(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setContext(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setStructName(value);
+      break;
+    case 9:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setStruct(value);
       break;
     default:
       reader.skipField();
@@ -311,6 +326,27 @@ proto.Message.serializeBinaryToWriter = function(message, writer) {
       6,
       f,
       proto.PlaceExtraction.serializeBinaryToWriter
+    );
+  }
+  f = message.getContext();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
+      f
+    );
+  }
+  f = message.getStructName();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
+      f
+    );
+  }
+  f = message.getStruct();
+  if (f.length > 0) {
+    writer.writeString(
+      9,
+      f
     );
   }
 };
@@ -478,6 +514,60 @@ proto.Message.prototype.clearPlaceExtraction = function() {
  */
 proto.Message.prototype.hasPlaceExtraction = function() {
   return jspb.Message.getField(this, 6) != null;
+};
+
+
+/**
+ * optional string context = 7;
+ * @return {string}
+ */
+proto.Message.prototype.getContext = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.Message} returns this
+ */
+proto.Message.prototype.setContext = function(value) {
+  return jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional string struct_name = 8;
+ * @return {string}
+ */
+proto.Message.prototype.getStructName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.Message} returns this
+ */
+proto.Message.prototype.setStructName = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional string struct = 9;
+ * @return {string}
+ */
+proto.Message.prototype.getStruct = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.Message} returns this
+ */
+proto.Message.prototype.setStruct = function(value) {
+  return jspb.Message.setProto3StringField(this, 9, value);
 };
 
 
@@ -1142,7 +1232,10 @@ proto.MessageChunk.toObject = function(includeInstance, msg) {
     role: jspb.Message.getFieldWithDefault(msg, 3, 0),
     sentAt: (f = msg.getSentAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     clientId: (f = msg.getClientId()) && google_protobuf_wrappers_pb.StringValue.toObject(includeInstance, f),
-    isLast: jspb.Message.getBooleanFieldWithDefault(msg, 6, false)
+    isLast: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
+    context: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    structName: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    struct: jspb.Message.getFieldWithDefault(msg, 9, "")
   };
 
   if (includeInstance) {
@@ -1204,6 +1297,18 @@ proto.MessageChunk.deserializeBinaryFromReader = function(msg, reader) {
     case 6:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIsLast(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setContext(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setStructName(value);
+      break;
+    case 9:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setStruct(value);
       break;
     default:
       reader.skipField();
@@ -1275,6 +1380,27 @@ proto.MessageChunk.serializeBinaryToWriter = function(message, writer) {
   if (f) {
     writer.writeBool(
       6,
+      f
+    );
+  }
+  f = message.getContext();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
+      f
+    );
+  }
+  f = message.getStructName();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
+      f
+    );
+  }
+  f = message.getStruct();
+  if (f.length > 0) {
+    writer.writeString(
+      9,
       f
     );
   }
@@ -1424,6 +1550,60 @@ proto.MessageChunk.prototype.getIsLast = function() {
  */
 proto.MessageChunk.prototype.setIsLast = function(value) {
   return jspb.Message.setProto3BooleanField(this, 6, value);
+};
+
+
+/**
+ * optional string context = 7;
+ * @return {string}
+ */
+proto.MessageChunk.prototype.getContext = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.MessageChunk} returns this
+ */
+proto.MessageChunk.prototype.setContext = function(value) {
+  return jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional string struct_name = 8;
+ * @return {string}
+ */
+proto.MessageChunk.prototype.getStructName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.MessageChunk} returns this
+ */
+proto.MessageChunk.prototype.setStructName = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional string struct = 9;
+ * @return {string}
+ */
+proto.MessageChunk.prototype.getStruct = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.MessageChunk} returns this
+ */
+proto.MessageChunk.prototype.setStruct = function(value) {
+  return jspb.Message.setProto3StringField(this, 9, value);
 };
 
 

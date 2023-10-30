@@ -37,6 +37,9 @@ const Message$json = {
     {'1': 'sent_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sentAt'},
     {'1': 'client_id', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
     {'1': 'place_extraction', '3': 6, '4': 1, '5': 11, '6': '.PlaceExtraction', '10': 'placeExtraction'},
+    {'1': 'context', '3': 7, '4': 1, '5': 9, '10': 'context'},
+    {'1': 'struct_name', '3': 8, '4': 1, '5': 9, '10': 'structName'},
+    {'1': 'struct', '3': 9, '4': 1, '5': 9, '10': 'struct'},
   ],
 };
 
@@ -46,7 +49,8 @@ final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'ABKA4yBS5Sb2xlUgRyb2xlEjMKB3NlbnRfYXQYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGlt'
     'ZXN0YW1wUgZzZW50QXQSOQoJY2xpZW50X2lkGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cm'
     'luZ1ZhbHVlUghjbGllbnRJZBI7ChBwbGFjZV9leHRyYWN0aW9uGAYgASgLMhAuUGxhY2VFeHRy'
-    'YWN0aW9uUg9wbGFjZUV4dHJhY3Rpb24=');
+    'YWN0aW9uUg9wbGFjZUV4dHJhY3Rpb24SGAoHY29udGV4dBgHIAEoCVIHY29udGV4dBIfCgtzdH'
+    'J1Y3RfbmFtZRgIIAEoCVIKc3RydWN0TmFtZRIWCgZzdHJ1Y3QYCSABKAlSBnN0cnVjdA==');
 
 @$core.Deprecated('Use placeExtractionDescriptor instead')
 const PlaceExtraction$json = {
@@ -98,19 +102,30 @@ const MessageChunk$json = {
   '1': 'MessageChunk',
   '2': [
     {'1': 'message_id', '3': 1, '4': 1, '5': 9, '10': 'messageId'},
-    {'1': 'text', '3': 2, '4': 1, '5': 9, '10': 'text'},
+    {
+      '1': 'text',
+      '3': 2,
+      '4': 1,
+      '5': 9,
+      '8': {'3': true},
+      '10': 'text',
+    },
     {'1': 'role', '3': 3, '4': 1, '5': 14, '6': '.Role', '10': 'role'},
     {'1': 'sent_at', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sentAt'},
     {'1': 'client_id', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.StringValue', '10': 'clientId'},
     {'1': 'is_last', '3': 6, '4': 1, '5': 8, '10': 'isLast'},
+    {'1': 'context', '3': 7, '4': 1, '5': 9, '10': 'context'},
+    {'1': 'struct_name', '3': 8, '4': 1, '5': 9, '10': 'structName'},
+    {'1': 'struct', '3': 9, '4': 1, '5': 9, '10': 'struct'},
   ],
 };
 
 /// Descriptor for `MessageChunk`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List messageChunkDescriptor = $convert.base64Decode(
-    'CgxNZXNzYWdlQ2h1bmsSHQoKbWVzc2FnZV9pZBgBIAEoCVIJbWVzc2FnZUlkEhIKBHRleHQYAi'
-    'ABKAlSBHRleHQSGQoEcm9sZRgDIAEoDjIFLlJvbGVSBHJvbGUSMwoHc2VudF9hdBgEIAEoCzIa'
-    'Lmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSBnNlbnRBdBI5CgljbGllbnRfaWQYBSABKAsyHC'
-    '5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWVSCGNsaWVudElkEhcKB2lzX2xhc3QYBiABKAhS'
-    'BmlzTGFzdA==');
+    'CgxNZXNzYWdlQ2h1bmsSHQoKbWVzc2FnZV9pZBgBIAEoCVIJbWVzc2FnZUlkEhYKBHRleHQYAi'
+    'ABKAlCAhgBUgR0ZXh0EhkKBHJvbGUYAyABKA4yBS5Sb2xlUgRyb2xlEjMKB3NlbnRfYXQYBCAB'
+    'KAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgZzZW50QXQSOQoJY2xpZW50X2lkGAUgAS'
+    'gLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlUghjbGllbnRJZBIXCgdpc19sYXN0GAYg'
+    'ASgIUgZpc0xhc3QSGAoHY29udGV4dBgHIAEoCVIHY29udGV4dBIfCgtzdHJ1Y3RfbmFtZRgIIA'
+    'EoCVIKc3RydWN0TmFtZRIWCgZzdHJ1Y3QYCSABKAlSBnN0cnVjdA==');
 

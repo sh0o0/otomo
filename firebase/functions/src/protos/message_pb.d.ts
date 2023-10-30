@@ -31,6 +31,12 @@ export class Message extends jspb.Message {
     clearPlaceExtraction(): void;
     getPlaceExtraction(): PlaceExtraction | undefined;
     setPlaceExtraction(value?: PlaceExtraction): Message;
+    getContext(): string;
+    setContext(value: string): Message;
+    getStructName(): string;
+    setStructName(value: string): Message;
+    getStruct(): string;
+    setStruct(value: string): Message;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Message.AsObject;
@@ -50,6 +56,9 @@ export namespace Message {
         sentAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         clientId?: google_protobuf_wrappers_pb.StringValue.AsObject,
         placeExtraction?: PlaceExtraction.AsObject,
+        context: string,
+        structName: string,
+        struct: string,
     }
 }
 
@@ -158,6 +167,12 @@ export class MessageChunk extends jspb.Message {
     setClientId(value?: google_protobuf_wrappers_pb.StringValue): MessageChunk;
     getIsLast(): boolean;
     setIsLast(value: boolean): MessageChunk;
+    getContext(): string;
+    setContext(value: string): MessageChunk;
+    getStructName(): string;
+    setStructName(value: string): MessageChunk;
+    getStruct(): string;
+    setStruct(value: string): MessageChunk;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): MessageChunk.AsObject;
@@ -177,6 +192,9 @@ export namespace MessageChunk {
         sentAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         clientId?: google_protobuf_wrappers_pb.StringValue.AsObject,
         isLast: boolean,
+        context: string,
+        structName: string,
+        struct: string,
     }
 }
 

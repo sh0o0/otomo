@@ -33,6 +33,9 @@ class Message extends $pb.GeneratedMessage {
     ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', subBuilder: $3.Timestamp.create)
     ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
     ..aOM<PlaceExtraction>(6, _omitFieldNames ? '' : 'placeExtraction', subBuilder: PlaceExtraction.create)
+    ..aOS(7, _omitFieldNames ? '' : 'context')
+    ..aOS(8, _omitFieldNames ? '' : 'structName')
+    ..aOS(9, _omitFieldNames ? '' : 'struct')
     ..hasRequiredFields = false
   ;
 
@@ -116,6 +119,33 @@ class Message extends $pb.GeneratedMessage {
   void clearPlaceExtraction() => clearField(6);
   @$pb.TagNumber(6)
   PlaceExtraction ensurePlaceExtraction() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $core.String get context => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set context($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasContext() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearContext() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get structName => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set structName($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasStructName() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearStructName() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get struct => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set struct($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasStruct() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearStruct() => clearField(9);
 }
 
 class PlaceExtraction extends $pb.GeneratedMessage {
@@ -299,6 +329,9 @@ class MessageChunk extends $pb.GeneratedMessage {
     ..aOM<$3.Timestamp>(4, _omitFieldNames ? '' : 'sentAt', subBuilder: $3.Timestamp.create)
     ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
     ..aOB(6, _omitFieldNames ? '' : 'isLast')
+    ..aOS(7, _omitFieldNames ? '' : 'context')
+    ..aOS(8, _omitFieldNames ? '' : 'structName')
+    ..aOS(9, _omitFieldNames ? '' : 'struct')
     ..hasRequiredFields = false
   ;
 
@@ -332,12 +365,16 @@ class MessageChunk extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearMessageId() => clearField(1);
 
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(2)
   $core.String get text => $_getSZ(1);
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(2)
   set text($core.String v) { $_setString(1, v); }
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(2)
   $core.bool hasText() => $_has(1);
+  @$core.Deprecated('This field is deprecated.')
   @$pb.TagNumber(2)
   void clearText() => clearField(2);
 
@@ -380,6 +417,33 @@ class MessageChunk extends $pb.GeneratedMessage {
   $core.bool hasIsLast() => $_has(5);
   @$pb.TagNumber(6)
   void clearIsLast() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get context => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set context($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasContext() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearContext() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get structName => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set structName($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasStructName() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearStructName() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get struct => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set struct($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasStruct() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearStruct() => clearField(9);
 }
 
 

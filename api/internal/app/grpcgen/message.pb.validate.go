@@ -147,6 +147,12 @@ func (m *Message) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Context
+
+	// no validation rules for StructName
+
+	// no validation rules for Struct
+
 	if len(errors) > 0 {
 		return MessageMultiError(errors)
 	}
@@ -761,6 +767,12 @@ func (m *MessageChunk) validate(all bool) error {
 	}
 
 	// no validation rules for IsLast
+
+	// no validation rules for Context
+
+	// no validation rules for StructName
+
+	// no validation rules for Struct
 
 	if len(errors) > 0 {
 		return MessageChunkMultiError(errors)
