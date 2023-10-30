@@ -15,6 +15,10 @@ type Message struct {
 	Role            Role            `firestore:"role"`
 	SentAt          time.Time       `firestore:"sent_at"`
 	PlaceExtraction PlaceExtraction `firestore:"place_extraction"`
+
+	Content    string `firestore:"content"`
+	StructName string `firestore:"struct_name"`
+	Struct     Struct `firestore:"struct"`
 }
 
 // TODO: Add test
@@ -109,6 +113,10 @@ type MessageChunk struct {
 	SentAt    time.Time
 	ClientID  *string
 	IsLast    bool
+
+	Content    string
+	StructName string
+	Struct     string
 }
 
 func NewMessageChunk(
