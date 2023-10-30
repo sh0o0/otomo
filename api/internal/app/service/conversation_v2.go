@@ -46,16 +46,14 @@ func (cs *ConversationServiceV2) Respond(
 		history = opts.Memory.Summary
 	}
 
-	systemPrompt := strings.Join([]string{
-		opts.Personality,
-		otomoCommonPromptV1,
-		model.NewHistoryPrompt(history).String(),
-	}, "\n")
-
 	gptMsgs := []openai.ChatCompletionMessage{
 		{
-			Role:    openai.ChatMessageRoleSystem,
-			Content: systemPrompt,
+			Role: openai.ChatMessageRoleSystem,
+			Content: strings.Join([]string{
+				opts.Personality,
+				otomoCommonPromptV1,
+				model.NewHistoryPrompt(history).String(),
+			}, "\n"),
 		},
 		{
 			Role:    openai.ChatMessageRoleUser,
