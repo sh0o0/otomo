@@ -25,22 +25,22 @@ const (
 type Role int32
 
 const (
-	Role_UNKNOWN Role = 0
-	Role_USER    Role = 1
-	Role_OTOMO   Role = 2
+	Role_ROLE_UNKNOWN Role = 0
+	Role_USER         Role = 1
+	Role_OTOMO        Role = 2
 )
 
 // Enum value maps for Role.
 var (
 	Role_name = map[int32]string{
-		0: "UNKNOWN",
+		0: "ROLE_UNKNOWN",
 		1: "USER",
 		2: "OTOMO",
 	}
 	Role_value = map[string]int32{
-		"UNKNOWN": 0,
-		"USER":    1,
-		"OTOMO":   2,
+		"ROLE_UNKNOWN": 0,
+		"USER":         1,
+		"OTOMO":        2,
 	}
 )
 
@@ -71,6 +71,79 @@ func (Role) EnumDescriptor() ([]byte, []int) {
 	return file_message_proto_rawDescGZIP(), []int{0}
 }
 
+type Transportation int32
+
+const (
+	Transportation_TRANSPORTATION_UNKNOWN Transportation = 0
+	Transportation_TRAIN                  Transportation = 1
+	Transportation_AIRPLANE               Transportation = 2
+	Transportation_CAR                    Transportation = 3
+	Transportation_SHIP                   Transportation = 4
+	Transportation_BUS                    Transportation = 5
+	Transportation_BICYCLE                Transportation = 6
+	Transportation_MOTORCYCLE             Transportation = 7
+	Transportation_WALKING                Transportation = 8
+	Transportation_TAXI                   Transportation = 9
+	Transportation_OTHER                  Transportation = 10
+)
+
+// Enum value maps for Transportation.
+var (
+	Transportation_name = map[int32]string{
+		0:  "TRANSPORTATION_UNKNOWN",
+		1:  "TRAIN",
+		2:  "AIRPLANE",
+		3:  "CAR",
+		4:  "SHIP",
+		5:  "BUS",
+		6:  "BICYCLE",
+		7:  "MOTORCYCLE",
+		8:  "WALKING",
+		9:  "TAXI",
+		10: "OTHER",
+	}
+	Transportation_value = map[string]int32{
+		"TRANSPORTATION_UNKNOWN": 0,
+		"TRAIN":                  1,
+		"AIRPLANE":               2,
+		"CAR":                    3,
+		"SHIP":                   4,
+		"BUS":                    5,
+		"BICYCLE":                6,
+		"MOTORCYCLE":             7,
+		"WALKING":                8,
+		"TAXI":                   9,
+		"OTHER":                  10,
+	}
+)
+
+func (x Transportation) Enum() *Transportation {
+	p := new(Transportation)
+	*p = x
+	return p
+}
+
+func (x Transportation) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Transportation) Descriptor() protoreflect.EnumDescriptor {
+	return file_message_proto_enumTypes[1].Descriptor()
+}
+
+func (Transportation) Type() protoreflect.EnumType {
+	return &file_message_proto_enumTypes[1]
+}
+
+func (x Transportation) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Transportation.Descriptor instead.
+func (Transportation) EnumDescriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{1}
+}
+
 type Message struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -86,9 +159,9 @@ type Message struct {
 	StructName      string                  `protobuf:"bytes,8,opt,name=struct_name,json=structName,proto3" json:"struct_name,omitempty"`
 	// Types that are assignable to Struct:
 	//
+	//	*Message_PlaceDetailsStruct
 	//	*Message_PlacesStruct
 	//	*Message_RouteStruct
-	//	*Message_PlaceDetailsStruct
 	Struct isMessage_Struct `protobuf_oneof:"struct"`
 }
 
@@ -142,7 +215,7 @@ func (x *Message) GetRole() Role {
 	if x != nil {
 		return x.Role
 	}
-	return Role_UNKNOWN
+	return Role_ROLE_UNKNOWN
 }
 
 func (x *Message) GetSentAt() *timestamppb.Timestamp {
@@ -187,6 +260,13 @@ func (m *Message) GetStruct() isMessage_Struct {
 	return nil
 }
 
+func (x *Message) GetPlaceDetailsStruct() *PlaceDetailsStruct {
+	if x, ok := x.GetStruct().(*Message_PlaceDetailsStruct); ok {
+		return x.PlaceDetailsStruct
+	}
+	return nil
+}
+
 func (x *Message) GetPlacesStruct() *PlacesStruct {
 	if x, ok := x.GetStruct().(*Message_PlacesStruct); ok {
 		return x.PlacesStruct
@@ -201,34 +281,27 @@ func (x *Message) GetRouteStruct() *RouteStruct {
 	return nil
 }
 
-func (x *Message) GetPlaceDetailsStruct() *PlaceDetailsStruct {
-	if x, ok := x.GetStruct().(*Message_PlaceDetailsStruct); ok {
-		return x.PlaceDetailsStruct
-	}
-	return nil
-}
-
 type isMessage_Struct interface {
 	isMessage_Struct()
 }
 
+type Message_PlaceDetailsStruct struct {
+	PlaceDetailsStruct *PlaceDetailsStruct `protobuf:"bytes,9,opt,name=place_details_struct,json=placeDetailsStruct,proto3,oneof"`
+}
+
 type Message_PlacesStruct struct {
-	PlacesStruct *PlacesStruct `protobuf:"bytes,9,opt,name=places_struct,json=placesStruct,proto3,oneof"`
+	PlacesStruct *PlacesStruct `protobuf:"bytes,10,opt,name=places_struct,json=placesStruct,proto3,oneof"`
 }
 
 type Message_RouteStruct struct {
-	RouteStruct *RouteStruct `protobuf:"bytes,10,opt,name=route_struct,json=routeStruct,proto3,oneof"`
+	RouteStruct *RouteStruct `protobuf:"bytes,11,opt,name=route_struct,json=routeStruct,proto3,oneof"`
 }
 
-type Message_PlaceDetailsStruct struct {
-	PlaceDetailsStruct *PlaceDetailsStruct `protobuf:"bytes,11,opt,name=place_details_struct,json=placeDetailsStruct,proto3,oneof"`
-}
+func (*Message_PlaceDetailsStruct) isMessage_Struct() {}
 
 func (*Message_PlacesStruct) isMessage_Struct() {}
 
 func (*Message_RouteStruct) isMessage_Struct() {}
-
-func (*Message_PlaceDetailsStruct) isMessage_Struct() {}
 
 type PlaceExtraction struct {
 	state         protoimpl.MessageState
@@ -471,7 +544,7 @@ func (x *MessageChunk) GetRole() Role {
 	if x != nil {
 		return x.Role
 	}
-	return Role_UNKNOWN
+	return Role_ROLE_UNKNOWN
 }
 
 func (x *MessageChunk) GetSentAt() *timestamppb.Timestamp {
@@ -516,129 +589,20 @@ func (x *MessageChunk) GetStruct() string {
 	return ""
 }
 
-type PlacesStruct struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Prologue string `protobuf:"bytes,1,opt,name=prologue,proto3" json:"prologue,omitempty"`
-	Epilogue string `protobuf:"bytes,2,opt,name=epilogue,proto3" json:"epilogue,omitempty"`
-}
-
-func (x *PlacesStruct) Reset() {
-	*x = PlacesStruct{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *PlacesStruct) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*PlacesStruct) ProtoMessage() {}
-
-func (x *PlacesStruct) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use PlacesStruct.ProtoReflect.Descriptor instead.
-func (*PlacesStruct) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *PlacesStruct) GetPrologue() string {
-	if x != nil {
-		return x.Prologue
-	}
-	return ""
-}
-
-func (x *PlacesStruct) GetEpilogue() string {
-	if x != nil {
-		return x.Epilogue
-	}
-	return ""
-}
-
-type RouteStruct struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Prologue string `protobuf:"bytes,1,opt,name=prologue,proto3" json:"prologue,omitempty"`
-	Epilogue string `protobuf:"bytes,2,opt,name=epilogue,proto3" json:"epilogue,omitempty"`
-}
-
-func (x *RouteStruct) Reset() {
-	*x = RouteStruct{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *RouteStruct) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RouteStruct) ProtoMessage() {}
-
-func (x *RouteStruct) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RouteStruct.ProtoReflect.Descriptor instead.
-func (*RouteStruct) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *RouteStruct) GetPrologue() string {
-	if x != nil {
-		return x.Prologue
-	}
-	return ""
-}
-
-func (x *RouteStruct) GetEpilogue() string {
-	if x != nil {
-		return x.Epilogue
-	}
-	return ""
-}
-
 type PlaceDetailsStruct struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Prologue string `protobuf:"bytes,1,opt,name=prologue,proto3" json:"prologue,omitempty"`
-	Epilogue string `protobuf:"bytes,2,opt,name=epilogue,proto3" json:"epilogue,omitempty"`
+	Prologue string        `protobuf:"bytes,1,opt,name=prologue,proto3" json:"prologue,omitempty"`
+	Details  *PlaceDetails `protobuf:"bytes,2,opt,name=details,proto3" json:"details,omitempty"`
+	Epilogue string        `protobuf:"bytes,3,opt,name=epilogue,proto3" json:"epilogue,omitempty"`
 }
 
 func (x *PlaceDetailsStruct) Reset() {
 	*x = PlaceDetailsStruct{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[7]
+		mi := &file_message_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -651,7 +615,7 @@ func (x *PlaceDetailsStruct) String() string {
 func (*PlaceDetailsStruct) ProtoMessage() {}
 
 func (x *PlaceDetailsStruct) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[7]
+	mi := &file_message_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -664,7 +628,7 @@ func (x *PlaceDetailsStruct) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlaceDetailsStruct.ProtoReflect.Descriptor instead.
 func (*PlaceDetailsStruct) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{7}
+	return file_message_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *PlaceDetailsStruct) GetPrologue() string {
@@ -674,11 +638,349 @@ func (x *PlaceDetailsStruct) GetPrologue() string {
 	return ""
 }
 
+func (x *PlaceDetailsStruct) GetDetails() *PlaceDetails {
+	if x != nil {
+		return x.Details
+	}
+	return nil
+}
+
 func (x *PlaceDetailsStruct) GetEpilogue() string {
 	if x != nil {
 		return x.Epilogue
 	}
 	return ""
+}
+
+type PlaceDetails struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name          string         `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string         `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	GeocodedPlace *GeocodedPlace `protobuf:"bytes,3,opt,name=geocoded_place,json=geocodedPlace,proto3" json:"geocoded_place,omitempty"`
+}
+
+func (x *PlaceDetails) Reset() {
+	*x = PlaceDetails{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PlaceDetails) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PlaceDetails) ProtoMessage() {}
+
+func (x *PlaceDetails) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PlaceDetails.ProtoReflect.Descriptor instead.
+func (*PlaceDetails) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *PlaceDetails) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *PlaceDetails) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *PlaceDetails) GetGeocodedPlace() *GeocodedPlace {
+	if x != nil {
+		return x.GeocodedPlace
+	}
+	return nil
+}
+
+type PlacesStruct struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Prologue string   `protobuf:"bytes,1,opt,name=prologue,proto3" json:"prologue,omitempty"`
+	Places   []*Place `protobuf:"bytes,2,rep,name=places,proto3" json:"places,omitempty"`
+	Epilogue string   `protobuf:"bytes,3,opt,name=epilogue,proto3" json:"epilogue,omitempty"`
+}
+
+func (x *PlacesStruct) Reset() {
+	*x = PlacesStruct{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PlacesStruct) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PlacesStruct) ProtoMessage() {}
+
+func (x *PlacesStruct) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PlacesStruct.ProtoReflect.Descriptor instead.
+func (*PlacesStruct) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *PlacesStruct) GetPrologue() string {
+	if x != nil {
+		return x.Prologue
+	}
+	return ""
+}
+
+func (x *PlacesStruct) GetPlaces() []*Place {
+	if x != nil {
+		return x.Places
+	}
+	return nil
+}
+
+func (x *PlacesStruct) GetEpilogue() string {
+	if x != nil {
+		return x.Epilogue
+	}
+	return ""
+}
+
+type Place struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name          string         `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string         `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	GeocodedPlace *GeocodedPlace `protobuf:"bytes,3,opt,name=geocoded_place,json=geocodedPlace,proto3" json:"geocoded_place,omitempty"`
+}
+
+func (x *Place) Reset() {
+	*x = Place{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Place) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Place) ProtoMessage() {}
+
+func (x *Place) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Place.ProtoReflect.Descriptor instead.
+func (*Place) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *Place) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Place) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *Place) GetGeocodedPlace() *GeocodedPlace {
+	if x != nil {
+		return x.GeocodedPlace
+	}
+	return nil
+}
+
+type RouteStruct struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Prologue  string      `protobuf:"bytes,1,opt,name=prologue,proto3" json:"prologue,omitempty"`
+	Waypoints []*Waypoint `protobuf:"bytes,2,rep,name=waypoints,proto3" json:"waypoints,omitempty"`
+	Epilogue  string      `protobuf:"bytes,3,opt,name=epilogue,proto3" json:"epilogue,omitempty"`
+}
+
+func (x *RouteStruct) Reset() {
+	*x = RouteStruct{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RouteStruct) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RouteStruct) ProtoMessage() {}
+
+func (x *RouteStruct) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RouteStruct.ProtoReflect.Descriptor instead.
+func (*RouteStruct) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *RouteStruct) GetPrologue() string {
+	if x != nil {
+		return x.Prologue
+	}
+	return ""
+}
+
+func (x *RouteStruct) GetWaypoints() []*Waypoint {
+	if x != nil {
+		return x.Waypoints
+	}
+	return nil
+}
+
+func (x *RouteStruct) GetEpilogue() string {
+	if x != nil {
+		return x.Epilogue
+	}
+	return ""
+}
+
+type Waypoint struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name                      string           `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description               string           `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	Transportation            []Transportation `protobuf:"varint,3,rep,packed,name=transportation,proto3,enum=Transportation" json:"transportation,omitempty"`
+	TransportationDescription string           `protobuf:"bytes,4,opt,name=transportation_description,json=transportationDescription,proto3" json:"transportation_description,omitempty"`
+	GeocodedPlace             *GeocodedPlace   `protobuf:"bytes,5,opt,name=geocoded_place,json=geocodedPlace,proto3" json:"geocoded_place,omitempty"`
+}
+
+func (x *Waypoint) Reset() {
+	*x = Waypoint{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Waypoint) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Waypoint) ProtoMessage() {}
+
+func (x *Waypoint) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Waypoint.ProtoReflect.Descriptor instead.
+func (*Waypoint) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *Waypoint) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Waypoint) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *Waypoint) GetTransportation() []Transportation {
+	if x != nil {
+		return x.Transportation
+	}
+	return nil
+}
+
+func (x *Waypoint) GetTransportationDescription() string {
+	if x != nil {
+		return x.TransportationDescription
+	}
+	return ""
+}
+
+func (x *Waypoint) GetGeocodedPlace() *GeocodedPlace {
+	if x != nil {
+		return x.GeocodedPlace
+	}
+	return nil
 }
 
 var File_message_proto protoreflect.FileDescriptor
@@ -709,17 +1011,17 @@ var file_message_proto_rawDesc = []byte{
 	0x65, 0x6e, 0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65,
 	0x6e, 0x74, 0x12, 0x1f, 0x0a, 0x0b, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x5f, 0x6e, 0x61, 0x6d,
 	0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x4e,
-	0x61, 0x6d, 0x65, 0x12, 0x34, 0x0a, 0x0d, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x73, 0x5f, 0x73, 0x74,
-	0x72, 0x75, 0x63, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x50, 0x6c, 0x61,
-	0x63, 0x65, 0x73, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x48, 0x00, 0x52, 0x0c, 0x70, 0x6c, 0x61,
-	0x63, 0x65, 0x73, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x31, 0x0a, 0x0c, 0x72, 0x6f, 0x75,
-	0x74, 0x65, 0x5f, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x0c, 0x2e, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x48, 0x00, 0x52,
-	0x0b, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x47, 0x0a, 0x14,
-	0x70, 0x6c, 0x61, 0x63, 0x65, 0x5f, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x5f, 0x73, 0x74,
-	0x72, 0x75, 0x63, 0x74, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x50, 0x6c, 0x61,
-	0x63, 0x65, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x48,
-	0x00, 0x52, 0x12, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x53,
+	0x61, 0x6d, 0x65, 0x12, 0x47, 0x0a, 0x14, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x5f, 0x64, 0x65, 0x74,
+	0x61, 0x69, 0x6c, 0x73, 0x5f, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x13, 0x2e, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73,
+	0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x48, 0x00, 0x52, 0x12, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x44,
+	0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x34, 0x0a, 0x0d,
+	0x70, 0x6c, 0x61, 0x63, 0x65, 0x73, 0x5f, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x18, 0x0a, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x73, 0x53, 0x74, 0x72, 0x75,
+	0x63, 0x74, 0x48, 0x00, 0x52, 0x0c, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x73, 0x53, 0x74, 0x72, 0x75,
+	0x63, 0x74, 0x12, 0x31, 0x0a, 0x0c, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x5f, 0x73, 0x74, 0x72, 0x75,
+	0x63, 0x74, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x52, 0x6f, 0x75, 0x74, 0x65,
+	0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x48, 0x00, 0x52, 0x0b, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x53,
 	0x74, 0x72, 0x75, 0x63, 0x74, 0x42, 0x08, 0x0a, 0x06, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x22,
 	0xad, 0x01, 0x0a, 0x0f, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x45, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74,
 	0x69, 0x6f, 0x6e, 0x12, 0x27, 0x0a, 0x06, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x73, 0x18, 0x01, 0x20,
@@ -763,25 +1065,73 @@ var file_message_proto_rawDesc = []byte{
 	0x0b, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x08, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x0a, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x16,
 	0x0a, 0x06, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
-	0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x22, 0x46, 0x0a, 0x0c, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x73,
-	0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x6c, 0x6f, 0x67,
-	0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x6c, 0x6f, 0x67,
-	0x75, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x70, 0x69, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x70, 0x69, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x22, 0x45,
-	0x0a, 0x0b, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x1a, 0x0a,
-	0x08, 0x70, 0x72, 0x6f, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x08, 0x70, 0x72, 0x6f, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x70, 0x69,
-	0x6c, 0x6f, 0x67, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x70, 0x69,
-	0x6c, 0x6f, 0x67, 0x75, 0x65, 0x22, 0x4c, 0x0a, 0x12, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x44, 0x65,
-	0x74, 0x61, 0x69, 0x6c, 0x73, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x70,
-	0x72, 0x6f, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70,
-	0x72, 0x6f, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x70, 0x69, 0x6c, 0x6f,
-	0x67, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x70, 0x69, 0x6c, 0x6f,
-	0x67, 0x75, 0x65, 0x2a, 0x28, 0x0a, 0x04, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x0b, 0x0a, 0x07, 0x55,
-	0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x55, 0x53, 0x45, 0x52,
-	0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x4f, 0x54, 0x4f, 0x4d, 0x4f, 0x10, 0x02, 0x42, 0x0b, 0x5a,
-	0x09, 0x2e, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x67, 0x65, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x22, 0x75, 0x0a, 0x12, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x44,
+	0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x1a, 0x0a, 0x08,
+	0x70, 0x72, 0x6f, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x70, 0x72, 0x6f, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x12, 0x27, 0x0a, 0x07, 0x64, 0x65, 0x74, 0x61,
+	0x69, 0x6c, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x50, 0x6c, 0x61, 0x63,
+	0x65, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x07, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c,
+	0x73, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x70, 0x69, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x70, 0x69, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x22, 0x7b, 0x0a,
+	0x0c, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x12, 0x12, 0x0a,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d,
+	0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x35, 0x0a, 0x0e, 0x67, 0x65, 0x6f, 0x63, 0x6f, 0x64, 0x65, 0x64, 0x5f,
+	0x70, 0x6c, 0x61, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x47, 0x65,
+	0x6f, 0x63, 0x6f, 0x64, 0x65, 0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x52, 0x0d, 0x67, 0x65, 0x6f,
+	0x63, 0x6f, 0x64, 0x65, 0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x22, 0x66, 0x0a, 0x0c, 0x50, 0x6c,
+	0x61, 0x63, 0x65, 0x73, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72,
+	0x6f, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72,
+	0x6f, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x12, 0x1e, 0x0a, 0x06, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x73,
+	0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x06, 0x2e, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x52, 0x06,
+	0x70, 0x6c, 0x61, 0x63, 0x65, 0x73, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x70, 0x69, 0x6c, 0x6f, 0x67,
+	0x75, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x70, 0x69, 0x6c, 0x6f, 0x67,
+	0x75, 0x65, 0x22, 0x74, 0x0a, 0x05, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12,
+	0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x12, 0x35, 0x0a, 0x0e, 0x67, 0x65, 0x6f, 0x63, 0x6f, 0x64, 0x65, 0x64, 0x5f, 0x70, 0x6c,
+	0x61, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x47, 0x65, 0x6f, 0x63,
+	0x6f, 0x64, 0x65, 0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x52, 0x0d, 0x67, 0x65, 0x6f, 0x63, 0x6f,
+	0x64, 0x65, 0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x22, 0x6e, 0x0a, 0x0b, 0x52, 0x6f, 0x75, 0x74,
+	0x65, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x6c, 0x6f,
+	0x67, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x6c, 0x6f,
+	0x67, 0x75, 0x65, 0x12, 0x27, 0x0a, 0x09, 0x77, 0x61, 0x79, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73,
+	0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x57, 0x61, 0x79, 0x70, 0x6f, 0x69, 0x6e,
+	0x74, 0x52, 0x09, 0x77, 0x61, 0x79, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x12, 0x1a, 0x0a, 0x08,
+	0x65, 0x70, 0x69, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x65, 0x70, 0x69, 0x6c, 0x6f, 0x67, 0x75, 0x65, 0x22, 0xef, 0x01, 0x0a, 0x08, 0x57, 0x61, 0x79,
+	0x70, 0x6f, 0x69, 0x6e, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b,
+	0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x37, 0x0a, 0x0e, 0x74,
+	0x72, 0x61, 0x6e, 0x73, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20,
+	0x03, 0x28, 0x0e, 0x32, 0x0f, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x70, 0x6f, 0x72, 0x74, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x70, 0x6f, 0x72, 0x74, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x3d, 0x0a, 0x1a, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x70, 0x6f, 0x72,
+	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x19, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x70,
+	0x6f, 0x72, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x35, 0x0a, 0x0e, 0x67, 0x65, 0x6f, 0x63, 0x6f, 0x64, 0x65, 0x64, 0x5f,
+	0x70, 0x6c, 0x61, 0x63, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x47, 0x65,
+	0x6f, 0x63, 0x6f, 0x64, 0x65, 0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x52, 0x0d, 0x67, 0x65, 0x6f,
+	0x63, 0x6f, 0x64, 0x65, 0x64, 0x50, 0x6c, 0x61, 0x63, 0x65, 0x2a, 0x2d, 0x0a, 0x04, 0x52, 0x6f,
+	0x6c, 0x65, 0x12, 0x10, 0x0a, 0x0c, 0x52, 0x4f, 0x4c, 0x45, 0x5f, 0x55, 0x4e, 0x4b, 0x4e, 0x4f,
+	0x57, 0x4e, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x55, 0x53, 0x45, 0x52, 0x10, 0x01, 0x12, 0x09,
+	0x0a, 0x05, 0x4f, 0x54, 0x4f, 0x4d, 0x4f, 0x10, 0x02, 0x2a, 0xa0, 0x01, 0x0a, 0x0e, 0x54, 0x72,
+	0x61, 0x6e, 0x73, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x16,
+	0x54, 0x52, 0x41, 0x4e, 0x53, 0x50, 0x4f, 0x52, 0x54, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x55,
+	0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x54, 0x52, 0x41, 0x49,
+	0x4e, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08, 0x41, 0x49, 0x52, 0x50, 0x4c, 0x41, 0x4e, 0x45, 0x10,
+	0x02, 0x12, 0x07, 0x0a, 0x03, 0x43, 0x41, 0x52, 0x10, 0x03, 0x12, 0x08, 0x0a, 0x04, 0x53, 0x48,
+	0x49, 0x50, 0x10, 0x04, 0x12, 0x07, 0x0a, 0x03, 0x42, 0x55, 0x53, 0x10, 0x05, 0x12, 0x0b, 0x0a,
+	0x07, 0x42, 0x49, 0x43, 0x59, 0x43, 0x4c, 0x45, 0x10, 0x06, 0x12, 0x0e, 0x0a, 0x0a, 0x4d, 0x4f,
+	0x54, 0x4f, 0x52, 0x43, 0x59, 0x43, 0x4c, 0x45, 0x10, 0x07, 0x12, 0x0b, 0x0a, 0x07, 0x57, 0x41,
+	0x4c, 0x4b, 0x49, 0x4e, 0x47, 0x10, 0x08, 0x12, 0x08, 0x0a, 0x04, 0x54, 0x41, 0x58, 0x49, 0x10,
+	0x09, 0x12, 0x09, 0x0a, 0x05, 0x4f, 0x54, 0x48, 0x45, 0x52, 0x10, 0x0a, 0x42, 0x0b, 0x5a, 0x09,
+	0x2e, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x67, 0x65, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -796,43 +1146,54 @@ func file_message_proto_rawDescGZIP() []byte {
 	return file_message_proto_rawDescData
 }
 
-var file_message_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_message_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_message_proto_goTypes = []interface{}{
 	(Role)(0),                      // 0: Role
-	(*Message)(nil),                // 1: Message
-	(*PlaceExtraction)(nil),        // 2: PlaceExtraction
-	(*ExtractedPlace)(nil),         // 3: ExtractedPlace
-	(*GeocodedPlace)(nil),          // 4: GeocodedPlace
-	(*MessageChunk)(nil),           // 5: MessageChunk
-	(*PlacesStruct)(nil),           // 6: PlacesStruct
-	(*RouteStruct)(nil),            // 7: RouteStruct
-	(*PlaceDetailsStruct)(nil),     // 8: PlaceDetailsStruct
-	(*timestamppb.Timestamp)(nil),  // 9: google.protobuf.Timestamp
-	(*wrapperspb.StringValue)(nil), // 10: google.protobuf.StringValue
-	(*LatLng)(nil),                 // 11: LatLng
+	(Transportation)(0),            // 1: Transportation
+	(*Message)(nil),                // 2: Message
+	(*PlaceExtraction)(nil),        // 3: PlaceExtraction
+	(*ExtractedPlace)(nil),         // 4: ExtractedPlace
+	(*GeocodedPlace)(nil),          // 5: GeocodedPlace
+	(*MessageChunk)(nil),           // 6: MessageChunk
+	(*PlaceDetailsStruct)(nil),     // 7: PlaceDetailsStruct
+	(*PlaceDetails)(nil),           // 8: PlaceDetails
+	(*PlacesStruct)(nil),           // 9: PlacesStruct
+	(*Place)(nil),                  // 10: Place
+	(*RouteStruct)(nil),            // 11: RouteStruct
+	(*Waypoint)(nil),               // 12: Waypoint
+	(*timestamppb.Timestamp)(nil),  // 13: google.protobuf.Timestamp
+	(*wrapperspb.StringValue)(nil), // 14: google.protobuf.StringValue
+	(*LatLng)(nil),                 // 15: LatLng
 }
 var file_message_proto_depIdxs = []int32{
 	0,  // 0: Message.role:type_name -> Role
-	9,  // 1: Message.sent_at:type_name -> google.protobuf.Timestamp
-	10, // 2: Message.client_id:type_name -> google.protobuf.StringValue
-	2,  // 3: Message.place_extraction:type_name -> PlaceExtraction
-	6,  // 4: Message.places_struct:type_name -> PlacesStruct
-	7,  // 5: Message.route_struct:type_name -> RouteStruct
-	8,  // 6: Message.place_details_struct:type_name -> PlaceDetailsStruct
-	3,  // 7: PlaceExtraction.places:type_name -> ExtractedPlace
-	9,  // 8: PlaceExtraction.processed_at:type_name -> google.protobuf.Timestamp
-	10, // 9: PlaceExtraction.error:type_name -> google.protobuf.StringValue
-	4,  // 10: ExtractedPlace.geocoded_place:type_name -> GeocodedPlace
-	11, // 11: GeocodedPlace.lat_lng:type_name -> LatLng
+	13, // 1: Message.sent_at:type_name -> google.protobuf.Timestamp
+	14, // 2: Message.client_id:type_name -> google.protobuf.StringValue
+	3,  // 3: Message.place_extraction:type_name -> PlaceExtraction
+	7,  // 4: Message.place_details_struct:type_name -> PlaceDetailsStruct
+	9,  // 5: Message.places_struct:type_name -> PlacesStruct
+	11, // 6: Message.route_struct:type_name -> RouteStruct
+	4,  // 7: PlaceExtraction.places:type_name -> ExtractedPlace
+	13, // 8: PlaceExtraction.processed_at:type_name -> google.protobuf.Timestamp
+	14, // 9: PlaceExtraction.error:type_name -> google.protobuf.StringValue
+	5,  // 10: ExtractedPlace.geocoded_place:type_name -> GeocodedPlace
+	15, // 11: GeocodedPlace.lat_lng:type_name -> LatLng
 	0,  // 12: MessageChunk.role:type_name -> Role
-	9,  // 13: MessageChunk.sent_at:type_name -> google.protobuf.Timestamp
-	10, // 14: MessageChunk.client_id:type_name -> google.protobuf.StringValue
-	15, // [15:15] is the sub-list for method output_type
-	15, // [15:15] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	13, // 13: MessageChunk.sent_at:type_name -> google.protobuf.Timestamp
+	14, // 14: MessageChunk.client_id:type_name -> google.protobuf.StringValue
+	8,  // 15: PlaceDetailsStruct.details:type_name -> PlaceDetails
+	5,  // 16: PlaceDetails.geocoded_place:type_name -> GeocodedPlace
+	10, // 17: PlacesStruct.places:type_name -> Place
+	5,  // 18: Place.geocoded_place:type_name -> GeocodedPlace
+	12, // 19: RouteStruct.waypoints:type_name -> Waypoint
+	1,  // 20: Waypoint.transportation:type_name -> Transportation
+	5,  // 21: Waypoint.geocoded_place:type_name -> GeocodedPlace
+	22, // [22:22] is the sub-list for method output_type
+	22, // [22:22] is the sub-list for method input_type
+	22, // [22:22] is the sub-list for extension type_name
+	22, // [22:22] is the sub-list for extension extendee
+	0,  // [0:22] is the sub-list for field type_name
 }
 
 func init() { file_message_proto_init() }
@@ -903,7 +1264,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PlacesStruct); i {
+			switch v := v.(*PlaceDetailsStruct); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -915,7 +1276,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RouteStruct); i {
+			switch v := v.(*PlaceDetails); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -927,7 +1288,43 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PlaceDetailsStruct); i {
+			switch v := v.(*PlacesStruct); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Place); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RouteStruct); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Waypoint); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -940,17 +1337,17 @@ func file_message_proto_init() {
 		}
 	}
 	file_message_proto_msgTypes[0].OneofWrappers = []interface{}{
+		(*Message_PlaceDetailsStruct)(nil),
 		(*Message_PlacesStruct)(nil),
 		(*Message_RouteStruct)(nil),
-		(*Message_PlaceDetailsStruct)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_proto_rawDesc,
-			NumEnums:      1,
-			NumMessages:   8,
+			NumEnums:      2,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

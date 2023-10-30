@@ -153,6 +153,37 @@ func (m *Message) validate(all bool) error {
 
 	switch m.Struct.(type) {
 
+	case *Message_PlaceDetailsStruct:
+
+		if all {
+			switch v := interface{}(m.GetPlaceDetailsStruct()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MessageValidationError{
+						field:  "PlaceDetailsStruct",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MessageValidationError{
+						field:  "PlaceDetailsStruct",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPlaceDetailsStruct()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MessageValidationError{
+					field:  "PlaceDetailsStruct",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	case *Message_PlacesStruct:
 
 		if all {
@@ -209,37 +240,6 @@ func (m *Message) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return MessageValidationError{
 					field:  "RouteStruct",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *Message_PlaceDetailsStruct:
-
-		if all {
-			switch v := interface{}(m.GetPlaceDetailsStruct()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, MessageValidationError{
-						field:  "PlaceDetailsStruct",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, MessageValidationError{
-						field:  "PlaceDetailsStruct",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetPlaceDetailsStruct()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return MessageValidationError{
-					field:  "PlaceDetailsStruct",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -945,210 +945,6 @@ var _ interface {
 	ErrorName() string
 } = MessageChunkValidationError{}
 
-// Validate checks the field values on PlacesStruct with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *PlacesStruct) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on PlacesStruct with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in PlacesStructMultiError, or
-// nil if none found.
-func (m *PlacesStruct) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *PlacesStruct) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Prologue
-
-	// no validation rules for Epilogue
-
-	if len(errors) > 0 {
-		return PlacesStructMultiError(errors)
-	}
-	return nil
-}
-
-// PlacesStructMultiError is an error wrapping multiple validation errors
-// returned by PlacesStruct.ValidateAll() if the designated constraints aren't met.
-type PlacesStructMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m PlacesStructMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m PlacesStructMultiError) AllErrors() []error { return m }
-
-// PlacesStructValidationError is the validation error returned by
-// PlacesStruct.Validate if the designated constraints aren't met.
-type PlacesStructValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e PlacesStructValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e PlacesStructValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e PlacesStructValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e PlacesStructValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e PlacesStructValidationError) ErrorName() string { return "PlacesStructValidationError" }
-
-// Error satisfies the builtin error interface
-func (e PlacesStructValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sPlacesStruct.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = PlacesStructValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = PlacesStructValidationError{}
-
-// Validate checks the field values on RouteStruct with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *RouteStruct) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on RouteStruct with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in RouteStructMultiError, or
-// nil if none found.
-func (m *RouteStruct) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *RouteStruct) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Prologue
-
-	// no validation rules for Epilogue
-
-	if len(errors) > 0 {
-		return RouteStructMultiError(errors)
-	}
-	return nil
-}
-
-// RouteStructMultiError is an error wrapping multiple validation errors
-// returned by RouteStruct.ValidateAll() if the designated constraints aren't met.
-type RouteStructMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m RouteStructMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m RouteStructMultiError) AllErrors() []error { return m }
-
-// RouteStructValidationError is the validation error returned by
-// RouteStruct.Validate if the designated constraints aren't met.
-type RouteStructValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e RouteStructValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e RouteStructValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e RouteStructValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e RouteStructValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e RouteStructValidationError) ErrorName() string { return "RouteStructValidationError" }
-
-// Error satisfies the builtin error interface
-func (e RouteStructValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sRouteStruct.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = RouteStructValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = RouteStructValidationError{}
-
 // Validate checks the field values on PlaceDetailsStruct with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1172,6 +968,35 @@ func (m *PlaceDetailsStruct) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for Prologue
+
+	if all {
+		switch v := interface{}(m.GetDetails()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaceDetailsStructValidationError{
+					field:  "Details",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaceDetailsStructValidationError{
+					field:  "Details",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDetails()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaceDetailsStructValidationError{
+				field:  "Details",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for Epilogue
 
@@ -1253,3 +1078,669 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PlaceDetailsStructValidationError{}
+
+// Validate checks the field values on PlaceDetails with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PlaceDetails) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PlaceDetails with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PlaceDetailsMultiError, or
+// nil if none found.
+func (m *PlaceDetails) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PlaceDetails) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	if all {
+		switch v := interface{}(m.GetGeocodedPlace()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaceDetailsValidationError{
+					field:  "GeocodedPlace",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaceDetailsValidationError{
+					field:  "GeocodedPlace",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGeocodedPlace()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaceDetailsValidationError{
+				field:  "GeocodedPlace",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PlaceDetailsMultiError(errors)
+	}
+	return nil
+}
+
+// PlaceDetailsMultiError is an error wrapping multiple validation errors
+// returned by PlaceDetails.ValidateAll() if the designated constraints aren't met.
+type PlaceDetailsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PlaceDetailsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PlaceDetailsMultiError) AllErrors() []error { return m }
+
+// PlaceDetailsValidationError is the validation error returned by
+// PlaceDetails.Validate if the designated constraints aren't met.
+type PlaceDetailsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PlaceDetailsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PlaceDetailsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PlaceDetailsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PlaceDetailsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PlaceDetailsValidationError) ErrorName() string { return "PlaceDetailsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PlaceDetailsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPlaceDetails.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PlaceDetailsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PlaceDetailsValidationError{}
+
+// Validate checks the field values on PlacesStruct with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PlacesStruct) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PlacesStruct with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PlacesStructMultiError, or
+// nil if none found.
+func (m *PlacesStruct) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PlacesStruct) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Prologue
+
+	for idx, item := range m.GetPlaces() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PlacesStructValidationError{
+						field:  fmt.Sprintf("Places[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PlacesStructValidationError{
+						field:  fmt.Sprintf("Places[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PlacesStructValidationError{
+					field:  fmt.Sprintf("Places[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for Epilogue
+
+	if len(errors) > 0 {
+		return PlacesStructMultiError(errors)
+	}
+	return nil
+}
+
+// PlacesStructMultiError is an error wrapping multiple validation errors
+// returned by PlacesStruct.ValidateAll() if the designated constraints aren't met.
+type PlacesStructMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PlacesStructMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PlacesStructMultiError) AllErrors() []error { return m }
+
+// PlacesStructValidationError is the validation error returned by
+// PlacesStruct.Validate if the designated constraints aren't met.
+type PlacesStructValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PlacesStructValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PlacesStructValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PlacesStructValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PlacesStructValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PlacesStructValidationError) ErrorName() string { return "PlacesStructValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PlacesStructValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPlacesStruct.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PlacesStructValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PlacesStructValidationError{}
+
+// Validate checks the field values on Place with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Place) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Place with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in PlaceMultiError, or nil if none found.
+func (m *Place) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Place) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	if all {
+		switch v := interface{}(m.GetGeocodedPlace()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PlaceValidationError{
+					field:  "GeocodedPlace",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PlaceValidationError{
+					field:  "GeocodedPlace",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGeocodedPlace()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PlaceValidationError{
+				field:  "GeocodedPlace",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PlaceMultiError(errors)
+	}
+	return nil
+}
+
+// PlaceMultiError is an error wrapping multiple validation errors returned by
+// Place.ValidateAll() if the designated constraints aren't met.
+type PlaceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PlaceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PlaceMultiError) AllErrors() []error { return m }
+
+// PlaceValidationError is the validation error returned by Place.Validate if
+// the designated constraints aren't met.
+type PlaceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PlaceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PlaceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PlaceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PlaceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PlaceValidationError) ErrorName() string { return "PlaceValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PlaceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPlace.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PlaceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PlaceValidationError{}
+
+// Validate checks the field values on RouteStruct with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *RouteStruct) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RouteStruct with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RouteStructMultiError, or
+// nil if none found.
+func (m *RouteStruct) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RouteStruct) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Prologue
+
+	for idx, item := range m.GetWaypoints() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RouteStructValidationError{
+						field:  fmt.Sprintf("Waypoints[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RouteStructValidationError{
+						field:  fmt.Sprintf("Waypoints[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RouteStructValidationError{
+					field:  fmt.Sprintf("Waypoints[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for Epilogue
+
+	if len(errors) > 0 {
+		return RouteStructMultiError(errors)
+	}
+	return nil
+}
+
+// RouteStructMultiError is an error wrapping multiple validation errors
+// returned by RouteStruct.ValidateAll() if the designated constraints aren't met.
+type RouteStructMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RouteStructMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RouteStructMultiError) AllErrors() []error { return m }
+
+// RouteStructValidationError is the validation error returned by
+// RouteStruct.Validate if the designated constraints aren't met.
+type RouteStructValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RouteStructValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RouteStructValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RouteStructValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RouteStructValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RouteStructValidationError) ErrorName() string { return "RouteStructValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RouteStructValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRouteStruct.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RouteStructValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RouteStructValidationError{}
+
+// Validate checks the field values on Waypoint with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Waypoint) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Waypoint with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in WaypointMultiError, or nil
+// if none found.
+func (m *Waypoint) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Waypoint) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	// no validation rules for TransportationDescription
+
+	if all {
+		switch v := interface{}(m.GetGeocodedPlace()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, WaypointValidationError{
+					field:  "GeocodedPlace",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, WaypointValidationError{
+					field:  "GeocodedPlace",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGeocodedPlace()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WaypointValidationError{
+				field:  "GeocodedPlace",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return WaypointMultiError(errors)
+	}
+	return nil
+}
+
+// WaypointMultiError is an error wrapping multiple validation errors returned
+// by Waypoint.ValidateAll() if the designated constraints aren't met.
+type WaypointMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WaypointMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WaypointMultiError) AllErrors() []error { return m }
+
+// WaypointValidationError is the validation error returned by
+// Waypoint.Validate if the designated constraints aren't met.
+type WaypointValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WaypointValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WaypointValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WaypointValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WaypointValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WaypointValidationError) ErrorName() string { return "WaypointValidationError" }
+
+// Error satisfies the builtin error interface
+func (e WaypointValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWaypoint.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WaypointValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WaypointValidationError{}

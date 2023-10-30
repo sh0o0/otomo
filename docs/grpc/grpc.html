@@ -303,6 +303,14 @@
                 </li>
               
                 <li>
+                  <a href="#.Place"><span class="badge">M</span>Place</a>
+                </li>
+              
+                <li>
+                  <a href="#.PlaceDetails"><span class="badge">M</span>PlaceDetails</a>
+                </li>
+              
+                <li>
                   <a href="#.PlaceDetailsStruct"><span class="badge">M</span>PlaceDetailsStruct</a>
                 </li>
               
@@ -318,9 +326,17 @@
                   <a href="#.RouteStruct"><span class="badge">M</span>RouteStruct</a>
                 </li>
               
+                <li>
+                  <a href="#.Waypoint"><span class="badge">M</span>Waypoint</a>
+                </li>
+              
               
                 <li>
                   <a href="#.Role"><span class="badge">E</span>Role</a>
+                </li>
+              
+                <li>
+                  <a href="#.Transportation"><span class="badge">E</span>Transportation</a>
                 </li>
               
               
@@ -1226,6 +1242,13 @@ significant. </p></td>
                 </tr>
               
                 <tr>
+                  <td>place_details_struct</td>
+                  <td><a href="#PlaceDetailsStruct">PlaceDetailsStruct</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
                   <td>places_struct</td>
                   <td><a href="#PlacesStruct">PlacesStruct</a></td>
                   <td></td>
@@ -1235,13 +1258,6 @@ significant. </p></td>
                 <tr>
                   <td>route_struct</td>
                   <td><a href="#RouteStruct">RouteStruct</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>place_details_struct</td>
-                  <td><a href="#PlaceDetailsStruct">PlaceDetailsStruct</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1354,6 +1370,82 @@ significant. </p></td>
 
         
       
+        <h3 id=".Place">Place</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>geocoded_place</td>
+                  <td><a href="#GeocodedPlace">GeocodedPlace</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PlaceDetails">PlaceDetails</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>geocoded_place</td>
+                  <td><a href="#GeocodedPlace">GeocodedPlace</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id=".PlaceDetailsStruct">PlaceDetailsStruct</h3>
         <p></p>
 
@@ -1367,6 +1459,13 @@ significant. </p></td>
                 <tr>
                   <td>prologue</td>
                   <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>details</td>
+                  <td><a href="#PlaceDetails">PlaceDetails</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1441,6 +1540,13 @@ significant. </p></td>
                 </tr>
               
                 <tr>
+                  <td>places</td>
+                  <td><a href="#Place">Place</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
                   <td>epilogue</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
@@ -1472,8 +1578,67 @@ significant. </p></td>
                 </tr>
               
                 <tr>
+                  <td>waypoints</td>
+                  <td><a href="#Waypoint">Waypoint</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
                   <td>epilogue</td>
                   <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".Waypoint">Waypoint</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>transportation</td>
+                  <td><a href="#Transportation">Transportation</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>transportation_description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>geocoded_place</td>
+                  <td><a href="#GeocodedPlace">GeocodedPlace</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1496,7 +1661,7 @@ significant. </p></td>
           <tbody>
             
               <tr>
-                <td>UNKNOWN</td>
+                <td>ROLE_UNKNOWN</td>
                 <td>0</td>
                 <td><p></p></td>
               </tr>
@@ -1510,6 +1675,83 @@ significant. </p></td>
               <tr>
                 <td>OTOMO</td>
                 <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".Transportation">Transportation</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>TRANSPORTATION_UNKNOWN</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>TRAIN</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>AIRPLANE</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>CAR</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>SHIP</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>BUS</td>
+                <td>5</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>BICYCLE</td>
+                <td>6</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>MOTORCYCLE</td>
+                <td>7</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>WALKING</td>
+                <td>8</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>TAXI</td>
+                <td>9</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>OTHER</td>
+                <td>10</td>
                 <td><p></p></td>
               </tr>
             

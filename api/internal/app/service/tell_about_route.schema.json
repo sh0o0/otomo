@@ -1,9 +1,8 @@
 {
   "type": "object",
-  "required": ["prologue", "epilogue", "waypoints"],
+  "required": ["prologue", "waypoints", "epilogue"],
   "properties": {
     "prologue": { "type": "string" },
-    "epilogue": { "type": "string" },
     "waypoints": {
       "type": "array",
       "items": {
@@ -24,13 +23,16 @@
                 "bicycle",
                 "motorcycle",
                 "walking",
-                "taxi"
+                "taxi",
+                "other"
               ]
             }
-          }
+          },
+          "transportation_description": { "type": "string" }
         },
         "required": ["name", "description"]
       }
-    }
+    },
+    "epilogue": { "type": "string" }
   }
 }

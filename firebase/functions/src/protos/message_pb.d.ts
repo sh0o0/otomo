@@ -36,6 +36,11 @@ export class Message extends jspb.Message {
     getStructName(): string;
     setStructName(value: string): Message;
 
+    hasPlaceDetailsStruct(): boolean;
+    clearPlaceDetailsStruct(): void;
+    getPlaceDetailsStruct(): PlaceDetailsStruct | undefined;
+    setPlaceDetailsStruct(value?: PlaceDetailsStruct): Message;
+
     hasPlacesStruct(): boolean;
     clearPlacesStruct(): void;
     getPlacesStruct(): PlacesStruct | undefined;
@@ -45,11 +50,6 @@ export class Message extends jspb.Message {
     clearRouteStruct(): void;
     getRouteStruct(): RouteStruct | undefined;
     setRouteStruct(value?: RouteStruct): Message;
-
-    hasPlaceDetailsStruct(): boolean;
-    clearPlaceDetailsStruct(): void;
-    getPlaceDetailsStruct(): PlaceDetailsStruct | undefined;
-    setPlaceDetailsStruct(value?: PlaceDetailsStruct): Message;
 
     getStructCase(): Message.StructCase;
 
@@ -73,16 +73,16 @@ export namespace Message {
         placeExtraction?: PlaceExtraction.AsObject,
         content: string,
         structName: string,
+        placeDetailsStruct?: PlaceDetailsStruct.AsObject,
         placesStruct?: PlacesStruct.AsObject,
         routeStruct?: RouteStruct.AsObject,
-        placeDetailsStruct?: PlaceDetailsStruct.AsObject,
     }
 
     export enum StructCase {
         STRUCT_NOT_SET = 0,
-        PLACES_STRUCT = 9,
-        ROUTE_STRUCT = 10,
-        PLACE_DETAILS_STRUCT = 11,
+        PLACE_DETAILS_STRUCT = 9,
+        PLACES_STRUCT = 10,
+        ROUTE_STRUCT = 11,
     }
 
 }
@@ -223,55 +223,14 @@ export namespace MessageChunk {
     }
 }
 
-export class PlacesStruct extends jspb.Message { 
-    getPrologue(): string;
-    setPrologue(value: string): PlacesStruct;
-    getEpilogue(): string;
-    setEpilogue(value: string): PlacesStruct;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): PlacesStruct.AsObject;
-    static toObject(includeInstance: boolean, msg: PlacesStruct): PlacesStruct.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: PlacesStruct, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): PlacesStruct;
-    static deserializeBinaryFromReader(message: PlacesStruct, reader: jspb.BinaryReader): PlacesStruct;
-}
-
-export namespace PlacesStruct {
-    export type AsObject = {
-        prologue: string,
-        epilogue: string,
-    }
-}
-
-export class RouteStruct extends jspb.Message { 
-    getPrologue(): string;
-    setPrologue(value: string): RouteStruct;
-    getEpilogue(): string;
-    setEpilogue(value: string): RouteStruct;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): RouteStruct.AsObject;
-    static toObject(includeInstance: boolean, msg: RouteStruct): RouteStruct.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: RouteStruct, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): RouteStruct;
-    static deserializeBinaryFromReader(message: RouteStruct, reader: jspb.BinaryReader): RouteStruct;
-}
-
-export namespace RouteStruct {
-    export type AsObject = {
-        prologue: string,
-        epilogue: string,
-    }
-}
-
 export class PlaceDetailsStruct extends jspb.Message { 
     getPrologue(): string;
     setPrologue(value: string): PlaceDetailsStruct;
+
+    hasDetails(): boolean;
+    clearDetails(): void;
+    getDetails(): PlaceDetails | undefined;
+    setDetails(value?: PlaceDetails): PlaceDetailsStruct;
     getEpilogue(): string;
     setEpilogue(value: string): PlaceDetailsStruct;
 
@@ -288,12 +247,178 @@ export class PlaceDetailsStruct extends jspb.Message {
 export namespace PlaceDetailsStruct {
     export type AsObject = {
         prologue: string,
+        details?: PlaceDetails.AsObject,
         epilogue: string,
     }
 }
 
+export class PlaceDetails extends jspb.Message { 
+    getName(): string;
+    setName(value: string): PlaceDetails;
+    getDescription(): string;
+    setDescription(value: string): PlaceDetails;
+
+    hasGeocodedPlace(): boolean;
+    clearGeocodedPlace(): void;
+    getGeocodedPlace(): GeocodedPlace | undefined;
+    setGeocodedPlace(value?: GeocodedPlace): PlaceDetails;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): PlaceDetails.AsObject;
+    static toObject(includeInstance: boolean, msg: PlaceDetails): PlaceDetails.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: PlaceDetails, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): PlaceDetails;
+    static deserializeBinaryFromReader(message: PlaceDetails, reader: jspb.BinaryReader): PlaceDetails;
+}
+
+export namespace PlaceDetails {
+    export type AsObject = {
+        name: string,
+        description: string,
+        geocodedPlace?: GeocodedPlace.AsObject,
+    }
+}
+
+export class PlacesStruct extends jspb.Message { 
+    getPrologue(): string;
+    setPrologue(value: string): PlacesStruct;
+    clearPlacesList(): void;
+    getPlacesList(): Array<Place>;
+    setPlacesList(value: Array<Place>): PlacesStruct;
+    addPlaces(value?: Place, index?: number): Place;
+    getEpilogue(): string;
+    setEpilogue(value: string): PlacesStruct;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): PlacesStruct.AsObject;
+    static toObject(includeInstance: boolean, msg: PlacesStruct): PlacesStruct.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: PlacesStruct, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): PlacesStruct;
+    static deserializeBinaryFromReader(message: PlacesStruct, reader: jspb.BinaryReader): PlacesStruct;
+}
+
+export namespace PlacesStruct {
+    export type AsObject = {
+        prologue: string,
+        placesList: Array<Place.AsObject>,
+        epilogue: string,
+    }
+}
+
+export class Place extends jspb.Message { 
+    getName(): string;
+    setName(value: string): Place;
+    getDescription(): string;
+    setDescription(value: string): Place;
+
+    hasGeocodedPlace(): boolean;
+    clearGeocodedPlace(): void;
+    getGeocodedPlace(): GeocodedPlace | undefined;
+    setGeocodedPlace(value?: GeocodedPlace): Place;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Place.AsObject;
+    static toObject(includeInstance: boolean, msg: Place): Place.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Place, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Place;
+    static deserializeBinaryFromReader(message: Place, reader: jspb.BinaryReader): Place;
+}
+
+export namespace Place {
+    export type AsObject = {
+        name: string,
+        description: string,
+        geocodedPlace?: GeocodedPlace.AsObject,
+    }
+}
+
+export class RouteStruct extends jspb.Message { 
+    getPrologue(): string;
+    setPrologue(value: string): RouteStruct;
+    clearWaypointsList(): void;
+    getWaypointsList(): Array<Waypoint>;
+    setWaypointsList(value: Array<Waypoint>): RouteStruct;
+    addWaypoints(value?: Waypoint, index?: number): Waypoint;
+    getEpilogue(): string;
+    setEpilogue(value: string): RouteStruct;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): RouteStruct.AsObject;
+    static toObject(includeInstance: boolean, msg: RouteStruct): RouteStruct.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: RouteStruct, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): RouteStruct;
+    static deserializeBinaryFromReader(message: RouteStruct, reader: jspb.BinaryReader): RouteStruct;
+}
+
+export namespace RouteStruct {
+    export type AsObject = {
+        prologue: string,
+        waypointsList: Array<Waypoint.AsObject>,
+        epilogue: string,
+    }
+}
+
+export class Waypoint extends jspb.Message { 
+    getName(): string;
+    setName(value: string): Waypoint;
+    getDescription(): string;
+    setDescription(value: string): Waypoint;
+    clearTransportationList(): void;
+    getTransportationList(): Array<Transportation>;
+    setTransportationList(value: Array<Transportation>): Waypoint;
+    addTransportation(value: Transportation, index?: number): Transportation;
+    getTransportationDescription(): string;
+    setTransportationDescription(value: string): Waypoint;
+
+    hasGeocodedPlace(): boolean;
+    clearGeocodedPlace(): void;
+    getGeocodedPlace(): GeocodedPlace | undefined;
+    setGeocodedPlace(value?: GeocodedPlace): Waypoint;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Waypoint.AsObject;
+    static toObject(includeInstance: boolean, msg: Waypoint): Waypoint.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Waypoint, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Waypoint;
+    static deserializeBinaryFromReader(message: Waypoint, reader: jspb.BinaryReader): Waypoint;
+}
+
+export namespace Waypoint {
+    export type AsObject = {
+        name: string,
+        description: string,
+        transportationList: Array<Transportation>,
+        transportationDescription: string,
+        geocodedPlace?: GeocodedPlace.AsObject,
+    }
+}
+
 export enum Role {
-    UNKNOWN = 0,
+    ROLE_UNKNOWN = 0,
     USER = 1,
     OTOMO = 2,
+}
+
+export enum Transportation {
+    TRANSPORTATION_UNKNOWN = 0,
+    TRAIN = 1,
+    AIRPLANE = 2,
+    CAR = 3,
+    SHIP = 4,
+    BUS = 5,
+    BICYCLE = 6,
+    MOTORCYCLE = 7,
+    WALKING = 8,
+    TAXI = 9,
+    OTHER = 10,
 }

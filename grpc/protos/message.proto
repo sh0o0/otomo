@@ -16,14 +16,14 @@ message Message {
     string content = 7;
     string struct_name = 8;
     oneof struct {
-        PlacesStruct places_struct = 9;
-        RouteStruct route_struct = 10;
-        PlaceDetailsStruct place_details_struct = 11;
+        PlaceDetailsStruct place_details_struct = 9;
+        PlacesStruct places_struct = 10;
+        RouteStruct route_struct = 11;
     }
 }
 
 enum Role {
-    UNKNOWN = 0;
+    ROLE_UNKNOWN = 0;
     USER = 1;
     OTOMO = 2;
 }
@@ -57,17 +57,55 @@ message MessageChunk {
     string struct = 9;
 }
 
+message PlaceDetailsStruct {
+    string prologue = 1;
+    PlaceDetails details = 2;
+    string epilogue = 3;
+}
+
+message PlaceDetails {
+    string name = 1;
+    string description = 2;
+    GeocodedPlace geocoded_place = 3;
+}
+
+
 message PlacesStruct {
     string prologue = 1;
-    string epilogue = 2;
+    repeated Place places = 2;
+    string epilogue = 3;
+}
+
+message Place {
+    string name = 1;
+    string description = 2;
+    GeocodedPlace geocoded_place = 3;
 }
 
 message RouteStruct {
     string prologue = 1;
-    string epilogue = 2;
+    repeated Waypoint waypoints = 2;
+    string epilogue = 3;
 }
 
-message PlaceDetailsStruct {
-    string prologue = 1;
-    string epilogue = 2;
+message Waypoint {
+    string name = 1;
+    string description = 2;
+    repeated Transportation transportation = 3;
+    string transportation_description = 4;
+    GeocodedPlace geocoded_place = 5;
+}
+
+enum Transportation {
+    TRANSPORTATION_UNKNOWN = 0;
+    TRAIN = 1;
+    AIRPLANE = 2;
+    CAR = 3;
+    SHIP = 4;
+    BUS = 5;
+    BICYCLE = 6;
+    MOTORCYCLE = 7;
+    WALKING = 8;
+    TAXI = 9;
+    OTHER = 10;
 }
