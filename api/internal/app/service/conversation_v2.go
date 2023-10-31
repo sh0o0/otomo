@@ -154,10 +154,11 @@ func (cs *ConversationServiceV2) listenMessagingStream(
 	messagingFunc model.MessagingFunc,
 	msgID model.MessageID,
 	role model.Role,
-) (string, error) {
+) (*model.Message, error) {
 	var (
-		fullText      string
-		streamingFunc = cs.makeStreamingFunc(msgID, role, messagingFunc)
+		fullContent string
+		funcName    string
+		funcArgs    string
 	)
 
 	for {
@@ -166,81 +167,61 @@ func (cs *ConversationServiceV2) listenMessagingStream(
 			if errors.Is(err, io.EOF) {
 				break
 			}
-			return "", err
+			return nil, err
 		}
-		chunk := resp.Choices[0].Delta
+		var (
+			chunk   = resp.Choices[0].Delta
+			funcArg string
+		)
 
-		var text string
-		if chunk.Content != "" {
-			text = chunk.Content
-		}
+		fullContent += chunk.Content
 		if chunk.FunctionCall != nil {
-			text = chunk.FunctionCall.Arguments
-		}
-		if err := streamingFunc(ctx, []byte(text)); err != nil {
-			return "", err
-		}
-		fullText += text
-	}
+			funcName = chunk.FunctionCall.Name
+			funcArgs += chunk.FunctionCall.Arguments
 
-	if err := cs.finishMessagingFunc(
-		ctx, msgID, role, messagingFunc); err != nil {
-		return "", err
-	}
-
-	return fullText, nil
-}
-
-func (cs *ConversationServiceV2) makeStreamingFunc(
-	newMsgID model.MessageID,
-	newMsgRole model.Role,
-	messagingFunc model.MessagingFunc,
-) func(context.Context, []byte) error {
-	if messagingFunc == nil {
-		return func(_ context.Context, _ []byte) error {
-			return nil
+			funcArg = chunk.FunctionCall.Arguments
 		}
-	} else {
-		return func(ctx context.Context, chunk []byte) error {
-			text := string(chunk)
-			msgChunk, err := model.NewMessageChunk(
-				newMsgID,
-				text,
-				newMsgRole,
+
+		if messagingFunc != nil {
+			msgChunk, err := model.NewMessageChunkWithStruct(
+				msgID,
+				role,
 				times.C.Now(),
 				nil,
 				false,
+				chunk.Content,
+				funcName,
+				funcArg,
 			)
 			if err != nil {
-				return err
+				return nil, err
 			}
 
-			return messagingFunc(ctx, msgChunk)
+			if err := messagingFunc(ctx, msgChunk); err != nil {
+				return nil, err
+			}
 		}
 	}
-}
 
-func (cs *ConversationServiceV2) finishMessagingFunc(
-	ctx context.Context,
-	newMsgID model.MessageID,
-	newMsgRole model.Role,
-	messagingFunc model.MessagingFunc,
-) error {
-	if messagingFunc == nil {
-		return nil
-	} else {
-		msgChunk, err := model.NewMessageChunk(
-			newMsgID,
-			"",
-			newMsgRole,
+	if messagingFunc != nil {
+		msgChunk, err := model.NewMessageChunkWithStruct(
+			msgID,
+			role,
 			times.C.Now(),
 			nil,
 			true,
+			"",
+			funcName,
+			"",
 		)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
-		return messagingFunc(ctx, msgChunk)
+		if err := messagingFunc(ctx, msgChunk); err != nil {
+			return nil, err
+		}
 	}
+
+	return fullText, nil
 }

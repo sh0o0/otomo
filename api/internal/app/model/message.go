@@ -110,11 +110,13 @@ func (*MessageFactory) Restore(
 
 type MessageChunk struct {
 	MessageID MessageID
-	Text      string
-	Role      Role
-	SentAt    time.Time
-	ClientID  *string
-	IsLast    bool
+
+	// Deprecated: Use Content instead
+	Text     string
+	Role     Role
+	SentAt   time.Time
+	ClientID *string
+	IsLast   bool
 
 	Content    string
 	StructName string
@@ -136,6 +138,29 @@ func NewMessageChunk(
 		SentAt:    sentAt,
 		ClientID:  clientID,
 		IsLast:    isLast,
+	}, nil
+}
+
+func NewMessageChunkWithStruct(
+	messageID MessageID,
+	role Role,
+	sentAt time.Time,
+	clientID *string,
+	isLast bool,
+	content string,
+	structName string,
+	strct string,
+) (*MessageChunk, error) {
+	return &MessageChunk{
+		MessageID:  messageID,
+		Text:       content,
+		Role:       role,
+		SentAt:     sentAt,
+		ClientID:   clientID,
+		IsLast:     isLast,
+		Content:    content,
+		StructName: structName,
+		Struct:     strct,
 	}, nil
 }
 
