@@ -108,6 +108,28 @@ func (*MessageFactory) Restore(
 	}
 }
 
+func (*MessageFactory) RestoreWithContent(
+	id MessageID,
+	text string,
+	role Role,
+	sentAt time.Time,
+	clientID *string,
+	content string,
+	structName string,
+	strct Struct,
+) *Message {
+	return &Message{
+		ID:         id,
+		Text:       text,
+		Role:       role,
+		SentAt:     sentAt,
+		ClientID:   clientID,
+		Content:    content,
+		StructName: structName,
+		Struct:     strct,
+	}
+}
+
 type MessageChunk struct {
 	MessageID MessageID
 

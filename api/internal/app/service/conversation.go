@@ -15,6 +15,12 @@ import (
 )
 
 var (
+	otomoCommonPrompt = `You provides lots of specific details from its context. If You do not know the answer to a question, you truthfully says you do not know.`
+
+	messagePrompt = `The conversation currently stops at your message, so please create a message that you think will be of interest to the User. You may refer to the information in the Current Conversation below, or if there is no information in the Current Conversation, compose a message on a topic of interest to the new User. Start the conversation with a greeting.`
+)
+
+var (
 	//go:embed tell_about_places.schema.json
 	tellAboutPlacesSchema []byte
 	//go:embed tell_about_route.schema.json
@@ -51,7 +57,7 @@ func (cs *ConversationServiceV2) Respond(
 			Role: openai.ChatMessageRoleSystem,
 			Content: strings.Join([]string{
 				opts.Personality,
-				otomoCommonPromptV1,
+				otomoCommonPrompt,
 				model.NewHistoryPrompt(history).String(),
 			}, "\n"),
 		},
@@ -75,8 +81,8 @@ func (cs *ConversationServiceV2) Message(
 
 	prompt := strings.Join([]string{
 		opts.Personality,
-		otomoCommonPromptV1,
-		messagePromptV1,
+		otomoCommonPrompt,
+		messagePrompt,
 		model.NewHistoryPrompt(history).String(),
 	}, "\n")
 
@@ -128,24 +134,13 @@ func (cs *ConversationServiceV2) call(
 		msgID = model.MessageID(uuid.NewString())
 		role  = model.OtomoRole
 	)
-	fullText, err := cs.listenMessagingStream(
+	return cs.listenMessagingStream(
 		ctx,
 		stream,
 		messagingFunc,
 		msgID,
 		role,
 	)
-	if err != nil {
-		return nil, err
-	}
-
-	return cs.msgFactory.Restore(
-		msgID,
-		fullText,
-		role,
-		times.C.Now(),
-		nil,
-	), nil
 }
 
 func (cs *ConversationServiceV2) listenMessagingStream(
@@ -223,5 +218,14 @@ func (cs *ConversationServiceV2) listenMessagingStream(
 		}
 	}
 
-	return fullText, nil
+	return cs.msgFactory.RestoreWithContent(
+		msgID,
+		"TODO", // TODO: Replace
+		role,
+		times.C.Now(),
+		nil,
+		fullContent,
+		funcName,
+		funcArgs,
+	), nil
 }

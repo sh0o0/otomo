@@ -5,26 +5,6 @@ import (
 	"otomo/internal/pkg/errs"
 )
 
-type MessagingFunc func(context.Context, *MessageChunk) error
-
-type ConversationOptions struct {
-	Memory        *Memory
-	Personality   string
-	MessagingFunc MessagingFunc
-}
-
-// TODO: Add tests
-type Converser interface {
-	Respond(
-		ctx context.Context,
-		msg *Message,
-		opts ConversationOptions,
-	) (*Message, error)
-	Message(
-		ctx context.Context,
-		opts ConversationOptions,
-	) (*Message, error)
-}
 type Summarizer interface {
 	Summarize(
 		ctx context.Context,
@@ -33,6 +13,7 @@ type Summarizer interface {
 	) (string, error)
 }
 
+// TODO: Add tests
 type Otomo struct {
 	UserID  UserID       `firestore:"user_id"`
 	Memory  Memory       `firestore:"memory"`
@@ -157,6 +138,28 @@ func (o *Otomo) validateAbilities() error {
 
 	}
 	return nil
+}
+
+func (o *Otomo) conversationResultToMessage(
+	result *ConversationResult,
+) (*Message, error) {
+	var (
+		text = result.Content
+	)
+
+	if result.FunctionCall != nil {
+		text = result.FunctionCall.Name
+	}
+
+	return &Message{
+		ID:      result.MsgID,
+		Text:    text,
+		Role:    result.Role,
+		SentAt:  result.SentAt,
+		Content: result.Content,
+
+		ClientID: nil,
+	}, nil
 }
 
 type Memory struct {
