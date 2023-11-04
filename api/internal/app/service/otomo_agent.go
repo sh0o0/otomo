@@ -65,21 +65,13 @@ func (oas *OtomoAgentService) Respond(
 		structName,
 		strct,
 	)
-	summary, err := oas.summarySvc.Summarize(
-		ctx, []*model.Message{msg, reply}, otomo.Memory.Summary)
+
+	newOtomo, err := oas.updateMemory(ctx, otomo, []*model.Message{reply})
 	if err != nil {
 		return nil, nil, err
 	}
 
-	updatedOtomo, err := model.RestoreOtomo(
-		otomo.UserID,
-		*model.NewMemory(summary),
-		otomo.Profile,
-	)
-	if err != nil {
-		return nil, nil, err
-	}
-	return updatedOtomo, reply, nil
+	return newOtomo, reply, nil
 }
 
 func (oas *OtomoAgentService) Message(
@@ -88,4 +80,22 @@ func (oas *OtomoAgentService) Message(
 	opts svc.OtomoAgentOptions,
 ) (*model.Otomo, *model.Message, error) {
 	panic("not implemented") // TODO: Implement
+}
+
+func (oas *OtomoAgentService) updateMemory(
+	ctx context.Context,
+	crntOtomo *model.Otomo,
+	newMsgs []*model.Message,
+) (*model.Otomo, error) {
+	summary, err := oas.summarySvc.Summarize(
+		ctx, newMsgs, crntOtomo.Memory.Summary)
+	if err != nil {
+		return nil, err
+	}
+
+	return model.RestoreOtomo(
+		crntOtomo.UserID,
+		*model.NewMemory(summary),
+		crntOtomo.Profile,
+	)
 }
