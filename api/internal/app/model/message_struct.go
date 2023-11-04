@@ -3,7 +3,7 @@ package model
 type StructName string
 
 const (
-	SNUnknown      StructName = "unknown"
+	SNEmpty        StructName = ""
 	SNPlaces       StructName = "places"
 	SNRoute        StructName = "route"
 	SNPlaceDetails StructName = "place_details"
@@ -35,8 +35,9 @@ type PlacesStruct struct {
 func (*PlacesStruct) IsStruct() bool { return true }
 
 type Place struct {
-	Name        string `json:"name" firestore:"name"`
-	Description string `json:"description" firestore:"description"`
+	Name          string         `json:"name" firestore:"name"`
+	Description   string         `json:"description" firestore:"description"`
+	GeocodedPlace *GeocodedPlace `json:"geocoded_place" firestore:"geocoded_place"`
 }
 
 type RouteStruct struct {

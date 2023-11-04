@@ -32,7 +32,7 @@ type ConversationResult struct {
 
 type FunctionCall struct {
 	Name      string
-	Arguments map[string]any
+	Arguments string
 }
 
 type SpeakingFunc func(context.Context, *SpokenChunk) error

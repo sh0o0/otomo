@@ -18,9 +18,9 @@ type Message struct {
 	// Deprecated: Includes the place information in Struct
 	PlaceExtraction PlaceExtraction `firestore:"place_extraction"`
 
-	Content    string `firestore:"content"`
-	StructName string `firestore:"struct_name"`
-	Struct     Struct `firestore:"struct"`
+	Content    string     `firestore:"content"`
+	StructName StructName `firestore:"struct_name"`
+	Struct     Struct     `firestore:"struct"`
 }
 
 func (m *Message) RoleIs(role Role) bool {
@@ -74,7 +74,7 @@ func RestoreMessageWithStruct(
 	sentAt time.Time,
 	clientID *string,
 	content string,
-	structName string,
+	structName StructName,
 	strct Struct,
 ) *Message {
 	return &Message{
