@@ -2,10 +2,21 @@ package service
 
 import (
 	"context"
+	_ "embed"
+	"encoding/json"
 	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/times"
 	"otomo/internal/pkg/uuid"
+)
+
+var (
+	//go:embed tell_about_places.schema.json
+	tellAboutPlacesSchema []byte
+	//go:embed tell_about_route.schema.json
+	tellAboutRouteSchema []byte
+	//go:embed tell_about_place_details.schema.json
+	tellAboutPlaceDetails []byte
 )
 
 var _ svc.OtomoAgentService = (*OtomoAgentService)(nil)
@@ -42,8 +53,24 @@ func (oas *OtomoAgentService) Respond(
 	replyRet, err := oas.convSvc.Respond(ctx, msg, svc.ConversationOptions{
 		History:     otomo.Memory.Summary,
 		Personality: personality,
+		Functions: []svc.ConversationFunctionDefinition{
+			{
+				Name:        "tell_about_places",
+				Description: "Called when the user asks for places. For example, some recommended places.",
+				Parameters:  json.RawMessage(tellAboutPlacesSchema),
+			},
+			{
+				Name:        "tell_about_route",
+				Description: "Called when the user asks for a route. For example, a recommended route.",
+				Parameters:  json.RawMessage(tellAboutRouteSchema),
+			},
+			{
+				Name:        "tell_about_place_details",
+				Description: "Called when the user asks for details about a place. For example, the details of a place.",
+				Parameters:  json.RawMessage(tellAboutPlaceDetails),
+			},
+		},
 		// TODO: Add messaging func
-		// TODO: Add functions
 	})
 	if err != nil {
 		return nil, nil, err

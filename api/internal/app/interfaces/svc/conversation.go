@@ -18,11 +18,11 @@ type ConversationService interface {
 }
 
 type ConversationOptions struct {
-	History       string
-	Personality   string
-	MessagingFunc model.MessagingFunc
-	Functions     []ConversationFunctionDefinition
-	FunctionCall  any
+	History      string
+	Personality  string
+	SpeakingFunc SpeakingFunc
+	Functions    []ConversationFunctionDefinition
+	FunctionCall any
 }
 
 type ConversationResult struct {

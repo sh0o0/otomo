@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": ["prologue", "details", "epilogue"],
+  "properties": {
+    "prologue": { "type": "string" },
+    "details": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "epilogue": { "type": "string" }
+  }
+}
