@@ -31,6 +31,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ChatServiceClient interface {
 	SendMessage(ctx context.Context, in *ChatService_SendMessageRequest, opts ...grpc.CallOption) (*ChatService_SendMessageResponse, error)
+	// Deprecated: Do not use.
 	ListMessages(ctx context.Context, in *ChatService_ListMessagesRequest, opts ...grpc.CallOption) (*ChatService_ListMessagesResponse, error)
 	AskToMessage(ctx context.Context, in *ChatService_AskToMessageRequest, opts ...grpc.CallOption) (*ChatService_AskToMessageResponse, error)
 	MessagingStream(ctx context.Context, in *ChatService_MessagingStreamRequest, opts ...grpc.CallOption) (ChatService_MessagingStreamClient, error)
@@ -54,6 +55,7 @@ func (c *chatServiceClient) SendMessage(ctx context.Context, in *ChatService_Sen
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *chatServiceClient) ListMessages(ctx context.Context, in *ChatService_ListMessagesRequest, opts ...grpc.CallOption) (*ChatService_ListMessagesResponse, error) {
 	out := new(ChatService_ListMessagesResponse)
 	err := c.cc.Invoke(ctx, ChatService_ListMessages_FullMethodName, in, out, opts...)
@@ -118,6 +120,7 @@ func (c *chatServiceClient) GetRemainingSendCount(ctx context.Context, in *ChatS
 // for forward compatibility
 type ChatServiceServer interface {
 	SendMessage(context.Context, *ChatService_SendMessageRequest) (*ChatService_SendMessageResponse, error)
+	// Deprecated: Do not use.
 	ListMessages(context.Context, *ChatService_ListMessagesRequest) (*ChatService_ListMessagesResponse, error)
 	AskToMessage(context.Context, *ChatService_AskToMessageRequest) (*ChatService_AskToMessageResponse, error)
 	MessagingStream(*ChatService_MessagingStreamRequest, ChatService_MessagingStreamServer) error

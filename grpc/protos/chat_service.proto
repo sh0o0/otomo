@@ -9,7 +9,9 @@ import "message_send_count.proto";
 
 service ChatService {
   rpc SendMessage (ChatService_SendMessageRequest) returns (ChatService_SendMessageResponse) {};
-  rpc ListMessages(ChatService_ListMessagesRequest) returns (ChatService_ListMessagesResponse) {};
+  rpc ListMessages(ChatService_ListMessagesRequest) returns (ChatService_ListMessagesResponse) {
+    option deprecated = true;
+  };
   rpc AskToMessage(ChatService_AskToMessageRequest) returns (ChatService_AskToMessageResponse) {};
   rpc MessagingStream(ChatService_MessagingStreamRequest) returns (stream ChatService_MessagingStreamResponse) {};
   rpc GetRemainingSendCount(ChatService_GetRemainingSendCountRequest) returns (ChatService_GetRemainingSendCountResponse) {};

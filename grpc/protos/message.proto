@@ -12,10 +12,18 @@ message Message {
     google.protobuf.Timestamp sent_at = 4;
     google.protobuf.StringValue client_id = 5;
     PlaceExtraction place_extraction = 6;
+
+    string content = 7;
+    string struct_name = 8;
+    oneof struct {
+        PlaceDetailsStruct place_details_struct = 9;
+        PlacesStruct places_struct = 10;
+        RouteStruct route_struct = 11;
+    }
 }
 
 enum Role {
-    UNKNOWN = 0;
+    ROLE_UNKNOWN = 0;
     USER = 1;
     OTOMO = 2;
 }
@@ -38,9 +46,66 @@ message GeocodedPlace {
 
 message MessageChunk {
     string message_id = 1;
-    string text = 2;
+    string text = 2 [deprecated = true];
     Role role = 3;
     google.protobuf.Timestamp sent_at = 4;
     google.protobuf.StringValue client_id = 5;
     bool is_last = 6;
+
+    string content = 7;
+    string struct_name = 8;
+    string struct = 9;
+}
+
+message PlaceDetailsStruct {
+    string prologue = 1;
+    PlaceDetails details = 2;
+    string epilogue = 3;
+}
+
+message PlaceDetails {
+    string name = 1;
+    string description = 2;
+    GeocodedPlace geocoded_place = 3;
+}
+
+
+message PlacesStruct {
+    string prologue = 1;
+    repeated Place places = 2;
+    string epilogue = 3;
+}
+
+message Place {
+    string name = 1;
+    string description = 2;
+    GeocodedPlace geocoded_place = 3;
+}
+
+message RouteStruct {
+    string prologue = 1;
+    repeated Waypoint waypoints = 2;
+    string epilogue = 3;
+}
+
+message Waypoint {
+    string name = 1;
+    string description = 2;
+    repeated Transportation transportation = 3;
+    string transportation_description = 4;
+    GeocodedPlace geocoded_place = 5;
+}
+
+enum Transportation {
+    TRANSPORTATION_UNKNOWN = 0;
+    TRAIN = 1;
+    AIRPLANE = 2;
+    CAR = 3;
+    SHIP = 4;
+    BUS = 5;
+    BICYCLE = 6;
+    MOTORCYCLE = 7;
+    WALKING = 8;
+    TAXI = 9;
+    OTHER = 10;
 }
