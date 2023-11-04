@@ -20,7 +20,7 @@ type ConversationService interface {
 type ConversationOptions struct {
 	History       string
 	Personality   string
-	MessagingFunc MessagingFunc
+	MessagingFunc model.MessagingFunc
 	Functions     []ConversationFunctionDefinition
 	FunctionCall  any
 }
@@ -35,9 +35,9 @@ type ConversationFunctionCallResult struct {
 	Arguments map[string]any
 }
 
-type MessagingFunc func(context.Context, *MessagingChunk) error
+type SpeakingFunc func(context.Context, *SpokenChunk) error
 
-type MessagingChunk struct {
+type SpokenChunk struct {
 	Content      string
 	FunctionCall *ConversationFunctionCallResult
 	IsLast       bool

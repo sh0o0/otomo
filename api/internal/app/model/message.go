@@ -9,19 +9,25 @@ import (
 type MessageID string
 
 type Message struct {
-	ID              MessageID       `firestore:"id"`
-	ClientID        *string         `firestore:"client_id"`
-	Text            string          `firestore:"text"`
-	Role            Role            `firestore:"role"`
-	SentAt          time.Time       `firestore:"sent_at"`
+	ID       MessageID `firestore:"id"`
+	ClientID *string   `firestore:"client_id"`
+	Text     string    `firestore:"text"`
+	Role     Role      `firestore:"role"`
+	SentAt   time.Time `firestore:"sent_at"`
+
+	// Deprecated: Includes the place information in Struct
 	PlaceExtraction PlaceExtraction `firestore:"place_extraction"`
+
+	Content    string `firestore:"content"`
+	StructName string `firestore:"struct_name"`
+	Struct     Struct `firestore:"struct"`
 }
 
-// TODO: Add test
 func (m *Message) RoleIs(role Role) bool {
 	return m.Role == role
 }
 
+// TODO: Delete this method
 func (m *Message) SetPlaceExtraction(la PlaceExtraction) *Message {
 	newM := *m
 	newM.PlaceExtraction = la
@@ -54,6 +60,7 @@ type GeocodedPlace struct {
 	LatLng        LatLng `firestore:"lat_lng"`
 }
 
+// TODO: Delete this method
 func NewPlaceExtraction(
 	places []*ExtractedPlace,
 	analyzedAt *time.Time,
@@ -66,12 +73,15 @@ func NewPlaceExtraction(
 	}
 }
 
+// TODO: Delete this struct
 type MessageFactory struct{}
 
+// TODO: Delete this method
 func NewMessageFactory() *MessageFactory {
 	return &MessageFactory{}
 }
 
+// TODO: Delete this method
 func (*MessageFactory) New(
 	text string,
 	role Role,
@@ -86,6 +96,7 @@ func (*MessageFactory) New(
 	}, nil
 }
 
+// TODO: Delete this method
 func (*MessageFactory) Restore(
 	id MessageID,
 	text string,
@@ -102,13 +113,42 @@ func (*MessageFactory) Restore(
 	}
 }
 
+// TODO: Delete this method
+func RestoreMessageWithContent(
+	id MessageID,
+	text string,
+	role Role,
+	sentAt time.Time,
+	clientID *string,
+	content string,
+	structName string,
+	strct Struct,
+) *Message {
+	return &Message{
+		ID:         id,
+		Text:       text,
+		Role:       role,
+		SentAt:     sentAt,
+		ClientID:   clientID,
+		Content:    content,
+		StructName: structName,
+		Struct:     strct,
+	}
+}
+
 type MessageChunk struct {
 	MessageID MessageID
-	Text      string
-	Role      Role
-	SentAt    time.Time
-	ClientID  *string
-	IsLast    bool
+
+	// Deprecated: Use Content instead
+	Text     string
+	Role     Role
+	SentAt   time.Time
+	ClientID *string
+	IsLast   bool
+
+	Content    string
+	StructName string
+	Struct     string
 }
 
 func NewMessageChunk(
@@ -126,6 +166,29 @@ func NewMessageChunk(
 		SentAt:    sentAt,
 		ClientID:  clientID,
 		IsLast:    isLast,
+	}, nil
+}
+
+func NewMessageChunkWithStruct(
+	messageID MessageID,
+	role Role,
+	sentAt time.Time,
+	clientID *string,
+	isLast bool,
+	content string,
+	structName string,
+	strct string,
+) (*MessageChunk, error) {
+	return &MessageChunk{
+		MessageID:  messageID,
+		Text:       content,
+		Role:       role,
+		SentAt:     sentAt,
+		ClientID:   clientID,
+		IsLast:     isLast,
+		Content:    content,
+		StructName: structName,
+		Struct:     strct,
 	}, nil
 }
 

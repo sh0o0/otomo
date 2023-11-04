@@ -162,3 +162,11 @@ func (o *Otomo) validateAbilities() error {
 type Memory struct {
 	Summary string `firestore:"summary"`
 }
+
+func NewMemory(
+	summary string,
+) *Memory {
+	return &Memory{
+		Summary: summary,
+	}
+}

@@ -20,5 +20,5 @@ type OtomoAgentService interface {
 }
 
 type OtomoAgentOptions struct {
-	MessagingFunc MessagingFunc
+	MessagingFunc SpeakingFunc
 }
