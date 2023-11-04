@@ -83,7 +83,7 @@ func TestSystem_ConversationService_Respond(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			cs := &ConversationServiceV2{
+			cs := &ConversationService{
 				gpt:        systemtest.Gpt(),
 				msgFactory: model.NewMessageFactory(),
 			}

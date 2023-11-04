@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"otomo/internal/app/interfaces/svc"
 	"otomo/internal/app/model"
 	"otomo/internal/pkg/times"
 	"otomo/internal/pkg/uuid"
@@ -23,20 +24,19 @@ var (
 	tellAboutPlaceDetails []byte
 )
 
-var _ model.Converser = (*ConversationServiceV2)(nil)
+var _ svc.ConversationService = (*ConversationService)(nil)
 
-type ConversationServiceV2 struct {
-	gpt        *openai.Client
-	msgFactory *model.MessageFactory
+type ConversationService struct {
+	gpt *openai.Client
 }
 
-func NewConversationServiceV2(gpt *openai.Client) *ConversationServiceV2 {
-	return &ConversationServiceV2{
+func NewConversationService(gpt *openai.Client) *ConversationService {
+	return &ConversationService{
 		gpt: gpt,
 	}
 }
 
-func (cs *ConversationServiceV2) Respond(
+func (cs *ConversationService) Respond(
 	ctx context.Context,
 	msg *model.Message,
 	opts model.ConversationOptions,
@@ -64,7 +64,7 @@ func (cs *ConversationServiceV2) Respond(
 	return cs.call(ctx, gptMsgs, opts.MessagingFunc)
 }
 
-func (cs *ConversationServiceV2) Message(
+func (cs *ConversationService) Message(
 	ctx context.Context,
 	opts model.ConversationOptions,
 ) (*model.Message, error) {
@@ -90,7 +90,7 @@ func (cs *ConversationServiceV2) Message(
 	return cs.call(ctx, gptMsgs, opts.MessagingFunc)
 }
 
-func (cs *ConversationServiceV2) call(
+func (cs *ConversationService) call(
 	ctx context.Context,
 	msgs []openai.ChatCompletionMessage,
 	messagingFunc model.MessagingFunc,
@@ -137,7 +137,7 @@ func (cs *ConversationServiceV2) call(
 	)
 }
 
-func (cs *ConversationServiceV2) listenMessagingStream(
+func (cs *ConversationService) listenMessagingStream(
 	ctx context.Context,
 	stream *openai.ChatCompletionStream,
 	messagingFunc model.MessagingFunc,
