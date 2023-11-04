@@ -67,7 +67,7 @@ func NewMessage(
 	}, nil
 }
 
-func RestoreMessageWithContent(
+func RestoreMessageWithStruct(
 	id MessageID,
 	text string,
 	role Role,
@@ -100,7 +100,7 @@ type MessageChunk struct {
 	IsLast   bool
 
 	Content    string
-	StructName string
+	StructName StructName
 	Struct     string
 }
 
@@ -129,9 +129,9 @@ func NewMessageChunkWithStruct(
 	clientID *string,
 	isLast bool,
 	content string,
-	structName string,
+	structName StructName,
 	strct string,
-) (*MessageChunk, error) {
+) *MessageChunk {
 	return &MessageChunk{
 		MessageID:  messageID,
 		Text:       content,
@@ -142,7 +142,7 @@ func NewMessageChunkWithStruct(
 		Content:    content,
 		StructName: structName,
 		Struct:     strct,
-	}, nil
+	}
 }
 
 type Role string

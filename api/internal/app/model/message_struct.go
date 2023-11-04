@@ -1,5 +1,14 @@
 package model
 
+type StructName string
+
+const (
+	SNUnknown      StructName = "unknown"
+	SNPlaces       StructName = "places"
+	SNRoute        StructName = "route"
+	SNPlaceDetails StructName = "place_details"
+)
+
 type Struct interface {
 	IsStruct() bool
 }

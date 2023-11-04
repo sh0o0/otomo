@@ -10,14 +10,26 @@ import (
 	"otomo/internal/pkg/uuid"
 )
 
+const (
+	tellAboutPlacesFuncName       = "tell_about_places"
+	tellAboutRouteFuncName        = "tell_about_route"
+	tellAboutPlaceDetailsFuncName = "tell_about_place_details"
+)
+
 var (
 	//go:embed tell_about_places.schema.json
 	tellAboutPlacesSchema []byte
 	//go:embed tell_about_route.schema.json
 	tellAboutRouteSchema []byte
 	//go:embed tell_about_place_details.schema.json
-	tellAboutPlaceDetails []byte
+	tellAboutPlaceDetailsSchema []byte
 )
+
+var funcAndStructNamesMap = map[string]model.StructName{
+	tellAboutPlacesFuncName:       model.SNPlaces,
+	tellAboutRouteFuncName:        model.SNRoute,
+	tellAboutPlaceDetailsFuncName: model.SNPlaceDetails,
+}
 
 var _ svc.OtomoAgentService = (*OtomoAgentService)(nil)
 
@@ -53,24 +65,30 @@ func (oas *OtomoAgentService) Respond(
 	replyRet, err := oas.convSvc.Respond(ctx, msg, svc.ConversationOptions{
 		History:     otomo.Memory.Summary,
 		Personality: personality,
-		Functions: []svc.ConversationFunctionDefinition{
+		Functions: []svc.FunctionDefinition{
 			{
-				Name:        "tell_about_places",
+				Name:        tellAboutPlacesFuncName,
 				Description: "Called when the user asks for places. For example, some recommended places.",
 				Parameters:  json.RawMessage(tellAboutPlacesSchema),
 			},
 			{
-				Name:        "tell_about_route",
+				Name:        tellAboutRouteFuncName,
 				Description: "Called when the user asks for a route. For example, a recommended route.",
 				Parameters:  json.RawMessage(tellAboutRouteSchema),
 			},
 			{
-				Name:        "tell_about_place_details",
+				Name:        tellAboutPlaceDetailsFuncName,
 				Description: "Called when the user asks for details about a place. For example, the details of a place.",
-				Parameters:  json.RawMessage(tellAboutPlaceDetails),
+				Parameters:  json.RawMessage(tellAboutPlaceDetailsSchema),
 			},
 		},
-		// TODO: Add messaging func
+		SpeakingFunc: func(ctx context.Context, sc *svc.SpokenChunk) error {
+			if opts.MessagingFunc == nil {
+				return nil
+			}
+			msgChunk := oas.spokenChunkToMessageChunk(replyID, sc)
+			return opts.MessagingFunc(ctx, msgChunk)
+		},
 	})
 	if err != nil {
 		return nil, nil, err
@@ -82,7 +100,7 @@ func (oas *OtomoAgentService) Respond(
 		strct      model.Struct
 	)
 
-	reply := model.RestoreMessageWithContent(
+	reply := model.RestoreMessageWithStruct(
 		replyID,
 		replyRet.Content, // TODO:: How about when function call? It might be given json added explanation.
 		model.OtomoRole,
@@ -124,5 +142,30 @@ func (oas *OtomoAgentService) updateMemory(
 		crntOtomo.UserID,
 		*model.NewMemory(summary),
 		crntOtomo.Profile,
+	)
+}
+
+func (oas *OtomoAgentService) spokenChunkToMessageChunk(
+	msgID model.MessageID,
+	chunk *svc.SpokenChunk,
+) *model.MessageChunk {
+	var (
+		structName model.StructName
+		strct      string
+	)
+	if chunk.FunctionCall != nil {
+		structName = funcAndStructNamesMap[chunk.FunctionCall.Name]
+		strct = chunk.FunctionCall.Arguments
+	}
+
+	return model.NewMessageChunkWithStruct(
+		msgID,
+		model.OtomoRole,
+		times.C.Now(),
+		nil,
+		chunk.IsLast,
+		chunk.Content,
+		structName,
+		strct,
 	)
 }

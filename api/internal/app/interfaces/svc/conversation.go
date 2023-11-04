@@ -21,16 +21,16 @@ type ConversationOptions struct {
 	History      string
 	Personality  string
 	SpeakingFunc SpeakingFunc
-	Functions    []ConversationFunctionDefinition
+	Functions    []FunctionDefinition
 	FunctionCall any
 }
 
 type ConversationResult struct {
 	Content      string
-	FunctionCall *ConversationFunctionCallResult
+	FunctionCall *FunctionCall
 }
 
-type ConversationFunctionCallResult struct {
+type FunctionCall struct {
 	Name      string
 	Arguments map[string]any
 }
@@ -39,11 +39,16 @@ type SpeakingFunc func(context.Context, *SpokenChunk) error
 
 type SpokenChunk struct {
 	Content      string
-	FunctionCall *ConversationFunctionCallResult
+	FunctionCall *SpokenChunkFunctionCall
 	IsLast       bool
 }
 
-type ConversationFunctionDefinition struct {
+type SpokenChunkFunctionCall struct {
+	Name      string
+	Arguments string
+}
+
+type FunctionDefinition struct {
 	Name        string
 	Description string
 	Parameters  any
