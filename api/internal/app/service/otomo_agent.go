@@ -156,7 +156,33 @@ func (oas *OtomoAgentService) Message(
 	otomo *model.Otomo,
 	opts svc.OtomoAgentOptions,
 ) (*model.Otomo, *model.Message, error) {
-	panic("not implemented") // TODO: Implement
+	var replyID = model.MessageID(uuid.NewString())
+
+	personality, err := otomo.Profile.TransJustFriendly().Prompt()
+	if err != nil {
+		return nil, nil, err
+	}
+	replyRet, err := oas.convSvc.Message(ctx, svc.ConversationOptions{
+		History:      otomo.Memory.Summary,
+		Personality:  personality,
+		Functions:    functions,
+		SpeakingFunc: oas.speakingFunc(opts.MessagingFunc, replyID),
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	reply, err := oas.resultToMsg(ctx, replyID, replyRet)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	newOtomo, err := oas.updateMemory(ctx, otomo, []*model.Message{reply})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return newOtomo, reply, nil
 }
 
 func (oas *OtomoAgentService) updateMemory(
