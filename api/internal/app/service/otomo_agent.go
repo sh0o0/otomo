@@ -29,7 +29,7 @@ func (oas *OtomoAgentService) Respond(
 	ctx context.Context,
 	otomo *model.Otomo,
 	msg *model.Message,
-	opts svc.ConversationOptions,
+	opts svc.OtomoAgentOptions,
 ) (*model.Otomo, *model.Message, error) {
 	var (
 		replyID = model.MessageID(uuid.NewString())
@@ -85,7 +85,7 @@ func (oas *OtomoAgentService) Respond(
 func (oas *OtomoAgentService) Message(
 	ctx context.Context,
 	otomo *model.Otomo,
-	opts svc.ConversationOptions,
+	opts svc.OtomoAgentOptions,
 ) (*model.Otomo, *model.Message, error) {
 	panic("not implemented") // TODO: Implement
 }

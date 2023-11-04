@@ -113,7 +113,20 @@ func (*MessageFactory) Restore(
 	}
 }
 
-// TODO: Delete this method
+func NewMessage(
+	text string,
+	role Role,
+	clientID *string,
+) (*Message, error) {
+	return &Message{
+		ID:       MessageID(uuid.NewString()),
+		Text:     text,
+		Role:     role,
+		SentAt:   times.C.Now(),
+		ClientID: clientID,
+	}, nil
+}
+
 func RestoreMessageWithContent(
 	id MessageID,
 	text string,

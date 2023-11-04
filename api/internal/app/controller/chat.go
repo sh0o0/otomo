@@ -20,40 +20,31 @@ var _ grpcgen.ChatServiceServer = (*ChatController)(nil)
 
 type ChatController struct {
 	errorPresenter    errorPresenter
-	msgFactory        *model.MessageFactory
 	msgRepo           repo.MessageRepository
 	otomoRepo         repo.OtomoRepository
 	msginSub          svc.MessagingSubscriber
 	msginPub          svc.MessagingPublisher
-	msgAnaSvc         svc.MessageAnalysisService
 	msgSentCountQuery cq.MessageSentCountQuery
-	converser         model.Converser
-	summarizer        model.Summarizer
+	otomoAgentSvc     svc.OtomoAgentService
 }
 
 func NewChatController(
 	errorPresenter errorPresenter,
-	msgFactory *model.MessageFactory,
 	msgRepo repo.MessageRepository,
 	otomoRepo repo.OtomoRepository,
 	msginSub svc.MessagingSubscriber,
 	msginPub svc.MessagingPublisher,
-	msgAnaSvc svc.MessageAnalysisService,
 	msgSentCountQuery cq.MessageSentCountQuery,
-	converser model.Converser,
-	summarizer model.Summarizer,
+	otomoAgentSvc svc.OtomoAgentService,
 ) *ChatController {
 	return &ChatController{
 		errorPresenter:    errorPresenter,
-		msgFactory:        msgFactory,
 		msgRepo:           msgRepo,
 		otomoRepo:         otomoRepo,
 		msginSub:          msginSub,
 		msginPub:          msginPub,
-		msgAnaSvc:         msgAnaSvc,
 		msgSentCountQuery: msgSentCountQuery,
-		converser:         converser,
-		summarizer:        summarizer,
+		otomoAgentSvc:     otomoAgentSvc,
 	}
 }
 
@@ -105,7 +96,7 @@ func (cc *ChatController) sendMessage(
 		}
 	}
 
-	msg, err := cc.msgFactory.New(
+	msg, err := model.NewMessage(
 		req.GetText(),
 		model.UserRole,
 		conv.Wrapper.StringValueToPtr(req.ClientId),
@@ -210,18 +201,17 @@ func (cc *ChatController) askToMessage(
 			return nil, err
 		}
 	}
-	otomo = otomo.
-		WithConverser(cc.converser).
-		WithSummarizer(cc.summarizer).
-		WithMessagingFunc(func(ctx context.Context, msg *model.MessageChunk) error {
-			cc.msginPub.Publish(userID, msg)
-			return nil
-		})
 
 	var (
 		updatedOtomo *model.Otomo
 		newMsg       *model.Message
 		cnvErr       error
+		opts         = svc.OtomoAgentOptions{
+			MessagingFunc: func(ctx context.Context, msg *model.MessageChunk) error {
+				cc.msginPub.Publish(userID, msg)
+				return nil
+			},
+		}
 	)
 
 	lastMsg, err := cc.msgRepo.Last(ctx, userID)
@@ -231,9 +221,18 @@ func (cc *ChatController) askToMessage(
 		}
 	}
 	if lastMsg != nil && lastMsg.RoleIs(model.UserRole) {
-		updatedOtomo, newMsg, cnvErr = otomo.Respond(ctx, lastMsg)
+		updatedOtomo, newMsg, cnvErr = cc.otomoAgentSvc.Respond(
+			ctx,
+			otomo,
+			lastMsg,
+			opts,
+		)
 	} else {
-		updatedOtomo, newMsg, cnvErr = otomo.Message(ctx)
+		updatedOtomo, newMsg, cnvErr = cc.otomoAgentSvc.Message(
+			ctx,
+			otomo,
+			opts,
+		)
 	}
 	if cnvErr != nil {
 		return nil, cnvErr
@@ -243,7 +242,6 @@ func (cc *ChatController) askToMessage(
 		ctx, userID, newMsg, updatedOtomo); err != nil {
 		return nil, err
 	}
-	go cc.analyzeAndUpdateMsg(context.Background(), userID, newMsg)
 
 	resMsg, err := conv.Message.ModelToGrpc(newMsg)
 	if err != nil {
@@ -253,44 +251,6 @@ func (cc *ChatController) askToMessage(
 	return &grpcgen.ChatService_AskToMessageResponse{
 		Message: resMsg,
 	}, nil
-}
-
-// TODO: Move to AnalyzeController by messaging
-func (cc *ChatController) analyzeAndUpdateMsg(
-	ctx context.Context,
-	userID model.UserID,
-	msg *model.Message,
-) {
-	places, err := cc.msgAnaSvc.ExtractPlacesFromMsg(ctx, msg)
-	var errStr *string
-	if err != nil {
-		str := err.Error()
-		errStr = &str
-	}
-	for _, place := range places {
-		if place.GeocodedError != nil {
-			logs.Logger.Warn(
-				"Failed to geocode",
-				logs.String("error", *place.GeocodedError),
-			)
-		}
-	}
-
-	now := times.C.Now()
-	pe := model.NewPlaceExtraction(places, &now, errStr)
-	newMsg := msg.SetPlaceExtraction(*pe)
-	if err := cc.msgRepo.Update(ctx, userID, newMsg); err != nil {
-		logs.Logger.Error(
-			"Failed to update message",
-			logs.Error(err),
-			logs.String("messageId", string(newMsg.ID)),
-		)
-	} else {
-		logs.Logger.Info(
-			"Updated message",
-			logs.String("messageId", string(newMsg.ID)),
-		)
-	}
 }
 
 func (cc *ChatController) ListMessages(
