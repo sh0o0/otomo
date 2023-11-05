@@ -48,6 +48,10 @@ func TestSystem_ConversationService_Respond(t *testing.T) {
 					Text: "Can you tell me some good hot springs in Japan?",
 				},
 				opts: svc.ConversationOptions{
+					SpeakingFunc: func(ctx context.Context, sc *svc.SpokenChunk) error {
+						t.Logf("isLast: %v, Content: %v, FC: %v\n", sc.IsLast, sc.Content, sc.FunctionCall)
+						return nil
+					},
 					Functions: functions,
 				},
 			},
