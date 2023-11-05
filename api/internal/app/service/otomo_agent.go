@@ -208,7 +208,7 @@ func (oas *OtomoAgentService) resultToMsg(
 	msgID model.MessageID,
 	result *svc.ConversationResult,
 ) (*model.Message, error) {
-	sn, s, err := oas.funcToStruct(ctx, result.FunctionCall)
+	s, err := oas.funcToStruct(ctx, result.FunctionCall)
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +220,6 @@ func (oas *OtomoAgentService) resultToMsg(
 		times.C.Now(),
 		nil,
 		result.Content,
-		sn,
 		s,
 	), nil
 }
@@ -228,34 +227,31 @@ func (oas *OtomoAgentService) resultToMsg(
 func (oas *OtomoAgentService) funcToStruct(
 	ctx context.Context,
 	funk *svc.FunctionCall,
-) (model.StructName, model.Struct, error) {
-	sn, ok := funcAndStructNamesMap[funk.Name]
-	if !ok {
-		return model.SNEmpty, nil, nil
+) (*model.Structure, error) {
+	var (
+		name = funcAndStructNamesMap[funk.Name]
+
+		strct model.Struct
+		err   error
+	)
+	switch name {
+	case model.SNPlaceDetails:
+		strct, err = oas.placeDetailsToStruct(ctx, funk.Arguments)
+	case model.SNPlaces:
+		strct, err = oas.placesToStruct(ctx, funk.Arguments)
+	case model.SNRoute:
+		strct, err = oas.routeToStruct(ctx, funk.Arguments)
+	default:
 	}
 
-	switch sn {
-	case model.SNPlaceDetails:
-		s, err := oas.placeDetailsToStruct(ctx, funk.Arguments)
-		if err != nil {
-			return "", nil, err
-		}
-		return sn, s, nil
-	case model.SNPlaces:
-		s, err := oas.placesToStruct(ctx, funk.Arguments)
-		if err != nil {
-			return "", nil, err
-		}
-		return sn, s, nil
-	case model.SNRoute:
-		s, err := oas.routeToStruct(ctx, funk.Arguments)
-		if err != nil {
-			return "", nil, err
-		}
-		return sn, s, nil
-	default:
-		return model.SNEmpty, nil, nil
+	if err != nil {
+		return nil, err
 	}
+
+	return &model.Structure{
+		Name:   name,
+		Struct: strct,
+	}, nil
 }
 
 func (oas *OtomoAgentService) placeDetailsToStruct(
@@ -396,13 +392,13 @@ func (oas *OtomoAgentService) spokenChunkToMessageChunk(
 	msgID model.MessageID,
 	chunk *svc.SpokenChunk,
 ) *model.MessageChunk {
-	var (
-		structName model.StructName
-		strct      string
-	)
+	var structure *model.StructureChunk
+
 	if chunk.FunctionCall != nil {
-		structName = funcAndStructNamesMap[chunk.FunctionCall.Name]
-		strct = chunk.FunctionCall.Arguments
+		structure = &model.StructureChunk{
+			Name:   funcAndStructNamesMap[chunk.FunctionCall.Name],
+			Struct: chunk.FunctionCall.Arguments,
+		}
 	}
 
 	return model.NewMessageChunkWithStruct(
@@ -412,7 +408,6 @@ func (oas *OtomoAgentService) spokenChunkToMessageChunk(
 		nil,
 		chunk.IsLast,
 		chunk.Content,
-		structName,
-		strct,
+		structure,
 	)
 }

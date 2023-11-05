@@ -18,9 +18,8 @@ type Message struct {
 	// Deprecated: Includes the place information in Struct
 	PlaceExtraction PlaceExtraction `firestore:"place_extraction"`
 
-	Content    string     `firestore:"content"`
-	StructName StructName `firestore:"struct_name"`
-	Struct     Struct     `firestore:"struct"`
+	Content   string     `firestore:"content"`
+	Structure *Structure `firestore:"structure"`
 }
 
 func (m *Message) RoleIs(role Role) bool {
@@ -74,18 +73,16 @@ func RestoreMessageWithStruct(
 	sentAt time.Time,
 	clientID *string,
 	content string,
-	structName StructName,
-	strct Struct,
+	structure *Structure,
 ) *Message {
 	return &Message{
-		ID:         id,
-		Text:       text,
-		Role:       role,
-		SentAt:     sentAt,
-		ClientID:   clientID,
-		Content:    content,
-		StructName: structName,
-		Struct:     strct,
+		ID:        id,
+		Text:      text,
+		Role:      role,
+		SentAt:    sentAt,
+		ClientID:  clientID,
+		Content:   content,
+		Structure: structure,
 	}
 }
 
@@ -99,9 +96,8 @@ type MessageChunk struct {
 	ClientID *string
 	IsLast   bool
 
-	Content    string
-	StructName StructName
-	Struct     string
+	Content   string
+	Structure *StructureChunk
 }
 
 func NewMessageChunk(
@@ -129,19 +125,17 @@ func NewMessageChunkWithStruct(
 	clientID *string,
 	isLast bool,
 	content string,
-	structName StructName,
-	strct string,
+	structure *StructureChunk,
 ) *MessageChunk {
 	return &MessageChunk{
-		MessageID:  messageID,
-		Text:       content,
-		Role:       role,
-		SentAt:     sentAt,
-		ClientID:   clientID,
-		IsLast:     isLast,
-		Content:    content,
-		StructName: structName,
-		Struct:     strct,
+		MessageID: messageID,
+		Text:      content,
+		Role:      role,
+		SentAt:    sentAt,
+		ClientID:  clientID,
+		IsLast:    isLast,
+		Content:   content,
+		Structure: structure,
 	}
 }
 
