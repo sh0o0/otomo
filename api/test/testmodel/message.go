@@ -53,6 +53,18 @@ func (f *MessageFactory) New() *model.Message {
 		SentAt:          sentAt,
 		ClientID:        &clientId,
 		PlaceExtraction: locationAnalysis,
+		Content:         testutil.Faker.Lorem().Paragraph(10),
+		Structure: &model.Structure{
+			Name: model.SNPlaceDetails,
+			Struct: &model.PlaceDetailsStruct{
+				Prologue: testutil.Faker.Lorem().Paragraph(10),
+				Details: model.PlaceDetails{
+					Name:          testutil.Faker.Address().City(),
+					Description:   testutil.Faker.Lorem().Paragraph(10),
+					GeocodedPlace: GeocodedPlaceFactory.New(),
+				},
+			},
+		},
 	}
 }
 
