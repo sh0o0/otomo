@@ -6,7 +6,6 @@ import (
 	"otomo/internal/app/cmdqry"
 	"otomo/internal/app/controller"
 	"otomo/internal/app/grpcgen"
-	"otomo/internal/app/model"
 	"otomo/internal/app/repository"
 	"otomo/internal/app/service"
 	"otomo/internal/pkg/logs"
@@ -126,11 +125,6 @@ func newServer() (*grpc.Server, error) {
 		errorPresenter = controller.NewErrorPresenter()
 	)
 
-	// factories
-	var (
-		msgFactory = model.NewMessageFactory()
-	)
-
 	// repositories
 	var (
 		msgRepo   = repository.NewMessageRepository(fsClient)
@@ -144,13 +138,16 @@ func newServer() (*grpc.Server, error) {
 
 	// services
 	var (
-		summarySvc      = service.NewSummaryService(lcGpt)
-		conversationSvc = service.NewConversationService(lcGpt)
-		msginSub        = service.NewMessagingSubscriber(messagingBus)
-		msginPub        = service.NewMessagingPublisher(messagingBus)
-		locExtSvc       = service.NewPlaceExtractionService(gpt)
-		geocodingSvc    = service.NewGeocodingService(gMap)
-		msgAnaSvc       = service.NewMessageAnalysisService(locExtSvc, geocodingSvc)
+		convSvc       = service.NewConversationService(gpt)
+		summarySvc    = service.NewSummaryService(lcGpt)
+		msginSub      = service.NewMessagingSubscriber(messagingBus)
+		msginPub      = service.NewMessagingPublisher(messagingBus)
+		geocodingSvc  = service.NewGeocodingService(gMap)
+		otomoAgentSvc = service.NewOtomoAgentService(
+			convSvc,
+			summarySvc,
+			geocodingSvc,
+		)
 	)
 	if err := msginSub.Init(); err != nil {
 		logs.Logger.Panic(err.Error())
@@ -163,15 +160,12 @@ func newServer() (*grpc.Server, error) {
 		)
 		chatCtrl = controller.NewChatController(
 			errorPresenter,
-			msgFactory,
 			msgRepo,
 			otomoRepo,
 			msginSub,
 			msginPub,
-			msgAnaSvc,
 			msgSendCountQry,
-			conversationSvc,
-			summarySvc,
+			otomoAgentSvc,
 		)
 	)
 
