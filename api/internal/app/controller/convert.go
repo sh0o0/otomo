@@ -20,9 +20,10 @@ type convert struct {
 }
 
 type convertMessage struct {
-	Role            convertRole
-	Wrapper         convertWrapper
+	role            convertRole
+	wrapper         convertWrapper
 	placeExtraction convertPlaceExtraction
+	structure       convertStructure
 }
 
 func (cm convertMessage) ModelToGrpcList(
@@ -41,9 +42,14 @@ func (cm convertMessage) ModelToGrpcList(
 }
 
 func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, error) {
-	role, err := cm.Role.ModelToGrpc(msg.Role)
+	role, err := cm.role.ModelToGrpc(msg.Role)
 	if err != nil {
 		return nil, err
+	}
+
+	var st *grpcgen.Structure
+	if msg.Structure != nil {
+		st = cm.structure.ModelToGrpc(msg.Structure)
 	}
 
 	return &grpcgen.Message{
@@ -51,8 +57,10 @@ func (cm convertMessage) ModelToGrpc(msg *model.Message) (*grpcgen.Message, erro
 		Text:            msg.Text,
 		Role:            role,
 		SentAt:          timestamppb.New(msg.SentAt),
-		ClientId:        cm.Wrapper.StringPtrToStringValue(msg.ClientID),
+		ClientId:        cm.wrapper.StringPtrToStringValue(msg.ClientID),
 		PlaceExtraction: cm.placeExtraction.ModelToGrpc(&msg.PlaceExtraction),
+		Content:         msg.Content,
+		Structure:       st,
 	}, nil
 }
 
@@ -127,14 +135,24 @@ func (convertLatLng) ModelToGrpc(
 	}
 }
 
-type convertMessageChunk struct{}
+type convertMessageChunk struct {
+	structName convertStructName
+}
 
-func (convertMessageChunk) ModelToGrpc(
+func (c convertMessageChunk) ModelToGrpc(
 	chunk *model.MessageChunk,
 ) (*grpcgen.MessageChunk, error) {
-	role, err := conv.Message.Role.ModelToGrpc(chunk.Role)
+	role, err := conv.Message.role.ModelToGrpc(chunk.Role)
 	if err != nil {
 		return nil, err
+	}
+
+	var st *grpcgen.StructureChunk
+	if chunk.Structure != nil {
+		st = &grpcgen.StructureChunk{
+			Name:   c.structName.ModelToGrpc(chunk.Structure.Name),
+			Struct: chunk.Structure.Struct,
+		}
 	}
 
 	return &grpcgen.MessageChunk{
@@ -142,9 +160,28 @@ func (convertMessageChunk) ModelToGrpc(
 		Text:      chunk.Text,
 		Role:      role,
 		SentAt:    timestamppb.New(chunk.SentAt),
-		ClientId:  conv.Message.Wrapper.StringPtrToStringValue(chunk.ClientID),
+		ClientId:  conv.Message.wrapper.StringPtrToStringValue(chunk.ClientID),
 		IsLast:    chunk.IsLast,
+		Content:   chunk.Content,
+		Structure: st,
 	}, nil
+}
+
+type convertStructName struct{}
+
+func (convertStructName) ModelToGrpc(
+	name model.StructName,
+) grpcgen.StructName {
+	switch name {
+	case model.SNPlaceDetails:
+		return grpcgen.StructName_PLACE_DETAILS
+	case model.SNPlaces:
+		return grpcgen.StructName_PLACES
+	case model.SNRoute:
+		return grpcgen.StructName_ROUTE
+	default:
+		return grpcgen.StructName_STRUCT_NAME_UNKNOWN
+	}
 }
 
 type convertRole struct{}
@@ -156,11 +193,176 @@ func (convertRole) ModelToGrpc(r model.Role) (grpcgen.Role, error) {
 	case model.OtomoRole:
 		return grpcgen.Role_OTOMO, nil
 	default:
-		return grpcgen.Role_UNKNOWN, &errs.Error{
+		return grpcgen.Role_ROLE_UNKNOWN, &errs.Error{
 			Domain: errs.DomainMessage,
 			Cause:  errs.CauseNotExist,
 			Field:  errs.FieldRole,
 		}
+	}
+}
+
+type convertStructure struct {
+	placeDetailsStruct convertPlaceDetailsStruct
+	placesStruct       convertPlacesStruct
+	routeStruct        convertRouteStruct
+}
+
+func (c convertStructure) ModelToGrpc(
+	s *model.Structure,
+) *grpcgen.Structure {
+	switch s.Name {
+	case model.SNPlaceDetails:
+		return &grpcgen.Structure{
+			Name: grpcgen.StructName_PLACE_DETAILS,
+			Struct: &grpcgen.Structure_PlaceDetailsStruct{
+				PlaceDetailsStruct: c.placeDetailsStruct.ModelToGrpc(
+					s.Struct.(*model.PlaceDetailsStruct),
+				),
+			},
+		}
+	case model.SNPlaces:
+		return &grpcgen.Structure{
+			Name: grpcgen.StructName_PLACES,
+			Struct: &grpcgen.Structure_PlacesStruct{
+				PlacesStruct: c.placesStruct.ModelToGrpc(
+					s.Struct.(*model.PlacesStruct),
+				),
+			},
+		}
+	case model.SNRoute:
+		return &grpcgen.Structure{
+			Name: grpcgen.StructName_ROUTE,
+			Struct: &grpcgen.Structure_RouteStruct{
+				RouteStruct: c.routeStruct.ModelToGrpc(
+					s.Struct.(*model.RouteStruct),
+				),
+			},
+		}
+	default:
+		return &grpcgen.Structure{
+			Name:   grpcgen.StructName_STRUCT_NAME_UNKNOWN,
+			Struct: nil,
+		}
+	}
+}
+
+type convertPlaceDetailsStruct struct {
+	geocodedPlace convertGeocodedPlace
+}
+
+func (c convertPlaceDetailsStruct) ModelToGrpc(
+	pd *model.PlaceDetailsStruct,
+) *grpcgen.PlaceDetailsStruct {
+	var gp *grpcgen.GeocodedPlace
+	if pd.Details.GeocodedPlace != nil {
+		gp = c.geocodedPlace.ModelToGrpc(pd.Details.GeocodedPlace)
+	}
+
+	return &grpcgen.PlaceDetailsStruct{
+		Prologue: pd.Prologue,
+		Details: &grpcgen.PlaceDetails{
+			Name:          pd.Details.Name,
+			Description:   pd.Details.Description,
+			GeocodedPlace: gp,
+		},
+		Epilogue: pd.Epilogue,
+	}
+}
+
+type convertPlacesStruct struct {
+	geocodedPlace convertGeocodedPlace
+}
+
+func (c convertPlacesStruct) ModelToGrpc(
+	ps *model.PlacesStruct,
+) *grpcgen.PlacesStruct {
+	places := make([]*grpcgen.Place, len(ps.Places))
+	for i, p := range ps.Places {
+		var gp *grpcgen.GeocodedPlace
+		if p.GeocodedPlace != nil {
+			gp = c.geocodedPlace.ModelToGrpc(p.GeocodedPlace)
+		}
+		places[i] = &grpcgen.Place{
+			Name:          p.Name,
+			Description:   p.Description,
+			GeocodedPlace: gp,
+		}
+	}
+
+	return &grpcgen.PlacesStruct{
+		Prologue: ps.Prologue,
+		Places:   places,
+		Epilogue: ps.Epilogue,
+	}
+}
+
+type convertRouteStruct struct {
+	geocodedPlace  convertGeocodedPlace
+	transportation convertTransportation
+}
+
+func (c convertRouteStruct) ModelToGrpc(
+	rs *model.RouteStruct,
+) *grpcgen.RouteStruct {
+	waypoints := make([]*grpcgen.Waypoint, len(rs.Waypoints))
+	for i, wp := range rs.Waypoints {
+		var gp *grpcgen.GeocodedPlace
+		if wp.GeocodedPlace != nil {
+			gp = c.geocodedPlace.ModelToGrpc(wp.GeocodedPlace)
+		}
+		waypoints[i] = &grpcgen.Waypoint{
+			Name:                      wp.Name,
+			Description:               wp.Description,
+			Transportation:            c.transportation.ModelToGrpcList(wp.Transportation),
+			TransportationDescription: wp.TransportationDescription,
+			GeocodedPlace:             gp,
+		}
+	}
+
+	return &grpcgen.RouteStruct{
+		Prologue:  rs.Prologue,
+		Waypoints: waypoints,
+		Epilogue:  rs.Epilogue,
+	}
+}
+
+type convertTransportation struct {
+}
+
+func (c convertTransportation) ModelToGrpcList(
+	ts []model.Transportation,
+) []grpcgen.Transportation {
+	grpcTs := make([]grpcgen.Transportation, len(ts))
+	for i, t := range ts {
+		grpcTs[i] = c.ModelToGrpc(t)
+	}
+	return grpcTs
+}
+
+func (convertTransportation) ModelToGrpc(
+	t model.Transportation,
+) grpcgen.Transportation {
+	switch t {
+	case model.Airplane:
+		return grpcgen.Transportation_AIRPLANE
+	case model.Train:
+		return grpcgen.Transportation_TRAIN
+	case model.Bicycle:
+		return grpcgen.Transportation_BICYCLE
+	case model.Bus:
+		return grpcgen.Transportation_BUS
+	case model.Car:
+		return grpcgen.Transportation_CAR
+	case model.Ship:
+		return grpcgen.Transportation_SHIP
+	case model.Motorcycle:
+		return grpcgen.Transportation_MOTORCYCLE
+	case model.Taxi:
+		return grpcgen.Transportation_TAXI
+	case model.Other:
+		return grpcgen.Transportation_OTHER
+	default:
+		return grpcgen.Transportation_TRANSPORTATION_UNKNOWN
 	}
 }
 

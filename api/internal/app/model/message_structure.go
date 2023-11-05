@@ -32,8 +32,9 @@ type PlaceDetailsStruct struct {
 func (*PlaceDetailsStruct) IsStruct() bool { return true }
 
 type PlaceDetails struct {
-	Name        string `firestore:"name"`
-	Description string `firestore:"description"`
+	Name          string         `firestore:"name"`
+	Description   string         `firestore:"description"`
+	GeocodedPlace *GeocodedPlace `firestore:"geocoded_place"`
 }
 
 type PlacesStruct struct {
@@ -63,6 +64,7 @@ type Waypoint struct {
 	Description               string           `firestore:"description"`
 	Transportation            []Transportation `firestore:"transportation"`
 	TransportationDescription string           `firestore:"transportation_description"`
+	GeocodedPlace             *GeocodedPlace   `firestore:"geocoded_place"`
 }
 
 type Transportation string

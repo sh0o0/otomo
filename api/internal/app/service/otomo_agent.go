@@ -262,12 +262,26 @@ func (oas *OtomoAgentService) placeDetailsToStruct(
 	if err := json.Unmarshal([]byte(arguments), schema); err != nil {
 		return nil, err
 	}
+	var gp *model.GeocodedPlace
+	geo, err := oas.geocodingSvc.One(ctx, &maps.GeocodingRequest{
+		Address: schema.Details.Name,
+	})
+	if err == nil {
+		gp = &model.GeocodedPlace{
+			GooglePlaceID: geo.PlaceID,
+			LatLng: model.LatLng{
+				Lat: geo.Geometry.Location.Lat,
+				Lng: geo.Geometry.Location.Lng,
+			},
+		}
+	}
 
 	return &model.PlaceDetailsStruct{
 		Prologue: schema.Prologue,
 		Details: model.PlaceDetails{
-			Name:        schema.Details.Name,
-			Description: schema.Details.Description,
+			Name:          schema.Details.Name,
+			Description:   schema.Details.Description,
+			GeocodedPlace: gp,
 		},
 		Epilogue: schema.Epilogue,
 	}, nil
@@ -323,12 +337,27 @@ func (oas *OtomoAgentService) routeToStruct(
 
 	waypoints := make([]*model.Waypoint, len(schema.Waypoints))
 	for i, waypoint := range schema.Waypoints {
+		var gp *model.GeocodedPlace
+		geo, err := oas.geocodingSvc.One(ctx, &maps.GeocodingRequest{
+			Address: waypoint.Name,
+		})
+		if err == nil {
+			gp = &model.GeocodedPlace{
+				GooglePlaceID: geo.PlaceID,
+				LatLng: model.LatLng{
+					Lat: geo.Geometry.Location.Lat,
+					Lng: geo.Geometry.Location.Lng,
+				},
+			}
+		}
+
 		waypoints[i] = &model.Waypoint{
 			Name:        waypoint.Name,
 			Description: waypoint.Description,
 			Transportation: oas.convertTransportationList(
 				waypoint.Transportation),
 			TransportationDescription: waypoint.TransportationDescription,
+			GeocodedPlace:             gp,
 		}
 	}
 
