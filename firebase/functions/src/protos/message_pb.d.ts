@@ -33,25 +33,11 @@ export class Message extends jspb.Message {
     setPlaceExtraction(value?: PlaceExtraction): Message;
     getContent(): string;
     setContent(value: string): Message;
-    getStructName(): string;
-    setStructName(value: string): Message;
 
-    hasPlaceDetailsStruct(): boolean;
-    clearPlaceDetailsStruct(): void;
-    getPlaceDetailsStruct(): PlaceDetailsStruct | undefined;
-    setPlaceDetailsStruct(value?: PlaceDetailsStruct): Message;
-
-    hasPlacesStruct(): boolean;
-    clearPlacesStruct(): void;
-    getPlacesStruct(): PlacesStruct | undefined;
-    setPlacesStruct(value?: PlacesStruct): Message;
-
-    hasRouteStruct(): boolean;
-    clearRouteStruct(): void;
-    getRouteStruct(): RouteStruct | undefined;
-    setRouteStruct(value?: RouteStruct): Message;
-
-    getStructCase(): Message.StructCase;
+    hasStructure(): boolean;
+    clearStructure(): void;
+    getStructure(): Structure | undefined;
+    setStructure(value?: Structure): Message;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Message.AsObject;
@@ -72,19 +58,8 @@ export namespace Message {
         clientId?: google_protobuf_wrappers_pb.StringValue.AsObject,
         placeExtraction?: PlaceExtraction.AsObject,
         content: string,
-        structName: string,
-        placeDetailsStruct?: PlaceDetailsStruct.AsObject,
-        placesStruct?: PlacesStruct.AsObject,
-        routeStruct?: RouteStruct.AsObject,
+        structure?: Structure.AsObject,
     }
-
-    export enum StructCase {
-        STRUCT_NOT_SET = 0,
-        PLACE_DETAILS_STRUCT = 9,
-        PLACES_STRUCT = 10,
-        ROUTE_STRUCT = 11,
-    }
-
 }
 
 export class PlaceExtraction extends jspb.Message { 
@@ -194,10 +169,11 @@ export class MessageChunk extends jspb.Message {
     setIsLast(value: boolean): MessageChunk;
     getContent(): string;
     setContent(value: string): MessageChunk;
-    getStructName(): string;
-    setStructName(value: string): MessageChunk;
-    getStruct(): string;
-    setStruct(value: string): MessageChunk;
+
+    hasStructure(): boolean;
+    clearStructure(): void;
+    getStructure(): StructureChunk | undefined;
+    setStructure(value?: StructureChunk): MessageChunk;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): MessageChunk.AsObject;
@@ -218,7 +194,77 @@ export namespace MessageChunk {
         clientId?: google_protobuf_wrappers_pb.StringValue.AsObject,
         isLast: boolean,
         content: string,
-        structName: string,
+        structure?: StructureChunk.AsObject,
+    }
+}
+
+export class Structure extends jspb.Message { 
+    getName(): StructName;
+    setName(value: StructName): Structure;
+
+    hasPlaceDetailsStruct(): boolean;
+    clearPlaceDetailsStruct(): void;
+    getPlaceDetailsStruct(): PlaceDetailsStruct | undefined;
+    setPlaceDetailsStruct(value?: PlaceDetailsStruct): Structure;
+
+    hasPlacesStruct(): boolean;
+    clearPlacesStruct(): void;
+    getPlacesStruct(): PlacesStruct | undefined;
+    setPlacesStruct(value?: PlacesStruct): Structure;
+
+    hasRouteStruct(): boolean;
+    clearRouteStruct(): void;
+    getRouteStruct(): RouteStruct | undefined;
+    setRouteStruct(value?: RouteStruct): Structure;
+
+    getStructCase(): Structure.StructCase;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Structure.AsObject;
+    static toObject(includeInstance: boolean, msg: Structure): Structure.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: Structure, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Structure;
+    static deserializeBinaryFromReader(message: Structure, reader: jspb.BinaryReader): Structure;
+}
+
+export namespace Structure {
+    export type AsObject = {
+        name: StructName,
+        placeDetailsStruct?: PlaceDetailsStruct.AsObject,
+        placesStruct?: PlacesStruct.AsObject,
+        routeStruct?: RouteStruct.AsObject,
+    }
+
+    export enum StructCase {
+        STRUCT_NOT_SET = 0,
+        PLACE_DETAILS_STRUCT = 2,
+        PLACES_STRUCT = 3,
+        ROUTE_STRUCT = 4,
+    }
+
+}
+
+export class StructureChunk extends jspb.Message { 
+    getName(): StructName;
+    setName(value: StructName): StructureChunk;
+    getStruct(): string;
+    setStruct(value: string): StructureChunk;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): StructureChunk.AsObject;
+    static toObject(includeInstance: boolean, msg: StructureChunk): StructureChunk.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: StructureChunk, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): StructureChunk;
+    static deserializeBinaryFromReader(message: StructureChunk, reader: jspb.BinaryReader): StructureChunk;
+}
+
+export namespace StructureChunk {
+    export type AsObject = {
+        name: StructName,
         struct: string,
     }
 }
@@ -407,6 +453,13 @@ export enum Role {
     ROLE_UNKNOWN = 0,
     USER = 1,
     OTOMO = 2,
+}
+
+export enum StructName {
+    STRUCT_NAME_UNKNOWN = 0,
+    PLACE_DETAILS = 1,
+    PLACES = 2,
+    ROUTE = 3,
 }
 
 export enum Transportation {

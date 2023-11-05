@@ -14,12 +14,7 @@ message Message {
     PlaceExtraction place_extraction = 6;
 
     string content = 7;
-    string struct_name = 8;
-    oneof struct {
-        PlaceDetailsStruct place_details_struct = 9;
-        PlacesStruct places_struct = 10;
-        RouteStruct route_struct = 11;
-    }
+    Structure structure = 8;
 }
 
 enum Role {
@@ -53,8 +48,28 @@ message MessageChunk {
     bool is_last = 6;
 
     string content = 7;
-    string struct_name = 8;
-    string struct = 9;
+    StructureChunk structure = 8;
+}
+
+message Structure {
+    StructName name = 1;
+    oneof struct {
+        PlaceDetailsStruct place_details_struct = 2;
+        PlacesStruct places_struct = 3;
+        RouteStruct route_struct = 4;
+    }
+}
+
+message StructureChunk {
+    StructName name = 1;
+    string struct = 2;
+}
+
+enum StructName {
+    STRUCT_NAME_UNKNOWN = 0;
+    PLACE_DETAILS = 1;
+    PLACES = 2;
+    ROUTE = 3;
 }
 
 message PlaceDetailsStruct {

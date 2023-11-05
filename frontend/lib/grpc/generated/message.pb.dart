@@ -20,27 +20,13 @@ import 'message.pbenum.dart';
 
 export 'message.pbenum.dart';
 
-enum Message_Struct {
-  placeDetailsStruct, 
-  placesStruct, 
-  routeStruct, 
-  notSet
-}
-
 class Message extends $pb.GeneratedMessage {
   factory Message() => create();
   Message._() : super();
   factory Message.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Message.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static const $core.Map<$core.int, Message_Struct> _Message_StructByTag = {
-    9 : Message_Struct.placeDetailsStruct,
-    10 : Message_Struct.placesStruct,
-    11 : Message_Struct.routeStruct,
-    0 : Message_Struct.notSet
-  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Message', createEmptyInstance: create)
-    ..oo(0, [9, 10, 11])
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'text')
     ..e<Role>(3, _omitFieldNames ? '' : 'role', $pb.PbFieldType.OE, defaultOrMaker: Role.ROLE_UNKNOWN, valueOf: Role.valueOf, enumValues: Role.values)
@@ -48,10 +34,7 @@ class Message extends $pb.GeneratedMessage {
     ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
     ..aOM<PlaceExtraction>(6, _omitFieldNames ? '' : 'placeExtraction', subBuilder: PlaceExtraction.create)
     ..aOS(7, _omitFieldNames ? '' : 'content')
-    ..aOS(8, _omitFieldNames ? '' : 'structName')
-    ..aOM<PlaceDetailsStruct>(9, _omitFieldNames ? '' : 'placeDetailsStruct', subBuilder: PlaceDetailsStruct.create)
-    ..aOM<PlacesStruct>(10, _omitFieldNames ? '' : 'placesStruct', subBuilder: PlacesStruct.create)
-    ..aOM<RouteStruct>(11, _omitFieldNames ? '' : 'routeStruct', subBuilder: RouteStruct.create)
+    ..aOM<Structure>(8, _omitFieldNames ? '' : 'structure', subBuilder: Structure.create)
     ..hasRequiredFields = false
   ;
 
@@ -75,9 +58,6 @@ class Message extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static Message getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Message>(create);
   static Message? _defaultInstance;
-
-  Message_Struct whichStruct() => _Message_StructByTag[$_whichOneof(0)]!;
-  void clearStruct() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
   $core.String get id => $_getSZ(0);
@@ -149,46 +129,15 @@ class Message extends $pb.GeneratedMessage {
   void clearContent() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get structName => $_getSZ(7);
+  Structure get structure => $_getN(7);
   @$pb.TagNumber(8)
-  set structName($core.String v) { $_setString(7, v); }
+  set structure(Structure v) { setField(8, v); }
   @$pb.TagNumber(8)
-  $core.bool hasStructName() => $_has(7);
+  $core.bool hasStructure() => $_has(7);
   @$pb.TagNumber(8)
-  void clearStructName() => clearField(8);
-
-  @$pb.TagNumber(9)
-  PlaceDetailsStruct get placeDetailsStruct => $_getN(8);
-  @$pb.TagNumber(9)
-  set placeDetailsStruct(PlaceDetailsStruct v) { setField(9, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasPlaceDetailsStruct() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearPlaceDetailsStruct() => clearField(9);
-  @$pb.TagNumber(9)
-  PlaceDetailsStruct ensurePlaceDetailsStruct() => $_ensure(8);
-
-  @$pb.TagNumber(10)
-  PlacesStruct get placesStruct => $_getN(9);
-  @$pb.TagNumber(10)
-  set placesStruct(PlacesStruct v) { setField(10, v); }
-  @$pb.TagNumber(10)
-  $core.bool hasPlacesStruct() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearPlacesStruct() => clearField(10);
-  @$pb.TagNumber(10)
-  PlacesStruct ensurePlacesStruct() => $_ensure(9);
-
-  @$pb.TagNumber(11)
-  RouteStruct get routeStruct => $_getN(10);
-  @$pb.TagNumber(11)
-  set routeStruct(RouteStruct v) { setField(11, v); }
-  @$pb.TagNumber(11)
-  $core.bool hasRouteStruct() => $_has(10);
-  @$pb.TagNumber(11)
-  void clearRouteStruct() => clearField(11);
-  @$pb.TagNumber(11)
-  RouteStruct ensureRouteStruct() => $_ensure(10);
+  void clearStructure() => clearField(8);
+  @$pb.TagNumber(8)
+  Structure ensureStructure() => $_ensure(7);
 }
 
 class PlaceExtraction extends $pb.GeneratedMessage {
@@ -373,8 +322,7 @@ class MessageChunk extends $pb.GeneratedMessage {
     ..aOM<$4.StringValue>(5, _omitFieldNames ? '' : 'clientId', subBuilder: $4.StringValue.create)
     ..aOB(6, _omitFieldNames ? '' : 'isLast')
     ..aOS(7, _omitFieldNames ? '' : 'content')
-    ..aOS(8, _omitFieldNames ? '' : 'structName')
-    ..aOS(9, _omitFieldNames ? '' : 'struct')
+    ..aOM<StructureChunk>(8, _omitFieldNames ? '' : 'structure', subBuilder: StructureChunk.create)
     ..hasRequiredFields = false
   ;
 
@@ -471,22 +419,162 @@ class MessageChunk extends $pb.GeneratedMessage {
   void clearContent() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get structName => $_getSZ(7);
+  StructureChunk get structure => $_getN(7);
   @$pb.TagNumber(8)
-  set structName($core.String v) { $_setString(7, v); }
+  set structure(StructureChunk v) { setField(8, v); }
   @$pb.TagNumber(8)
-  $core.bool hasStructName() => $_has(7);
+  $core.bool hasStructure() => $_has(7);
   @$pb.TagNumber(8)
-  void clearStructName() => clearField(8);
+  void clearStructure() => clearField(8);
+  @$pb.TagNumber(8)
+  StructureChunk ensureStructure() => $_ensure(7);
+}
 
-  @$pb.TagNumber(9)
-  $core.String get struct => $_getSZ(8);
-  @$pb.TagNumber(9)
-  set struct($core.String v) { $_setString(8, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasStruct() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearStruct() => clearField(9);
+enum Structure_Struct {
+  placeDetailsStruct, 
+  placesStruct, 
+  routeStruct, 
+  notSet
+}
+
+class Structure extends $pb.GeneratedMessage {
+  factory Structure() => create();
+  Structure._() : super();
+  factory Structure.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Structure.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static const $core.Map<$core.int, Structure_Struct> _Structure_StructByTag = {
+    2 : Structure_Struct.placeDetailsStruct,
+    3 : Structure_Struct.placesStruct,
+    4 : Structure_Struct.routeStruct,
+    0 : Structure_Struct.notSet
+  };
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Structure', createEmptyInstance: create)
+    ..oo(0, [2, 3, 4])
+    ..e<StructName>(1, _omitFieldNames ? '' : 'name', $pb.PbFieldType.OE, defaultOrMaker: StructName.STRUCT_NAME_UNKNOWN, valueOf: StructName.valueOf, enumValues: StructName.values)
+    ..aOM<PlaceDetailsStruct>(2, _omitFieldNames ? '' : 'placeDetailsStruct', subBuilder: PlaceDetailsStruct.create)
+    ..aOM<PlacesStruct>(3, _omitFieldNames ? '' : 'placesStruct', subBuilder: PlacesStruct.create)
+    ..aOM<RouteStruct>(4, _omitFieldNames ? '' : 'routeStruct', subBuilder: RouteStruct.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Structure clone() => Structure()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Structure copyWith(void Function(Structure) updates) => super.copyWith((message) => updates(message as Structure)) as Structure;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Structure create() => Structure._();
+  Structure createEmptyInstance() => create();
+  static $pb.PbList<Structure> createRepeated() => $pb.PbList<Structure>();
+  @$core.pragma('dart2js:noInline')
+  static Structure getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Structure>(create);
+  static Structure? _defaultInstance;
+
+  Structure_Struct whichStruct() => _Structure_StructByTag[$_whichOneof(0)]!;
+  void clearStruct() => clearField($_whichOneof(0));
+
+  @$pb.TagNumber(1)
+  StructName get name => $_getN(0);
+  @$pb.TagNumber(1)
+  set name(StructName v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  PlaceDetailsStruct get placeDetailsStruct => $_getN(1);
+  @$pb.TagNumber(2)
+  set placeDetailsStruct(PlaceDetailsStruct v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPlaceDetailsStruct() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPlaceDetailsStruct() => clearField(2);
+  @$pb.TagNumber(2)
+  PlaceDetailsStruct ensurePlaceDetailsStruct() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  PlacesStruct get placesStruct => $_getN(2);
+  @$pb.TagNumber(3)
+  set placesStruct(PlacesStruct v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPlacesStruct() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPlacesStruct() => clearField(3);
+  @$pb.TagNumber(3)
+  PlacesStruct ensurePlacesStruct() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  RouteStruct get routeStruct => $_getN(3);
+  @$pb.TagNumber(4)
+  set routeStruct(RouteStruct v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasRouteStruct() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearRouteStruct() => clearField(4);
+  @$pb.TagNumber(4)
+  RouteStruct ensureRouteStruct() => $_ensure(3);
+}
+
+class StructureChunk extends $pb.GeneratedMessage {
+  factory StructureChunk() => create();
+  StructureChunk._() : super();
+  factory StructureChunk.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory StructureChunk.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'StructureChunk', createEmptyInstance: create)
+    ..e<StructName>(1, _omitFieldNames ? '' : 'name', $pb.PbFieldType.OE, defaultOrMaker: StructName.STRUCT_NAME_UNKNOWN, valueOf: StructName.valueOf, enumValues: StructName.values)
+    ..aOS(2, _omitFieldNames ? '' : 'struct')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  StructureChunk clone() => StructureChunk()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  StructureChunk copyWith(void Function(StructureChunk) updates) => super.copyWith((message) => updates(message as StructureChunk)) as StructureChunk;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static StructureChunk create() => StructureChunk._();
+  StructureChunk createEmptyInstance() => create();
+  static $pb.PbList<StructureChunk> createRepeated() => $pb.PbList<StructureChunk>();
+  @$core.pragma('dart2js:noInline')
+  static StructureChunk getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StructureChunk>(create);
+  static StructureChunk? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  StructName get name => $_getN(0);
+  @$pb.TagNumber(1)
+  set name(StructName v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get struct => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set struct($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasStruct() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearStruct() => clearField(2);
 }
 
 class PlaceDetailsStruct extends $pb.GeneratedMessage {

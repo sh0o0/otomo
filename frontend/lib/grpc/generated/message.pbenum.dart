@@ -30,6 +30,25 @@ class Role extends $pb.ProtobufEnum {
   const Role._($core.int v, $core.String n) : super(v, n);
 }
 
+class StructName extends $pb.ProtobufEnum {
+  static const StructName STRUCT_NAME_UNKNOWN = StructName._(0, _omitEnumNames ? '' : 'STRUCT_NAME_UNKNOWN');
+  static const StructName PLACE_DETAILS = StructName._(1, _omitEnumNames ? '' : 'PLACE_DETAILS');
+  static const StructName PLACES = StructName._(2, _omitEnumNames ? '' : 'PLACES');
+  static const StructName ROUTE = StructName._(3, _omitEnumNames ? '' : 'ROUTE');
+
+  static const $core.List<StructName> values = <StructName> [
+    STRUCT_NAME_UNKNOWN,
+    PLACE_DETAILS,
+    PLACES,
+    ROUTE,
+  ];
+
+  static final $core.Map<$core.int, StructName> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static StructName? valueOf($core.int value) => _byValue[value];
+
+  const StructName._($core.int v, $core.String n) : super(v, n);
+}
+
 class Transportation extends $pb.ProtobufEnum {
   static const Transportation TRANSPORTATION_UNKNOWN = Transportation._(0, _omitEnumNames ? '' : 'TRANSPORTATION_UNKNOWN');
   static const Transportation TRAIN = Transportation._(1, _omitEnumNames ? '' : 'TRAIN');

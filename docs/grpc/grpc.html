@@ -327,12 +327,24 @@
                 </li>
               
                 <li>
+                  <a href="#.Structure"><span class="badge">M</span>Structure</a>
+                </li>
+              
+                <li>
+                  <a href="#.StructureChunk"><span class="badge">M</span>StructureChunk</a>
+                </li>
+              
+                <li>
                   <a href="#.Waypoint"><span class="badge">M</span>Waypoint</a>
                 </li>
               
               
                 <li>
                   <a href="#.Role"><span class="badge">E</span>Role</a>
+                </li>
+              
+                <li>
+                  <a href="#.StructName"><span class="badge">E</span>StructName</a>
                 </li>
               
                 <li>
@@ -1235,29 +1247,8 @@ significant. </p></td>
                 </tr>
               
                 <tr>
-                  <td>struct_name</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>place_details_struct</td>
-                  <td><a href="#PlaceDetailsStruct">PlaceDetailsStruct</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>places_struct</td>
-                  <td><a href="#PlacesStruct">PlacesStruct</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>route_struct</td>
-                  <td><a href="#RouteStruct">RouteStruct</a></td>
+                  <td>structure</td>
+                  <td><a href="#Structure">Structure</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1329,15 +1320,8 @@ significant. </p></td>
                 </tr>
               
                 <tr>
-                  <td>struct_name</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p> </p></td>
-                </tr>
-              
-                <tr>
-                  <td>struct</td>
-                  <td><a href="#string">string</a></td>
+                  <td>structure</td>
+                  <td><a href="#StructureChunk">StructureChunk</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1598,6 +1582,82 @@ significant. </p></td>
 
         
       
+        <h3 id=".Structure">Structure</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#StructName">StructName</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>place_details_struct</td>
+                  <td><a href="#PlaceDetailsStruct">PlaceDetailsStruct</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>places_struct</td>
+                  <td><a href="#PlacesStruct">PlacesStruct</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>route_struct</td>
+                  <td><a href="#RouteStruct">RouteStruct</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".StructureChunk">StructureChunk</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#StructName">StructName</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>struct</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id=".Waypoint">Waypoint</h3>
         <p></p>
 
@@ -1675,6 +1735,41 @@ significant. </p></td>
               <tr>
                 <td>OTOMO</td>
                 <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".StructName">StructName</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>STRUCT_NAME_UNKNOWN</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>PLACE_DETAILS</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>PLACES</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>ROUTE</td>
+                <td>3</td>
                 <td><p></p></td>
               </tr>
             
