@@ -1,28 +1,27 @@
-import 'package:otomo/configs/app_config.dart';
 import 'package:otomo/tools/app_package_info.dart';
 
 class GoogleAPIHeaders {
   const GoogleAPIHeaders({
-    this.androidPackageName,
-    this.androidCertFingerprintSha1,
-    this.iosBundleId,
+    required this.androidPackageName,
+    required this.androidCertFingerprintSha1,
+    required this.iosBundleId,
   });
 
   static GoogleAPIHeaders fromEnvironment() => GoogleAPIHeaders(
         androidPackageName: AppPackageInfo.packageName,
-        androidCertFingerprintSha1: appConfig.androidCertFingerprintSha1,
+        androidCertFingerprintSha1: AppPackageInfo.buildSignature,
         iosBundleId: AppPackageInfo.packageName,
       );
 
-  final String? androidPackageName;
-  final String? androidCertFingerprintSha1;
-  final String? iosBundleId;
+  final String androidPackageName;
+  final String androidCertFingerprintSha1;
+  final String iosBundleId;
 
   Map<String, String> toMap() {
     return {
-      'x-android_package_name': androidPackageName ?? '',
-      'x-android_cert_fingerprint': androidCertFingerprintSha1 ?? '',
-      'x-ios-bundle-identifier': iosBundleId ?? '',
+      'X-Android-Package': androidPackageName,
+      'X-Android-Cert': androidCertFingerprintSha1,
+      'X-Ios-Bundle-Identifier': iosBundleId,
     };
   }
 }
