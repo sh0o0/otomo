@@ -21,13 +21,13 @@ module "cloud_run" {
   google_maps_api_key                 = module.api_keys.otomo_api_key
 }
 
-module "load_balancer" {
-  source                 = "../load_balancer"
-  gcp_project_id         = var.gcp_project_id
-  cloud_run_service_name = var.cloud_run_service_name
-  load_balancer_name     = var.load_balancer_name
-  region                 = var.region
-}
+# module "load_balancer" {
+#   source                 = "../load_balancer"
+#   gcp_project_id         = var.gcp_project_id
+#   cloud_run_service_name = var.cloud_run_service_name
+#   load_balancer_name     = var.load_balancer_name
+#   region                 = var.region
+# }
 
 module "registry" {
   source                         = "../gcr"
