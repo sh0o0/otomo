@@ -7,3 +7,4 @@ cd $(dirname $0)
 . test_env.sh
 
 gotest ./../...
+
